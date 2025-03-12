@@ -80,7 +80,7 @@ npm run dev
 
 1. The application presents a chat interface where you can interact with the AI coding assistant.
 
-2. Type your coding question or paste code snippets into the text area and click "Send".
+2. Type your coding question or paste code snippets into the text area and press Enter or click "Send".
 
 3. Alternatively, click the microphone button to use voice input for your query.
 
@@ -89,6 +89,16 @@ npm run dev
 5. The response will appear in the chat window, showing improved code that follows best practices.
 
 6. You can continue the conversation by sending additional messages or questions.
+
+7. To start a new conversation, click the "Reset Chat" button.
+
+## Features
+
+- **Chat Interface**: A clean, modern chat interface with user messages aligned to the right and AI responses to the left
+- **Voice Input**: Speak your queries using the microphone button
+- **Enter to Send**: Press Enter to quickly send messages
+- **Reset Functionality**: Clear the chat history with a single click
+- **Responsive Design**: Works well on various screen sizes
 
 ## Project Architecture
 

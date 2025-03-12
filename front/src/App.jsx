@@ -1,9 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import styles from './styles';
 
 function ChatInterface() {
   const [message, setMessage] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
   const [isListening, setIsListening] = useState(false);
+  const chatWindowRef = useRef(null);
+
+  // Auto-scroll to bottom when messages change
+  useEffect(() => {
+    if (chatWindowRef.current) {
+      chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+    }
+  }, [chatMessages]);
 
   const handleSend = async () => {
     if (message.trim() === '') return;
@@ -29,6 +38,13 @@ function ChatInterface() {
     }
 
     setMessage('');
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
   };
 
   const handleMic = () => {
@@ -64,16 +80,38 @@ function ChatInterface() {
     recognition.start();
   };
 
+  const handleReset = () => {
+    setChatMessages([]);
+  };
+
   return (
     <div style={styles.wrapper}>
       <div style={styles.chatContainer}>
-        <div style={styles.chatWindow}>
+        <div style={styles.chatWindow} ref={chatWindowRef}>
           {chatMessages.map((msg, index) => (
             <div
               key={index}
-              style={msg.sender === 'user' ? styles.userMessage : styles.botMessage}
+              style={{
+                ...styles.messageContainer,
+                ...(msg.sender === 'user' ? styles.userMessageContainer : styles.botMessageContainer),
+              }}
             >
-              {msg.text}
+              <div 
+                style={{
+                  ...styles.senderName,
+                  ...(msg.sender === 'user' ? styles.userSenderName : styles.botSenderName),
+                }}
+              >
+                {msg.sender === 'user' ? 'You' : 'AI Assistant'}
+              </div>
+              <div
+                style={{
+                  ...styles.messageBubble,
+                  ...(msg.sender === 'user' ? styles.userMessage : styles.botMessage),
+                }}
+              >
+                {msg.text}
+              </div>
             </div>
           ))}
         </div>
@@ -83,95 +121,28 @@ function ChatInterface() {
             placeholder="Type your message..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
           <div style={styles.buttonGroup}>
-            <button style={styles.button} onClick={handleSend}>
-              Send
+            <button 
+              style={{...styles.button, ...styles.resetButton}} 
+              onClick={handleReset}
+            >
+              Reset Chat
             </button>
-            <button style={styles.button} onClick={handleMic}>
-              {isListening ? '🎤 Listening...' : '🎤'}
-            </button>
+            <div>
+              <button style={styles.button} onClick={handleSend}>
+                Send
+              </button>
+              <button style={styles.button} onClick={handleMic}>
+                {isListening ? '🎤 Listening...' : '🎤'}
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
 }
-
-const styles = {
-  wrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: '100vh',
-    backgroundColor: '#f5f5f5',
-    padding: '20px',
-  },
-  chatContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '90%',
-    maxWidth: '800px',
-    height: '80vh',
-    backgroundColor: '#fff',
-    borderRadius: '8px',
-    boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-    overflow: 'hidden',
-  },
-  chatWindow: {
-    flex: 1,
-    padding: '20px',
-    overflowY: 'auto',
-    backgroundColor: '#e5ddd5',
-  },
-  inputContainer: {
-    padding: '10px 20px',
-    borderTop: '1px solid #ccc',
-    backgroundColor: '#fff',
-  },
-  textArea: {
-    width: '100%',
-    height: '80px',
-    padding: '10px',
-    fontSize: '1rem',
-    borderRadius: '4px',
-    border: '1px solid #ddd',
-    resize: 'none',
-    marginBottom: '10px',
-  },
-  buttonGroup: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
-  button: {
-    padding: '10px 20px',
-    marginLeft: '10px',
-    fontSize: '1rem',
-    cursor: 'pointer',
-    border: 'none',
-    borderRadius: '4px',
-    backgroundColor: '#007bff',
-    color: '#fff',
-  },
-  userMessage: {
-    alignSelf: 'flex-end',
-    backgroundColor: '#dcf8c6',
-    padding: '10px',
-    borderRadius: '10px',
-    margin: '5px 0',
-    maxWidth: '70%',
-    wordWrap: 'break-word',
-  },
-  botMessage: {
-    alignSelf: 'flex-start',
-    backgroundColor: '#fff',
-    padding: '10px',
-    borderRadius: '10px',
-    margin: '5px 0',
-    maxWidth: '70%',
-    border: '1px solid #ccc',
-    wordWrap: 'break-word',
-  },
-};
 
 export default ChatInterface;
