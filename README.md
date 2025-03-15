@@ -15,6 +15,7 @@ The system uses a multi-agent approach:
 - React.js - Web framework for the user interface
 - JavaScript/JSX - Programming languages for frontend development
 - Speech Recognition API - For voice input capability
+- LocalStorage - For persisting conversations and user preferences
 
 ### Backend
 - Flask - Python web framework for the API
@@ -78,7 +79,7 @@ npm run dev
 
 ## Usage Guide
 
-1. The application presents a chat interface where you can interact with the AI coding assistant.
+1. The application presents a chat interface with a conversation history sidebar and a main chat area.
 
 2. Type your coding question or paste code snippets into the text area and press Enter or click "Send".
 
@@ -88,17 +89,43 @@ npm run dev
 
 5. The response will appear in the chat window, showing improved code that follows best practices.
 
-6. You can continue the conversation by sending additional messages or questions.
+6. You can copy any message content by clicking the "Copy" button below each message.
 
-7. To start a new conversation, click the "Reset Chat" button.
+7. To start a new conversation, click the "New Conversation" button.
+
+8. Your conversation history is saved automatically and can be accessed from the sidebar.
 
 ## Features
 
-- **Chat Interface**: A clean, modern chat interface with user messages aligned to the right and AI responses to the left
-- **Voice Input**: Speak your queries using the microphone button
-- **Enter to Send**: Press Enter to quickly send messages
-- **Reset Functionality**: Clear the chat history with a single click
-- **Responsive Design**: Works well on various screen sizes
+- **Conversation Management**: 
+  - Multiple conversations stored in a sidebar
+  - Ability to switch between different conversations
+  - Delete individual conversations
+  - Automatic naming of conversations based on first message
+
+- **Chat Interface**: 
+  - Clean, modern chat interface with user messages aligned to the right and AI responses to the left
+  - Copy functionality for each message
+  - Visual feedback when copying message content
+
+- **Theme Support**:
+  - Toggle between light and dark modes
+  - Theme preference is remembered between sessions
+  - Smooth transition animations between themes
+
+- **Voice Input**: 
+  - Speak your queries using the microphone button
+  - Visual feedback during voice recording
+
+- **Responsive Design**: 
+  - Collapsible sidebar for better mobile experience
+  - Works well on various screen sizes
+  - Adaptive layout based on screen size
+
+- **Persistence**:
+  - All conversations are saved to localStorage
+  - Theme preference is remembered
+  - Active conversation is restored on page reload
 
 ## Project Architecture
 
@@ -109,3 +136,16 @@ The system uses a three-agent architecture:
 - Agent 3: Combines the initial code with retrieved information to produce optimized code
 
 This approach ensures that the code suggestions not only solve the user's problem but also adhere to the latest coding standards and best practices.
+
+## Frontend Architecture
+
+The frontend is built with React and uses a component-based architecture:
+
+- **App Component**: The main component that manages state and renders the UI
+- **Conversation Management**: Handles creating, switching between, and deleting conversations
+- **Theme Management**: Provides light and dark mode with smooth transitions
+- **Message Display**: Renders user and AI messages with appropriate styling
+- **Input Handling**: Manages text input, voice input, and message sending
+- **Persistence Layer**: Saves and loads data from localStorage
+
+The application uses React's useState and useEffect hooks for state management and side effects, providing a responsive and interactive user experience.
