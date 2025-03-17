@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
 import styles from './styles';
 
 function App() {
@@ -108,6 +109,9 @@ function App() {
     });
 
     try {
+      // Start timing the request
+      const startTime = performance.now();
+      
       const response = await fetch('http://127.0.0.1:5000/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -117,7 +121,17 @@ function App() {
       if (!response.ok) throw new Error('Network error');
 
       const data = await response.json();
-      const newBotMessage = { text: data.response, sender: 'bot' };
+      
+      // Calculate and log the response time
+      const endTime = performance.now();
+      const responseTime = endTime - startTime;
+      console.log(`Backend response time: ${responseTime.toFixed(2)}ms`);
+      
+      const newBotMessage = { 
+        text: data.response, 
+        sender: 'bot',
+        responseTime: responseTime.toFixed(2) // Store the response time with the message
+      };
       const finalUpdatedMessages = [...updatedMessages, newBotMessage];
       
       setChatMessages(finalUpdatedMessages);
@@ -402,7 +416,63 @@ function App() {
                         }),
                   }}
                 >
-                  {msg.text}
+                  {msg.sender === 'user' ? (
+                    msg.text
+                  ) : (
+                    <ReactMarkdown
+                      components={{
+                        code({node, inline, className, children, ...props}) {
+                          const match = /language-(\w+)/.exec(className || '')
+                          return !inline ? (
+                            <pre style={{
+                              backgroundColor: darkMode ? '#1e1e1e' : '#f5f5f5', 
+                              padding: '0.5rem',
+                              borderRadius: '5px',
+                              overflowX: 'auto'
+                            }}>
+                              <code
+                                className={match ? `language-${match[1]}` : ''}
+                                style={{
+                                  color: darkMode ? '#e6e6e6' : '#333'
+                                }}
+                                {...props}
+                              >
+                                {String(children).replace(/\n$/, '')}
+                              </code>
+                            </pre>
+                          ) : (
+                            <code
+                              className={className}
+                              style={{
+                                backgroundColor: darkMode ? '#2d2d2d' : '#eee',
+                                padding: '2px 4px',
+                                borderRadius: '3px',
+                                fontSize: '0.9em'
+                              }}
+                              {...props}
+                            >
+                              {children}
+                            </code>
+                          )
+                        },
+                        p: ({children}) => <p style={{margin: '0.5rem 0'}}>{children}</p>,
+                      }}
+                    >
+                      {msg.text}
+                    </ReactMarkdown>
+                  )}
+                  {/* Response time indicator for bot messages */}
+                  {msg.sender === 'bot' && msg.responseTime && (
+                    <div style={{
+                      fontSize: '0.75rem',
+                      color: darkMode ? '#888' : '#888',
+                      textAlign: 'right',
+                      marginTop: '4px',
+                      fontStyle: 'italic'
+                    }}>
+                      Response time: {msg.responseTime}ms
+                    </div>
+                  )}
                   <button
                     className="copy-btn"
                     onClick={() => handleCopyMessage(msg.text, index)}
