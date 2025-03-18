@@ -9,6 +9,7 @@ import logging
 from datetime import datetime
 from llm_handler import LLMHandler
 
+
 # Initialize RAG system with a specific index path
 print("Initializing RAG system...")
 start_time = time.time()
@@ -17,9 +18,9 @@ rag = RAGSystem(index_path="./rag_index")
 # Set the documents directory path
 docs_dir = os.path.abspath("python-3.13-docs-text/")
 if not os.path.exists(docs_dir):
-    docs_dir = "C:/Users/veeti/Documents/bittium_case_2/python-3.13-docs-text/"
+    docs_dir = "C:/Users/veeti/Documents/bittium_case_2/documents"
 
-# Add documents to the RAG system
+# Add documents to the RAG system - now with incremental updating
 rag.add_directory(docs_dir)
 print(f"RAG system initialization completed in {time.time() - start_time:.2f} seconds")
 

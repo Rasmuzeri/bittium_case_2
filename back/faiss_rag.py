@@ -4,6 +4,7 @@ import numpy as np
 import pickle
 import time
 from sentence_transformers import SentenceTransformer
+import PyPDF2
 
 
 class RAGSystem:
@@ -15,6 +16,7 @@ class RAGSystem:
         self.index = None
         self.chunks = []
         self.chunk_to_file = {}
+        self.indexed_files = set()  # Track which files have been indexed
         self.index_path = index_path
         self.data_path = f"{index_path}_data.pkl"
 
@@ -39,6 +41,7 @@ class RAGSystem:
 
         self.index.add(new_embeddings)
         self.chunks.extend(new_chunks)
+        self.indexed_files.add(file_path)  # Add to indexed files set
 
     def save_index(self):
         """Save the index and associated data to disk"""
@@ -52,9 +55,9 @@ class RAGSystem:
         # Save the FAISS index
         faiss.write_index(self.index, self.index_path)
         
-        # Save the chunks and chunk_to_file mapping
+        # Save the chunks, chunk_to_file mapping, and the set of indexed files
         with open(self.data_path, 'wb') as f:
-            pickle.dump((self.chunks, self.chunk_to_file), f)
+            pickle.dump((self.chunks, self.chunk_to_file, self.indexed_files), f)
             
         print(f"Index saved to {self.index_path} and {self.data_path}")
         return True
@@ -71,41 +74,69 @@ class RAGSystem:
             # Load the FAISS index
             self.index = faiss.read_index(self.index_path)
             
-            # Load the chunks and chunk_to_file mapping
+            # Load the chunks, chunk_to_file mapping, and the set of indexed files
             with open(self.data_path, 'rb') as f:
-                self.chunks, self.chunk_to_file = pickle.load(f)
+                data = pickle.load(f)
+                if len(data) == 3:  # New format with indexed_files
+                    self.chunks, self.chunk_to_file, self.indexed_files = data
+                else:  # Old format for backward compatibility
+                    self.chunks, self.chunk_to_file = data
+                    # Recreate indexed_files from chunk_to_file
+                    self.indexed_files = set(self.chunk_to_file.values())
                 
             elapsed_time = time.time() - start_time
             print(f"Index loaded from {self.index_path} in {elapsed_time:.2f} seconds")
-            print(f"Index contains {self.index.ntotal} vectors")
+            print(f"Index contains {self.index.ntotal} vectors from {len(self.indexed_files)} files")
             return True
         except Exception as e:
             print(f"Error loading index: {e}")
             self.index = None
             self.chunks = []
             self.chunk_to_file = {}
+            self.indexed_files = set()
             return False
 
     def add_directory(self, base_path):
         start_time = time.time()
         
         # Try to load existing index first
-        if self.load_index():
-            elapsed_time = time.time() - start_time
-            print(f"Using existing index, initialization took {elapsed_time:.2f} seconds")
-            return
-            
-        # If loading failed, build a new index
-        print(f"Building new index from {base_path}...")
-        text_files = self.read_text_files(base_path)
-        for file_path, text in text_files.items():
-            self.add_text_data(text, file_path)
-            
-        # Save the newly created index
-        self.save_index()
+        index_existed = self.load_index()
         
-        elapsed_time = time.time() - start_time
-        print(f"Index built and saved, initialization took {elapsed_time:.2f} seconds")
+        # Get all files in the directory
+        all_text_files = self.read_text_files(base_path)
+        
+        if index_existed:
+            # Only process new files that aren't already in the index
+            new_files = {path: text for path, text in all_text_files.items() 
+                         if path not in self.indexed_files}
+            
+            if new_files:
+                print(f"Found {len(new_files)} new files to add to the existing index")
+                for file_path, text in new_files.items():
+                    print(f"Adding new file: {file_path}")
+                    self.add_text_data(text, file_path)
+                    self.indexed_files.add(file_path)
+                
+                # Save the updated index
+                self.save_index()
+                print(f"Index updated with {len(new_files)} new files")
+            else:
+                print("No new files found to add to the index")
+                
+            elapsed_time = time.time() - start_time
+            print(f"Index check/update completed in {elapsed_time:.2f} seconds")
+        else:
+            # If loading failed, build a new index
+            print(f"Building new index from {base_path}...")
+            for file_path, text in all_text_files.items():
+                self.add_text_data(text, file_path)
+                self.indexed_files.add(file_path)
+                
+            # Save the newly created index
+            self.save_index()
+            
+            elapsed_time = time.time() - start_time
+            print(f"New index built with {len(all_text_files)} files in {elapsed_time:.2f} seconds")
 
     def search(self, query, k=2):
         if self.index is None or self.index.ntotal == 0:
@@ -123,14 +154,38 @@ class RAGSystem:
         text_data = {}
         for root, _, files in os.walk(base_path):
             for file in files:
+                file_path = os.path.join(root, file)
+                # Handle text files
                 if file.endswith(".txt"):
-                    file_path = os.path.join(root, file)
                     try:
                         with open(file_path, "r", encoding="utf-8") as f:
                             text_data[file_path] = f.read()
                     except Exception as e:
-                        print(f"Error reading {file_path}: {e}")
+                        print(f"Error reading text file {file_path}: {e}")
+                # Handle PDF files
+                elif file.endswith(".pdf"):
+                    try:
+                        text = RAGSystem.extract_text_from_pdf(file_path)
+                        if text:
+                            text_data[file_path] = text
+                    except Exception as e:
+                        print(f"Error reading PDF file {file_path}: {e}")
         return text_data
+    
+    @staticmethod
+    def extract_text_from_pdf(file_path):
+        """Extract text from a PDF file."""
+        try:
+            text = ""
+            with open(file_path, "rb") as pdf_file:
+                pdf_reader = PyPDF2.PdfReader(pdf_file)
+                for page_num in range(len(pdf_reader.pages)):
+                    page = pdf_reader.pages[page_num]
+                    text += page.extract_text() + "\n"
+            return text
+        except Exception as e:
+            print(f"Error extracting text from PDF {file_path}: {e}")
+            return ""
 
     def add_incremental_update(self, new_docs_path):
         """Add new documents to the existing index without rebuilding"""
@@ -138,9 +193,3 @@ class RAGSystem:
         for file_path, text in text_files.items():
             self.add_text_data(text, file_path)
         self.save_index()
-
-    def _chunk_with_metadata(self, text, file_path):
-        """Enhanced chunking that includes metadata"""
-        # ... existing code ...
-        # Add metadata like creation date, source, etc.
-        # ... existing code ...
