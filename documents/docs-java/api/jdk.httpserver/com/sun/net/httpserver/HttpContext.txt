@@ -1,0 +1,338 @@
+HttpContext (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.httpserver
+Package
+com.sun.net.httpserver
+Class HttpContext
+java.lang.Object
+com.sun.net.httpserver.HttpContext
+public abstract class
+HttpContext
+extends
+Object
+HttpContext
+represents a mapping between the root
+URI
+path of an application to a
+HttpHandler
+which is invoked to handle
+ requests destined for that path on the associated
+HttpServer
+or
+HttpsServer
+.
+HttpContext
+instances are created by the create methods in
+HttpServer
+and
+HttpsServer
+.
+A chain of
+Filter
+objects can be added to a
+HttpContext
+.
+ All exchanges processed by the context can be pre- and post-processed by each
+Filter
+in the chain.
+Since:
+1.6
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+HttpContext
+()
+Constructor for subclasses to call.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+abstract
+Map
+<
+String
+,
+Object
+>
+getAttributes
+()
+Returns a mutable
+Map
+, which can be used to pass configuration
+ and other data to
+Filter
+modules and to the context's exchange
+ handler.
+abstract
+Authenticator
+getAuthenticator
+()
+Returns the currently set
+Authenticator
+for this context
+ if one exists.
+abstract
+List
+<
+Filter
+>
+getFilters
+()
+Returns this context's
+List
+of
+filters
+.
+abstract
+HttpHandler
+getHandler
+()
+Returns the handler for this context.
+abstract
+String
+getPath
+()
+Returns the path this context was created with.
+abstract
+HttpServer
+getServer
+()
+Returns the server this context was created with.
+abstract
+Authenticator
+setAuthenticator
+(
+Authenticator
+auth)
+Sets the
+Authenticator
+for this
+HttpContext
+.
+abstract void
+setHandler
+(
+HttpHandler
+handler)
+Sets the handler for this context, if not already set.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+HttpContext
+protected
+HttpContext
+()
+Constructor for subclasses to call.
+Method Details
+getHandler
+public abstract
+HttpHandler
+getHandler
+()
+Returns the handler for this context.
+Returns:
+the
+HttpHandler
+for this context
+setHandler
+public abstract
+void
+setHandler
+(
+HttpHandler
+handler)
+Sets the handler for this context, if not already set.
+Parameters:
+handler
+- the handler to set for this context
+Throws:
+IllegalArgumentException
+- if the context for this handler is already set.
+NullPointerException
+- if handler is
+null
+getPath
+public abstract
+String
+getPath
+()
+Returns the path this context was created with.
+Returns:
+the context of this path
+getServer
+public abstract
+HttpServer
+getServer
+()
+Returns the server this context was created with.
+Returns:
+the context of this server
+getAttributes
+public abstract
+Map
+<
+String
+,
+Object
+>
+getAttributes
+()
+Returns a mutable
+Map
+, which can be used to pass configuration
+ and other data to
+Filter
+modules and to the context's exchange
+ handler.
+Every attribute stored in this
+Map
+will be visible to every
+HttpExchange
+processed by this context.
+Returns:
+a
+Map
+containing the attributes of this context
+getFilters
+public abstract
+List
+<
+Filter
+>
+getFilters
+()
+Returns this context's
+List
+of
+filters
+. This
+ is the actual list used by the server when dispatching requests so
+ modifications to this list immediately affect the handling of exchanges.
+Returns:
+a
+List
+containing the filters of this context
+setAuthenticator
+public abstract
+Authenticator
+setAuthenticator
+(
+Authenticator
+auth)
+Sets the
+Authenticator
+for this
+HttpContext
+. Once an authenticator
+ is established on a context, all client requests must be authenticated,
+ and the given object will be invoked to validate each request. Each call
+ to this method replaces any previous value set.
+Parameters:
+auth
+- the
+Authenticator
+to set. If
+null
+then any previously
+             set
+Authenticator
+is removed, and client authentication
+             will no longer be required.
+Returns:
+the previous
+Authenticator
+, if any set, or
+null
+otherwise.
+getAuthenticator
+public abstract
+Authenticator
+getAuthenticator
+()
+Returns the currently set
+Authenticator
+for this context
+ if one exists.
+Returns:
+this
+HttpContext's
+Authenticator
+,
+ or
+null
+if none is set
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

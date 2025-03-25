@@ -1,0 +1,605 @@
+Uses of Class org.ietf.jgss.GSSException (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Class
+org.ietf.jgss.GSSException
+Packages that use
+GSSException
+Package
+Description
+com.sun.security.jgss
+This package defines classes and interfaces for the JDK extensions
+ to the GSS-API.
+org.ietf.jgss
+This package presents a framework that allows application developers to
+ make use of security services like authentication, data integrity and
+ data confidentiality from a variety of underlying security mechanisms
+ like Kerberos, using a unified API.
+Uses of
+GSSException
+in
+com.sun.security.jgss
+Methods in
+com.sun.security.jgss
+that throw
+GSSException
+Modifier and Type
+Method
+Description
+GSSCredential
+ExtendedGSSCredential.
+impersonate
+(
+GSSName
+name)
+Impersonates a principal.
+Object
+ExtendedGSSContext.
+inquireSecContext
+(
+InquireType
+type)
+Return the mechanism-specific attribute associated with
+type
+.
+void
+ExtendedGSSContext.
+requestDelegPolicy
+(boolean state)
+Requests that the delegation policy be respected.
+Uses of
+GSSException
+in
+org.ietf.jgss
+Methods in
+org.ietf.jgss
+that throw
+GSSException
+Modifier and Type
+Method
+Description
+byte[]
+GSSContext.
+acceptSecContext
+(byte[] inToken,
+ int offset,
+ int len)
+Called by the context acceptor upon receiving a token from the
+ peer.
+void
+GSSContext.
+acceptSecContext
+(
+InputStream
+inStream,
+OutputStream
+outStream)
+Deprecated.
+The stream-based methods have been removed from RFC 8353.
+void
+GSSCredential.
+add
+(
+GSSName
+name,
+ int initLifetime,
+ int acceptLifetime,
+Oid
+mech,
+ int usage)
+Adds a mechanism specific credential-element to an existing
+ credential.
+abstract void
+GSSManager.
+addProviderAtEnd
+(
+Provider
+p,
+Oid
+mech)
+This method is used to indicate to the GSSManager that the
+ application would like a particular provider to be used if no other
+ provider can be found that supports the given mechanism.
+abstract void
+GSSManager.
+addProviderAtFront
+(
+Provider
+p,
+Oid
+mech)
+This method is used to indicate to the GSSManager that the
+ application would like a particular provider to be used ahead of all
+ others when support is desired for the given mechanism.
+GSSName
+GSSName.
+canonicalize
+(
+Oid
+mech)
+Creates a name that is canonicalized for some
+ mechanism.
+abstract
+GSSContext
+GSSManager.
+createContext
+(byte[] interProcessToken)
+Factory method for creating a previously exported context.
+abstract
+GSSContext
+GSSManager.
+createContext
+(
+GSSCredential
+myCred)
+Factory method for creating a context on the acceptor' side.
+abstract
+GSSContext
+GSSManager.
+createContext
+(
+GSSName
+peer,
+Oid
+mech,
+GSSCredential
+myCred,
+ int lifetime)
+Factory method for creating a context on the initiator's
+ side.
+abstract
+GSSCredential
+GSSManager.
+createCredential
+(int usage)
+Factory method for acquiring default credentials.
+abstract
+GSSCredential
+GSSManager.
+createCredential
+(
+GSSName
+name,
+ int lifetime,
+Oid
+[] mechs,
+ int usage)
+Factory method for acquiring credentials over a set of
+ mechanisms.
+abstract
+GSSCredential
+GSSManager.
+createCredential
+(
+GSSName
+name,
+ int lifetime,
+Oid
+mech,
+ int usage)
+Factory method for acquiring a single mechanism credential.
+abstract
+GSSName
+GSSManager.
+createName
+(byte[] name,
+Oid
+nameType)
+Factory method to convert a byte array containing a
+ name from the specified namespace to a GSSName object.
+abstract
+GSSName
+GSSManager.
+createName
+(byte[] name,
+Oid
+nameType,
+Oid
+mech)
+Factory method to convert a byte array containing a
+ name from the specified namespace to a GSSName object and canonicalize
+ it at the same time for a mechanism.
+abstract
+GSSName
+GSSManager.
+createName
+(
+String
+nameStr,
+Oid
+nameType)
+Factory method to convert a string name from the
+ specified namespace to a GSSName object.
+abstract
+GSSName
+GSSManager.
+createName
+(
+String
+nameStr,
+Oid
+nameType,
+Oid
+mech)
+Factory method to convert a string name from the
+ specified namespace to a GSSName object and canonicalize it at the
+ same time for a mechanism.
+void
+GSSContext.
+dispose
+()
+Releases any system resources and cryptographic information stored in
+ the context object and invalidates the context.
+void
+GSSCredential.
+dispose
+()
+Releases any sensitive information that the GSSCredential object may
+ be containing.
+boolean
+GSSName.
+equals
+(
+GSSName
+another)
+Compares two
+GSSName
+objects to determine if they refer to the
+ same entity.
+byte[]
+GSSContext.
+export
+()
+Exports this context so that another process may
+ import it.
+byte[]
+GSSName.
+export
+()
+Returns a canonical contiguous byte representation of a mechanism name
+ (MN), suitable for direct, byte by byte comparison by authorization
+ functions.
+GSSCredential
+GSSContext.
+getDelegCred
+()
+Obtains the credentials delegated by the context
+ initiator to the context acceptor.
+byte[]
+Oid.
+getDER
+()
+Returns the full ASN.1 DER encoding for this oid object, which
+ includes the tag and length.
+Oid
+GSSContext.
+getMech
+()
+Determines what mechanism is being used for this
+ context.
+Oid
+[]
+GSSCredential.
+getMechs
+()
+Returns a list of mechanisms supported by this credential.
+byte[]
+GSSContext.
+getMIC
+(byte[] inMsg,
+ int offset,
+ int len,
+MessageProp
+msgProp)
+Returns a token containing a cryptographic Message Integrity Code
+ (MIC) for the supplied message,  for transfer to the peer
+ application.
+void
+GSSContext.
+getMIC
+(
+InputStream
+inStream,
+OutputStream
+outStream,
+MessageProp
+msgProp)
+Deprecated.
+The stream-based methods have been removed from RFC 8353.
+GSSName
+GSSCredential.
+getName
+()
+Retrieves the name of the entity that the credential asserts.
+GSSName
+GSSCredential.
+getName
+(
+Oid
+mech)
+Retrieves a Mechanism Name of the entity that the credential
+ asserts.
+abstract
+Oid
+[]
+GSSManager.
+getNamesForMech
+(
+Oid
+mech)
+Returns then name types supported by the indicated mechanism.
+int
+GSSCredential.
+getRemainingAcceptLifetime
+(
+Oid
+mech)
+Returns the lifetime in seconds for the credential to remain capable
+ of accepting security contexts using the specified mechanism.
+int
+GSSCredential.
+getRemainingInitLifetime
+(
+Oid
+mech)
+Returns the lifetime in seconds for the credential to remain capable
+ of initiating security contexts using the specified mechanism.
+int
+GSSCredential.
+getRemainingLifetime
+()
+Returns the remaining lifetime in seconds for a credential.
+GSSName
+GSSContext.
+getSrcName
+()
+Returns the name of the context initiator.
+Oid
+GSSName.
+getStringNameType
+()
+Returns the name type of the printable
+ representation of this name that can be obtained from the
+toString
+method.
+GSSName
+GSSContext.
+getTargName
+()
+Returns the name of the context acceptor.
+int
+GSSCredential.
+getUsage
+()
+Returns the credential usage mode.
+int
+GSSCredential.
+getUsage
+(
+Oid
+mech)
+Returns the credential usage mode for a specific mechanism.
+int
+GSSContext.
+getWrapSizeLimit
+(int qop,
+ boolean confReq,
+ int maxTokenSize)
+Used to determine limits on the size of the message
+ that can be passed to
+wrap
+.
+byte[]
+GSSContext.
+initSecContext
+(byte[] inputBuf,
+ int offset,
+ int len)
+Called by the context initiator to start the context creation
+ phase and process any tokens generated
+ by the peer's
+acceptSecContext
+method.
+int
+GSSContext.
+initSecContext
+(
+InputStream
+inStream,
+OutputStream
+outStream)
+Deprecated.
+The stream-based methods have been removed from RFC 8353.
+boolean
+GSSContext.
+isInitiator
+()
+Determines if this is the context initiator.
+boolean
+GSSContext.
+isTransferable
+()
+Determines if the context is transferable to other processes
+ through the use of the
+export
+method.
+void
+GSSContext.
+requestAnonymity
+(boolean state)
+Requests that the initiator's identity not be
+ disclosed to the acceptor.
+void
+GSSContext.
+requestConf
+(boolean state)
+Requests that data confidentiality be enabled
+ for the
+wrap
+method.
+void
+GSSContext.
+requestCredDeleg
+(boolean state)
+Requests that the initiator's credentials be
+ delegated to the acceptor during context establishment.
+void
+GSSContext.
+requestInteg
+(boolean state)
+Requests that data integrity be enabled
+ for the
+wrap
+and
+getMIC
+methods.
+void
+GSSContext.
+requestLifetime
+(int lifetime)
+Requests a lifetime in seconds for the
+ context.
+void
+GSSContext.
+requestMutualAuth
+(boolean state)
+Requests that mutual authentication be done during
+ context establishment.
+void
+GSSContext.
+requestReplayDet
+(boolean state)
+Requests that replay detection be enabled for the
+ per-message security services after context establishment.
+void
+GSSContext.
+requestSequenceDet
+(boolean state)
+Requests that sequence checking be enabled for the
+ per-message security services after context establishment.
+void
+GSSContext.
+setChannelBinding
+(
+ChannelBinding
+cb)
+Sets the channel bindings to be used during context
+ establishment.
+byte[]
+GSSContext.
+unwrap
+(byte[] inBuf,
+ int offset,
+ int len,
+MessageProp
+msgProp)
+Used to process tokens generated by the
+wrap
+method on
+ the other side of the context.
+void
+GSSContext.
+unwrap
+(
+InputStream
+inStream,
+OutputStream
+outStream,
+MessageProp
+msgProp)
+Deprecated.
+The stream-based methods have been removed from RFC 8353.
+void
+GSSContext.
+verifyMIC
+(byte[] inToken,
+ int tokOffset,
+ int tokLen,
+ byte[] inMsg,
+ int msgOffset,
+ int msgLen,
+MessageProp
+msgProp)
+Verifies the cryptographic MIC, contained in the token parameter,
+ over the supplied message.
+void
+GSSContext.
+verifyMIC
+(
+InputStream
+tokStream,
+InputStream
+msgStream,
+MessageProp
+msgProp)
+Deprecated.
+The stream-based methods have been removed from RFC 8353.
+byte[]
+GSSContext.
+wrap
+(byte[] inBuf,
+ int offset,
+ int len,
+MessageProp
+msgProp)
+Applies per-message security services over the established security
+ context.
+void
+GSSContext.
+wrap
+(
+InputStream
+inStream,
+OutputStream
+outStream,
+MessageProp
+msgProp)
+Deprecated.
+The stream-based methods have been removed from RFC 8353.
+Constructors in
+org.ietf.jgss
+that throw
+GSSException
+Modifier
+Constructor
+Description
+Oid
+(byte[] data)
+Creates an Oid object from its ASN.1 DER encoding.
+Oid
+(
+InputStream
+derOid)
+Creates an Oid object from its ASN.1 DER encoding.
+Oid
+(
+String
+strOid)
+Constructs an Oid object from a string representation of its
+ integer components.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

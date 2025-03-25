@@ -1,0 +1,179 @@
+DefaultInternalObjectFilter (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.dynalink
+Package
+jdk.dynalink.linker.support
+Class DefaultInternalObjectFilter
+java.lang.Object
+jdk.dynalink.linker.support.DefaultInternalObjectFilter
+All Implemented Interfaces:
+MethodHandleTransformer
+public class
+DefaultInternalObjectFilter
+extends
+Object
+implements
+MethodHandleTransformer
+Default implementation for a
+DynamicLinkerFactory.setInternalObjectsFilter(MethodHandleTransformer)
+that delegates to a pair of filtering method handles. It takes a method
+ handle of
+Object(Object)
+type for filtering parameter values and
+ another one of the same type for filtering return values. It applies them as
+ parameter and return value filters on method handles passed to its
+transform(MethodHandle)
+method, on those parameters and return values
+ that are declared to have type
+Object
+. Also handles
+method handles that support variable
+ arity calls
+with a last
+Object[]
+parameter. You can broadly think of
+ the parameter filter as being a wrapping method for exposing internal runtime
+ objects wrapped into an adapter with some public interface, and the return
+ value filter as being its inverse unwrapping method.
+Constructor Summary
+Constructors
+Constructor
+Description
+DefaultInternalObjectFilter
+(
+MethodHandle
+parameterFilter,
+MethodHandle
+returnFilter)
+Creates a new filter.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+MethodHandle
+transform
+(
+MethodHandle
+target)
+Transforms a method handle.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+DefaultInternalObjectFilter
+public
+DefaultInternalObjectFilter
+(
+MethodHandle
+parameterFilter,
+MethodHandle
+returnFilter)
+Creates a new filter.
+Parameters:
+parameterFilter
+- the filter for method parameters. Must be of type
+Object(Object)
+, or
+null
+.
+returnFilter
+- the filter for return values. Must be of type
+Object(Object)
+, or
+null
+.
+Throws:
+IllegalArgumentException
+- if one or both filters are not of the
+ expected type.
+Method Details
+transform
+public
+MethodHandle
+transform
+(
+MethodHandle
+target)
+Description copied from interface:
+MethodHandleTransformer
+Transforms a method handle.
+Specified by:
+transform
+in interface
+MethodHandleTransformer
+Parameters:
+target
+- the method handle being transformed.
+Returns:
+transformed method handle.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

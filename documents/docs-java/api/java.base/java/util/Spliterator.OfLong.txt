@@ -1,0 +1,283 @@
+Spliterator.OfLong (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field
+|
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.util
+Interface Spliterator.OfLong
+All Superinterfaces:
+Spliterator
+<
+Long
+>
+,
+Spliterator.OfPrimitive
+<
+Long
+,
+LongConsumer
+,
+Spliterator.OfLong
+>
+All Known Implementing Classes:
+Spliterators.AbstractLongSpliterator
+Enclosing interface:
+Spliterator
+<
+T
+>
+public static interface
+Spliterator.OfLong
+extends
+Spliterator.OfPrimitive
+<
+Long
+,
+LongConsumer
+,
+Spliterator.OfLong
+>
+A Spliterator specialized for
+long
+values.
+Since:
+1.8
+Nested Class Summary
+Nested classes/interfaces declared in interface java.util.
+Spliterator
+Spliterator.OfDouble
+,
+Spliterator.OfInt
+,
+Spliterator.OfLong
+,
+Spliterator.OfPrimitive
+<
+T
+,
+T_CONS
+,
+T_SPLITR
+extends
+Spliterator.OfPrimitive
+<
+T
+,
+T_CONS
+,
+T_SPLITR
+>>
+Field Summary
+Fields declared in interface java.util.
+Spliterator
+CONCURRENT
+,
+DISTINCT
+,
+IMMUTABLE
+,
+NONNULL
+,
+ORDERED
+,
+SIZED
+,
+SORTED
+,
+SUBSIZED
+Method Summary
+All Methods
+Instance Methods
+Default Methods
+Modifier and Type
+Method
+Description
+default void
+forEachRemaining
+(
+Consumer
+<? super
+Long
+> action)
+Performs the given action for each remaining element, sequentially in
+ the current thread, until all elements have been processed or the action
+ throws an exception.
+default boolean
+tryAdvance
+(
+Consumer
+<? super
+Long
+> action)
+If a remaining element exists: performs the given action on it,
+ returning
+true
+; else returns
+false
+.
+Methods declared in interface java.util.
+Spliterator
+characteristics
+,
+estimateSize
+,
+getComparator
+,
+getExactSizeIfKnown
+,
+hasCharacteristics
+,
+trySplit
+Methods declared in interface java.util.
+Spliterator.OfPrimitive
+forEachRemaining
+,
+tryAdvance
+Method Details
+tryAdvance
+default
+boolean
+tryAdvance
+(
+Consumer
+<? super
+Long
+> action)
+If a remaining element exists: performs the given action on it,
+ returning
+true
+; else returns
+false
+.  If this
+ Spliterator is
+Spliterator.ORDERED
+the action is performed on the
+ next element in encounter order.  Exceptions thrown by the
+ action are relayed to the caller.
+Subsequent behavior of a spliterator is unspecified if the action throws
+ an exception.
+Specified by:
+tryAdvance
+in interface
+Spliterator
+<
+Long
+>
+Implementation Requirements:
+If the action is an instance of
+LongConsumer
+then it is cast
+ to
+LongConsumer
+and passed to
+Spliterator.OfPrimitive.tryAdvance(java.util.function.LongConsumer)
+; otherwise
+ the action is adapted to an instance of
+LongConsumer
+, by
+ boxing the argument of
+LongConsumer
+, and then passed to
+Spliterator.OfPrimitive.tryAdvance(java.util.function.LongConsumer)
+.
+Parameters:
+action
+- The action whose operation is performed at-most once
+Returns:
+false
+if no remaining elements existed
+ upon entry to this method, else
+true
+.
+forEachRemaining
+default
+void
+forEachRemaining
+(
+Consumer
+<? super
+Long
+> action)
+Performs the given action for each remaining element, sequentially in
+ the current thread, until all elements have been processed or the action
+ throws an exception.  If this Spliterator is
+Spliterator.ORDERED
+, actions
+ are performed in encounter order.  Exceptions thrown by the action
+ are relayed to the caller.
+Subsequent behavior of a spliterator is unspecified if the action throws
+ an exception.
+Specified by:
+forEachRemaining
+in interface
+Spliterator
+<
+Long
+>
+Implementation Requirements:
+If the action is an instance of
+LongConsumer
+then it is cast
+ to
+LongConsumer
+and passed to
+Spliterator.OfPrimitive.forEachRemaining(java.util.function.LongConsumer)
+; otherwise
+ the action is adapted to an instance of
+LongConsumer
+, by
+ boxing the argument of
+LongConsumer
+, and then passed to
+Spliterator.OfPrimitive.forEachRemaining(java.util.function.LongConsumer)
+.
+Parameters:
+action
+- The action
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,506 @@
+Clipboard (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.datatransfer
+Package
+java.awt.datatransfer
+Class Clipboard
+java.lang.Object
+java.awt.datatransfer.Clipboard
+public class
+Clipboard
+extends
+Object
+A class that implements a mechanism to transfer data using cut/copy/paste
+ operations.
+FlavorListener
+s may be registered on an instance of the Clipboard
+ class to be notified about changes to the set of
+DataFlavor
+s
+ available on this clipboard (see
+addFlavorListener(java.awt.datatransfer.FlavorListener)
+).
+Since:
+1.1
+See Also:
+Toolkit.getSystemClipboard()
+Toolkit.getSystemSelection()
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected
+Transferable
+contents
+Contents of the clipboard.
+protected
+ClipboardOwner
+owner
+The owner of the clipboard.
+Constructor Summary
+Constructors
+Constructor
+Description
+Clipboard
+(
+String
+name)
+Creates a clipboard object.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+addFlavorListener
+(
+FlavorListener
+listener)
+Registers the specified
+FlavorListener
+to receive
+FlavorEvent
+s from this clipboard.
+DataFlavor
+[]
+getAvailableDataFlavors
+()
+Returns an array of
+DataFlavor
+s in which the current contents of
+ this clipboard can be provided.
+Transferable
+getContents
+(
+Object
+requestor)
+Returns a transferable object representing the current contents of the
+ clipboard.
+Object
+getData
+(
+DataFlavor
+flavor)
+Returns an object representing the current contents of this clipboard in
+ the specified
+DataFlavor
+.
+FlavorListener
+[]
+getFlavorListeners
+()
+Returns an array of all the
+FlavorListener
+s currently registered
+ on this
+Clipboard
+.
+String
+getName
+()
+Returns the name of this clipboard object.
+boolean
+isDataFlavorAvailable
+(
+DataFlavor
+flavor)
+Returns whether or not the current contents of this clipboard can be
+ provided in the specified
+DataFlavor
+.
+void
+removeFlavorListener
+(
+FlavorListener
+listener)
+Removes the specified
+FlavorListener
+so that it no longer
+ receives
+FlavorEvent
+s from this
+Clipboard
+.
+void
+setContents
+(
+Transferable
+contents,
+ClipboardOwner
+owner)
+Sets the current contents of the clipboard to the specified transferable
+ object and registers the specified clipboard owner as the owner of the
+ new contents.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+owner
+protected
+ClipboardOwner
+owner
+The owner of the clipboard.
+contents
+protected
+Transferable
+contents
+Contents of the clipboard.
+Constructor Details
+Clipboard
+public
+Clipboard
+(
+String
+name)
+Creates a clipboard object.
+Parameters:
+name
+- for the clipboard
+See Also:
+Toolkit.getSystemClipboard()
+Method Details
+getName
+public
+String
+getName
+()
+Returns the name of this clipboard object.
+Returns:
+the name of this clipboard object
+See Also:
+Toolkit.getSystemClipboard()
+setContents
+public
+void
+setContents
+(
+Transferable
+contents,
+ClipboardOwner
+owner)
+Sets the current contents of the clipboard to the specified transferable
+ object and registers the specified clipboard owner as the owner of the
+ new contents.
+If there is an existing owner different from the argument
+owner
+,
+ that owner is notified that it no longer holds ownership of the clipboard
+ contents via an invocation of
+ClipboardOwner.lostOwnership()
+on
+ that owner. An implementation of
+setContents()
+is free not to
+ invoke
+lostOwnership()
+directly from this method. For example,
+lostOwnership()
+may be invoked later on a different thread. The
+ same applies to
+FlavorListener
+s registered on this clipboard.
+The method throws
+IllegalStateException
+if the clipboard is
+ currently unavailable. For example, on some platforms, the system
+ clipboard is unavailable while it is accessed by another application.
+Parameters:
+contents
+- the transferable object representing the clipboard
+         content
+owner
+- the object which owns the clipboard content
+Throws:
+IllegalStateException
+- if the clipboard is currently unavailable
+See Also:
+Toolkit.getSystemClipboard()
+getContents
+public
+Transferable
+getContents
+(
+Object
+requestor)
+Returns a transferable object representing the current contents of the
+ clipboard. If the clipboard currently has no contents, it returns
+null
+. The parameter Object requestor is not currently used. The
+ method throws
+IllegalStateException
+if the clipboard is currently
+ unavailable. For example, on some platforms, the system clipboard is
+ unavailable while it is accessed by another application.
+Parameters:
+requestor
+- the object requesting the clip data (not used)
+Returns:
+the current transferable object on the clipboard
+Throws:
+IllegalStateException
+- if the clipboard is currently unavailable
+See Also:
+Toolkit.getSystemClipboard()
+getAvailableDataFlavors
+public
+DataFlavor
+[]
+getAvailableDataFlavors
+()
+Returns an array of
+DataFlavor
+s in which the current contents of
+ this clipboard can be provided. If there are no
+DataFlavor
+s
+ available, this method returns a zero-length array.
+Returns:
+an array of
+DataFlavor
+s in which the current contents of
+         this clipboard can be provided
+Throws:
+IllegalStateException
+- if this clipboard is currently unavailable
+Since:
+1.5
+isDataFlavorAvailable
+public
+boolean
+isDataFlavorAvailable
+(
+DataFlavor
+flavor)
+Returns whether or not the current contents of this clipboard can be
+ provided in the specified
+DataFlavor
+.
+Parameters:
+flavor
+- the requested
+DataFlavor
+for the contents
+Returns:
+true
+if the current contents of this clipboard can be
+         provided in the specified
+DataFlavor
+;
+false
+otherwise
+Throws:
+NullPointerException
+- if
+flavor
+is
+null
+IllegalStateException
+- if this clipboard is currently unavailable
+Since:
+1.5
+getData
+public
+Object
+getData
+(
+DataFlavor
+flavor)
+throws
+UnsupportedFlavorException
+,
+IOException
+Returns an object representing the current contents of this clipboard in
+ the specified
+DataFlavor
+. The class of the object returned is
+ defined by the representation class of
+flavor
+.
+Parameters:
+flavor
+- the requested
+DataFlavor
+for the contents
+Returns:
+an object representing the current contents of this clipboard in
+         the specified
+DataFlavor
+Throws:
+NullPointerException
+- if
+flavor
+is
+null
+IllegalStateException
+- if this clipboard is currently unavailable
+UnsupportedFlavorException
+- if the requested
+DataFlavor
+is
+         not available
+IOException
+- if the data in the requested
+DataFlavor
+can
+         not be retrieved
+Since:
+1.5
+See Also:
+DataFlavor.getRepresentationClass()
+addFlavorListener
+public
+void
+addFlavorListener
+(
+FlavorListener
+listener)
+Registers the specified
+FlavorListener
+to receive
+FlavorEvent
+s from this clipboard. If
+listener
+is
+null
+, no exception is thrown and no action is performed.
+Parameters:
+listener
+- the listener to be added
+Since:
+1.5
+See Also:
+removeFlavorListener(java.awt.datatransfer.FlavorListener)
+getFlavorListeners()
+FlavorListener
+FlavorEvent
+removeFlavorListener
+public
+void
+removeFlavorListener
+(
+FlavorListener
+listener)
+Removes the specified
+FlavorListener
+so that it no longer
+ receives
+FlavorEvent
+s from this
+Clipboard
+. This method
+ performs no function, nor does it throw an exception, if the listener
+ specified by the argument was not previously added to this
+Clipboard
+. If
+listener
+is
+null
+, no exception is
+ thrown and no action is performed.
+Parameters:
+listener
+- the listener to be removed
+Since:
+1.5
+See Also:
+addFlavorListener(java.awt.datatransfer.FlavorListener)
+getFlavorListeners()
+FlavorListener
+FlavorEvent
+getFlavorListeners
+public
+FlavorListener
+[]
+getFlavorListeners
+()
+Returns an array of all the
+FlavorListener
+s currently registered
+ on this
+Clipboard
+.
+Returns:
+all of this clipboard's
+FlavorListener
+s or an empty array
+         if no listeners are currently registered
+Since:
+1.5
+See Also:
+addFlavorListener(java.awt.datatransfer.FlavorListener)
+removeFlavorListener(java.awt.datatransfer.FlavorListener)
+FlavorListener
+FlavorEvent
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

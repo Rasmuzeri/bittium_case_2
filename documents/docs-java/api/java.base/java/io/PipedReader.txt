@@ -1,0 +1,463 @@
+PipedReader (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.io
+Class PipedReader
+java.lang.Object
+java.io.Reader
+java.io.PipedReader
+All Implemented Interfaces:
+Closeable
+,
+AutoCloseable
+,
+Readable
+public class
+PipedReader
+extends
+Reader
+Piped character-input streams.
+Since:
+1.1
+Field Summary
+Fields declared in class java.io.
+Reader
+lock
+Constructor Summary
+Constructors
+Constructor
+Description
+PipedReader
+()
+Creates a
+PipedReader
+so
+ that it is not yet
+connected
+.
+PipedReader
+(int pipeSize)
+Creates a
+PipedReader
+so that it is not yet
+connected
+and uses
+ the specified pipe size for the pipe's buffer.
+PipedReader
+(
+PipedWriter
+src)
+Creates a
+PipedReader
+so
+ that it is connected to the piped writer
+src
+.
+PipedReader
+(
+PipedWriter
+src,
+ int pipeSize)
+Creates a
+PipedReader
+so that it is connected
+ to the piped writer
+src
+and uses the specified
+ pipe size for the pipe's buffer.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+close
+()
+Closes this piped stream and releases any system resources
+ associated with the stream.
+void
+connect
+(
+PipedWriter
+src)
+Causes this piped reader to be connected
+ to the piped  writer
+src
+.
+int
+read
+()
+Reads the next character of data from this piped stream.
+int
+read
+(char[] cbuf,
+ int off,
+ int len)
+Reads characters into a portion of an array.
+boolean
+ready
+()
+Tell whether this stream is ready to be read.
+Methods declared in class java.io.
+Reader
+mark
+,
+markSupported
+,
+nullReader
+,
+read
+,
+read
+,
+reset
+,
+skip
+,
+transferTo
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+PipedReader
+public
+PipedReader
+(
+PipedWriter
+src)
+throws
+IOException
+Creates a
+PipedReader
+so
+ that it is connected to the piped writer
+src
+. Data written to
+src
+will then be available as input from this stream.
+Parameters:
+src
+- the stream to connect to.
+Throws:
+IOException
+- if an I/O error occurs.
+PipedReader
+public
+PipedReader
+(
+PipedWriter
+src,
+ int pipeSize)
+throws
+IOException
+Creates a
+PipedReader
+so that it is connected
+ to the piped writer
+src
+and uses the specified
+ pipe size for the pipe's buffer. Data written to
+src
+will then be  available as input from this stream.
+Parameters:
+src
+- the stream to connect to.
+pipeSize
+- the size of the pipe's buffer.
+Throws:
+IOException
+- if an I/O error occurs.
+IllegalArgumentException
+- if
+pipeSize <= 0
+.
+Since:
+1.6
+PipedReader
+public
+PipedReader
+()
+Creates a
+PipedReader
+so
+ that it is not yet
+connected
+. It must be
+connected
+to a
+PipedWriter
+before being used.
+PipedReader
+public
+PipedReader
+(int pipeSize)
+Creates a
+PipedReader
+so that it is not yet
+connected
+and uses
+ the specified pipe size for the pipe's buffer.
+ It must be
+connected
+to a
+PipedWriter
+before being used.
+Parameters:
+pipeSize
+- the size of the pipe's buffer.
+Throws:
+IllegalArgumentException
+- if
+pipeSize <= 0
+.
+Since:
+1.6
+Method Details
+connect
+public
+void
+connect
+(
+PipedWriter
+src)
+throws
+IOException
+Causes this piped reader to be connected
+ to the piped  writer
+src
+.
+ If this object is already connected to some
+ other piped writer, an
+IOException
+is thrown.
+If
+src
+is an
+ unconnected piped writer and
+snk
+is an unconnected piped reader, they
+ may be connected by either the call:
+Copy
+snk.connect(src)
+or the call:
+Copy
+src.connect(snk)
+The two calls have the same effect.
+Parameters:
+src
+- The piped writer to connect to.
+Throws:
+IOException
+- if an I/O error occurs.
+read
+public
+int
+read
+()
+         throws
+IOException
+Reads the next character of data from this piped stream.
+ If no character is available because the end of the stream
+ has been reached, the value
+-1
+is returned.
+ This method blocks until input data is available, the end of
+ the stream is detected, or an exception is thrown.
+Overrides:
+read
+in class
+Reader
+Returns:
+the next character of data, or
+-1
+if the end of the
+          stream is reached.
+Throws:
+IOException
+- if the pipe is
+broken
+,
+unconnected
+, closed,
+          or an I/O error occurs.
+read
+public
+int
+read
+(char[] cbuf,
+ int off,
+ int len)
+throws
+IOException
+Reads characters into a portion of an array.  This method will block
+ until some input is available, an I/O error occurs, or the end of the
+ stream is reached.
+If
+len
+is zero, then no characters are read and
+0
+is
+ returned; otherwise, there is an attempt to read at least one character.
+ If no character is available because the stream is at its end, the value
+-1
+is returned; otherwise, at least one character is read and
+ stored into
+cbuf
+.
+Fewer than
+len
+characters will be read if
+len
+exceeds the pipe's buffer size.
+Specified by:
+read
+in class
+Reader
+Parameters:
+cbuf
+- Destination buffer
+off
+- Offset at which to start storing characters
+len
+- Maximum number of characters to read
+Returns:
+The number of characters read, or -1 if the end of the
+             stream has been reached
+Throws:
+IndexOutOfBoundsException
+- If
+off
+is negative, or
+len
+is negative,
+             or
+len
+is greater than
+cbuf.length - off
+IOException
+- if the pipe is
+broken
+,
+unconnected
+, closed,
+             or an I/O error occurs.
+ready
+public
+boolean
+ready
+()
+              throws
+IOException
+Tell whether this stream is ready to be read.  A piped character
+ stream is ready if the circular buffer is not empty.
+Overrides:
+ready
+in class
+Reader
+Returns:
+True if the next read() is guaranteed not to block for input,
+ false otherwise.  Note that returning false does not guarantee that the
+ next read will block.
+Throws:
+IOException
+- if the pipe is
+broken
+,
+unconnected
+, or closed.
+close
+public
+void
+close
+()
+           throws
+IOException
+Closes this piped stream and releases any system resources
+ associated with the stream.
+Specified by:
+close
+in interface
+AutoCloseable
+Specified by:
+close
+in interface
+Closeable
+Specified by:
+close
+in class
+Reader
+Throws:
+IOException
+- if an I/O error occurs.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,285 @@
+KeyFactorySpi (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.security
+Class KeyFactorySpi
+java.lang.Object
+java.security.KeyFactorySpi
+public abstract class
+KeyFactorySpi
+extends
+Object
+This class defines the
+Service Provider Interface
+(
+SPI
+)
+ for the
+KeyFactory
+class.
+ All the abstract methods in this class must be implemented by each
+ cryptographic service provider who wishes to supply the implementation
+ of a key factory for a particular algorithm.
+Key factories are used to convert
+keys
+(opaque
+ cryptographic keys of type
+Key
+) into
+key specifications
+(transparent representations of the underlying key material), and vice
+ versa.
+Key factories are bidirectional. That is, they allow you to build an
+ opaque key object from a given key specification (key material), or to
+ retrieve the underlying key material of a key object in a suitable format.
+Multiple compatible key specifications may exist for the same key.
+ For example, a DSA public key may be specified using
+DSAPublicKeySpec
+or
+X509EncodedKeySpec
+. A key factory can be used to translate
+ between compatible key specifications.
+A provider should document all the key specifications supported by its
+ key factory.
+Since:
+1.2
+See Also:
+KeyFactory
+Key
+PublicKey
+PrivateKey
+KeySpec
+DSAPublicKeySpec
+X509EncodedKeySpec
+Constructor Summary
+Constructors
+Constructor
+Description
+KeyFactorySpi
+()
+Constructor for subclasses to call.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+protected abstract
+PrivateKey
+engineGeneratePrivate
+(
+KeySpec
+keySpec)
+Generates a private key object from the provided key
+ specification (key material).
+protected abstract
+PublicKey
+engineGeneratePublic
+(
+KeySpec
+keySpec)
+Generates a public key object from the provided key
+ specification (key material).
+protected abstract <T extends
+KeySpec
+>
+T
+engineGetKeySpec
+(
+Key
+key,
+Class
+<T> keySpec)
+Returns a specification (key material) of the given key
+ object.
+protected abstract
+Key
+engineTranslateKey
+(
+Key
+key)
+Translates a key object, whose provider may be unknown or
+ potentially untrusted, into a corresponding key object of this key
+ factory.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+KeyFactorySpi
+public
+KeyFactorySpi
+()
+Constructor for subclasses to call.
+Method Details
+engineGeneratePublic
+protected abstract
+PublicKey
+engineGeneratePublic
+(
+KeySpec
+keySpec)
+throws
+InvalidKeySpecException
+Generates a public key object from the provided key
+ specification (key material).
+Parameters:
+keySpec
+- the specification (key material) of the public key.
+Returns:
+the public key.
+Throws:
+InvalidKeySpecException
+- if the given key specification
+ is inappropriate for this key factory to produce a public key.
+engineGeneratePrivate
+protected abstract
+PrivateKey
+engineGeneratePrivate
+(
+KeySpec
+keySpec)
+throws
+InvalidKeySpecException
+Generates a private key object from the provided key
+ specification (key material).
+Parameters:
+keySpec
+- the specification (key material) of the private key.
+Returns:
+the private key.
+Throws:
+InvalidKeySpecException
+- if the given key specification
+ is inappropriate for this key factory to produce a private key.
+engineGetKeySpec
+protected abstract
+<T extends
+KeySpec
+>
+T
+engineGetKeySpec
+(
+Key
+key,
+Class
+<T> keySpec)
+throws
+InvalidKeySpecException
+Returns a specification (key material) of the given key
+ object.
+keySpec
+identifies the specification class in which
+ the key material should be returned. It could, for example, be
+DSAPublicKeySpec.class
+, to indicate that the
+ key material should be returned in an instance of the
+DSAPublicKeySpec
+class.
+Type Parameters:
+T
+- the type of the key specification to be returned
+Parameters:
+key
+- the key.
+keySpec
+- the specification class in which
+ the key material should be returned.
+Returns:
+the underlying key specification (key material) in an instance
+ of the requested specification class.
+Throws:
+InvalidKeySpecException
+- if the requested key specification is
+ inappropriate for the given key, or the given key cannot be dealt with
+ (e.g., the given key has an unrecognized format).
+engineTranslateKey
+protected abstract
+Key
+engineTranslateKey
+(
+Key
+key)
+throws
+InvalidKeyException
+Translates a key object, whose provider may be unknown or
+ potentially untrusted, into a corresponding key object of this key
+ factory.
+Parameters:
+key
+- the key whose provider is unknown or untrusted.
+Returns:
+the translated key.
+Throws:
+InvalidKeyException
+- if the given key cannot be processed
+ by this key factory.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

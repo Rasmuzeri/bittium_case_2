@@ -1,0 +1,292 @@
+jdk.jshell (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages
+|
+Classes and Interfaces
+SEARCH
+Module
+jdk.jshell
+Package jdk.jshell
+package
+jdk.jshell
+Provides interfaces for creating tools, such as a Read-Eval-Print Loop (REPL),
+ which interactively evaluate "snippets" of Java programming language code.
+ Where a "snippet" is a single expression, statement, or declaration.
+ This functionality can be used to enhance tools such as IDEs or can be
+ stand-alone.
+JShell
+is the central class.  An instance of
+JShell
+holds the evaluation state, which is both the current
+ set of source snippets and the execution state they have produced.
+Each source snippet is represented by an instance of a subclass of
+Snippet
+. For example, a statement is represented by an
+ instance of
+StatementSnippet
+, and a method declaration is
+ represented by an instance of
+MethodSnippet
+.
+ Snippets are created when
+JShell.eval(String)
+is invoked with an input which includes one or more snippets of code.
+Any change to the compilation status of a snippet is reported with a
+SnippetEvent
+.  There are three major kinds of
+ changes to the status of a snippet: it can be created with
+eval
+,
+ it can be dropped from the active source state with
+JShell.drop(jdk.jshell.Snippet)
+, and it can have
+ its status updated as a result of a status change in another snippet.
+ For
+ example: given
+js
+, an instance of
+JShell
+, executing
+js.eval("int x = 5;")
+will add the variable
+x
+to
+ the source state and will generate an event describing the creation of a
+VarSnippet
+for
+x
+. Then executing
+js.eval("int timesx(int val) { return val * x; }")
+will add
+ a method to the source state and will generate an event
+ describing the creation of a
+MethodSnippet
+for
+timesx
+.
+ Assume that
+varx
+holds the snippet created by the first
+ call to
+eval
+, executing
+js.drop(varx)
+will
+ generate two events: one for changing the status of the
+ variable snippet to
+DROPPED
+and one for
+ updating the method snippet (which now has an unresolved reference to
+x
+).
+Of course, for any general application of the API, the input would not be
+ fixed strings, but would come from the user. Below is a very simplified
+ example of how the API might be used to implement a REPL.
+import java.io.ByteArrayInputStream;
+     import java.io.Console;
+     import java.util.List;
+     import jdk.jshell.*;
+     import jdk.jshell.Snippet.Status;
+
+     class ExampleJShell {
+         public static void main(String[] args) {
+             Console console = System.console();
+             try (JShell js = JShell.create()) {
+                 do {
+                     System.out.print("Enter some Java code: ");
+                     String input = console.readLine();
+                     if (input == null) {
+                         break;
+                     }
+                     List<SnippetEvent> events = js.eval(input);
+                     for (SnippetEvent e : events) {
+                         StringBuilder sb = new StringBuilder();
+                         if (e.causeSnippet() == null) {
+                             //  We have a snippet creation event
+                             switch (e.status()) {
+                                 case VALID:
+                                     sb.append("Successful ");
+                                     break;
+                                 case RECOVERABLE_DEFINED:
+                                     sb.append("With unresolved references ");
+                                     break;
+                                 case RECOVERABLE_NOT_DEFINED:
+                                     sb.append("Possibly reparable, failed  ");
+                                     break;
+                                 case REJECTED:
+                                     sb.append("Failed ");
+                                     break;
+                             }
+                             if (e.previousStatus() == Status.NONEXISTENT) {
+                                 sb.append("addition");
+                             } else {
+                                 sb.append("modification");
+                             }
+                             sb.append(" of ");
+                             sb.append(e.snippet().source());
+                             System.out.println(sb);
+                             if (e.value() != null) {
+                                 System.out.printf("Value is: %s\n", e.value());
+                             }
+                             System.out.flush();
+                         }
+                     }
+                 } while (true);
+             }
+             System.out.println("\nGoodbye");
+         }
+     }
+To register for status change events use
+JShell.onSnippetEvent(java.util.function.Consumer)
+.
+ These events are only generated by
+eval
+and
+drop
+,
+ the return values of these methods are the list of events generated by that
+ call.  So, as in the example above, events can be used without registering
+ to receive events.
+If you experiment with this example, you will see that failing to terminate
+ a statement or variable declaration with a semi-colon will simply fail.
+ An unfinished entry (for example a desired multi-line method) will also just
+ fail after one line.  The utilities in
+SourceCodeAnalysis
+provide source boundary and completeness analysis to address cases like
+ those.
+SourceCodeAnalysis
+also provides suggested completions
+ of input, as might be used in tab-completion.
+Since:
+9
+Related Packages
+Package
+Description
+jdk.jshell.execution
+Provides implementation support for building JShell execution engines.
+jdk.jshell.spi
+Defines the Service Provider Interface for pluggable JShell execution engines.
+jdk.jshell.tool
+Provides a mechanism to launch an instance of a Java shell tool.
+All Classes and Interfaces
+Interfaces
+Classes
+Enum Classes
+Record Classes
+Exception Classes
+Class
+Description
+DeclarationSnippet
+Grouping for all declaration Snippets: variable declarations
+ (
+VarSnippet
+), method declarations
+ (
+MethodSnippet
+), and type declarations
+ (
+TypeDeclSnippet
+).
+Diag
+Diagnostic information for a Snippet.
+ErroneousSnippet
+A snippet of code that is not valid Java programming language code.
+EvalException
+Wraps an throwable thrown in the executing client.
+ExpressionSnippet
+Snippet for an assignment or variable-value expression.
+ImportSnippet
+Snippet for an import declaration.
+JShell
+The JShell evaluation state engine.
+JShell.Builder
+Builder for
+JShell
+instances.
+JShellConsole
+An interface providing functionality for
+Console
+in the user's snippet.
+JShellException
+The superclass of JShell generated exceptions
+MethodSnippet
+Snippet for a method definition.
+PersistentSnippet
+Grouping for Snippets which persist and influence future code.
+Snippet
+A Snippet represents a snippet of Java source code as passed to
+JShell.eval(java.lang.String)
+.
+Snippet.Kind
+Describes the general kind of snippet.
+Snippet.Status
+Describes the current state of a Snippet.
+Snippet.SubKind
+The detailed variety of a snippet.
+SnippetEvent
+A description of a change to a Snippet.
+SourceCodeAnalysis
+Provides analysis utilities for source code input.
+SourceCodeAnalysis.Attribute
+A span attribute which can be used to derive a coloring.
+SourceCodeAnalysis.Completeness
+Describes the completeness of the given input.
+SourceCodeAnalysis.CompletionInfo
+The result of
+analyzeCompletion(String input)
+.
+SourceCodeAnalysis.Documentation
+A documentation for a candidate for continuation of the given user's input.
+SourceCodeAnalysis.Highlight
+Assigns attributes usable for coloring to spans inside a snippet.
+SourceCodeAnalysis.QualifiedNames
+List of possible qualified names.
+SourceCodeAnalysis.SnippetWrapper
+The wrapping of a snippet of Java source into valid top-level Java
+ source.
+SourceCodeAnalysis.Suggestion
+A candidate for continuation of the given user's input.
+StatementSnippet
+Snippet for a statement.
+TypeDeclSnippet
+Snippet for a type definition (a class, interface, enum, or annotation
+ interface definition).
+UnresolvedReferenceException
+Exception reported on attempting to execute a
+RECOVERABLE_DEFINED
+snippet.
+VarSnippet
+Snippet for a variable definition.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

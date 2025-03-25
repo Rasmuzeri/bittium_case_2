@@ -1,0 +1,504 @@
+ExecutionControl (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.jshell
+Package
+jdk.jshell.spi
+Interface ExecutionControl
+All Superinterfaces:
+AutoCloseable
+All Known Implementing Classes:
+DirectExecutionControl
+,
+JdiDefaultExecutionControl
+,
+JdiExecutionControl
+,
+LocalExecutionControl
+,
+RemoteExecutionControl
+,
+StreamingExecutionControl
+public interface
+ExecutionControl
+extends
+AutoCloseable
+This interface specifies the functionality that must provided to implement a
+ pluggable JShell execution engine.
+The audience for this Service Provider Interface is engineers wishing to
+ implement their own version of the execution engine in support of the JShell
+ API.
+A Snippet is compiled into code wrapped in a 'wrapper class'. The execution
+ engine is used by the core JShell implementation to load and, for executable
+ Snippets, execute the Snippet.
+Methods defined in this interface should only be called by the core JShell
+ implementation.
+Since:
+9
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Interface
+Description
+static final class
+ExecutionControl.ClassBytecodes
+Bundles class name with class bytecodes.
+static class
+ExecutionControl.ClassInstallException
+A class install (load or redefine) encountered a problem.
+static class
+ExecutionControl.EngineTerminationException
+Unbidden execution engine termination has occurred.
+static class
+ExecutionControl.ExecutionControlException
+The abstract base of all
+ExecutionControl
+exceptions.
+static class
+ExecutionControl.InternalException
+An internal problem has occurred.
+static class
+ExecutionControl.NotImplementedException
+The command is not implemented.
+static class
+ExecutionControl.ResolutionException
+An exception indicating that a
+DeclarationSnippet
+with unresolved
+ references has been encountered.
+static class
+ExecutionControl.RunException
+The abstract base of of exceptions specific to running user code.
+static class
+ExecutionControl.StoppedException
+An exception indicating that an
+invoke(java.lang.String, java.lang.String)
+(or theoretically a
+varValue(java.lang.String, java.lang.String)
+)
+ has been interrupted by a
+stop()
+.
+static class
+ExecutionControl.UserException
+A 'normal' user exception occurred.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+void
+addToClasspath
+(
+String
+path)
+Adds the path to the execution class path.
+void
+close
+()
+Shuts down this execution engine.
+Object
+extensionCommand
+(
+String
+command,
+Object
+arg)
+Run a non-standard command (or a standard command from a newer version).
+static
+ExecutionControl
+generate
+(
+ExecutionEnv
+env,
+String
+spec)
+Search for a provider, then create and return the
+ExecutionControl
+instance.
+static
+ExecutionControl
+generate
+(
+ExecutionEnv
+env,
+String
+name,
+Map
+<
+String
+,
+String
+> parameters)
+Search for a provider, then create and return the
+ExecutionControl
+instance.
+String
+invoke
+(
+String
+className,
+String
+methodName)
+Invokes an executable Snippet by calling a method on the specified
+ wrapper class.
+void
+load
+(
+ExecutionControl.ClassBytecodes
+[] cbcs)
+Attempts to load new classes.
+void
+redefine
+(
+ExecutionControl.ClassBytecodes
+[] cbcs)
+Attempts to redefine previously loaded classes.
+void
+stop
+()
+Interrupts a running invoke.
+String
+varValue
+(
+String
+className,
+String
+varName)
+Returns the value of a variable.
+Method Details
+load
+void
+load
+(
+ExecutionControl.ClassBytecodes
+[] cbcs)
+throws
+ExecutionControl.ClassInstallException
+,
+ExecutionControl.NotImplementedException
+,
+ExecutionControl.EngineTerminationException
+Attempts to load new classes.
+Parameters:
+cbcs
+- the class name and bytecodes to load
+Throws:
+ExecutionControl.ClassInstallException
+- exception occurred loading the classes,
+ some or all were not loaded
+ExecutionControl.NotImplementedException
+- if not implemented
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+redefine
+void
+redefine
+(
+ExecutionControl.ClassBytecodes
+[] cbcs)
+throws
+ExecutionControl.ClassInstallException
+,
+ExecutionControl.NotImplementedException
+,
+ExecutionControl.EngineTerminationException
+Attempts to redefine previously loaded classes.
+Parameters:
+cbcs
+- the class name and bytecodes to redefine
+Throws:
+ExecutionControl.ClassInstallException
+- exception occurred redefining the classes,
+ some or all were not redefined
+ExecutionControl.NotImplementedException
+- if not implemented
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+invoke
+String
+invoke
+(
+String
+className,
+String
+methodName)
+throws
+ExecutionControl.RunException
+,
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.InternalException
+Invokes an executable Snippet by calling a method on the specified
+ wrapper class. The method must have no arguments and return String.
+Parameters:
+className
+- the class whose method should be invoked
+methodName
+- the name of method to invoke
+Returns:
+the result of the execution or null if no result
+Throws:
+ExecutionControl.UserException
+- the invoke raised a user exception
+ExecutionControl.ResolutionException
+- the invoke attempted to directly or
+ indirectly invoke an unresolved snippet
+ExecutionControl.StoppedException
+- if the
+invoke()
+was canceled by
+stop()
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+ExecutionControl.InternalException
+- an internal problem occurred
+ExecutionControl.RunException
+varValue
+String
+varValue
+(
+String
+className,
+String
+varName)
+throws
+ExecutionControl.RunException
+,
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.InternalException
+Returns the value of a variable.
+Parameters:
+className
+- the name of the wrapper class of the variable
+varName
+- the name of the variable
+Returns:
+the value of the variable
+Throws:
+ExecutionControl.UserException
+- formatting the value raised a user exception
+ExecutionControl.ResolutionException
+- formatting the value attempted to directly or
+ indirectly invoke an unresolved snippet
+ExecutionControl.StoppedException
+- if the formatting the value was canceled by
+stop()
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+ExecutionControl.InternalException
+- an internal problem occurred
+ExecutionControl.RunException
+addToClasspath
+void
+addToClasspath
+(
+String
+path)
+throws
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.InternalException
+Adds the path to the execution class path.
+Parameters:
+path
+- the path to add
+Throws:
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+ExecutionControl.InternalException
+- an internal problem occurred
+stop
+void
+stop
+()
+   throws
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.InternalException
+Interrupts a running invoke.
+Throws:
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+ExecutionControl.InternalException
+- an internal problem occurred
+extensionCommand
+Object
+extensionCommand
+(
+String
+command,
+Object
+arg)
+throws
+ExecutionControl.RunException
+,
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.InternalException
+Run a non-standard command (or a standard command from a newer version).
+Parameters:
+command
+- the non-standard command
+arg
+- the commands argument
+Returns:
+the commands return value
+Throws:
+ExecutionControl.UserException
+- the command raised a user exception
+ExecutionControl.ResolutionException
+- the command attempted to directly or
+ indirectly invoke an unresolved snippet
+ExecutionControl.StoppedException
+- if the command was canceled by
+stop()
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+ExecutionControl.NotImplementedException
+- if not implemented
+ExecutionControl.InternalException
+- an internal problem occurred
+ExecutionControl.RunException
+close
+void
+close
+()
+Shuts down this execution engine. Implementation should free all
+ resources held by this execution engine.
+No calls to methods on this interface should be made after close.
+Specified by:
+close
+in interface
+AutoCloseable
+generate
+static
+ExecutionControl
+generate
+(
+ExecutionEnv
+env,
+String
+name,
+Map
+<
+String
+,
+String
+> parameters)
+throws
+Throwable
+Search for a provider, then create and return the
+ExecutionControl
+instance.
+Parameters:
+env
+- the execution environment (provided by JShell)
+name
+- the name of provider
+parameters
+- the parameter map.
+Returns:
+the execution engine
+Throws:
+Throwable
+- an exception that occurred attempting to find or create
+ the execution engine.
+IllegalArgumentException
+- if no ExecutionControlProvider has the
+ specified
+name
+and
+parameters
+.
+generate
+static
+ExecutionControl
+generate
+(
+ExecutionEnv
+env,
+String
+spec)
+throws
+Throwable
+Search for a provider, then create and return the
+ExecutionControl
+instance.
+Parameters:
+env
+- the execution environment (provided by JShell)
+spec
+- the
+ExecutionControl
+spec, which is described in
+ the documentation of this
+package documentation
+.
+Returns:
+the execution engine
+Throws:
+Throwable
+- an exception that occurred attempting to find or create
+ the execution engine.
+IllegalArgumentException
+- if no ExecutionControlProvider has the
+ specified
+name
+and
+parameters
+.
+IllegalArgumentException
+- if
+spec
+is malformed
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

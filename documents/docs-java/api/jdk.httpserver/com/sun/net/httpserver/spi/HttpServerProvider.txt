@@ -1,0 +1,223 @@
+HttpServerProvider (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.httpserver
+Package
+com.sun.net.httpserver.spi
+Class HttpServerProvider
+java.lang.Object
+com.sun.net.httpserver.spi.HttpServerProvider
+public abstract class
+HttpServerProvider
+extends
+Object
+Service provider class for HttpServer.
+ Sub-classes of HttpServerProvider provide an implementation of
+HttpServer
+and associated classes. Applications do not normally use
+ this class. See
+provider()
+for how providers are found and loaded.
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+HttpServerProvider
+()
+Initializes a new instance of this class.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+abstract
+HttpServer
+createHttpServer
+(
+InetSocketAddress
+addr,
+ int backlog)
+creates a HttpServer from this provider
+abstract
+HttpsServer
+createHttpsServer
+(
+InetSocketAddress
+addr,
+ int backlog)
+creates a HttpsServer from this provider
+static
+HttpServerProvider
+provider
+()
+Returns the system wide default HttpServerProvider for this invocation of
+ the Java virtual machine.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+HttpServerProvider
+protected
+HttpServerProvider
+()
+Initializes a new instance of this class.
+Throws:
+SecurityException
+- If a security manager has been installed and it denies
+RuntimePermission
+("httpServerProvider")
+Method Details
+createHttpServer
+public abstract
+HttpServer
+createHttpServer
+(
+InetSocketAddress
+addr,
+ int backlog)
+throws
+IOException
+creates a HttpServer from this provider
+Parameters:
+addr
+- the address to bind to. May be
+null
+backlog
+- the socket backlog. A value of
+zero
+means the systems default
+Returns:
+An instance of HttpServer
+Throws:
+IOException
+- if an I/O error occurs
+createHttpsServer
+public abstract
+HttpsServer
+createHttpsServer
+(
+InetSocketAddress
+addr,
+ int backlog)
+throws
+IOException
+creates a HttpsServer from this provider
+Parameters:
+addr
+- the address to bind to. May be
+null
+backlog
+- the socket backlog. A value of
+zero
+means the systems default
+Returns:
+An instance of HttpServer
+Throws:
+IOException
+- if an I/O error occurs
+provider
+public static
+HttpServerProvider
+provider
+()
+Returns the system wide default HttpServerProvider for this invocation of
+ the Java virtual machine.
+The first invocation of this method locates the default provider
+ object as follows:
+If the system property
+com.sun.net.httpserver.HttpServerProvider
+is defined then it is taken to be the fully-qualified name
+   of a concrete provider class.
+   The class is loaded and instantiated; if this process fails then an
+   unspecified unchecked error or exception is thrown.
+If a provider class has been installed in a jar file that is
+   visible to the system class loader, and that jar file contains a
+   provider-configuration file named
+com.sun.net.httpserver.HttpServerProvider
+in the resource
+   directory
+META-INF/services
+, then the first class name
+   specified in that file is taken.  The class is loaded and
+   instantiated; if this process fails then an unspecified unchecked error
+   or exception is thrown.
+Finally, if no provider has been specified by any of the above
+   means then the system-default provider class is instantiated and the
+   result is returned.
+Subsequent invocations of this method return the provider that was
+ returned by the first invocation.
+Returns:
+The system-wide default HttpServerProvider
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

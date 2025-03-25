@@ -1,0 +1,552 @@
+OptionalDouble (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.util
+Class OptionalDouble
+java.lang.Object
+java.util.OptionalDouble
+public final class
+OptionalDouble
+extends
+Object
+A container object which may or may not contain a
+double
+value.
+ If a value is present,
+isPresent()
+returns
+true
+. If no
+ value is present, the object is considered
+empty
+and
+isPresent()
+returns
+false
+.
+Additional methods that depend on the presence or absence of a contained
+ value are provided, such as
+orElse()
+(returns a default value if no value is present) and
+ifPresent()
+(performs
+ an action if a value is present).
+This is a
+value-based
+class; programmers should treat instances that are
+equal
+as interchangeable and should not
+ use instances for synchronization, or unpredictable behavior may
+ occur. For example, in a future release, synchronization may fail.
+API Note:
+OptionalDouble
+is primarily intended for use as a method return type where
+ there is a clear need to represent "no result." A variable whose type is
+OptionalDouble
+should never itself be
+null
+; it should always point
+ to an
+OptionalDouble
+instance.
+Since:
+1.8
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+OptionalDouble
+empty
+()
+Returns an empty
+OptionalDouble
+instance.
+boolean
+equals
+(
+Object
+obj)
+Indicates whether some other object is "equal to" this
+OptionalDouble
+.
+double
+getAsDouble
+()
+If a value is present, returns the value, otherwise throws
+NoSuchElementException
+.
+int
+hashCode
+()
+Returns the hash code of the value, if present, otherwise
+0
+(zero) if no value is present.
+void
+ifPresent
+(
+DoubleConsumer
+action)
+If a value is present, performs the given action with the value,
+ otherwise does nothing.
+void
+ifPresentOrElse
+(
+DoubleConsumer
+action,
+Runnable
+emptyAction)
+If a value is present, performs the given action with the value,
+ otherwise performs the given empty-based action.
+boolean
+isEmpty
+()
+If a value is not present, returns
+true
+, otherwise
+false
+.
+boolean
+isPresent
+()
+If a value is present, returns
+true
+, otherwise
+false
+.
+static
+OptionalDouble
+of
+(double value)
+Returns an
+OptionalDouble
+describing the given value.
+double
+orElse
+(double other)
+If a value is present, returns the value, otherwise returns
+other
+.
+double
+orElseGet
+(
+DoubleSupplier
+supplier)
+If a value is present, returns the value, otherwise returns the result
+ produced by the supplying function.
+double
+orElseThrow
+()
+If a value is present, returns the value, otherwise throws
+NoSuchElementException
+.
+<X extends
+Throwable
+>
+double
+orElseThrow
+(
+Supplier
+<? extends X> exceptionSupplier)
+If a value is present, returns the value, otherwise throws an exception
+ produced by the exception supplying function.
+DoubleStream
+stream
+()
+If a value is present, returns a sequential
+DoubleStream
+containing only that value, otherwise returns an empty
+DoubleStream
+.
+String
+toString
+()
+Returns a non-empty string representation of this
+OptionalDouble
+suitable for debugging.
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Method Details
+empty
+public static
+OptionalDouble
+empty
+()
+Returns an empty
+OptionalDouble
+instance.  No value is present
+ for this
+OptionalDouble
+.
+API Note:
+Though it may be tempting to do so, avoid testing if an object is empty
+ by comparing with
+==
+or
+!=
+against instances returned by
+OptionalDouble.empty()
+.  There is no guarantee that it is a singleton.
+ Instead, use
+isEmpty()
+or
+isPresent()
+.
+Returns:
+an empty
+OptionalDouble
+.
+of
+public static
+OptionalDouble
+of
+(double value)
+Returns an
+OptionalDouble
+describing the given value.
+Parameters:
+value
+- the value to describe
+Returns:
+an
+OptionalDouble
+with the value present
+getAsDouble
+public
+double
+getAsDouble
+()
+If a value is present, returns the value, otherwise throws
+NoSuchElementException
+.
+API Note:
+The preferred alternative to this method is
+orElseThrow()
+.
+Returns:
+the value described by this
+OptionalDouble
+Throws:
+NoSuchElementException
+- if no value is present
+isPresent
+public
+boolean
+isPresent
+()
+If a value is present, returns
+true
+, otherwise
+false
+.
+Returns:
+true
+if a value is present, otherwise
+false
+isEmpty
+public
+boolean
+isEmpty
+()
+If a value is not present, returns
+true
+, otherwise
+false
+.
+Returns:
+true
+if a value is not present, otherwise
+false
+Since:
+11
+ifPresent
+public
+void
+ifPresent
+(
+DoubleConsumer
+action)
+If a value is present, performs the given action with the value,
+ otherwise does nothing.
+Parameters:
+action
+- the action to be performed, if a value is present
+Throws:
+NullPointerException
+- if value is present and the given action is
+null
+ifPresentOrElse
+public
+void
+ifPresentOrElse
+(
+DoubleConsumer
+action,
+Runnable
+emptyAction)
+If a value is present, performs the given action with the value,
+ otherwise performs the given empty-based action.
+Parameters:
+action
+- the action to be performed, if a value is present
+emptyAction
+- the empty-based action to be performed, if no value is
+ present
+Throws:
+NullPointerException
+- if a value is present and the given action
+         is
+null
+, or no value is present and the given empty-based
+         action is
+null
+.
+Since:
+9
+stream
+public
+DoubleStream
+stream
+()
+If a value is present, returns a sequential
+DoubleStream
+containing only that value, otherwise returns an empty
+DoubleStream
+.
+API Note:
+This method can be used to transform a
+Stream
+of optional doubles
+ to a
+DoubleStream
+of present doubles:
+Stream<OptionalDouble> os = ..
+     DoubleStream s = os.flatMapToDouble(OptionalDouble::stream)
+Returns:
+the optional value as a
+DoubleStream
+Since:
+9
+orElse
+public
+double
+orElse
+(double other)
+If a value is present, returns the value, otherwise returns
+other
+.
+Parameters:
+other
+- the value to be returned, if no value is present
+Returns:
+the value, if present, otherwise
+other
+orElseGet
+public
+double
+orElseGet
+(
+DoubleSupplier
+supplier)
+If a value is present, returns the value, otherwise returns the result
+ produced by the supplying function.
+Parameters:
+supplier
+- the supplying function that produces a value to be returned
+Returns:
+the value, if present, otherwise the result produced by the
+         supplying function
+Throws:
+NullPointerException
+- if no value is present and the supplying
+         function is
+null
+orElseThrow
+public
+double
+orElseThrow
+()
+If a value is present, returns the value, otherwise throws
+NoSuchElementException
+.
+Returns:
+the value described by this
+OptionalDouble
+Throws:
+NoSuchElementException
+- if no value is present
+Since:
+10
+orElseThrow
+public
+<X extends
+Throwable
+>
+double
+orElseThrow
+(
+Supplier
+<? extends X> exceptionSupplier)
+throws
+X
+If a value is present, returns the value, otherwise throws an exception
+ produced by the exception supplying function.
+API Note:
+A method reference to the exception constructor with an empty argument
+ list can be used as the supplier. For example,
+IllegalStateException::new
+Type Parameters:
+X
+- Type of the exception to be thrown
+Parameters:
+exceptionSupplier
+- the supplying function that produces an
+        exception to be thrown
+Returns:
+the value, if present
+Throws:
+X
+- if no value is present
+NullPointerException
+- if no value is present and the exception
+         supplying function is
+null
+equals
+public
+boolean
+equals
+(
+Object
+obj)
+Indicates whether some other object is "equal to" this
+OptionalDouble
+. The other object is considered equal if:
+it is also an
+OptionalDouble
+and;
+both instances have no value present or;
+the present values are "equal to" each other via
+Double.compare() == 0
+.
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- an object to be tested for equality
+Returns:
+true
+if the other object is "equal to" this object
+         otherwise
+false
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+public
+int
+hashCode
+()
+Returns the hash code of the value, if present, otherwise
+0
+(zero) if no value is present.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+hash code value of the present value or
+0
+if no value is
+         present
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+toString
+public
+String
+toString
+()
+Returns a non-empty string representation of this
+OptionalDouble
+suitable for debugging.  The exact presentation format is unspecified and
+ may vary between implementations and versions.
+Overrides:
+toString
+in class
+Object
+Implementation Requirements:
+If a value is present the result must include its string representation
+ in the result.  Empty and present
+OptionalDouble
+s must be
+ unambiguously differentiable.
+Returns:
+the string representation of this instance
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

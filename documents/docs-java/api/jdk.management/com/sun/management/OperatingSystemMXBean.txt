@@ -1,0 +1,339 @@
+OperatingSystemMXBean (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.management
+Package
+com.sun.management
+Interface OperatingSystemMXBean
+All Superinterfaces:
+OperatingSystemMXBean
+,
+PlatformManagedObject
+All Known Subinterfaces:
+UnixOperatingSystemMXBean
+public interface
+OperatingSystemMXBean
+extends
+OperatingSystemMXBean
+Platform-specific management interface for the operating system
+ on which the Java virtual machine is running.
+This interface provides information about the operating environment
+ on which the Java virtual machine is running. That might be a native
+ operating system, a virtualized operating system environment, or a
+ container-managed environment.
+The
+OperatingSystemMXBean
+object returned by
+ManagementFactory.getOperatingSystemMXBean()
+is an instance of the implementation class of this interface
+ or
+UnixOperatingSystemMXBean
+interface depending on
+ its underlying operating system.
+Since:
+1.5
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+long
+getCommittedVirtualMemorySize
+()
+Returns the amount of virtual memory that is guaranteed to
+ be available to the running process in bytes,
+ or
+-1
+if this operation is not supported.
+double
+getCpuLoad
+()
+Returns the "recent cpu usage" for the operating environment.
+long
+getFreeMemorySize
+()
+Returns the amount of free memory in bytes.
+default long
+getFreePhysicalMemorySize
+()
+Deprecated.
+Use
+getFreeMemorySize()
+instead of
+ this historically named method.
+long
+getFreeSwapSpaceSize
+()
+Returns the amount of free swap space in bytes.
+double
+getProcessCpuLoad
+()
+Returns the "recent cpu usage" for the Java Virtual Machine process.
+long
+getProcessCpuTime
+()
+Returns the CPU time used by the process on which the Java
+ virtual machine is running in nanoseconds.
+default double
+getSystemCpuLoad
+()
+Deprecated.
+Use
+getCpuLoad()
+instead of
+ this historically named method.
+long
+getTotalMemorySize
+()
+Returns the total amount of memory in bytes.
+default long
+getTotalPhysicalMemorySize
+()
+Deprecated.
+Use
+getTotalMemorySize()
+instead of
+ this historically named method.
+long
+getTotalSwapSpaceSize
+()
+Returns the total amount of swap space in bytes.
+Methods declared in interface java.lang.management.
+OperatingSystemMXBean
+getArch
+,
+getAvailableProcessors
+,
+getName
+,
+getSystemLoadAverage
+,
+getVersion
+Methods declared in interface java.lang.management.
+PlatformManagedObject
+getObjectName
+Method Details
+getCommittedVirtualMemorySize
+long
+getCommittedVirtualMemorySize
+()
+Returns the amount of virtual memory that is guaranteed to
+ be available to the running process in bytes,
+ or
+-1
+if this operation is not supported.
+Returns:
+the amount of virtual memory that is guaranteed to
+ be available to the running process in bytes,
+ or
+-1
+if this operation is not supported.
+getTotalSwapSpaceSize
+long
+getTotalSwapSpaceSize
+()
+Returns the total amount of swap space in bytes.
+Returns:
+the total amount of swap space in bytes.
+getFreeSwapSpaceSize
+long
+getFreeSwapSpaceSize
+()
+Returns the amount of free swap space in bytes.
+Returns:
+the amount of free swap space in bytes.
+getProcessCpuTime
+long
+getProcessCpuTime
+()
+Returns the CPU time used by the process on which the Java
+ virtual machine is running in nanoseconds.  The returned value
+ is of nanoseconds precision but not necessarily nanoseconds
+ accuracy.  This method returns
+-1
+if the
+ the platform does not support this operation.
+Returns:
+the CPU time used by the process in nanoseconds,
+ or
+-1
+if this operation is not supported.
+getFreePhysicalMemorySize
+@Deprecated
+(
+since
+="14")
+default
+long
+getFreePhysicalMemorySize
+()
+Deprecated.
+Use
+getFreeMemorySize()
+instead of
+ this historically named method.
+Returns the amount of free physical memory in bytes.
+Implementation Requirements:
+This implementation must return the same value
+ as
+getFreeMemorySize()
+.
+Returns:
+the amount of free physical memory in bytes.
+getFreeMemorySize
+long
+getFreeMemorySize
+()
+Returns the amount of free memory in bytes.
+Returns:
+the amount of free memory in bytes.
+Since:
+14
+getTotalPhysicalMemorySize
+@Deprecated
+(
+since
+="14")
+default
+long
+getTotalPhysicalMemorySize
+()
+Deprecated.
+Use
+getTotalMemorySize()
+instead of
+ this historically named method.
+Returns the total amount of physical memory in bytes.
+Implementation Requirements:
+This implementation must return the same value
+ as
+getTotalMemorySize()
+.
+Returns:
+the total amount of physical memory in  bytes.
+getTotalMemorySize
+long
+getTotalMemorySize
+()
+Returns the total amount of memory in bytes.
+Returns:
+the total amount of memory in  bytes.
+Since:
+14
+getSystemCpuLoad
+@Deprecated
+(
+since
+="14")
+default
+double
+getSystemCpuLoad
+()
+Deprecated.
+Use
+getCpuLoad()
+instead of
+ this historically named method.
+Returns the "recent cpu usage" for the whole system. This value is a
+ double in the [0.0,1.0] interval. A value of 0.0 means that all CPUs
+ were idle during the recent period of time observed, while a value
+ of 1.0 means that all CPUs were actively running 100% of the time
+ during the recent period being observed. All values betweens 0.0 and
+ 1.0 are possible depending of the activities going on in the system.
+ If the system recent cpu usage is not available, the method returns a
+ negative value.
+Implementation Requirements:
+This implementation must return the same value
+ as
+getCpuLoad()
+.
+Returns:
+the "recent cpu usage" for the whole system; a negative
+ value if not available.
+Since:
+1.7
+getCpuLoad
+double
+getCpuLoad
+()
+Returns the "recent cpu usage" for the operating environment. This value
+ is a double in the [0.0,1.0] interval. A value of 0.0 means that all CPUs
+ were idle during the recent period of time observed, while a value
+ of 1.0 means that all CPUs were actively running 100% of the time
+ during the recent period being observed. All values betweens 0.0 and
+ 1.0 are possible depending of the activities going on.
+ If the recent cpu usage is not available, the method returns a
+ negative value.
+Returns:
+the "recent cpu usage" for the whole operating environment;
+ a negative value if not available.
+Since:
+14
+getProcessCpuLoad
+double
+getProcessCpuLoad
+()
+Returns the "recent cpu usage" for the Java Virtual Machine process.
+ This value is a double in the [0.0,1.0] interval. A value of 0.0 means
+ that none of the CPUs were running threads from the JVM process during
+ the recent period of time observed, while a value of 1.0 means that all
+ CPUs were actively running threads from the JVM 100% of the time
+ during the recent period being observed. Threads from the JVM include
+ the application threads as well as the JVM internal threads. All values
+ betweens 0.0 and 1.0 are possible depending of the activities going on
+ in the JVM process and the whole system. If the Java Virtual Machine
+ recent CPU usage is not available, the method returns a negative value.
+Returns:
+the "recent cpu usage" for the Java Virtual Machine process;
+ a negative value if not available.
+Since:
+1.7
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

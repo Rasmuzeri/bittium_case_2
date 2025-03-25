@@ -1,0 +1,171 @@
+Java Remote Method Invocation: A - Exceptions In RMI
+A Exceptions In RMI
+Exceptions
+During Remote Object Export
+Exceptions During RMI
+Call
+Exceptions or
+Errors During Return
+Naming Exceptions
+Activation Exceptions
+Other Exceptions
+A.1 Exceptions
+During Remote Object Export
+When a remote object class is created that extends
+UnicastRemoteObject
+, the object is exported, meaning it can
+receive calls from external Java virtual machines and can be passed in
+an RMI call as either a parameter or return value. An object can either
+be exported on an anonymous port or on a specified port. For objects not
+extended from
+UnicastRemoteObject
+, the
+java.rmi.server.UnicastRemoteObject.exportObject
+method is
+used to explicitly export the object.
+java.rmi.StubNotFoundException
+Class of stub not found.
+Name collision with class of same name as stub causes one of these
+errors:
+Stub can't be instantiated
+Stub not of correct class
+Bad URL due to wrong codebase.
+Stub not of correct class.
+java.rmi.server.SkeletonNotFoundException
+Note: this exception is deprecated as of Java 2 SDK, Standard
+Edition, v1.2
+Class of skeleton not found.
+Name collision with class of same name as skeleton causes one of
+these errors:
+Skeleton can't be instantiated
+Skeleton not of correct class
+Bad URL due to wrong codebase.
+Skeleton not of correct class.
+java.rmi.server.ExportException
+The port is in use by another VM.
+A.2 Exceptions During RMI
+Call
+java.rmi.UnknownHostException
+Unknown host.
+java.rmi.ConnectException
+Connection refused to host.
+java.rmi.ConnectIOException
+I/O error creating connection.
+java.rmi.MarshalException
+I/O error marshaling transport header, marshaling call header, or
+marshaling arguments.
+java.rmi.NoSuchObjectException
+Attempt to invoke a method on an object that is no longer
+available.
+java.rmi.StubNotFoundException
+Remote object not exported.
+A.3 Exceptions or Errors
+During Return
+java.rmi.UnmarshalException
+Corrupted stream leads to either an I/O or protocol error when:
+Marshaling return header
+Checking return type
+Checking return code
+Unmarshaling return
+Return value class not found.
+java.rmi.UnexpectedException
+An exception not mentioned in the method signature occurred
+(excluding runtime exceptions). The
+UnexpectedException
+exception object contains the underlying exception that was thrown by
+the server.
+java.rmi.ServerError
+Any error that occurs while the server is executing a remote method.
+The
+ServerError
+exception object contains the underlying
+error that was thrown by the server.
+java.rmi.ServerException
+This exception is thrown as a result of a remote method invocation
+when a
+RemoteException
+is thrown while processing the
+invocation on the server, either while unmarshalling the arguments or
+executing the remote method itself. For examples, see
+Section A.3.1,
+"Possible Causes of java.rmi.ServerException"
+.
+java.rmi.ServerRuntimeException
+Note: this exception is deprecated as of Java 2 SDK, Standard
+Edition, v1.2
+This exception is not thrown by servers running Java 2 SDK, Standard
+Edition, v1.2-compatible versions. A
+RuntimeException
+is
+propagated to clients intact.
+A.3.1
+Possible Causes of
+java.rmi.ServerException
+These are some of the underlying exceptions which can occur on the
+server when the server is itself executing a remote method invocation.
+These exceptions are wrapped in a
+java.rmi.ServerException
+;
+that is the
+java.rmi.ServerException
+contains the original
+exception for the client to extract. These exceptions are wrapped by
+ServerException
+so that the client will know that its own
+remote method invocation on the server did not fail, but that a
+secondary remote method invocation made by the server failed.
+java.rmi.server.SkeletonMismatchException
+Note: this exception is deprecated as of the Java 2 SDK, Standard
+Edition, v1.2
+Hash mismatch of stub and skeleton.
+java.rmi.UnmarshalException
+I/O error unmarshaling call header.
+I/O error unmarshaling arguments.
+Invalid method number or method hash.
+java.rmi.MarshalException
+Protocol error marshaling return.
+java.rmi.RemoteException
+A
+RemoteException
+occurring as a result of a remote
+invocation by the server.
+A.4 Naming Exceptions
+The following table lists the exceptions specified in methods of the
+java.rmi.Naming
+class and the
+java.rmi.registry.Registry
+interface.
+java.rmi.AccessException
+Operation disallowed. The registry restricts bind, rebind, and unbind
+to the same host. The lookup operation can originate from any host.
+java.rmi.AlreadyBoundException
+Attempt to bind a name that is already bound.
+java.rmi.NotBoundException
+Attempt to look up a name that is not bound.
+java.rmi.UnknownHostException
+Attempt to contact a registry on an unknown host.
+A.5 Activation Exceptions
+The Activation mechanism has been removed from the system.
+A.6 Other Exceptions
+java.rmi.RMISecurityException
+Note: this exception is deprecated as of the Java 2 SDK, Standard
+Edition, v1.2
+A security exception that is thrown by the
+RMISecurityManager
+.
+java.rmi.server.ServerCloneException
+Clone failed.
+java.rmi.server.ServerNotActiveException
+Attempt to get the client host via the
+RemoteServer.getClientHost
+method when the remote server is
+not executing in a remote method.
+java.rmi.server.SocketSecurityException
+Attempt to export object on an illegal port.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

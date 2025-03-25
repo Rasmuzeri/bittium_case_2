@@ -1,0 +1,241 @@
+ListSelectionEvent (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.event
+Class ListSelectionEvent
+java.lang.Object
+java.util.EventObject
+javax.swing.event.ListSelectionEvent
+All Implemented Interfaces:
+Serializable
+public class
+ListSelectionEvent
+extends
+EventObject
+An event that characterizes a change in selection. The change is limited to a
+ a single inclusive interval. The selection of at least one index within the
+ range will have changed. A decent
+ListSelectionModel
+implementation
+ will keep the range as small as possible.
+ListSelectionListeners
+will
+ generally query the source of the event for the new selected status of each
+ potentially changed row.
+Warning:
+Serialized objects of this class will not be compatible with
+ future Swing releases. The current serialization support is
+ appropriate for short term storage or RMI between applications running
+ the same version of Swing.  As of 1.4, support for long term storage
+ of all JavaBeans
+ has been added to the
+java.beans
+package.
+ Please see
+XMLEncoder
+.
+See Also:
+ListSelectionModel
+Field Summary
+Fields declared in class java.util.
+EventObject
+source
+Constructor Summary
+Constructors
+Constructor
+Description
+ListSelectionEvent
+(
+Object
+source,
+ int firstIndex,
+ int lastIndex,
+ boolean isAdjusting)
+Represents a change in selection status between
+firstIndex
+and
+lastIndex
+, inclusive.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+int
+getFirstIndex
+()
+Returns the index of the first row whose selection may have changed.
+int
+getLastIndex
+()
+Returns the index of the last row whose selection may have changed.
+boolean
+getValueIsAdjusting
+()
+Returns whether or not this is one in a series of multiple events,
+ where changes are still being made.
+String
+toString
+()
+Returns a
+String
+that displays and identifies this
+ object's properties.
+Methods declared in class java.util.
+EventObject
+getSource
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+ListSelectionEvent
+public
+ListSelectionEvent
+(
+Object
+source,
+ int firstIndex,
+ int lastIndex,
+ boolean isAdjusting)
+Represents a change in selection status between
+firstIndex
+and
+lastIndex
+, inclusive.
+firstIndex
+is less than or equal to
+lastIndex
+. The selection of at least one index within the range will
+ have changed.
+Parameters:
+source
+- the
+Object
+on which the event initially occurred
+firstIndex
+- the first index in the range, <= lastIndex
+lastIndex
+- the last index in the range, >= firstIndex
+isAdjusting
+- whether or not this is one in a series of
+        multiple events, where changes are still being made
+Method Details
+getFirstIndex
+public
+int
+getFirstIndex
+()
+Returns the index of the first row whose selection may have changed.
+getFirstIndex() <= getLastIndex()
+Returns:
+the first row whose selection value may have changed,
+         where zero is the first row
+getLastIndex
+public
+int
+getLastIndex
+()
+Returns the index of the last row whose selection may have changed.
+getLastIndex() >= getFirstIndex()
+Returns:
+the last row whose selection value may have changed,
+         where zero is the first row
+getValueIsAdjusting
+public
+boolean
+getValueIsAdjusting
+()
+Returns whether or not this is one in a series of multiple events,
+ where changes are still being made. See the documentation for
+ListSelectionModel.setValueIsAdjusting(boolean)
+for
+ more details on how this is used.
+Returns:
+true
+if this is one in a series of multiple events,
+         where changes are still being made
+toString
+public
+String
+toString
+()
+Returns a
+String
+that displays and identifies this
+ object's properties.
+Overrides:
+toString
+in class
+EventObject
+Returns:
+a String representation of this object
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

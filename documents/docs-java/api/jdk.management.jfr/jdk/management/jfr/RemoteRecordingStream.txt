@@ -1,0 +1,920 @@
+RemoteRecordingStream (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.management.jfr
+Package
+jdk.management.jfr
+Class RemoteRecordingStream
+java.lang.Object
+jdk.management.jfr.RemoteRecordingStream
+All Implemented Interfaces:
+AutoCloseable
+,
+EventStream
+public final class
+RemoteRecordingStream
+extends
+Object
+implements
+EventStream
+An implementation of an
+EventStream
+that can serialize events over
+ the network using an
+MBeanServerConnection
+.
+The following example shows how to record garbage collection pauses and CPU
+ usage on a remote host and print the events to standard out.
+String host = "com.example";
+     int port = 4711;
+
+     String url = "service:jmx:rmi:///jndi/rmi://" + host + ":" + port + "/jmxrmi";
+
+     JMXServiceURL u = new JMXServiceURL(url);
+     JMXConnector c = JMXConnectorFactory.connect(u);
+     MBeanServerConnection conn = c.getMBeanServerConnection();
+
+     try (var rs = new RemoteRecordingStream(conn)) {
+         rs.enable("jdk.GCPhasePause").withoutThreshold();
+         rs.enable("jdk.CPULoad").withPeriod(Duration.ofSeconds(1));
+         rs.onEvent("jdk.CPULoad", System.out::println);
+         rs.onEvent("jdk.GCPhasePause", System.out::println);
+         rs.start();
+     }
+Since:
+16
+Constructor Summary
+Constructors
+Constructor
+Description
+RemoteRecordingStream
+(
+MBeanServerConnection
+connection)
+Creates an event stream that operates against a
+MBeanServerConnection
+that has a registered
+FlightRecorderMXBean
+.
+RemoteRecordingStream
+(
+MBeanServerConnection
+connection,
+Path
+directory)
+Creates an event stream that operates against a
+MBeanServerConnection
+that has a registered
+FlightRecorderMXBean
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+awaitTermination
+()
+Blocks until all actions are completed, or the stream is closed, or the
+ current thread is interrupted, whichever happens first.
+void
+awaitTermination
+(
+Duration
+timeout)
+Blocks until all actions are completed, or the stream is closed, or the
+ timeout occurs, or the current thread is interrupted, whichever happens
+ first.
+void
+close
+()
+Releases all resources associated with this stream.
+EventSettings
+disable
+(
+String
+name)
+Disables event with the specified name.
+void
+dump
+(
+Path
+destination)
+Writes recording data to a file.
+EventSettings
+enable
+(
+String
+name)
+Enables the event with the specified name.
+void
+onClose
+(
+Runnable
+action)
+Registers an action to perform when the stream is closed.
+void
+onError
+(
+Consumer
+<
+Throwable
+> action)
+Registers an action to perform if an exception occurs.
+void
+onEvent
+(
+String
+eventName,
+Consumer
+<
+RecordedEvent
+> action)
+Registers an action to perform on all events matching a name.
+void
+onEvent
+(
+Consumer
+<
+RecordedEvent
+> action)
+Registers an action to perform on all events in the stream.
+void
+onFlush
+(
+Runnable
+action)
+Registers an action to perform after the stream has been flushed.
+boolean
+remove
+(
+Object
+action)
+Unregisters an action.
+void
+setEndTime
+(
+Instant
+endTime)
+Specifies the end time of the stream.
+void
+setMaxAge
+(
+Duration
+maxAge)
+Determines how far back data is kept for the stream.
+void
+setMaxSize
+(long maxSize)
+Determines how much data is kept for the stream.
+void
+setOrdered
+(boolean ordered)
+Specifies that events arrives in chronological order, sorted by the time
+ they were committed to the stream.
+void
+setReuse
+(boolean reuse)
+Specifies that the event object in an
+EventStream.onEvent(Consumer)
+action
+ can be reused.
+void
+setSettings
+(
+Map
+<
+String
+,
+String
+> settings)
+Replaces all settings for this recording stream.
+void
+setStartTime
+(
+Instant
+startTime)
+Specifies the start time of the stream.
+void
+start
+()
+Starts processing of actions.
+void
+startAsync
+()
+Starts asynchronous processing of actions.
+boolean
+stop
+()
+Stops the recording stream.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface jdk.jfr.consumer.
+EventStream
+onMetadata
+Constructor Details
+RemoteRecordingStream
+public
+RemoteRecordingStream
+(
+MBeanServerConnection
+connection)
+throws
+IOException
+Creates an event stream that operates against a
+MBeanServerConnection
+that has a registered
+FlightRecorderMXBean
+.
+To configure event settings, use
+setSettings(Map)
+.
+Parameters:
+connection
+- the
+MBeanServerConnection
+where the
+FlightRecorderMXBean
+is registered, not
+null
+Throws:
+IOException
+- if a stream can't be opened, an I/O error occurs
+                           when trying to access the repository or the
+FlightRecorderMXBean
+SecurityException
+- if a security manager exists and its
+checkRead
+method denies read access to the
+                           directory, or files in the directory.
+RemoteRecordingStream
+public
+RemoteRecordingStream
+(
+MBeanServerConnection
+connection,
+Path
+directory)
+throws
+IOException
+Creates an event stream that operates against a
+MBeanServerConnection
+that has a registered
+FlightRecorderMXBean
+.
+To configure event settings, use
+setSettings(Map)
+.
+Parameters:
+connection
+- the
+MBeanServerConnection
+where the
+FlightRecorderMXBean
+is registered, not
+null
+directory
+- the directory to store event data that is downloaded, not
+null
+Throws:
+IOException
+- if a stream can't be opened, an I/O error occurs
+                           when trying to access the repository or the
+FlightRecorderMXBean
+SecurityException
+- if a security manager exists and its
+checkRead
+method denies read access to the
+                           directory, or files in the directory.
+Method Details
+setSettings
+public
+void
+setSettings
+(
+Map
+<
+String
+,
+String
+> settings)
+Replaces all settings for this recording stream.
+The following example connects to a remote host and stream events using
+ settings from the "default" configuration.
+{
+     
+
+     String host = "com.example";
+     int port = 4711;
+
+     String url = "service:jmx:rmi:///jndi/rmi://" + host + ":" + port + "/jmxrmi";
+
+     JMXServiceURL u = new JMXServiceURL(url);
+     JMXConnector c = JMXConnectorFactory.connect(u);
+     MBeanServerConnection conn = c.getMBeanServerConnection();
+
+     try (final var rs = new RemoteRecordingStream(conn)) {
+         rs.onMetadata(e -> {
+             for (Configuration c : e.getConfigurations()) {
+                 if (c.getName().equals("default")) {
+                     rs.setSettings(c.getSettings());
+                 }
+             }
+         });
+         rs.onEvent(System.out::println);
+         rs.start();
+     }
+Parameters:
+settings
+- the settings to set, not
+null
+See Also:
+Recording.setSettings(Map)
+disable
+public
+EventSettings
+disable
+(
+String
+name)
+Disables event with the specified name.
+If multiple events with same name (for example, the same class is loaded in
+ different class loaders), then all events that match the name are disabled.
+Parameters:
+name
+- the settings for the event, not
+null
+Returns:
+an event setting for further configuration, not
+null
+enable
+public
+EventSettings
+enable
+(
+String
+name)
+Enables the event with the specified name.
+If multiple events have the same name (for example, the same class is loaded
+ in different class loaders), then all events that match the name are enabled.
+Parameters:
+name
+- the settings for the event, not
+null
+Returns:
+an event setting for further configuration, not
+null
+See Also:
+EventType
+setMaxAge
+public
+void
+setMaxAge
+(
+Duration
+maxAge)
+Determines how far back data is kept for the stream.
+To control the amount of recording data stored on disk, the maximum length of
+ time to retain the data can be specified. Data stored on disk that is older
+ than the specified length of time is removed by the Java Virtual Machine
+ (JVM).
+If neither maximum limit or the maximum age is set, the size of the recording
+ may grow indefinitely if events are not consumed.
+Parameters:
+maxAge
+- the length of time that data is kept, or
+null
+if
+               infinite
+Throws:
+IllegalArgumentException
+- if
+maxAge
+is negative
+IllegalStateException
+- if the recording is in the
+CLOSED
+state
+setMaxSize
+public
+void
+setMaxSize
+(long maxSize)
+Determines how much data is kept for the stream.
+To control the amount of recording data that is stored on disk, the maximum
+ amount of data to retain can be specified. When the maximum limit is
+ exceeded, the Java Virtual Machine (JVM) removes the oldest chunk to make
+ room for a more recent chunk.
+If neither maximum limit or the maximum age is set, the size of the recording
+ may grow indefinitely if events are not consumed.
+The size is measured in bytes.
+Parameters:
+maxSize
+- the amount of data to retain,
+0
+if infinite
+Throws:
+IllegalArgumentException
+- if
+maxSize
+is negative
+IllegalStateException
+- if the recording is in
+CLOSED
+state
+onEvent
+public
+void
+onEvent
+(
+Consumer
+<
+RecordedEvent
+> action)
+Description copied from interface:
+EventStream
+Registers an action to perform on all events in the stream.
+To perform an action on a subset of event types, consider using
+EventStream.onEvent(String, Consumer)
+and
+EventStream.onMetadata(Consumer)
+as it is
+ likely more performant than any selection or filtering mechanism implemented
+ in a generic action.
+Specified by:
+onEvent
+in interface
+EventStream
+Parameters:
+action
+- an action to perform on each
+RecordedEvent
+, not
+null
+See Also:
+EventStream.onEvent(Consumer)
+EventStream.onMetadata(Consumer)
+onEvent
+public
+void
+onEvent
+(
+String
+eventName,
+Consumer
+<
+RecordedEvent
+> action)
+Description copied from interface:
+EventStream
+Registers an action to perform on all events matching a name.
+Specified by:
+onEvent
+in interface
+EventStream
+Parameters:
+eventName
+- the name of the event, not
+null
+action
+- an action to perform on each
+RecordedEvent
+matching
+        the event name, not
+null
+onFlush
+public
+void
+onFlush
+(
+Runnable
+action)
+Description copied from interface:
+EventStream
+Registers an action to perform after the stream has been flushed.
+Specified by:
+onFlush
+in interface
+EventStream
+Parameters:
+action
+- an action to perform after the stream has been
+        flushed, not
+null
+onError
+public
+void
+onError
+(
+Consumer
+<
+Throwable
+> action)
+Description copied from interface:
+EventStream
+Registers an action to perform if an exception occurs.
+If an action is not registered, an exception stack trace is printed to
+ standard error.
+Registering an action overrides the default behavior. If multiple actions
+ have been registered, they are performed in the order of registration.
+If this method itself throws an exception, resulting behavior is
+ undefined.
+Specified by:
+onError
+in interface
+EventStream
+Parameters:
+action
+- an action to perform if an exception occurs, not
+null
+onClose
+public
+void
+onClose
+(
+Runnable
+action)
+Description copied from interface:
+EventStream
+Registers an action to perform when the stream is closed.
+If the stream is already closed, the action will be performed immediately
+ in the current thread.
+Specified by:
+onClose
+in interface
+EventStream
+Parameters:
+action
+- an action to perform after the stream is closed, not
+null
+See Also:
+EventStream.close()
+close
+public
+void
+close
+()
+Description copied from interface:
+EventStream
+Releases all resources associated with this stream.
+If a stream is started, asynchronously or synchronously, it is stopped
+ immediately or after the next flush. This method does
+NOT
+guarantee that all registered actions are completed before return.
+Closing a previously closed stream has no effect.
+Specified by:
+close
+in interface
+AutoCloseable
+Specified by:
+close
+in interface
+EventStream
+remove
+public
+boolean
+remove
+(
+Object
+action)
+Description copied from interface:
+EventStream
+Unregisters an action.
+If the action has been registered multiple times, all instances are
+ unregistered.
+Specified by:
+remove
+in interface
+EventStream
+Parameters:
+action
+- the action to unregister, not
+null
+Returns:
+true
+if the action was unregistered,
+false
+otherwise
+See Also:
+EventStream.onEvent(Consumer)
+EventStream.onEvent(String, Consumer)
+EventStream.onFlush(Runnable)
+EventStream.onClose(Runnable)
+EventStream.onError(Consumer)
+setReuse
+public
+void
+setReuse
+(boolean reuse)
+Description copied from interface:
+EventStream
+Specifies that the event object in an
+EventStream.onEvent(Consumer)
+action
+ can be reused.
+If reuse is set to
+true
+, an action should not keep a reference
+ to the event object after the action has completed.
+Specified by:
+setReuse
+in interface
+EventStream
+Parameters:
+reuse
+-
+true
+if an event object can be reused,
+false
+otherwise
+setOrdered
+public
+void
+setOrdered
+(boolean ordered)
+Description copied from interface:
+EventStream
+Specifies that events arrives in chronological order, sorted by the time
+ they were committed to the stream.
+Specified by:
+setOrdered
+in interface
+EventStream
+Parameters:
+ordered
+- if event objects arrive in chronological order to
+EventStream.onEvent(Consumer)
+setStartTime
+public
+void
+setStartTime
+(
+Instant
+startTime)
+Description copied from interface:
+EventStream
+Specifies the start time of the stream.
+The start time must be set before starting the stream
+Specified by:
+setStartTime
+in interface
+EventStream
+Parameters:
+startTime
+- the start time, not
+null
+See Also:
+EventStream.start()
+EventStream.startAsync()
+setEndTime
+public
+void
+setEndTime
+(
+Instant
+endTime)
+Description copied from interface:
+EventStream
+Specifies the end time of the stream.
+The end time must be set before starting the stream.
+At end time, the stream is closed.
+Specified by:
+setEndTime
+in interface
+EventStream
+Parameters:
+endTime
+- the end time, not
+null
+See Also:
+EventStream.start()
+EventStream.startAsync()
+start
+public
+void
+start
+()
+Description copied from interface:
+EventStream
+Starts processing of actions.
+Actions are performed in the current thread.
+To stop the stream, use the
+EventStream.close()
+method.
+Specified by:
+start
+in interface
+EventStream
+startAsync
+public
+void
+startAsync
+()
+Description copied from interface:
+EventStream
+Starts asynchronous processing of actions.
+Actions are performed in a single separate thread.
+To stop the stream, use the
+EventStream.close()
+method.
+Specified by:
+startAsync
+in interface
+EventStream
+stop
+public
+boolean
+stop
+()
+Stops the recording stream.
+Stops a started stream and waits until all events in the recording have
+ been consumed.
+Invoking this method in an action, for example in the
+onEvent(Consumer)
+method, could block the stream indefinitely.
+ To stop the stream abruptly, use the
+close()
+method.
+The following code snippet illustrates how this method can be used in
+ conjunction with the
+startAsync()
+method to monitor what happens
+ during a test method:
+Copy
+AtomicLong bytesWritten = new AtomicLong();
+  try (var r = new RemoteRecordingStream(connection)) {
+    r.setMaxSize(Long.MAX_VALUE);
+    r.enable("jdk.FileWrite").withoutThreshold();
+    r.onEvent(event ->
+      bytesWritten.addAndGet(event.getLong("bytesWritten"))
+    );
+    r.startAsync();
+    testFoo();
+    r.stop();
+    if (bytesWritten.get() > 1_000_000L) {
+      r.dump(Path.of("file-write-events.jfr"));
+      throw new AssertionError("testFoo() writes too much data to disk");
+    }
+  }
+Returns:
+true
+if recording is stopped,
+false
+otherwise
+Throws:
+IllegalStateException
+- if the recording is not started or is already stopped
+Since:
+20
+dump
+public
+void
+dump
+(
+Path
+destination)
+throws
+IOException
+Writes recording data to a file.
+The recording stream must be started, but not closed.
+It's highly recommended that a max age or max size is set before
+ starting the stream. Otherwise, the dump may not contain any events.
+Parameters:
+destination
+- the location where recording data is written, not
+null
+Throws:
+IOException
+- if the recording data can't be copied to the specified
+         location, or if the stream is closed, or not started.
+SecurityException
+- if a security manager exists and the caller doesn't
+         have
+FilePermission
+to write to the destination path
+Since:
+17
+See Also:
+setMaxAge(Duration)
+setMaxSize(long)
+awaitTermination
+public
+void
+awaitTermination
+(
+Duration
+timeout)
+throws
+InterruptedException
+Description copied from interface:
+EventStream
+Blocks until all actions are completed, or the stream is closed, or the
+ timeout occurs, or the current thread is interrupted, whichever happens
+ first.
+Specified by:
+awaitTermination
+in interface
+EventStream
+Parameters:
+timeout
+- the maximum time to wait, not
+null
+Throws:
+InterruptedException
+- if interrupted while waiting
+See Also:
+EventStream.start()
+EventStream.startAsync()
+Thread.interrupt()
+awaitTermination
+public
+void
+awaitTermination
+()
+                      throws
+InterruptedException
+Description copied from interface:
+EventStream
+Blocks until all actions are completed, or the stream is closed, or the
+ current thread is interrupted, whichever happens first.
+Specified by:
+awaitTermination
+in interface
+EventStream
+Throws:
+InterruptedException
+- if interrupted while waiting
+See Also:
+EventStream.start()
+EventStream.startAsync()
+Thread.interrupt()
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

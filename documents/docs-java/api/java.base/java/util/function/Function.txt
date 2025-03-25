@@ -1,0 +1,233 @@
+Function (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.util.function
+Interface Function<T,
+R>
+Type Parameters:
+T
+- the type of the input to the function
+R
+- the type of the result of the function
+All Known Subinterfaces:
+UnaryOperator
+<T>
+Functional Interface:
+This is a functional interface and can therefore be used as the assignment target for a lambda expression or method reference.
+@FunctionalInterface
+public interface
+Function<T,
+R>
+Represents a function that accepts one argument and produces a result.
+This is a
+functional interface
+whose functional method is
+apply(Object)
+.
+Since:
+1.8
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+default <V>
+Function
+<
+T
+,
+V>
+andThen
+(
+Function
+<? super
+R
+,
+? extends V> after)
+Returns a composed function that first applies this function to
+ its input, and then applies the
+after
+function to the result.
+R
+apply
+(
+T
+t)
+Applies this function to the given argument.
+default <V>
+Function
+<V,
+R
+>
+compose
+(
+Function
+<? super V,
+? extends
+T
+> before)
+Returns a composed function that first applies the
+before
+function to its input, and then applies this function to the result.
+static <T>
+Function
+<T,
+T>
+identity
+()
+Returns a function that always returns its input argument.
+Method Details
+apply
+R
+apply
+(
+T
+t)
+Applies this function to the given argument.
+Parameters:
+t
+- the function argument
+Returns:
+the function result
+compose
+default
+<V>
+Function
+<V,
+R
+>
+compose
+(
+Function
+<? super V,
+? extends
+T
+> before)
+Returns a composed function that first applies the
+before
+function to its input, and then applies this function to the result.
+ If evaluation of either function throws an exception, it is relayed to
+ the caller of the composed function.
+Type Parameters:
+V
+- the type of input to the
+before
+function, and to the
+           composed function
+Parameters:
+before
+- the function to apply before this function is applied
+Returns:
+a composed function that first applies the
+before
+function and then applies this function
+Throws:
+NullPointerException
+- if before is null
+See Also:
+andThen(Function)
+andThen
+default
+<V>
+Function
+<
+T
+,
+V>
+andThen
+(
+Function
+<? super
+R
+,
+? extends V> after)
+Returns a composed function that first applies this function to
+ its input, and then applies the
+after
+function to the result.
+ If evaluation of either function throws an exception, it is relayed to
+ the caller of the composed function.
+Type Parameters:
+V
+- the type of output of the
+after
+function, and of the
+           composed function
+Parameters:
+after
+- the function to apply after this function is applied
+Returns:
+a composed function that first applies this function and then
+ applies the
+after
+function
+Throws:
+NullPointerException
+- if after is null
+See Also:
+compose(Function)
+identity
+static
+<T>
+Function
+<T,
+T>
+identity
+()
+Returns a function that always returns its input argument.
+Type Parameters:
+T
+- the type of the input and output objects to the function
+Returns:
+a function that always returns its input argument
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,667 @@
+EventSetDescriptor (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.beans
+Class EventSetDescriptor
+java.lang.Object
+java.beans.FeatureDescriptor
+java.beans.EventSetDescriptor
+public class
+EventSetDescriptor
+extends
+FeatureDescriptor
+An EventSetDescriptor describes a group of events that a given Java
+ bean fires.
+The given group of events are all delivered as method calls on a single
+ event listener interface, and an event listener object can be registered
+ via a call on a registration method supplied by the event source.
+Since:
+1.1
+Constructor Summary
+Constructors
+Constructor
+Description
+EventSetDescriptor
+(
+Class
+<?> sourceClass,
+String
+eventSetName,
+Class
+<?> listenerType,
+String
+listenerMethodName)
+Creates an
+EventSetDescriptor
+assuming that you are
+ following the most simple standard design pattern where a named
+ event "fred" is (1) delivered as a call on the single method of
+ interface FredListener, (2) has a single argument of type FredEvent,
+ and (3) where the FredListener may be registered with a call on an
+ addFredListener method of the source component and removed with a
+ call on a removeFredListener method.
+EventSetDescriptor
+(
+Class
+<?> sourceClass,
+String
+eventSetName,
+Class
+<?> listenerType,
+String
+[] listenerMethodNames,
+String
+addListenerMethodName,
+String
+removeListenerMethodName)
+Creates an
+EventSetDescriptor
+from scratch using
+ string names.
+EventSetDescriptor
+(
+Class
+<?> sourceClass,
+String
+eventSetName,
+Class
+<?> listenerType,
+String
+[] listenerMethodNames,
+String
+addListenerMethodName,
+String
+removeListenerMethodName,
+String
+getListenerMethodName)
+This constructor creates an EventSetDescriptor from scratch using
+ string names.
+EventSetDescriptor
+(
+String
+eventSetName,
+Class
+<?> listenerType,
+MethodDescriptor
+[] listenerMethodDescriptors,
+Method
+addListenerMethod,
+Method
+removeListenerMethod)
+Creates an
+EventSetDescriptor
+from scratch using
+java.lang.reflect.MethodDescriptor
+and
+java.lang.Class
+objects.
+EventSetDescriptor
+(
+String
+eventSetName,
+Class
+<?> listenerType,
+Method
+[] listenerMethods,
+Method
+addListenerMethod,
+Method
+removeListenerMethod)
+Creates an
+EventSetDescriptor
+from scratch using
+java.lang.reflect.Method
+and
+java.lang.Class
+objects.
+EventSetDescriptor
+(
+String
+eventSetName,
+Class
+<?> listenerType,
+Method
+[] listenerMethods,
+Method
+addListenerMethod,
+Method
+removeListenerMethod,
+Method
+getListenerMethod)
+This constructor creates an EventSetDescriptor from scratch using
+ java.lang.reflect.Method and java.lang.Class objects.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Method
+getAddListenerMethod
+()
+Gets the method used to add event listeners.
+Method
+getGetListenerMethod
+()
+Gets the method used to access the registered event listeners.
+MethodDescriptor
+[]
+getListenerMethodDescriptors
+()
+Gets the
+MethodDescriptor
+s of the target listener interface.
+Method
+[]
+getListenerMethods
+()
+Gets the methods of the target listener interface.
+Class
+<?>
+getListenerType
+()
+Gets the
+Class
+object for the target interface.
+Method
+getRemoveListenerMethod
+()
+Gets the method used to remove event listeners.
+boolean
+isInDefaultEventSet
+()
+Reports if an event set is in the "default" set.
+boolean
+isUnicast
+()
+Normally event sources are multicast.
+void
+setInDefaultEventSet
+(boolean inDefaultEventSet)
+Marks an event set as being in the "default" set (or not).
+void
+setUnicast
+(boolean unicast)
+Mark an event set as unicast (or not).
+Methods declared in class java.beans.
+FeatureDescriptor
+attributeNames
+,
+getDisplayName
+,
+getName
+,
+getShortDescription
+,
+getValue
+,
+isExpert
+,
+isHidden
+,
+isPreferred
+,
+setDisplayName
+,
+setExpert
+,
+setHidden
+,
+setName
+,
+setPreferred
+,
+setShortDescription
+,
+setValue
+,
+toString
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+EventSetDescriptor
+public
+EventSetDescriptor
+(
+Class
+<?> sourceClass,
+String
+eventSetName,
+Class
+<?> listenerType,
+String
+listenerMethodName)
+throws
+IntrospectionException
+Creates an
+EventSetDescriptor
+assuming that you are
+ following the most simple standard design pattern where a named
+ event "fred" is (1) delivered as a call on the single method of
+ interface FredListener, (2) has a single argument of type FredEvent,
+ and (3) where the FredListener may be registered with a call on an
+ addFredListener method of the source component and removed with a
+ call on a removeFredListener method.
+Parameters:
+sourceClass
+- The class firing the event.
+eventSetName
+- The programmatic name of the event.  E.g. "fred".
+          Note that this should normally start with a lower-case character.
+listenerType
+- The target interface that events
+          will get delivered to.
+listenerMethodName
+- The method that will get called when the event gets
+          delivered to its target listener interface.
+Throws:
+IntrospectionException
+- if an exception occurs during
+              introspection.
+EventSetDescriptor
+public
+EventSetDescriptor
+(
+Class
+<?> sourceClass,
+String
+eventSetName,
+Class
+<?> listenerType,
+String
+[] listenerMethodNames,
+String
+addListenerMethodName,
+String
+removeListenerMethodName)
+throws
+IntrospectionException
+Creates an
+EventSetDescriptor
+from scratch using
+ string names.
+Parameters:
+sourceClass
+- The class firing the event.
+eventSetName
+- The programmatic name of the event set.
+          Note that this should normally start with a lower-case character.
+listenerType
+- The Class of the target interface that events
+          will get delivered to.
+listenerMethodNames
+- The names of the methods that will get called
+          when the event gets delivered to its target listener interface.
+addListenerMethodName
+- The name of the method on the event source
+          that can be used to register an event listener object.
+removeListenerMethodName
+- The name of the method on the event source
+          that can be used to de-register an event listener object.
+Throws:
+IntrospectionException
+- if an exception occurs during
+              introspection.
+EventSetDescriptor
+public
+EventSetDescriptor
+(
+Class
+<?> sourceClass,
+String
+eventSetName,
+Class
+<?> listenerType,
+String
+[] listenerMethodNames,
+String
+addListenerMethodName,
+String
+removeListenerMethodName,
+String
+getListenerMethodName)
+throws
+IntrospectionException
+This constructor creates an EventSetDescriptor from scratch using
+ string names.
+Parameters:
+sourceClass
+- The class firing the event.
+eventSetName
+- The programmatic name of the event set.
+          Note that this should normally start with a lower-case character.
+listenerType
+- The Class of the target interface that events
+          will get delivered to.
+listenerMethodNames
+- The names of the methods that will get called
+          when the event gets delivered to its target listener interface.
+addListenerMethodName
+- The name of the method on the event source
+          that can be used to register an event listener object.
+removeListenerMethodName
+- The name of the method on the event source
+          that can be used to de-register an event listener object.
+getListenerMethodName
+- The method on the event source that
+          can be used to access the array of event listener objects.
+Throws:
+IntrospectionException
+- if an exception occurs during
+              introspection.
+Since:
+1.4
+EventSetDescriptor
+public
+EventSetDescriptor
+(
+String
+eventSetName,
+Class
+<?> listenerType,
+Method
+[] listenerMethods,
+Method
+addListenerMethod,
+Method
+removeListenerMethod)
+throws
+IntrospectionException
+Creates an
+EventSetDescriptor
+from scratch using
+java.lang.reflect.Method
+and
+java.lang.Class
+objects.
+Parameters:
+eventSetName
+- The programmatic name of the event set.
+listenerType
+- The Class for the listener interface.
+listenerMethods
+- An array of Method objects describing each
+          of the event handling methods in the target listener.
+addListenerMethod
+- The method on the event source
+          that can be used to register an event listener object.
+removeListenerMethod
+- The method on the event source
+          that can be used to de-register an event listener object.
+Throws:
+IntrospectionException
+- if an exception occurs during
+              introspection.
+EventSetDescriptor
+public
+EventSetDescriptor
+(
+String
+eventSetName,
+Class
+<?> listenerType,
+Method
+[] listenerMethods,
+Method
+addListenerMethod,
+Method
+removeListenerMethod,
+Method
+getListenerMethod)
+throws
+IntrospectionException
+This constructor creates an EventSetDescriptor from scratch using
+ java.lang.reflect.Method and java.lang.Class objects.
+Parameters:
+eventSetName
+- The programmatic name of the event set.
+listenerType
+- The Class for the listener interface.
+listenerMethods
+- An array of Method objects describing each
+          of the event handling methods in the target listener.
+addListenerMethod
+- The method on the event source
+          that can be used to register an event listener object.
+removeListenerMethod
+- The method on the event source
+          that can be used to de-register an event listener object.
+getListenerMethod
+- The method on the event source
+          that can be used to access the array of event listener objects.
+Throws:
+IntrospectionException
+- if an exception occurs during
+              introspection.
+Since:
+1.4
+EventSetDescriptor
+public
+EventSetDescriptor
+(
+String
+eventSetName,
+Class
+<?> listenerType,
+MethodDescriptor
+[] listenerMethodDescriptors,
+Method
+addListenerMethod,
+Method
+removeListenerMethod)
+throws
+IntrospectionException
+Creates an
+EventSetDescriptor
+from scratch using
+java.lang.reflect.MethodDescriptor
+and
+java.lang.Class
+objects.
+Parameters:
+eventSetName
+- The programmatic name of the event set.
+listenerType
+- The Class for the listener interface.
+listenerMethodDescriptors
+- An array of MethodDescriptor objects
+           describing each of the event handling methods in the
+           target listener.
+addListenerMethod
+- The method on the event source
+          that can be used to register an event listener object.
+removeListenerMethod
+- The method on the event source
+          that can be used to de-register an event listener object.
+Throws:
+IntrospectionException
+- if an exception occurs during
+              introspection.
+Method Details
+getListenerType
+public
+Class
+<?>
+getListenerType
+()
+Gets the
+Class
+object for the target interface.
+Returns:
+The Class object for the target interface that will
+ get invoked when the event is fired.
+getListenerMethods
+public
+Method
+[]
+getListenerMethods
+()
+Gets the methods of the target listener interface.
+Returns:
+An array of
+Method
+objects for the target methods
+ within the target listener interface that will get called when
+ events are fired.
+getListenerMethodDescriptors
+public
+MethodDescriptor
+[]
+getListenerMethodDescriptors
+()
+Gets the
+MethodDescriptor
+s of the target listener interface.
+Returns:
+An array of
+MethodDescriptor
+objects for the target methods
+ within the target listener interface that will get called when
+ events are fired.
+getAddListenerMethod
+public
+Method
+getAddListenerMethod
+()
+Gets the method used to add event listeners.
+Returns:
+The method used to register a listener at the event source.
+getRemoveListenerMethod
+public
+Method
+getRemoveListenerMethod
+()
+Gets the method used to remove event listeners.
+Returns:
+The method used to remove a listener at the event source.
+getGetListenerMethod
+public
+Method
+getGetListenerMethod
+()
+Gets the method used to access the registered event listeners.
+Returns:
+The method used to access the array of listeners at the event
+         source or null if it doesn't exist.
+Since:
+1.4
+setUnicast
+public
+void
+setUnicast
+(boolean unicast)
+Mark an event set as unicast (or not).
+Parameters:
+unicast
+- True if the event set is unicast.
+isUnicast
+public
+boolean
+isUnicast
+()
+Normally event sources are multicast.  However there are some
+ exceptions that are strictly unicast.
+Returns:
+true
+if the event set is unicast.
+          Defaults to
+false
+.
+setInDefaultEventSet
+public
+void
+setInDefaultEventSet
+(boolean inDefaultEventSet)
+Marks an event set as being in the "default" set (or not).
+ By default this is
+true
+.
+Parameters:
+inDefaultEventSet
+-
+true
+if the event set is in
+                          the "default" set,
+false
+if not
+isInDefaultEventSet
+public
+boolean
+isInDefaultEventSet
+()
+Reports if an event set is in the "default" set.
+Returns:
+true
+if the event set is in
+          the "default" set.  Defaults to
+true
+.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,116 @@
+BooleanFlag (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Field
+Required
+Optional
+Detail:
+Field
+Element
+Summary:
+Field |
+Required |
+Optional
+Detail:
+Field |
+Element
+SEARCH
+Module
+jdk.jfr
+Package
+jdk.jfr
+Annotation Interface BooleanFlag
+@Retention
+(
+RUNTIME
+)
+@Target
+({
+FIELD
+,
+TYPE
+,
+METHOD
+})
+public @interface
+BooleanFlag
+Event field annotation, specifies that the value is a boolean flag, a
+true
+or
+false
+value.
+The following example shows how the
+BooleanFlag
+annotation can be
+ used to describe that a setting is a boolean value. This information can be
+ used by a graphical user interface to display the setting as a checkbox.
+Copy
+@BooleanFlag
+@Name("example.Rollback")
+@Label("Rollback")
+@Description("Include transactions that are rollbacked")
+public static class RollbackSetting extends SettingControl {
+    private boolean value = true;
+
+    @Override
+    public String combine(Set<String> values) {
+        return values.contains("true") ? "true" : "false";
+    }
+
+    @Override
+    public void setValue(String settingValue) {
+        value = "true".equals(settingValue);
+    }
+
+    @Override
+    public String getValue() {
+        return Boolean.toString(value);
+    }
+
+    public boolean shouldEmit() {
+        return value;
+    }
+}
+
+@Name("example.Transaction")
+public static class TransactionEvent extends Event {
+    @Label("Context")
+    String context;
+
+    @Label("Rollback")
+    boolean rollback;
+
+    @SettingDefinition
+    @Name("rollback")
+    public boolean rollback(RollbackSetting rollbackSetting) {
+        return rollback && rollbackSetting.shouldEmit();
+    }
+}
+Since:
+9
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,143 @@
+Flow.Publisher (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.util.concurrent
+Interface Flow.Publisher<T>
+Type Parameters:
+T
+- the published item type
+All Known Subinterfaces:
+Flow.Processor
+<T,
+R>
+,
+HttpRequest.BodyPublisher
+All Known Implementing Classes:
+SubmissionPublisher
+Enclosing class:
+Flow
+Functional Interface:
+This is a functional interface and can therefore be used as the assignment target for a lambda expression or method reference.
+@FunctionalInterface
+public static interface
+Flow.Publisher<T>
+A producer of items (and related control messages) received by
+ Subscribers.  Each current
+Flow.Subscriber
+receives the same
+ items (via method
+onNext
+) in the same order, unless
+ drops or errors are encountered. If a Publisher encounters an
+ error that does not allow items to be issued to a Subscriber,
+ that Subscriber receives
+onError
+, and then receives no
+ further messages.  Otherwise, when it is known that no further
+ messages will be issued to it, a subscriber receives
+onComplete
+.  Publishers ensure that Subscriber method
+ invocations for each subscription are strictly ordered in
+happens-before
+order.
+Publishers may vary in policy about whether drops (failures
+ to issue an item because of resource limitations) are treated
+ as unrecoverable errors.  Publishers may also vary about
+ whether Subscribers receive items that were produced or
+ available before they subscribed.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+void
+subscribe
+(
+Flow.Subscriber
+<? super
+T
+> subscriber)
+Adds the given Subscriber if possible.
+Method Details
+subscribe
+void
+subscribe
+(
+Flow.Subscriber
+<? super
+T
+> subscriber)
+Adds the given Subscriber if possible.  If already
+ subscribed, or the attempt to subscribe fails due to policy
+ violations or errors, the Subscriber's
+onError
+method is invoked with an
+IllegalStateException
+.
+ Otherwise, the Subscriber's
+onSubscribe
+method is
+ invoked with a new
+Flow.Subscription
+.  Subscribers may
+ enable receiving items by invoking the
+request
+method of this Subscription, and may unsubscribe by
+ invoking its
+cancel
+method.
+Parameters:
+subscriber
+- the subscriber
+Throws:
+NullPointerException
+- if subscriber is null
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

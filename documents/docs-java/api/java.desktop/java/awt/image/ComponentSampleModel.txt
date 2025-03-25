@@ -1,0 +1,1498 @@
+ComponentSampleModel (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt.image
+Class ComponentSampleModel
+java.lang.Object
+java.awt.image.SampleModel
+java.awt.image.ComponentSampleModel
+Direct Known Subclasses:
+BandedSampleModel
+,
+PixelInterleavedSampleModel
+public class
+ComponentSampleModel
+extends
+SampleModel
+This class represents image data which is stored such that each sample
+  of a pixel occupies one data element of the DataBuffer.  It stores the
+  N samples which make up a pixel in N separate data array elements.
+  Different bands may be in different banks of the DataBuffer.
+  Accessor methods are provided so that image data can be manipulated
+  directly. This class can support different kinds of interleaving, e.g.
+  band interleaving, scanline interleaving, and pixel interleaving.
+  Pixel stride is the number of data array elements between two samples
+  for the same band on the same scanline. Scanline stride is the number
+  of data array elements between a given sample and the corresponding sample
+  in the same column of the next scanline.  Band offsets denote the number
+  of data array elements from the first data array element of the bank
+  of the DataBuffer holding each band to the first sample of the band.
+  The bands are numbered from 0 to N-1.  This class can represent image
+  data for which each sample is an unsigned integral number which can be
+  stored in 8, 16, or 32 bits (using
+DataBuffer.TYPE_BYTE
+,
+DataBuffer.TYPE_USHORT
+, or
+DataBuffer.TYPE_INT
+,
+  respectively), data for which each sample is a signed integral number
+  which can be stored in 16 bits (using
+DataBuffer.TYPE_SHORT
+),
+  or data for which each sample is a signed float or double quantity
+  (using
+DataBuffer.TYPE_FLOAT
+or
+DataBuffer.TYPE_DOUBLE
+, respectively).
+  All samples of a given ComponentSampleModel
+  are stored with the same precision.  All strides and offsets must be
+  non-negative.  This class supports
+TYPE_BYTE
+,
+TYPE_USHORT
+,
+TYPE_SHORT
+,
+TYPE_INT
+,
+TYPE_FLOAT
+,
+TYPE_DOUBLE
+,
+See Also:
+PixelInterleavedSampleModel
+BandedSampleModel
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected int[]
+bandOffsets
+Offsets for all bands in data array elements.
+protected int[]
+bankIndices
+Index for each bank storing a band of image data.
+protected int
+numBands
+The number of bands in this
+ComponentSampleModel
+.
+protected int
+numBanks
+The number of banks in this
+ComponentSampleModel
+.
+protected int
+pixelStride
+Pixel stride (in data array elements) of the region of image
+  data described by this ComponentSampleModel.
+protected int
+scanlineStride
+Line stride (in data array elements) of the region of image
+  data described by this ComponentSampleModel.
+Fields declared in class java.awt.image.
+SampleModel
+dataType
+,
+height
+,
+width
+Constructor Summary
+Constructors
+Constructor
+Description
+ComponentSampleModel
+(int dataType,
+ int w,
+ int h,
+ int pixelStride,
+ int scanlineStride,
+ int[] bandOffsets)
+Constructs a ComponentSampleModel with the specified parameters.
+ComponentSampleModel
+(int dataType,
+ int w,
+ int h,
+ int pixelStride,
+ int scanlineStride,
+ int[] bankIndices,
+ int[] bandOffsets)
+Constructs a ComponentSampleModel with the specified parameters.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+SampleModel
+createCompatibleSampleModel
+(int w,
+ int h)
+Creates a new
+ComponentSampleModel
+with the specified
+ width and height.
+DataBuffer
+createDataBuffer
+()
+Creates a
+DataBuffer
+that corresponds to this
+ComponentSampleModel
+.
+SampleModel
+createSubsetSampleModel
+(int[] bands)
+Creates a new ComponentSampleModel with a subset of the bands
+ of this ComponentSampleModel.
+final int[]
+getBandOffsets
+()
+Returns the band offset for all bands.
+final int[]
+getBankIndices
+()
+Returns the bank indices for all bands.
+Object
+getDataElements
+(int x,
+ int y,
+Object
+obj,
+DataBuffer
+data)
+Returns data for a single pixel in a primitive array of type
+TransferType
+.
+final int
+getNumDataElements
+()
+Returns the number of data elements needed to transfer a pixel
+ with the
+getDataElements(int, int, Object, DataBuffer)
+and
+setDataElements(int, int, Object, DataBuffer)
+methods.
+int
+getOffset
+(int x,
+ int y)
+Gets the offset for the first band of pixel (x,y).
+int
+getOffset
+(int x,
+ int y,
+ int b)
+Gets the offset for band b of pixel (x,y).
+int[]
+getPixel
+(int x,
+ int y,
+ int[] iArray,
+DataBuffer
+data)
+Returns all samples for the specified pixel in an int array,
+ one sample per array element.
+int[]
+getPixels
+(int x,
+ int y,
+ int w,
+ int h,
+ int[] iArray,
+DataBuffer
+data)
+Returns all samples for the specified rectangle of pixels in
+ an int array, one sample per array element.
+final int
+getPixelStride
+()
+Returns the pixel stride of this ComponentSampleModel.
+int
+getSample
+(int x,
+ int y,
+ int b,
+DataBuffer
+data)
+Returns as int the sample in a specified band for the pixel
+ located at (x,y).
+double
+getSampleDouble
+(int x,
+ int y,
+ int b,
+DataBuffer
+data)
+Returns the sample in a specified band
+ for a pixel located at (x,y) as a double.
+float
+getSampleFloat
+(int x,
+ int y,
+ int b,
+DataBuffer
+data)
+Returns the sample in a specified band
+ for the pixel located at (x,y) as a float.
+int[]
+getSamples
+(int x,
+ int y,
+ int w,
+ int h,
+ int b,
+ int[] iArray,
+DataBuffer
+data)
+Returns the samples in a specified band for the specified rectangle
+ of pixels in an int array, one sample per data array element.
+final int[]
+getSampleSize
+()
+Returns the number of bits per sample for all bands.
+final int
+getSampleSize
+(int band)
+Returns the number of bits per sample for the specified band.
+final int
+getScanlineStride
+()
+Returns the scanline stride of this ComponentSampleModel.
+void
+setDataElements
+(int x,
+ int y,
+Object
+obj,
+DataBuffer
+data)
+Sets the data for a single pixel in the specified
+DataBuffer
+from a primitive array of type
+TransferType
+.
+void
+setPixel
+(int x,
+ int y,
+ int[] iArray,
+DataBuffer
+data)
+Sets a pixel in the
+DataBuffer
+using an int array of
+ samples for input.
+void
+setPixels
+(int x,
+ int y,
+ int w,
+ int h,
+ int[] iArray,
+DataBuffer
+data)
+Sets all samples for a rectangle of pixels from an int array containing
+ one sample per array element.
+void
+setSample
+(int x,
+ int y,
+ int b,
+ double s,
+DataBuffer
+data)
+Sets a sample in the specified band for the pixel located at (x,y)
+ in the
+DataBuffer
+using a double for input.
+void
+setSample
+(int x,
+ int y,
+ int b,
+ float s,
+DataBuffer
+data)
+Sets a sample in the specified band for the pixel located at (x,y)
+ in the
+DataBuffer
+using a float for input.
+void
+setSample
+(int x,
+ int y,
+ int b,
+ int s,
+DataBuffer
+data)
+Sets a sample in the specified band for the pixel located at (x,y)
+ in the
+DataBuffer
+using an int for input.
+void
+setSamples
+(int x,
+ int y,
+ int w,
+ int h,
+ int b,
+ int[] iArray,
+DataBuffer
+data)
+Sets the samples in the specified band for the specified rectangle
+ of pixels from an int array containing one sample per data array element.
+Methods declared in class java.awt.image.
+SampleModel
+getDataElements
+,
+getDataType
+,
+getHeight
+,
+getNumBands
+,
+getPixel
+,
+getPixel
+,
+getPixels
+,
+getPixels
+,
+getSamples
+,
+getSamples
+,
+getTransferType
+,
+getWidth
+,
+setDataElements
+,
+setPixel
+,
+setPixel
+,
+setPixels
+,
+setPixels
+,
+setSamples
+,
+setSamples
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+bandOffsets
+protected
+int[]
+bandOffsets
+Offsets for all bands in data array elements.
+bankIndices
+protected
+int[]
+bankIndices
+Index for each bank storing a band of image data.
+numBands
+protected
+int
+numBands
+The number of bands in this
+ComponentSampleModel
+.
+numBanks
+protected
+int
+numBanks
+The number of banks in this
+ComponentSampleModel
+.
+scanlineStride
+protected
+int
+scanlineStride
+Line stride (in data array elements) of the region of image
+  data described by this ComponentSampleModel.
+pixelStride
+protected
+int
+pixelStride
+Pixel stride (in data array elements) of the region of image
+  data described by this ComponentSampleModel.
+Constructor Details
+ComponentSampleModel
+public
+ComponentSampleModel
+(int dataType,
+ int w,
+ int h,
+ int pixelStride,
+ int scanlineStride,
+ int[] bandOffsets)
+Constructs a ComponentSampleModel with the specified parameters.
+ The number of bands will be given by the length of the bandOffsets array.
+ All bands will be stored in the first bank of the DataBuffer.
+Parameters:
+dataType
+- the data type for storing samples
+w
+- the width (in pixels) of the region of
+     image data described
+h
+- the height (in pixels) of the region of
+     image data described
+pixelStride
+- the pixel stride of the region of image
+     data described
+scanlineStride
+- the line stride of the region of image
+     data described
+bandOffsets
+- the offsets of all bands
+Throws:
+IllegalArgumentException
+- if
+w
+and
+h
+are not both greater than 0
+IllegalArgumentException
+- if the product of
+w
+and
+h
+is greater than
+Integer.MAX_VALUE
+IllegalArgumentException
+- if
+pixelStride
+is less than 0
+IllegalArgumentException
+- if
+scanlineStride
+is less than 0
+NullPointerException
+- if
+bandOffsets
+is
+null
+IllegalArgumentException
+- if
+bandOffsets.length
+is 0
+IllegalArgumentException
+- if
+dataType
+is not
+         one of the supported data types for this sample model.
+ComponentSampleModel
+public
+ComponentSampleModel
+(int dataType,
+ int w,
+ int h,
+ int pixelStride,
+ int scanlineStride,
+ int[] bankIndices,
+ int[] bandOffsets)
+Constructs a ComponentSampleModel with the specified parameters.
+ The number of bands will be given by the length of the bandOffsets array.
+ Different bands may be stored in different banks of the DataBuffer.
+Parameters:
+dataType
+- the data type for storing samples
+w
+- the width (in pixels) of the region of
+     image data described
+h
+- the height (in pixels) of the region of
+     image data described
+pixelStride
+- the pixel stride of the region of image
+     data described
+scanlineStride
+- The line stride of the region of image
+     data described
+bankIndices
+- the bank indices of all bands
+bandOffsets
+- the band offsets of all bands
+Throws:
+IllegalArgumentException
+- if
+w
+and
+h
+are not both greater than 0
+IllegalArgumentException
+- if the product of
+w
+and
+h
+is greater than
+Integer.MAX_VALUE
+IllegalArgumentException
+- if
+pixelStride
+is less than 0
+IllegalArgumentException
+- if
+scanlineStride
+is less than 0
+NullPointerException
+- if
+bankIndices
+is
+null
+NullPointerException
+- if
+bandOffsets
+is
+null
+IllegalArgumentException
+- if
+bandOffsets.length
+is 0
+IllegalArgumentException
+- if the length of
+bankIndices
+does not equal the length of
+bandOffsets
+IllegalArgumentException
+- if any of the bank indices
+         of
+bandIndices
+is less than 0
+IllegalArgumentException
+- if
+dataType
+is not
+         one of the supported data types for this sample model
+Method Details
+createCompatibleSampleModel
+public
+SampleModel
+createCompatibleSampleModel
+(int w,
+ int h)
+Creates a new
+ComponentSampleModel
+with the specified
+ width and height.  The new
+SampleModel
+will have the same
+ number of bands, storage data type, interleaving scheme, and
+ pixel stride as this
+SampleModel
+.
+Specified by:
+createCompatibleSampleModel
+in class
+SampleModel
+Parameters:
+w
+- the width of the resulting
+SampleModel
+h
+- the height of the resulting
+SampleModel
+Returns:
+a new
+ComponentSampleModel
+with the specified size
+Throws:
+IllegalArgumentException
+- if
+w
+or
+h
+is not greater than 0
+createSubsetSampleModel
+public
+SampleModel
+createSubsetSampleModel
+(int[] bands)
+Creates a new ComponentSampleModel with a subset of the bands
+ of this ComponentSampleModel.  The new ComponentSampleModel can be
+ used with any DataBuffer that the existing ComponentSampleModel
+ can be used with.  The new ComponentSampleModel/DataBuffer
+ combination will represent an image with a subset of the bands
+ of the original ComponentSampleModel/DataBuffer combination.
+Specified by:
+createSubsetSampleModel
+in class
+SampleModel
+Parameters:
+bands
+- a subset of bands from this
+ComponentSampleModel
+Returns:
+a
+ComponentSampleModel
+created with a subset
+          of bands from this
+ComponentSampleModel
+.
+createDataBuffer
+public
+DataBuffer
+createDataBuffer
+()
+Creates a
+DataBuffer
+that corresponds to this
+ComponentSampleModel
+.
+ The
+DataBuffer
+object's data type, number of banks,
+ and size are be consistent with this
+ComponentSampleModel
+.
+Specified by:
+createDataBuffer
+in class
+SampleModel
+Returns:
+a
+DataBuffer
+whose data type, number of banks
+         and size are consistent with this
+ComponentSampleModel
+.
+getOffset
+public
+int
+getOffset
+(int x,
+ int y)
+Gets the offset for the first band of pixel (x,y).
+  A sample of the first band can be retrieved from a
+DataBuffer
+data
+with a
+ComponentSampleModel
+csm
+as
+data.getElem(csm.getOffset(x, y));
+Parameters:
+x
+- the X location of the pixel
+y
+- the Y location of the pixel
+Returns:
+the offset for the first band of the specified pixel.
+getOffset
+public
+int
+getOffset
+(int x,
+ int y,
+ int b)
+Gets the offset for band b of pixel (x,y).
+  A sample of band
+b
+can be retrieved from a
+DataBuffer data
+with a
+ComponentSampleModel csm
+as
+data.getElem(csm.getOffset(x, y, b));
+Parameters:
+x
+- the X location of the specified pixel
+y
+- the Y location of the specified pixel
+b
+- the specified band
+Returns:
+the offset for the specified band of the specified pixel.
+getSampleSize
+public final
+int[]
+getSampleSize
+()
+Returns the number of bits per sample for all bands.
+Specified by:
+getSampleSize
+in class
+SampleModel
+Returns:
+an array containing the number of bits per sample
+          for all bands, where each element in the array
+          represents a band.
+getSampleSize
+public final
+int
+getSampleSize
+(int band)
+Returns the number of bits per sample for the specified band.
+Specified by:
+getSampleSize
+in class
+SampleModel
+Parameters:
+band
+- the specified band
+Returns:
+the number of bits per sample for the specified band.
+getBankIndices
+public final
+int[]
+getBankIndices
+()
+Returns the bank indices for all bands.
+Returns:
+the bank indices for all bands.
+getBandOffsets
+public final
+int[]
+getBandOffsets
+()
+Returns the band offset for all bands.
+Returns:
+the band offsets for all bands.
+getScanlineStride
+public final
+int
+getScanlineStride
+()
+Returns the scanline stride of this ComponentSampleModel.
+Returns:
+the scanline stride of this
+ComponentSampleModel
+.
+getPixelStride
+public final
+int
+getPixelStride
+()
+Returns the pixel stride of this ComponentSampleModel.
+Returns:
+the pixel stride of this
+ComponentSampleModel
+.
+getNumDataElements
+public final
+int
+getNumDataElements
+()
+Returns the number of data elements needed to transfer a pixel
+ with the
+getDataElements(int, int, Object, DataBuffer)
+and
+setDataElements(int, int, Object, DataBuffer)
+methods.
+ For a
+ComponentSampleModel
+, this is identical to the
+ number of bands.
+Specified by:
+getNumDataElements
+in class
+SampleModel
+Returns:
+the number of data elements needed to transfer a pixel with
+         the
+getDataElements
+and
+setDataElements
+methods.
+See Also:
+SampleModel.getNumDataElements()
+SampleModel.getNumBands()
+getDataElements
+public
+Object
+getDataElements
+(int x,
+ int y,
+Object
+obj,
+DataBuffer
+data)
+Returns data for a single pixel in a primitive array of type
+TransferType
+.  For a
+ComponentSampleModel
+,
+ this is the same as the data type, and samples are returned
+ one per array element.  Generally,
+obj
+should
+ be passed in as
+null
+, so that the
+Object
+is created automatically and is the right primitive data type.
+The following code illustrates transferring data for one pixel from
+DataBuffer db1
+, whose storage layout is
+ described by
+ComponentSampleModel csm1
+,
+ to
+DataBuffer db2
+, whose storage layout
+ is described by
+ComponentSampleModel csm2
+.
+ The transfer is usually more efficient than using
+getPixel
+and
+setPixel
+.
+ComponentSampleModel csm1, csm2;
+       DataBufferInt db1, db2;
+       csm2.setDataElements(x, y,
+                            csm1.getDataElements(x, y, null, db1), db2);
+Using
+getDataElements
+and
+setDataElements
+to transfer between two
+DataBuffer/SampleModel
+pairs is legitimate if the
+SampleModel
+objects have
+ the same number of bands, corresponding bands have the same number of
+ bits per sample, and the
+TransferType
+s are the same.
+If
+obj
+is not
+null
+, it should be a
+ primitive array of type
+TransferType
+.
+ Otherwise, a
+ClassCastException
+is thrown.  An
+ArrayIndexOutOfBoundsException
+might be thrown if the
+ coordinates are not in bounds, or if
+obj
+is not
+null
+and is not large enough to hold
+ the pixel data.
+Specified by:
+getDataElements
+in class
+SampleModel
+Parameters:
+x
+- the X coordinate of the pixel location
+y
+- the Y coordinate of the pixel location
+obj
+- if non-
+null
+, a primitive array
+                  in which to return the pixel data
+data
+- the
+DataBuffer
+containing the image data
+Returns:
+the data of the specified pixel
+Throws:
+NullPointerException
+- if data is null.
+ArrayIndexOutOfBoundsException
+- if the coordinates are
+ not in bounds, or if obj is too small to hold the output.
+See Also:
+setDataElements(int, int, Object, DataBuffer)
+getPixel
+public
+int[]
+getPixel
+(int x,
+ int y,
+ int[] iArray,
+DataBuffer
+data)
+Returns all samples for the specified pixel in an int array,
+ one sample per array element.
+ An
+ArrayIndexOutOfBoundsException
+might be thrown if
+ the coordinates are not in bounds.
+Overrides:
+getPixel
+in class
+SampleModel
+Parameters:
+x
+- the X coordinate of the pixel location
+y
+- the Y coordinate of the pixel location
+iArray
+- If non-null, returns the samples in this array
+data
+- The DataBuffer containing the image data
+Returns:
+the samples of the specified pixel.
+Throws:
+NullPointerException
+- if data is null.
+ArrayIndexOutOfBoundsException
+- if the coordinates are
+ not in bounds, or if iArray is too small to hold the output.
+See Also:
+setPixel(int, int, int[], DataBuffer)
+getPixels
+public
+int[]
+getPixels
+(int x,
+ int y,
+ int w,
+ int h,
+ int[] iArray,
+DataBuffer
+data)
+Returns all samples for the specified rectangle of pixels in
+ an int array, one sample per array element.
+ An
+ArrayIndexOutOfBoundsException
+might be thrown if
+ the coordinates are not in bounds.
+Overrides:
+getPixels
+in class
+SampleModel
+Parameters:
+x
+- The X coordinate of the upper left pixel location
+y
+- The Y coordinate of the upper left pixel location
+w
+- The width of the pixel rectangle
+h
+- The height of the pixel rectangle
+iArray
+- If non-null, returns the samples in this array
+data
+- The DataBuffer containing the image data
+Returns:
+the samples of the pixels within the specified region.
+See Also:
+setPixels(int, int, int, int, int[], DataBuffer)
+getSample
+public
+int
+getSample
+(int x,
+ int y,
+ int b,
+DataBuffer
+data)
+Returns as int the sample in a specified band for the pixel
+ located at (x,y).
+ An
+ArrayIndexOutOfBoundsException
+might be thrown if
+ the coordinates are not in bounds.
+Specified by:
+getSample
+in class
+SampleModel
+Parameters:
+x
+- the X coordinate of the pixel location
+y
+- the Y coordinate of the pixel location
+b
+- the band to return
+data
+- the
+DataBuffer
+containing the image data
+Returns:
+the sample in a specified band for the specified pixel
+See Also:
+setSample(int, int, int, int, DataBuffer)
+getSampleFloat
+public
+float
+getSampleFloat
+(int x,
+ int y,
+ int b,
+DataBuffer
+data)
+Returns the sample in a specified band
+ for the pixel located at (x,y) as a float.
+ An
+ArrayIndexOutOfBoundsException
+might be
+ thrown if the coordinates are not in bounds.
+Overrides:
+getSampleFloat
+in class
+SampleModel
+Parameters:
+x
+- The X coordinate of the pixel location
+y
+- The Y coordinate of the pixel location
+b
+- The band to return
+data
+- The DataBuffer containing the image data
+Returns:
+a float value representing the sample in the specified
+ band for the specified pixel.
+getSampleDouble
+public
+double
+getSampleDouble
+(int x,
+ int y,
+ int b,
+DataBuffer
+data)
+Returns the sample in a specified band
+ for a pixel located at (x,y) as a double.
+ An
+ArrayIndexOutOfBoundsException
+might be
+ thrown if the coordinates are not in bounds.
+Overrides:
+getSampleDouble
+in class
+SampleModel
+Parameters:
+x
+- The X coordinate of the pixel location
+y
+- The Y coordinate of the pixel location
+b
+- The band to return
+data
+- The DataBuffer containing the image data
+Returns:
+a double value representing the sample in the specified
+ band for the specified pixel.
+getSamples
+public
+int[]
+getSamples
+(int x,
+ int y,
+ int w,
+ int h,
+ int b,
+ int[] iArray,
+DataBuffer
+data)
+Returns the samples in a specified band for the specified rectangle
+ of pixels in an int array, one sample per data array element.
+ An
+ArrayIndexOutOfBoundsException
+might be thrown if
+ the coordinates are not in bounds.
+Overrides:
+getSamples
+in class
+SampleModel
+Parameters:
+x
+- The X coordinate of the upper left pixel location
+y
+- The Y coordinate of the upper left pixel location
+w
+- the width of the pixel rectangle
+h
+- the height of the pixel rectangle
+b
+- the band to return
+iArray
+- if non-
+null
+, returns the samples
+                  in this array
+data
+- the
+DataBuffer
+containing the image data
+Returns:
+the samples in the specified band of the specified pixel
+See Also:
+setSamples(int, int, int, int, int, int[], DataBuffer)
+setDataElements
+public
+void
+setDataElements
+(int x,
+ int y,
+Object
+obj,
+DataBuffer
+data)
+Sets the data for a single pixel in the specified
+DataBuffer
+from a primitive array of type
+TransferType
+.  For a
+ComponentSampleModel
+,
+ this is the same as the data type, and samples are transferred
+ one per array element.
+The following code illustrates transferring data for one pixel from
+DataBuffer db1
+, whose storage layout is
+ described by
+ComponentSampleModel csm1
+,
+ to
+DataBuffer db2
+, whose storage layout
+ is described by
+ComponentSampleModel csm2
+.
+ The transfer is usually more efficient than using
+getPixel
+and
+setPixel
+.
+ComponentSampleModel csm1, csm2;
+       DataBufferInt db1, db2;
+       csm2.setDataElements(x, y, csm1.getDataElements(x, y, null, db1),
+                            db2);
+Using
+getDataElements
+and
+setDataElements
+to transfer between two
+DataBuffer/SampleModel
+pairs
+ is legitimate if the
+SampleModel
+objects have
+ the same number of bands, corresponding bands have the same number of
+ bits per sample, and the
+TransferType
+s are the same.
+A
+ClassCastException
+is thrown if
+obj
+is not
+ a primitive array of type
+TransferType
+.
+ An
+ArrayIndexOutOfBoundsException
+might be thrown if
+ the coordinates are not in bounds, or if
+obj
+is not large
+ enough to hold the pixel data.
+Specified by:
+setDataElements
+in class
+SampleModel
+Parameters:
+x
+- the X coordinate of the pixel location
+y
+- the Y coordinate of the pixel location
+obj
+- a primitive array containing pixel data
+data
+- the DataBuffer containing the image data
+See Also:
+getDataElements(int, int, Object, DataBuffer)
+setPixel
+public
+void
+setPixel
+(int x,
+ int y,
+ int[] iArray,
+DataBuffer
+data)
+Sets a pixel in the
+DataBuffer
+using an int array of
+ samples for input.  An
+ArrayIndexOutOfBoundsException
+might be thrown if the coordinates are
+ not in bounds.
+Overrides:
+setPixel
+in class
+SampleModel
+Parameters:
+x
+- The X coordinate of the pixel location
+y
+- The Y coordinate of the pixel location
+iArray
+- The input samples in an int array
+data
+- The DataBuffer containing the image data
+See Also:
+getPixel(int, int, int[], DataBuffer)
+setPixels
+public
+void
+setPixels
+(int x,
+ int y,
+ int w,
+ int h,
+ int[] iArray,
+DataBuffer
+data)
+Sets all samples for a rectangle of pixels from an int array containing
+ one sample per array element.
+ An
+ArrayIndexOutOfBoundsException
+might be thrown if the
+ coordinates are not in bounds.
+Overrides:
+setPixels
+in class
+SampleModel
+Parameters:
+x
+- The X coordinate of the upper left pixel location
+y
+- The Y coordinate of the upper left pixel location
+w
+- The width of the pixel rectangle
+h
+- The height of the pixel rectangle
+iArray
+- The input samples in an int array
+data
+- The DataBuffer containing the image data
+See Also:
+getPixels(int, int, int, int, int[], DataBuffer)
+setSample
+public
+void
+setSample
+(int x,
+ int y,
+ int b,
+ int s,
+DataBuffer
+data)
+Sets a sample in the specified band for the pixel located at (x,y)
+ in the
+DataBuffer
+using an int for input.
+ An
+ArrayIndexOutOfBoundsException
+might be thrown if the
+ coordinates are not in bounds.
+Specified by:
+setSample
+in class
+SampleModel
+Parameters:
+x
+- The X coordinate of the pixel location
+y
+- The Y coordinate of the pixel location
+b
+- the band to set
+s
+- the input sample as an int
+data
+- the DataBuffer containing the image data
+See Also:
+getSample(int, int, int, DataBuffer)
+setSample
+public
+void
+setSample
+(int x,
+ int y,
+ int b,
+ float s,
+DataBuffer
+data)
+Sets a sample in the specified band for the pixel located at (x,y)
+ in the
+DataBuffer
+using a float for input.
+ An
+ArrayIndexOutOfBoundsException
+might be thrown if
+ the coordinates are not in bounds.
+Overrides:
+setSample
+in class
+SampleModel
+Parameters:
+x
+- The X coordinate of the pixel location
+y
+- The Y coordinate of the pixel location
+b
+- The band to set
+s
+- The input sample as a float
+data
+- The DataBuffer containing the image data
+See Also:
+getSample(int, int, int, DataBuffer)
+setSample
+public
+void
+setSample
+(int x,
+ int y,
+ int b,
+ double s,
+DataBuffer
+data)
+Sets a sample in the specified band for the pixel located at (x,y)
+ in the
+DataBuffer
+using a double for input.
+ An
+ArrayIndexOutOfBoundsException
+might be thrown if
+ the coordinates are not in bounds.
+Overrides:
+setSample
+in class
+SampleModel
+Parameters:
+x
+- The X coordinate of the pixel location
+y
+- The Y coordinate of the pixel location
+b
+- The band to set
+s
+- The input sample as a double
+data
+- The DataBuffer containing the image data
+See Also:
+getSample(int, int, int, DataBuffer)
+setSamples
+public
+void
+setSamples
+(int x,
+ int y,
+ int w,
+ int h,
+ int b,
+ int[] iArray,
+DataBuffer
+data)
+Sets the samples in the specified band for the specified rectangle
+ of pixels from an int array containing one sample per data array element.
+ An
+ArrayIndexOutOfBoundsException
+might be thrown if the
+ coordinates are not in bounds.
+Overrides:
+setSamples
+in class
+SampleModel
+Parameters:
+x
+- The X coordinate of the upper left pixel location
+y
+- The Y coordinate of the upper left pixel location
+w
+- The width of the pixel rectangle
+h
+- The height of the pixel rectangle
+b
+- The band to set
+iArray
+- The input samples in an int array
+data
+- The DataBuffer containing the image data
+See Also:
+getSamples(int, int, int, int, int, int[], DataBuffer)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,417 @@
+AbstractElementVisitor6 (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.lang.model.util
+Class AbstractElementVisitor6<R,
+P>
+java.lang.Object
+javax.lang.model.util.AbstractElementVisitor6<R,
+P>
+Type Parameters:
+R
+- the return type of this visitor's methods.  Use
+Void
+for visitors that do not need to return results.
+P
+- the type of the additional parameter to this visitor's
+            methods.  Use
+Void
+for visitors that do not need an
+            additional parameter.
+All Implemented Interfaces:
+ElementVisitor
+<R,
+P>
+Direct Known Subclasses:
+AbstractElementVisitor7
+,
+ElementScanner6
+,
+SimpleElementVisitor6
+@SupportedSourceVersion
+(
+RELEASE_6
+)
+public abstract class
+AbstractElementVisitor6<R,
+P>
+extends
+Object
+implements
+ElementVisitor
+<R,
+P>
+A skeletal visitor of program elements with default behavior
+ appropriate for the
+RELEASE_6
+source version.
+API Note:
+WARNING:
+The
+ElementVisitor
+interface implemented by this class may have
+ methods added to it in the future to accommodate new, currently
+ unknown, language structures added to future versions of the
+ Java programming language.  Therefore, methods whose names
+ begin with
+"visit"
+may be added to this class in the
+ future; to avoid incompatibilities, classes and subclasses which
+ extend this class should not declare any instance methods with
+ names beginning with
+"visit"
+.
+When such a new visit method is added, the default
+ implementation in this class will be to directly or indirectly call
+ the
+visitUnknown
+method.  A new abstract
+ element visitor class will also be introduced to correspond to the
+ new language level; this visitor will have different default
+ behavior for the visit method in question.  When a new visitor is
+ introduced, portions of this visitor class may be deprecated,
+ including its constructors.
+Since:
+1.6
+See Also:
+AbstractElementVisitor7
+AbstractElementVisitor8
+AbstractElementVisitor9
+AbstractElementVisitor14
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+AbstractElementVisitor6
+()
+Deprecated.
+Release 6 is obsolete; update to a visitor for a newer
+ release level.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+final
+R
+visit
+(
+Element
+e)
+Visits any program element as if by passing itself to that
+ element's
+accept
+method and passing
+null
+for the additional parameter.
+final
+R
+visit
+(
+Element
+e,
+P
+p)
+Visits any program element as if by passing itself to that
+ element's
+accept
+method.
+R
+visitModule
+(
+ModuleElement
+e,
+P
+p)
+Visits a module element.
+R
+visitRecordComponent
+(
+RecordComponentElement
+e,
+P
+p)
+Visits a record component element.
+R
+visitUnknown
+(
+Element
+e,
+P
+p)
+Visits an unknown kind of element.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface javax.lang.model.element.
+ElementVisitor
+visitExecutable
+,
+visitPackage
+,
+visitType
+,
+visitTypeParameter
+,
+visitVariable
+Constructor Details
+AbstractElementVisitor6
+@Deprecated
+(
+since
+="9")
+protected
+AbstractElementVisitor6
+()
+Deprecated.
+Release 6 is obsolete; update to a visitor for a newer
+ release level.
+Constructor for concrete subclasses to call.
+Method Details
+visit
+public final
+R
+visit
+(
+Element
+e,
+P
+p)
+Visits any program element as if by passing itself to that
+ element's
+accept
+method.  The invocation
+v.visit(elem, p)
+is equivalent to
+elem.accept(v,
+ p)
+.
+Specified by:
+visit
+in interface
+ElementVisitor
+<
+R
+,
+P
+>
+Parameters:
+e
+- the element to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+visit
+public final
+R
+visit
+(
+Element
+e)
+Visits any program element as if by passing itself to that
+ element's
+accept
+method and passing
+null
+for the additional parameter.  The invocation
+v.visit(elem)
+is equivalent to
+elem.accept(v,
+ null)
+.
+Specified by:
+visit
+in interface
+ElementVisitor
+<
+R
+,
+P
+>
+Parameters:
+e
+- the element to visit
+Returns:
+a visitor-specified result
+visitUnknown
+public
+R
+visitUnknown
+(
+Element
+e,
+P
+p)
+Visits an unknown kind of element.
+ This can occur if the language evolves and new kinds
+ of elements are added to the
+Element
+hierarchy.
+Specified by:
+visitUnknown
+in interface
+ElementVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+The default implementation of this method in
+AbstractElementVisitor6
+will always throw
+new UnknownElementException(e, p)
+.
+ This behavior is not required of a subclass.
+Parameters:
+e
+- the element to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+Throws:
+UnknownElementException
+- a visitor implementation may optionally throw this exception
+visitModule
+public
+R
+visitModule
+(
+ModuleElement
+e,
+P
+p)
+Visits a module element.
+Specified by:
+visitModule
+in interface
+ElementVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+Visits a
+ModuleElement
+by calling
+visitUnknown
+.
+Parameters:
+e
+- the element to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+Since:
+9
+visitRecordComponent
+public
+R
+visitRecordComponent
+(
+RecordComponentElement
+e,
+P
+p)
+Visits a record component element.
+Specified by:
+visitRecordComponent
+in interface
+ElementVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+Visits a
+RecordComponentElement
+by calling
+visitUnknown
+.
+Parameters:
+e
+- the element to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+Since:
+14
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

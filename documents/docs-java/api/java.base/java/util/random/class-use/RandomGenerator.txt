@@ -1,0 +1,398 @@
+Uses of Interface java.util.random.RandomGenerator (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Interface
+java.util.random.RandomGenerator
+Packages that use
+RandomGenerator
+Package
+Description
+java.security
+Provides the classes and interfaces for the security framework.
+java.util
+Contains the collections framework, some internationalization support classes,
+ a service loader, properties, random number generation, string parsing
+ and scanning classes, base64 encoding and decoding, a bit array, and
+ several miscellaneous utility classes.
+java.util.concurrent
+Utility classes commonly useful in concurrent programming.
+java.util.random
+This package contains classes and interfaces that support a generic API
+ for random number generation.
+Uses of
+RandomGenerator
+in
+java.security
+Classes in
+java.security
+that implement
+RandomGenerator
+Modifier and Type
+Class
+Description
+class
+SecureRandom
+This class provides a cryptographically strong random number
+ generator (RNG).
+Uses of
+RandomGenerator
+in
+java.util
+Classes in
+java.util
+that implement
+RandomGenerator
+Modifier and Type
+Class
+Description
+class
+Random
+An instance of this class is used to generate a stream of
+ pseudorandom numbers; its period is only 2
+48
+.
+final class
+SplittableRandom
+A generator of uniform pseudorandom values (with period 2
+64
+)
+ applicable for use in (among other contexts) isolated parallel
+ computations that may generate subtasks.
+Methods in
+java.util
+with parameters of type
+RandomGenerator
+Modifier and Type
+Method
+Description
+static
+Random
+Random.
+from
+(
+RandomGenerator
+generator)
+Returns an instance of
+Random
+that delegates method calls to the
+RandomGenerator
+argument.
+static void
+Collections.
+shuffle
+(
+List
+<?> list,
+RandomGenerator
+rnd)
+Randomly permute the specified list using the specified source of
+ randomness.
+Uses of
+RandomGenerator
+in
+java.util.concurrent
+Classes in
+java.util.concurrent
+that implement
+RandomGenerator
+Modifier and Type
+Class
+Description
+final class
+ThreadLocalRandom
+A random number generator (with period 2
+64
+) isolated
+ to the current thread.
+Uses of
+RandomGenerator
+in
+java.util.random
+Classes in
+java.util.random
+with type parameters of type
+RandomGenerator
+Modifier and Type
+Class
+Description
+final class
+RandomGeneratorFactory
+<T extends
+RandomGenerator
+>
+This is a factory class for generating multiple random number generators
+ of a specific
+algorithm
+.
+Subinterfaces of
+RandomGenerator
+in
+java.util.random
+Modifier and Type
+Interface
+Description
+static interface
+RandomGenerator.ArbitrarilyJumpableGenerator
+This interface is designed to provide a common protocol for objects that
+ generate sequences of pseudorandom values and can easily
+jump
+forward, by an arbitrary amount, to a distant point in the state cycle.
+static interface
+RandomGenerator.JumpableGenerator
+This interface is designed to provide a common protocol for objects that
+ generate pseudorandom values and can easily
+jump
+forward, by a
+ moderate amount (ex. 2
+64
+) to a distant point in the state cycle.
+static interface
+RandomGenerator.LeapableGenerator
+This interface is designed to provide a common protocol for objects that
+ generate sequences of pseudorandom values and can easily not only jump
+ but also
+leap
+forward, by a large amount (ex. 2
+128
+), to
+ a very distant point in the state cycle.
+static interface
+RandomGenerator.SplittableGenerator
+This interface is designed to provide a common protocol for objects that
+ generate sequences of pseudorandom values and can be
+split
+into
+ two objects (the original one and a new one) each of which obey that same
+ protocol (and therefore can be recursively split indefinitely).
+static interface
+RandomGenerator.StreamableGenerator
+The
+RandomGenerator.StreamableGenerator
+interface augments the
+RandomGenerator
+interface to provide methods that return streams
+ of
+RandomGenerator
+objects.
+Methods in
+java.util.random
+with type parameters of type
+RandomGenerator
+Modifier and Type
+Method
+Description
+static <T extends
+RandomGenerator
+>
+RandomGeneratorFactory
+<T>
+RandomGeneratorFactory.
+of
+(
+String
+name)
+Returns a
+RandomGeneratorFactory
+that can produce instances of
+RandomGenerator
+that utilize the
+name
+algorithm
+.
+Methods in
+java.util.random
+that return
+RandomGenerator
+Modifier and Type
+Method
+Description
+default
+RandomGenerator
+RandomGenerator.JumpableGenerator.
+copyAndJump
+()
+Copy this generator, jump this generator forward, then return the
+ copy.
+static
+RandomGenerator
+RandomGenerator.
+getDefault
+()
+Returns a
+RandomGenerator
+meeting the minimal requirement
+ of having an
+algorithm
+whose state bits are greater than or equal 64.
+static
+RandomGenerator
+RandomGenerator.
+of
+(
+String
+name)
+Returns an instance of
+RandomGenerator
+that utilizes the
+name
+algorithm
+.
+Methods in
+java.util.random
+that return types with arguments of type
+RandomGenerator
+Modifier and Type
+Method
+Description
+static
+Stream
+<
+RandomGeneratorFactory
+<
+RandomGenerator
+>>
+RandomGeneratorFactory.
+all
+()
+Returns a non-empty stream of available
+RandomGeneratorFactory(s)
+.
+static
+RandomGeneratorFactory
+<
+RandomGenerator
+>
+RandomGeneratorFactory.
+getDefault
+()
+Returns a
+RandomGeneratorFactory
+meeting the minimal requirement
+ of having an algorithm whose state bits are greater than or equal 64.
+default
+Stream
+<
+RandomGenerator
+>
+RandomGenerator.JumpableGenerator.
+jumps
+()
+Returns an effectively unlimited stream of new pseudorandom number
+ generators, each of which implements the
+RandomGenerator
+interface.
+default
+Stream
+<
+RandomGenerator
+>
+RandomGenerator.JumpableGenerator.
+jumps
+(long streamSize)
+Returns a stream producing the given
+streamSize
+number of new
+ pseudorandom number generators, each of which implements the
+RandomGenerator
+interface.
+default
+Stream
+<
+RandomGenerator
+>
+RandomGenerator.JumpableGenerator.
+rngs
+()
+Returns an effectively unlimited stream of new pseudorandom number
+ generators, each of which implements the
+RandomGenerator
+interface.
+default
+Stream
+<
+RandomGenerator
+>
+RandomGenerator.JumpableGenerator.
+rngs
+(long streamSize)
+Returns a stream producing the given
+streamSize
+number of new
+ pseudorandom number generators, each of which implements the
+RandomGenerator
+interface.
+default
+Stream
+<
+RandomGenerator
+>
+RandomGenerator.SplittableGenerator.
+rngs
+()
+Returns an effectively unlimited stream of new pseudorandom number
+ generators, each of which implements the
+RandomGenerator
+interface.
+default
+Stream
+<
+RandomGenerator
+>
+RandomGenerator.SplittableGenerator.
+rngs
+(long streamSize)
+Returns a stream producing the given
+streamSize
+number of new
+ pseudorandom number generators, each of which implements the
+RandomGenerator
+interface.
+Stream
+<
+RandomGenerator
+>
+RandomGenerator.StreamableGenerator.
+rngs
+()
+Returns an effectively unlimited stream of objects, each of which
+ implements the
+RandomGenerator
+interface.
+default
+Stream
+<
+RandomGenerator
+>
+RandomGenerator.StreamableGenerator.
+rngs
+(long streamSize)
+Returns an effectively unlimited stream of objects, each of which
+ implements the
+RandomGenerator
+interface.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

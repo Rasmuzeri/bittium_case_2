@@ -1,0 +1,406 @@
+ScopedValue.Carrier (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang
+Class ScopedValue.Carrier
+java.lang.Object
+java.lang.ScopedValue.Carrier
+Enclosing class:
+ScopedValue
+PREVIEW
+<
+T
+>
+public static final class
+ScopedValue.Carrier
+extends
+Object
+Carrier
+is a preview API of the Java platform.
+Programs can only use
+Carrier
+when preview features are enabled.
+Preview features may be removed in a future release, or upgraded to permanent features of the Java platform.
+A mapping of scoped values, as
+keys
+, to values.
+A
+Carrier
+is used to accumulate mappings so that an operation (a
+Runnable
+or
+Callable
+) can be executed with all scoped values in the
+ mapping bound to values. The following example runs an operation with
+k1
+bound (or rebound) to
+v1
+, and
+k2
+bound (or rebound) to
+v2
+.
+Copy
+ScopedValue.
+where
+(k1, v1).
+where
+(k2, v2).run(() -> ... );
+A
+Carrier
+is immutable and thread-safe. The
+where
+method returns a new
+Carrier
+object,
+ it does not mutate an existing mapping.
+Unless otherwise specified, passing a
+null
+argument to a method in
+ this class will cause a
+NullPointerException
+to be thrown.
+Since:
+21
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+<R> R
+call
+(
+Callable
+<? extends R> op)
+Calls a value-returning operation with each scoped value in this mapping bound
+ to its value in the current thread.
+<T> T
+get
+(
+ScopedValue
+PREVIEW
+<T> key)
+Returns the value of a
+ScopedValue
+PREVIEW
+in this mapping.
+<R> R
+get
+(
+Supplier
+<? extends R> op)
+Invokes a supplier of results with each scoped value in this mapping bound
+ to its value in the current thread.
+void
+run
+(
+Runnable
+op)
+Runs an operation with each scoped value in this mapping bound to its value
+ in the current thread.
+<T>
+ScopedValue.Carrier
+PREVIEW
+where
+(
+ScopedValue
+PREVIEW
+<T> key,
+ T value)
+Returns a new
+Carrier
+with the mappings from this carrier plus a
+ new mapping from
+key
+to
+value
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Method Details
+where
+public
+<T>
+ScopedValue.Carrier
+PREVIEW
+where
+(
+ScopedValue
+PREVIEW
+<T> key,
+ T value)
+Returns a new
+Carrier
+with the mappings from this carrier plus a
+ new mapping from
+key
+to
+value
+. If this carrier already has a
+ mapping for the scoped value
+key
+then it will map to the new
+value
+. The current carrier is immutable, so it is not changed by this
+ method.
+Type Parameters:
+T
+- the type of the value
+Parameters:
+key
+- the
+ScopedValue
+key
+value
+- the value, can be
+null
+Returns:
+a new
+Carrier
+with the mappings from this carrier plus the new mapping
+get
+public
+<T>
+T
+get
+(
+ScopedValue
+PREVIEW
+<T> key)
+Returns the value of a
+ScopedValue
+PREVIEW
+in this mapping.
+Type Parameters:
+T
+- the type of the value
+Parameters:
+key
+- the
+ScopedValue
+key
+Returns:
+the value
+Throws:
+NoSuchElementException
+- if the key is not present in this mapping
+call
+public
+<R>
+R
+call
+(
+Callable
+<? extends R> op)
+throws
+Exception
+Calls a value-returning operation with each scoped value in this mapping bound
+ to its value in the current thread.
+ When the operation completes (normally or with an exception), each scoped value
+ in the mapping will revert to being unbound, or revert to its previous value
+ when previously bound, in the current thread. If
+op
+completes with an
+ exception then it propagated by this method.
+Scoped values are intended to be used in a
+structured manner
+. If code
+ invoked directly or indirectly by the operation creates a
+StructuredTaskScope
+PREVIEW
+but does not
+close
+PREVIEW
+it, then it is detected
+ as a
+structure violation
+when the operation completes (normally or with an
+ exception). In that case, the underlying construct of the
+StructuredTaskScope
+is closed and
+StructureViolationException
+PREVIEW
+is thrown.
+Type Parameters:
+R
+- the type of the result of the operation
+Parameters:
+op
+- the operation to run
+Returns:
+the result
+Throws:
+StructureViolationException
+PREVIEW
+- if a structure violation is detected
+Exception
+- if
+op
+completes with an exception
+See Also:
+ScopedValue.callWhere(ScopedValue, Object, Callable)
+PREVIEW
+get
+public
+<R>
+R
+get
+(
+Supplier
+<? extends R> op)
+Invokes a supplier of results with each scoped value in this mapping bound
+ to its value in the current thread.
+ When the operation completes (normally or with an exception), each scoped value
+ in the mapping will revert to being unbound, or revert to its previous value
+ when previously bound, in the current thread. If
+op
+completes with an
+ exception then it propagated by this method.
+Scoped values are intended to be used in a
+structured manner
+. If code
+ invoked directly or indirectly by the operation creates a
+StructuredTaskScope
+PREVIEW
+but does not
+close
+PREVIEW
+it, then it is detected
+ as a
+structure violation
+when the operation completes (normally or with an
+ exception). In that case, the underlying construct of the
+StructuredTaskScope
+is closed and
+StructureViolationException
+PREVIEW
+is thrown.
+Type Parameters:
+R
+- the type of the result of the operation
+Parameters:
+op
+- the operation to run
+Returns:
+the result
+Throws:
+StructureViolationException
+PREVIEW
+- if a structure violation is detected
+See Also:
+ScopedValue.getWhere(ScopedValue, Object, Supplier)
+PREVIEW
+run
+public
+void
+run
+(
+Runnable
+op)
+Runs an operation with each scoped value in this mapping bound to its value
+ in the current thread.
+ When the operation completes (normally or with an exception), each scoped value
+ in the mapping will revert to being unbound, or revert to its previous value
+ when previously bound, in the current thread. If
+op
+completes with an
+ exception then it propagated by this method.
+Scoped values are intended to be used in a
+structured manner
+. If code
+ invoked directly or indirectly by the operation creates a
+StructuredTaskScope
+PREVIEW
+but does not
+close
+PREVIEW
+it, then it is detected
+ as a
+structure violation
+when the operation completes (normally or with an
+ exception). In that case, the underlying construct of the
+StructuredTaskScope
+is closed and
+StructureViolationException
+PREVIEW
+is thrown.
+Parameters:
+op
+- the operation to run
+Throws:
+StructureViolationException
+PREVIEW
+- if a structure violation is detected
+See Also:
+ScopedValue.runWhere(ScopedValue, Object, Runnable)
+PREVIEW
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

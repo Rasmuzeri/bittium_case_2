@@ -1,0 +1,184 @@
+javax.tools (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages |
+Classes and Interfaces
+SEARCH
+Module
+java.compiler
+Package javax.tools
+package
+javax.tools
+Provides interfaces for tools which can be invoked from a program,
+ for example, compilers.
+These interfaces and classes are required as part of the
+ Java Platform, Standard Edition (Java SE),
+ but there is no requirement to provide any tools implementing them.
+Unless explicitly allowed, all methods in this package might
+ throw a
+NullPointerException
+if given a
+null
+argument or if given a
+list or collection
+containing
+null
+elements.  Similarly, no method may return
+null
+unless explicitly allowed.
+This package is the home of the Java programming language compiler framework.
+ This framework allows clients of the framework to locate and run
+ compilers from programs.  The framework also provides Service
+ Provider Interfaces (SPI) for structured access to diagnostics
+ (
+DiagnosticListener
+) as well as a file
+ abstraction for overriding file access (
+JavaFileManager
+and
+JavaFileObject
+).  See
+JavaCompiler
+for more details on using the SPI.
+There is no requirement for a compiler at runtime.  However, if
+ a default compiler is provided, it can be located using the
+ToolProvider
+, for example:
+Copy
+JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+It is possible to provide alternative compilers or tools
+ through the
+service provider
+ mechanism
+.
+For example, if
+com.vendor.VendorJavaCompiler
+is a
+ provider of the
+JavaCompiler
+tool then its jar file
+ would contain the file
+META-INF/services/javax.tools.JavaCompiler
+.  This file would
+ contain the single line:
+Copy
+com.vendor.VendorJavaCompiler
+If the jar file is on the class path,
+VendorJavaCompiler
+can be
+ located using code like this:
+Copy
+JavaCompiler compiler = ServiceLoader.load(JavaCompiler.class).iterator().next();
+Since:
+1.6
+All Classes and Interfaces
+Interfaces
+Classes
+Enum Classes
+Class
+Description
+Diagnostic
+<S>
+Interface for diagnostics from tools.
+Diagnostic.Kind
+Kinds of diagnostics, for example, error or warning.
+DiagnosticCollector
+<S>
+Provides an easy way to collect diagnostics in a list.
+DiagnosticListener
+<S>
+Interface for receiving diagnostics from tools.
+DocumentationTool
+Interface to invoke Java programming language documentation tools from
+ programs.
+DocumentationTool.DocumentationTask
+Interface representing a future for a documentation task.
+DocumentationTool.Location
+Locations specific to
+DocumentationTool
+.
+FileObject
+File abstraction for tools.
+ForwardingFileObject
+<F extends
+FileObject
+>
+Forwards calls to a given file object.
+ForwardingJavaFileManager
+<M extends
+JavaFileManager
+>
+Forwards calls to a given file manager.
+ForwardingJavaFileObject
+<F extends
+JavaFileObject
+>
+Forwards calls to a given file object.
+JavaCompiler
+Interface to invoke Java programming language compilers from
+ programs.
+JavaCompiler.CompilationTask
+Interface representing a future for a compilation task.
+JavaFileManager
+File manager for tools operating on Java programming language
+ source and class files.
+JavaFileManager.Location
+Interface for locations of file objects.
+JavaFileObject
+File abstraction for tools operating on Java programming language
+ source and class files.
+JavaFileObject.Kind
+Kinds of JavaFileObjects.
+OptionChecker
+Interface for recognizing options.
+SimpleJavaFileObject
+Provides simple implementations for most methods in JavaFileObject.
+StandardJavaFileManager
+File manager based on
+java.io.File
+and
+java.nio.file.Path
+.
+StandardJavaFileManager.PathFactory
+Factory to create
+Path
+objects from strings.
+StandardLocation
+Standard locations of file objects.
+Tool
+Common interface for tools that can be invoked from a program.
+ToolProvider
+Provides methods for locating tool providers, for example,
+ providers of compilers.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

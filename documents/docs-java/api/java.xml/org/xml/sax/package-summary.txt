@@ -1,0 +1,344 @@
+org.xml.sax (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages
+|
+Classes and Interfaces
+SEARCH
+Module
+java.xml
+Package org.xml.sax
+package
+org.xml.sax
+Provides the interfaces for the Simple API for XML (SAX). Supports both
+ the SAX1 and SAX2 APIs.
+SAX2 Standard Feature Flags
+One of the essential characteristics of SAX2 is that it added
+ feature flags which can be used to examine and perhaps modify
+ parser modes, in particular modes such as validation.
+ Since features are identified by (absolute) URIs, anyone
+ can define such features.
+ Currently defined standard feature URIs have the prefix
+http://xml.org/sax/features/
+before an identifier such as
+validation
+.  Turn features on or off using
+setFeature
+.  Those standard identifiers are:
+Standard Features
+Feature ID
+Access
+Default
+Description
+external-general-entities
+read/write
+unspecified
+Reports whether this parser processes external
+          general entities; always true if validating.
+external-parameter-entities
+read/write
+unspecified
+Reports whether this parser processes external
+          parameter entities; always true if validating.
+is-standalone
+(parsing)
+read-only
+, (not parsing)
+none
+not applicable
+May be examined only during a parse, after the
+startDocument()
+callback has been completed; read-only.
+          The value is true if the document specified standalone="yes" in
+          its XML declaration, and otherwise is false.
+lexical-handler/parameter-entities
+read/write
+unspecified
+A value of "true" indicates that the LexicalHandler will report
+          the beginning and end of parameter entities.
+namespaces
+read/write
+true
+A value of "true" indicates namespace URIs and unprefixed local names
+          for element and attribute names will be available.
+namespace-prefixes
+read/write
+false
+A value of "true" indicates that XML qualified names (with prefixes) and
+          attributes (including
+xmlns*
+attributes) will be available.
+resolve-dtd-uris
+read/write
+true
+A value of "true" indicates that system IDs in declarations will
+          be absolutized (relative to their base URIs) before reporting.
+          (That is the default behavior for all SAX2 XML parsers.)
+          A value of "false" indicates those IDs will not be absolutized;
+          parsers will provide the base URI from
+Locator.getSystemId()
+.
+          This applies to system IDs passed in
+DTDHandler.notationDecl()
+,
+DTDHandler.unparsedEntityDecl()
+, and
+DeclHandler.externalEntityDecl()
+.
+It does not apply to
+EntityResolver.resolveEntity()
+,
+          which is not used to report declarations, or to
+LexicalHandler.startDTD()
+, which already provides
+          the non-absolutized URI.
+string-interning
+read/write
+unspecified
+Has a value of "true" if all XML names (for elements, prefixes,
+          attributes, entities, notations, and local names),
+          as well as Namespace URIs, will have been interned
+          using
+java.lang.String.intern
+. This supports fast
+          testing of equality/inequality against string constants,
+          rather than forcing slower calls to
+String.equals()
+.
+unicode-normalization-checking
+read/write
+false
+Controls whether the parser reports Unicode normalization
+         errors as described in section 2.13 and Appendix B of the
+         XML 1.1 Recommendation. If true, Unicode normalization
+         errors are reported using the ErrorHandler.error() callback.
+         Such errors are not fatal in themselves (though, obviously,
+         other Unicode-related encoding errors may be).
+use-attributes2
+read-only
+not applicable
+Returns "true" if the
+Attributes
+objects passed by
+          this parser in
+ContentHandler.startElement()
+implement the
+org.xml.sax.ext.Attributes2
+interface.
+          That interface exposes additional DTD-related information,
+          such as whether the attribute was specified in the
+          source text rather than defaulted.
+use-locator2
+read-only
+not applicable
+Returns "true" if the
+Locator
+objects passed by
+          this parser in
+ContentHandler.setDocumentLocator()
+implement the
+org.xml.sax.ext.Locator2
+interface.
+          That interface exposes additional entity information,
+          such as the character encoding and XML version used.
+use-entity-resolver2
+read/write
+true
+Returns "true" if, when
+setEntityResolver
+is given
+          an object implementing the
+org.xml.sax.ext.EntityResolver2
+interface,
+          those new methods will be used.
+          Returns "false" to indicate that those methods will not be used.
+validation
+read/write
+unspecified
+Controls whether the parser is reporting all validity
+          errors; if true, all external entities will be read.
+xmlns-uris
+read/write
+false
+Controls whether, when the
+namespace-prefixes
+feature
+          is set, the parser treats namespace declaration attributes as
+          being in the
+http://www.w3.org/2000/xmlns/
+namespace.
+          By default, SAX2 conforms to the original "Namespaces in XML"
+          Recommendation, which explicitly states that such attributes are
+          not in any namespace.
+          Setting this optional flag to "true" makes the SAX2 events conform to
+          a later backwards-incompatible revision of that recommendation,
+          placing those attributes in a namespace.
+xml-1.1
+read-only
+not applicable
+Returns "true" if the parser supports both XML 1.1 and XML 1.0.
+             Returns "false" if the parser supports only XML 1.0.
+Support for the default values of the
+namespaces
+and
+namespace-prefixes
+properties is required.
+ Support for any other feature flags is entirely optional.
+For default values not specified by SAX2,
+ each XMLReader implementation specifies its default,
+ or may choose not to expose the feature flag.
+ Unless otherwise specified here,
+ implementations may support changing current values
+ of these standard feature flags, but not while parsing.
+SAX2 Standard Handler and Property IDs
+For parser interface characteristics that are described
+ as objects, a separate namespace is defined.  The
+ objects in this namespace are again identified by URI, and
+ the standard property URIs have the prefix
+http://xml.org/sax/properties/
+before an identifier such as
+lexical-handler
+or
+dom-node
+.  Manage those properties using
+setProperty()
+.  Those identifiers are:
+Standard Property IDs
+Property ID
+Description
+declaration-handler
+Used to see most DTD declarations except those treated
+          as lexical ("document element name is ...") or which are
+          mandatory for all SAX parsers (
+DTDHandler
+).
+          The Object must implement
+org.xml.sax.ext.DeclHandler
+.
+document-xml-version
+May be examined only during a parse, after the startDocument()
+             callback has been completed; read-only. This property is a
+             literal string describing the actual XML version of the document,
+             such as "1.0" or "1.1".
+dom-node
+For "DOM Walker" style parsers, which ignore their
+parser.parse()
+parameters, this is used to
+          specify the DOM (sub)tree being walked by the parser.
+          The Object must implement the
+org.w3c.dom.Node
+interface.
+lexical-handler
+Used to see some syntax events that are essential in some
+          applications:  comments, CDATA delimiters, selected general
+          entity inclusions, and the start and end of the DTD
+          (and declaration of document element name).
+          The Object must implement
+org.xml.sax.ext.LexicalHandler
+.
+xml-string
+Readable only during a parser callback, this exposes a
+TBS
+chunk of characters responsible for the current event.
+All of these standard properties are optional.
+ XMLReader implementations are not required to support them.
+API Note:
+The SAX API, originally developed at
+the SAX Project
+,
+ has been defined by Java SE since 1.4.
+Since:
+1.4
+Related Packages
+Package
+Description
+org.xml.sax.ext
+Provides interfaces to SAX2 facilities that
+ conformant SAX drivers won't necessarily support.
+org.xml.sax.helpers
+Provides helper classes, including
+ support for bootstrapping SAX-based applications.
+All Classes and Interfaces
+Interfaces
+Classes
+Exception Classes
+Class
+Description
+AttributeList
+Deprecated.
+This interface has been replaced by the SAX2
+Attributes
+interface, which includes Namespace support.
+Attributes
+Interface for a list of XML attributes.
+ContentHandler
+Receive notification of the logical content of a document.
+DocumentHandler
+Deprecated.
+This interface has been replaced by the SAX2
+ContentHandler
+interface, which includes Namespace support.
+DTDHandler
+Receive notification of basic DTD-related events.
+EntityResolver
+Basic interface for resolving entities.
+ErrorHandler
+Basic interface for SAX error handlers.
+HandlerBase
+Deprecated.
+This class works with the deprecated
+DocumentHandler
+interface.
+InputSource
+A single input source for an XML entity.
+Locator
+Interface for associating a SAX event with a document location.
+Parser
+Deprecated.
+This interface has been replaced by the SAX2
+XMLReader
+interface, which includes Namespace support.
+SAXException
+Encapsulate a general SAX error or warning.
+SAXNotRecognizedException
+Exception class for an unrecognized identifier.
+SAXNotSupportedException
+Exception class for an unsupported operation.
+SAXParseException
+Encapsulate an XML parse error or warning.
+XMLFilter
+Interface for an XML filter.
+XMLReader
+Interface for reading an XML document using callbacks.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

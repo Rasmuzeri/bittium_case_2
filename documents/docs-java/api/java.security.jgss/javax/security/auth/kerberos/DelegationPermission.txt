@@ -1,0 +1,300 @@
+DelegationPermission (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.security.jgss
+Package
+javax.security.auth.kerberos
+Class DelegationPermission
+java.lang.Object
+java.security.Permission
+java.security.BasicPermission
+javax.security.auth.kerberos.DelegationPermission
+All Implemented Interfaces:
+Serializable
+,
+Guard
+public final class
+DelegationPermission
+extends
+BasicPermission
+implements
+Serializable
+This class is used to restrict the usage of the Kerberos
+ delegation model, ie: forwardable and proxiable tickets.
+The target name of this
+Permission
+specifies a pair of
+ kerberos service principals. The first is the subordinate service principal
+ being entrusted to use the TGT. The second service principal designates
+ the target service the subordinate service principal is to
+ interact with on behalf of the initiating KerberosPrincipal. This
+ latter service principal is specified to restrict the use of a
+ proxiable ticket.
+For example, to specify the "host" service use of a forwardable TGT the
+ target permission is specified as follows:
+DelegationPermission("\"host/foo.example.com@EXAMPLE.COM\" \"krbtgt/EXAMPLE.COM@EXAMPLE.COM\"");
+To give the "backup" service a proxiable nfs service ticket the target permission
+ might be specified:
+DelegationPermission("\"backup/bar.example.com@EXAMPLE.COM\" \"nfs/home.EXAMPLE.COM@EXAMPLE.COM\"");
+Since:
+1.4
+See Also:
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+DelegationPermission
+(
+String
+principals)
+Create a new
+DelegationPermission
+with the specified subordinate and target principals.
+DelegationPermission
+(
+String
+principals,
+String
+actions)
+Create a new
+DelegationPermission
+with the specified subordinate and target principals.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+equals
+(
+Object
+obj)
+Checks two DelegationPermission objects for equality.
+int
+hashCode
+()
+Returns the hash code value for this object.
+boolean
+implies
+(
+Permission
+p)
+Checks if this Kerberos delegation permission object "implies" the
+ specified permission.
+PermissionCollection
+newPermissionCollection
+()
+Returns a PermissionCollection object for storing
+ DelegationPermission objects.
+Methods declared in class java.security.
+BasicPermission
+getActions
+Methods declared in class java.security.
+Permission
+checkGuard
+,
+getName
+,
+toString
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+DelegationPermission
+public
+DelegationPermission
+(
+String
+principals)
+Create a new
+DelegationPermission
+with the specified subordinate and target principals.
+Parameters:
+principals
+- the name of the subordinate and target principals
+Throws:
+NullPointerException
+- if
+principals
+is
+null
+.
+IllegalArgumentException
+- if
+principals
+is empty,
+      or does not contain a pair of principals, or is improperly quoted
+DelegationPermission
+public
+DelegationPermission
+(
+String
+principals,
+String
+actions)
+Create a new
+DelegationPermission
+with the specified subordinate and target principals.
+Parameters:
+principals
+- the name of the subordinate and target principals
+actions
+- should be null.
+Throws:
+NullPointerException
+- if
+principals
+is
+null
+.
+IllegalArgumentException
+- if
+principals
+is empty,
+      or does not contain a pair of principals, or is improperly quoted
+Method Details
+implies
+public
+boolean
+implies
+(
+Permission
+p)
+Checks if this Kerberos delegation permission object "implies" the
+ specified permission.
+This method returns true if this
+DelegationPermission
+is equal to
+p
+, and returns false otherwise.
+Overrides:
+implies
+in class
+BasicPermission
+Parameters:
+p
+- the permission to check against.
+Returns:
+true if the specified permission is implied by this object,
+ false if not.
+equals
+public
+boolean
+equals
+(
+Object
+obj)
+Checks two DelegationPermission objects for equality.
+Overrides:
+equals
+in class
+BasicPermission
+Parameters:
+obj
+- the object to test for equality with this object.
+Returns:
+true if
+obj
+is a DelegationPermission, and
+  has the same subordinate and service principal as this
+  DelegationPermission object.
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+public
+int
+hashCode
+()
+Returns the hash code value for this object.
+Overrides:
+hashCode
+in class
+BasicPermission
+Returns:
+a hash code value for this object.
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+newPermissionCollection
+public
+PermissionCollection
+newPermissionCollection
+()
+Returns a PermissionCollection object for storing
+ DelegationPermission objects.
+DelegationPermission objects must be stored in a manner that
+ allows them to be inserted into the collection in any order, but
+ that also enables the PermissionCollection implies method to
+ be implemented in an efficient (and consistent) manner.
+Overrides:
+newPermissionCollection
+in class
+BasicPermission
+Returns:
+a new PermissionCollection object suitable for storing
+ DelegationPermissions.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

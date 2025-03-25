@@ -1,0 +1,295 @@
+LocalVariable (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.jdi
+Package
+com.sun.jdi
+Interface LocalVariable
+All Superinterfaces:
+Comparable
+<
+LocalVariable
+>
+,
+Mirror
+public interface
+LocalVariable
+extends
+Mirror
+,
+Comparable
+<
+LocalVariable
+>
+A local variable in the target VM. Each variable declared within a
+Method
+has its own LocalVariable object. Variables of the same
+ name declared in different scopes have different LocalVariable objects.
+ LocalVariables can be used alone to retrieve static information
+ about their declaration, or can be used in conjunction with a
+StackFrame
+to set and get values.
+Since:
+1.3
+See Also:
+StackFrame
+Method
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+boolean
+equals
+(
+Object
+obj)
+Compares the specified Object with this LocalVariable for equality.
+String
+genericSignature
+()
+Gets the generic signature for this variable if there is one.
+int
+hashCode
+()
+Returns the hash code value for this LocalVariable.
+boolean
+isArgument
+()
+Determines if this variable is an argument to its method.
+boolean
+isVisible
+(
+StackFrame
+frame)
+Determines whether this variable can be accessed from the given
+StackFrame
+.
+String
+name
+()
+Gets the name of the local variable.
+String
+signature
+()
+Gets the
+type signature
+of the local variable.
+Type
+type
+()
+Returns the type of this variable.
+String
+typeName
+()
+Returns a text representation of the type
+ of this variable.
+Methods declared in interface java.lang.
+Comparable
+compareTo
+Methods declared in interface com.sun.jdi.
+Mirror
+toString
+,
+virtualMachine
+Method Details
+name
+String
+name
+()
+Gets the name of the local variable.
+Returns:
+a string containing the name.
+typeName
+String
+typeName
+()
+Returns a text representation of the type
+ of this variable.
+ Where the type is the type specified in the declaration
+ of this local variable.
+This type name is always available even if
+ the type has not yet been created or loaded.
+Returns:
+a String representing the
+ type of this local variable.
+type
+Type
+type
+()
+   throws
+ClassNotLoadedException
+Returns the type of this variable.
+ Where the type is the type specified in the declaration
+ of this local variable.
+Note: if the type of this variable is a reference type (class,
+ interface, or array) and it has not been created or loaded
+ by the class loader of the enclosing class,
+ then ClassNotLoadedException will be thrown.
+ Also, a reference type may have been loaded but not yet prepared,
+ in which case the type will be returned
+ but attempts to perform some operations on the returned type
+ (e.g.
+fields()
+) will throw
+ a
+ClassNotPreparedException
+.
+ Use
+ReferenceType.isPrepared()
+to determine if
+ a reference type is prepared.
+Returns:
+the
+Type
+of this local variable.
+Throws:
+ClassNotLoadedException
+- if the type has not yet been loaded
+ through the appropriate class loader.
+See Also:
+Type
+Field.type() - for usage examples
+signature
+String
+signature
+()
+Gets the
+type signature
+of the local variable.
+Returns:
+a string containing the signature.
+genericSignature
+String
+genericSignature
+()
+Gets the generic signature for this variable if there is one.
+ Generic signatures are described in the
+The Java Virtual Machine Specification
+.
+Returns:
+a string containing the generic signature, or
+null
+if there is no generic signature.
+Since:
+1.5
+isVisible
+boolean
+isVisible
+(
+StackFrame
+frame)
+Determines whether this variable can be accessed from the given
+StackFrame
+.
+
+ See
+StackFrame.visibleVariables()
+for a complete description
+ variable visibility in this interface.
+Parameters:
+frame
+- the StackFrame querying visibility
+Returns:
+true
+if this variable is visible;
+false
+otherwise.
+Throws:
+IllegalArgumentException
+- if the stack frame's method
+ does not match this variable's method.
+isArgument
+boolean
+isArgument
+()
+Determines if this variable is an argument to its method.
+Returns:
+true
+if this variable is an argument;
+false
+otherwise.
+equals
+boolean
+equals
+(
+Object
+obj)
+Compares the specified Object with this LocalVariable for equality.
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- the reference object with which to compare.
+Returns:
+true if the Object is a LocalVariable, if both LocalVariables
+ are contained in the same method (as determined by
+Method.equals(java.lang.Object)
+), and if both LocalVariables mirror
+ the same declaration within that method
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+int
+hashCode
+()
+Returns the hash code value for this LocalVariable.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+the integer hash code
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

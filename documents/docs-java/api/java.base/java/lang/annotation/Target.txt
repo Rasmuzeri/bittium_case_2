@@ -1,0 +1,145 @@
+Target (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Field
+Required
+Optional
+Detail:
+Field
+Element
+Summary:
+Field |
+Required
+|
+Optional
+Detail:
+Field |
+Element
+SEARCH
+Module
+java.base
+Package
+java.lang.annotation
+Annotation Interface Target
+@Documented
+@Retention
+(
+RUNTIME
+)
+@Target
+(
+ANNOTATION_TYPE
+)
+public @interface
+Target
+Indicates the contexts in which an annotation interface is applicable. The
+ declaration contexts and type contexts in which an annotation interface may
+ be applicable are specified in JLS
+9.6.4.1
+, and denoted in source code by
+ enum constants of
+java.lang.annotation.ElementType
+.
+If an
+@Target
+meta-annotation is not present on an annotation
+ interface
+T
+, then an annotation of type
+T
+may be written as
+ a modifier for any declaration.
+If an
+@Target
+meta-annotation is present, the compiler will enforce
+ the usage restrictions indicated by
+ElementType
+enum constants, in line with JLS
+9.7.4
+.
+For example, this
+@Target
+meta-annotation indicates that the
+ declared interface is itself a meta-annotation interface.  It can only be
+ used on annotation interface declarations:
+@Target(ElementType.ANNOTATION_TYPE)
+    public @interface MetaAnnotationType {
+        ...
+    }
+This
+@Target
+meta-annotation indicates that the declared class or
+ interface is intended solely for use as a member class or interface in
+ complex annotation interface declarations.  It cannot be used to annotate
+ anything directly:
+@Target({})
+    public @interface MemberInterface {
+        ...
+    }
+It is a compile-time error for a single
+ElementType
+constant to
+ appear more than once in an
+@Target
+annotation.  For example, the
+ following
+@Target
+meta-annotation is illegal:
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.FIELD})
+    public @interface Bogus {
+        ...
+    }
+See
+Java Language Specification
+:
+9.6.4.1 @Target
+9.7.4 Where Annotations May Appear
+9.7.5 Multiple Annotations of the Same Interface
+Since:
+1.5
+Required Element Summary
+Required Elements
+Modifier and Type
+Required Element
+Description
+ElementType
+[]
+value
+Returns an array of the kinds of elements an annotation interface
+ can be applied to.
+Element Details
+value
+ElementType
+[]
+value
+Returns an array of the kinds of elements an annotation interface
+ can be applied to.
+Returns:
+an array of the kinds of elements an annotation interface
+ can be applied to
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,1518 @@
+RandomGenerator (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.util.random
+Interface RandomGenerator
+All Known Subinterfaces:
+RandomGenerator.ArbitrarilyJumpableGenerator
+,
+RandomGenerator.JumpableGenerator
+,
+RandomGenerator.LeapableGenerator
+,
+RandomGenerator.SplittableGenerator
+,
+RandomGenerator.StreamableGenerator
+All Known Implementing Classes:
+Random
+,
+SecureRandom
+,
+SplittableRandom
+,
+ThreadLocalRandom
+public interface
+RandomGenerator
+The
+RandomGenerator
+interface is designed to provide a common
+ protocol for objects that generate random or (more typically) pseudorandom
+ sequences of numbers (or Boolean values). Such a sequence may be obtained by
+ either repeatedly invoking a method that returns a single pseudorandomly
+ chosen value, or by invoking a method that returns a stream of
+ pseudorandomly chosen values.
+Ideally, given an implicitly or explicitly specified range of values,
+ each value would be chosen independently and uniformly from that range. In
+ practice, one may have to settle for some approximation to independence and
+ uniformity.
+In the case of
+int
+,
+long
+, and
+boolean
+values, if
+ there is no explicit specification of range, then the range includes all
+ possible values of the type. In the case of
+float
+and
+double
+values, first a value is always chosen uniformly from the set of
+ 2
+w
+values between 0.0 (inclusive) and 1.0 (exclusive),
+ where
+w
+is
+Float.PRECISION
+for
+float
+values
+ and
+Double.PRECISION
+for
+double
+values, such that adjacent values differ by 2
+−
+w
+(notice that this set is a
+subset
+of the set of
+all representable floating-point values
+between 0.0 (inclusive) and 1.0 (exclusive));
+ then if an explicit range was specified, then the chosen number is
+ computationally scaled and translated so as to appear to have been chosen
+ approximately uniformly from that explicit range.
+Each method that returns a stream produces a stream of values each of
+ which is chosen in the same manner as for a method that returns a single
+ pseudorandomly chosen value. For example, if
+r
+implements
+RandomGenerator
+, then the method call
+r.ints(100)
+returns a
+ stream of 100
+int
+values. These are not necessarily the exact same
+ values that would have been returned if instead
+r.nextInt()
+had been
+ called 100 times; all that is guaranteed is that each value in the stream is
+ chosen in a similar pseudorandom manner from the same range.
+Every object that implements the
+RandomGenerator
+interface by
+ using a pseudorandom algorithm is assumed to contain a finite amount of
+ state. Using such an object to generate a pseudorandomly chosen value alters
+ its state by computing a new state as a function of the current state,
+ without reference to any information other than the current state. The number
+ of distinct possible states of such an object is called its
+period
+.
+ (Some implementations of the
+RandomGenerator
+interface may be truly
+ random rather than pseudorandom, for example relying on the statistical
+ behavior of a physical object to derive chosen values. Such implementations
+ do not have a fixed period.)
+As a rule, objects that implement the
+RandomGenerator
+interface
+ need not be thread-safe. It is recommended that multithreaded applications
+ use either
+ThreadLocalRandom
+or (preferably) pseudorandom number
+ generators that implement the
+RandomGenerator.SplittableGenerator
+or
+RandomGenerator.JumpableGenerator
+interface.
+Objects that implement
+RandomGenerator
+are typically not
+ cryptographically secure. Consider instead using
+SecureRandom
+to get
+ a cryptographically secure pseudorandom number generator for use by
+ security-sensitive applications. Note, however, that
+SecureRandom
+does implement the
+RandomGenerator
+interface, so that instances of
+SecureRandom
+may be used interchangeably with other types of
+ pseudorandom generators in applications that do not require a secure
+ generator.
+Unless explicit stated otherwise, the use of null for any method argument
+ will cause a NullPointerException.
+Since:
+17
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Interface
+Description
+static interface
+RandomGenerator.ArbitrarilyJumpableGenerator
+This interface is designed to provide a common protocol for objects that
+ generate sequences of pseudorandom values and can easily
+jump
+forward, by an arbitrary amount, to a distant point in the state cycle.
+static interface
+RandomGenerator.JumpableGenerator
+This interface is designed to provide a common protocol for objects that
+ generate pseudorandom values and can easily
+jump
+forward, by a
+ moderate amount (ex. 2
+64
+) to a distant point in the state cycle.
+static interface
+RandomGenerator.LeapableGenerator
+This interface is designed to provide a common protocol for objects that
+ generate sequences of pseudorandom values and can easily not only jump
+ but also
+leap
+forward, by a large amount (ex. 2
+128
+), to
+ a very distant point in the state cycle.
+static interface
+RandomGenerator.SplittableGenerator
+This interface is designed to provide a common protocol for objects that
+ generate sequences of pseudorandom values and can be
+split
+into
+ two objects (the original one and a new one) each of which obey that same
+ protocol (and therefore can be recursively split indefinitely).
+static interface
+RandomGenerator.StreamableGenerator
+The
+RandomGenerator.StreamableGenerator
+interface augments the
+RandomGenerator
+interface to provide methods that return streams
+ of
+RandomGenerator
+objects.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+default
+DoubleStream
+doubles
+()
+Returns an effectively unlimited stream of pseudorandomly chosen
+double
+values.
+default
+DoubleStream
+doubles
+(double randomNumberOrigin,
+ double randomNumberBound)
+Returns an effectively unlimited stream of pseudorandomly chosen
+double
+values, where each value is between the specified origin
+ (inclusive) and the specified bound (exclusive).
+default
+DoubleStream
+doubles
+(long streamSize)
+Returns a stream producing the given
+streamSize
+number of
+ pseudorandomly chosen
+double
+values.
+default
+DoubleStream
+doubles
+(long streamSize,
+ double randomNumberOrigin,
+ double randomNumberBound)
+Returns a stream producing the given
+streamSize
+number of
+ pseudorandomly chosen
+double
+values, where each value is
+ between the specified origin (inclusive) and the specified bound
+ (exclusive).
+static
+RandomGenerator
+getDefault
+()
+Returns a
+RandomGenerator
+meeting the minimal requirement
+ of having an
+algorithm
+whose state bits are greater than or equal 64.
+default
+IntStream
+ints
+()
+Returns an effectively unlimited stream of pseudorandomly chosen
+int
+values.
+default
+IntStream
+ints
+(int randomNumberOrigin,
+ int randomNumberBound)
+Returns an effectively unlimited stream of pseudorandomly chosen
+int
+values, where each value is between the specified origin
+ (inclusive) and the specified bound (exclusive).
+default
+IntStream
+ints
+(long streamSize)
+Returns a stream producing the given
+streamSize
+number of
+ pseudorandomly chosen
+int
+values.
+default
+IntStream
+ints
+(long streamSize,
+ int randomNumberOrigin,
+ int randomNumberBound)
+Returns a stream producing the given
+streamSize
+number of
+ pseudorandomly chosen
+int
+values, where each value is between
+ the specified origin (inclusive) and the specified bound (exclusive).
+default boolean
+isDeprecated
+()
+Return true if the implementation of RandomGenerator (algorithm) has been
+ marked for deprecation.
+default
+LongStream
+longs
+()
+Returns an effectively unlimited stream of pseudorandomly chosen
+long
+values.
+default
+LongStream
+longs
+(long streamSize)
+Returns a stream producing the given
+streamSize
+number of
+ pseudorandomly chosen
+long
+values.
+default
+LongStream
+longs
+(long randomNumberOrigin,
+ long randomNumberBound)
+Returns an effectively unlimited stream of pseudorandomly chosen
+long
+values, where each value is between the specified origin
+ (inclusive) and the specified bound (exclusive).
+default
+LongStream
+longs
+(long streamSize,
+ long randomNumberOrigin,
+ long randomNumberBound)
+Returns a stream producing the given
+streamSize
+number of
+ pseudorandomly chosen
+long
+values, where each value is between
+ the specified origin (inclusive) and the specified bound (exclusive).
+default boolean
+nextBoolean
+()
+Returns a pseudorandomly chosen
+boolean
+value.
+default void
+nextBytes
+(byte[] bytes)
+Fills a user-supplied byte array with generated byte values
+ pseudorandomly chosen uniformly from the range of values between -128
+ (inclusive) and 127 (inclusive).
+default double
+nextDouble
+()
+Returns a pseudorandom
+double
+value between zero (inclusive) and
+ one (exclusive).
+default double
+nextDouble
+(double bound)
+Returns a pseudorandomly chosen
+double
+value between zero
+ (inclusive) and the specified bound (exclusive).
+default double
+nextDouble
+(double origin,
+ double bound)
+Returns a pseudorandomly chosen
+double
+value between the
+ specified origin (inclusive) and the specified bound (exclusive).
+default double
+nextExponential
+()
+Returns a nonnegative
+double
+value pseudorandomly chosen from
+ an exponential distribution whose mean is 1.
+default float
+nextFloat
+()
+Returns a pseudorandom
+float
+value between zero (inclusive) and
+ one (exclusive).
+default float
+nextFloat
+(float bound)
+Returns a pseudorandomly chosen
+float
+value between zero
+ (inclusive) and the specified bound (exclusive).
+default float
+nextFloat
+(float origin,
+ float bound)
+Returns a pseudorandomly chosen
+float
+value between the
+ specified origin (inclusive) and the specified bound (exclusive).
+default double
+nextGaussian
+()
+Returns a
+double
+value pseudorandomly chosen from a Gaussian
+ (normal) distribution whose mean is 0 and whose standard deviation is 1.
+default double
+nextGaussian
+(double mean,
+ double stddev)
+Returns a
+double
+value pseudorandomly chosen from a Gaussian
+ (normal) distribution with a mean and standard deviation specified by the
+ arguments.
+default int
+nextInt
+()
+Returns a pseudorandomly chosen
+int
+value.
+default int
+nextInt
+(int bound)
+Returns a pseudorandomly chosen
+int
+value between zero
+ (inclusive) and the specified bound (exclusive).
+default int
+nextInt
+(int origin,
+ int bound)
+Returns a pseudorandomly chosen
+int
+value between the specified
+ origin (inclusive) and the specified bound (exclusive).
+long
+nextLong
+()
+Returns a pseudorandomly chosen
+long
+value.
+default long
+nextLong
+(long bound)
+Returns a pseudorandomly chosen
+long
+value between zero
+ (inclusive) and the specified bound (exclusive).
+default long
+nextLong
+(long origin,
+ long bound)
+Returns a pseudorandomly chosen
+long
+value between the
+ specified origin (inclusive) and the specified bound (exclusive).
+static
+RandomGenerator
+of
+(
+String
+name)
+Returns an instance of
+RandomGenerator
+that utilizes the
+name
+algorithm
+.
+Method Details
+of
+static
+RandomGenerator
+of
+(
+String
+name)
+Returns an instance of
+RandomGenerator
+that utilizes the
+name
+algorithm
+.
+Parameters:
+name
+- Name of random number generator
+algorithm
+Returns:
+An instance of
+RandomGenerator
+Throws:
+NullPointerException
+- if name is null
+IllegalArgumentException
+- if the named algorithm is not found
+getDefault
+static
+RandomGenerator
+getDefault
+()
+Returns a
+RandomGenerator
+meeting the minimal requirement
+ of having an
+algorithm
+whose state bits are greater than or equal 64.
+Implementation Requirements:
+Since algorithms will improve over time, there is no
+ guarantee that this method will return the same algorithm over time.
+The default implementation selects L32X64MixRandom.
+Returns:
+a
+RandomGenerator
+isDeprecated
+default
+boolean
+isDeprecated
+()
+Return true if the implementation of RandomGenerator (algorithm) has been
+ marked for deprecation.
+Implementation Requirements:
+The default implementation checks for the @Deprecated annotation.
+Implementation Note:
+Random number generator algorithms evolve over time; new
+ algorithms will be introduced and old algorithms will
+ lose standing. If an older algorithm is deemed unsuitable
+ for continued use, it will be marked as deprecated to indicate
+ that it may be removed at some point in the future.
+Returns:
+true if the implementation of RandomGenerator (algorithm) has been
+         marked for deprecation
+doubles
+default
+DoubleStream
+doubles
+()
+Returns an effectively unlimited stream of pseudorandomly chosen
+double
+values.
+Implementation Requirements:
+The default implementation produces a sequential stream
+ that repeatedly calls
+nextDouble
+().
+Implementation Note:
+It is permitted to implement this method in a manner equivalent to
+doubles
+(
+Long.MAX_VALUE
+).
+Returns:
+a stream of pseudorandomly chosen
+double
+values
+doubles
+default
+DoubleStream
+doubles
+(double randomNumberOrigin,
+ double randomNumberBound)
+Returns an effectively unlimited stream of pseudorandomly chosen
+double
+values, where each value is between the specified origin
+ (inclusive) and the specified bound (exclusive).
+Implementation Requirements:
+The default implementation produces a sequential stream that repeatedly
+ calls
+nextDouble
+(randomNumberOrigin, randomNumberBound).
+Implementation Note:
+It is permitted to implement this method in a manner equivalent to
+doubles
+(
+Long.MAX_VALUE
+, randomNumberOrigin, randomNumberBound).
+Parameters:
+randomNumberOrigin
+- the least value that can be produced
+randomNumberBound
+- the upper bound (exclusive) for each value produced
+Returns:
+a stream of pseudorandomly chosen
+double
+values, each between
+         the specified origin (inclusive) and the specified bound (exclusive)
+Throws:
+IllegalArgumentException
+- if
+randomNumberOrigin
+is not finite,
+         or
+randomNumberBound
+is not finite, or
+randomNumberOrigin
+is greater than or equal to
+randomNumberBound
+doubles
+default
+DoubleStream
+doubles
+(long streamSize)
+Returns a stream producing the given
+streamSize
+number of
+ pseudorandomly chosen
+double
+values.
+Implementation Requirements:
+The default implementation produces a sequential stream
+ that repeatedly calls
+nextDouble()
+.
+Parameters:
+streamSize
+- the number of values to generate
+Returns:
+a stream of pseudorandomly chosen
+double
+values
+Throws:
+IllegalArgumentException
+- if
+streamSize
+is
+         less than zero
+doubles
+default
+DoubleStream
+doubles
+(long streamSize,
+ double randomNumberOrigin,
+ double randomNumberBound)
+Returns a stream producing the given
+streamSize
+number of
+ pseudorandomly chosen
+double
+values, where each value is
+ between the specified origin (inclusive) and the specified bound
+ (exclusive).
+Implementation Requirements:
+The default implementation produces a sequential stream that repeatedly
+ calls
+nextDouble
+(randomNumberOrigin, randomNumberBound).
+Parameters:
+streamSize
+- the number of values to generate
+randomNumberOrigin
+- the least value that can be produced
+randomNumberBound
+- the upper bound (exclusive) for each value produced
+Returns:
+a stream of pseudorandomly chosen
+double
+values, each between
+         the specified origin (inclusive) and the specified bound (exclusive)
+Throws:
+IllegalArgumentException
+- if
+streamSize
+is less than zero,
+         or
+randomNumberOrigin
+is not finite,
+         or
+randomNumberBound
+is not finite, or
+randomNumberOrigin
+is greater than or equal to
+randomNumberBound
+ints
+default
+IntStream
+ints
+()
+Returns an effectively unlimited stream of pseudorandomly chosen
+int
+values.
+Implementation Requirements:
+The default implementation produces a sequential stream
+ that repeatedly calls
+nextInt
+().
+Implementation Note:
+It is permitted to implement this method in a manner
+ equivalent to
+ints
+(
+Long.MAX_VALUE
+).
+Returns:
+a stream of pseudorandomly chosen
+int
+values
+ints
+default
+IntStream
+ints
+(int randomNumberOrigin,
+ int randomNumberBound)
+Returns an effectively unlimited stream of pseudorandomly chosen
+int
+values, where each value is between the specified origin
+ (inclusive) and the specified bound (exclusive).
+Implementation Requirements:
+The default implementation produces a sequential stream that repeatedly
+ calls
+nextInt
+(randomNumberOrigin, randomNumberBound).
+Implementation Note:
+It is permitted to implement this method in a manner equivalent to
+ints
+(
+Long.MAX_VALUE
+, randomNumberOrigin, randomNumberBound).
+Parameters:
+randomNumberOrigin
+- the least value that can be produced
+randomNumberBound
+- the upper bound (exclusive) for each value produced
+Returns:
+a stream of pseudorandomly chosen
+int
+values, each between
+         the specified origin (inclusive) and the specified bound (exclusive)
+Throws:
+IllegalArgumentException
+- if
+randomNumberOrigin
+is greater than or equal to
+randomNumberBound
+ints
+default
+IntStream
+ints
+(long streamSize)
+Returns a stream producing the given
+streamSize
+number of
+ pseudorandomly chosen
+int
+values.
+Implementation Requirements:
+The default implementation produces a sequential stream
+ that repeatedly calls
+nextInt
+().
+Parameters:
+streamSize
+- the number of values to generate
+Returns:
+a stream of pseudorandomly chosen
+int
+values
+Throws:
+IllegalArgumentException
+- if
+streamSize
+is
+         less than zero
+ints
+default
+IntStream
+ints
+(long streamSize,
+ int randomNumberOrigin,
+ int randomNumberBound)
+Returns a stream producing the given
+streamSize
+number of
+ pseudorandomly chosen
+int
+values, where each value is between
+ the specified origin (inclusive) and the specified bound (exclusive).
+Implementation Requirements:
+The default implementation produces a sequential stream that repeatedly
+ calls
+nextInt
+(randomNumberOrigin, randomNumberBound).
+Parameters:
+streamSize
+- the number of values to generate
+randomNumberOrigin
+- the least value that can be produced
+randomNumberBound
+- the upper bound (exclusive) for each value produced
+Returns:
+a stream of pseudorandomly chosen
+int
+values, each between
+         the specified origin (inclusive) and the specified bound (exclusive)
+Throws:
+IllegalArgumentException
+- if
+streamSize
+is
+         less than zero, or
+randomNumberOrigin
+is greater than or equal to
+randomNumberBound
+longs
+default
+LongStream
+longs
+()
+Returns an effectively unlimited stream of pseudorandomly chosen
+long
+values.
+Implementation Requirements:
+The default implementation produces a sequential stream
+ that repeatedly calls
+nextLong
+().
+Implementation Note:
+It is permitted to implement this method in a manner
+ equivalent to
+longs
+(
+Long.MAX_VALUE
+).
+Returns:
+a stream of pseudorandomly chosen
+long
+values
+longs
+default
+LongStream
+longs
+(long randomNumberOrigin,
+ long randomNumberBound)
+Returns an effectively unlimited stream of pseudorandomly chosen
+long
+values, where each value is between the specified origin
+ (inclusive) and the specified bound (exclusive).
+Implementation Requirements:
+The default implementation produces a sequential stream that repeatedly
+ calls
+nextLong
+(randomNumberOrigin, randomNumberBound).
+Implementation Note:
+It is permitted to implement this method in a manner equivalent to
+longs
+(
+Long.MAX_VALUE
+, randomNumberOrigin, randomNumberBound).
+Parameters:
+randomNumberOrigin
+- the least value that can be produced
+randomNumberBound
+- the upper bound (exclusive) for each value produced
+Returns:
+a stream of pseudorandomly chosen
+long
+values, each between
+         the specified origin (inclusive) and the specified bound (exclusive)
+Throws:
+IllegalArgumentException
+- if
+randomNumberOrigin
+is greater than or equal to
+randomNumberBound
+longs
+default
+LongStream
+longs
+(long streamSize)
+Returns a stream producing the given
+streamSize
+number of
+ pseudorandomly chosen
+long
+values.
+Implementation Requirements:
+The default implementation produces a sequential stream
+ that repeatedly calls
+nextLong
+().
+Parameters:
+streamSize
+- the number of values to generate
+Returns:
+a stream of pseudorandomly chosen
+long
+values
+Throws:
+IllegalArgumentException
+- if
+streamSize
+is
+         less than zero
+longs
+default
+LongStream
+longs
+(long streamSize,
+ long randomNumberOrigin,
+ long randomNumberBound)
+Returns a stream producing the given
+streamSize
+number of
+ pseudorandomly chosen
+long
+values, where each value is between
+ the specified origin (inclusive) and the specified bound (exclusive).
+Implementation Requirements:
+The default implementation produces a sequential stream that repeatedly
+ calls
+nextLong
+(randomNumberOrigin, randomNumberBound).
+Parameters:
+streamSize
+- the number of values to generate
+randomNumberOrigin
+- the least value that can be produced
+randomNumberBound
+- the upper bound (exclusive) for each value produced
+Returns:
+a stream of pseudorandomly chosen
+long
+values, each between
+         the specified origin (inclusive) and the specified bound (exclusive)
+Throws:
+IllegalArgumentException
+- if
+streamSize
+is
+         less than zero, or
+randomNumberOrigin
+is greater than or equal to
+randomNumberBound
+nextBoolean
+default
+boolean
+nextBoolean
+()
+Returns a pseudorandomly chosen
+boolean
+value.
+The default implementation tests the high-order bit (sign bit) of a
+ value produced by
+nextInt
+(), on the
+ grounds that some algorithms for pseudorandom number generation produce
+ values whose high-order bits have better statistical quality than the
+ low-order bits.
+Implementation Requirements:
+The default implementation produces a result based on the
+ sign bit of a number generated by
+nextInt()
+.
+Returns:
+a pseudorandomly chosen
+boolean
+value
+nextBytes
+default
+void
+nextBytes
+(byte[] bytes)
+Fills a user-supplied byte array with generated byte values
+ pseudorandomly chosen uniformly from the range of values between -128
+ (inclusive) and 127 (inclusive).
+Implementation Requirements:
+The default implementation produces results from repeated calls
+ to
+nextLong()
+.
+Implementation Note:
+Algorithm used to fill the byte array;
+void nextBytes(byte[] bytes) {
+               int i = 0;
+               int len = bytes.length;
+               for (int words = len >> 3; words--> 0; ) {
+                   long rnd = nextLong();
+                   for (int n = 8; n--> 0; rnd >>>= Byte.SIZE)
+                       bytes[i++] = (byte)rnd;
+               }
+               if (i < len)
+                   for (long rnd = nextLong(); i < len; rnd >>>= Byte.SIZE)
+                       bytes[i++] = (byte)rnd;
+           }
+Parameters:
+bytes
+- the byte array to fill with pseudorandom bytes
+Throws:
+NullPointerException
+- if bytes is null
+nextFloat
+default
+float
+nextFloat
+()
+Returns a pseudorandom
+float
+value between zero (inclusive) and
+ one (exclusive).
+Implementation Requirements:
+The default implementation uses the
+Float.PRECISION
+high-order bits from a call to
+nextInt()
+.
+Returns:
+a pseudorandom
+float
+value between zero (inclusive) and one (exclusive)
+nextFloat
+default
+float
+nextFloat
+(float bound)
+Returns a pseudorandomly chosen
+float
+value between zero
+ (inclusive) and the specified bound (exclusive).
+Implementation Requirements:
+The default implementation checks that
+bound
+is a
+ positive finite float. Then invokes
+nextFloat()
+, scaling
+ the result so that the final result lies between
+0.0f
+(inclusive)
+ and
+bound
+(exclusive).
+Parameters:
+bound
+- the upper bound (exclusive) for the returned value.
+        Must be positive and finite
+Returns:
+a pseudorandomly chosen
+float
+value between
+         zero (inclusive) and the bound (exclusive)
+Throws:
+IllegalArgumentException
+- if
+bound
+is not
+         both positive and finite
+nextFloat
+default
+float
+nextFloat
+(float origin,
+ float bound)
+Returns a pseudorandomly chosen
+float
+value between the
+ specified origin (inclusive) and the specified bound (exclusive).
+Implementation Requirements:
+The default implementation verifies that the
+origin
+and
+bound
+are valid then invokes
+nextFloat()
+scaling and translating the result to fit between
+origin
+and
+bound
+(exclusive).
+Parameters:
+origin
+- the least value that can be returned
+bound
+- the upper bound (exclusive)
+Returns:
+a pseudorandomly chosen
+float
+value between the
+         origin (inclusive) and the bound (exclusive)
+Throws:
+IllegalArgumentException
+- if
+origin
+is not finite,
+         or
+bound
+is not finite, or
+origin
+is greater than or equal to
+bound
+nextDouble
+default
+double
+nextDouble
+()
+Returns a pseudorandom
+double
+value between zero (inclusive) and
+ one (exclusive).
+Implementation Requirements:
+The default implementation uses the
+Double.PRECISION
+high-order bits from a call to
+nextLong()
+.
+Returns:
+a pseudorandom
+double
+value between zero (inclusive)
+         and one (exclusive)
+nextDouble
+default
+double
+nextDouble
+(double bound)
+Returns a pseudorandomly chosen
+double
+value between zero
+ (inclusive) and the specified bound (exclusive).
+Implementation Requirements:
+The default implementation checks that
+bound
+is a
+ positive finite double. Then invokes
+nextDouble()
+, scaling
+ the result so that the final result lies between
+0.0
+(inclusive)
+ and
+bound
+(exclusive).
+Parameters:
+bound
+- the upper bound (exclusive) for the returned value.
+        Must be positive and finite
+Returns:
+a pseudorandomly chosen
+double
+value between
+         zero (inclusive) and the bound (exclusive)
+Throws:
+IllegalArgumentException
+- if
+bound
+is not
+         both positive and finite
+nextDouble
+default
+double
+nextDouble
+(double origin,
+ double bound)
+Returns a pseudorandomly chosen
+double
+value between the
+ specified origin (inclusive) and the specified bound (exclusive).
+Implementation Requirements:
+The default implementation verifies that the
+origin
+and
+bound
+are valid, then invokes
+nextDouble()
+scaling and translating the result to fit between
+origin
+and
+bound
+( exclusive).
+Parameters:
+origin
+- the least value that can be returned
+bound
+- the upper bound (exclusive) for the returned value
+Returns:
+a pseudorandomly chosen
+double
+value between the
+         origin (inclusive) and the bound (exclusive)
+Throws:
+IllegalArgumentException
+- if
+origin
+is not finite,
+         or
+bound
+is not finite, or
+origin
+is greater than or equal to
+bound
+nextInt
+default
+int
+nextInt
+()
+Returns a pseudorandomly chosen
+int
+value.
+Implementation Requirements:
+The default implementation uses the 32 high-order bits from a call to
+nextLong
+().
+Returns:
+a pseudorandomly chosen
+int
+value
+nextInt
+default
+int
+nextInt
+(int bound)
+Returns a pseudorandomly chosen
+int
+value between zero
+ (inclusive) and the specified bound (exclusive).
+Implementation Requirements:
+The default implementation checks that
+bound
+is a
+ positive
+int
+. Then invokes
+nextInt()
+, limiting the result
+ to be greater than or equal zero and less than
+bound
+. If
+bound
+is a power of two then limiting is a simple masking operation. Otherwise,
+ the result is re-calculated by invoking
+nextInt()
+until the
+ result is greater than or equal zero and less than
+bound
+.
+Parameters:
+bound
+- the upper bound (exclusive) for the returned value.
+ Must be positive.
+Returns:
+a pseudorandomly chosen
+int
+value between
+         zero (inclusive) and the bound (exclusive)
+Throws:
+IllegalArgumentException
+- if
+bound
+is not positive
+nextInt
+default
+int
+nextInt
+(int origin,
+ int bound)
+Returns a pseudorandomly chosen
+int
+value between the specified
+ origin (inclusive) and the specified bound (exclusive).
+Implementation Requirements:
+The default implementation checks that
+origin
+and
+bound
+are positive
+ints
+. Then invokes
+nextInt()
+,
+ limiting the result to be greater that or equal
+origin
+and less
+ than
+bound
+. If
+bound
+is a power of two then limiting is a
+ simple masking operation. Otherwise, the result is re-calculated  by
+ invoking
+nextInt()
+until the result is greater than or equal
+origin
+and less than
+bound
+.
+Parameters:
+origin
+- the least value that can be returned
+bound
+- the upper bound (exclusive) for the returned value
+Returns:
+a pseudorandomly chosen
+int
+value between the
+         origin (inclusive) and the bound (exclusive)
+Throws:
+IllegalArgumentException
+- if
+origin
+is greater than
+         or equal to
+bound
+nextLong
+long
+nextLong
+()
+Returns a pseudorandomly chosen
+long
+value.
+Returns:
+a pseudorandomly chosen
+long
+value
+nextLong
+default
+long
+nextLong
+(long bound)
+Returns a pseudorandomly chosen
+long
+value between zero
+ (inclusive) and the specified bound (exclusive).
+Implementation Requirements:
+The default implementation checks that
+bound
+is a
+ positive
+long
+. Then invokes
+nextLong()
+, limiting the
+ result to be greater than or equal zero and less than
+bound
+. If
+bound
+is a power of two then limiting is a simple masking
+ operation. Otherwise, the result is re-calculated by invoking
+nextLong()
+until the result is greater than or equal zero and
+ less than
+bound
+.
+Parameters:
+bound
+- the upper bound (exclusive) for the returned value.
+ Must be positive.
+Returns:
+a pseudorandomly chosen
+long
+value between
+         zero (inclusive) and the bound (exclusive)
+Throws:
+IllegalArgumentException
+- if
+bound
+is not positive
+nextLong
+default
+long
+nextLong
+(long origin,
+ long bound)
+Returns a pseudorandomly chosen
+long
+value between the
+ specified origin (inclusive) and the specified bound (exclusive).
+Implementation Requirements:
+The default implementation checks that
+origin
+and
+bound
+are positive
+longs
+. Then invokes
+nextLong()
+,
+ limiting the result to be greater than or equal
+origin
+and less
+ than
+bound
+. If
+bound
+is a power of two then limiting is a
+ simple masking operation. Otherwise, the result is re-calculated by
+ invoking
+nextLong()
+until the result is greater than or equal
+origin
+and less than
+bound
+.
+Parameters:
+origin
+- the least value that can be returned
+bound
+- the upper bound (exclusive) for the returned value
+Returns:
+a pseudorandomly chosen
+long
+value between the
+         origin (inclusive) and the bound (exclusive)
+Throws:
+IllegalArgumentException
+- if
+origin
+is greater than
+         or equal to
+bound
+nextGaussian
+default
+double
+nextGaussian
+()
+Returns a
+double
+value pseudorandomly chosen from a Gaussian
+ (normal) distribution whose mean is 0 and whose standard deviation is 1.
+Implementation Requirements:
+The default implementation uses McFarland's fast modified
+ ziggurat algorithm (largely table-driven, with rare cases handled by
+ computation and rejection sampling). Walker's alias method for sampling
+ a discrete distribution also plays a role.
+Returns:
+a
+double
+value pseudorandomly chosen from a
+         Gaussian distribution
+nextGaussian
+default
+double
+nextGaussian
+(double mean,
+ double stddev)
+Returns a
+double
+value pseudorandomly chosen from a Gaussian
+ (normal) distribution with a mean and standard deviation specified by the
+ arguments.
+Implementation Requirements:
+The default implementation uses McFarland's fast modified
+ ziggurat algorithm (largely table-driven, with rare cases handled by
+ computation and rejection sampling). Walker's alias method for sampling
+ a discrete distribution also plays a role.
+Parameters:
+mean
+- the mean of the Gaussian distribution to be drawn from
+stddev
+- the standard deviation (square root of the variance)
+        of the Gaussian distribution to be drawn from
+Returns:
+a
+double
+value pseudorandomly chosen from the
+         specified Gaussian distribution
+Throws:
+IllegalArgumentException
+- if
+stddev
+is negative
+nextExponential
+default
+double
+nextExponential
+()
+Returns a nonnegative
+double
+value pseudorandomly chosen from
+ an exponential distribution whose mean is 1.
+Implementation Requirements:
+The default implementation uses McFarland's fast modified
+ ziggurat algorithm (largely table-driven, with rare cases handled by
+ computation and rejection sampling). Walker's alias method for sampling
+ a discrete distribution also plays a role.
+Returns:
+a nonnegative
+double
+value pseudorandomly chosen from an
+         exponential distribution
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

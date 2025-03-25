@@ -1,0 +1,705 @@
+Locale.LanguageRange (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.util
+Class Locale.LanguageRange
+java.lang.Object
+java.util.Locale.LanguageRange
+Enclosing class:
+Locale
+public static final class
+Locale.LanguageRange
+extends
+Object
+This class expresses a
+Language Range
+defined in
+RFC 4647 Matching of
+ Language Tags
+. A language range is an identifier which is used to
+ select language tag(s) meeting specific requirements by using the
+ mechanisms described in
+Locale
+ Matching
+. A list which represents a user's preferences and consists
+ of language ranges is called a
+Language Priority List
+.
+There are two types of language ranges: basic and extended. In RFC
+ 4647, the syntax of language ranges is expressed in
+ABNF
+as follows:
+basic-language-range    = (1*8ALPHA *("-" 1*8alphanum)) / "*"
+     extended-language-range = (1*8ALPHA / "*")
+                               *("-" (1*8alphanum / "*"))
+     alphanum                = ALPHA / DIGIT
+For example,
+"en"
+(English),
+"ja-JP"
+(Japanese, Japan),
+"*"
+(special language range which matches any language tag) are
+ basic language ranges, whereas
+"*-CH"
+(any languages,
+ Switzerland),
+"es-*"
+(Spanish, any regions), and
+"zh-Hant-*"
+(Traditional Chinese, any regions) are extended
+ language ranges.
+Since:
+1.8
+External Specifications
+RFC 4234: Augmented BNF for Syntax Specifications: ABNF
+RFC 4647: Matching of Language Tags
+See Also:
+Locale.filter(java.util.List<java.util.Locale.LanguageRange>, java.util.Collection<java.util.Locale>, java.util.Locale.FilteringMode)
+Locale.filterTags(java.util.List<java.util.Locale.LanguageRange>, java.util.Collection<java.lang.String>, java.util.Locale.FilteringMode)
+Locale.lookup(java.util.List<java.util.Locale.LanguageRange>, java.util.Collection<java.util.Locale>)
+Locale.lookupTag(java.util.List<java.util.Locale.LanguageRange>, java.util.Collection<java.lang.String>)
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final double
+MAX_WEIGHT
+A constant holding the maximum value of weight, 1.0, which indicates
+ that the language range is a good fit for the user.
+static final double
+MIN_WEIGHT
+A constant holding the minimum value of weight, 0.0, which indicates
+ that the language range is not a good fit for the user.
+Constructor Summary
+Constructors
+Constructor
+Description
+LanguageRange
+(
+String
+range)
+Constructs a
+LanguageRange
+using the given
+range
+.
+LanguageRange
+(
+String
+range,
+ double weight)
+Constructs a
+LanguageRange
+using the given
+range
+and
+weight
+.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+equals
+(
+Object
+obj)
+Compares this object to the specified object.
+String
+getRange
+()
+Returns the language range of this
+LanguageRange
+.
+double
+getWeight
+()
+Returns the weight of this
+LanguageRange
+.
+int
+hashCode
+()
+Returns a hash code value for this object.
+static
+List
+<
+Locale.LanguageRange
+>
+mapEquivalents
+(
+List
+<
+Locale.LanguageRange
+> priorityList,
+Map
+<
+String
+,
+List
+<
+String
+>> map)
+Generates a new customized Language Priority List using the given
+priorityList
+and
+map
+.
+static
+List
+<
+Locale.LanguageRange
+>
+parse
+(
+String
+ranges)
+Parses the given
+ranges
+to generate a Language Priority List.
+static
+List
+<
+Locale.LanguageRange
+>
+parse
+(
+String
+ranges,
+Map
+<
+String
+,
+List
+<
+String
+>> map)
+Parses the given
+ranges
+to generate a Language Priority
+ List, and then customizes the list using the given
+map
+.
+String
+toString
+()
+Returns an informative string representation of this
+LanguageRange
+object, consisting of language range and weight if the range is
+ weighted and the weight is less than the max weight.
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Field Details
+MAX_WEIGHT
+public static final
+double
+MAX_WEIGHT
+A constant holding the maximum value of weight, 1.0, which indicates
+ that the language range is a good fit for the user.
+See Also:
+Constant Field Values
+MIN_WEIGHT
+public static final
+double
+MIN_WEIGHT
+A constant holding the minimum value of weight, 0.0, which indicates
+ that the language range is not a good fit for the user.
+See Also:
+Constant Field Values
+Constructor Details
+LanguageRange
+public
+LanguageRange
+(
+String
+range)
+Constructs a
+LanguageRange
+using the given
+range
+.
+ Note that no validation is done against the IANA Language Subtag
+ Registry at time of construction.
+This is equivalent to
+LanguageRange(range, MAX_WEIGHT)
+.
+Parameters:
+range
+- a language range
+Throws:
+NullPointerException
+- if the given
+range
+is
+null
+IllegalArgumentException
+- if the given
+range
+does not
+ comply with the syntax of the language range mentioned in RFC 4647
+LanguageRange
+public
+LanguageRange
+(
+String
+range,
+ double weight)
+Constructs a
+LanguageRange
+using the given
+range
+and
+weight
+. Note that no validation is done against the IANA
+ Language Subtag Registry at time of construction.
+Parameters:
+range
+- a language range
+weight
+- a weight value between
+MIN_WEIGHT
+and
+MAX_WEIGHT
+Throws:
+NullPointerException
+- if the given
+range
+is
+null
+IllegalArgumentException
+- if the given
+range
+does not
+ comply with the syntax of the language range mentioned in RFC 4647
+ or if the given
+weight
+is less than
+MIN_WEIGHT
+or greater than
+MAX_WEIGHT
+Method Details
+getRange
+public
+String
+getRange
+()
+Returns the language range of this
+LanguageRange
+.
+Returns:
+the language range.
+getWeight
+public
+double
+getWeight
+()
+Returns the weight of this
+LanguageRange
+.
+Returns:
+the weight value.
+parse
+public static
+List
+<
+Locale.LanguageRange
+>
+parse
+(
+String
+ranges)
+Parses the given
+ranges
+to generate a Language Priority List.
+This method performs a syntactic check for each language range in
+ the given
+ranges
+but doesn't do validation using the IANA
+ Language Subtag Registry.
+The
+ranges
+to be given can take one of the following
+ forms:
+"Accept-Language: ja,en;q=0.4"  (weighted list with Accept-Language prefix)
+   "ja,en;q=0.4"                   (weighted list)
+   "ja,en"                         (prioritized list)
+In a weighted list, each language range is given a weight value.
+ The weight value is identical to the "quality value" in
+RFC 2616
+, and it
+ expresses how much the user prefers  the language. A weight value is
+ specified after a corresponding language range followed by
+";q="
+, and the default weight value is
+MAX_WEIGHT
+when it is omitted.
+Unlike a weighted list, language ranges in a prioritized list
+ are sorted in the descending order based on its priority. The first
+ language range has the highest priority and meets the user's
+ preference most.
+In either case, language ranges are sorted in descending order in
+ the Language Priority List based on priority or weight. If a
+ language range appears in the given
+ranges
+more than once,
+ only the first one is included on the Language Priority List.
+The returned list consists of language ranges from the given
+ranges
+and their equivalents found in the IANA Language
+ Subtag Registry. For example, if the given
+ranges
+is
+"Accept-Language: iw,en-us;q=0.7,en;q=0.3"
+, the elements in
+ the list to be returned are:
+Range
+Weight
+"iw" (older tag for Hebrew)             1.0
+    "he" (new preferred code for Hebrew)    1.0
+    "en-us" (English, United States)        0.7
+    "en" (English)                          0.3
+Two language ranges,
+"iw"
+and
+"he"
+, have the same
+ highest priority in the list. By adding
+"he"
+to the user's
+ Language Priority List, locale-matching method can find Hebrew as a
+ matching locale (or language tag) even if the application or system
+ offers only
+"he"
+as a supported locale (or language tag).
+Parameters:
+ranges
+- a list of comma-separated language ranges or a list of
+     language ranges in the form of the "Accept-Language" header
+     defined in
+RFC
+     2616
+Returns:
+a Language Priority List consisting of language ranges
+     included in the given
+ranges
+and their equivalent
+     language ranges if available. The list is modifiable.
+Throws:
+NullPointerException
+- if
+ranges
+is null
+IllegalArgumentException
+- if a language range or a weight
+     found in the given
+ranges
+is ill-formed
+External Specifications
+RFC 2616: Hypertext Transfer Protocol -- HTTP/1.1
+parse
+public static
+List
+<
+Locale.LanguageRange
+>
+parse
+(
+String
+ranges,
+Map
+<
+String
+,
+List
+<
+String
+>> map)
+Parses the given
+ranges
+to generate a Language Priority
+ List, and then customizes the list using the given
+map
+.
+ This method is equivalent to
+mapEquivalents(parse(ranges), map)
+.
+Parameters:
+ranges
+- a list of comma-separated language ranges or a list
+     of language ranges in the form of the "Accept-Language" header
+     defined in
+RFC
+     2616
+map
+- a map containing information to customize language ranges
+Returns:
+a Language Priority List with customization. The list is
+     modifiable.
+Throws:
+NullPointerException
+- if
+ranges
+is null
+IllegalArgumentException
+- if a language range or a weight
+     found in the given
+ranges
+is ill-formed
+External Specifications
+RFC 2616: Hypertext Transfer Protocol -- HTTP/1.1
+See Also:
+parse(String)
+mapEquivalents(java.util.List<java.util.Locale.LanguageRange>, java.util.Map<java.lang.String, java.util.List<java.lang.String>>)
+mapEquivalents
+public static
+List
+<
+Locale.LanguageRange
+>
+mapEquivalents
+(
+List
+<
+Locale.LanguageRange
+> priorityList,
+Map
+<
+String
+,
+List
+<
+String
+>> map)
+Generates a new customized Language Priority List using the given
+priorityList
+and
+map
+. If the given
+map
+is
+ empty, this method returns a copy of the given
+priorityList
+.
+In the map, a key represents a language range whereas a value is
+ a list of equivalents of it.
+'*'
+cannot be used in the map.
+ Each equivalent language range has the same weight value as its
+ original language range.
+An example of map:
+Key
+Value
+"zh" (Chinese)                 "zh",
+                                     "zh-Hans"(Simplified Chinese)
+      "zh-HK" (Chinese, Hong Kong)   "zh-HK"
+      "zh-TW" (Chinese, Taiwan)      "zh-TW"
+The customization is performed after modification using the IANA
+ Language Subtag Registry.
+For example, if a user's Language Priority List consists of five
+ language ranges (
+"zh"
+,
+"zh-CN"
+,
+"en"
+,
+"zh-TW"
+, and
+"zh-HK"
+), the newly generated Language
+ Priority List which is customized using the above map example will
+ consists of
+"zh"
+,
+"zh-Hans"
+,
+"zh-CN"
+,
+"zh-Hans-CN"
+,
+"en"
+,
+"zh-TW"
+, and
+"zh-HK"
+.
+"zh-HK"
+and
+"zh-TW"
+aren't converted to
+"zh-Hans-HK"
+nor
+"zh-Hans-TW"
+even if they are
+ included in the Language Priority List. In this example, mapping
+ is used to clearly distinguish Simplified Chinese and Traditional
+ Chinese.
+If the
+"zh"
+-to-
+"zh"
+mapping isn't included in the
+ map, a simple replacement will be performed and the customized list
+ won't include
+"zh"
+and
+"zh-CN"
+.
+Parameters:
+priorityList
+- user's Language Priority List
+map
+- a map containing information to customize language ranges
+Returns:
+a new Language Priority List with customization. The list is
+     modifiable.
+Throws:
+NullPointerException
+- if
+priorityList
+is
+null
+See Also:
+parse(String, Map)
+hashCode
+public
+int
+hashCode
+()
+Returns a hash code value for this object.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+a hash code value for this object
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+equals
+public
+boolean
+equals
+(
+Object
+obj)
+Compares this object to the specified object. The result is true if
+ and only if the argument is not
+null
+and is a
+LanguageRange
+object that contains the same
+range
+and
+weight
+values as this object.
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- the object to compare with
+Returns:
+true
+if this object's
+range
+and
+weight
+are the same as the
+obj
+'s;
+false
+otherwise.
+See Also:
+Object.hashCode()
+HashMap
+toString
+public
+String
+toString
+()
+Returns an informative string representation of this
+LanguageRange
+object, consisting of language range and weight if the range is
+ weighted and the weight is less than the max weight.
+Overrides:
+toString
+in class
+Object
+Returns:
+a string representation of this
+LanguageRange
+object.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

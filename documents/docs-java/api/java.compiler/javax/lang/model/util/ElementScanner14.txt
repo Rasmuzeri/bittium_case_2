@@ -1,0 +1,398 @@
+ElementScanner14 (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.lang.model.util
+Class ElementScanner14<R,
+P>
+java.lang.Object
+javax.lang.model.util.AbstractElementVisitor6
+<R,
+P>
+javax.lang.model.util.ElementScanner6
+<R,
+P>
+javax.lang.model.util.ElementScanner7
+<R,
+P>
+javax.lang.model.util.ElementScanner8
+<R,
+P>
+javax.lang.model.util.ElementScanner9
+<R,
+P>
+javax.lang.model.util.ElementScanner14<R,
+P>
+Type Parameters:
+R
+- the return type of this visitor's methods.  Use
+Void
+for visitors that do not need to return results.
+P
+- the type of the additional parameter to this visitor's
+            methods.  Use
+Void
+for visitors that do not need an
+            additional parameter.
+All Implemented Interfaces:
+ElementVisitor
+<R,
+P>
+@SupportedSourceVersion
+(
+RELEASE_21
+)
+public class
+ElementScanner14<R,
+P>
+extends
+ElementScanner9
+<R,
+P>
+A scanning visitor of program elements with default behavior
+ appropriate for the
+RELEASE_14
+source version.
+
+ The
+visit
+Xyz
+methods in this class scan their
+ component elements by calling
+scan
+on their
+enclosed elements
+,
+parameters
+, etc., as indicated in the individual method
+ specifications.  A subclass can control the order elements are
+ visited by overriding the
+visit
+Xyz
+methods.
+ Note that clients of a scanner may get the desired behavior by
+ invoking
+v.scan(e, p)
+rather than
+v.visit(e, p)
+on
+ the root objects of interest.
+When a subclass overrides a
+visit
+Xyz
+method, the
+ new method can cause the enclosed elements to be scanned in the
+ default way by calling
+super.visit
+Xyz
+.  In this
+ fashion, the concrete visitor can control the ordering of traversal
+ over the component elements with respect to the additional
+ processing; for example, consistently calling
+super.visit
+Xyz
+at the start of the overridden
+ methods will yield a preorder traversal, etc.  If the component
+ elements should be traversed in some other order, instead of
+ calling
+super.visit
+Xyz
+, an overriding visit method
+ should call
+scan
+with the elements in the desired order.
+API Note:
+Methods in this class may be overridden subject to their general
+ contract.
+Since:
+16
+See Also:
+Compatibility note for subclasses
+ElementScanner6
+ElementScanner7
+ElementScanner8
+ElementScanner9
+Field Summary
+Fields declared in class javax.lang.model.util.
+ElementScanner6
+DEFAULT_VALUE
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+ElementScanner14
+()
+Constructor for concrete subclasses; uses
+null
+for the
+ default value.
+protected
+ElementScanner14
+(
+R
+defaultValue)
+Constructor for concrete subclasses; uses the argument for the
+ default value.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+R
+visitExecutable
+(
+ExecutableElement
+e,
+P
+p)
+Visits an executable element.
+R
+visitRecordComponent
+(
+RecordComponentElement
+e,
+P
+p)
+Visits a record component element.
+R
+visitType
+(
+TypeElement
+e,
+P
+p)
+Visits a type element.
+Methods declared in class javax.lang.model.util.
+ElementScanner9
+visitModule
+Methods declared in class javax.lang.model.util.
+ElementScanner7
+visitVariable
+Methods declared in class javax.lang.model.util.
+ElementScanner6
+scan
+,
+scan
+,
+scan
+,
+visitPackage
+,
+visitTypeParameter
+Methods declared in class javax.lang.model.util.
+AbstractElementVisitor6
+visit
+,
+visit
+,
+visitUnknown
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+ElementScanner14
+protected
+ElementScanner14
+()
+Constructor for concrete subclasses; uses
+null
+for the
+ default value.
+ElementScanner14
+protected
+ElementScanner14
+(
+R
+defaultValue)
+Constructor for concrete subclasses; uses the argument for the
+ default value.
+Parameters:
+defaultValue
+- the default value
+Method Details
+visitType
+public
+R
+visitType
+(
+TypeElement
+e,
+P
+p)
+Visits a type element.
+Specified by:
+visitType
+in interface
+ElementVisitor
+<
+R
+,
+P
+>
+Overrides:
+visitType
+in class
+ElementScanner6
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the type parameters, if
+ any, and then the enclosed elements.
+Parameters:
+e
+- the element to visit
+p
+- a visitor-specified parameter
+Returns:
+the result of scanning
+visitExecutable
+public
+R
+visitExecutable
+(
+ExecutableElement
+e,
+P
+p)
+Visits an executable element.
+Specified by:
+visitExecutable
+in interface
+ElementVisitor
+<
+R
+,
+P
+>
+Overrides:
+visitExecutable
+in class
+ElementScanner6
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation first scans the type parameters, if any, and then
+ the parameters.
+Parameters:
+e
+- the element to visit
+p
+- a visitor-specified parameter
+Returns:
+the result of scanning
+visitRecordComponent
+public
+R
+visitRecordComponent
+(
+RecordComponentElement
+e,
+P
+p)
+Visits a record component element.
+Specified by:
+visitRecordComponent
+in interface
+ElementVisitor
+<
+R
+,
+P
+>
+Overrides:
+visitRecordComponent
+in class
+AbstractElementVisitor6
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the enclosed elements.
+Parameters:
+e
+- the element to visit
+p
+- a visitor-specified parameter
+Returns:
+the result of the scan
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

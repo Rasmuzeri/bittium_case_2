@@ -1,0 +1,981 @@
+Uses of Class java.util.concurrent.CompletableFuture (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Class
+java.util.concurrent.CompletableFuture
+Packages that use
+CompletableFuture
+Package
+Description
+java.lang
+Provides classes that are fundamental to the design of the Java
+ programming language.
+java.net.http
+HTTP Client and WebSocket APIs
+java.util.concurrent
+Utility classes commonly useful in concurrent programming.
+Uses of
+CompletableFuture
+in
+java.lang
+Methods in
+java.lang
+that return
+CompletableFuture
+Modifier and Type
+Method
+Description
+CompletableFuture
+<
+Process
+>
+Process.
+onExit
+()
+Returns a
+CompletableFuture<Process>
+for the termination of the Process.
+CompletableFuture
+<
+ProcessHandle
+>
+ProcessHandle.
+onExit
+()
+Returns a
+CompletableFuture<ProcessHandle>
+for the termination
+ of the process.
+Uses of
+CompletableFuture
+in
+java.net.http
+Methods in
+java.net.http
+that return
+CompletableFuture
+Modifier and Type
+Method
+Description
+CompletableFuture
+<
+WebSocket
+>
+WebSocket.Builder.
+buildAsync
+(
+URI
+uri,
+WebSocket.Listener
+listener)
+Builds a
+WebSocket
+connected to the given
+URI
+and
+ associated with the given
+Listener
+.
+abstract <T>
+CompletableFuture
+<
+HttpResponse
+<T>>
+HttpClient.
+sendAsync
+(
+HttpRequest
+request,
+HttpResponse.BodyHandler
+<T> responseBodyHandler)
+Sends the given request asynchronously using this client with the given
+ response body handler.
+abstract <T>
+CompletableFuture
+<
+HttpResponse
+<T>>
+HttpClient.
+sendAsync
+(
+HttpRequest
+request,
+HttpResponse.BodyHandler
+<T> responseBodyHandler,
+HttpResponse.PushPromiseHandler
+<T> pushPromiseHandler)
+Sends the given request asynchronously using this client with the given
+ response body handler and push promise handler.
+CompletableFuture
+<
+WebSocket
+>
+WebSocket.
+sendBinary
+(
+ByteBuffer
+data,
+ boolean last)
+Sends binary data with bytes from the given buffer.
+CompletableFuture
+<
+WebSocket
+>
+WebSocket.
+sendClose
+(int statusCode,
+String
+reason)
+Initiates an orderly closure of this WebSocket's output by
+ sending a Close message with the given status code and the reason.
+CompletableFuture
+<
+WebSocket
+>
+WebSocket.
+sendPing
+(
+ByteBuffer
+message)
+Sends a Ping message with bytes from the given buffer.
+CompletableFuture
+<
+WebSocket
+>
+WebSocket.
+sendPong
+(
+ByteBuffer
+message)
+Sends a Pong message with bytes from the given buffer.
+CompletableFuture
+<
+WebSocket
+>
+WebSocket.
+sendText
+(
+CharSequence
+data,
+ boolean last)
+Sends textual data with characters from the given character sequence.
+Method parameters in
+java.net.http
+with type arguments of type
+CompletableFuture
+Modifier and Type
+Method
+Description
+void
+HttpResponse.PushPromiseHandler.
+applyPushPromise
+(
+HttpRequest
+initiatingRequest,
+HttpRequest
+pushPromiseRequest,
+Function
+<
+HttpResponse.BodyHandler
+<
+T
+>,
+CompletableFuture
+<
+HttpResponse
+<
+T
+>>> acceptor)
+Notification of an incoming push promise.
+static <T>
+HttpResponse.PushPromiseHandler
+<T>
+HttpResponse.PushPromiseHandler.
+of
+(
+Function
+<
+HttpRequest
+,
+HttpResponse.BodyHandler
+<T>> pushPromiseHandler,
+ConcurrentMap
+<
+HttpRequest
+,
+CompletableFuture
+<
+HttpResponse
+<T>>> pushPromisesMap)
+Returns a push promise handler that accumulates push promises, and
+ their responses, into the given map.
+Uses of
+CompletableFuture
+in
+java.util.concurrent
+Methods in
+java.util.concurrent
+that return
+CompletableFuture
+Modifier and Type
+Method
+Description
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+acceptEither
+(
+CompletionStage
+<? extends
+T
+> other,
+Consumer
+<? super
+T
+> action)
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+acceptEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Consumer
+<? super
+T
+> action)
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+acceptEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Consumer
+<? super
+T
+> action,
+Executor
+executor)
+static
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+allOf
+(
+CompletableFuture
+<?>... cfs)
+Returns a new CompletableFuture that is completed when all of
+ the given CompletableFutures complete.
+static
+CompletableFuture
+<
+Object
+>
+CompletableFuture.
+anyOf
+(
+CompletableFuture
+<?>... cfs)
+Returns a new CompletableFuture that is completed when any of
+ the given CompletableFutures complete, with the same result.
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+applyToEither
+(
+CompletionStage
+<? extends
+T
+> other,
+Function
+<? super
+T
+,
+U> fn)
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+applyToEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Function
+<? super
+T
+,
+U> fn)
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+applyToEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Function
+<? super
+T
+,
+U> fn,
+Executor
+executor)
+CompletableFuture
+<
+T
+>
+CompletableFuture.
+completeAsync
+(
+Supplier
+<? extends
+T
+> supplier)
+Completes this CompletableFuture with the result of the given
+ Supplier function invoked from an asynchronous task using the
+ default executor.
+CompletableFuture
+<
+T
+>
+CompletableFuture.
+completeAsync
+(
+Supplier
+<? extends
+T
+> supplier,
+Executor
+executor)
+Completes this CompletableFuture with the result of
+ the given Supplier function invoked from an asynchronous
+ task using the given executor.
+static <U>
+CompletableFuture
+<U>
+CompletableFuture.
+completedFuture
+(U value)
+Returns a new CompletableFuture that is already completed with
+ the given value.
+CompletableFuture
+<
+T
+>
+CompletableFuture.
+completeOnTimeout
+(
+T
+value,
+ long timeout,
+TimeUnit
+unit)
+Completes this CompletableFuture with the given value if not
+ otherwise completed before the given timeout.
+CompletableFuture
+<
+Void
+>
+SubmissionPublisher.
+consume
+(
+Consumer
+<? super
+T
+> consumer)
+Processes all published items using the given Consumer function.
+CompletableFuture
+<
+T
+>
+CompletableFuture.
+copy
+()
+Returns a new CompletableFuture that is completed normally with
+ the same value as this CompletableFuture when it completes
+ normally.
+CompletableFuture
+<
+T
+>
+CompletableFuture.
+exceptionally
+(
+Function
+<
+Throwable
+,
+? extends
+T
+> fn)
+static <U>
+CompletableFuture
+<U>
+CompletableFuture.
+failedFuture
+(
+Throwable
+ex)
+Returns a new CompletableFuture that is already completed
+ exceptionally with the given exception.
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+handle
+(
+BiFunction
+<? super
+T
+,
+Throwable
+,
+? extends U> fn)
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+handleAsync
+(
+BiFunction
+<? super
+T
+,
+Throwable
+,
+? extends U> fn)
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+handleAsync
+(
+BiFunction
+<? super
+T
+,
+Throwable
+,
+? extends U> fn,
+Executor
+executor)
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+newIncompleteFuture
+()
+Returns a new incomplete CompletableFuture of the type to be
+ returned by a CompletionStage method.
+CompletableFuture
+<
+T
+>
+CompletableFuture.
+orTimeout
+(long timeout,
+TimeUnit
+unit)
+Exceptionally completes this CompletableFuture with
+ a
+TimeoutException
+if not otherwise completed
+ before the given timeout.
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+runAfterBoth
+(
+CompletionStage
+<?> other,
+Runnable
+action)
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+runAfterBothAsync
+(
+CompletionStage
+<?> other,
+Runnable
+action)
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+runAfterBothAsync
+(
+CompletionStage
+<?> other,
+Runnable
+action,
+Executor
+executor)
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+runAfterEither
+(
+CompletionStage
+<?> other,
+Runnable
+action)
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+runAfterEitherAsync
+(
+CompletionStage
+<?> other,
+Runnable
+action)
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+runAfterEitherAsync
+(
+CompletionStage
+<?> other,
+Runnable
+action,
+Executor
+executor)
+static
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+runAsync
+(
+Runnable
+runnable)
+Returns a new CompletableFuture that is asynchronously completed
+ by a task running in the
+ForkJoinPool.commonPool()
+after
+ it runs the given action.
+static
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+runAsync
+(
+Runnable
+runnable,
+Executor
+executor)
+Returns a new CompletableFuture that is asynchronously completed
+ by a task running in the given executor after it runs the given
+ action.
+static <U>
+CompletableFuture
+<U>
+CompletableFuture.
+supplyAsync
+(
+Supplier
+<U> supplier)
+Returns a new CompletableFuture that is asynchronously completed
+ by a task running in the
+ForkJoinPool.commonPool()
+with
+ the value obtained by calling the given Supplier.
+static <U>
+CompletableFuture
+<U>
+CompletableFuture.
+supplyAsync
+(
+Supplier
+<U> supplier,
+Executor
+executor)
+Returns a new CompletableFuture that is asynchronously completed
+ by a task running in the given executor with the value obtained
+ by calling the given Supplier.
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+thenAccept
+(
+Consumer
+<? super
+T
+> action)
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+thenAcceptAsync
+(
+Consumer
+<? super
+T
+> action)
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+thenAcceptAsync
+(
+Consumer
+<? super
+T
+> action,
+Executor
+executor)
+<U>
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+thenAcceptBoth
+(
+CompletionStage
+<? extends U> other,
+BiConsumer
+<? super
+T
+,
+? super U> action)
+<U>
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+thenAcceptBothAsync
+(
+CompletionStage
+<? extends U> other,
+BiConsumer
+<? super
+T
+,
+? super U> action)
+<U>
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+thenAcceptBothAsync
+(
+CompletionStage
+<? extends U> other,
+BiConsumer
+<? super
+T
+,
+? super U> action,
+Executor
+executor)
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+thenApply
+(
+Function
+<? super
+T
+,
+? extends U> fn)
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+thenApplyAsync
+(
+Function
+<? super
+T
+,
+? extends U> fn)
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+thenApplyAsync
+(
+Function
+<? super
+T
+,
+? extends U> fn,
+Executor
+executor)
+<U,
+V>
+CompletableFuture
+<V>
+CompletableFuture.
+thenCombine
+(
+CompletionStage
+<? extends U> other,
+BiFunction
+<? super
+T
+,
+? super U,
+? extends V> fn)
+<U,
+V>
+CompletableFuture
+<V>
+CompletableFuture.
+thenCombineAsync
+(
+CompletionStage
+<? extends U> other,
+BiFunction
+<? super
+T
+,
+? super U,
+? extends V> fn)
+<U,
+V>
+CompletableFuture
+<V>
+CompletableFuture.
+thenCombineAsync
+(
+CompletionStage
+<? extends U> other,
+BiFunction
+<? super
+T
+,
+? super U,
+? extends V> fn,
+Executor
+executor)
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+thenCompose
+(
+Function
+<? super
+T
+,
+? extends
+CompletionStage
+<U>> fn)
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+thenComposeAsync
+(
+Function
+<? super
+T
+,
+? extends
+CompletionStage
+<U>> fn)
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+thenComposeAsync
+(
+Function
+<? super
+T
+,
+? extends
+CompletionStage
+<U>> fn,
+Executor
+executor)
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+thenRun
+(
+Runnable
+action)
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+thenRunAsync
+(
+Runnable
+action)
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+thenRunAsync
+(
+Runnable
+action,
+Executor
+executor)
+CompletableFuture
+<
+T
+>
+CompletableFuture.
+toCompletableFuture
+()
+Returns this CompletableFuture.
+CompletableFuture
+<
+T
+>
+CompletionStage.
+toCompletableFuture
+()
+Returns a
+CompletableFuture
+maintaining the same
+ completion properties as this stage.
+CompletableFuture
+<
+T
+>
+CompletableFuture.
+whenComplete
+(
+BiConsumer
+<? super
+T
+,
+? super
+Throwable
+> action)
+CompletableFuture
+<
+T
+>
+CompletableFuture.
+whenCompleteAsync
+(
+BiConsumer
+<? super
+T
+,
+? super
+Throwable
+> action)
+CompletableFuture
+<
+T
+>
+CompletableFuture.
+whenCompleteAsync
+(
+BiConsumer
+<? super
+T
+,
+? super
+Throwable
+> action,
+Executor
+executor)
+Methods in
+java.util.concurrent
+with parameters of type
+CompletableFuture
+Modifier and Type
+Method
+Description
+static
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+allOf
+(
+CompletableFuture
+<?>... cfs)
+Returns a new CompletableFuture that is completed when all of
+ the given CompletableFutures complete.
+static
+CompletableFuture
+<
+Object
+>
+CompletableFuture.
+anyOf
+(
+CompletableFuture
+<?>... cfs)
+Returns a new CompletableFuture that is completed when any of
+ the given CompletableFutures complete, with the same result.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,591 @@
+Taskbar (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt
+Class Taskbar
+java.lang.Object
+java.awt.Taskbar
+public class
+Taskbar
+extends
+Object
+The
+Taskbar
+class allows a Java application to interact with
+ the system task area (taskbar, Dock, etc.).
+There are a variety of interactions depending on the current platform such as
+ displaying progress of some task, appending user-specified menu to the application
+ icon context menu, etc.
+Implementation Note:
+Linux support is currently limited to Unity. However to make these
+ features work on Unity, the app should be run from a .desktop file with
+ specified
+java.desktop.appName
+system property set to this .desktop
+ file name:
+Exec=java -Djava.desktop.appName=MyApp.desktop -jar /path/to/myapp.jar
+see
+https://help.ubuntu.com/community/UnityLaunchersAndDesktopFiles
+Since:
+9
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+static enum
+Taskbar.Feature
+List of provided features.
+static enum
+Taskbar.State
+Kinds of available window progress states.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Image
+getIconImage
+()
+Obtains an image of this application's icon.
+PopupMenu
+getMenu
+()
+Gets PopupMenu used to add items to this application's icon in system task area.
+static
+Taskbar
+getTaskbar
+()
+Returns the
+Taskbar
+instance of the current
+ taskbar context.
+boolean
+isSupported
+(
+Taskbar.Feature
+feature)
+Tests whether a
+Feature
+is supported on the current platform.
+static boolean
+isTaskbarSupported
+()
+Tests whether this class is supported on the current platform.
+void
+requestUserAttention
+(boolean enabled,
+ boolean critical)
+Requests user attention to this application.
+void
+requestWindowUserAttention
+(
+Window
+w)
+Requests user attention to the specified window.
+void
+setIconBadge
+(
+String
+badge)
+Affixes a small system-provided badge to this application's icon.
+void
+setIconImage
+(
+Image
+image)
+Requests the system to change this application's icon to the provided
+image
+.
+void
+setMenu
+(
+PopupMenu
+menu)
+Attaches the contents of the provided PopupMenu to the application icon
+ in the task area.
+void
+setProgressValue
+(int value)
+Affixes a small system-provided progress bar to this application's icon.
+void
+setWindowIconBadge
+(
+Window
+w,
+Image
+badge)
+Affixes a small badge to this application's icon in the task area
+ for the specified window.
+void
+setWindowProgressState
+(
+Window
+w,
+Taskbar.State
+state)
+Sets a progress state for a specified window.
+void
+setWindowProgressValue
+(
+Window
+w,
+ int value)
+Displays a determinate progress bar in the task area for the specified
+ window.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Method Details
+isSupported
+public
+boolean
+isSupported
+(
+Taskbar.Feature
+feature)
+Tests whether a
+Feature
+is supported on the current platform.
+Parameters:
+feature
+- the specified
+Taskbar.Feature
+Returns:
+true if the specified feature is supported on the current platform
+getTaskbar
+public static
+Taskbar
+getTaskbar
+()
+Returns the
+Taskbar
+instance of the current
+ taskbar context.  On some platforms the Taskbar API may not be
+ supported; use the
+isTaskbarSupported()
+method to
+ determine if the current taskbar is supported.
+Returns:
+the Taskbar instance
+Throws:
+HeadlessException
+- if
+GraphicsEnvironment.isHeadless()
+returns
+true
+UnsupportedOperationException
+- if this class is not
+ supported on the current platform
+See Also:
+isTaskbarSupported()
+GraphicsEnvironment.isHeadless()
+isTaskbarSupported
+public static
+boolean
+isTaskbarSupported
+()
+Tests whether this class is supported on the current platform.
+ If it's supported, use
+getTaskbar()
+to retrieve an
+ instance.
+Returns:
+true
+if this class is supported on the
+         current platform;
+false
+otherwise
+See Also:
+getTaskbar()
+requestUserAttention
+public
+void
+requestUserAttention
+(boolean enabled,
+ boolean critical)
+Requests user attention to this application.
+
+ Depending on the platform, this may be visually indicated by a bouncing
+ or flashing icon in the task area. It may have no effect on an already active
+ application.
+
+ On some platforms (e.g. Mac OS) this effect may disappear upon app activation
+ and cannot be dismissed by setting
+enabled
+to false.
+ Other platforms may require an additional call
+requestUserAttention(boolean, boolean)
+to dismiss this request
+ with
+enabled
+parameter set to false.
+Parameters:
+enabled
+- disables this request if false
+critical
+- if this is an important request
+Throws:
+SecurityException
+- if a security manager exists and it denies the
+RuntimePermission("canProcessApplicationEvents")
+permission.
+UnsupportedOperationException
+- if the current platform
+ does not support the
+Taskbar.Feature.USER_ATTENTION
+feature
+requestWindowUserAttention
+public
+void
+requestWindowUserAttention
+(
+Window
+w)
+Requests user attention to the specified window.
+
+ Has no effect if a window representation is not displayable in
+ the task area. Whether it is displayable is dependent on all
+ of window type, platform, and implementation.
+Parameters:
+w
+- window
+Throws:
+SecurityException
+- if a security manager exists and it denies the
+RuntimePermission("canProcessApplicationEvents")
+permission.
+UnsupportedOperationException
+- if the current platform
+ does not support the
+Taskbar.Feature.USER_ATTENTION_WINDOW
+feature
+setMenu
+public
+void
+setMenu
+(
+PopupMenu
+menu)
+Attaches the contents of the provided PopupMenu to the application icon
+ in the task area.
+Parameters:
+menu
+- the PopupMenu to attach to this application
+Throws:
+SecurityException
+- if a security manager exists and it denies the
+RuntimePermission("canProcessApplicationEvents")
+permission.
+UnsupportedOperationException
+- if the current platform
+ does not support the
+Taskbar.Feature.MENU
+feature
+getMenu
+public
+PopupMenu
+getMenu
+()
+Gets PopupMenu used to add items to this application's icon in system task area.
+Returns:
+the PopupMenu
+Throws:
+SecurityException
+- if a security manager exists and it denies the
+RuntimePermission("canProcessApplicationEvents")
+permission.
+UnsupportedOperationException
+- if the current platform
+ does not support the
+Taskbar.Feature.MENU
+feature
+setIconImage
+public
+void
+setIconImage
+(
+Image
+image)
+Requests the system to change this application's icon to the provided
+image
+.
+Parameters:
+image
+- to change
+Throws:
+SecurityException
+- if a security manager exists and it denies the
+RuntimePermission("canProcessApplicationEvents")
+permission.
+UnsupportedOperationException
+- if the current platform
+ does not support the
+Taskbar.Feature.ICON_IMAGE
+feature
+getIconImage
+public
+Image
+getIconImage
+()
+Obtains an image of this application's icon.
+API Note:
+The returned icon image may not be equal
+ to an image set by
+setIconImage(java.awt.Image)
+,
+ but should be visually similar.
+Returns:
+an image of this application's icon
+Throws:
+SecurityException
+- if a security manager exists and it denies the
+RuntimePermission("canProcessApplicationEvents")
+permission.
+UnsupportedOperationException
+- if the current platform
+ does not support the
+Taskbar.Feature.ICON_IMAGE
+feature
+setIconBadge
+public
+void
+setIconBadge
+(
+String
+badge)
+Affixes a small system-provided badge to this application's icon.
+ Usually a number.
+
+ Some platforms do not support string values and accept only integer
+ values. In this case, pass an integer represented as a string as parameter.
+ This can be tested by
+Feature.ICON_BADGE_TEXT
+and
+Feature.ICON_BADGE_NUMBER
+.
+
+ Passing
+null
+as parameter hides the badge.
+Parameters:
+badge
+- label to affix to the icon
+Throws:
+SecurityException
+- if a security manager exists and it denies the
+RuntimePermission("canProcessApplicationEvents")
+permission.
+UnsupportedOperationException
+- if the current platform
+ does not support the
+Taskbar.Feature.ICON_BADGE_NUMBER
+or
+Taskbar.Feature.ICON_BADGE_TEXT
+feature
+setWindowIconBadge
+public
+void
+setWindowIconBadge
+(
+Window
+w,
+Image
+badge)
+Affixes a small badge to this application's icon in the task area
+ for the specified window.
+ It may be disabled by system settings.
+
+ Has no effect if a window representation is not displayable in
+ the task area. Whether it is displayable is dependent on all
+ of window type, platform, and implementation.
+Parameters:
+w
+- window to update
+badge
+- image to affix to the icon
+Throws:
+SecurityException
+- if a security manager exists and it denies the
+RuntimePermission("canProcessApplicationEvents")
+permission.
+UnsupportedOperationException
+- if the current platform
+ does not support the
+Taskbar.Feature.ICON_BADGE_IMAGE_WINDOW
+feature
+setProgressValue
+public
+void
+setProgressValue
+(int value)
+Affixes a small system-provided progress bar to this application's icon.
+Parameters:
+value
+- from 0 to 100, other to disable progress indication
+Throws:
+SecurityException
+- if a security manager exists and it denies the
+RuntimePermission("canProcessApplicationEvents")
+permission.
+UnsupportedOperationException
+- if the current platform
+ does not support the
+Taskbar.Feature.PROGRESS_VALUE
+feature
+setWindowProgressValue
+public
+void
+setWindowProgressValue
+(
+Window
+w,
+ int value)
+Displays a determinate progress bar in the task area for the specified
+ window.
+
+ Has no effect if a window representation is not displayable in
+ the task area. Whether it is displayable is dependent on all
+ of window type, platform, and implementation.
+The visual behavior is platform and
+Taskbar.State
+dependent.
+This call cancels the
+INDETERMINATE
+state
+ of the window.
+Note that when multiple windows is grouped in the task area
+ the behavior is platform specific.
+Parameters:
+w
+- window to update
+value
+- from 0 to 100, other to switch to
+Taskbar.State.OFF
+state
+              and disable progress indication
+Throws:
+SecurityException
+- if a security manager exists and it denies the
+RuntimePermission("canProcessApplicationEvents")
+permission.
+UnsupportedOperationException
+- if the current platform
+ does not support the
+Taskbar.Feature.PROGRESS_VALUE_WINDOW
+feature
+See Also:
+setWindowProgressState(java.awt.Window, State)
+setWindowProgressState
+public
+void
+setWindowProgressState
+(
+Window
+w,
+Taskbar.State
+state)
+Sets a progress state for a specified window.
+
+ Has no effect if a window representation is not displayable in
+ the task area. Whether it is displayable is dependent on all
+ of window type, platform, and implementation.
+Each state displays a progress in a platform-dependent way.
+Note than switching from
+INDETERMINATE
+state
+ to any of determinate states may reset value set by
+setWindowProgressValue
+Parameters:
+w
+- window
+state
+- to change to
+Throws:
+SecurityException
+- if a security manager exists and it denies the
+RuntimePermission("canProcessApplicationEvents")
+permission.
+UnsupportedOperationException
+- if the current platform
+ does not support the
+Taskbar.Feature.PROGRESS_STATE_WINDOW
+feature
+See Also:
+Taskbar.State.OFF
+Taskbar.State.NORMAL
+Taskbar.State.PAUSED
+Taskbar.State.ERROR
+Taskbar.State.INDETERMINATE
+setWindowProgressValue(java.awt.Window, int)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

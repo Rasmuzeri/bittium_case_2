@@ -1,0 +1,257 @@
+CaseTree (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.compiler
+Package
+com.sun.source.tree
+Interface CaseTree
+All Superinterfaces:
+Tree
+public interface
+CaseTree
+extends
+Tree
+A tree node for a
+case
+in a
+switch
+statement or expression.
+
+ For example:
+case
+expression
+:
+statements
+default :
+statements
+See
+Java Language Specification
+:
+14.11 The switch Statement
+Since:
+1.6
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Interface
+Description
+static enum
+CaseTree.CaseKind
+The syntactic form of this case:
+ 
+     STATEMENT:
+case <expression>: <statements>
+RULE:
+case <expression> -> <expression>/<statement>
+Nested classes/interfaces declared in interface com.sun.source.tree.
+Tree
+Tree.Kind
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+default
+Tree
+getBody
+()
+For case with kind
+CaseTree.CaseKind.RULE
+,
+ returns the statement or expression after the arrow.
+default
+CaseTree.CaseKind
+getCaseKind
+()
+Returns the kind of this case.
+ExpressionTree
+getExpression
+()
+Deprecated.
+Please use
+getExpressions()
+.
+List
+<? extends
+ExpressionTree
+>
+getExpressions
+()
+Returns the labels for this case.
+ExpressionTree
+getGuard
+()
+The guard for the case.
+List
+<? extends
+CaseLabelTree
+>
+getLabels
+()
+Returns the labels for this case.
+List
+<? extends
+StatementTree
+>
+getStatements
+()
+For case with kind
+CaseTree.CaseKind.STATEMENT
+,
+ returns the statements labeled by the case.
+Methods declared in interface com.sun.source.tree.
+Tree
+accept
+,
+getKind
+Method Details
+getExpression
+@Deprecated
+ExpressionTree
+getExpression
+()
+Deprecated.
+Please use
+getExpressions()
+.
+Returns the expression for the case, or
+null
+if this is the default case.
+ If this case has multiple labels, returns the first label.
+Returns:
+the expression for the case, or null
+getExpressions
+List
+<? extends
+ExpressionTree
+>
+getExpressions
+()
+Returns the labels for this case.
+ For default case, returns an empty list.
+Returns:
+labels for this case
+Since:
+12
+getLabels
+List
+<? extends
+CaseLabelTree
+>
+getLabels
+()
+Returns the labels for this case.
+ For
+default
+case return a list with a single element,
+DefaultCaseLabelTree
+.
+Returns:
+labels for this case
+Since:
+21
+getGuard
+ExpressionTree
+getGuard
+()
+The guard for the case.
+Returns:
+the guard
+Since:
+21
+getStatements
+List
+<? extends
+StatementTree
+>
+getStatements
+()
+For case with kind
+CaseTree.CaseKind.STATEMENT
+,
+ returns the statements labeled by the case.
+ Returns
+null
+for case with kind
+CaseTree.CaseKind.RULE
+.
+Returns:
+the statements labeled by the case or null
+getBody
+default
+Tree
+getBody
+()
+For case with kind
+CaseTree.CaseKind.RULE
+,
+ returns the statement or expression after the arrow.
+ Returns
+null
+for case with kind
+CaseTree.CaseKind.STATEMENT
+.
+Returns:
+case value or null
+Since:
+12
+getCaseKind
+default
+CaseTree.CaseKind
+getCaseKind
+()
+Returns the kind of this case.
+Returns:
+the kind of this case
+Since:
+12
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

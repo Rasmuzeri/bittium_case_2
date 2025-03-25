@@ -1,0 +1,503 @@
+JMXServiceURL (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.management
+Package
+javax.management.remote
+Class JMXServiceURL
+java.lang.Object
+javax.management.remote.JMXServiceURL
+All Implemented Interfaces:
+Serializable
+public class
+JMXServiceURL
+extends
+Object
+implements
+Serializable
+The address of a JMX API connector server.  Instances of this class
+ are immutable.
+The address is an
+Abstract Service URL
+for SLP, as
+ defined in RFC 2609 and amended by RFC 3111.  It must look like
+ this:
+service:jmx:
+protocol
+:
+sap
+Here,
+protocol
+is the transport
+ protocol to be used to connect to the connector server.  It is
+ a string of one or more ASCII characters, each of which is a
+ letter, a digit, or one of the characters
++
+or
+-
+.  The first character must be a letter.
+ Uppercase letters are converted into lowercase ones.
+sap
+is the address at which the connector
+ server is found.  This address uses a subset of the syntax defined
+ by RFC 2609 for IP-based protocols.  It is a subset because the
+user@host
+syntax is not supported.
+The other syntaxes defined by RFC 2609 are not currently
+ supported by this class.
+The supported syntax is:
+//
+[host[
+:
+port]][url-path]
+Square brackets
+[]
+indicate optional parts of
+ the address.  Not all protocols will recognize all optional
+ parts.
+The
+host
+is a host name, an IPv4 numeric
+ host address, or an IPv6 numeric address enclosed in square
+ brackets.
+The
+port
+is a decimal port number.  0
+ means a default or anonymous port, depending on the protocol.
+The
+host
+and
+port
+can be omitted.  The
+port
+cannot be supplied
+ without a
+host
+.
+The
+url-path
+, if any, begins with a slash
+ (
+/
+) or a semicolon (
+;
+) and continues to
+ the end of the address.  It can contain attributes using the
+ semicolon syntax specified in RFC 2609.  Those attributes are not
+ parsed by this class and incorrect attribute syntax is not
+ detected.
+Although it is legal according to RFC 2609 to have a
+url-path
+that begins with a semicolon, not
+ all implementations of SLP allow it, so it is recommended to avoid
+ that syntax.
+Case is not significant in the initial
+service:jmx:
+protocol
+string or in the host
+ part of the address.  Depending on the protocol, case can be
+ significant in the
+url-path
+.
+Since:
+1.5
+See Also:
+RFC 2609,
+ "Service Templates and
+Service:
+Schemes"
+RFC 3111,
+ "Service Location Protocol Modifications for IPv6"
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+JMXServiceURL
+(
+String
+serviceURL)
+Constructs a
+JMXServiceURL
+by parsing a Service URL
+ string.
+JMXServiceURL
+(
+String
+protocol,
+String
+host,
+ int port)
+Constructs a
+JMXServiceURL
+with the given protocol,
+ host, and port.
+JMXServiceURL
+(
+String
+protocol,
+String
+host,
+ int port,
+String
+urlPath)
+Constructs a
+JMXServiceURL
+with the given parts.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+equals
+(
+Object
+obj)
+Indicates whether some other object is equal to this one.
+String
+getHost
+()
+The host part of the Service URL.
+int
+getPort
+()
+The port of the Service URL.
+String
+getProtocol
+()
+The protocol part of the Service URL.
+String
+getURLPath
+()
+The URL Path part of the Service URL.
+String
+toString
+()
+The string representation of this Service URL.
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+JMXServiceURL
+public
+JMXServiceURL
+(
+String
+serviceURL)
+throws
+MalformedURLException
+Constructs a
+JMXServiceURL
+by parsing a Service URL
+ string.
+Parameters:
+serviceURL
+- the URL string to be parsed.
+Throws:
+NullPointerException
+- if
+serviceURL
+is
+ null.
+MalformedURLException
+- if
+serviceURL
+does not conform to the syntax for an Abstract Service URL or
+ if it is not a valid name for a JMX Remote API service.  A
+JMXServiceURL
+must begin with the string
+"service:jmx:"
+(case-insensitive).  It must not
+ contain any characters that are not printable ASCII characters.
+JMXServiceURL
+public
+JMXServiceURL
+(
+String
+protocol,
+String
+host,
+ int port)
+throws
+MalformedURLException
+Constructs a
+JMXServiceURL
+with the given protocol,
+ host, and port.  This constructor is equivalent to
+JMXServiceURL(protocol, host, port, null)
+.
+Parameters:
+protocol
+- the protocol part of the URL.  If null, defaults
+ to
+jmxmp
+.
+host
+- the host part of the URL. If host is null and if
+ local host name can be resolved to an IP, then host defaults
+ to local host name as determined by
+InetAddress.getLocalHost().getHostName()
+. If host is null
+ and if local host name cannot be resolved to an IP, then host
+ defaults to numeric IP address of one of the active network interfaces.
+ If host is a numeric IPv6 address, it can optionally be enclosed in
+ square brackets
+[]
+.
+port
+- the port part of the URL.
+Throws:
+MalformedURLException
+- if one of the parts is
+ syntactically incorrect, or if
+host
+is null and it
+ is not possible to find the local host name, or if
+port
+is negative.
+JMXServiceURL
+public
+JMXServiceURL
+(
+String
+protocol,
+String
+host,
+ int port,
+String
+urlPath)
+throws
+MalformedURLException
+Constructs a
+JMXServiceURL
+with the given parts.
+Parameters:
+protocol
+- the protocol part of the URL.  If null, defaults
+ to
+jmxmp
+.
+host
+- the host part of the URL. If host is null and if
+ local host name can be resolved to an IP, then host defaults
+ to local host name as determined by
+InetAddress.getLocalHost().getHostName()
+. If host is null
+ and if local host name cannot be resolved to an IP, then host
+ defaults to numeric IP address of one of the active network interfaces.
+ If host is a numeric IPv6 address, it can optionally be enclosed in
+ square brackets
+[]
+.
+port
+- the port part of the URL.
+urlPath
+- the URL path part of the URL.  If null, defaults to
+ the empty string.
+Throws:
+MalformedURLException
+- if one of the parts is
+ syntactically incorrect, or if
+host
+is null and it
+ is not possible to find the local host name, or if
+port
+is negative.
+Method Details
+getProtocol
+public
+String
+getProtocol
+()
+The protocol part of the Service URL.
+Returns:
+the protocol part of the Service URL.  This is never null.
+getHost
+public
+String
+getHost
+()
+The host part of the Service URL.  If the Service URL was
+ constructed with the constructor that takes a URL string
+ parameter, the result is the substring specifying the host in
+ that URL.  If the Service URL was constructed with a
+ constructor that takes a separate host parameter, the result is
+ the string that was specified.  If that string was null, the
+ result is
+InetAddress.getLocalHost().getHostName()
+if local host name
+ can be resolved to an IP. Else numeric IP address of an active
+ network interface will be used.
+In either case, if the host was specified using the
+[...]
+syntax for numeric IPv6 addresses, the
+ square brackets are not included in the return value here.
+Returns:
+the host part of the Service URL.  This is never null.
+getPort
+public
+int
+getPort
+()
+The port of the Service URL.  If no port was
+ specified, the returned value is 0.
+Returns:
+the port of the Service URL, or 0 if none.
+getURLPath
+public
+String
+getURLPath
+()
+The URL Path part of the Service URL.  This is an empty
+ string, or a string beginning with a slash (
+/
+), or
+ a string beginning with a semicolon (
+;
+).
+Returns:
+the URL Path part of the Service URL.  This is never
+ null.
+toString
+public
+String
+toString
+()
+The string representation of this Service URL.  If the value
+ returned by this method is supplied to the
+JMXServiceURL
+constructor, the resultant object is
+ equal to this one.
+The
+host
+part of the returned string
+ is the value returned by
+getHost()
+.  If that value
+ specifies a numeric IPv6 address, it is surrounded by square
+ brackets
+[]
+.
+The
+port
+part of the returned string
+ is the value returned by
+getPort()
+in its shortest
+ decimal form.  If the value is zero, it is omitted.
+Overrides:
+toString
+in class
+Object
+Returns:
+the string representation of this Service URL.
+equals
+public
+boolean
+equals
+(
+Object
+obj)
+Indicates whether some other object is equal to this one.
+ This method returns true if and only if
+obj
+is an
+ instance of
+JMXServiceURL
+whose
+getProtocol()
+,
+getHost()
+,
+getPort()
+, and
+getURLPath()
+methods return the same values as for
+ this object.  The values for
+getProtocol()
+and
+getHost()
+can differ in case without affecting equality.
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- the reference object with which to compare.
+Returns:
+true
+if this object is the same as the
+obj
+argument;
+false
+otherwise.
+See Also:
+Object.hashCode()
+HashMap
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

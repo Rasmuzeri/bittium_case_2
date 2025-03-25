@@ -1,0 +1,229 @@
+XMLEventReader (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.xml
+Package
+javax.xml.stream
+Interface XMLEventReader
+All Superinterfaces:
+Iterator
+<
+Object
+>
+All Known Implementing Classes:
+EventReaderDelegate
+public interface
+XMLEventReader
+extends
+Iterator
+<
+Object
+>
+This is the top level interface for parsing XML Events.  It provides
+ the ability to peek at the next event and returns configuration
+ information through the property interface.
+Since:
+1.6
+See Also:
+XMLInputFactory
+XMLEventWriter
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+void
+close
+()
+Frees any resources associated with this Reader.
+String
+getElementText
+()
+Reads the content of a text-only element.
+Object
+getProperty
+(
+String
+name)
+Get the value of a feature/property from the underlying implementation
+boolean
+hasNext
+()
+Check if there are more events.
+XMLEvent
+nextEvent
+()
+Gets the next XMLEvent.
+XMLEvent
+nextTag
+()
+Skips any insignificant space events until a START_ELEMENT or
+ END_ELEMENT is reached.
+XMLEvent
+peek
+()
+Check the next XMLEvent without reading it from the stream.
+Methods declared in interface java.util.
+Iterator
+forEachRemaining
+,
+next
+,
+remove
+Method Details
+nextEvent
+XMLEvent
+nextEvent
+()
+            throws
+XMLStreamException
+Gets the next XMLEvent. The initial event is
+StartDocument
+.
+Returns:
+the next XMLEvent
+Throws:
+XMLStreamException
+- if there is an error with the underlying XML.
+NoSuchElementException
+- iteration has no more elements.
+See Also:
+XMLEvent
+hasNext
+boolean
+hasNext
+()
+Check if there are more events.
+ Returns true if there are more events and false otherwise.
+Specified by:
+hasNext
+in interface
+Iterator
+<
+Object
+>
+Returns:
+true if the event reader has more events, false otherwise
+peek
+XMLEvent
+peek
+()
+       throws
+XMLStreamException
+Check the next XMLEvent without reading it from the stream.
+ Returns null if the stream is at EOF or has no more XMLEvents.
+ A call to peek() will be equal to the next return of next().
+Returns:
+the next XMLEvent
+Throws:
+XMLStreamException
+- if an error occurs
+See Also:
+XMLEvent
+getElementText
+String
+getElementText
+()
+               throws
+XMLStreamException
+Reads the content of a text-only element. Precondition:
+ the current event is START_ELEMENT. Postcondition:
+ The current event is the corresponding END_ELEMENT.
+Returns:
+the text of the element
+Throws:
+XMLStreamException
+- if the current event is not a START_ELEMENT
+ or if a non text element is encountered
+nextTag
+XMLEvent
+nextTag
+()
+          throws
+XMLStreamException
+Skips any insignificant space events until a START_ELEMENT or
+ END_ELEMENT is reached. If anything other than space characters are
+ encountered, an exception is thrown. This method should
+ be used when processing element-only content because
+ the parser is not able to recognize ignorable whitespace if
+ the DTD is missing or not interpreted.
+Returns:
+a START_ELEMENT or END_ELEMENT
+Throws:
+XMLStreamException
+- if anything other than space characters are encountered
+getProperty
+Object
+getProperty
+(
+String
+name)
+throws
+IllegalArgumentException
+Get the value of a feature/property from the underlying implementation
+Parameters:
+name
+- The name of the property
+Returns:
+The value of the property
+Throws:
+IllegalArgumentException
+- if the property is not supported
+close
+void
+close
+()
+    throws
+XMLStreamException
+Frees any resources associated with this Reader.  This method does not close the
+ underlying input source.
+Throws:
+XMLStreamException
+- if there are errors freeing associated resources
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

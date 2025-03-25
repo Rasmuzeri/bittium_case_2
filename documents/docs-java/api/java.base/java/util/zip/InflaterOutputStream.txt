@@ -1,0 +1,389 @@
+InflaterOutputStream (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.util.zip
+Class InflaterOutputStream
+java.lang.Object
+java.io.OutputStream
+java.io.FilterOutputStream
+java.util.zip.InflaterOutputStream
+All Implemented Interfaces:
+Closeable
+,
+Flushable
+,
+AutoCloseable
+public class
+InflaterOutputStream
+extends
+FilterOutputStream
+Implements an output stream filter for uncompressing data stored in the
+ "deflate" compression format.
+Since:
+1.6
+See Also:
+InflaterInputStream
+DeflaterInputStream
+DeflaterOutputStream
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected final byte[]
+buf
+Output buffer for writing uncompressed data.
+protected final
+Inflater
+inf
+Decompressor for this stream.
+Fields declared in class java.io.
+FilterOutputStream
+out
+Constructor Summary
+Constructors
+Constructor
+Description
+InflaterOutputStream
+(
+OutputStream
+out)
+Creates a new output stream with a default decompressor and buffer
+ size.
+InflaterOutputStream
+(
+OutputStream
+out,
+Inflater
+infl)
+Creates a new output stream with the specified decompressor and a
+ default buffer size.
+InflaterOutputStream
+(
+OutputStream
+out,
+Inflater
+infl,
+ int bufLen)
+Creates a new output stream with the specified decompressor and
+ buffer size.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+close
+()
+Writes any remaining uncompressed data to the output stream and closes
+ the underlying output stream.
+void
+finish
+()
+Finishes writing uncompressed data to the output stream without closing
+ the underlying stream.
+void
+flush
+()
+Flushes this output stream, forcing any pending buffered output bytes to be
+ written.
+void
+write
+(byte[] b,
+ int off,
+ int len)
+Writes an array of bytes to the uncompressed output stream.
+void
+write
+(int b)
+Writes a byte to the uncompressed output stream.
+Methods declared in class java.io.
+FilterOutputStream
+write
+Methods declared in class java.io.
+OutputStream
+nullOutputStream
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+inf
+protected final
+Inflater
+inf
+Decompressor for this stream.
+buf
+protected final
+byte[]
+buf
+Output buffer for writing uncompressed data.
+Constructor Details
+InflaterOutputStream
+public
+InflaterOutputStream
+(
+OutputStream
+out)
+Creates a new output stream with a default decompressor and buffer
+ size.
+Parameters:
+out
+- output stream to write the uncompressed data to
+Throws:
+NullPointerException
+- if
+out
+is null
+InflaterOutputStream
+public
+InflaterOutputStream
+(
+OutputStream
+out,
+Inflater
+infl)
+Creates a new output stream with the specified decompressor and a
+ default buffer size.
+Parameters:
+out
+- output stream to write the uncompressed data to
+infl
+- decompressor ("inflater") for this stream
+Throws:
+NullPointerException
+- if
+out
+or
+infl
+is null
+InflaterOutputStream
+public
+InflaterOutputStream
+(
+OutputStream
+out,
+Inflater
+infl,
+ int bufLen)
+Creates a new output stream with the specified decompressor and
+ buffer size.
+Parameters:
+out
+- output stream to write the uncompressed data to
+infl
+- decompressor ("inflater") for this stream
+bufLen
+- decompression buffer size
+Throws:
+IllegalArgumentException
+- if
+bufLen <= 0
+NullPointerException
+- if
+out
+or
+infl
+is null
+Method Details
+close
+public
+void
+close
+()
+           throws
+IOException
+Writes any remaining uncompressed data to the output stream and closes
+ the underlying output stream.
+Specified by:
+close
+in interface
+AutoCloseable
+Specified by:
+close
+in interface
+Closeable
+Overrides:
+close
+in class
+FilterOutputStream
+Throws:
+IOException
+- if an I/O error occurs
+See Also:
+FilterOutputStream.flush()
+FilterOutputStream.out
+flush
+public
+void
+flush
+()
+           throws
+IOException
+Flushes this output stream, forcing any pending buffered output bytes to be
+ written.
+Specified by:
+flush
+in interface
+Flushable
+Overrides:
+flush
+in class
+FilterOutputStream
+Throws:
+IOException
+- if an I/O error occurs or this stream is already
+ closed
+See Also:
+FilterOutputStream.out
+finish
+public
+void
+finish
+()
+            throws
+IOException
+Finishes writing uncompressed data to the output stream without closing
+ the underlying stream.  Use this method when applying multiple filters in
+ succession to the same output stream.
+Throws:
+IOException
+- if an I/O error occurs or this stream is already
+ closed
+write
+public
+void
+write
+(int b)
+throws
+IOException
+Writes a byte to the uncompressed output stream.
+Overrides:
+write
+in class
+FilterOutputStream
+Parameters:
+b
+- a single byte of compressed data to decompress and write to
+ the output stream
+Throws:
+IOException
+- if an I/O error occurs or this stream is already
+ closed
+ZipException
+- if a compression (ZIP) format error occurs
+write
+public
+void
+write
+(byte[] b,
+ int off,
+ int len)
+throws
+IOException
+Writes an array of bytes to the uncompressed output stream.
+Overrides:
+write
+in class
+FilterOutputStream
+Parameters:
+b
+- buffer containing compressed data to decompress and write to
+ the output stream
+off
+- starting offset of the compressed data within
+b
+len
+- number of bytes to decompress from
+b
+Throws:
+IndexOutOfBoundsException
+- if
+off < 0
+, or if
+len < 0
+, or if
+len > b.length - off
+IOException
+- if an I/O error occurs or this stream is already
+ closed
+NullPointerException
+- if
+b
+is null
+ZipException
+- if a compression (ZIP) format error occurs
+See Also:
+FilterOutputStream.write(int)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,303 @@
+Uses of Interface jdk.jshell.spi.ExecutionControl (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Interface
+jdk.jshell.spi.ExecutionControl
+Packages that use
+ExecutionControl
+Package
+Description
+jdk.jshell.execution
+Provides implementation support for building JShell execution engines.
+jdk.jshell.spi
+Defines the Service Provider Interface for pluggable JShell execution engines.
+Uses of
+ExecutionControl
+in
+jdk.jshell.execution
+Classes in
+jdk.jshell.execution
+that implement
+ExecutionControl
+Modifier and Type
+Class
+Description
+class
+DirectExecutionControl
+An
+ExecutionControl
+implementation that runs in the current process.
+class
+JdiDefaultExecutionControl
+The implementation of
+ExecutionControl
+that the
+ JShell-core uses by default.
+class
+JdiExecutionControl
+Abstract JDI implementation of
+ExecutionControl
+.
+class
+LocalExecutionControl
+An implementation of
+ExecutionControl
+which executes
+ in the same JVM as the JShell-core.
+class
+RemoteExecutionControl
+The remote agent runs in the execution process (separate from the main JShell
+ process).
+class
+StreamingExecutionControl
+An implementation of the
+ExecutionControl
+execution engine SPI which streams requests to a remote agent where
+ execution takes place.
+Methods in
+jdk.jshell.execution
+that return
+ExecutionControl
+Modifier and Type
+Method
+Description
+ExecutionControl
+FailOverExecutionControlProvider.
+generate
+(
+ExecutionEnv
+env,
+Map
+<
+String
+,
+String
+> parameters)
+Create and return a locally executing
+ExecutionControl
+instance.
+ExecutionControl
+JdiExecutionControlProvider.
+generate
+(
+ExecutionEnv
+env,
+Map
+<
+String
+,
+String
+> parameters)
+ExecutionControl
+LocalExecutionControlProvider.
+generate
+(
+ExecutionEnv
+env,
+Map
+<
+String
+,
+String
+> parameters)
+Create and return a locally executing
+ExecutionControl
+instance.
+static
+ExecutionControl
+Util.
+remoteInputOutput
+(
+InputStream
+input,
+OutputStream
+output,
+Map
+<
+String
+,
+OutputStream
+> outputStreamMap,
+Map
+<
+String
+,
+InputStream
+> inputStreamMap,
+BiFunction
+<
+ObjectInput
+,
+ObjectOutput
+,
+ExecutionControl
+> factory)
+Creates an ExecutionControl for given packetized input and output.
+Methods in
+jdk.jshell.execution
+with parameters of type
+ExecutionControl
+Modifier and Type
+Method
+Description
+static void
+Util.
+forwardExecutionControl
+(
+ExecutionControl
+ec,
+ObjectInput
+in,
+ObjectOutput
+out)
+Forward commands from the input to the specified
+ExecutionControl
+instance, then responses back on the output.
+static void
+Util.
+forwardExecutionControlAndIO
+(
+ExecutionControl
+ec,
+InputStream
+inStream,
+OutputStream
+outStream,
+Map
+<
+String
+,
+Consumer
+<
+OutputStream
+>> outputStreamMap,
+Map
+<
+String
+,
+Consumer
+<
+InputStream
+>> inputStreamMap)
+Forward commands from the input to the specified
+ExecutionControl
+instance, then responses back on the output.
+Method parameters in
+jdk.jshell.execution
+with type arguments of type
+ExecutionControl
+Modifier and Type
+Method
+Description
+static
+ExecutionControl
+Util.
+remoteInputOutput
+(
+InputStream
+input,
+OutputStream
+output,
+Map
+<
+String
+,
+OutputStream
+> outputStreamMap,
+Map
+<
+String
+,
+InputStream
+> inputStreamMap,
+BiFunction
+<
+ObjectInput
+,
+ObjectOutput
+,
+ExecutionControl
+> factory)
+Creates an ExecutionControl for given packetized input and output.
+Uses of
+ExecutionControl
+in
+jdk.jshell.spi
+Methods in
+jdk.jshell.spi
+that return
+ExecutionControl
+Modifier and Type
+Method
+Description
+static
+ExecutionControl
+ExecutionControl.
+generate
+(
+ExecutionEnv
+env,
+String
+spec)
+Search for a provider, then create and return the
+ExecutionControl
+instance.
+static
+ExecutionControl
+ExecutionControl.
+generate
+(
+ExecutionEnv
+env,
+String
+name,
+Map
+<
+String
+,
+String
+> parameters)
+Search for a provider, then create and return the
+ExecutionControl
+instance.
+ExecutionControl
+ExecutionControlProvider.
+generate
+(
+ExecutionEnv
+env,
+Map
+<
+String
+,
+String
+> parameters)
+Create and return the
+ExecutionControl
+instance.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

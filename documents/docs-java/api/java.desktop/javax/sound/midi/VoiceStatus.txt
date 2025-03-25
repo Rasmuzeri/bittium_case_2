@@ -1,0 +1,250 @@
+VoiceStatus (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.sound.midi
+Class VoiceStatus
+java.lang.Object
+javax.sound.midi.VoiceStatus
+public class
+VoiceStatus
+extends
+Object
+A
+VoiceStatus
+object contains information about the current status of
+ one of the voices produced by a
+Synthesizer
+.
+MIDI synthesizers are generally capable of producing some maximum number of
+ simultaneous notes, also referred to as voices. A voice is a stream of
+ successive single notes, and the process of assigning incoming MIDI notes to
+ specific voices is known as voice allocation. However, the voice-allocation
+ algorithm and the contents of each voice are normally internal to a MIDI
+ synthesizer and hidden from outside view. One can, of course, learn from MIDI
+ messages which notes the synthesizer is playing, and one might be able deduce
+ something about the assignment of notes to voices. But MIDI itself does not
+ provide a means to report which notes a synthesizer has assigned to which
+ voice, nor even to report how many voices the synthesizer is capable of
+ synthesizing.
+In Java Sound, however, a
+Synthesizer
+class can expose the contents
+ of its voices through its
+getVoiceStatus()
+method. This behavior
+ is recommended but optional; synthesizers that don't expose their voice
+ allocation simply return a zero-length array. A
+Synthesizer
+that does
+ report its voice status should maintain this information at all times for all
+ of its voices, whether they are currently sounding or not. In other words, a
+ given type of
+Synthesizer
+always has a fixed number of voices, equal
+ to the maximum number of simultaneous notes it is capable of sounding.
+If the voice is not currently processing a
+ MIDI note, it is considered inactive. A voice is inactive when it has been
+ given no note-on commands, or when every note-on command received has been
+ terminated by a corresponding note-off (or by an "all notes off" message).
+ For example, this happens when a synthesizer capable of playing 16
+ simultaneous notes is told to play a four-note chord; only four voices are
+ active in this case (assuming no earlier notes are still playing). Usually, a
+ voice whose status is reported as active is producing audible sound, but this
+ is not always true; it depends on the details of the instrument (that is, the
+ synthesis algorithm) and how long the note has been going on. For example, a
+ voice may be synthesizing the sound of a single hand-clap. Because this sound
+ dies away so quickly, it may become inaudible before a note-off message is
+ received. In such a situation, the voice is still considered active even
+ though no sound is currently being produced.
+Besides its active or inactive status, the
+VoiceStatus
+class provides
+ fields that reveal the voice's current MIDI channel, bank and program number,
+ MIDI note number, and MIDI volume. All of these can change during the course
+ of a voice. While the voice is inactive, each of these fields has an
+ unspecified value, so you should check the active field first.
+See Also:
+Synthesizer.getMaxPolyphony()
+Synthesizer.getVoiceStatus()
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+boolean
+active
+Indicates whether the voice is currently processing a MIDI note.
+int
+bank
+The bank number of the instrument that this voice is currently using.
+int
+channel
+The MIDI channel on which this voice is playing.
+int
+note
+The MIDI note that this voice is playing.
+int
+program
+The program number of the instrument that this voice is currently using.
+int
+volume
+The current MIDI volume level for the voice.
+Constructor Summary
+Constructors
+Constructor
+Description
+VoiceStatus
+()
+Constructs a
+VoiceStatus
+.
+Method Summary
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+active
+public
+boolean
+active
+Indicates whether the voice is currently processing a MIDI note. See the
+ explanation of
+active and inactive voices
+.
+channel
+public
+int
+channel
+The MIDI channel on which this voice is playing. The value is a
+ zero-based channel number if the voice is active, or unspecified if the
+ voice is inactive.
+See Also:
+MidiChannel
+active
+bank
+public
+int
+bank
+The bank number of the instrument that this voice is currently using.
+ This is a number dictated by the MIDI bank-select message; it does not
+ refer to a
+SoundBank
+object. The value ranges from 0 to 16383 if
+ the voice is active, and is unspecified if the voice is inactive.
+See Also:
+Patch
+Soundbank
+active
+MidiChannel.programChange(int, int)
+program
+public
+int
+program
+The program number of the instrument that this voice is currently using.
+ The value ranges from 0 to 127 if the voice is active, and is unspecified
+ if the voice is inactive.
+See Also:
+MidiChannel.getProgram()
+Patch
+active
+note
+public
+int
+note
+The MIDI note that this voice is playing. The range for an active voice
+ is from 0 to 127 in semitones, with 60 referring to Middle C. The value
+ is unspecified if the voice is inactive.
+See Also:
+MidiChannel.noteOn(int, int)
+active
+volume
+public
+int
+volume
+The current MIDI volume level for the voice. The value ranges from 0 to
+ 127 if the voice is active, and is unspecified if the voice is inactive.
+Note that this value does not necessarily reflect the instantaneous level
+ of the sound produced by this voice; that level is the result of many
+ contributing factors, including the current instrument and the shape of
+ the amplitude envelope it produces.
+See Also:
+active
+Constructor Details
+VoiceStatus
+public
+VoiceStatus
+()
+Constructs a
+VoiceStatus
+.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

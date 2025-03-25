@@ -1,0 +1,336 @@
+Card (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.smartcardio
+Package
+javax.smartcardio
+Class Card
+java.lang.Object
+javax.smartcardio.Card
+public abstract class
+Card
+extends
+Object
+A Smart Card with which a connection has been established. Card objects
+ are obtained by calling
+CardTerminal.connect()
+.
+Since:
+1.6
+See Also:
+CardTerminal
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+Card
+()
+Constructs a new Card object.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+abstract void
+beginExclusive
+()
+Requests exclusive access to this card.
+abstract void
+disconnect
+(boolean reset)
+Disconnects the connection with this card.
+abstract void
+endExclusive
+()
+Releases the exclusive access previously established using
+beginExclusive
+.
+abstract
+ATR
+getATR
+()
+Returns the ATR of this card.
+abstract
+CardChannel
+getBasicChannel
+()
+Returns the CardChannel for the basic logical channel.
+abstract
+String
+getProtocol
+()
+Returns the protocol in use for this card.
+abstract
+CardChannel
+openLogicalChannel
+()
+Opens a new logical channel to the card and returns it.
+abstract byte[]
+transmitControlCommand
+(int controlCode,
+ byte[] command)
+Transmits a control command to the terminal device.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+Card
+protected
+Card
+()
+Constructs a new Card object.
+This constructor is called by subclasses only. Application should
+ call the
+CardTerminal.connect()
+method to obtain a Card
+ object.
+Method Details
+getATR
+public abstract
+ATR
+getATR
+()
+Returns the ATR of this card.
+Returns:
+the ATR of this card.
+getProtocol
+public abstract
+String
+getProtocol
+()
+Returns the protocol in use for this card.
+Returns:
+the protocol in use for this card, for example "T=0" or "T=1"
+getBasicChannel
+public abstract
+CardChannel
+getBasicChannel
+()
+Returns the CardChannel for the basic logical channel. The basic
+ logical channel has a channel number of 0.
+Returns:
+the CardChannel for the basic logical channel
+Throws:
+SecurityException
+- if a SecurityManager exists and the
+   caller does not have the required
+permission
+IllegalStateException
+- if this card object has been disposed of
+   via the
+disconnect()
+method
+openLogicalChannel
+public abstract
+CardChannel
+openLogicalChannel
+()
+                                        throws
+CardException
+Opens a new logical channel to the card and returns it. The channel is
+ opened by issuing a
+MANAGE CHANNEL
+command that should use
+ the format
+[00 70 00 00 01]
+.
+Returns:
+the logical channel which has been opened
+Throws:
+SecurityException
+- if a SecurityManager exists and the
+   caller does not have the required
+permission
+CardException
+- is a new logical channel could not be opened
+IllegalStateException
+- if this card object has been disposed of
+   via the
+disconnect()
+method
+beginExclusive
+public abstract
+void
+beginExclusive
+()
+                             throws
+CardException
+Requests exclusive access to this card.
+Once a thread has invoked
+beginExclusive
+, only this
+ thread is allowed to communicate with this card until it calls
+endExclusive
+. Other threads attempting communication
+ will receive a CardException.
+Applications have to ensure that exclusive access is correctly
+ released. This can be achieved by executing
+ the
+beginExclusive()
+and
+endExclusive
+calls
+ in a
+try ... finally
+block.
+Throws:
+SecurityException
+- if a SecurityManager exists and the
+   caller does not have the required
+permission
+CardException
+- if exclusive access has already been set
+   or if exclusive access could not be established
+IllegalStateException
+- if this card object has been disposed of
+   via the
+disconnect()
+method
+endExclusive
+public abstract
+void
+endExclusive
+()
+                           throws
+CardException
+Releases the exclusive access previously established using
+beginExclusive
+.
+Throws:
+SecurityException
+- if a SecurityManager exists and the
+   caller does not have the required
+permission
+IllegalStateException
+- if the active Thread does not currently have
+   exclusive access to this card or
+   if this card object has been disposed of
+   via the
+disconnect()
+method
+CardException
+- if the operation failed
+transmitControlCommand
+public abstract
+byte[]
+transmitControlCommand
+(int controlCode,
+ byte[] command)
+throws
+CardException
+Transmits a control command to the terminal device.
+This can be used to, for example, control terminal functions like
+ a built-in PIN pad or biometrics.
+Parameters:
+controlCode
+- the control code of the command
+command
+- the command data
+Returns:
+the response from the terminal device
+Throws:
+SecurityException
+- if a SecurityManager exists and the
+   caller does not have the required
+permission
+NullPointerException
+- if command is null
+CardException
+- if the card operation failed
+IllegalStateException
+- if this card object has been disposed of
+   via the
+disconnect()
+method
+disconnect
+public abstract
+void
+disconnect
+(boolean reset)
+throws
+CardException
+Disconnects the connection with this card. After this method returns,
+ calling methods on this object or in CardChannels associated with this
+ object that require interaction with the card will raise an
+ IllegalStateException.
+Parameters:
+reset
+- whether to reset the card after disconnecting.
+Throws:
+CardException
+- if the card operation failed
+SecurityException
+- if a SecurityManager exists and the
+   caller does not have the required
+permission
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

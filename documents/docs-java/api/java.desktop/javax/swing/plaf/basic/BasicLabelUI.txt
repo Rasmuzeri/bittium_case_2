@@ -1,0 +1,718 @@
+BasicLabelUI (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.plaf.basic
+Class BasicLabelUI
+java.lang.Object
+javax.swing.plaf.ComponentUI
+javax.swing.plaf.LabelUI
+javax.swing.plaf.basic.BasicLabelUI
+All Implemented Interfaces:
+PropertyChangeListener
+,
+EventListener
+Direct Known Subclasses:
+MetalLabelUI
+,
+SynthLabelUI
+public class
+BasicLabelUI
+extends
+LabelUI
+implements
+PropertyChangeListener
+A Windows L&F implementation of LabelUI.  This implementation
+ is completely static, i.e. there's only one UIView implementation
+ that's shared by all JLabel objects.
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected static
+BasicLabelUI
+labelUI
+The default
+BasicLabelUI
+instance.
+Constructor Summary
+Constructors
+Constructor
+Description
+BasicLabelUI
+()
+Constructs a
+BasicLabelUI
+.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+ComponentUI
+createUI
+(
+JComponent
+c)
+Returns an instance of
+BasicLabelUI
+.
+int
+getBaseline
+(
+JComponent
+c,
+ int width,
+ int height)
+Returns the baseline.
+Component.BaselineResizeBehavior
+getBaselineResizeBehavior
+(
+JComponent
+c)
+Returns an enum indicating how the baseline of the component
+ changes as the size changes.
+Dimension
+getMaximumSize
+(
+JComponent
+c)
+Returns the specified component's maximum size appropriate for
+ the look and feel.
+Dimension
+getMinimumSize
+(
+JComponent
+c)
+Returns the specified component's minimum size appropriate for
+ the look and feel.
+protected void
+installComponents
+(
+JLabel
+c)
+Registers components.
+protected void
+installDefaults
+(
+JLabel
+c)
+Installs default properties.
+protected void
+installKeyboardActions
+(
+JLabel
+l)
+Registers keyboard actions.
+protected void
+installListeners
+(
+JLabel
+c)
+Registers listeners.
+protected
+String
+layoutCL
+(
+JLabel
+label,
+FontMetrics
+fontMetrics,
+String
+text,
+Icon
+icon,
+Rectangle
+viewR,
+Rectangle
+iconR,
+Rectangle
+textR)
+Forwards the call to SwingUtilities.layoutCompoundLabel().
+void
+paint
+(
+Graphics
+g,
+JComponent
+c)
+Paints the label text with the foreground color, if the label is opaque
+ then paints the entire background with the background color.
+protected void
+paintDisabledText
+(
+JLabel
+l,
+Graphics
+g,
+String
+s,
+ int textX,
+ int textY)
+Paint clippedText at textX, textY with background.lighter() and then
+ shifted down and to the right by one pixel with background.darker().
+protected void
+paintEnabledText
+(
+JLabel
+l,
+Graphics
+g,
+String
+s,
+ int textX,
+ int textY)
+Paint clippedText at textX, textY with the labels foreground color.
+void
+propertyChange
+(
+PropertyChangeEvent
+e)
+This method gets called when a bound property is changed.
+protected void
+uninstallComponents
+(
+JLabel
+c)
+Unregisters components.
+protected void
+uninstallDefaults
+(
+JLabel
+c)
+Uninstalls default properties.
+protected void
+uninstallKeyboardActions
+(
+JLabel
+c)
+Unregisters keyboard actions.
+protected void
+uninstallListeners
+(
+JLabel
+c)
+Unregisters listeners.
+Methods declared in class javax.swing.plaf.
+ComponentUI
+contains
+,
+getAccessibleChild
+,
+getAccessibleChildrenCount
+,
+getPreferredSize
+,
+installUI
+,
+uninstallUI
+,
+update
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+labelUI
+protected static
+BasicLabelUI
+labelUI
+The default
+BasicLabelUI
+instance. This field might
+ not be used. To change the default instance use a subclass which
+ overrides the
+createUI
+method, and place that class
+ name in defaults table under the key "LabelUI".
+Constructor Details
+BasicLabelUI
+public
+BasicLabelUI
+()
+Constructs a
+BasicLabelUI
+.
+Method Details
+layoutCL
+protected
+String
+layoutCL
+(
+JLabel
+label,
+FontMetrics
+fontMetrics,
+String
+text,
+Icon
+icon,
+Rectangle
+viewR,
+Rectangle
+iconR,
+Rectangle
+textR)
+Forwards the call to SwingUtilities.layoutCompoundLabel().
+ This method is here so that a subclass could do Label specific
+ layout and to shorten the method name a little.
+Parameters:
+label
+- an instance of
+JLabel
+fontMetrics
+- a font metrics
+text
+- a text
+icon
+- an icon
+viewR
+- a bounding rectangle to lay out label
+iconR
+- a bounding rectangle to lay out icon
+textR
+- a bounding rectangle to lay out text
+Returns:
+a possibly clipped version of the compound labels string
+See Also:
+SwingUtilities.layoutCompoundLabel(javax.swing.JComponent, java.awt.FontMetrics, java.lang.String, javax.swing.Icon, int, int, int, int, java.awt.Rectangle, java.awt.Rectangle, java.awt.Rectangle, int)
+paintEnabledText
+protected
+void
+paintEnabledText
+(
+JLabel
+l,
+Graphics
+g,
+String
+s,
+ int textX,
+ int textY)
+Paint clippedText at textX, textY with the labels foreground color.
+Parameters:
+l
+- an instance of
+JLabel
+g
+- an instance of
+Graphics
+s
+- a text
+textX
+- an X coordinate
+textY
+- an Y coordinate
+See Also:
+paint(java.awt.Graphics, javax.swing.JComponent)
+paintDisabledText(javax.swing.JLabel, java.awt.Graphics, java.lang.String, int, int)
+paintDisabledText
+protected
+void
+paintDisabledText
+(
+JLabel
+l,
+Graphics
+g,
+String
+s,
+ int textX,
+ int textY)
+Paint clippedText at textX, textY with background.lighter() and then
+ shifted down and to the right by one pixel with background.darker().
+Parameters:
+l
+- an instance of
+JLabel
+g
+- an instance of
+Graphics
+s
+- a text
+textX
+- an X coordinate
+textY
+- an Y coordinate
+See Also:
+paint(java.awt.Graphics, javax.swing.JComponent)
+paintEnabledText(javax.swing.JLabel, java.awt.Graphics, java.lang.String, int, int)
+paint
+public
+void
+paint
+(
+Graphics
+g,
+JComponent
+c)
+Paints the label text with the foreground color, if the label is opaque
+ then paints the entire background with the background color. The Label
+ text is drawn by
+paintEnabledText(javax.swing.JLabel, java.awt.Graphics, java.lang.String, int, int)
+or
+paintDisabledText(javax.swing.JLabel, java.awt.Graphics, java.lang.String, int, int)
+.
+ The locations of the label parts are computed by
+layoutCL(javax.swing.JLabel, java.awt.FontMetrics, java.lang.String, javax.swing.Icon, java.awt.Rectangle, java.awt.Rectangle, java.awt.Rectangle)
+.
+Overrides:
+paint
+in class
+ComponentUI
+Parameters:
+g
+- the
+Graphics
+context in which to paint
+c
+- the component being painted;
+          this argument is often ignored,
+          but might be used if the UI object is stateless
+          and shared by multiple components
+See Also:
+paintEnabledText(javax.swing.JLabel, java.awt.Graphics, java.lang.String, int, int)
+paintDisabledText(javax.swing.JLabel, java.awt.Graphics, java.lang.String, int, int)
+layoutCL(javax.swing.JLabel, java.awt.FontMetrics, java.lang.String, javax.swing.Icon, java.awt.Rectangle, java.awt.Rectangle, java.awt.Rectangle)
+getMinimumSize
+public
+Dimension
+getMinimumSize
+(
+JComponent
+c)
+Description copied from class:
+ComponentUI
+Returns the specified component's minimum size appropriate for
+ the look and feel.  If
+null
+is returned, the minimum
+ size will be calculated by the component's layout manager instead
+ (this is the preferred approach for any component with a specific
+ layout manager installed).  The default implementation of this
+ method invokes
+getPreferredSize
+and returns that value.
+Overrides:
+getMinimumSize
+in class
+ComponentUI
+Parameters:
+c
+- the component whose minimum size is being queried;
+          this argument is often ignored,
+          but might be used if the UI object is stateless
+          and shared by multiple components
+Returns:
+getPreferredSize(c)
+See Also:
+JComponent.getMinimumSize()
+LayoutManager.minimumLayoutSize(java.awt.Container)
+ComponentUI.getPreferredSize(javax.swing.JComponent)
+getMaximumSize
+public
+Dimension
+getMaximumSize
+(
+JComponent
+c)
+Description copied from class:
+ComponentUI
+Returns the specified component's maximum size appropriate for
+ the look and feel.  If
+null
+is returned, the maximum
+ size will be calculated by the component's layout manager instead
+ (this is the preferred approach for any component with a specific
+ layout manager installed).  The default implementation of this
+ method invokes
+getPreferredSize
+and returns that value.
+Overrides:
+getMaximumSize
+in class
+ComponentUI
+Parameters:
+c
+- the component whose maximum size is being queried;
+          this argument is often ignored,
+          but might be used if the UI object is stateless
+          and shared by multiple components
+Returns:
+getPreferredSize(c)
+See Also:
+JComponent.getMaximumSize()
+LayoutManager2.maximumLayoutSize(java.awt.Container)
+getBaseline
+public
+int
+getBaseline
+(
+JComponent
+c,
+ int width,
+ int height)
+Returns the baseline.
+Overrides:
+getBaseline
+in class
+ComponentUI
+Parameters:
+c
+-
+JComponent
+baseline is being requested for
+width
+- the width to get the baseline for
+height
+- the height to get the baseline for
+Returns:
+baseline or a value < 0 indicating there is no reasonable
+                  baseline
+Throws:
+NullPointerException
+- if
+c
+is
+null
+IllegalArgumentException
+- if width or height is < 0
+Since:
+1.6
+See Also:
+JComponent.getBaseline(int, int)
+getBaselineResizeBehavior
+public
+Component.BaselineResizeBehavior
+getBaselineResizeBehavior
+(
+JComponent
+c)
+Returns an enum indicating how the baseline of the component
+ changes as the size changes.
+Overrides:
+getBaselineResizeBehavior
+in class
+ComponentUI
+Parameters:
+c
+-
+JComponent
+to return baseline resize behavior for
+Returns:
+an enum indicating how the baseline changes as the component
+         size changes
+Throws:
+NullPointerException
+- if
+c
+is
+null
+Since:
+1.6
+See Also:
+JComponent.getBaseline(int, int)
+installDefaults
+protected
+void
+installDefaults
+(
+JLabel
+c)
+Installs default properties.
+Parameters:
+c
+- an instance of
+JLabel
+installListeners
+protected
+void
+installListeners
+(
+JLabel
+c)
+Registers listeners.
+Parameters:
+c
+- an instance of
+JLabel
+installComponents
+protected
+void
+installComponents
+(
+JLabel
+c)
+Registers components.
+Parameters:
+c
+- an instance of
+JLabel
+installKeyboardActions
+protected
+void
+installKeyboardActions
+(
+JLabel
+l)
+Registers keyboard actions.
+Parameters:
+l
+- an instance of
+JLabel
+uninstallDefaults
+protected
+void
+uninstallDefaults
+(
+JLabel
+c)
+Uninstalls default properties.
+Parameters:
+c
+- an instance of
+JLabel
+uninstallListeners
+protected
+void
+uninstallListeners
+(
+JLabel
+c)
+Unregisters listeners.
+Parameters:
+c
+- an instance of
+JLabel
+uninstallComponents
+protected
+void
+uninstallComponents
+(
+JLabel
+c)
+Unregisters components.
+Parameters:
+c
+- an instance of
+JLabel
+uninstallKeyboardActions
+protected
+void
+uninstallKeyboardActions
+(
+JLabel
+c)
+Unregisters keyboard actions.
+Parameters:
+c
+- an instance of
+JLabel
+createUI
+public static
+ComponentUI
+createUI
+(
+JComponent
+c)
+Returns an instance of
+BasicLabelUI
+.
+Parameters:
+c
+- a component
+Returns:
+an instance of
+BasicLabelUI
+propertyChange
+public
+void
+propertyChange
+(
+PropertyChangeEvent
+e)
+Description copied from interface:
+PropertyChangeListener
+This method gets called when a bound property is changed.
+Specified by:
+propertyChange
+in interface
+PropertyChangeListener
+Parameters:
+e
+- A PropertyChangeEvent object describing the event source
+          and the property that has changed.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

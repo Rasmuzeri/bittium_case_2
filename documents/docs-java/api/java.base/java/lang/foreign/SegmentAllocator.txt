@@ -1,0 +1,857 @@
+SegmentAllocator (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang.foreign
+Interface SegmentAllocator
+All Known Subinterfaces:
+Arena
+PREVIEW
+Functional Interface:
+This is a functional interface and can therefore be used as the assignment target for a lambda expression or method reference.
+@FunctionalInterface
+public interface
+SegmentAllocator
+SegmentAllocator
+is a preview API of the Java platform.
+Programs can only use
+SegmentAllocator
+when preview features are enabled.
+Preview features may be removed in a future release, or upgraded to permanent features of the Java platform.
+An object that may be used to allocate
+memory segments
+PREVIEW
+. Clients implementing this interface
+ must implement the
+allocate(long, long)
+method. A segment allocator defines several methods
+ which can be useful to create segments from several kinds of Java values such as primitives and arrays.
+SegmentAllocator
+is a
+functional interface
+. Clients can easily obtain a new
+ segment allocator by using either a lambda expression or a method reference:
+Copy
+SegmentAllocator autoAllocator = (byteSize, byteAlignment) -> Arena.ofAuto().allocate(byteSize, byteAlignment);
+This interface defines factories for commonly used allocators:
+slicingAllocator(MemorySegment)
+obtains an efficient slicing allocator, where memory
+     is allocated by repeatedly slicing the provided memory segment;
+prefixAllocator(MemorySegment)
+obtains an allocator which wraps a segment
+     and recycles its content upon each new allocation request.
+Passing a segment allocator to an API can be especially useful in circumstances where a client wants to communicate
+where
+the results of a certain operation (performed by the API) should be stored, as a memory segment. For instance,
+downcall method handles
+PREVIEW
+can accept an additional
+SegmentAllocator
+PREVIEW
+parameter if the underlying foreign function is known to return a struct by-value. Effectively,
+ the allocator parameter tells the linker where to store the return value of the foreign function.
+API Note:
+Unless otherwise specified, the
+allocate(long, long)
+method is not thread-safe.
+ Furthermore, memory segments allocated by a segment allocator can be associated with different
+ lifetimes, and can even be backed by overlapping regions of memory. For these reasons, clients should generally
+ only interact with a segment allocator they own.
+Clients should consider using an
+arena
+PREVIEW
+instead, which, provides strong thread-safety,
+ lifetime and non-overlapping guarantees.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+default
+MemorySegment
+PREVIEW
+allocate
+(long byteSize)
+Allocates a memory segment with the given size.
+MemorySegment
+PREVIEW
+allocate
+(long byteSize,
+ long byteAlignment)
+Allocates a memory segment with the given size and alignment constraint.
+default
+MemorySegment
+PREVIEW
+allocate
+(
+AddressLayout
+PREVIEW
+layout,
+MemorySegment
+PREVIEW
+value)
+Allocates a memory segment with the given layout and initializes it with the given address value.
+default
+MemorySegment
+PREVIEW
+allocate
+(
+MemoryLayout
+PREVIEW
+layout)
+Allocates a memory segment with the given layout.
+default
+MemorySegment
+PREVIEW
+allocate
+(
+ValueLayout.OfByte
+PREVIEW
+layout,
+ byte value)
+Allocates a memory segment with the given layout and initializes it with the given byte value.
+default
+MemorySegment
+PREVIEW
+allocate
+(
+ValueLayout.OfChar
+PREVIEW
+layout,
+ char value)
+Allocates a memory segment with the given layout and initializes it with the given char value.
+default
+MemorySegment
+PREVIEW
+allocate
+(
+ValueLayout.OfDouble
+PREVIEW
+layout,
+ double value)
+Allocates a memory segment with the given layout and initializes it with the given double value.
+default
+MemorySegment
+PREVIEW
+allocate
+(
+ValueLayout.OfFloat
+PREVIEW
+layout,
+ float value)
+Allocates a memory segment with the given layout and initializes it with the given float value.
+default
+MemorySegment
+PREVIEW
+allocate
+(
+ValueLayout.OfInt
+PREVIEW
+layout,
+ int value)
+Allocates a memory segment with the given layout and initializes it with the given int value.
+default
+MemorySegment
+PREVIEW
+allocate
+(
+ValueLayout.OfLong
+PREVIEW
+layout,
+ long value)
+Allocates a memory segment with the given layout and initializes it with the given long value.
+default
+MemorySegment
+PREVIEW
+allocate
+(
+ValueLayout.OfShort
+PREVIEW
+layout,
+ short value)
+Allocates a memory segment with the given layout and initializes it with the given short value.
+default
+MemorySegment
+PREVIEW
+allocateArray
+(
+MemoryLayout
+PREVIEW
+elementLayout,
+ long count)
+Allocates a memory segment with the given element layout and size.
+default
+MemorySegment
+PREVIEW
+allocateArray
+(
+ValueLayout.OfByte
+PREVIEW
+elementLayout,
+ byte... elements)
+Allocates a memory segment with the given layout and initializes it with the given byte elements.
+default
+MemorySegment
+PREVIEW
+allocateArray
+(
+ValueLayout.OfChar
+PREVIEW
+elementLayout,
+ char... elements)
+Allocates a memory segment with the given layout and initializes it with the given char elements.
+default
+MemorySegment
+PREVIEW
+allocateArray
+(
+ValueLayout.OfDouble
+PREVIEW
+elementLayout,
+ double... elements)
+Allocates a memory segment with the given layout and initializes it with the given double elements.
+default
+MemorySegment
+PREVIEW
+allocateArray
+(
+ValueLayout.OfFloat
+PREVIEW
+elementLayout,
+ float... elements)
+Allocates a memory segment with the given layout and initializes it with the given float elements.
+default
+MemorySegment
+PREVIEW
+allocateArray
+(
+ValueLayout.OfInt
+PREVIEW
+elementLayout,
+ int... elements)
+Allocates a memory segment with the given layout and initializes it with the given int elements.
+default
+MemorySegment
+PREVIEW
+allocateArray
+(
+ValueLayout.OfLong
+PREVIEW
+elementLayout,
+ long... elements)
+Allocates a memory segment with the given layout and initializes it with the given long elements.
+default
+MemorySegment
+PREVIEW
+allocateArray
+(
+ValueLayout.OfShort
+PREVIEW
+elementLayout,
+ short... elements)
+Allocates a memory segment with the given layout and initializes it with the given short elements.
+default
+MemorySegment
+PREVIEW
+allocateUtf8String
+(
+String
+str)
+Converts a Java string into a UTF-8 encoded, null-terminated C string,
+ storing the result into a memory segment.
+static
+SegmentAllocator
+PREVIEW
+prefixAllocator
+(
+MemorySegment
+PREVIEW
+segment)
+Returns a segment allocator which responds to allocation requests by recycling a single segment.
+static
+SegmentAllocator
+PREVIEW
+slicingAllocator
+(
+MemorySegment
+PREVIEW
+segment)
+Returns a segment allocator which responds to allocation requests by returning consecutive slices
+ obtained from the provided segment.
+Method Details
+allocateUtf8String
+default
+MemorySegment
+PREVIEW
+allocateUtf8String
+(
+String
+str)
+Converts a Java string into a UTF-8 encoded, null-terminated C string,
+ storing the result into a memory segment.
+This method always replaces malformed-input and unmappable-character
+ sequences with this charset's default replacement byte array.  The
+CharsetEncoder
+class should be used when more
+ control over the encoding process is required.
+If the given string contains any
+'\0'
+characters, they will be
+ copied as well. This means that, depending on the method used to read
+ the string, such as
+MemorySegment.getUtf8String(long)
+PREVIEW
+, the string
+ will appear truncated when read again.
+Implementation Requirements:
+the default implementation for this method copies the contents of the provided Java string
+ into a new memory segment obtained by calling
+this.allocate(str.length() + 1)
+.
+Parameters:
+str
+- the Java string to be converted into a C string.
+Returns:
+a new native segment containing the converted C string.
+allocate
+default
+MemorySegment
+PREVIEW
+allocate
+(
+ValueLayout.OfByte
+PREVIEW
+layout,
+ byte value)
+Allocates a memory segment with the given layout and initializes it with the given byte value.
+Implementation Requirements:
+the default implementation for this method calls
+this.allocate(layout)
+.
+Parameters:
+layout
+- the layout of the block of memory to be allocated.
+value
+- the value to be set on the newly allocated memory block.
+Returns:
+a segment for the newly allocated memory block.
+allocate
+default
+MemorySegment
+PREVIEW
+allocate
+(
+ValueLayout.OfChar
+PREVIEW
+layout,
+ char value)
+Allocates a memory segment with the given layout and initializes it with the given char value.
+Implementation Requirements:
+the default implementation for this method calls
+this.allocate(layout)
+.
+Parameters:
+layout
+- the layout of the block of memory to be allocated.
+value
+- the value to be set on the newly allocated memory block.
+Returns:
+a segment for the newly allocated memory block.
+allocate
+default
+MemorySegment
+PREVIEW
+allocate
+(
+ValueLayout.OfShort
+PREVIEW
+layout,
+ short value)
+Allocates a memory segment with the given layout and initializes it with the given short value.
+Implementation Requirements:
+the default implementation for this method calls
+this.allocate(layout)
+.
+Parameters:
+layout
+- the layout of the block of memory to be allocated.
+value
+- the value to be set on the newly allocated memory block.
+Returns:
+a segment for the newly allocated memory block.
+allocate
+default
+MemorySegment
+PREVIEW
+allocate
+(
+ValueLayout.OfInt
+PREVIEW
+layout,
+ int value)
+Allocates a memory segment with the given layout and initializes it with the given int value.
+Implementation Requirements:
+the default implementation for this method calls
+this.allocate(layout)
+.
+Parameters:
+layout
+- the layout of the block of memory to be allocated.
+value
+- the value to be set on the newly allocated memory block.
+Returns:
+a segment for the newly allocated memory block.
+allocate
+default
+MemorySegment
+PREVIEW
+allocate
+(
+ValueLayout.OfFloat
+PREVIEW
+layout,
+ float value)
+Allocates a memory segment with the given layout and initializes it with the given float value.
+Implementation Requirements:
+the default implementation for this method calls
+this.allocate(layout)
+.
+Parameters:
+layout
+- the layout of the block of memory to be allocated.
+value
+- the value to be set on the newly allocated memory block.
+Returns:
+a segment for the newly allocated memory block.
+allocate
+default
+MemorySegment
+PREVIEW
+allocate
+(
+ValueLayout.OfLong
+PREVIEW
+layout,
+ long value)
+Allocates a memory segment with the given layout and initializes it with the given long value.
+Implementation Requirements:
+the default implementation for this method calls
+this.allocate(layout)
+.
+Parameters:
+layout
+- the layout of the block of memory to be allocated.
+value
+- the value to be set on the newly allocated memory block.
+Returns:
+a segment for the newly allocated memory block.
+allocate
+default
+MemorySegment
+PREVIEW
+allocate
+(
+ValueLayout.OfDouble
+PREVIEW
+layout,
+ double value)
+Allocates a memory segment with the given layout and initializes it with the given double value.
+Implementation Requirements:
+the default implementation for this method calls
+this.allocate(layout)
+.
+Parameters:
+layout
+- the layout of the block of memory to be allocated.
+value
+- the value to be set on the newly allocated memory block.
+Returns:
+a segment for the newly allocated memory block.
+allocate
+default
+MemorySegment
+PREVIEW
+allocate
+(
+AddressLayout
+PREVIEW
+layout,
+MemorySegment
+PREVIEW
+value)
+Allocates a memory segment with the given layout and initializes it with the given address value.
+ The address value might be narrowed according to the platform address size (see
+ValueLayout.ADDRESS
+PREVIEW
+).
+Implementation Requirements:
+the default implementation for this method calls
+this.allocate(layout)
+.
+Parameters:
+layout
+- the layout of the block of memory to be allocated.
+value
+- the value to be set on the newly allocated memory block.
+Returns:
+a segment for the newly allocated memory block.
+allocateArray
+default
+MemorySegment
+PREVIEW
+allocateArray
+(
+ValueLayout.OfByte
+PREVIEW
+elementLayout,
+ byte... elements)
+Allocates a memory segment with the given layout and initializes it with the given byte elements.
+Implementation Requirements:
+the default implementation for this method calls
+this.allocateArray(layout, array.length)
+.
+Parameters:
+elementLayout
+- the element layout of the array to be allocated.
+elements
+- the byte elements to be copied to the newly allocated memory block.
+Returns:
+a segment for the newly allocated memory block.
+allocateArray
+default
+MemorySegment
+PREVIEW
+allocateArray
+(
+ValueLayout.OfShort
+PREVIEW
+elementLayout,
+ short... elements)
+Allocates a memory segment with the given layout and initializes it with the given short elements.
+Implementation Requirements:
+the default implementation for this method calls
+this.allocateArray(layout, array.length)
+.
+Parameters:
+elementLayout
+- the element layout of the array to be allocated.
+elements
+- the short elements to be copied to the newly allocated memory block.
+Returns:
+a segment for the newly allocated memory block.
+allocateArray
+default
+MemorySegment
+PREVIEW
+allocateArray
+(
+ValueLayout.OfChar
+PREVIEW
+elementLayout,
+ char... elements)
+Allocates a memory segment with the given layout and initializes it with the given char elements.
+Implementation Requirements:
+the default implementation for this method calls
+this.allocateArray(layout, array.length)
+.
+Parameters:
+elementLayout
+- the element layout of the array to be allocated.
+elements
+- the char elements to be copied to the newly allocated memory block.
+Returns:
+a segment for the newly allocated memory block.
+allocateArray
+default
+MemorySegment
+PREVIEW
+allocateArray
+(
+ValueLayout.OfInt
+PREVIEW
+elementLayout,
+ int... elements)
+Allocates a memory segment with the given layout and initializes it with the given int elements.
+Implementation Requirements:
+the default implementation for this method calls
+this.allocateArray(layout, array.length)
+.
+Parameters:
+elementLayout
+- the element layout of the array to be allocated.
+elements
+- the int elements to be copied to the newly allocated memory block.
+Returns:
+a segment for the newly allocated memory block.
+allocateArray
+default
+MemorySegment
+PREVIEW
+allocateArray
+(
+ValueLayout.OfFloat
+PREVIEW
+elementLayout,
+ float... elements)
+Allocates a memory segment with the given layout and initializes it with the given float elements.
+Implementation Requirements:
+the default implementation for this method calls
+this.allocateArray(layout, array.length)
+.
+Parameters:
+elementLayout
+- the element layout of the array to be allocated.
+elements
+- the float elements to be copied to the newly allocated memory block.
+Returns:
+a segment for the newly allocated memory block.
+allocateArray
+default
+MemorySegment
+PREVIEW
+allocateArray
+(
+ValueLayout.OfLong
+PREVIEW
+elementLayout,
+ long... elements)
+Allocates a memory segment with the given layout and initializes it with the given long elements.
+Implementation Requirements:
+the default implementation for this method calls
+this.allocateArray(layout, array.length)
+.
+Parameters:
+elementLayout
+- the element layout of the array to be allocated.
+elements
+- the long elements to be copied to the newly allocated memory block.
+Returns:
+a segment for the newly allocated memory block.
+allocateArray
+default
+MemorySegment
+PREVIEW
+allocateArray
+(
+ValueLayout.OfDouble
+PREVIEW
+elementLayout,
+ double... elements)
+Allocates a memory segment with the given layout and initializes it with the given double elements.
+Implementation Requirements:
+the default implementation for this method calls
+this.allocateArray(layout, array.length)
+.
+Parameters:
+elementLayout
+- the element layout of the array to be allocated.
+elements
+- the double elements to be copied to the newly allocated memory block.
+Returns:
+a segment for the newly allocated memory block.
+allocate
+default
+MemorySegment
+PREVIEW
+allocate
+(
+MemoryLayout
+PREVIEW
+layout)
+Allocates a memory segment with the given layout.
+Implementation Requirements:
+the default implementation for this method calls
+this.allocate(layout.byteSize(), layout.byteAlignment())
+.
+Parameters:
+layout
+- the layout of the block of memory to be allocated.
+Returns:
+a segment for the newly allocated memory block.
+allocateArray
+default
+MemorySegment
+PREVIEW
+allocateArray
+(
+MemoryLayout
+PREVIEW
+elementLayout,
+ long count)
+Allocates a memory segment with the given element layout and size.
+Implementation Requirements:
+the default implementation for this method calls
+this.allocate(MemoryLayout.sequenceLayout(count, elementLayout))
+.
+Parameters:
+elementLayout
+- the array element layout.
+count
+- the array element count.
+Returns:
+a segment for the newly allocated memory block.
+Throws:
+IllegalArgumentException
+- if
+elementLayout.byteSize() * count
+overflows.
+IllegalArgumentException
+- if
+count < 0
+.
+allocate
+default
+MemorySegment
+PREVIEW
+allocate
+(long byteSize)
+Allocates a memory segment with the given size.
+Implementation Requirements:
+the default implementation for this method calls
+this.allocate(byteSize, 1)
+.
+Parameters:
+byteSize
+- the size (in bytes) of the block of memory to be allocated.
+Returns:
+a segment for the newly allocated memory block.
+Throws:
+IllegalArgumentException
+- if
+byteSize < 0
+allocate
+MemorySegment
+PREVIEW
+allocate
+(long byteSize,
+ long byteAlignment)
+Allocates a memory segment with the given size and alignment constraint.
+Parameters:
+byteSize
+- the size (in bytes) of the block of memory to be allocated.
+byteAlignment
+- the alignment (in bytes) of the block of memory to be allocated.
+Returns:
+a segment for the newly allocated memory block.
+Throws:
+IllegalArgumentException
+- if
+byteSize < 0
+,
+byteAlignment <= 0
+,
+ or if
+byteAlignment
+is not a power of 2.
+slicingAllocator
+static
+SegmentAllocator
+PREVIEW
+slicingAllocator
+(
+MemorySegment
+PREVIEW
+segment)
+Returns a segment allocator which responds to allocation requests by returning consecutive slices
+ obtained from the provided segment. Each new allocation request will return a new slice starting at the
+ current offset (modulo additional padding to satisfy alignment constraint), with given size.
+The returned allocator throws
+IndexOutOfBoundsException
+when a slice of the provided
+ segment with the requested size and alignment cannot be found.
+Implementation Note:
+A slicing allocator is not
+thread-safe
+.
+Parameters:
+segment
+- the segment which the returned allocator should slice from.
+Returns:
+a new slicing allocator
+prefixAllocator
+static
+SegmentAllocator
+PREVIEW
+prefixAllocator
+(
+MemorySegment
+PREVIEW
+segment)
+Returns a segment allocator which responds to allocation requests by recycling a single segment. Each
+ new allocation request will return a new slice starting at the segment offset
+0
+, hence the name
+prefix allocator
+.
+ Equivalent to (but likely more efficient than) the following code:
+Copy
+MemorySegment segment = ...
+SegmentAllocator prefixAllocator = (size, align) -> segment.asSlice(0, size, align);
+The returned allocator throws
+IndexOutOfBoundsException
+when a slice of the provided
+ segment with the requested size and alignment cannot be found.
+API Note:
+A prefix allocator can be useful to limit allocation requests in case a client
+ knows that they have fully processed the contents of the allocated segment before the subsequent allocation request
+ takes place.
+Implementation Note:
+While a prefix allocator is
+thread-safe
+, concurrent access on the same recycling
+ allocator might cause a thread to overwrite contents written to the underlying segment by a different thread.
+Parameters:
+segment
+- the memory segment to be recycled by the returned allocator.
+Returns:
+an allocator which recycles an existing segment upon each new allocation request.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

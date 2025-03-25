@@ -1,0 +1,963 @@
+ThreadReference (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+jdk.jdi
+Package
+com.sun.jdi
+Interface ThreadReference
+All Superinterfaces:
+Mirror
+,
+ObjectReference
+,
+Value
+public interface
+ThreadReference
+extends
+ObjectReference
+A thread object from the target VM.
+ A ThreadReference is an
+ObjectReference
+with additional
+ access to thread-specific information from the target VM.
+Since:
+1.3
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final int
+THREAD_STATUS_MONITOR
+Thread is waiting on a java monitor
+static final int
+THREAD_STATUS_NOT_STARTED
+Thread has not yet been started
+static final int
+THREAD_STATUS_RUNNING
+Thread is runnable
+static final int
+THREAD_STATUS_SLEEPING
+Thread is sleeping -
+Thread.sleep(long)
+.
+static final int
+THREAD_STATUS_UNKNOWN
+Thread status is unknown
+static final int
+THREAD_STATUS_WAIT
+Thread is waiting -
+Object.wait()
+or
+LockSupport.park()
+.
+static final int
+THREAD_STATUS_ZOMBIE
+Thread has completed execution
+Fields declared in interface com.sun.jdi.
+ObjectReference
+INVOKE_NONVIRTUAL
+,
+INVOKE_SINGLE_THREADED
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+ObjectReference
+currentContendedMonitor
+()
+Returns an
+ObjectReference
+for the monitor, if any,
+ for which this thread is currently waiting.
+void
+forceEarlyReturn
+(
+Value
+value)
+Force a method to return before it reaches a return
+ statement.
+StackFrame
+frame
+(int index)
+Returns the
+StackFrame
+at the given index in the
+ thread's current call stack.
+int
+frameCount
+()
+Returns the number of stack frames in the thread's current
+ call stack.
+List
+<
+StackFrame
+>
+frames
+()
+Returns a List containing each
+StackFrame
+in the
+ thread's current call stack.
+List
+<
+StackFrame
+>
+frames
+(int start,
+ int length)
+Returns a List containing a range of
+StackFrame
+mirrors
+ from the thread's current call stack.
+void
+interrupt
+()
+Interrupts this thread unless the thread has been suspended by the
+ debugger.
+boolean
+isAtBreakpoint
+()
+Determines whether the thread is suspended at a breakpoint.
+boolean
+isSuspended
+()
+Determines whether the thread has been suspended by the
+ the debugger.
+default boolean
+isVirtual
+()
+Returns
+true
+if the thread is a
+virtual thread
+.
+String
+name
+()
+Returns the name of this thread.
+List
+<
+ObjectReference
+>
+ownedMonitors
+()
+Returns a List containing an
+ObjectReference
+for
+ each monitor owned by the thread.
+List
+<
+MonitorInfo
+>
+ownedMonitorsAndFrames
+()
+Returns a List containing a
+MonitorInfo
+object for
+ each monitor owned by the thread.
+void
+popFrames
+(
+StackFrame
+frame)
+Pop stack frames.
+void
+resume
+()
+Resumes this thread.
+int
+status
+()
+Returns the thread's status.
+void
+stop
+(
+ObjectReference
+throwable)
+Stops this thread with an asynchronous exception.
+void
+suspend
+()
+Suspends this thread.
+int
+suspendCount
+()
+Returns the number of pending suspends for this thread.
+ThreadGroupReference
+threadGroup
+()
+Returns this thread's thread group.
+Methods declared in interface com.sun.jdi.
+Mirror
+toString
+,
+virtualMachine
+Methods declared in interface com.sun.jdi.
+ObjectReference
+disableCollection
+,
+enableCollection
+,
+entryCount
+,
+equals
+,
+getValue
+,
+getValues
+,
+hashCode
+,
+invokeMethod
+,
+isCollected
+,
+owningThread
+,
+referenceType
+,
+referringObjects
+,
+setValue
+,
+uniqueID
+,
+waitingThreads
+Methods declared in interface com.sun.jdi.
+Value
+type
+Field Details
+THREAD_STATUS_UNKNOWN
+static final
+int
+THREAD_STATUS_UNKNOWN
+Thread status is unknown
+See Also:
+Constant Field Values
+THREAD_STATUS_ZOMBIE
+static final
+int
+THREAD_STATUS_ZOMBIE
+Thread has completed execution
+See Also:
+Constant Field Values
+THREAD_STATUS_RUNNING
+static final
+int
+THREAD_STATUS_RUNNING
+Thread is runnable
+See Also:
+Constant Field Values
+THREAD_STATUS_SLEEPING
+static final
+int
+THREAD_STATUS_SLEEPING
+Thread is sleeping -
+Thread.sleep(long)
+.
+See Also:
+Constant Field Values
+THREAD_STATUS_MONITOR
+static final
+int
+THREAD_STATUS_MONITOR
+Thread is waiting on a java monitor
+See Also:
+Constant Field Values
+THREAD_STATUS_WAIT
+static final
+int
+THREAD_STATUS_WAIT
+Thread is waiting -
+Object.wait()
+or
+LockSupport.park()
+.
+ A virtual thread that is sleeping in
+Thread.sleep(long)
+may
+ have this thread status instead of
+THREAD_STATUS_SLEEPING
+.
+See Also:
+Constant Field Values
+THREAD_STATUS_NOT_STARTED
+static final
+int
+THREAD_STATUS_NOT_STARTED
+Thread has not yet been started
+See Also:
+Constant Field Values
+Method Details
+name
+String
+name
+()
+Returns the name of this thread.
+Returns:
+the string containing the thread name.
+suspend
+void
+suspend
+()
+Suspends this thread. The thread can be resumed through
+resume()
+or resumed with other threads through
+VirtualMachine.resume()
+.
+Suspends of both the virtual machine and individual threads are
+ counted. Before a thread will run again, it must be resumed
+ (through
+resume()
+or
+VirtualMachine.resume()
+)
+ the same number of times it has been suspended.
+Suspending single threads with this method is inherently deadlock-prone.
+ If the suspended thread holds a monitor needed by another running thread,
+ deadlock is possible in the target VM (at least until the suspended thread
+ is resumed again).
+The suspended thread is guaranteed to remain suspended until
+ resumed through one of the JDI resume methods mentioned above.
+Throws:
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only
+See Also:
+VirtualMachine.canBeModified()
+resume
+void
+resume
+()
+Resumes this thread. If this thread was not previously suspended
+ through
+suspend()
+or through
+VirtualMachine.suspend()
+,
+ or because of a SUSPEND_ALL or SUSPEND_EVENT_THREAD event, then
+ invoking this method has no effect. Otherwise, the count of pending
+ suspends on this thread is decremented. If it is decremented to 0,
+ the thread will continue to execute.
+ Note: the normal way to resume from an event related suspension is
+ via
+EventSet.resume()
+.
+Throws:
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only
+See Also:
+VirtualMachine.canBeModified()
+suspendCount
+int
+suspendCount
+()
+Returns the number of pending suspends for this thread. See
+suspend()
+for an explanation of counted suspends.
+Returns:
+pending suspend count as an integer
+stop
+void
+stop
+(
+ObjectReference
+throwable)
+throws
+InvalidTypeException
+Stops this thread with an asynchronous exception.
+ A debugger thread in the target VM will stop this thread
+ with the given
+Throwable
+object.
+This method may be used to send an asynchronous
+ exception to a virtual thread when it is suspended at an event.
+ An implementation may support sending an asynchronous exception
+ to a suspended virtual thread in other cases.
+Parameters:
+throwable
+- the asynchronous exception to throw
+Throws:
+InvalidTypeException
+- if
+throwable
+is not
+ an instance of java.lang.Throwable in the target VM
+IllegalThreadStateException
+- if the thread has terminated,
+ or if the thread is a virtual thread and was not suspended
+OpaqueFrameException
+- if the thread is a suspended
+ virtual thread and the implementation was unable to throw an
+ asynchronous exception from the thread's current frame
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only
+See Also:
+VirtualMachine.canBeModified()
+interrupt
+void
+interrupt
+()
+Interrupts this thread unless the thread has been suspended by the
+ debugger.
+Throws:
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only
+See Also:
+Thread.interrupt()
+VirtualMachine.canBeModified()
+status
+int
+status
+()
+Returns the thread's status. If the thread is not suspended the
+ thread's current status is returned. If the thread is suspended, the
+ thread's status before the suspension is returned (or
+THREAD_STATUS_UNKNOWN
+if this information is not available.
+isSuspended()
+can be used to determine if the thread has been
+ suspended.
+Returns:
+one of
+THREAD_STATUS_UNKNOWN
+,
+THREAD_STATUS_ZOMBIE
+,
+THREAD_STATUS_RUNNING
+,
+THREAD_STATUS_SLEEPING
+,
+THREAD_STATUS_MONITOR
+,
+THREAD_STATUS_WAIT
+,
+THREAD_STATUS_NOT_STARTED
+,
+isSuspended
+boolean
+isSuspended
+()
+Determines whether the thread has been suspended by the
+ the debugger.
+Returns:
+true
+if the thread is currently suspended;
+false
+otherwise.
+isAtBreakpoint
+boolean
+isAtBreakpoint
+()
+Determines whether the thread is suspended at a breakpoint.
+Returns:
+true
+if the thread is currently stopped at
+ a breakpoint;
+false
+otherwise.
+threadGroup
+ThreadGroupReference
+threadGroup
+()
+Returns this thread's thread group.
+Returns:
+a
+ThreadGroupReference
+that mirrors this thread's
+ thread group in the target VM.
+frameCount
+int
+frameCount
+()
+        throws
+IncompatibleThreadStateException
+Returns the number of stack frames in the thread's current
+ call stack.
+ The thread must be suspended (normally through an interruption
+ to the VM) to get this information, and
+ it is only valid until the thread is resumed again.
+Returns:
+an integer frame count
+Throws:
+IncompatibleThreadStateException
+- if the thread is
+ not suspended in the target VM
+frames
+List
+<
+StackFrame
+>
+frames
+()
+                 throws
+IncompatibleThreadStateException
+Returns a List containing each
+StackFrame
+in the
+ thread's current call stack.
+ The thread must be suspended (normally through an interruption
+ to the VM) to get this information, and
+ it is only valid until the thread is resumed again.
+Returns:
+a List of
+StackFrame
+with the current frame first
+ followed by each caller's frame.
+Throws:
+IncompatibleThreadStateException
+- if the thread is
+ not suspended in the target VM
+frame
+StackFrame
+frame
+(int index)
+throws
+IncompatibleThreadStateException
+Returns the
+StackFrame
+at the given index in the
+ thread's current call stack. Index 0 retrieves the current
+ frame; higher indices retrieve caller frames.
+ The thread must be suspended (normally through an interruption
+ to the VM) to get this information, and
+ it is only valid until the thread is resumed again.
+Parameters:
+index
+- the desired frame
+Returns:
+the requested
+StackFrame
+Throws:
+IncompatibleThreadStateException
+- if the thread is
+ not suspended in the target VM
+IndexOutOfBoundsException
+- if the index is greater than
+ or equal to
+frameCount()
+or is negative.
+frames
+List
+<
+StackFrame
+>
+frames
+(int start,
+ int length)
+throws
+IncompatibleThreadStateException
+Returns a List containing a range of
+StackFrame
+mirrors
+ from the thread's current call stack.
+ The thread must be suspended (normally through an interruption
+ to the VM) to get this information, and
+ it is only valid until the thread is resumed again.
+Parameters:
+start
+- the index of the first frame to retrieve.
+       Index 0 represents the current frame.
+length
+- the number of frames to retrieve
+Returns:
+a List of
+StackFrame
+with the current frame first
+ followed by each caller's frame.
+Throws:
+IncompatibleThreadStateException
+- if the thread is
+ not suspended in the target VM
+IndexOutOfBoundsException
+- if the specified range is not
+ within the range of stack frame indices.
+ That is, the exception is thrown if any of the following are true:
+start < 0
+    start >=
+frameCount()
+length < 0
+    (start+length) >
+frameCount()
+ownedMonitors
+List
+<
+ObjectReference
+>
+ownedMonitors
+()
+                             throws
+IncompatibleThreadStateException
+Returns a List containing an
+ObjectReference
+for
+ each monitor owned by the thread.
+ A monitor is owned by a thread if it has been entered
+ (via the synchronized statement or entry into a synchronized
+ method) and has not been relinquished through
+Object.wait()
+.
+Not all target virtual machines support this operation.
+ Use
+VirtualMachine.canGetOwnedMonitorInfo()
+to determine if the operation is supported.
+Returns:
+a List of
+ObjectReference
+objects. The list
+ has zero length if no monitors are owned by this thread.
+Throws:
+UnsupportedOperationException
+- if
+ the target virtual machine does not support this
+ operation.
+IncompatibleThreadStateException
+- if the thread is
+ not suspended in the target VM
+ownedMonitorsAndFrames
+List
+<
+MonitorInfo
+>
+ownedMonitorsAndFrames
+()
+                                  throws
+IncompatibleThreadStateException
+Returns a List containing a
+MonitorInfo
+object for
+ each monitor owned by the thread.
+ A monitor is owned by a thread if it has been entered
+ (via the synchronized statement or entry into a synchronized
+ method) and has not been relinquished through
+Object.wait()
+.
+Not all target virtual machines support this operation.
+ Use
+VirtualMachine.canGetMonitorFrameInfo()
+to determine if the operation is supported.
+Returns:
+a List of
+MonitorInfo
+objects. The list
+ has zero length if no monitors are owned by this thread.
+Throws:
+UnsupportedOperationException
+- if
+ the target virtual machine does not support this
+ operation.
+IncompatibleThreadStateException
+- if the thread is
+ not suspended in the target VM
+Since:
+1.6
+currentContendedMonitor
+ObjectReference
+currentContendedMonitor
+()
+                                 throws
+IncompatibleThreadStateException
+Returns an
+ObjectReference
+for the monitor, if any,
+ for which this thread is currently waiting.
+ The thread can be waiting for a monitor through entry into a
+ synchronized method, the synchronized statement, or
+Object.wait()
+.  The
+status()
+method can be used
+ to differentiate between the first two cases and the third.
+Not all target virtual machines support this operation.
+ Use
+VirtualMachine.canGetCurrentContendedMonitor()
+to determine if the operation is supported.
+Returns:
+the
+ObjectReference
+corresponding to the
+ contended monitor, or null if it is not waiting for a monitor.
+Throws:
+UnsupportedOperationException
+- if
+ the target virtual machine does not support this
+ operation.
+IncompatibleThreadStateException
+- if the thread is
+ not suspended in the target VM
+popFrames
+void
+popFrames
+(
+StackFrame
+frame)
+throws
+IncompatibleThreadStateException
+Pop stack frames.
+All frames up to and including the
+frame
+are
+ popped off the stack.
+ The frame previous to the parameter
+frame
+will become the current frame.
+After this operation, this thread will be
+ suspended at the invoke instruction of the target method
+ that created
+frame
+.
+ The
+frame
+'s method can be reentered with a step into
+ the instruction.
+The operand stack is restored, however, any changes
+ to the arguments that occurred in the called method, remain.
+ For example, if the method
+foo
+:
+void foo(int x) {
+        System.out.println("Foo: " + x);
+        x = 4;
+        System.out.println("pop here");
+    }
+was called with
+foo(7)
+and
+foo
+is popped at the second
+println
+and resumed,
+ it will print:
+Foo: 4
+.
+Locks acquired by a popped frame are released when it
+ is popped. This applies to synchronized methods that
+ are popped, and to any synchronized blocks within them.
+Finally blocks are not executed.
+No aspect of state, other than this thread's execution point and
+ locks, is affected by this call.  Specifically, the values of
+ fields are unchanged, as are external resources such as
+ I/O streams.  Additionally, the target program might be
+ placed in a state that is impossible with normal program flow;
+ for example, order of lock acquisition might be perturbed.
+ Thus the target program may
+ proceed differently than the user would expect.
+This thread must be suspended.
+All
+StackFrame
+objects for this thread are
+ invalidated.
+This method may be used to pop frames of a virtual thread when
+ it is suspended at an event. An implementation may support popping
+ the frames of a suspended virtual thread in other cases.
+No events are generated by this method.
+None of the frames through and including the frame for the caller
+ of
+frame
+may be native.
+Not all target virtual machines support this operation.
+ Use
+VirtualMachine.canPopFrames()
+to determine if the operation is supported.
+Parameters:
+frame
+- Stack frame to pop.
+frame
+is on this
+ thread's call stack.
+Throws:
+UnsupportedOperationException
+- if
+ the target virtual machine does not support this
+ operation - see
+VirtualMachine.canPopFrames()
+.
+IncompatibleThreadStateException
+- if this
+ thread is not suspended.
+IllegalArgumentException
+- if
+frame
+is not on this thread's call stack.
+OpaqueFrameException
+- if this thread is a suspended virtual thread and the
+ target VM was unable to pop the frames.
+NativeMethodException
+- if one of the frames that would be
+ popped is that of a native method or if the frame previous to
+frame
+is native.
+InvalidStackFrameException
+- if
+frame
+has become
+ invalid. Once this thread is resumed, the stack frame is
+ no longer valid.  This exception is also thrown if there are no
+ more frames.
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only.
+Since:
+1.4
+See Also:
+VirtualMachine.canBeModified()
+forceEarlyReturn
+void
+forceEarlyReturn
+(
+Value
+value)
+throws
+InvalidTypeException
+,
+ClassNotLoadedException
+,
+IncompatibleThreadStateException
+Force a method to return before it reaches a return
+ statement.
+The method which will return early is referred to as the
+ called method. The called method is the current method (as
+ defined by the Frames section in the Java Virtual Machine
+ Specification) for the specified thread at the time this
+ method is called.
+The thread must be suspended.
+ The return occurs when execution of Java programming
+ language code is resumed on this thread. Between the call to
+ this method and resumption of thread execution, the
+ state of the stack is undefined.
+This method may be used to force a return from the current frame
+ of a virtual thread when it is suspended at an event.
+ An implementation may support forcing a return from the current frame
+ of a suspended virtual thread in other cases.
+No further instructions are executed in the called
+ method. Specifically, finally blocks are not executed. Note:
+ this can cause inconsistent states in the application.
+A lock acquired by calling the called method (if it is a
+ synchronized method) and locks acquired by entering
+ synchronized blocks within the called method are
+ released. Note: this does not apply to native locks or
+ java.util.concurrent.locks locks.
+Events, such as MethodExit, are generated as they would be in
+ a normal return.
+The called method must be a non-native Java programming
+ language method. Forcing return on a thread with only one
+ frame on the stack causes the thread to exit when resumed.
+The
+value
+argument is the value that the
+ method is to return.
+ If the return type of the method is void, then value must
+ be a
+VoidValue
+.
+ Object values must be assignment compatible with the method return type
+ (This implies that the method return type must be loaded through the
+ enclosing class's class loader). Primitive values must be
+ either assignment compatible with the method return type or must be
+ convertible to the variable type without loss of information.
+ See JLS section 5.2 for more information on assignment
+ compatibility.
+Not all target virtual machines support this operation.
+ Use
+VirtualMachine.canForceEarlyReturn()
+to determine if the operation is supported.
+Parameters:
+value
+- the value the method is to return.
+Throws:
+UnsupportedOperationException
+- if
+ the target virtual machine does not support this
+ operation - see
+canForceEarlyReturn()
+IncompatibleThreadStateException
+- if this
+ thread is not suspended.
+OpaqueFrameException
+- if this thread is a suspended virtual thread and the
+ target VM is unable to force the method to return.
+NativeMethodException
+- if the frame to be returned from
+ is that of a native method.
+InvalidStackFrameException
+- if there are no frames.
+InvalidTypeException
+- if the value's type does not match
+ the method's return type.
+ClassNotLoadedException
+- if the method's return type has not yet
+ been loaded through the appropriate class loader.
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only.
+Since:
+1.6
+See Also:
+VirtualMachine.canBeModified()
+isVirtual
+default
+boolean
+isVirtual
+()
+Returns
+true
+if the thread is a
+virtual thread
+.
+Implementation Requirements:
+The default implementation throws
+UnsupportedOperationException
+.
+Returns:
+true if the thread is a virtual thread
+Since:
+21
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

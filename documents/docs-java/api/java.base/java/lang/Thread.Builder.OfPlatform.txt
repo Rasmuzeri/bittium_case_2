@@ -1,0 +1,327 @@
+Thread.Builder.OfPlatform (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang
+Interface Thread.Builder.OfPlatform
+All Superinterfaces:
+Thread.Builder
+Enclosing interface:
+Thread.Builder
+public static sealed interface
+Thread.Builder.OfPlatform
+extends
+Thread.Builder
+A builder for creating a platform
+Thread
+or
+ThreadFactory
+that creates platform threads.
+Unless otherwise specified, passing a null argument to a method in
+ this interface causes a
+NullPointerException
+to be thrown.
+Since:
+21
+See Also:
+Thread.ofPlatform()
+Nested Class Summary
+Nested classes/interfaces declared in interface java.lang.
+Thread.Builder
+Thread.Builder.OfPlatform
+,
+Thread.Builder.OfVirtual
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+default
+Thread.Builder.OfPlatform
+daemon
+()
+Sets the daemon status to
+true
+.
+Thread.Builder.OfPlatform
+daemon
+(boolean on)
+Sets the daemon status.
+Thread.Builder.OfPlatform
+group
+(
+ThreadGroup
+group)
+Sets the thread group.
+Thread.Builder.OfPlatform
+inheritInheritableThreadLocals
+(boolean inherit)
+Sets whether the thread inherits the initial values of
+inheritable-thread-local
+variables from the
+ constructing thread.
+Thread.Builder.OfPlatform
+name
+(
+String
+name)
+Sets the thread name.
+Thread.Builder.OfPlatform
+name
+(
+String
+prefix,
+ long start)
+Sets the thread name to be the concatenation of a string prefix and
+ the string representation of a counter value.
+Thread.Builder.OfPlatform
+priority
+(int priority)
+Sets the thread priority.
+Thread.Builder.OfPlatform
+stackSize
+(long stackSize)
+Sets the desired stack size.
+Thread.Builder.OfPlatform
+uncaughtExceptionHandler
+(
+Thread.UncaughtExceptionHandler
+ueh)
+Sets the uncaught exception handler.
+Methods declared in interface java.lang.
+Thread.Builder
+factory
+,
+start
+,
+unstarted
+Method Details
+name
+Thread.Builder.OfPlatform
+name
+(
+String
+name)
+Description copied from interface:
+Thread.Builder
+Sets the thread name.
+Specified by:
+name
+in interface
+Thread.Builder
+Parameters:
+name
+- thread name
+Returns:
+this builder
+name
+Thread.Builder.OfPlatform
+name
+(
+String
+prefix,
+ long start)
+Description copied from interface:
+Thread.Builder
+Sets the thread name to be the concatenation of a string prefix and
+ the string representation of a counter value. The counter's initial
+ value is
+start
+. It is incremented after a
+Thread
+is
+ created with this builder so that the next thread is named with
+ the new counter value. A
+ThreadFactory
+created with this
+ builder is seeded with the current value of the counter. The
+ThreadFactory
+increments its copy of the counter after
+newThread
+is used to create a
+Thread
+.
+Specified by:
+name
+in interface
+Thread.Builder
+Parameters:
+prefix
+- thread name prefix
+start
+- the starting value of the counter
+Returns:
+this builder
+Throws:
+IllegalArgumentException
+- if start is negative
+inheritInheritableThreadLocals
+Thread.Builder.OfPlatform
+inheritInheritableThreadLocals
+(boolean inherit)
+Description copied from interface:
+Thread.Builder
+Sets whether the thread inherits the initial values of
+inheritable-thread-local
+variables from the
+ constructing thread. The default is to inherit.
+Specified by:
+inheritInheritableThreadLocals
+in interface
+Thread.Builder
+Parameters:
+inherit
+-
+true
+to inherit,
+false
+to not inherit
+Returns:
+this builder
+uncaughtExceptionHandler
+Thread.Builder.OfPlatform
+uncaughtExceptionHandler
+(
+Thread.UncaughtExceptionHandler
+ueh)
+Description copied from interface:
+Thread.Builder
+Sets the uncaught exception handler.
+Specified by:
+uncaughtExceptionHandler
+in interface
+Thread.Builder
+Parameters:
+ueh
+- uncaught exception handler
+Returns:
+this builder
+group
+Thread.Builder.OfPlatform
+group
+(
+ThreadGroup
+group)
+Sets the thread group.
+Parameters:
+group
+- the thread group
+Returns:
+this builder
+daemon
+Thread.Builder.OfPlatform
+daemon
+(boolean on)
+Sets the daemon status.
+Parameters:
+on
+-
+true
+to create daemon threads
+Returns:
+this builder
+daemon
+default
+Thread.Builder.OfPlatform
+daemon
+()
+Sets the daemon status to
+true
+.
+Implementation Requirements:
+The default implementation invokes
+daemon(boolean)
+with
+ a value of
+true
+.
+Returns:
+this builder
+priority
+Thread.Builder.OfPlatform
+priority
+(int priority)
+Sets the thread priority.
+Parameters:
+priority
+- priority
+Returns:
+this builder
+Throws:
+IllegalArgumentException
+- if the priority is less than
+Thread.MIN_PRIORITY
+or greater than
+Thread.MAX_PRIORITY
+stackSize
+Thread.Builder.OfPlatform
+stackSize
+(long stackSize)
+Sets the desired stack size.
+The stack size is the approximate number of bytes of address space
+ that the Java virtual machine is to allocate for the thread's stack. The
+ effect is highly platform dependent and the Java virtual machine is free
+ to treat the
+stackSize
+parameter as a "suggestion". If the value
+ is unreasonably low for the platform then a platform specific minimum
+ may be used. If the value is unreasonably high then a platform specific
+ maximum may be used. A value of zero is always ignored.
+Parameters:
+stackSize
+- the desired stack size
+Returns:
+this builder
+Throws:
+IllegalArgumentException
+- if the stack size is negative
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

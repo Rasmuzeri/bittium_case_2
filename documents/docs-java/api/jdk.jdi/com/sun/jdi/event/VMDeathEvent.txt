@@ -1,0 +1,111 @@
+VMDeathEvent (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.jdi
+Package
+com.sun.jdi.event
+Interface VMDeathEvent
+All Superinterfaces:
+Event
+,
+Mirror
+public interface
+VMDeathEvent
+extends
+Event
+Notification of target VM termination.
+ This event occurs if the target VM terminates before the
+ VM disconnects (
+VMDisconnectEvent
+).
+ Thus, this event will NOT occur if external forces terminate
+ the connection (e.g. a crash) or if the connection is intentionally
+ terminated with
+VirtualMachine.dispose()
+On VM termination, a single unsolicited VMDeathEvent will always be sent with a
+suspend policy
+of
+SUSPEND_NONE
+.
+ Additional VMDeathEvents will be sent in the same event set if they are
+ requested with a
+VMDeathRequest
+.
+The VM is still intact and can be queried at the point this
+ event was initiated but immediately thereafter it is not
+ considered intact and cannot be queried.
+ Note: If the enclosing
+EventSet
+has a
+suspend policy
+other than
+SUSPEND_ALL
+the initiating point may be long past.
+All VMDeathEvents will be in a single
+EventSet
+,
+ no other events will be in the event set. A resume
+ must occur to continue execution after any event set which
+ performs suspensions - in this case to allow proper shutdown.
+Since:
+1.3
+See Also:
+VMDisconnectEvent
+EventRequestManager.createVMDeathRequest()
+VMDeathRequest
+EventQueue
+VirtualMachine
+Method Summary
+Methods declared in interface com.sun.jdi.event.
+Event
+request
+Methods declared in interface com.sun.jdi.
+Mirror
+toString
+,
+virtualMachine
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

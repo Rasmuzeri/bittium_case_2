@@ -1,0 +1,279 @@
+Copies (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.print.attribute.standard
+Class Copies
+java.lang.Object
+javax.print.attribute.IntegerSyntax
+javax.print.attribute.standard.Copies
+All Implemented Interfaces:
+Serializable
+,
+Cloneable
+,
+Attribute
+,
+PrintJobAttribute
+,
+PrintRequestAttribute
+public final class
+Copies
+extends
+IntegerSyntax
+implements
+PrintRequestAttribute
+,
+PrintJobAttribute
+Class
+Copies
+is an integer valued printing attribute class that
+ specifies the number of copies to be printed.
+On many devices the supported number of collated copies will be limited by
+ the number of physical output bins on the device, and may be different from
+ the number of uncollated copies which can be supported.
+The effect of a
+Copies
+attribute with a value of
+n
+on a
+ multidoc print job (a job with multiple documents) depends on the (perhaps
+ defaulted) value of the
+MultipleDocumentHandling
+attribute:
+SINGLE_DOCUMENT
+-- The result will be
+n
+copies of a
+   single output document comprising all the input docs.
+SINGLE_DOCUMENT_NEW_SHEET
+-- The result will be
+n
+copies
+   of a single output document comprising all the input docs, and the first
+   impression of each input doc will always start on a new media sheet.
+SEPARATE_DOCUMENTS_UNCOLLATED_COPIES
+-- The result will be
+n
+copies of the first input document, followed by
+n
+copies of
+   the second input document, . . . followed by
+n
+copies of the last
+   input document.
+SEPARATE_DOCUMENTS_COLLATED_COPIES
+-- The result will be the
+   first input document, the second input document, . . . the last input
+   document, the group of documents being repeated
+n
+times.
+IPP Compatibility:
+The integer value gives the IPP integer value. The
+ category name returned by
+getName()
+gives the IPP attribute name.
+See Also:
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+Copies
+(int value)
+Construct a new copies attribute with the given integer value.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+equals
+(
+Object
+object)
+Returns whether this copies attribute is equivalent to the passed in
+ object.
+final
+Class
+<? extends
+Attribute
+>
+getCategory
+()
+Get the printing attribute class which is to be used as the "category"
+ for this printing attribute value.
+final
+String
+getName
+()
+Get the name of the category of which this attribute value is an
+ instance.
+Methods declared in class javax.print.attribute.
+IntegerSyntax
+getValue
+,
+hashCode
+,
+toString
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+Copies
+public
+Copies
+(int value)
+Construct a new copies attribute with the given integer value.
+Parameters:
+value
+- Integer value
+Throws:
+IllegalArgumentException
+- if
+value < 1
+Method Details
+equals
+public
+boolean
+equals
+(
+Object
+object)
+Returns whether this copies attribute is equivalent to the passed in
+ object. To be equivalent, all of the following conditions must be true:
+object
+is not
+null
+.
+object
+is an instance of class
+Copies
+.
+This copies attribute's value and
+object
+'s value are equal.
+Overrides:
+equals
+in class
+IntegerSyntax
+Parameters:
+object
+-
+Object
+to compare to
+Returns:
+true
+if
+object
+is equivalent to this copies
+         attribute,
+false
+otherwise
+See Also:
+Object.hashCode()
+HashMap
+getCategory
+public final
+Class
+<? extends
+Attribute
+>
+getCategory
+()
+Get the printing attribute class which is to be used as the "category"
+ for this printing attribute value.
+For class
+Copies
+, the category is class
+Copies
+itself.
+Specified by:
+getCategory
+in interface
+Attribute
+Returns:
+printing attribute class (category), an instance of class
+java.lang.Class
+getName
+public final
+String
+getName
+()
+Get the name of the category of which this attribute value is an
+ instance.
+For class
+Copies
+, the category name is
+"copies"
+.
+Specified by:
+getName
+in interface
+Attribute
+Returns:
+attribute category name
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

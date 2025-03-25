@@ -1,0 +1,734 @@
+FileImageOutputStream (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.imageio.stream
+Class FileImageOutputStream
+java.lang.Object
+javax.imageio.stream.ImageInputStreamImpl
+javax.imageio.stream.ImageOutputStreamImpl
+javax.imageio.stream.FileImageOutputStream
+All Implemented Interfaces:
+Closeable
+,
+DataInput
+,
+DataOutput
+,
+AutoCloseable
+,
+ImageInputStream
+,
+ImageOutputStream
+public class
+FileImageOutputStream
+extends
+ImageOutputStreamImpl
+An implementation of
+ImageOutputStream
+that writes its
+ output directly to a
+File
+or
+RandomAccessFile
+.
+Field Summary
+Fields declared in class javax.imageio.stream.
+ImageInputStreamImpl
+bitOffset
+,
+byteOrder
+,
+flushedPos
+,
+streamPos
+Constructor Summary
+Constructors
+Constructor
+Description
+FileImageOutputStream
+(
+File
+f)
+Constructs a
+FileImageOutputStream
+that will write
+ to a given
+File
+.
+FileImageOutputStream
+(
+RandomAccessFile
+raf)
+Constructs a
+FileImageOutputStream
+that will write
+ to a given
+RandomAccessFile
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+void
+close
+()
+Closes the stream.
+protected void
+finalize
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Finalization has been deprecated for removal.
+long
+length
+()
+Returns
+-1L
+to indicate that the stream has unknown
+ length.
+int
+read
+()
+Reads a single byte from the stream and returns it as an
+int
+between 0 and 255.
+int
+read
+(byte[] b,
+ int off,
+ int len)
+Reads up to
+len
+bytes from the stream, and stores
+ them into
+b
+starting at index
+off
+.
+void
+seek
+(long pos)
+Sets the current stream position and resets the bit offset to
+ 0.
+void
+write
+(byte[] b,
+ int off,
+ int len)
+Writes a sequence of bytes to the stream at the current
+ position.
+void
+write
+(int b)
+Writes a single byte to the stream at the current position.
+Methods declared in class javax.imageio.stream.
+ImageOutputStreamImpl
+flushBits
+,
+write
+,
+writeBit
+,
+writeBits
+,
+writeBoolean
+,
+writeByte
+,
+writeBytes
+,
+writeChar
+,
+writeChars
+,
+writeChars
+,
+writeDouble
+,
+writeDoubles
+,
+writeFloat
+,
+writeFloats
+,
+writeInt
+,
+writeInts
+,
+writeLong
+,
+writeLongs
+,
+writeShort
+,
+writeShorts
+,
+writeUTF
+Methods declared in class javax.imageio.stream.
+ImageInputStreamImpl
+checkClosed
+,
+close
+,
+flush
+,
+flushBefore
+,
+getBitOffset
+,
+getByteOrder
+,
+getFlushedPosition
+,
+getStreamPosition
+,
+isCached
+,
+isCachedFile
+,
+isCachedMemory
+,
+length
+,
+mark
+,
+read
+,
+readBit
+,
+readBits
+,
+readBoolean
+,
+readByte
+,
+readBytes
+,
+readChar
+,
+readDouble
+,
+readFloat
+,
+readFully
+,
+readFully
+,
+readFully
+,
+readFully
+,
+readFully
+,
+readFully
+,
+readFully
+,
+readFully
+,
+readInt
+,
+readLine
+,
+readLong
+,
+readShort
+,
+readUnsignedByte
+,
+readUnsignedInt
+,
+readUnsignedShort
+,
+readUTF
+,
+reset
+,
+setBitOffset
+,
+setByteOrder
+,
+skipBytes
+,
+skipBytes
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface javax.imageio.stream.
+ImageInputStream
+flush
+,
+getBitOffset
+,
+getByteOrder
+,
+getFlushedPosition
+,
+getStreamPosition
+,
+isCached
+,
+isCachedFile
+,
+isCachedMemory
+,
+mark
+,
+read
+,
+readBit
+,
+readBits
+,
+readBoolean
+,
+readByte
+,
+readBytes
+,
+readChar
+,
+readDouble
+,
+readFloat
+,
+readFully
+,
+readFully
+,
+readFully
+,
+readFully
+,
+readFully
+,
+readFully
+,
+readFully
+,
+readFully
+,
+readInt
+,
+readLine
+,
+readLong
+,
+readShort
+,
+readUnsignedByte
+,
+readUnsignedInt
+,
+readUnsignedShort
+,
+readUTF
+,
+reset
+,
+setBitOffset
+,
+setByteOrder
+,
+skipBytes
+,
+skipBytes
+Methods declared in interface javax.imageio.stream.
+ImageOutputStream
+flushBefore
+Constructor Details
+FileImageOutputStream
+public
+FileImageOutputStream
+(
+File
+f)
+throws
+FileNotFoundException
+,
+IOException
+Constructs a
+FileImageOutputStream
+that will write
+ to a given
+File
+.
+Parameters:
+f
+- a
+File
+to write to.
+Throws:
+IllegalArgumentException
+- if
+f
+is
+null
+.
+SecurityException
+- if a security manager exists
+ and does not allow write access to the file.
+FileNotFoundException
+- if
+f
+does not denote
+ a regular file or it cannot be opened for reading and writing for any
+ other reason.
+IOException
+- if an I/O error occurs.
+FileImageOutputStream
+public
+FileImageOutputStream
+(
+RandomAccessFile
+raf)
+Constructs a
+FileImageOutputStream
+that will write
+ to a given
+RandomAccessFile
+.
+Parameters:
+raf
+- a
+RandomAccessFile
+to write to.
+Throws:
+IllegalArgumentException
+- if
+raf
+is
+null
+.
+Method Details
+read
+public
+int
+read
+()
+         throws
+IOException
+Description copied from class:
+ImageInputStreamImpl
+Reads a single byte from the stream and returns it as an
+int
+between 0 and 255.  If EOF is reached,
+-1
+is returned.
+Subclasses must provide an implementation for this method.
+ The subclass implementation should update the stream position
+ before exiting.
+The bit offset within the stream must be reset to zero before
+ the read occurs.
+Specified by:
+read
+in interface
+ImageInputStream
+Specified by:
+read
+in class
+ImageInputStreamImpl
+Returns:
+the value of the next byte in the stream, or
+-1
+if EOF is reached.
+Throws:
+IOException
+- if the stream has been closed.
+read
+public
+int
+read
+(byte[] b,
+ int off,
+ int len)
+throws
+IOException
+Description copied from class:
+ImageInputStreamImpl
+Reads up to
+len
+bytes from the stream, and stores
+ them into
+b
+starting at index
+off
+.
+ If no bytes can be read because the end of the stream has been
+ reached,
+-1
+is returned.
+The bit offset within the stream must be reset to zero before
+ the read occurs.
+Subclasses must provide an implementation for this method.
+ The subclass implementation should update the stream position
+ before exiting.
+Specified by:
+read
+in interface
+ImageInputStream
+Specified by:
+read
+in class
+ImageInputStreamImpl
+Parameters:
+b
+- an array of bytes to be written to.
+off
+- the starting position within
+b
+to write to.
+len
+- the maximum number of bytes to read.
+Returns:
+the number of bytes actually read, or
+-1
+to indicate EOF.
+Throws:
+IOException
+- if an I/O error occurs.
+write
+public
+void
+write
+(int b)
+throws
+IOException
+Description copied from interface:
+ImageOutputStream
+Writes a single byte to the stream at the current position.
+ The 24 high-order bits of
+b
+are ignored.
+If the bit offset within the stream is non-zero, the
+ remainder of the current byte is padded with 0s
+ and written out first.  The bit offset will be 0 after the
+ write.  Implementers can use the
+flushBits
+method of
+ImageOutputStreamImpl
+to guarantee this.
+Parameters:
+b
+- an
+int
+whose lower 8 bits are to be
+ written.
+Throws:
+IOException
+- if an I/O error occurs.
+write
+public
+void
+write
+(byte[] b,
+ int off,
+ int len)
+throws
+IOException
+Description copied from interface:
+ImageOutputStream
+Writes a sequence of bytes to the stream at the current
+ position.  If
+len
+is 0, nothing is written.
+ The byte
+b[off]
+is written first, then the byte
+b[off + 1]
+, and so on.
+If the bit offset within the stream is non-zero, the
+ remainder of the current byte is padded with 0s
+ and written out first.  The bit offset will be 0 after the
+ write.  Implementers can use the
+flushBits
+method of
+ImageOutputStreamImpl
+to guarantee this.
+Parameters:
+b
+- an array of
+byte
+s to be written.
+off
+- the start offset in the data.
+len
+- the number of
+byte
+s to write.
+Throws:
+IOException
+- if an I/O error occurs.
+length
+public
+long
+length
+()
+Description copied from class:
+ImageInputStreamImpl
+Returns
+-1L
+to indicate that the stream has unknown
+ length.  Subclasses must override this method to provide actual
+ length information.
+Specified by:
+length
+in interface
+ImageInputStream
+Overrides:
+length
+in class
+ImageInputStreamImpl
+Returns:
+-1L to indicate unknown length.
+seek
+public
+void
+seek
+(long pos)
+throws
+IOException
+Sets the current stream position and resets the bit offset to
+ 0.  It is legal to seeking past the end of the file; an
+EOFException
+will be thrown only if a read is
+ performed.  The file length will not be increased until a write
+ is performed.
+Parameters:
+pos
+- a
+long
+containing the desired file
+ pointer position.
+Throws:
+IndexOutOfBoundsException
+- if
+pos
+is smaller
+ than the flushed position.
+IOException
+- if any other I/O error occurs.
+close
+public
+void
+close
+()
+           throws
+IOException
+Description copied from interface:
+ImageInputStream
+Closes the stream.  Attempts to access a stream that has been
+ closed may result in
+IOException
+s or incorrect
+ behavior.  Calling this method may allow classes implementing
+ this interface to release resources associated with the stream
+ such as memory, disk space, or file descriptors.
+Throws:
+IOException
+- if an I/O error occurs.
+finalize
+@Deprecated
+(
+since
+="9",
+forRemoval
+=true)
+protected
+void
+finalize
+()
+                 throws
+Throwable
+Deprecated, for removal: This API element is subject to removal in a future version.
+Finalization has been deprecated for removal.  See
+Object.finalize()
+for background information and details
+ about migration options.
+Finalizes this object prior to garbage collection.  The
+close
+method is called to close any open input
+ source.  This method should not be called from application
+ code.
+Overrides:
+finalize
+in class
+ImageInputStreamImpl
+Throws:
+Throwable
+- if an error occurs during superclass
+ finalization.
+See Also:
+WeakReference
+PhantomReference
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

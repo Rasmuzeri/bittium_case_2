@@ -1,0 +1,459 @@
+AbstractDocument.DefaultDocumentEvent (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.text
+Class AbstractDocument.DefaultDocumentEvent
+java.lang.Object
+javax.swing.undo.AbstractUndoableEdit
+javax.swing.undo.CompoundEdit
+javax.swing.text.AbstractDocument.DefaultDocumentEvent
+All Implemented Interfaces:
+Serializable
+,
+DocumentEvent
+,
+UndoableEdit
+Enclosing class:
+AbstractDocument
+public class
+AbstractDocument.DefaultDocumentEvent
+extends
+CompoundEdit
+implements
+DocumentEvent
+Stores document changes as the document is being
+ modified.  Can subsequently be used for change notification
+ when done with the document modification transaction.
+ This is used by the AbstractDocument class and its extensions
+ for broadcasting change information to the document listeners.
+Nested Class Summary
+Nested classes/interfaces declared in interface javax.swing.event.
+DocumentEvent
+DocumentEvent.ElementChange
+,
+DocumentEvent.EventType
+Field Summary
+Fields declared in class javax.swing.undo.
+CompoundEdit
+edits
+Fields declared in class javax.swing.undo.
+AbstractUndoableEdit
+RedoName
+,
+UndoName
+Constructor Summary
+Constructors
+Constructor
+Description
+DefaultDocumentEvent
+(int offs,
+ int len,
+DocumentEvent.EventType
+type)
+Constructs a change record.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+addEdit
+(
+UndoableEdit
+anEdit)
+Adds a document edit.
+DocumentEvent.ElementChange
+getChange
+(
+Element
+elem)
+Gets the changes for an element.
+Document
+getDocument
+()
+Gets the document that sourced the change event.
+int
+getLength
+()
+Returns the length of the change.
+int
+getOffset
+()
+Returns the offset within the document of the start of the change.
+String
+getPresentationName
+()
+Provides a localized, human readable description of this edit
+ suitable for use in, say, a change log.
+String
+getRedoPresentationName
+()
+Provides a localized, human readable description of the redoable
+ form of this edit, e.g. for use as a Redo menu item.
+DocumentEvent.EventType
+getType
+()
+Returns the type of event.
+String
+getUndoPresentationName
+()
+Provides a localized, human readable description of the undoable
+ form of this edit, e.g. for use as an Undo menu item.
+boolean
+isSignificant
+()
+DefaultDocument events are significant.
+void
+redo
+()
+Redoes a change.
+String
+toString
+()
+Returns a string description of the change event.
+void
+undo
+()
+Undoes a change.
+Methods declared in class javax.swing.undo.
+CompoundEdit
+canRedo
+,
+canUndo
+,
+die
+,
+end
+,
+isInProgress
+,
+lastEdit
+Methods declared in class javax.swing.undo.
+AbstractUndoableEdit
+replaceEdit
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+DefaultDocumentEvent
+public
+DefaultDocumentEvent
+(int offs,
+ int len,
+DocumentEvent.EventType
+type)
+Constructs a change record.
+Parameters:
+offs
+- the offset into the document of the change >= 0
+len
+- the length of the change >= 0
+type
+- the type of event (DocumentEvent.EventType)
+Since:
+1.4
+Method Details
+toString
+public
+String
+toString
+()
+Returns a string description of the change event.
+Overrides:
+toString
+in class
+CompoundEdit
+Returns:
+a string
+addEdit
+public
+boolean
+addEdit
+(
+UndoableEdit
+anEdit)
+Adds a document edit.  If the number of edits crosses
+ a threshold, this switches on a hashtable lookup for
+ ElementChange implementations since access of these
+ needs to be relatively quick.
+Specified by:
+addEdit
+in interface
+UndoableEdit
+Overrides:
+addEdit
+in class
+CompoundEdit
+Parameters:
+anEdit
+- a document edit record
+Returns:
+true if the edit was added
+See Also:
+UndoableEdit.addEdit(javax.swing.undo.UndoableEdit)
+redo
+public
+void
+redo
+()
+          throws
+CannotRedoException
+Redoes a change.
+Specified by:
+redo
+in interface
+UndoableEdit
+Overrides:
+redo
+in class
+CompoundEdit
+Throws:
+CannotRedoException
+- if the change cannot be redone
+See Also:
+AbstractUndoableEdit.canRedo()
+undo
+public
+void
+undo
+()
+          throws
+CannotUndoException
+Undoes a change.
+Specified by:
+undo
+in interface
+UndoableEdit
+Overrides:
+undo
+in class
+CompoundEdit
+Throws:
+CannotUndoException
+- if the change cannot be undone
+See Also:
+AbstractUndoableEdit.canUndo()
+isSignificant
+public
+boolean
+isSignificant
+()
+DefaultDocument events are significant.  If you wish to aggregate
+ DefaultDocumentEvents to present them as a single edit to the user
+ place them into a CompoundEdit.
+Specified by:
+isSignificant
+in interface
+UndoableEdit
+Overrides:
+isSignificant
+in class
+CompoundEdit
+Returns:
+whether the event is significant for edit undo purposes
+See Also:
+UndoableEdit.isSignificant()
+getPresentationName
+public
+String
+getPresentationName
+()
+Provides a localized, human readable description of this edit
+ suitable for use in, say, a change log.
+Specified by:
+getPresentationName
+in interface
+UndoableEdit
+Overrides:
+getPresentationName
+in class
+CompoundEdit
+Returns:
+the description
+See Also:
+AbstractUndoableEdit.getUndoPresentationName()
+AbstractUndoableEdit.getRedoPresentationName()
+getUndoPresentationName
+public
+String
+getUndoPresentationName
+()
+Provides a localized, human readable description of the undoable
+ form of this edit, e.g. for use as an Undo menu item. Typically
+ derived from getDescription();
+Specified by:
+getUndoPresentationName
+in interface
+UndoableEdit
+Overrides:
+getUndoPresentationName
+in class
+CompoundEdit
+Returns:
+the description
+See Also:
+AbstractUndoableEdit.getPresentationName()
+getRedoPresentationName
+public
+String
+getRedoPresentationName
+()
+Provides a localized, human readable description of the redoable
+ form of this edit, e.g. for use as a Redo menu item. Typically
+ derived from getPresentationName();
+Specified by:
+getRedoPresentationName
+in interface
+UndoableEdit
+Overrides:
+getRedoPresentationName
+in class
+CompoundEdit
+Returns:
+the description
+See Also:
+AbstractUndoableEdit.getPresentationName()
+getType
+public
+DocumentEvent.EventType
+getType
+()
+Returns the type of event.
+Specified by:
+getType
+in interface
+DocumentEvent
+Returns:
+the event type as a DocumentEvent.EventType
+See Also:
+DocumentEvent.getType()
+getOffset
+public
+int
+getOffset
+()
+Returns the offset within the document of the start of the change.
+Specified by:
+getOffset
+in interface
+DocumentEvent
+Returns:
+the offset >= 0
+See Also:
+DocumentEvent.getOffset()
+getLength
+public
+int
+getLength
+()
+Returns the length of the change.
+Specified by:
+getLength
+in interface
+DocumentEvent
+Returns:
+the length >= 0
+See Also:
+DocumentEvent.getLength()
+getDocument
+public
+Document
+getDocument
+()
+Gets the document that sourced the change event.
+Specified by:
+getDocument
+in interface
+DocumentEvent
+Returns:
+the document
+See Also:
+DocumentEvent.getDocument()
+getChange
+public
+DocumentEvent.ElementChange
+getChange
+(
+Element
+elem)
+Gets the changes for an element.
+Specified by:
+getChange
+in interface
+DocumentEvent
+Parameters:
+elem
+- the element
+Returns:
+the changes
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

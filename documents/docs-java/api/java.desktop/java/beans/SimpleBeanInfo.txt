@@ -1,0 +1,354 @@
+SimpleBeanInfo (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.beans
+Class SimpleBeanInfo
+java.lang.Object
+java.beans.SimpleBeanInfo
+All Implemented Interfaces:
+BeanInfo
+public class
+SimpleBeanInfo
+extends
+Object
+implements
+BeanInfo
+This is a support class to make it easier for people to provide
+ BeanInfo classes.
+It defaults to providing "noop" information, and can be selectively
+ overridden to provide more explicit information on chosen topics.
+ When the introspector sees the "noop" values, it will apply low
+ level introspection and design patterns to automatically analyze
+ the target bean.
+Since:
+1.1
+Field Summary
+Fields declared in interface java.beans.
+BeanInfo
+ICON_COLOR_16x16
+,
+ICON_COLOR_32x32
+,
+ICON_MONO_16x16
+,
+ICON_MONO_32x32
+Constructor Summary
+Constructors
+Constructor
+Description
+SimpleBeanInfo
+()
+Constructs a
+SimpleBeanInfo
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+BeanInfo
+[]
+getAdditionalBeanInfo
+()
+Claim there are no other relevant BeanInfo objects.
+BeanDescriptor
+getBeanDescriptor
+()
+Deny knowledge about the class and customizer of the bean.
+int
+getDefaultEventIndex
+()
+Deny knowledge of a default event.
+int
+getDefaultPropertyIndex
+()
+Deny knowledge of a default property.
+EventSetDescriptor
+[]
+getEventSetDescriptors
+()
+Deny knowledge of event sets.
+Image
+getIcon
+(int iconKind)
+Claim there are no icons available.
+MethodDescriptor
+[]
+getMethodDescriptors
+()
+Deny knowledge of methods.
+PropertyDescriptor
+[]
+getPropertyDescriptors
+()
+Deny knowledge of properties.
+Image
+loadImage
+(
+String
+resourceName)
+This is a utility method to help in loading icon images.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+SimpleBeanInfo
+public
+SimpleBeanInfo
+()
+Constructs a
+SimpleBeanInfo
+.
+Method Details
+getBeanDescriptor
+public
+BeanDescriptor
+getBeanDescriptor
+()
+Deny knowledge about the class and customizer of the bean.
+ You can override this if you wish to provide explicit info.
+Specified by:
+getBeanDescriptor
+in interface
+BeanInfo
+Returns:
+a
+BeanDescriptor
+object,
+          or
+null
+if the information is to
+          be obtained through the automatic analysis
+getPropertyDescriptors
+public
+PropertyDescriptor
+[]
+getPropertyDescriptors
+()
+Deny knowledge of properties. You can override this
+ if you wish to provide explicit property info.
+Specified by:
+getPropertyDescriptors
+in interface
+BeanInfo
+Returns:
+an array of
+PropertyDescriptor
+objects,
+          or
+null
+if the information is to
+          be obtained through the automatic analysis
+getDefaultPropertyIndex
+public
+int
+getDefaultPropertyIndex
+()
+Deny knowledge of a default property. You can override this
+ if you wish to define a default property for the bean.
+Specified by:
+getDefaultPropertyIndex
+in interface
+BeanInfo
+Returns:
+index of the default property in the
+PropertyDescriptor
+array
+          returned by the
+getPropertyDescriptors
+method,
+          or -1 if there is no default property
+getEventSetDescriptors
+public
+EventSetDescriptor
+[]
+getEventSetDescriptors
+()
+Deny knowledge of event sets. You can override this
+ if you wish to provide explicit event set info.
+Specified by:
+getEventSetDescriptors
+in interface
+BeanInfo
+Returns:
+an array of
+EventSetDescriptor
+objects,
+          or
+null
+if the information is to
+          be obtained through the automatic analysis
+getDefaultEventIndex
+public
+int
+getDefaultEventIndex
+()
+Deny knowledge of a default event. You can override this
+ if you wish to define a default event for the bean.
+Specified by:
+getDefaultEventIndex
+in interface
+BeanInfo
+Returns:
+index of the default event in the
+EventSetDescriptor
+array
+          returned by the
+getEventSetDescriptors
+method,
+          or -1 if there is no default event
+getMethodDescriptors
+public
+MethodDescriptor
+[]
+getMethodDescriptors
+()
+Deny knowledge of methods. You can override this
+ if you wish to provide explicit method info.
+Specified by:
+getMethodDescriptors
+in interface
+BeanInfo
+Returns:
+an array of
+MethodDescriptor
+objects,
+          or
+null
+if the information is to
+          be obtained through the automatic analysis
+getAdditionalBeanInfo
+public
+BeanInfo
+[]
+getAdditionalBeanInfo
+()
+Claim there are no other relevant BeanInfo objects.  You
+ may override this if you want to (for example) return a
+ BeanInfo for a base class.
+Specified by:
+getAdditionalBeanInfo
+in interface
+BeanInfo
+Returns:
+an array of
+BeanInfo
+objects,
+          or
+null
+if there are no additional
+BeanInfo
+objects
+getIcon
+public
+Image
+getIcon
+(int iconKind)
+Claim there are no icons available.  You can override
+ this if you want to provide icons for your bean.
+Specified by:
+getIcon
+in interface
+BeanInfo
+Parameters:
+iconKind
+- the kind of icon requested
+Returns:
+an image object representing the requested icon,
+                   or
+null
+if no suitable icon is available
+See Also:
+BeanInfo.ICON_COLOR_16x16
+BeanInfo.ICON_COLOR_32x32
+BeanInfo.ICON_MONO_16x16
+BeanInfo.ICON_MONO_32x32
+loadImage
+public
+Image
+loadImage
+(
+String
+resourceName)
+This is a utility method to help in loading icon images. It takes the
+ name of a resource file associated with the current object's class file
+ and loads an image object from that file. Typically images will be GIFs.
+Parameters:
+resourceName
+- A pathname relative to the directory holding the
+         class file of the current class. For example, "wombat.gif".
+Returns:
+an image object or null if the resource is not found or the
+         resource could not be loaded as an Image
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

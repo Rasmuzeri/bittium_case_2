@@ -1,0 +1,128 @@
+ShardingKeyBuilder (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.sql
+Package
+java.sql
+Interface ShardingKeyBuilder
+public interface
+ShardingKeyBuilder
+A builder created from a
+DataSource
+or
+XADataSource
+object,
+ used to create a
+ShardingKey
+with sub-keys of supported data types.
+ Implementations must
+ support JDBCType.VARCHAR and  may also support additional data types.
+The following example illustrates the use of
+ShardingKeyBuilder
+to
+ create a
+ShardingKey
+:
+DataSource ds = new MyDataSource();
+     ShardingKey shardingKey = ds.createShardingKeyBuilder()
+                           .subkey("abc", JDBCType.VARCHAR)
+                           .subkey(94002, JDBCType.INTEGER)
+                           .build();
+Since:
+9
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+ShardingKey
+build
+()
+Returns an instance of the object defined by this builder.
+ShardingKeyBuilder
+subkey
+(
+Object
+subkey,
+SQLType
+subkeyType)
+This method will be called to add a subkey into a Sharding Key object being
+ built.
+Method Details
+subkey
+ShardingKeyBuilder
+subkey
+(
+Object
+subkey,
+SQLType
+subkeyType)
+This method will be called to add a subkey into a Sharding Key object being
+ built. The order in which subkey method is called is important as it
+ indicates the order of placement of the subkey within the Sharding Key.
+Parameters:
+subkey
+- contains the object that needs to be part of shard sub key
+subkeyType
+- sub-key data type of type java.sql.SQLType
+Returns:
+this builder object
+build
+ShardingKey
+build
+()
+           throws
+SQLException
+Returns an instance of the object defined by this builder.
+Returns:
+The built object
+Throws:
+SQLException
+- If an error occurs building the object
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

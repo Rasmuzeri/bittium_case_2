@@ -1,0 +1,503 @@
+HttpClient.Builder (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+java.net.http
+Package
+java.net.http
+Interface HttpClient.Builder
+Enclosing class:
+HttpClient
+public static interface
+HttpClient.Builder
+A builder of
+HTTP Clients
+.
+Builders are created by invoking
+newBuilder
+. Each of the setter methods modifies the state of the builder
+ and returns the same instance. Builders are not thread-safe and should not be
+ used concurrently from multiple threads without external synchronization.
+Since:
+11
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+ProxySelector
+NO_PROXY
+A proxy selector that always return
+Proxy.NO_PROXY
+implying
+ a direct connection.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+HttpClient.Builder
+authenticator
+(
+Authenticator
+authenticator)
+Sets an authenticator to use for HTTP authentication.
+HttpClient
+build
+()
+Returns a new
+HttpClient
+built from the current state of this
+ builder.
+HttpClient.Builder
+connectTimeout
+(
+Duration
+duration)
+Sets the connect timeout duration for this client.
+HttpClient.Builder
+cookieHandler
+(
+CookieHandler
+cookieHandler)
+Sets a cookie handler.
+HttpClient.Builder
+executor
+(
+Executor
+executor)
+Sets the executor to be used for asynchronous and dependent tasks.
+HttpClient.Builder
+followRedirects
+(
+HttpClient.Redirect
+policy)
+Specifies whether requests will automatically follow redirects issued
+ by the server.
+default
+HttpClient.Builder
+localAddress
+(
+InetAddress
+localAddr)
+Binds the socket to this local address when creating
+ connections for sending requests.
+HttpClient.Builder
+priority
+(int priority)
+Sets the default priority for any HTTP/2 requests sent from this
+ client.
+HttpClient.Builder
+proxy
+(
+ProxySelector
+proxySelector)
+Sets a
+ProxySelector
+.
+HttpClient.Builder
+sslContext
+(
+SSLContext
+sslContext)
+Sets an
+SSLContext
+.
+HttpClient.Builder
+sslParameters
+(
+SSLParameters
+sslParameters)
+Sets an
+SSLParameters
+.
+HttpClient.Builder
+version
+(
+HttpClient.Version
+version)
+Requests a specific HTTP protocol version where possible.
+Field Details
+NO_PROXY
+static final
+ProxySelector
+NO_PROXY
+A proxy selector that always return
+Proxy.NO_PROXY
+implying
+ a direct connection.
+This is a convenience object that can be passed to
+proxy(ProxySelector)
+in order to build an instance of
+HttpClient
+that uses no proxy.
+Method Details
+cookieHandler
+HttpClient.Builder
+cookieHandler
+(
+CookieHandler
+cookieHandler)
+Sets a cookie handler.
+Parameters:
+cookieHandler
+- the cookie handler
+Returns:
+this builder
+connectTimeout
+HttpClient.Builder
+connectTimeout
+(
+Duration
+duration)
+Sets the connect timeout duration for this client.
+In the case where a new connection needs to be established, if
+ the connection cannot be established within the given
+duration
+, then
+HttpClient::send
+throws an
+HttpConnectTimeoutException
+, or
+HttpClient::sendAsync
+completes exceptionally with an
+HttpConnectTimeoutException
+. If a new connection does not
+ need to be established, for example if a connection can be reused
+ from a previous request, then this timeout duration has no effect.
+Parameters:
+duration
+- the duration to allow the underlying connection to be
+                 established
+Returns:
+this builder
+Throws:
+IllegalArgumentException
+- if the duration is non-positive
+sslContext
+HttpClient.Builder
+sslContext
+(
+SSLContext
+sslContext)
+Sets an
+SSLContext
+.
+If this method is not invoked prior to
+building
+, then newly built clients will use the
+default context
+, which is normally adequate
+ for client applications that do not need to specify protocols, or
+ require client authentication.
+Parameters:
+sslContext
+- the SSLContext
+Returns:
+this builder
+sslParameters
+HttpClient.Builder
+sslParameters
+(
+SSLParameters
+sslParameters)
+Sets an
+SSLParameters
+.
+If this method is not invoked prior to
+building
+, then newly built clients will use a default,
+ implementation specific, set of parameters.
+Some parameters which are used internally by the HTTP Client
+ implementation (such as the application protocol list) should not be
+ set by callers, as they may be ignored. The contents of the given
+ object are copied.
+Parameters:
+sslParameters
+- the SSLParameters
+Returns:
+this builder
+executor
+HttpClient.Builder
+executor
+(
+Executor
+executor)
+Sets the executor to be used for asynchronous and dependent tasks.
+If this method is not invoked prior to
+building
+, a default executor is created for each newly built
+HttpClient
+.
+Implementation Note:
+The default executor uses a thread pool, with a custom
+ thread factory. If a security manager has been installed, the thread
+ factory creates threads that run with an access control context that
+ has no permissions.
+Parameters:
+executor
+- the Executor
+Returns:
+this builder
+followRedirects
+HttpClient.Builder
+followRedirects
+(
+HttpClient.Redirect
+policy)
+Specifies whether requests will automatically follow redirects issued
+ by the server.
+If this method is not invoked prior to
+building
+, then newly built clients will use a default redirection
+ policy of
+NEVER
+.
+Parameters:
+policy
+- the redirection policy
+Returns:
+this builder
+version
+HttpClient.Builder
+version
+(
+HttpClient.Version
+version)
+Requests a specific HTTP protocol version where possible.
+If this method is not invoked prior to
+building
+, then newly built clients will prefer
+HTTP/2
+.
+If set to
+HTTP/2
+, then each request
+ will attempt to upgrade to HTTP/2. If the upgrade succeeds, then the
+ response to this request will use HTTP/2 and all subsequent requests
+ and responses to the same
+origin server
+will use HTTP/2. If the upgrade fails, then the response will be
+ handled using HTTP/1.1
+Implementation Note:
+Constraints may also affect the selection of protocol version.
+ For example, if HTTP/2 is requested through a proxy, and if the implementation
+ does not support this mode, then HTTP/1.1 may be used
+Parameters:
+version
+- the requested HTTP protocol version
+Returns:
+this builder
+priority
+HttpClient.Builder
+priority
+(int priority)
+Sets the default priority for any HTTP/2 requests sent from this
+ client. The value provided must be between
+1
+and
+256
+(inclusive).
+Parameters:
+priority
+- the priority weighting
+Returns:
+this builder
+Throws:
+IllegalArgumentException
+- if the given priority is out of range
+proxy
+HttpClient.Builder
+proxy
+(
+ProxySelector
+proxySelector)
+Sets a
+ProxySelector
+.
+API Note:
+ProxySelector::of
+provides a
+ProxySelector
+which uses a single proxy for all
+ requests. The system-wide proxy selector can be retrieved by
+ProxySelector.getDefault()
+.
+Implementation Note:
+If this method is not invoked prior to
+building
+,
+ then newly built clients will use the
+default proxy selector
+, which is usually
+ adequate for client applications. The default proxy selector supports
+ a set of system properties related to
+proxy settings
+. This default behavior can be disabled by
+ supplying an explicit proxy selector, such as
+NO_PROXY
+or
+ one returned by
+ProxySelector::of
+, before
+building
+.
+Parameters:
+proxySelector
+- the ProxySelector
+Returns:
+this builder
+authenticator
+HttpClient.Builder
+authenticator
+(
+Authenticator
+authenticator)
+Sets an authenticator to use for HTTP authentication.
+Parameters:
+authenticator
+- the Authenticator
+Returns:
+this builder
+localAddress
+default
+HttpClient.Builder
+localAddress
+(
+InetAddress
+localAddr)
+Binds the socket to this local address when creating
+ connections for sending requests.
+If no local address is set or
+null
+is passed
+ to this method then sockets created by the
+ HTTP client will be bound to an automatically
+ assigned socket address.
+Common usages of the
+HttpClient
+do not require
+ this method to be called. Setting a local address, through this
+ method, is only for advanced usages where users of the
+HttpClient
+require specific control on which network interface gets used
+ for the HTTP communication. Callers of this method are expected to
+ be aware of the networking configurations of the system where the
+HttpClient
+will be used and care should be taken to ensure the
+ correct
+localAddr
+is passed. Failure to do so can result in
+ requests sent through the
+HttpClient
+to fail.
+Implementation Requirements:
+The default implementation of this method throws
+UnsupportedOperationException
+.
+Builder
+s obtained
+ through
+HttpClient.newBuilder()
+provide an implementation
+ of this method that allows setting the local address.
+Parameters:
+localAddr
+- The local address of the socket. Can be null.
+Returns:
+this builder
+Throws:
+UnsupportedOperationException
+- if this builder doesn't support
+         configuring a local address or if the passed
+localAddr
+is not supported by this
+HttpClient
+implementation.
+Since:
+19
+build
+HttpClient
+build
+()
+Returns a new
+HttpClient
+built from the current state of this
+ builder.
+Implementation Requirements:
+If the
+local address
+is a non-null
+ address and a security manager is installed, then
+ this method calls
+checkListen
+to check that
+ the caller has necessary permission to bind to that local address.
+Returns:
+a new
+HttpClient
+Throws:
+UncheckedIOException
+- may be thrown if underlying IO resources required
+ by the implementation cannot be allocated. For instance,
+ if the implementation requires a
+Selector
+, and opening
+ one fails due to
+lack of necessary resources
+.
+SecurityException
+- If a security manager has been installed and the
+         security manager's
+checkListen
+method disallows binding to the given address.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

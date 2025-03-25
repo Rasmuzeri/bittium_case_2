@@ -1,0 +1,356 @@
+EllipticCurve (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.security.spec
+Class EllipticCurve
+java.lang.Object
+java.security.spec.EllipticCurve
+public class
+EllipticCurve
+extends
+Object
+This immutable class holds the necessary values needed to represent
+ an elliptic curve.
+Since:
+1.5
+See Also:
+ECField
+ECFieldFp
+ECFieldF2m
+Constructor Summary
+Constructors
+Constructor
+Description
+EllipticCurve
+(
+ECField
+field,
+BigInteger
+a,
+BigInteger
+b)
+Creates an elliptic curve with the specified elliptic field
+field
+and the coefficients
+a
+and
+b
+.
+EllipticCurve
+(
+ECField
+field,
+BigInteger
+a,
+BigInteger
+b,
+ byte[] seed)
+Creates an elliptic curve with the specified elliptic field
+field
+, the coefficients
+a
+and
+b
+, and the
+seed
+used for curve generation.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+equals
+(
+Object
+obj)
+Compares this elliptic curve for equality with the
+ specified object.
+BigInteger
+getA
+()
+Returns the first coefficient
+a
+of the
+ elliptic curve.
+BigInteger
+getB
+()
+Returns the second coefficient
+b
+of the
+ elliptic curve.
+ECField
+getField
+()
+Returns the finite field
+field
+that this
+ elliptic curve is over.
+byte[]
+getSeed
+()
+Returns the seeding bytes
+seed
+used
+ during curve generation.
+int
+hashCode
+()
+Returns a hash code value for this elliptic curve.
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+EllipticCurve
+public
+EllipticCurve
+(
+ECField
+field,
+BigInteger
+a,
+BigInteger
+b)
+Creates an elliptic curve with the specified elliptic field
+field
+and the coefficients
+a
+and
+b
+.
+Parameters:
+field
+- the finite field that this elliptic curve is over.
+a
+- the first coefficient of this elliptic curve.
+b
+- the second coefficient of this elliptic curve.
+Throws:
+NullPointerException
+- if
+field
+,
+a
+, or
+b
+is null.
+IllegalArgumentException
+- if
+a
+or
+b
+is not null and not in
+field
+.
+EllipticCurve
+public
+EllipticCurve
+(
+ECField
+field,
+BigInteger
+a,
+BigInteger
+b,
+ byte[] seed)
+Creates an elliptic curve with the specified elliptic field
+field
+, the coefficients
+a
+and
+b
+, and the
+seed
+used for curve generation.
+Parameters:
+field
+- the finite field that this elliptic curve is over.
+a
+- the first coefficient of this elliptic curve.
+b
+- the second coefficient of this elliptic curve.
+seed
+- the bytes used during curve generation for later
+ validation. Contents of this array are copied to protect against
+ subsequent modification.
+Throws:
+NullPointerException
+- if
+field
+,
+a
+, or
+b
+is null.
+IllegalArgumentException
+- if
+a
+or
+b
+is not null and not in
+field
+.
+Method Details
+getField
+public
+ECField
+getField
+()
+Returns the finite field
+field
+that this
+ elliptic curve is over.
+Returns:
+the field
+field
+that this curve
+ is over.
+getA
+public
+BigInteger
+getA
+()
+Returns the first coefficient
+a
+of the
+ elliptic curve.
+Returns:
+the first coefficient
+a
+.
+getB
+public
+BigInteger
+getB
+()
+Returns the second coefficient
+b
+of the
+ elliptic curve.
+Returns:
+the second coefficient
+b
+.
+getSeed
+public
+byte[]
+getSeed
+()
+Returns the seeding bytes
+seed
+used
+ during curve generation. May be null if not specified.
+Returns:
+the seeding bytes
+seed
+. A new
+ array is returned each time this method is called.
+equals
+public
+boolean
+equals
+(
+Object
+obj)
+Compares this elliptic curve for equality with the
+ specified object.
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- the object to be compared.
+Returns:
+true if
+obj
+is an instance of
+ EllipticCurve and the field, A, and B match, false otherwise.
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+public
+int
+hashCode
+()
+Returns a hash code value for this elliptic curve.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+a hash code value computed from the hash codes of the field, A,
+ and B, as follows:
+(field.hashCode() << 6) + (a.hashCode() << 4) + (b.hashCode() << 2)
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

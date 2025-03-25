@@ -1,0 +1,316 @@
+JMXConnectionNotification (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.management
+Package
+javax.management.remote
+Class JMXConnectionNotification
+java.lang.Object
+java.util.EventObject
+javax.management.Notification
+javax.management.remote.JMXConnectionNotification
+All Implemented Interfaces:
+Serializable
+public class
+JMXConnectionNotification
+extends
+Notification
+Notification emitted when a client connection is opened or
+ closed or when notifications are lost.  These notifications are
+ sent by connector servers (instances of
+JMXConnectorServer
+)
+ and by connector clients (instances of
+JMXConnector
+).  For
+ certain connectors, a session can consist of a sequence of
+ connections.  Connection-opened and connection-closed notifications
+ will be sent for each one.
+The notification type is one of the following:
+JMXConnectionNotification Types
+Type
+Meaning
+jmx.remote.connection.opened
+A new client connection has been opened.
+jmx.remote.connection.closed
+A client connection has been closed.
+jmx.remote.connection.failed
+A client connection has failed unexpectedly.
+jmx.remote.connection.notifs.lost
+A client connection has potentially lost notifications.  This
+ notification only appears on the client side.
+The
+timeStamp
+of the notification is a time value
+ (consistent with
+System.currentTimeMillis()
+) indicating
+ when the notification was constructed.
+Since:
+1.5
+See Also:
+Serialized Form
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+String
+CLOSED
+Notification type string for a connection-closed notification.
+static final
+String
+FAILED
+Notification type string for a connection-failed notification.
+static final
+String
+NOTIFS_LOST
+Notification type string for a connection that has possibly
+ lost notifications.
+static final
+String
+OPENED
+Notification type string for a connection-opened notification.
+Fields declared in class javax.management.
+Notification
+source
+Constructor Summary
+Constructors
+Constructor
+Description
+JMXConnectionNotification
+(
+String
+type,
+Object
+source,
+String
+connectionId,
+ long sequenceNumber,
+String
+message,
+Object
+userData)
+Constructs a new connection notification.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+String
+getConnectionId
+()
+The connection ID to which this notification pertains.
+Methods declared in class javax.management.
+Notification
+getMessage
+,
+getSequenceNumber
+,
+getTimeStamp
+,
+getType
+,
+getUserData
+,
+setSequenceNumber
+,
+setSource
+,
+setTimeStamp
+,
+setUserData
+,
+toString
+Methods declared in class java.util.
+EventObject
+getSource
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Field Details
+OPENED
+public static final
+String
+OPENED
+Notification type string for a connection-opened notification.
+See Also:
+Constant Field Values
+CLOSED
+public static final
+String
+CLOSED
+Notification type string for a connection-closed notification.
+See Also:
+Constant Field Values
+FAILED
+public static final
+String
+FAILED
+Notification type string for a connection-failed notification.
+See Also:
+Constant Field Values
+NOTIFS_LOST
+public static final
+String
+NOTIFS_LOST
+Notification type string for a connection that has possibly
+ lost notifications.
+See Also:
+Constant Field Values
+Constructor Details
+JMXConnectionNotification
+public
+JMXConnectionNotification
+(
+String
+type,
+Object
+source,
+String
+connectionId,
+ long sequenceNumber,
+String
+message,
+Object
+userData)
+Constructs a new connection notification.  The
+source
+of the notification depends on whether it
+ is being sent by a connector server or a connector client:
+For a connector server, if it is registered in an MBean
+ server, the source is the
+ObjectName
+under which it is
+ registered.  Otherwise, it is a reference to the connector
+ server object itself, an instance of a subclass of
+JMXConnectorServer
+.
+For a connector client, the source is a reference to the
+ connector client object, an instance of a class implementing
+JMXConnector
+.
+Parameters:
+type
+- the type of the notification.  This is usually one
+ of the constants
+OPENED
+,
+CLOSED
+,
+FAILED
+,
+NOTIFS_LOST
+.  It is not an error for it to
+ be a different string.
+source
+- the connector server or client emitting the
+ notification.
+connectionId
+- the ID of the connection within its
+ connector server.
+sequenceNumber
+- a non-negative integer.  It is expected
+ but not required that this number will be greater than any
+ previous
+sequenceNumber
+in a notification from
+ this source.
+message
+- an unspecified text message, typically containing
+ a human-readable description of the event.  Can be null.
+userData
+- an object whose type and meaning is defined by
+ the connector server.  Can be null.
+Throws:
+NullPointerException
+- if
+type
+,
+source
+, or
+connectionId
+is null.
+IllegalArgumentException
+- if
+sequenceNumber
+is negative.
+Method Details
+getConnectionId
+public
+String
+getConnectionId
+()
+The connection ID to which this notification pertains.
+Returns:
+the connection ID.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

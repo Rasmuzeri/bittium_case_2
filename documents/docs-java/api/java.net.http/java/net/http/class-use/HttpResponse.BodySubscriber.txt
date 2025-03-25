@@ -1,0 +1,351 @@
+Uses of Interface java.net.http.HttpResponse.BodySubscriber (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Interface
+java.net.http.HttpResponse.BodySubscriber
+Packages that use
+HttpResponse.BodySubscriber
+Package
+Description
+java.net.http
+HTTP Client and WebSocket APIs
+Uses of
+HttpResponse.BodySubscriber
+in
+java.net.http
+Methods in
+java.net.http
+that return
+HttpResponse.BodySubscriber
+Modifier and Type
+Method
+Description
+HttpResponse.BodySubscriber
+<
+T
+>
+HttpResponse.BodyHandler.
+apply
+(
+HttpResponse.ResponseInfo
+responseInfo)
+Returns a
+BodySubscriber
+considering the
+ given response status code and headers.
+static <T>
+HttpResponse.BodySubscriber
+<T>
+HttpResponse.BodySubscribers.
+buffering
+(
+HttpResponse.BodySubscriber
+<T> downstream,
+ int bufferSize)
+Returns a
+BodySubscriber
+which buffers data before delivering
+ it to the given downstream subscriber.
+static
+HttpResponse.BodySubscriber
+<
+Void
+>
+HttpResponse.BodySubscribers.
+discarding
+()
+Returns a response subscriber which discards the response body.
+static
+HttpResponse.BodySubscriber
+<
+Void
+>
+HttpResponse.BodySubscribers.
+fromLineSubscriber
+(
+Flow.Subscriber
+<? super
+String
+> subscriber)
+Returns a body subscriber that forwards all response body to the
+ given
+Flow.Subscriber
+, line by line.
+static <S extends
+Flow.Subscriber
+<? super
+String
+>,
+T>
+HttpResponse.BodySubscriber
+<T>
+HttpResponse.BodySubscribers.
+fromLineSubscriber
+(S subscriber,
+Function
+<? super S,
+? extends T> finisher,
+Charset
+charset,
+String
+lineSeparator)
+Returns a body subscriber that forwards all response body to the
+ given
+Flow.Subscriber
+, line by line.
+static
+HttpResponse.BodySubscriber
+<
+Void
+>
+HttpResponse.BodySubscribers.
+fromSubscriber
+(
+Flow.Subscriber
+<? super
+List
+<
+ByteBuffer
+>> subscriber)
+Returns a body subscriber that forwards all response body to the
+ given
+Flow.Subscriber
+.
+static <S extends
+Flow.Subscriber
+<? super
+List
+<
+ByteBuffer
+>>,
+T>
+HttpResponse.BodySubscriber
+<T>
+HttpResponse.BodySubscribers.
+fromSubscriber
+(S subscriber,
+Function
+<? super S,
+? extends T> finisher)
+Returns a body subscriber that forwards all response body to the
+ given
+Flow.Subscriber
+.
+static <T,
+U>
+HttpResponse.BodySubscriber
+<U>
+HttpResponse.BodySubscribers.
+mapping
+(
+HttpResponse.BodySubscriber
+<T> upstream,
+Function
+<? super T,
+? extends U> mapper)
+Returns a
+BodySubscriber
+whose response body value is that of
+ the result of applying the given function to the body object of the
+ given
+upstream
+BodySubscriber
+.
+static
+HttpResponse.BodySubscriber
+<byte[]>
+HttpResponse.BodySubscribers.
+ofByteArray
+()
+Returns a
+BodySubscriber
+which stores the response body as a
+ byte array.
+static
+HttpResponse.BodySubscriber
+<
+Void
+>
+HttpResponse.BodySubscribers.
+ofByteArrayConsumer
+(
+Consumer
+<
+Optional
+<byte[]>> consumer)
+Returns a
+BodySubscriber
+which provides the incoming body
+ data to the provided Consumer of
+Optional<byte[]>
+.
+static
+HttpResponse.BodySubscriber
+<
+Path
+>
+HttpResponse.BodySubscribers.
+ofFile
+(
+Path
+file)
+Returns a
+BodySubscriber
+which stores the response body in a
+ file opened with the given name.
+static
+HttpResponse.BodySubscriber
+<
+Path
+>
+HttpResponse.BodySubscribers.
+ofFile
+(
+Path
+file,
+OpenOption
+... openOptions)
+Returns a
+BodySubscriber
+which stores the response body in a
+ file opened with the given options and name.
+static
+HttpResponse.BodySubscriber
+<
+InputStream
+>
+HttpResponse.BodySubscribers.
+ofInputStream
+()
+Returns a
+BodySubscriber
+which streams the response body as
+ an
+InputStream
+.
+static
+HttpResponse.BodySubscriber
+<
+Stream
+<
+String
+>>
+HttpResponse.BodySubscribers.
+ofLines
+(
+Charset
+charset)
+Returns a
+BodySubscriber
+which streams the response body as
+ a
+Stream
+<String>
+, where each string in the stream
+ corresponds to a line as defined by
+BufferedReader.lines()
+.
+static
+HttpResponse.BodySubscriber
+<
+Flow.Publisher
+<
+List
+<
+ByteBuffer
+>>>
+HttpResponse.BodySubscribers.
+ofPublisher
+()
+Returns a response subscriber which publishes the response body
+ through a
+Publisher<List<ByteBuffer>>
+.
+static
+HttpResponse.BodySubscriber
+<
+String
+>
+HttpResponse.BodySubscribers.
+ofString
+(
+Charset
+charset)
+Returns a body subscriber which stores the response body as a
+String
+converted using the given
+Charset
+.
+static <U>
+HttpResponse.BodySubscriber
+<U>
+HttpResponse.BodySubscribers.
+replacing
+(U value)
+Returns a response subscriber which discards the response body.
+Methods in
+java.net.http
+with parameters of type
+HttpResponse.BodySubscriber
+Modifier and Type
+Method
+Description
+static <T>
+HttpResponse.BodySubscriber
+<T>
+HttpResponse.BodySubscribers.
+buffering
+(
+HttpResponse.BodySubscriber
+<T> downstream,
+ int bufferSize)
+Returns a
+BodySubscriber
+which buffers data before delivering
+ it to the given downstream subscriber.
+static <T,
+U>
+HttpResponse.BodySubscriber
+<U>
+HttpResponse.BodySubscribers.
+mapping
+(
+HttpResponse.BodySubscriber
+<T> upstream,
+Function
+<? super T,
+? extends U> mapper)
+Returns a
+BodySubscriber
+whose response body value is that of
+ the result of applying the given function to the body object of the
+ given
+upstream
+BodySubscriber
+.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,2551 @@
+IIOMetadataFormatImpl (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.imageio.metadata
+Class IIOMetadataFormatImpl
+java.lang.Object
+javax.imageio.metadata.IIOMetadataFormatImpl
+All Implemented Interfaces:
+IIOMetadataFormat
+public abstract class
+IIOMetadataFormatImpl
+extends
+Object
+implements
+IIOMetadataFormat
+A concrete class providing a reusable implementation of the
+IIOMetadataFormat
+interface.  In addition, a static
+ instance representing the standard, plug-in neutral
+javax_imageio_1.0
+format is provided by the
+getStandardFormatInstance
+method.
+In order to supply localized descriptions of elements and
+ attributes, a
+ResourceBundle
+with a base name of
+this.getClass().getName() + "Resources"
+should be
+ supplied via the usual mechanism used by
+ResourceBundle.getBundle
+.  Briefly, the subclasser
+ supplies one or more additional classes according to a naming
+ convention (by default, the fully-qualified name of the subclass
+ extending
+IIMetadataFormatImpl
+, plus the string
+ "Resources", plus the country, language, and variant codes
+ separated by underscores).  At run time, calls to
+getElementDescription
+or
+getAttributeDescription
+will attempt to load such
+ classes dynamically according to the supplied locale, and will use
+ either the element name, or the element name followed by a '/'
+ character followed by the attribute name as a key.  This key will
+ be supplied to the
+ResourceBundle
+'s
+getString
+method, and the resulting localized
+ description of the node or attribute is returned.
+The subclass may supply a different base name for the resource
+ bundles using the
+setResourceBaseName
+method.
+A subclass may choose its own localization mechanism, if so
+ desired, by overriding the supplied implementations of
+getElementDescription
+and
+getAttributeDescription
+.
+See Also:
+ResourceBundle.getBundle(String,Locale)
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+String
+standardMetadataFormatName
+A
+String
+constant containing the standard format
+ name,
+"javax_imageio_1.0"
+.
+Fields declared in interface javax.imageio.metadata.
+IIOMetadataFormat
+CHILD_POLICY_ALL
+,
+CHILD_POLICY_CHOICE
+,
+CHILD_POLICY_EMPTY
+,
+CHILD_POLICY_MAX
+,
+CHILD_POLICY_REPEAT
+,
+CHILD_POLICY_SEQUENCE
+,
+CHILD_POLICY_SOME
+,
+DATATYPE_BOOLEAN
+,
+DATATYPE_DOUBLE
+,
+DATATYPE_FLOAT
+,
+DATATYPE_INTEGER
+,
+DATATYPE_STRING
+,
+VALUE_ARBITRARY
+,
+VALUE_ENUMERATION
+,
+VALUE_LIST
+,
+VALUE_NONE
+,
+VALUE_RANGE
+,
+VALUE_RANGE_MAX_INCLUSIVE
+,
+VALUE_RANGE_MAX_INCLUSIVE_MASK
+,
+VALUE_RANGE_MIN_INCLUSIVE
+,
+VALUE_RANGE_MIN_INCLUSIVE_MASK
+,
+VALUE_RANGE_MIN_MAX_INCLUSIVE
+Constructor Summary
+Constructors
+Constructor
+Description
+IIOMetadataFormatImpl
+(
+String
+rootName,
+ int childPolicy)
+Constructs a blank
+IIOMetadataFormatImpl
+instance,
+ with a given root element name and child policy (other than
+CHILD_POLICY_REPEAT
+).
+IIOMetadataFormatImpl
+(
+String
+rootName,
+ int minChildren,
+ int maxChildren)
+Constructs a blank
+IIOMetadataFormatImpl
+instance,
+ with a given root element name and a child policy of
+CHILD_POLICY_REPEAT
+.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+protected void
+addAttribute
+(
+String
+elementName,
+String
+attrName,
+ int dataType,
+ boolean required,
+ int listMinLength,
+ int listMaxLength)
+Adds a new attribute to a previously defined element that will
+ be defined by a list of values.
+protected void
+addAttribute
+(
+String
+elementName,
+String
+attrName,
+ int dataType,
+ boolean required,
+String
+defaultValue)
+Adds a new attribute to a previously defined element that may
+ be set to an arbitrary value.
+protected void
+addAttribute
+(
+String
+elementName,
+String
+attrName,
+ int dataType,
+ boolean required,
+String
+defaultValue,
+String
+minValue,
+String
+maxValue,
+ boolean minInclusive,
+ boolean maxInclusive)
+Adds a new attribute to a previously defined element that will
+ be defined by a range of values.
+protected void
+addAttribute
+(
+String
+elementName,
+String
+attrName,
+ int dataType,
+ boolean required,
+String
+defaultValue,
+List
+<
+String
+> enumeratedValues)
+Adds a new attribute to a previously defined element that will
+ be defined by a set of enumerated values.
+protected void
+addBooleanAttribute
+(
+String
+elementName,
+String
+attrName,
+ boolean hasDefaultValue,
+ boolean defaultValue)
+Adds a new attribute to a previously defined element that will
+ be defined by the enumerated values
+TRUE
+and
+FALSE
+, with a datatype of
+DATATYPE_BOOLEAN
+.
+protected void
+addChildElement
+(
+String
+elementName,
+String
+parentName)
+Adds an existing element to the list of legal children for a
+ given parent node type.
+protected void
+addElement
+(
+String
+elementName,
+String
+parentName,
+ int childPolicy)
+Adds a new element type to this metadata document format with a
+ child policy other than
+CHILD_POLICY_REPEAT
+.
+protected void
+addElement
+(
+String
+elementName,
+String
+parentName,
+ int minChildren,
+ int maxChildren)
+Adds a new element type to this metadata document format with a
+ child policy of
+CHILD_POLICY_REPEAT
+.
+protected void
+addObjectValue
+(
+String
+elementName,
+Class
+<?> classType,
+ int arrayMinLength,
+ int arrayMaxLength)
+Allows an
+Object
+reference of a given class type
+ to be stored in nodes implementing the named element.
+protected <T> void
+addObjectValue
+(
+String
+elementName,
+Class
+<T> classType,
+ boolean required,
+ T defaultValue)
+Allows an
+Object
+reference of a given class type
+ to be stored in nodes implementing the named element.
+protected <T> void
+addObjectValue
+(
+String
+elementName,
+Class
+<T> classType,
+ boolean required,
+ T defaultValue,
+List
+<? extends T> enumeratedValues)
+Allows an
+Object
+reference of a given class type
+ to be stored in nodes implementing the named element.
+protected <T extends
+Object
+&
+Comparable
+<? super T>>
+void
+addObjectValue
+(
+String
+elementName,
+Class
+<T> classType,
+ T defaultValue,
+Comparable
+<? super T> minValue,
+Comparable
+<? super T> maxValue,
+ boolean minInclusive,
+ boolean maxInclusive)
+Allows an
+Object
+reference of a given class type
+ to be stored in nodes implementing the named element.
+int
+getAttributeDataType
+(
+String
+elementName,
+String
+attrName)
+Returns one of the constants starting with
+DATATYPE_
+, indicating the format and
+ interpretation of the value of the given attribute within the
+ named element.
+String
+getAttributeDefaultValue
+(
+String
+elementName,
+String
+attrName)
+Returns the default value of the named attribute, if it is not
+ explicitly present within the named element, as a
+String
+, or
+null
+if no default value
+ is available.
+String
+getAttributeDescription
+(
+String
+elementName,
+String
+attrName,
+Locale
+locale)
+Returns a
+String
+containing a description of the
+ named attribute, or
+null
+.
+String
+[]
+getAttributeEnumerations
+(
+String
+elementName,
+String
+attrName)
+Returns an array of
+String
+s containing the legal
+ enumerated values for the given attribute within the named
+ element.
+int
+getAttributeListMaxLength
+(
+String
+elementName,
+String
+attrName)
+Returns the maximum number of list items that may be used to
+ define this attribute.
+int
+getAttributeListMinLength
+(
+String
+elementName,
+String
+attrName)
+Returns the minimum number of list items that may be used to
+ define this attribute.
+String
+getAttributeMaxValue
+(
+String
+elementName,
+String
+attrName)
+Returns the maximum legal value for the attribute.
+String
+getAttributeMinValue
+(
+String
+elementName,
+String
+attrName)
+Returns the minimum legal value for the attribute.
+String
+[]
+getAttributeNames
+(
+String
+elementName)
+Returns an array of
+String
+s listing the names of
+ the attributes that may be associated with the named element.
+int
+getAttributeValueType
+(
+String
+elementName,
+String
+attrName)
+Returns one of the constants starting with
+VALUE_
+,
+ indicating whether the values of the given attribute within the
+ named element are arbitrary, constrained to lie within a
+ specified range, constrained to be one of a set of enumerated
+ values, or are a whitespace-separated list of arbitrary values.
+String
+[]
+getChildNames
+(
+String
+elementName)
+Returns an array of
+String
+s indicating the names
+ of the element which are allowed to be children of the named
+ element, in the order in which they should appear.
+int
+getChildPolicy
+(
+String
+elementName)
+Returns one of the constants starting with
+CHILD_POLICY_
+, indicating the legal pattern of
+ children for the named element.
+String
+getElementDescription
+(
+String
+elementName,
+Locale
+locale)
+Returns a
+String
+containing a description of the
+ named element, or
+null
+.
+int
+getElementMaxChildren
+(
+String
+elementName)
+Returns the maximum number of children of the named element
+ with child policy
+CHILD_POLICY_REPEAT
+.
+int
+getElementMinChildren
+(
+String
+elementName)
+Returns the minimum number of children of the named element
+ with child policy
+CHILD_POLICY_REPEAT
+.
+int
+getObjectArrayMaxLength
+(
+String
+elementName)
+Returns the maximum number of array elements that may be used
+ to define the
+Object
+reference within the named
+ element.
+int
+getObjectArrayMinLength
+(
+String
+elementName)
+Returns the minimum number of array elements that may be used
+ to define the
+Object
+reference within the named
+ element.
+Class
+<?>
+getObjectClass
+(
+String
+elementName)
+Returns the
+Class
+type of the
+Object
+reference stored within the element.
+Object
+getObjectDefaultValue
+(
+String
+elementName)
+Returns an
+Object
+s containing the default
+ value for the
+Object
+reference within
+ the named element.
+Object
+[]
+getObjectEnumerations
+(
+String
+elementName)
+Returns an array of
+Object
+s containing the legal
+ enumerated values for the
+Object
+reference within
+ the named element.
+Comparable
+<?>
+getObjectMaxValue
+(
+String
+elementName)
+Returns the maximum legal value for the
+Object
+reference within the named element.
+Comparable
+<?>
+getObjectMinValue
+(
+String
+elementName)
+Returns the minimum legal value for the
+Object
+reference within the named element.
+int
+getObjectValueType
+(
+String
+elementName)
+Returns one of the enumerated values starting with
+VALUE_
+, indicating the type of values
+ (enumeration, range, or array) that are allowed for the
+Object
+reference.
+protected
+String
+getResourceBaseName
+()
+Returns the currently set base name for locating
+ResourceBundle
+s.
+String
+getRootName
+()
+Returns the name of the root element of the format.
+static
+IIOMetadataFormat
+getStandardFormatInstance
+()
+Returns an
+IIOMetadataFormat
+object describing the
+ standard, plug-in neutral
+javax.imageio_1.0
+metadata document format described in the comment of the
+javax.imageio.metadata
+package.
+boolean
+isAttributeRequired
+(
+String
+elementName,
+String
+attrName)
+Returns
+true
+if the named attribute must be
+ present within the named element.
+protected void
+removeAttribute
+(
+String
+elementName,
+String
+attrName)
+Removes an attribute from a previously defined element.
+protected void
+removeElement
+(
+String
+elementName)
+Removes an element from the format.
+protected void
+removeObjectValue
+(
+String
+elementName)
+Disallows an
+Object
+reference from being stored in
+ nodes implementing the named element.
+protected void
+setResourceBaseName
+(
+String
+resourceBaseName)
+Sets a new base name for locating
+ResourceBundle
+s
+ containing descriptions of elements and attributes for this
+ format.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface javax.imageio.metadata.
+IIOMetadataFormat
+canNodeAppear
+Field Details
+standardMetadataFormatName
+public static final
+String
+standardMetadataFormatName
+A
+String
+constant containing the standard format
+ name,
+"javax_imageio_1.0"
+.
+See Also:
+Constant Field Values
+Constructor Details
+IIOMetadataFormatImpl
+public
+IIOMetadataFormatImpl
+(
+String
+rootName,
+ int childPolicy)
+Constructs a blank
+IIOMetadataFormatImpl
+instance,
+ with a given root element name and child policy (other than
+CHILD_POLICY_REPEAT
+).  Additional elements, and
+ their attributes and
+Object
+reference information
+ may be added using the various
+add
+methods.
+Parameters:
+rootName
+- the name of the root element.
+childPolicy
+- one of the
+CHILD_POLICY_*
+constants,
+ other than
+CHILD_POLICY_REPEAT
+.
+Throws:
+IllegalArgumentException
+- if
+rootName
+is
+null
+.
+IllegalArgumentException
+- if
+childPolicy
+is
+ not one of the predefined constants.
+IIOMetadataFormatImpl
+public
+IIOMetadataFormatImpl
+(
+String
+rootName,
+ int minChildren,
+ int maxChildren)
+Constructs a blank
+IIOMetadataFormatImpl
+instance,
+ with a given root element name and a child policy of
+CHILD_POLICY_REPEAT
+.  Additional elements, and
+ their attributes and
+Object
+reference information
+ may be added using the various
+add
+methods.
+Parameters:
+rootName
+- the name of the root element.
+minChildren
+- the minimum number of children of the node.
+maxChildren
+- the maximum number of children of the node.
+Throws:
+IllegalArgumentException
+- if
+rootName
+is
+null
+.
+IllegalArgumentException
+- if
+minChildren
+is negative or larger than
+maxChildren
+.
+Method Details
+setResourceBaseName
+protected
+void
+setResourceBaseName
+(
+String
+resourceBaseName)
+Sets a new base name for locating
+ResourceBundle
+s
+ containing descriptions of elements and attributes for this
+ format.
+Prior to the first time this method is called, the base
+ name will be equal to
+this.getClass().getName() + "Resources"
+.
+Parameters:
+resourceBaseName
+- a
+String
+containing the new
+ base name.
+Throws:
+IllegalArgumentException
+- if
+resourceBaseName
+is
+null
+.
+See Also:
+getResourceBaseName()
+getResourceBaseName
+protected
+String
+getResourceBaseName
+()
+Returns the currently set base name for locating
+ResourceBundle
+s.
+Returns:
+a
+String
+containing the base name.
+See Also:
+setResourceBaseName(java.lang.String)
+addElement
+protected
+void
+addElement
+(
+String
+elementName,
+String
+parentName,
+ int childPolicy)
+Adds a new element type to this metadata document format with a
+ child policy other than
+CHILD_POLICY_REPEAT
+.
+Parameters:
+elementName
+- the name of the new element.
+parentName
+- the name of the element that will be the
+ parent of the new element.
+childPolicy
+- one of the
+CHILD_POLICY_*
+constants, other than
+CHILD_POLICY_REPEAT
+,
+ indicating the child policy of the new element.
+Throws:
+IllegalArgumentException
+- if
+parentName
+is
+null
+, or is not a legal element name for this
+ format.
+IllegalArgumentException
+- if
+childPolicy
+is not one of the predefined constants.
+addElement
+protected
+void
+addElement
+(
+String
+elementName,
+String
+parentName,
+ int minChildren,
+ int maxChildren)
+Adds a new element type to this metadata document format with a
+ child policy of
+CHILD_POLICY_REPEAT
+.
+Parameters:
+elementName
+- the name of the new element.
+parentName
+- the name of the element that will be the
+ parent of the new element.
+minChildren
+- the minimum number of children of the node.
+maxChildren
+- the maximum number of children of the node.
+Throws:
+IllegalArgumentException
+- if
+parentName
+is
+null
+, or is not a legal element name for this
+ format.
+IllegalArgumentException
+- if
+minChildren
+is negative or larger than
+maxChildren
+.
+addChildElement
+protected
+void
+addChildElement
+(
+String
+elementName,
+String
+parentName)
+Adds an existing element to the list of legal children for a
+ given parent node type.
+Parameters:
+elementName
+- the name of the element to be added as a
+ child.
+parentName
+- the name of the element that will be the
+ new parent of the element.
+Throws:
+IllegalArgumentException
+- if
+elementName
+is
+null
+, or is not a legal element name for this
+ format.
+IllegalArgumentException
+- if
+parentName
+is
+null
+, or is not a legal element name for this
+ format.
+removeElement
+protected
+void
+removeElement
+(
+String
+elementName)
+Removes an element from the format.  If no element with the
+ given name was present, nothing happens and no exception is
+ thrown.
+Parameters:
+elementName
+- the name of the element to be removed.
+addAttribute
+protected
+void
+addAttribute
+(
+String
+elementName,
+String
+attrName,
+ int dataType,
+ boolean required,
+String
+defaultValue)
+Adds a new attribute to a previously defined element that may
+ be set to an arbitrary value.
+Parameters:
+elementName
+- the name of the element.
+attrName
+- the name of the attribute being added.
+dataType
+- the data type (string format) of the attribute,
+ one of the
+DATATYPE_*
+constants.
+required
+-
+true
+if the attribute must be present.
+defaultValue
+- the default value for the attribute, or
+null
+.
+Throws:
+IllegalArgumentException
+- if
+elementName
+is
+null
+, or is not a legal element name for this
+ format.
+IllegalArgumentException
+- if
+attrName
+is
+null
+.
+IllegalArgumentException
+- if
+dataType
+is
+ not one of the predefined constants.
+addAttribute
+protected
+void
+addAttribute
+(
+String
+elementName,
+String
+attrName,
+ int dataType,
+ boolean required,
+String
+defaultValue,
+List
+<
+String
+> enumeratedValues)
+Adds a new attribute to a previously defined element that will
+ be defined by a set of enumerated values.
+Parameters:
+elementName
+- the name of the element.
+attrName
+- the name of the attribute being added.
+dataType
+- the data type (string format) of the attribute,
+ one of the
+DATATYPE_*
+constants.
+required
+-
+true
+if the attribute must be present.
+defaultValue
+- the default value for the attribute, or
+null
+.
+enumeratedValues
+- a
+List
+of
+String
+s containing the legal values for the
+ attribute.
+Throws:
+IllegalArgumentException
+- if
+elementName
+is
+null
+, or is not a legal element name for this
+ format.
+IllegalArgumentException
+- if
+attrName
+is
+null
+.
+IllegalArgumentException
+- if
+dataType
+is
+ not one of the predefined constants.
+IllegalArgumentException
+- if
+enumeratedValues
+is
+null
+.
+IllegalArgumentException
+- if
+enumeratedValues
+does not contain at least one
+ entry.
+IllegalArgumentException
+- if
+enumeratedValues
+contains an element that is not a
+String
+or is
+null
+.
+addAttribute
+protected
+void
+addAttribute
+(
+String
+elementName,
+String
+attrName,
+ int dataType,
+ boolean required,
+String
+defaultValue,
+String
+minValue,
+String
+maxValue,
+ boolean minInclusive,
+ boolean maxInclusive)
+Adds a new attribute to a previously defined element that will
+ be defined by a range of values.
+Parameters:
+elementName
+- the name of the element.
+attrName
+- the name of the attribute being added.
+dataType
+- the data type (string format) of the attribute,
+ one of the
+DATATYPE_*
+constants.
+required
+-
+true
+if the attribute must be present.
+defaultValue
+- the default value for the attribute, or
+null
+.
+minValue
+- the smallest (inclusive or exclusive depending
+ on the value of
+minInclusive
+) legal value for the
+ attribute, as a
+String
+.
+maxValue
+- the largest (inclusive or exclusive depending
+ on the value of
+minInclusive
+) legal value for the
+ attribute, as a
+String
+.
+minInclusive
+-
+true
+if
+minValue
+is inclusive.
+maxInclusive
+-
+true
+if
+maxValue
+is inclusive.
+Throws:
+IllegalArgumentException
+- if
+elementName
+is
+null
+, or is not a legal element name for this
+ format.
+IllegalArgumentException
+- if
+attrName
+is
+null
+.
+IllegalArgumentException
+- if
+dataType
+is
+ not one of the predefined constants.
+addAttribute
+protected
+void
+addAttribute
+(
+String
+elementName,
+String
+attrName,
+ int dataType,
+ boolean required,
+ int listMinLength,
+ int listMaxLength)
+Adds a new attribute to a previously defined element that will
+ be defined by a list of values.
+Parameters:
+elementName
+- the name of the element.
+attrName
+- the name of the attribute being added.
+dataType
+- the data type (string format) of the attribute,
+ one of the
+DATATYPE_*
+constants.
+required
+-
+true
+if the attribute must be present.
+listMinLength
+- the smallest legal number of list items.
+listMaxLength
+- the largest legal number of list items.
+Throws:
+IllegalArgumentException
+- if
+elementName
+is
+null
+, or is not a legal element name for this
+ format.
+IllegalArgumentException
+- if
+attrName
+is
+null
+.
+IllegalArgumentException
+- if
+dataType
+is
+ not one of the predefined constants.
+IllegalArgumentException
+- if
+listMinLength
+is negative or larger than
+listMaxLength
+.
+addBooleanAttribute
+protected
+void
+addBooleanAttribute
+(
+String
+elementName,
+String
+attrName,
+ boolean hasDefaultValue,
+ boolean defaultValue)
+Adds a new attribute to a previously defined element that will
+ be defined by the enumerated values
+TRUE
+and
+FALSE
+, with a datatype of
+DATATYPE_BOOLEAN
+.
+Parameters:
+elementName
+- the name of the element.
+attrName
+- the name of the attribute being added.
+hasDefaultValue
+-
+true
+if a default value
+ should be present.
+defaultValue
+- the default value for the attribute as a
+boolean
+, ignored if
+hasDefaultValue
+is
+false
+.
+Throws:
+IllegalArgumentException
+- if
+elementName
+is
+null
+, or is not a legal element name for this
+ format.
+IllegalArgumentException
+- if
+attrName
+is
+null
+.
+removeAttribute
+protected
+void
+removeAttribute
+(
+String
+elementName,
+String
+attrName)
+Removes an attribute from a previously defined element.  If no
+ attribute with the given name was present in the given element,
+ nothing happens and no exception is thrown.
+Parameters:
+elementName
+- the name of the element.
+attrName
+- the name of the attribute being removed.
+Throws:
+IllegalArgumentException
+- if
+elementName
+is
+null
+, or is not a legal element name for this format.
+addObjectValue
+protected
+<T>
+void
+addObjectValue
+(
+String
+elementName,
+Class
+<T> classType,
+ boolean required,
+ T defaultValue)
+Allows an
+Object
+reference of a given class type
+ to be stored in nodes implementing the named element.  The
+ value of the
+Object
+is unconstrained other than by
+ its class type.
+If an
+Object
+reference was previously allowed,
+ the previous settings are overwritten.
+Type Parameters:
+T
+- the type of the object.
+Parameters:
+elementName
+- the name of the element.
+classType
+- a
+Class
+variable indicating the
+ legal class type for the object value.
+required
+-
+true
+if an object value must be present.
+defaultValue
+- the default value for the
+Object
+reference, or
+null
+.
+Throws:
+IllegalArgumentException
+- if
+elementName
+is
+null
+, or is not a legal element name for this format.
+addObjectValue
+protected
+<T>
+void
+addObjectValue
+(
+String
+elementName,
+Class
+<T> classType,
+ boolean required,
+ T defaultValue,
+List
+<? extends T> enumeratedValues)
+Allows an
+Object
+reference of a given class type
+ to be stored in nodes implementing the named element.  The
+ value of the
+Object
+must be one of the values
+ given by
+enumeratedValues
+.
+If an
+Object
+reference was previously allowed,
+ the previous settings are overwritten.
+Type Parameters:
+T
+- the type of the object.
+Parameters:
+elementName
+- the name of the element.
+classType
+- a
+Class
+variable indicating the
+ legal class type for the object value.
+required
+-
+true
+if an object value must be present.
+defaultValue
+- the default value for the
+Object
+reference, or
+null
+.
+enumeratedValues
+- a
+List
+of
+Object
+s containing the legal values for the
+ object reference.
+Throws:
+IllegalArgumentException
+- if
+elementName
+is
+null
+, or is not a legal element name for this format.
+IllegalArgumentException
+- if
+enumeratedValues
+is
+null
+.
+IllegalArgumentException
+- if
+enumeratedValues
+does not contain at least one
+ entry.
+IllegalArgumentException
+- if
+enumeratedValues
+contains an element that is not
+ an instance of the class type denoted by
+classType
+or is
+null
+.
+addObjectValue
+protected
+<T extends
+Object
+&
+Comparable
+<? super T>>
+void
+addObjectValue
+(
+String
+elementName,
+Class
+<T> classType,
+ T defaultValue,
+Comparable
+<? super T> minValue,
+Comparable
+<? super T> maxValue,
+ boolean minInclusive,
+ boolean maxInclusive)
+Allows an
+Object
+reference of a given class type
+ to be stored in nodes implementing the named element.  The
+ value of the
+Object
+must be within the range given
+ by
+minValue
+and
+maxValue
+.
+ Furthermore, the class type must implement the
+Comparable
+interface.
+If an
+Object
+reference was previously allowed,
+ the previous settings are overwritten.
+Type Parameters:
+T
+- the type of the object.
+Parameters:
+elementName
+- the name of the element.
+classType
+- a
+Class
+variable indicating the
+ legal class type for the object value.
+defaultValue
+- the default value for the
+minValue
+- the smallest (inclusive or exclusive depending
+ on the value of
+minInclusive
+) legal value for the
+ object value, as a
+String
+.
+maxValue
+- the largest (inclusive or exclusive depending
+ on the value of
+minInclusive
+) legal value for the
+ object value, as a
+String
+.
+minInclusive
+-
+true
+if
+minValue
+is inclusive.
+maxInclusive
+-
+true
+if
+maxValue
+is inclusive.
+Throws:
+IllegalArgumentException
+- if
+elementName
+is
+null
+, or is not a legal element name for this
+ format.
+addObjectValue
+protected
+void
+addObjectValue
+(
+String
+elementName,
+Class
+<?> classType,
+ int arrayMinLength,
+ int arrayMaxLength)
+Allows an
+Object
+reference of a given class type
+ to be stored in nodes implementing the named element.  The
+ value of the
+Object
+must an array of objects of
+ class type given by
+classType
+, with at least
+arrayMinLength
+and at most
+arrayMaxLength
+elements.
+If an
+Object
+reference was previously allowed,
+ the previous settings are overwritten.
+Parameters:
+elementName
+- the name of the element.
+classType
+- a
+Class
+variable indicating the
+ legal class type for the object value.
+arrayMinLength
+- the smallest legal length for the array.
+arrayMaxLength
+- the largest legal length for the array.
+Throws:
+IllegalArgumentException
+- if
+elementName
+is
+ not a legal element name for this format.
+removeObjectValue
+protected
+void
+removeObjectValue
+(
+String
+elementName)
+Disallows an
+Object
+reference from being stored in
+ nodes implementing the named element.
+Parameters:
+elementName
+- the name of the element.
+Throws:
+IllegalArgumentException
+- if
+elementName
+is
+ not a legal element name for this format.
+getRootName
+public
+String
+getRootName
+()
+Description copied from interface:
+IIOMetadataFormat
+Returns the name of the root element of the format.
+Specified by:
+getRootName
+in interface
+IIOMetadataFormat
+Returns:
+a
+String
+.
+getElementMinChildren
+public
+int
+getElementMinChildren
+(
+String
+elementName)
+Description copied from interface:
+IIOMetadataFormat
+Returns the minimum number of children of the named element
+ with child policy
+CHILD_POLICY_REPEAT
+.  For
+ example, an element representing color primary information
+ might be required to have at least 3 children, one for each
+ primary.
+Specified by:
+getElementMinChildren
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element being queried.
+Returns:
+an
+int
+.
+getElementMaxChildren
+public
+int
+getElementMaxChildren
+(
+String
+elementName)
+Description copied from interface:
+IIOMetadataFormat
+Returns the maximum number of children of the named element
+ with child policy
+CHILD_POLICY_REPEAT
+.  For
+ example, an element representing an entry in an 8-bit color
+ palette might be allowed to repeat up to 256 times.  A value of
+Integer.MAX_VALUE
+may be used to specify that
+ there is no upper bound.
+Specified by:
+getElementMaxChildren
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element being queried.
+Returns:
+an
+int
+.
+getElementDescription
+public
+String
+getElementDescription
+(
+String
+elementName,
+Locale
+locale)
+Returns a
+String
+containing a description of the
+ named element, or
+null
+.  The description will be
+ localized for the supplied
+Locale
+if possible.
+The default implementation will first locate a
+ResourceBundle
+using the current resource base
+ name set by
+setResourceBaseName
+and the supplied
+Locale
+, using the fallback mechanism described in
+ the comments for
+ResourceBundle.getBundle
+.  If a
+ResourceBundle
+is found, the element name will be
+ used as a key to its
+getString
+method, and the
+ result returned.  If no
+ResourceBundle
+is found,
+ or no such key is present,
+null
+will be returned.
+If
+locale
+is
+null
+, the current
+ default
+Locale
+returned by
+Locale.getLocale
+will be used.
+Specified by:
+getElementDescription
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element.
+locale
+- the
+Locale
+for which localization
+ will be attempted.
+Returns:
+the element description.
+Throws:
+IllegalArgumentException
+- if
+elementName
+is
+null
+, or is not a legal element name for this format.
+See Also:
+setResourceBaseName(java.lang.String)
+getChildPolicy
+public
+int
+getChildPolicy
+(
+String
+elementName)
+Description copied from interface:
+IIOMetadataFormat
+Returns one of the constants starting with
+CHILD_POLICY_
+, indicating the legal pattern of
+ children for the named element.
+Specified by:
+getChildPolicy
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element being queried.
+Returns:
+one of the
+CHILD_POLICY_*
+constants.
+getChildNames
+public
+String
+[]
+getChildNames
+(
+String
+elementName)
+Description copied from interface:
+IIOMetadataFormat
+Returns an array of
+String
+s indicating the names
+ of the element which are allowed to be children of the named
+ element, in the order in which they should appear.  If the
+ element cannot have children,
+null
+is returned.
+Specified by:
+getChildNames
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element being queried.
+Returns:
+an array of
+String
+s, or null.
+getAttributeNames
+public
+String
+[]
+getAttributeNames
+(
+String
+elementName)
+Description copied from interface:
+IIOMetadataFormat
+Returns an array of
+String
+s listing the names of
+ the attributes that may be associated with the named element.
+Specified by:
+getAttributeNames
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element being queried.
+Returns:
+an array of
+String
+s.
+getAttributeValueType
+public
+int
+getAttributeValueType
+(
+String
+elementName,
+String
+attrName)
+Description copied from interface:
+IIOMetadataFormat
+Returns one of the constants starting with
+VALUE_
+,
+ indicating whether the values of the given attribute within the
+ named element are arbitrary, constrained to lie within a
+ specified range, constrained to be one of a set of enumerated
+ values, or are a whitespace-separated list of arbitrary values.
+Specified by:
+getAttributeValueType
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element being queried.
+attrName
+- the name of the attribute being queried.
+Returns:
+one of the
+VALUE_*
+constants.
+getAttributeDataType
+public
+int
+getAttributeDataType
+(
+String
+elementName,
+String
+attrName)
+Description copied from interface:
+IIOMetadataFormat
+Returns one of the constants starting with
+DATATYPE_
+, indicating the format and
+ interpretation of the value of the given attribute within the
+ named element.  If
+getAttributeValueType
+returns
+VALUE_LIST
+, then the legal value is a
+ whitespace-spearated list of values of the returned datatype.
+Specified by:
+getAttributeDataType
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element being queried.
+attrName
+- the name of the attribute being queried.
+Returns:
+one of the
+DATATYPE_*
+constants.
+isAttributeRequired
+public
+boolean
+isAttributeRequired
+(
+String
+elementName,
+String
+attrName)
+Description copied from interface:
+IIOMetadataFormat
+Returns
+true
+if the named attribute must be
+ present within the named element.
+Specified by:
+isAttributeRequired
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element being queried.
+attrName
+- the name of the attribute being queried.
+Returns:
+true
+if the attribute must be present.
+getAttributeDefaultValue
+public
+String
+getAttributeDefaultValue
+(
+String
+elementName,
+String
+attrName)
+Description copied from interface:
+IIOMetadataFormat
+Returns the default value of the named attribute, if it is not
+ explicitly present within the named element, as a
+String
+, or
+null
+if no default value
+ is available.
+Specified by:
+getAttributeDefaultValue
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element being queried.
+attrName
+- the name of the attribute being queried.
+Returns:
+a
+String
+containing the default value, or
+null
+.
+getAttributeEnumerations
+public
+String
+[]
+getAttributeEnumerations
+(
+String
+elementName,
+String
+attrName)
+Description copied from interface:
+IIOMetadataFormat
+Returns an array of
+String
+s containing the legal
+ enumerated values for the given attribute within the named
+ element.  This method should only be called if
+getAttributeValueType
+returns
+VALUE_ENUMERATION
+.
+Specified by:
+getAttributeEnumerations
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element being queried.
+attrName
+- the name of the attribute being queried.
+Returns:
+an array of
+String
+s.
+getAttributeMinValue
+public
+String
+getAttributeMinValue
+(
+String
+elementName,
+String
+attrName)
+Description copied from interface:
+IIOMetadataFormat
+Returns the minimum legal value for the attribute.  Whether
+ this value is inclusive or exclusive may be determined by the
+ value of
+getAttributeValueType
+.  The value is
+ returned as a
+String
+; its interpretation is
+ dependent on the value of
+getAttributeDataType
+.
+ This method should only be called if
+getAttributeValueType
+returns
+VALUE_RANGE_*
+.
+Specified by:
+getAttributeMinValue
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element being queried.
+attrName
+- the name of the attribute being queried.
+Returns:
+a
+String
+containing the smallest legal
+ value for the attribute.
+getAttributeMaxValue
+public
+String
+getAttributeMaxValue
+(
+String
+elementName,
+String
+attrName)
+Description copied from interface:
+IIOMetadataFormat
+Returns the maximum legal value for the attribute.  Whether
+ this value is inclusive or exclusive may be determined by the
+ value of
+getAttributeValueType
+.  The value is
+ returned as a
+String
+; its interpretation is
+ dependent on the value of
+getAttributeDataType
+.
+ This method should only be called if
+getAttributeValueType
+returns
+VALUE_RANGE_*
+.
+Specified by:
+getAttributeMaxValue
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element being queried, as a
+String
+.
+attrName
+- the name of the attribute being queried.
+Returns:
+a
+String
+containing the largest legal
+ value for the attribute.
+getAttributeListMinLength
+public
+int
+getAttributeListMinLength
+(
+String
+elementName,
+String
+attrName)
+Description copied from interface:
+IIOMetadataFormat
+Returns the minimum number of list items that may be used to
+ define this attribute.  The attribute itself is defined as a
+String
+containing multiple whitespace-separated
+ items.  This method should only be called if
+getAttributeValueType
+returns
+VALUE_LIST
+.
+Specified by:
+getAttributeListMinLength
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element being queried.
+attrName
+- the name of the attribute being queried.
+Returns:
+the smallest legal number of list items for the
+ attribute.
+getAttributeListMaxLength
+public
+int
+getAttributeListMaxLength
+(
+String
+elementName,
+String
+attrName)
+Description copied from interface:
+IIOMetadataFormat
+Returns the maximum number of list items that may be used to
+ define this attribute.  A value of
+Integer.MAX_VALUE
+may be used to specify that
+ there is no upper bound.  The attribute itself is defined as a
+String
+containing multiple whitespace-separated
+ items.  This method should only be called if
+getAttributeValueType
+returns
+VALUE_LIST
+.
+Specified by:
+getAttributeListMaxLength
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element being queried.
+attrName
+- the name of the attribute being queried.
+Returns:
+the largest legal number of list items for the
+ attribute.
+getAttributeDescription
+public
+String
+getAttributeDescription
+(
+String
+elementName,
+String
+attrName,
+Locale
+locale)
+Returns a
+String
+containing a description of the
+ named attribute, or
+null
+.  The description will be
+ localized for the supplied
+Locale
+if possible.
+The default implementation will first locate a
+ResourceBundle
+using the current resource base
+ name set by
+setResourceBaseName
+and the supplied
+Locale
+, using the fallback mechanism described in
+ the comments for
+ResourceBundle.getBundle
+.  If a
+ResourceBundle
+is found, the element name followed
+ by a "/" character followed by the attribute name
+ (
+elementName + "/" + attrName
+) will be used as a
+ key to its
+getString
+method, and the result
+ returned.  If no
+ResourceBundle
+is found, or no
+ such key is present,
+null
+will be returned.
+If
+locale
+is
+null
+, the current
+ default
+Locale
+returned by
+Locale.getLocale
+will be used.
+Specified by:
+getAttributeDescription
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element.
+attrName
+- the name of the attribute.
+locale
+- the
+Locale
+for which localization
+ will be attempted, or
+null
+.
+Returns:
+the attribute description.
+Throws:
+IllegalArgumentException
+- if
+elementName
+is
+null
+, or is not a legal element name for this format.
+IllegalArgumentException
+- if
+attrName
+is
+null
+or is not a legal attribute name for this
+ element.
+See Also:
+setResourceBaseName(java.lang.String)
+getObjectValueType
+public
+int
+getObjectValueType
+(
+String
+elementName)
+Description copied from interface:
+IIOMetadataFormat
+Returns one of the enumerated values starting with
+VALUE_
+, indicating the type of values
+ (enumeration, range, or array) that are allowed for the
+Object
+reference.  If no object value can be
+ stored within the given element, the result of this method will
+ be
+VALUE_NONE
+.
+Object
+references whose legal values are
+ defined as a range must implement the
+Comparable
+interface.
+Specified by:
+getObjectValueType
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element being queried.
+Returns:
+one of the
+VALUE_*
+constants.
+See Also:
+Comparable
+getObjectClass
+public
+Class
+<?>
+getObjectClass
+(
+String
+elementName)
+Description copied from interface:
+IIOMetadataFormat
+Returns the
+Class
+type of the
+Object
+reference stored within the element.  If this element may not
+ contain an
+Object
+reference, an
+IllegalArgumentException
+will be thrown.  If the
+ class type is an array, this field indicates the underlying
+ class type (
+e.g
+, for an array of
+int
+s, this
+ method would return
+int.class
+).
+Object
+references whose legal values are
+ defined as a range must implement the
+Comparable
+interface.
+Specified by:
+getObjectClass
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element being queried.
+Returns:
+a
+Class
+object.
+getObjectDefaultValue
+public
+Object
+getObjectDefaultValue
+(
+String
+elementName)
+Description copied from interface:
+IIOMetadataFormat
+Returns an
+Object
+s containing the default
+ value for the
+Object
+reference within
+ the named element.
+Specified by:
+getObjectDefaultValue
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element being queried.
+Returns:
+an
+Object
+.
+getObjectEnumerations
+public
+Object
+[]
+getObjectEnumerations
+(
+String
+elementName)
+Description copied from interface:
+IIOMetadataFormat
+Returns an array of
+Object
+s containing the legal
+ enumerated values for the
+Object
+reference within
+ the named element.  This method should only be called if
+getObjectValueType
+returns
+VALUE_ENUMERATION
+.
+The
+Object
+associated with a node that accepts
+ enumerated values must be equal to one of the values returned by
+ this method, as defined by the
+==
+operator (as
+ opposed to the
+Object.equals
+method).
+Specified by:
+getObjectEnumerations
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element being queried.
+Returns:
+an array of
+Object
+s.
+getObjectMinValue
+public
+Comparable
+<?>
+getObjectMinValue
+(
+String
+elementName)
+Description copied from interface:
+IIOMetadataFormat
+Returns the minimum legal value for the
+Object
+reference within the named element.  Whether this value is
+ inclusive or exclusive may be determined by the value of
+getObjectValueType
+.  This method should only be
+ called if
+getObjectValueType
+returns one of the
+ constants starting with
+VALUE_RANGE
+.
+Specified by:
+getObjectMinValue
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element being queried.
+Returns:
+the smallest legal value for the attribute.
+getObjectMaxValue
+public
+Comparable
+<?>
+getObjectMaxValue
+(
+String
+elementName)
+Description copied from interface:
+IIOMetadataFormat
+Returns the maximum legal value for the
+Object
+reference within the named element.  Whether this value is
+ inclusive or exclusive may be determined by the value of
+getObjectValueType
+.  This method should only be
+ called if
+getObjectValueType
+returns one of the
+ constants starting with
+VALUE_RANGE
+.
+Specified by:
+getObjectMaxValue
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element being queried.
+Returns:
+the smallest legal value for the attribute.
+getObjectArrayMinLength
+public
+int
+getObjectArrayMinLength
+(
+String
+elementName)
+Description copied from interface:
+IIOMetadataFormat
+Returns the minimum number of array elements that may be used
+ to define the
+Object
+reference within the named
+ element.  This method should only be called if
+getObjectValueType
+returns
+VALUE_LIST
+.
+Specified by:
+getObjectArrayMinLength
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element being queried.
+Returns:
+the smallest valid array length for the
+Object
+reference.
+getObjectArrayMaxLength
+public
+int
+getObjectArrayMaxLength
+(
+String
+elementName)
+Description copied from interface:
+IIOMetadataFormat
+Returns the maximum number of array elements that may be used
+ to define the
+Object
+reference within the named
+ element.  A value of
+Integer.MAX_VALUE
+may be used
+ to specify that there is no upper bound.  This method should
+ only be called if
+getObjectValueType
+returns
+VALUE_LIST
+.
+Specified by:
+getObjectArrayMaxLength
+in interface
+IIOMetadataFormat
+Parameters:
+elementName
+- the name of the element being queried.
+Returns:
+the largest valid array length for the
+Object
+reference.
+getStandardFormatInstance
+public static
+IIOMetadataFormat
+getStandardFormatInstance
+()
+Returns an
+IIOMetadataFormat
+object describing the
+ standard, plug-in neutral
+javax.imageio_1.0
+metadata document format described in the comment of the
+javax.imageio.metadata
+package.
+Returns:
+a predefined
+IIOMetadataFormat
+instance.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

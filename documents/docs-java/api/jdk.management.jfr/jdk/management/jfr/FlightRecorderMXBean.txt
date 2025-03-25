@@ -1,0 +1,1059 @@
+FlightRecorderMXBean (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+jdk.management.jfr
+Package
+jdk.management.jfr
+Interface FlightRecorderMXBean
+All Superinterfaces:
+PlatformManagedObject
+public interface
+FlightRecorderMXBean
+extends
+PlatformManagedObject
+Management interface for controlling Flight Recorder.
+The object name for identifying the MXBean in the platform MBean
+ server is:
+jdk.management.jfr:type=FlightRecorder
+Flight Recorder can be configured in the following ways:
+Recording options
+Specify how long a recording should last, and where and when data
+ should be dumped.
+Settings
+Specify which events should be enabled and what kind information each
+ event should capture.
+Configurations
+Predefined sets of settings, typically derived from a settings file,
+ that specify the configuration of multiple events simultaneously.
+See the package
+jdk.jfr
+documentation for descriptions of the settings
+ syntax and the
+ConfigurationInfo
+class documentation for configuration information.
+Recording options
+The following table shows the options names to use with
+setRecordingOptions(long, Map)
+and
+getRecordingOptions(long)
+.
+Recording options
+Name
+Descripion
+Default value
+Format
+Example values
+name
+Sets a human-readable recording name
+String representation of the recording id
+String
+"My Recording"
+,
+"profiling"
+maxAge
+Specify the length of time that the data is kept in the disk repository until the
+ oldest data may be deleted. Only works if
+disk=true
+, otherwise
+ this parameter is ignored.
+"0"
+(no limit)
+"0"
+if no limit is imposed, otherwise a string
+ representation of a positive
+Long
+value followed by an empty space
+ and one of the following units,
+"ns"
+(nanoseconds)
+"us"
+(microseconds)
+"ms"
+(milliseconds)
+"s"
+(seconds)
+"m"
+(minutes)
+"h"
+(hours)
+"d"
+(days)
+"2 h"
+,
+"24 h"
+,
+"2 d"
+,
+"0"
+maxSize
+Specifies the size, measured in bytes, at which data is kept in disk
+ repository. Only works if
+disk=true
+, otherwise this parameter is ignored.
+"0"
+(no limit)
+String representation of a
+Long
+value, must be positive
+"0"
+,
+"1000000000"
+dumpOnExit
+Dumps recording data to disk on Java Virtual Machine (JVM) exit
+"false"
+String representation of a
+Boolean
+value,
+"true"
+or
+"false"
+"true"
+,
+"false"
+destination
+Specifies the path where recording data is written when the recording stops.
+"false"
+See
+Paths#getPath
+for format.
+If this method is invoked from another process, the data is written on the
+ machine where the target JVM is running. If destination is a relative path, it
+ is relative to the working directory where the target JVM was started.}
+"c:\recording\recotding.jfr"
+,
+"/recordings/recording.jfr"
+,
+"recording.jfr"
+disk
+Stores recorded data as it is recorded
+"false"
+String representation of a
+Boolean
+value,
+"true"
+or
+"false"
+"true"
+,
+"false"
+duration
+Sets how long the recording should be running
+"0"
+(no limit, continuous)
+"0"
+if no limit should be imposed, otherwise a string
+ representation of a positive
+Long
+followed by an empty space and one
+ of the following units:
+"ns"
+(nanoseconds)
+"us"
+(microseconds)
+"ms"
+(milliseconds)
+"s"
+(seconds)
+"m"
+(minutes)
+"h"
+(hours)
+"d"
+(days)
+"60 s"
+,
+"10 m"
+,
+"4 h"
+,
+"0"
+Since:
+9
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+String
+MXBEAN_NAME
+String representation of the
+ObjectName
+for the
+FlightRecorderMXBean
+.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+long
+cloneRecording
+(long recordingId,
+ boolean stop)
+Creates a copy of an existing recording, useful for extracting parts of a
+ recording.
+void
+closeRecording
+(long recordingId)
+Closes the recording with the specified ID and releases any system
+ resources that are associated with the recording.
+void
+closeStream
+(long streamId)
+Closes the recording stream with the specified ID and releases any system
+ resources that are associated with the stream.
+void
+copyTo
+(long recordingId,
+String
+outputFile)
+Writes recording data to the specified file.
+List
+<
+ConfigurationInfo
+>
+getConfigurations
+()
+Returns the list of predefined configurations for this Java Virtual Machine (JVM).
+List
+<
+EventTypeInfo
+>
+getEventTypes
+()
+Returns the list of currently registered event types.
+Map
+<
+String
+,
+String
+>
+getRecordingOptions
+(long recordingId)
+Returns a map that contains the options for the recording with the
+ specified ID (for example, the destination file or time span to keep
+ recorded data).
+List
+<
+RecordingInfo
+>
+getRecordings
+()
+Returns the list of the available recordings, not necessarily running.
+Map
+<
+String
+,
+String
+>
+getRecordingSettings
+(long recordingId)
+Returns a
+Map
+that contains the settings for the recording with the specified ID,
+ (for example, the event thresholds)
+long
+newRecording
+()
+Creates a recording, but doesn't start it.
+long
+openStream
+(long recordingId,
+Map
+<
+String
+,
+String
+> streamOptions)
+Opens a data stream for the recording with the specified ID, or
+0
+to get data irrespective of recording.
+byte[]
+readStream
+(long streamId)
+Reads a portion of data from the stream with the specified ID, or returns
+null
+if no more data is available.
+void
+setConfiguration
+(long recordingId,
+String
+contents)
+Sets a configuration as a string representation for the recording with the
+ specified ID.
+void
+setPredefinedConfiguration
+(long recordingId,
+String
+configurationName)
+Sets a predefined configuration for the recording with the specified ID.
+void
+setRecordingOptions
+(long recordingId,
+Map
+<
+String
+,
+String
+> options)
+Configures the recording options (for example, destination file and time span
+ to keep data).
+void
+setRecordingSettings
+(long recordingId,
+Map
+<
+String
+,
+String
+> settings)
+Sets and replaces all previous settings for the specified recording.
+void
+startRecording
+(long recordingId)
+Starts the recording with the specified ID.
+boolean
+stopRecording
+(long recordingId)
+Stops the running recording with the specified ID.
+long
+takeSnapshot
+()
+Creates a snapshot recording of all available recorded data.
+Methods declared in interface java.lang.management.
+PlatformManagedObject
+getObjectName
+Field Details
+MXBEAN_NAME
+static final
+String
+MXBEAN_NAME
+String representation of the
+ObjectName
+for the
+FlightRecorderMXBean
+.
+See Also:
+Constant Field Values
+Method Details
+newRecording
+long
+newRecording
+()
+           throws
+IllegalStateException
+,
+SecurityException
+Creates a recording, but doesn't start it.
+Returns:
+a unique ID that can be used to start, stop, close and
+         configure the recording
+Throws:
+IllegalStateException
+- if Flight Recorder can't be created (for
+         example, if the Java Virtual Machine (JVM) lacks Flight Recorder
+         support, or if the file repository can't be created or accessed)
+SecurityException
+- if a security manager exists and the
+         caller does not have
+ManagementPermission("control")
+See Also:
+Recording
+takeSnapshot
+long
+takeSnapshot
+()
+Creates a snapshot recording of all available recorded data.
+A snapshot is a synthesized recording in a stopped state. If no data is
+ available, a recording with size
+0
+is returned.
+A snapshot provides stable access to data for later operations (for example,
+ operations to change the time interval or to reduce the data size).
+The caller must close the recording when access to the data is no longer
+ needed.
+Returns:
+a unique ID that can be used for reading recording data
+Throws:
+SecurityException
+- if a security manager exists and the
+         caller does not have
+ManagementPermission("control")
+See Also:
+Recording
+cloneRecording
+long
+cloneRecording
+(long recordingId,
+ boolean stop)
+throws
+IllegalArgumentException
+,
+SecurityException
+Creates a copy of an existing recording, useful for extracting parts of a
+ recording.
+The cloned recording contains the same recording data as the
+ original, but it has a new ID and a name prefixed with
+"Clone of recording"
+. If the original recording is running, then
+ the clone is also running.
+Parameters:
+recordingId
+- the recording ID of the recording to create a clone
+        from
+stop
+- if the newly created clone is stopped before
+        returning.
+Returns:
+a unique ID that can be used to start, stop,
+         close and configure the recording
+Throws:
+IllegalArgumentException
+- if a recording with the specified ID
+         doesn't exist
+SecurityException
+- if a security manager exists and the
+         caller does not have
+ManagementPermission("control")
+See Also:
+Recording
+startRecording
+void
+startRecording
+(long recordingId)
+throws
+IllegalStateException
+,
+SecurityException
+Starts the recording with the specified ID.
+A recording that is stopped can't be restarted.
+Parameters:
+recordingId
+- ID of the recording to start
+Throws:
+IllegalArgumentException
+- if a recording with the specified ID
+         doesn't exist
+SecurityException
+- if a security manager exists and the
+         caller does not have
+ManagementPermission("control")
+IllegalStateException
+See Also:
+Recording
+stopRecording
+boolean
+stopRecording
+(long recordingId)
+throws
+IllegalArgumentException
+,
+IllegalStateException
+,
+SecurityException
+Stops the running recording with the specified ID.
+Parameters:
+recordingId
+- the ID of the recording to stop
+Returns:
+true
+if the recording is stopped,
+false
+otherwise
+Throws:
+IllegalArgumentException
+- if a recording with the specified ID
+         doesn't exist
+IllegalStateException
+- if the recording is not running
+SecurityException
+- if a security manager exists and the
+         caller does not have
+ManagementPermission("control")
+See Also:
+newRecording()
+closeRecording
+void
+closeRecording
+(long recordingId)
+throws
+IOException
+Closes the recording with the specified ID and releases any system
+ resources that are associated with the recording.
+If the recording is already closed, invoking this method has no effect.
+Parameters:
+recordingId
+- the ID of the recording to close
+Throws:
+IllegalArgumentException
+- if a recording with the specified ID
+         doesn't exist
+IOException
+- if an I/O error occurs
+SecurityException
+- if a security manager exists and the
+         caller does not have
+ManagementPermission("control")
+See Also:
+newRecording()
+openStream
+long
+openStream
+(long recordingId,
+Map
+<
+String
+,
+String
+> streamOptions)
+throws
+IOException
+Opens a data stream for the recording with the specified ID, or
+0
+to get data irrespective of recording.
+Recording stream options
+Name
+Descripion
+Default value
+Format
+Example values
+startTime
+Specifies the point in time to start a recording stream. Due to
+ how data is stored, some events that start or end prior to the
+ start time may be included.
+Instant.MIN_VALUE.toString()
+ISO-8601. See
+Instant.toString()
+or milliseconds since epoch
+"2015-11-03T00:00"
+,
+"1446508800000"
+endTime
+Specifies the point in time to end a recording stream. Due to how
+ data is stored, some events that start or end after the end time may
+ be included.
+Instant.MAX_VALUE.toString()
+ISO-8601. See
+Instant.toString()
+or milliseconds since epoch
+"2015-11-03T01:00"
+,
+"1446512400000"
+blockSize
+Specifies the maximum number of bytes to read with a call to
+readStream
+"50000"
+A positive
+long
+value.
+Setting
+blockSize
+to a very high value may result in
+OutOfMemoryError
+or an
+IllegalArgumentException
+, if the
+ Java Virtual Machine (JVM) deems the value too large to handle.
+"50000"
+,
+"1000000"
+,
+streamVersion
+Specifies format to use when reading data from a running recording
+"1.0"
+A version number with a major and minor.
+To be able to read from a running recording the value must be set
+"1.0"
+If an option is omitted from the map the default value is used.
+The recording with the specified ID must be stopped before a stream can
+ be opened, unless the option
+"streamVersion"
+is specified.
+Parameters:
+recordingId
+- ID of the recording to open the stream for
+streamOptions
+- a map that contains the options that controls the amount of data
+        and how it is read, or
+null
+to get all data for the
+        recording with the default block size
+Returns:
+a unique ID for the stream.
+Throws:
+IllegalArgumentException
+- if a recording with the iD doesn't
+         exist, or if
+options
+contains invalid values
+IOException
+- if the recording is closed, an I/O error occurs, or
+         no data is available for the specified recording or
+         interval
+SecurityException
+- if a security manager exists and the
+         caller does not have
+ManagementPermission("control")
+closeStream
+void
+closeStream
+(long streamId)
+throws
+IOException
+Closes the recording stream with the specified ID and releases any system
+ resources that are associated with the stream.
+If the stream is already closed, invoking this method has no effect.
+Parameters:
+streamId
+- the ID of the stream
+Throws:
+IllegalArgumentException
+- if a stream with the specified ID doesn't
+         exist
+IOException
+- if an I/O error occurs while trying to close the stream
+SecurityException
+- if a security manager exists and the
+         caller does not have
+ManagementPermission("control")
+See Also:
+openStream(long, Map)
+readStream
+byte[]
+readStream
+(long streamId)
+throws
+IOException
+Reads a portion of data from the stream with the specified ID, or returns
+null
+if no more data is available.
+To read all data for a recording, invoke this method repeatedly until
+null
+is returned.
+Parameters:
+streamId
+- the ID of the stream
+Returns:
+byte array that contains recording data, or
+null
+when no more
+         data is available
+Throws:
+IOException
+- if the stream is closed, or an I/O error occurred while
+         trying to read the stream
+IllegalArgumentException
+- if no recording with the stream ID exists
+SecurityException
+- if a security manager exists and the
+         caller does not have
+ManagementPermission("monitor")
+getRecordingOptions
+Map
+<
+String
+,
+String
+>
+getRecordingOptions
+(long recordingId)
+throws
+IllegalArgumentException
+Returns a map that contains the options for the recording with the
+ specified ID (for example, the destination file or time span to keep
+ recorded data).
+See
+FlightRecorderMXBean
+for available option names.
+Parameters:
+recordingId
+- the ID of the recording to get options for
+Returns:
+a map describing the recording options, not
+null
+Throws:
+IllegalArgumentException
+- if no recording with the
+         specified ID exists
+SecurityException
+- if a security manager exists and the
+         caller does not have
+ManagementPermission("monitor")
+getRecordingSettings
+Map
+<
+String
+,
+String
+>
+getRecordingSettings
+(long recordingId)
+throws
+IllegalArgumentException
+Returns a
+Map
+that contains the settings for the recording with the specified ID,
+ (for example, the event thresholds)
+If multiple recordings are running at the same time, more data could be
+ recorded than what is specified in the
+Map
+object.
+The name in the
+Map
+is the event name and the setting name separated by
+"#"
+(for example,
+"jdk.VMInfo#period"
+). The value
+ is a textual representation of the settings value (for example,
+"60 s"
+).
+Parameters:
+recordingId
+- the ID of the recordings to get settings for
+Returns:
+a map that describes the recording settings, not
+null
+Throws:
+IllegalArgumentException
+- if no recording with the specified ID exists
+SecurityException
+- if a security manager exists and the
+         caller does not have
+ManagementPermission("monitor")
+setConfiguration
+void
+setConfiguration
+(long recordingId,
+String
+contents)
+throws
+IllegalArgumentException
+Sets a configuration as a string representation for the recording with the
+ specified ID.
+Parameters:
+recordingId
+- ID of the recording
+contents
+- a string representation of the configuration file to use,
+        not
+null
+Throws:
+IllegalArgumentException
+- if no recording with the
+         specified ID exists or if the configuration could not be parsed.
+SecurityException
+- if a security manager exists and the
+         caller does not have
+ManagementPermission("control")
+See Also:
+Configuration.getContents()
+setPredefinedConfiguration
+void
+setPredefinedConfiguration
+(long recordingId,
+String
+configurationName)
+throws
+IllegalArgumentException
+Sets a predefined configuration for the recording with the specified ID.
+Parameters:
+recordingId
+- ID of the recording to set the configuration for
+configurationName
+- the name of the configuration (for example,
+"profile"
+or
+"default"
+), not
+null
+Throws:
+IllegalArgumentException
+- if no recording with the
+         specified ID exists
+SecurityException
+- if a security manager exists and the
+         caller does not have
+ManagementPermission("control")
+See Also:
+getConfigurations()
+setRecordingSettings
+void
+setRecordingSettings
+(long recordingId,
+Map
+<
+String
+,
+String
+> settings)
+throws
+IllegalArgumentException
+Sets and replaces all previous settings for the specified recording.
+A setting consists of a name/value pair, where
+name
+specifies the
+ event and setting to configure, and the
+value
+specifies what to set
+ it to.
+The name can be formed in the following ways:
+<event-name> + "#" + <setting-name>
+or
+<event-id> + "#" + <setting-name>
+For example, to set the sample interval of the CPU Load event to once every
+ second, use the name
+"jdk.CPULoad#period"
+and the value
+"1 s"
+. If multiple events use the same name, for example if an event
+ class is loaded in multiple class loaders, and differentiation is needed
+ between them, then the name is
+"56#period"
+. The ID for an event is
+ obtained by invoking
+EventType.getId()
+method and is valid
+ for the Java Virtual Machine (JVM) instance that the event is registered in.
+A list of available event names is retrieved by invoking
+FlightRecorder.getEventTypes()
+and
+EventType.getName()
+. A list of available settings for an
+ event type is obtained by invoking
+EventType.getSettingDescriptors()
+and
+ValueDescriptor.getName()
+.
+Parameters:
+recordingId
+- ID of the recording
+settings
+- name value map of the settings to set, not
+null
+Throws:
+IllegalArgumentException
+- if no recording with the specified ID exists
+SecurityException
+- if a security manager exists and the
+         caller does not have
+ManagementPermission("control")
+See Also:
+Recording.getId()
+setRecordingOptions
+void
+setRecordingOptions
+(long recordingId,
+Map
+<
+String
+,
+String
+> options)
+throws
+IllegalArgumentException
+Configures the recording options (for example, destination file and time span
+ to keep data).
+See
+FlightRecorderMXBean
+for a description of the options and values
+ that can be used. Setting a value to
+null
+restores the value to the
+ default value.
+Parameters:
+recordingId
+- the ID of the recording to set options for
+options
+- name/value map of the settings to set, not
+null
+Throws:
+IllegalArgumentException
+- if no recording with the specified ID exists
+SecurityException
+- if a security manager exists, and the
+         caller does not have
+ManagementPermission("control")
+or an
+         option contains a file that the caller does not have permission to
+         operate on.
+See Also:
+Recording.getId()
+getRecordings
+List
+<
+RecordingInfo
+>
+getRecordings
+()
+Returns the list of the available recordings, not necessarily running.
+MBeanServer access
+:
+The mapped type of
+RecordingInfo
+is
+CompositeData
+with
+ attributes as specified in the
+RecordingInfo.from
+method.
+Returns:
+list of recordings, not
+null
+Throws:
+SecurityException
+- if a security manager exists and the
+         caller does not have
+ManagementPermission("monitor")
+See Also:
+RecordingInfo
+Recording
+getConfigurations
+List
+<
+ConfigurationInfo
+>
+getConfigurations
+()
+Returns the list of predefined configurations for this Java Virtual Machine (JVM).
+MBeanServer access
+:
+The mapped type of
+ConfigurationInfo
+is
+CompositeData
+with attributes as specified in the
+ConfigurationInfo.from
+method.
+Returns:
+the list of predefined configurations, not
+null
+Throws:
+SecurityException
+- if a security manager exists and the
+         caller does not have
+ManagementPermission("monitor")
+See Also:
+ConfigurationInfo
+Configuration
+getEventTypes
+List
+<
+EventTypeInfo
+>
+getEventTypes
+()
+Returns the list of currently registered event types.
+MBeanServer access
+:
+The mapped type of
+EventTypeInfo
+is
+CompositeData
+with
+ attributes as specified in the
+EventTypeInfo.from
+method.
+Returns:
+the list of registered event types, not
+null
+Throws:
+SecurityException
+- if a security manager exists and the
+         caller does not have
+ManagementPermission("monitor")
+See Also:
+EventTypeInfo
+EventType
+copyTo
+void
+copyTo
+(long recordingId,
+String
+outputFile)
+throws
+IOException
+,
+SecurityException
+Writes recording data to the specified file.
+If this method is invoked remotely from another process, the data is written
+ to a file named
+outputFile
+on the machine where the target Java
+ Virtual Machine (JVM) is running. If the file location is a relative path, it
+ is relative to the working directory where the target JVM was started.
+Parameters:
+recordingId
+- the ID of the recording to dump data for
+outputFile
+- the system-dependent file name where data is written, not
+null
+Throws:
+IOException
+- if the recording can't be dumped due to an I/O error (for
+         example, an invalid path)
+IllegalArgumentException
+- if a recording with the specified ID doesn't
+         exist
+IllegalStateException
+- if the recording is not yet started or if it is
+         already closed
+SecurityException
+- if a security manager exists and its
+SecurityManager.checkWrite(java.lang.String)
+method denies
+         write access to the named file or the caller does not have
+ManagmentPermission("control")
+See Also:
+Path.toString()
+Recording.dump(java.nio.file.Path)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

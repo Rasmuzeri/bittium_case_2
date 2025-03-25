@@ -1,0 +1,468 @@
+Reference (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang.ref
+Class Reference<T>
+java.lang.Object
+java.lang.ref.Reference<T>
+Type Parameters:
+T
+- the type of the referent
+Direct Known Subclasses:
+PhantomReference
+,
+SoftReference
+,
+WeakReference
+public abstract sealed class
+Reference<T>
+extends
+Object
+permits
+PhantomReference
+<T>,
+SoftReference
+<T>,
+WeakReference
+<T>
+(not exhaustive)
+Abstract base class for reference objects.  This class defines the
+ operations common to all reference objects.  Because reference objects are
+ implemented in close cooperation with the garbage collector, this class may
+ not be subclassed directly.
+Sealed Class Hierarchy Graph:
+Since:
+1.2
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+void
+clear
+()
+Clears this reference object.
+protected
+Object
+clone
+()
+Throws
+CloneNotSupportedException
+.
+boolean
+enqueue
+()
+Clears this reference object and adds it to the queue with which
+ it is registered, if any.
+T
+get
+()
+Returns this reference object's referent.
+boolean
+isEnqueued
+()
+Deprecated.
+This method was originally specified to test if a reference object has
+ been cleared and enqueued but was never implemented to do this test.
+static void
+reachabilityFence
+(
+Object
+ref)
+Ensures that the object referenced by the given reference remains
+strongly reachable
+,
+ regardless of any prior actions of the program that might otherwise cause
+ the object to become unreachable; thus, the referenced object is not
+ reclaimable by garbage collection at least until after the invocation of
+ this method.
+final boolean
+refersTo
+(
+T
+obj)
+Tests if the referent of this reference object is
+obj
+.
+Methods declared in class java.lang.
+Object
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Method Details
+get
+public
+T
+get
+()
+Returns this reference object's referent.  If this reference object has
+ been cleared, either by the program or by the garbage collector, then
+ this method returns
+null
+.
+API Note:
+This method returns a strong reference to the referent. This may cause
+ the garbage collector to treat it as strongly reachable until some later
+ collection cycle.  The
+refersTo
+method can be
+ used to avoid such strengthening when testing whether some object is
+ the referent of a reference object; that is, use
+ref.refersTo(obj)
+rather than
+ref.get() == obj
+.
+Returns:
+The object to which this reference refers, or
+null
+if this reference object has been cleared
+See Also:
+refersTo(T)
+refersTo
+public final
+boolean
+refersTo
+(
+T
+obj)
+Tests if the referent of this reference object is
+obj
+.
+ Using a
+null
+obj
+returns
+true
+if the
+ reference object has been cleared.
+Parameters:
+obj
+- the object to compare with this reference object's referent
+Returns:
+true
+if
+obj
+is the referent of this reference object
+Since:
+16
+clear
+public
+void
+clear
+()
+Clears this reference object.  Invoking this method will not cause this
+ object to be enqueued.
+This method is invoked only by Java code; when the garbage collector
+ clears references it does so directly, without invoking this method.
+isEnqueued
+@Deprecated
+(
+since
+="16")
+public
+boolean
+isEnqueued
+()
+Deprecated.
+This method was originally specified to test if a reference object has
+ been cleared and enqueued but was never implemented to do this test.
+ This method could be misused due to the inherent race condition
+ or without an associated
+ReferenceQueue
+.
+ An application relying on this method to release critical resources
+ could cause serious performance issue.
+ An application should use
+ReferenceQueue
+to reliably determine
+ what reference objects that have been enqueued or
+refersTo(null)
+to determine if this reference
+ object has been cleared.
+Tests if this reference object is in its associated queue, if any.
+ This method returns
+true
+only if all of the following conditions
+ are met:
+this reference object was registered with a queue when it was created; and
+the garbage collector has added this reference object to the queue
+     or
+enqueue()
+is called; and
+this reference object is not yet removed from the queue.
+Otherwise, this method returns
+false
+.
+ This method may return
+false
+if this reference object has been cleared
+ but not enqueued due to the race condition.
+Returns:
+true
+if and only if this reference object is
+           in its associated queue (if any).
+enqueue
+public
+boolean
+enqueue
+()
+Clears this reference object and adds it to the queue with which
+ it is registered, if any.
+This method is invoked only by Java code; when the garbage collector
+ enqueues references it does so directly, without invoking this method.
+Returns:
+true
+if this reference object was successfully
+           enqueued;
+false
+if it was already enqueued or if
+           it was not registered with a queue when it was created
+clone
+protected
+Object
+clone
+()
+                throws
+CloneNotSupportedException
+Throws
+CloneNotSupportedException
+. A
+Reference
+cannot be
+ meaningfully cloned. Construct a new
+Reference
+instead.
+Overrides:
+clone
+in class
+Object
+Returns:
+never returns normally
+Throws:
+CloneNotSupportedException
+- always
+Since:
+11
+See Also:
+Cloneable
+reachabilityFence
+public static
+void
+reachabilityFence
+(
+Object
+ref)
+Ensures that the object referenced by the given reference remains
+strongly reachable
+,
+ regardless of any prior actions of the program that might otherwise cause
+ the object to become unreachable; thus, the referenced object is not
+ reclaimable by garbage collection at least until after the invocation of
+ this method.  Invocation of this method does not itself initiate garbage
+ collection or finalization.
+This method establishes an ordering for
+strong reachability
+with respect to garbage collection.  It controls relations that are
+ otherwise only implicit in a program -- the reachability conditions
+ triggering garbage collection.  This method is designed for use in
+ uncommon situations of premature finalization where using
+synchronized
+blocks or methods, or using other synchronization
+ facilities are not possible or do not provide the desired control.  This
+ method is applicable only when reclamation may have visible effects,
+ which is possible for objects with finalizers (See Section
+12.6
+of
+The Java Language Specification
+) that
+ are implemented in ways that rely on ordering control for
+ correctness.
+API Note:
+Finalization may occur whenever the virtual machine detects that no
+ reference to an object will ever be stored in the heap: The garbage
+ collector may reclaim an object even if the fields of that object are
+ still in use, so long as the object has otherwise become unreachable.
+ This may have surprising and undesirable effects in cases such as the
+ following example in which the bookkeeping associated with a class is
+ managed through array indices.  Here, method
+action
+uses a
+reachabilityFence
+to ensure that the
+Resource
+object is
+ not reclaimed before bookkeeping on an associated
+ExternalResource
+has been performed; in particular here, to
+ ensure that the array slot holding the
+ExternalResource
+is not
+ nulled out in method
+Object.finalize()
+, which may otherwise run
+ concurrently.
+class Resource {
+   private static ExternalResource[] externalResourceArray = ...
+
+   int myIndex;
+   Resource(...) {
+     myIndex = ...
+     externalResourceArray[myIndex] = ...;
+     ...
+   }
+   protected void finalize() {
+     externalResourceArray[myIndex] = null;
+     ...
+   }
+   public void action() {
+     try {
+       // ...
+       int i = myIndex;
+       Resource.update(externalResourceArray[i]);
+     } finally {
+       Reference.reachabilityFence(this);
+     }
+   }
+   private static void update(ExternalResource ext) {
+     ext.status = ...;
+   }
+ }
+Here, the invocation of
+reachabilityFence
+is nonintuitively
+ placed
+after
+the call to
+update
+, to ensure that the
+ array slot is not nulled out by
+Object.finalize()
+before the
+ update, even if the call to
+action
+was the last use of this
+ object.  This might be the case if, for example a usage in a user program
+ had the form
+new Resource().action();
+which retains no other
+ reference to this
+Resource
+.  While probably overkill here,
+reachabilityFence
+is placed in a
+finally
+block to ensure
+ that it is invoked across all paths in the method.  In a method with more
+ complex control paths, you might need further precautions to ensure that
+reachabilityFence
+is encountered along all of them.
+It is sometimes possible to better encapsulate use of
+reachabilityFence
+.  Continuing the above example, if it were
+ acceptable for the call to method
+update
+to proceed even if the
+ finalizer had already executed (nulling out slot), then you could
+ localize use of
+reachabilityFence
+:
+public void action2() {
+   // ...
+   Resource.update(getExternalResource());
+ }
+ private ExternalResource getExternalResource() {
+   ExternalResource ext = externalResourceArray[myIndex];
+   Reference.reachabilityFence(this);
+   return ext;
+ }
+Method
+reachabilityFence
+is not required in constructions
+ that themselves ensure reachability.  For example, because objects that
+ are locked cannot, in general, be reclaimed, it would suffice if all
+ accesses of the object, in all methods of class
+Resource
+(including
+finalize
+) were enclosed in
+synchronized (this)
+blocks.  (Further, such blocks must not include infinite loops, or
+ themselves be unreachable, which fall into the corner case exceptions to
+ the "in general" disclaimer.)  However, method
+reachabilityFence
+remains a better option in cases where this approach is not as efficient,
+ desirable, or possible; for example because it would encounter deadlock.
+Parameters:
+ref
+- the reference. If
+null
+, this method has no effect.
+Since:
+9
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

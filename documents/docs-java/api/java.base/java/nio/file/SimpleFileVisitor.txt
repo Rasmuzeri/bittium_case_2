@@ -1,0 +1,287 @@
+SimpleFileVisitor (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.nio.file
+Class SimpleFileVisitor<T>
+java.lang.Object
+java.nio.file.SimpleFileVisitor<T>
+Type Parameters:
+T
+- The type of reference to the files
+All Implemented Interfaces:
+FileVisitor
+<T>
+public class
+SimpleFileVisitor<T>
+extends
+Object
+implements
+FileVisitor
+<T>
+A simple visitor of files with default behavior to visit all files and to
+ re-throw I/O errors.
+Methods in this class may be overridden subject to their general contract.
+Since:
+1.7
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+SimpleFileVisitor
+()
+Initializes a new instance of this class.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+FileVisitResult
+postVisitDirectory
+(
+T
+dir,
+IOException
+exc)
+Invoked for a directory after entries in the directory, and all of their
+ descendants, have been visited.
+FileVisitResult
+preVisitDirectory
+(
+T
+dir,
+BasicFileAttributes
+attrs)
+Invoked for a directory before entries in the directory are visited.
+FileVisitResult
+visitFile
+(
+T
+file,
+BasicFileAttributes
+attrs)
+Invoked for a file in a directory.
+FileVisitResult
+visitFileFailed
+(
+T
+file,
+IOException
+exc)
+Invoked for a file that could not be visited.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+SimpleFileVisitor
+protected
+SimpleFileVisitor
+()
+Initializes a new instance of this class.
+Method Details
+preVisitDirectory
+public
+FileVisitResult
+preVisitDirectory
+(
+T
+dir,
+BasicFileAttributes
+attrs)
+throws
+IOException
+Invoked for a directory before entries in the directory are visited.
+Unless overridden, this method returns
+CONTINUE
+.
+Specified by:
+preVisitDirectory
+in interface
+FileVisitor
+<
+T
+>
+Parameters:
+dir
+- a reference to the directory
+attrs
+- the directory's basic attributes
+Returns:
+the visit result
+Throws:
+IOException
+- if an I/O error occurs
+visitFile
+public
+FileVisitResult
+visitFile
+(
+T
+file,
+BasicFileAttributes
+attrs)
+throws
+IOException
+Invoked for a file in a directory.
+Unless overridden, this method returns
+CONTINUE
+.
+Specified by:
+visitFile
+in interface
+FileVisitor
+<
+T
+>
+Parameters:
+file
+- a reference to the file
+attrs
+- the file's basic attributes
+Returns:
+the visit result
+Throws:
+IOException
+- if an I/O error occurs
+visitFileFailed
+public
+FileVisitResult
+visitFileFailed
+(
+T
+file,
+IOException
+exc)
+throws
+IOException
+Invoked for a file that could not be visited.
+Unless overridden, this method re-throws the I/O exception that prevented
+ the file from being visited.
+Specified by:
+visitFileFailed
+in interface
+FileVisitor
+<
+T
+>
+Parameters:
+file
+- a reference to the file
+exc
+- the I/O exception that prevented the file from being visited
+Returns:
+the visit result
+Throws:
+IOException
+- if an I/O error occurs
+postVisitDirectory
+public
+FileVisitResult
+postVisitDirectory
+(
+T
+dir,
+IOException
+exc)
+throws
+IOException
+Invoked for a directory after entries in the directory, and all of their
+ descendants, have been visited.
+Unless overridden, this method returns
+CONTINUE
+if the directory iteration completes without an I/O exception;
+ otherwise this method re-throws the I/O exception that caused the iteration
+ of the directory to terminate prematurely.
+Specified by:
+postVisitDirectory
+in interface
+FileVisitor
+<
+T
+>
+Parameters:
+dir
+- a reference to the directory
+exc
+-
+null
+if the iteration of the directory completes without
+          an error; otherwise the I/O exception that caused the iteration
+          of the directory to complete prematurely
+Returns:
+the visit result
+Throws:
+IOException
+- if an I/O error occurs
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

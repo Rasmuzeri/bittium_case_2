@@ -1,0 +1,270 @@
+SourceCodeAnalysis.Completeness (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Enum Constants
+Field
+Method
+Detail:
+Enum Constants
+Field
+Method
+Summary:
+Nested
+|
+Enum Constants
+|
+Field |
+Method
+Detail:
+Enum Constants
+|
+Field |
+Method
+SEARCH
+Module
+jdk.jshell
+Package
+jdk.jshell
+Enum Class SourceCodeAnalysis.Completeness
+java.lang.Object
+java.lang.Enum
+<
+SourceCodeAnalysis.Completeness
+>
+jdk.jshell.SourceCodeAnalysis.Completeness
+All Implemented Interfaces:
+Serializable
+,
+Comparable
+<
+SourceCodeAnalysis.Completeness
+>
+,
+Constable
+Enclosing class:
+SourceCodeAnalysis
+public static enum
+SourceCodeAnalysis.Completeness
+extends
+Enum
+<
+SourceCodeAnalysis.Completeness
+>
+Describes the completeness of the given input.
+Nested Class Summary
+Nested classes/interfaces declared in class java.lang.
+Enum
+Enum.EnumDesc
+<
+E
+extends
+Enum
+<
+E
+>>
+Enum Constant Summary
+Enum Constants
+Enum Constant
+Description
+COMPLETE
+The input is a complete source snippet (declaration or statement) as is.
+COMPLETE_WITH_SEMI
+With this addition of a semicolon the input is a complete source snippet.
+CONSIDERED_INCOMPLETE
+A statement with a trailing (non-terminated) empty statement.
+DEFINITELY_INCOMPLETE
+There must be further source beyond the given input in order for it
+ to be complete.
+EMPTY
+An empty input.
+UNKNOWN
+The completeness of the input could not be determined because it
+ contains errors.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+isComplete
+()
+Indicates whether the first snippet of source is complete.
+static
+SourceCodeAnalysis.Completeness
+valueOf
+(
+String
+name)
+Returns the enum constant of this class with the specified name.
+static
+SourceCodeAnalysis.Completeness
+[]
+values
+()
+Returns an array containing the constants of this enum class, in
+the order they are declared.
+Methods declared in class java.lang.
+Enum
+clone
+,
+compareTo
+,
+describeConstable
+,
+equals
+,
+finalize
+,
+getDeclaringClass
+,
+hashCode
+,
+name
+,
+ordinal
+,
+toString
+,
+valueOf
+Methods declared in class java.lang.
+Object
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Enum Constant Details
+COMPLETE
+public static final
+SourceCodeAnalysis.Completeness
+COMPLETE
+The input is a complete source snippet (declaration or statement) as is.
+COMPLETE_WITH_SEMI
+public static final
+SourceCodeAnalysis.Completeness
+COMPLETE_WITH_SEMI
+With this addition of a semicolon the input is a complete source snippet.
+ This will only be returned when the end of input is encountered.
+DEFINITELY_INCOMPLETE
+public static final
+SourceCodeAnalysis.Completeness
+DEFINITELY_INCOMPLETE
+There must be further source beyond the given input in order for it
+ to be complete.  A semicolon would not complete it.
+ This will only be returned when the end of input is encountered.
+CONSIDERED_INCOMPLETE
+public static final
+SourceCodeAnalysis.Completeness
+CONSIDERED_INCOMPLETE
+A statement with a trailing (non-terminated) empty statement.
+ Though technically it would be a complete statement
+ with the addition of a semicolon, it is rare
+ that that assumption is the desired behavior.
+ The input is considered incomplete.  Comments and white-space are
+ still considered empty.
+EMPTY
+public static final
+SourceCodeAnalysis.Completeness
+EMPTY
+An empty input.
+ The input is considered incomplete.  Comments and white-space are
+ still considered empty.
+UNKNOWN
+public static final
+SourceCodeAnalysis.Completeness
+UNKNOWN
+The completeness of the input could not be determined because it
+ contains errors. Error detection is not a goal of completeness
+ analysis, however errors interfered with determining its completeness.
+ The input is considered complete because evaluating is the best
+ mechanism to get error information.
+Method Details
+values
+public static
+SourceCodeAnalysis.Completeness
+[]
+values
+()
+Returns an array containing the constants of this enum class, in
+the order they are declared.
+Returns:
+an array containing the constants of this enum class, in the order they are declared
+valueOf
+public static
+SourceCodeAnalysis.Completeness
+valueOf
+(
+String
+name)
+Returns the enum constant of this class with the specified name.
+The string must match
+exactly
+an identifier used to declare an
+enum constant in this class.  (Extraneous whitespace characters are 
+not permitted.)
+Parameters:
+name
+- the name of the enum constant to be returned.
+Returns:
+the enum constant with the specified name
+Throws:
+IllegalArgumentException
+- if this enum class has no constant with the specified name
+NullPointerException
+- if the argument is null
+isComplete
+public
+boolean
+isComplete
+()
+Indicates whether the first snippet of source is complete.
+ For example, "
+x=
+" is not
+ complete, but "
+x=2
+" is complete, even though a subsequent line could
+ make it "
+x=2+2
+". Already erroneous code is marked complete.
+Returns:
+true
+if the input is or begins a complete Snippet;
+ otherwise
+false
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

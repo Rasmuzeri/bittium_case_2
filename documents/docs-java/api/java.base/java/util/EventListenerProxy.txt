@@ -1,0 +1,166 @@
+EventListenerProxy (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.util
+Class EventListenerProxy<T extends
+EventListener
+>
+java.lang.Object
+java.util.EventListenerProxy<T>
+Type Parameters:
+T
+- the type of
+EventListener
+being wrapped
+All Implemented Interfaces:
+EventListener
+Direct Known Subclasses:
+AWTEventListenerProxy
+,
+PropertyChangeListenerProxy
+,
+VetoableChangeListenerProxy
+public abstract class
+EventListenerProxy<T extends
+EventListener
+>
+extends
+Object
+implements
+EventListener
+An abstract wrapper class for an
+EventListener
+class
+ which associates a set of additional parameters with the listener.
+ Subclasses must provide the storage and accessor methods
+ for the additional arguments or parameters.
+For example, a bean which supports named properties
+ would have a two argument method signature for adding
+ a
+PropertyChangeListener
+for a property:
+public void addPropertyChangeListener(String propertyName,
+                                       PropertyChangeListener listener)
+If the bean also implemented the zero argument get listener method:
+public PropertyChangeListener[] getPropertyChangeListeners()
+then the array may contain inner
+PropertyChangeListeners
+which are also
+PropertyChangeListenerProxy
+objects.
+If the calling method is interested in retrieving the named property
+ then it would have to test the element to see if it is a proxy class.
+Since:
+1.4
+Constructor Summary
+Constructors
+Constructor
+Description
+EventListenerProxy
+(
+T
+listener)
+Creates a proxy for the specified listener.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+T
+getListener
+()
+Returns the listener associated with the proxy.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+EventListenerProxy
+public
+EventListenerProxy
+(
+T
+listener)
+Creates a proxy for the specified listener.
+Parameters:
+listener
+- the listener object
+Method Details
+getListener
+public
+T
+getListener
+()
+Returns the listener associated with the proxy.
+Returns:
+the listener associated with the proxy
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

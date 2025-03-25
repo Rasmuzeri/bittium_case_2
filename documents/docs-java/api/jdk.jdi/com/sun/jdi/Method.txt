@@ -1,0 +1,885 @@
+Method (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.jdi
+Package
+com.sun.jdi
+Interface Method
+All Superinterfaces:
+Accessible
+,
+Comparable
+<
+Method
+>
+,
+Locatable
+,
+Mirror
+,
+TypeComponent
+public interface
+Method
+extends
+TypeComponent
+,
+Locatable
+,
+Comparable
+<
+Method
+>
+A static or instance method in the target VM. See
+TypeComponent
+for general information about Field and Method mirrors.
+Since:
+1.3
+See Also:
+ObjectReference
+ReferenceType
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+List
+<
+Location
+>
+allLineLocations
+()
+Returns a list containing a
+Location
+object for
+ each executable source line in this method.
+List
+<
+Location
+>
+allLineLocations
+(
+String
+stratum,
+String
+sourceName)
+Returns a list containing a
+Location
+object for
+ each executable source line in this method.
+List
+<
+LocalVariable
+>
+arguments
+()
+Returns a list containing each
+LocalVariable
+that is
+ declared as an argument of this method.
+List
+<
+String
+>
+argumentTypeNames
+()
+Returns a list containing a text representation of the type
+ of each formal parameter of this method.
+List
+<
+Type
+>
+argumentTypes
+()
+Returns a list containing the type
+ of each formal parameter of this method.
+byte[]
+bytecodes
+()
+Returns an array containing the bytecodes for this method.
+boolean
+equals
+(
+Object
+obj)
+Compares the specified Object with this method for equality.
+int
+hashCode
+()
+Returns the hash code value for this Method.
+boolean
+isAbstract
+()
+Determine if this method is abstract.
+boolean
+isBridge
+()
+Determine if this method is a bridge method.
+boolean
+isConstructor
+()
+Determine if this method is a constructor.
+default boolean
+isDefault
+()
+Determine if this method is a default method
+boolean
+isNative
+()
+Determine if this method is native.
+boolean
+isObsolete
+()
+Determine if this method is obsolete.
+boolean
+isStaticInitializer
+()
+Determine if this method is a static initializer.
+boolean
+isSynchronized
+()
+Determine if this method is synchronized.
+boolean
+isVarArgs
+()
+Determine if this method accepts a variable number of arguments.
+Location
+location
+()
+Returns the
+Location
+of this method, if there
+ is executable code associated with it.
+Location
+locationOfCodeIndex
+(long codeIndex)
+Returns a
+Location
+for the given code index.
+List
+<
+Location
+>
+locationsOfLine
+(int lineNumber)
+Returns a List containing all
+Location
+objects
+ that map to the given line number.
+List
+<
+Location
+>
+locationsOfLine
+(
+String
+stratum,
+String
+sourceName,
+ int lineNumber)
+Returns a List containing all
+Location
+objects
+ that map to the given line number and source name.
+Type
+returnType
+()
+Returns the return type,
+ as specified in the declaration of this method.
+String
+returnTypeName
+()
+Returns a text representation of the return type,
+ as specified in the declaration of this method.
+List
+<
+LocalVariable
+>
+variables
+()
+Returns a list containing each
+LocalVariable
+declared
+ in this method.
+List
+<
+LocalVariable
+>
+variablesByName
+(
+String
+name)
+Returns a list containing each
+LocalVariable
+of a
+ given name in this method.
+Methods declared in interface com.sun.jdi.
+Accessible
+isPackagePrivate
+,
+isPrivate
+,
+isProtected
+,
+isPublic
+,
+modifiers
+Methods declared in interface java.lang.
+Comparable
+compareTo
+Methods declared in interface com.sun.jdi.
+Mirror
+toString
+,
+virtualMachine
+Methods declared in interface com.sun.jdi.
+TypeComponent
+declaringType
+,
+genericSignature
+,
+isFinal
+,
+isStatic
+,
+isSynthetic
+,
+name
+,
+signature
+Method Details
+returnTypeName
+String
+returnTypeName
+()
+Returns a text representation of the return type,
+ as specified in the declaration of this method.
+This type name is always available even if
+ the type has not yet been created or loaded.
+Returns:
+a
+String
+containing the return type name.
+returnType
+Type
+returnType
+()
+         throws
+ClassNotLoadedException
+Returns the return type,
+ as specified in the declaration of this method.
+Note: if the return type of this method is a reference type (class,
+ interface, or array) and it has not been created or loaded
+ by the declaring type's class loader - that is,
+declaringType()
+.classLoader()
+,
+ then ClassNotLoadedException will be thrown.
+ Also, a reference type may have been loaded but not yet prepared,
+ in which case the type will be returned
+ but attempts to perform some operations on the returned type
+ (e.g.
+fields()
+) will throw
+ a
+ClassNotPreparedException
+.
+ Use
+ReferenceType.isPrepared()
+to determine if
+ a reference type is prepared.
+Returns:
+the return
+Type
+of this method.
+Throws:
+ClassNotLoadedException
+- if the type has not yet been
+ created or loaded
+ through the appropriate class loader.
+See Also:
+Type
+Field.type() - for usage examples
+argumentTypeNames
+List
+<
+String
+>
+argumentTypeNames
+()
+Returns a list containing a text representation of the type
+ of each formal parameter of this method.
+This list is always available even if
+ the types have not yet been created or loaded.
+Returns:
+a
+List
+of
+String
+,
+ one List element for each parameter of this method.
+ Each element represents the type of a formal parameter
+ as specified at compile-time.
+ If the formal parameter was declared with an ellipsis, then
+ it is represented as an array of the type before the ellipsis.
+argumentTypes
+List
+<
+Type
+>
+argumentTypes
+()
+                  throws
+ClassNotLoadedException
+Returns a list containing the type
+ of each formal parameter of this method.
+Note: if there is any parameter whose type
+ is a reference type (class, interface, or array)
+ and it has not been created or loaded
+ by the declaring type's class loader - that is,
+declaringType()
+.classLoader()
+,
+ then ClassNotLoadedException will be thrown.
+ Also, a reference type may have been loaded but not yet prepared,
+ in which case the list will be returned
+ but attempts to perform some operations on the type
+ (e.g.
+fields()
+) will throw
+ a
+ClassNotPreparedException
+.
+ Use
+ReferenceType.isPrepared()
+to determine if
+ a reference type is prepared.
+Returns:
+return a
+List
+of
+Type
+,
+ one List element for each parameter of this method.
+ Each element represents the type of a formal parameter
+ as specified at compile-time.
+ If the formal parameter was declared with an ellipsis, then
+ it is represented as an array of the type before the ellipsis.
+Throws:
+ClassNotLoadedException
+- if the type has not yet been loaded
+ through the appropriate class loader.
+See Also:
+Type
+isAbstract
+boolean
+isAbstract
+()
+Determine if this method is abstract.
+Returns:
+true
+if the method is declared abstract;
+false
+otherwise.
+isDefault
+default
+boolean
+isDefault
+()
+Determine if this method is a default method
+Returns:
+true
+if the method is declared default;
+false
+otherwise.
+Since:
+1.8
+isSynchronized
+boolean
+isSynchronized
+()
+Determine if this method is synchronized.
+Returns:
+true
+if the method is declared synchronized;
+false
+otherwise.
+isNative
+boolean
+isNative
+()
+Determine if this method is native.
+Returns:
+true
+if the method is declared native;
+false
+otherwise.
+isVarArgs
+boolean
+isVarArgs
+()
+Determine if this method accepts a variable number of arguments.
+Returns:
+true
+if the method accepts a variable number
+ of arguments,
+false
+otherwise.
+Since:
+1.5
+isBridge
+boolean
+isBridge
+()
+Determine if this method is a bridge method. Bridge
+ methods are defined in
+The Java Language Specification
+.
+Returns:
+true
+if the method is a bridge method,
+false
+otherwise.
+Since:
+1.5
+isConstructor
+boolean
+isConstructor
+()
+Determine if this method is a constructor.
+Returns:
+true
+if the method is a constructor;
+false
+otherwise.
+isStaticInitializer
+boolean
+isStaticInitializer
+()
+Determine if this method is a static initializer.
+Returns:
+true
+if the method is a static initializer;
+false
+otherwise.
+isObsolete
+boolean
+isObsolete
+()
+Determine if this method is obsolete.
+Returns:
+true
+if this method has been made obsolete by a
+VirtualMachine.redefineClasses(java.util.Map<? extends com.sun.jdi.ReferenceType, byte[]>)
+operation.
+Since:
+1.4
+allLineLocations
+List
+<
+Location
+>
+allLineLocations
+()
+                         throws
+AbsentInformationException
+Returns a list containing a
+Location
+object for
+ each executable source line in this method.
+This method is equivalent to
+allLineLocations(vm.getDefaultStratum(),null)
+-
+ see
+allLineLocations(String,String)
+for more information.
+Returns:
+a List of all source line
+Location
+objects.
+Throws:
+AbsentInformationException
+- if there is no line
+ number information for this (non-native, non-abstract)
+ method.
+allLineLocations
+List
+<
+Location
+>
+allLineLocations
+(
+String
+stratum,
+String
+sourceName)
+throws
+AbsentInformationException
+Returns a list containing a
+Location
+object for
+ each executable source line in this method.
+Each location maps a source line to a range of code
+ indices.
+ The beginning of the range can be determined through
+Location.codeIndex()
+.
+ The returned list is ordered by code index
+ (from low to high).
+The returned list may contain multiple locations for a
+ particular line number, if the compiler and/or VM has
+ mapped that line to two or more disjoint code index ranges.
+If the method is native or abstract, an empty list is
+ returned.
+Returned list is for the specified
+stratum
+(see
+Location
+for a description of strata).
+Parameters:
+stratum
+- The stratum to retrieve information from
+ or
+null
+for the
+ReferenceType.defaultStratum()
+sourceName
+- Return locations only within this
+ source file or
+null
+to return locations.
+Returns:
+a List of all source line
+Location
+objects.
+Throws:
+AbsentInformationException
+- if there is no line
+ number information for this (non-native, non-abstract)
+ method.  Or if
+sourceName
+is non-
+null
+and source name information is not present.
+Since:
+1.4
+locationsOfLine
+List
+<
+Location
+>
+locationsOfLine
+(int lineNumber)
+throws
+AbsentInformationException
+Returns a List containing all
+Location
+objects
+ that map to the given line number.
+This method is equivalent to
+locationsOfLine(vm.getDefaultStratum(), null,
+ lineNumber)
+-
+ see
+locationsOfLine(java.lang.String,java.lang.String,int)
+for more information.
+Parameters:
+lineNumber
+- the line number
+Returns:
+a List of
+Location
+objects that map to
+ the given line number.
+Throws:
+AbsentInformationException
+- if there is no line
+ number information for this method.
+locationsOfLine
+List
+<
+Location
+>
+locationsOfLine
+(
+String
+stratum,
+String
+sourceName,
+ int lineNumber)
+throws
+AbsentInformationException
+Returns a List containing all
+Location
+objects
+ that map to the given line number and source name.
+Returns a list containing each
+Location
+that maps
+ to the given line. The returned list will contain a
+ location for each disjoint range of code indices that have
+ been assigned to the given line by the compiler and/or
+ VM. Each returned location corresponds to the beginning of
+ this range.  An empty list will be returned if there is no
+ executable code at the specified line number; specifically,
+ native and abstract methods will always return an empty
+ list.
+Returned list is for the specified
+stratum
+(see
+Location
+for a description of strata).
+Parameters:
+stratum
+- the stratum to use for comparing line number
+                and source name, or null to use the default
+                stratum
+sourceName
+- the source name containing the
+                   line number, or null to match all
+                   source names
+lineNumber
+- the line number
+Returns:
+a List of
+Location
+objects that map to
+ the given line number.
+Throws:
+AbsentInformationException
+- if there is no line
+ number information for this method.
+ Or if
+sourceName
+is non-
+null
+and source name information is not present.
+Since:
+1.4
+locationOfCodeIndex
+Location
+locationOfCodeIndex
+(long codeIndex)
+Returns a
+Location
+for the given code index.
+Returns:
+the
+Location
+corresponding to the
+ given code index or null if the specified code index is not a
+ valid code index for this method (native and abstract methods
+ will always return null).
+variables
+List
+<
+LocalVariable
+>
+variables
+()
+                       throws
+AbsentInformationException
+Returns a list containing each
+LocalVariable
+declared
+ in this method. The list includes any variable declared in any
+ scope within the method. It may contain multiple variables of the
+ same name declared within disjoint scopes. Arguments are considered
+ local variables and will be present in the returned list.
+
+ If local variable information is not available, values of
+ actual arguments to method invocations can be obtained
+ by using the method
+StackFrame.getArgumentValues()
+Returns:
+the list of
+LocalVariable
+objects which mirror
+ local variables declared in this method in the target VM.
+ If there are no local variables, a zero-length list is returned.
+Throws:
+AbsentInformationException
+- if there is no variable
+ information for this method.
+ Generally, local variable information is not available for
+ native or abstract methods (that is, their argument name
+ information is not available), thus they will throw this exception.
+variablesByName
+List
+<
+LocalVariable
+>
+variablesByName
+(
+String
+name)
+throws
+AbsentInformationException
+Returns a list containing each
+LocalVariable
+of a
+ given name in this method.
+ Multiple variables can be returned
+ if the same variable name is used in disjoint
+ scopes within the method.
+Returns:
+the list of
+LocalVariable
+objects of the given
+ name.
+ If there are no matching local variables, a zero-length list
+ is returned.
+Throws:
+AbsentInformationException
+- if there is no variable
+ information for this method.
+ Generally, local variable information is not available for
+ native or abstract methods (that is, their argument name
+ information is not available), thus they will throw this exception.
+arguments
+List
+<
+LocalVariable
+>
+arguments
+()
+                       throws
+AbsentInformationException
+Returns a list containing each
+LocalVariable
+that is
+ declared as an argument of this method.
+
+ If local variable information is not available, values of
+ actual arguments to method invocations can be obtained
+ by using the method
+StackFrame.getArgumentValues()
+Returns:
+the list of
+LocalVariable
+arguments.
+ If there are no arguments, a zero-length list is returned.
+Throws:
+AbsentInformationException
+- if there is no variable
+ information for this method.
+ Generally, local variable information is not available for
+ native or abstract methods (that is, their argument name
+ information is not available), thus they will throw this exception.
+bytecodes
+byte[]
+bytecodes
+()
+Returns an array containing the bytecodes for this method.
+Not all target virtual machines support this operation.
+ Use
+VirtualMachine.canGetBytecodes()
+to determine if the operation is supported.
+Returns:
+the array of bytecodes; abstract and native methods
+ will return a zero-length array.
+Throws:
+UnsupportedOperationException
+- if
+ the target virtual machine does not support
+ the retrieval of bytecodes.
+location
+Location
+location
+()
+Returns the
+Location
+of this method, if there
+ is executable code associated with it.
+Specified by:
+location
+in interface
+Locatable
+Returns:
+the
+Location
+of this mirror, or null if
+ this is an abstract method; native methods will return a
+ Location object whose codeIndex is -1.
+equals
+boolean
+equals
+(
+Object
+obj)
+Compares the specified Object with this method for equality.
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- the reference object with which to compare.
+Returns:
+true if the Object is a method and if both
+ mirror the same method (declared in the same class or interface, in
+ the same VM).
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+int
+hashCode
+()
+Returns the hash code value for this Method.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+the integer hash code.
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

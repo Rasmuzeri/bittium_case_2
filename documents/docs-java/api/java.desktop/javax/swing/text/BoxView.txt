@@ -1,0 +1,1403 @@
+BoxView (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.text
+Class BoxView
+java.lang.Object
+javax.swing.text.View
+javax.swing.text.CompositeView
+javax.swing.text.BoxView
+All Implemented Interfaces:
+SwingConstants
+Direct Known Subclasses:
+BlockView
+,
+FlowView
+,
+TableView
+,
+TableView.TableCell
+,
+TableView.TableRow
+,
+WrappedPlainView
+,
+ZoneView
+public class
+BoxView
+extends
+CompositeView
+A view that arranges its children into a box shape by tiling
+ its children along an axis.  The box is somewhat like that
+ found in TeX where there is alignment of the
+ children, flexibility of the children is considered, etc.
+ This is a building block that might be useful to represent
+ things like a collection of lines, paragraphs,
+ lists, columns, pages, etc.  The axis along which the children are tiled is
+ considered the major axis.  The orthogonal axis is the minor axis.
+Layout for each axis is handled separately by the methods
+layoutMajorAxis
+and
+layoutMinorAxis
+.
+ Subclasses can change the layout algorithm by
+ reimplementing these methods.    These methods will be called
+ as necessary depending upon whether or not there is cached
+ layout information and the cache is considered
+ valid.  These methods are typically called if the given size
+ along the axis changes, or if
+layoutChanged
+is
+ called to force an updated layout.  The
+layoutChanged
+method invalidates cached layout information, if there is any.
+ The requirements published to the parent view are calculated by
+ the methods
+calculateMajorAxisRequirements
+and
+calculateMinorAxisRequirements
+.
+ If the layout algorithm is changed, these methods will
+ likely need to be reimplemented.
+Field Summary
+Fields declared in class javax.swing.text.
+View
+BadBreakWeight
+,
+ExcellentBreakWeight
+,
+ForcedBreakWeight
+,
+GoodBreakWeight
+,
+X_AXIS
+,
+Y_AXIS
+Fields declared in interface javax.swing.
+SwingConstants
+BOTTOM
+,
+CENTER
+,
+EAST
+,
+HORIZONTAL
+,
+LEADING
+,
+LEFT
+,
+NEXT
+,
+NORTH
+,
+NORTH_EAST
+,
+NORTH_WEST
+,
+PREVIOUS
+,
+RIGHT
+,
+SOUTH
+,
+SOUTH_EAST
+,
+SOUTH_WEST
+,
+TOP
+,
+TRAILING
+,
+VERTICAL
+,
+WEST
+Constructor Summary
+Constructors
+Constructor
+Description
+BoxView
+(
+Element
+elem,
+ int axis)
+Constructs a
+BoxView
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+protected void
+baselineLayout
+(int targetSpan,
+ int axis,
+ int[] offsets,
+ int[] spans)
+Computes the location and extent of each child view
+ in this
+BoxView
+given the
+targetSpan
+,
+ which is the width (or height) of the region we have to
+ work with.
+protected
+SizeRequirements
+baselineRequirements
+(int axis,
+SizeRequirements
+r)
+Calculates the size requirements for this
+BoxView
+by examining the size of each child view.
+protected
+SizeRequirements
+calculateMajorAxisRequirements
+(int axis,
+SizeRequirements
+r)
+Calculates the size requirements for the major axis
+axis
+.
+protected
+SizeRequirements
+calculateMinorAxisRequirements
+(int axis,
+SizeRequirements
+r)
+Calculates the size requirements for the minor axis
+axis
+.
+protected void
+childAllocation
+(int index,
+Rectangle
+alloc)
+Allocates a region for a child view.
+protected boolean
+flipEastAndWestAtEnds
+(int position,
+Position.Bias
+bias)
+Determines in which direction the next view lays.
+protected void
+forwardUpdate
+(
+DocumentEvent.ElementChange
+ec,
+DocumentEvent
+e,
+Shape
+a,
+ViewFactory
+f)
+Forwards the given
+DocumentEvent
+to the child views
+ that need to be notified of the change to the model.
+float
+getAlignment
+(int axis)
+Determines the desired alignment for this view along an
+ axis.
+int
+getAxis
+()
+Fetches the tile axis property.
+Shape
+getChildAllocation
+(int index,
+Shape
+a)
+Fetches the allocation for the given child view.
+int
+getHeight
+()
+Returns the current height of the box.
+float
+getMaximumSpan
+(int axis)
+Determines the maximum span for this view along an
+ axis.
+float
+getMinimumSpan
+(int axis)
+Determines the minimum span for this view along an
+ axis.
+protected int
+getOffset
+(int axis,
+ int childIndex)
+Fetches the offset of a particular child's current layout.
+float
+getPreferredSpan
+(int axis)
+Determines the preferred span for this view along an
+ axis.
+int
+getResizeWeight
+(int axis)
+Gets the resize weight.
+protected int
+getSpan
+(int axis,
+ int childIndex)
+Fetches the span of a particular child's current layout.
+protected
+View
+getViewAtPoint
+(int x,
+ int y,
+Rectangle
+alloc)
+Fetches the child view at the given coordinates.
+int
+getWidth
+()
+Returns the current width of the box.
+protected boolean
+isAfter
+(int x,
+ int y,
+Rectangle
+innerAlloc)
+Determines if a point falls after an allocated region.
+protected boolean
+isAllocationValid
+()
+Are the allocations for the children still
+ valid?
+protected boolean
+isBefore
+(int x,
+ int y,
+Rectangle
+innerAlloc)
+Determines if a point falls before an allocated region.
+protected boolean
+isLayoutValid
+(int axis)
+Determines if the layout is valid along the given axis.
+protected void
+layout
+(int width,
+ int height)
+Perform layout on the box
+void
+layoutChanged
+(int axis)
+Invalidates the layout along an axis.
+protected void
+layoutMajorAxis
+(int targetSpan,
+ int axis,
+ int[] offsets,
+ int[] spans)
+Performs layout for the major axis of the box (i.e. the
+ axis that it represents).
+protected void
+layoutMinorAxis
+(int targetSpan,
+ int axis,
+ int[] offsets,
+ int[] spans)
+Performs layout for the minor axis of the box (i.e. the
+ axis orthogonal to the axis that it represents).
+Shape
+modelToView
+(int pos,
+Shape
+a,
+Position.Bias
+b)
+Provides a mapping from the document model coordinate space
+ to the coordinate space of the view mapped to it.
+void
+paint
+(
+Graphics
+g,
+Shape
+allocation)
+Renders the
+BoxView
+using the given
+ rendering surface and area
+ on that surface.
+protected void
+paintChild
+(
+Graphics
+g,
+Rectangle
+alloc,
+ int index)
+Paints a child.
+void
+preferenceChanged
+(
+View
+child,
+ boolean width,
+ boolean height)
+This is called by a child to indicate its
+ preferred span has changed.
+void
+replace
+(int index,
+ int length,
+View
+[] elems)
+Invalidates the layout and resizes the cache of
+ requests/allocations.
+void
+setAxis
+(int axis)
+Sets the tile axis property.
+void
+setSize
+(float width,
+ float height)
+Sets the size of the view.
+int
+viewToModel
+(float x,
+ float y,
+Shape
+a,
+Position.Bias
+[] bias)
+Provides a mapping from the view coordinate space to the logical
+ coordinate space of the model.
+Methods declared in class javax.swing.text.
+CompositeView
+getBottomInset
+,
+getInsideAllocation
+,
+getLeftInset
+,
+getNextEastWestVisualPositionFrom
+,
+getNextNorthSouthVisualPositionFrom
+,
+getNextVisualPositionFrom
+,
+getRightInset
+,
+getTopInset
+,
+getView
+,
+getViewAtPosition
+,
+getViewCount
+,
+getViewIndex
+,
+getViewIndexAtPosition
+,
+loadChildren
+,
+modelToView
+,
+setInsets
+,
+setParagraphInsets
+,
+setParent
+Methods declared in class javax.swing.text.
+View
+append
+,
+breakView
+,
+changedUpdate
+,
+createFragment
+,
+forwardUpdateToView
+,
+getAttributes
+,
+getBreakWeight
+,
+getContainer
+,
+getDocument
+,
+getElement
+,
+getEndOffset
+,
+getGraphics
+,
+getParent
+,
+getStartOffset
+,
+getToolTipText
+,
+getViewFactory
+,
+getViewIndex
+,
+insert
+,
+insertUpdate
+,
+isVisible
+,
+modelToView
+,
+remove
+,
+removeAll
+,
+removeUpdate
+,
+updateChildren
+,
+updateLayout
+,
+viewToModel
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+BoxView
+public
+BoxView
+(
+Element
+elem,
+ int axis)
+Constructs a
+BoxView
+.
+Parameters:
+elem
+- the element this view is responsible for
+axis
+- either
+View.X_AXIS
+or
+View.Y_AXIS
+Method Details
+getAxis
+public
+int
+getAxis
+()
+Fetches the tile axis property.  This is the axis along which
+ the child views are tiled.
+Returns:
+the major axis of the box, either
+View.X_AXIS
+or
+View.Y_AXIS
+Since:
+1.3
+setAxis
+public
+void
+setAxis
+(int axis)
+Sets the tile axis property.  This is the axis along which
+ the child views are tiled.
+Parameters:
+axis
+- either
+View.X_AXIS
+or
+View.Y_AXIS
+Since:
+1.3
+layoutChanged
+public
+void
+layoutChanged
+(int axis)
+Invalidates the layout along an axis.  This happens
+ automatically if the preferences have changed for
+ any of the child views.  In some cases the layout
+ may need to be recalculated when the preferences
+ have not changed.  The layout can be marked as
+ invalid by calling this method.  The layout will
+ be updated the next time the
+setSize
+method
+ is called on this view (typically in paint).
+Parameters:
+axis
+- either
+View.X_AXIS
+or
+View.Y_AXIS
+Since:
+1.3
+isLayoutValid
+protected
+boolean
+isLayoutValid
+(int axis)
+Determines if the layout is valid along the given axis.
+Parameters:
+axis
+- either
+View.X_AXIS
+or
+View.Y_AXIS
+Returns:
+if the layout is valid along the given axis
+Since:
+1.4
+paintChild
+protected
+void
+paintChild
+(
+Graphics
+g,
+Rectangle
+alloc,
+ int index)
+Paints a child.  By default
+ that is all it does, but a subclass can use this to paint
+ things relative to the child.
+Parameters:
+g
+- the graphics context
+alloc
+- the allocated region to paint into
+index
+- the child index, >= 0 && < getViewCount()
+replace
+public
+void
+replace
+(int index,
+ int length,
+View
+[] elems)
+Invalidates the layout and resizes the cache of
+ requests/allocations.  The child allocations can still
+ be accessed for the old layout, but the new children
+ will have an offset and span of 0.
+Overrides:
+replace
+in class
+CompositeView
+Parameters:
+index
+- the starting index into the child views to insert
+   the new views; this should be a value >= 0 and <= getViewCount
+length
+- the number of existing child views to remove;
+   This should be a value >= 0 and <= (getViewCount() - offset)
+elems
+- the child views to add; this value can be
+null
+to indicate no children are being added
+   (useful to remove)
+forwardUpdate
+protected
+void
+forwardUpdate
+(
+DocumentEvent.ElementChange
+ec,
+DocumentEvent
+e,
+Shape
+a,
+ViewFactory
+f)
+Forwards the given
+DocumentEvent
+to the child views
+ that need to be notified of the change to the model.
+ If a child changed its requirements and the allocation
+ was valid prior to forwarding the portion of the box
+ from the starting child to the end of the box will
+ be repainted.
+Overrides:
+forwardUpdate
+in class
+View
+Parameters:
+ec
+- changes to the element this view is responsible
+  for (may be
+null
+if there were no changes)
+e
+- the change information from the associated document
+a
+- the current allocation of the view
+f
+- the factory to use to rebuild if the view has children
+Since:
+1.3
+See Also:
+View.insertUpdate(javax.swing.event.DocumentEvent, java.awt.Shape, javax.swing.text.ViewFactory)
+View.removeUpdate(javax.swing.event.DocumentEvent, java.awt.Shape, javax.swing.text.ViewFactory)
+View.changedUpdate(javax.swing.event.DocumentEvent, java.awt.Shape, javax.swing.text.ViewFactory)
+preferenceChanged
+public
+void
+preferenceChanged
+(
+View
+child,
+ boolean width,
+ boolean height)
+This is called by a child to indicate its
+ preferred span has changed.  This is implemented to
+ throw away cached layout information so that new
+ calculations will be done the next time the children
+ need an allocation.
+Overrides:
+preferenceChanged
+in class
+View
+Parameters:
+child
+- the child view
+width
+- true if the width preference should change
+height
+- true if the height preference should change
+See Also:
+JComponent.revalidate()
+getResizeWeight
+public
+int
+getResizeWeight
+(int axis)
+Gets the resize weight.  A value of 0 or less is not resizable.
+Overrides:
+getResizeWeight
+in class
+View
+Parameters:
+axis
+- may be either
+View.X_AXIS
+or
+View.Y_AXIS
+Returns:
+the weight
+Throws:
+IllegalArgumentException
+- for an invalid axis
+setSize
+public
+void
+setSize
+(float width,
+ float height)
+Sets the size of the view.  This should cause
+ layout of the view if the view caches any layout
+ information.  This is implemented to call the
+ layout method with the sizes inside of the insets.
+Overrides:
+setSize
+in class
+View
+Parameters:
+width
+- the width >= 0
+height
+- the height >= 0
+paint
+public
+void
+paint
+(
+Graphics
+g,
+Shape
+allocation)
+Renders the
+BoxView
+using the given
+ rendering surface and area
+ on that surface.  Only the children that intersect
+ the clip bounds of the given
+Graphics
+will be rendered.
+Specified by:
+paint
+in class
+View
+Parameters:
+g
+- the rendering surface to use
+allocation
+- the allocated region to render into
+See Also:
+View.paint(java.awt.Graphics, java.awt.Shape)
+getChildAllocation
+public
+Shape
+getChildAllocation
+(int index,
+Shape
+a)
+Fetches the allocation for the given child view.
+ This enables finding out where various views
+ are located.  This is implemented to return
+null
+if the layout is invalid,
+ otherwise the superclass behavior is executed.
+Overrides:
+getChildAllocation
+in class
+CompositeView
+Parameters:
+index
+- the index of the child, >= 0 && > getViewCount()
+a
+- the allocation to this view
+Returns:
+the allocation to the child; or
+null
+if
+a
+is
+null
+;
+          or
+null
+if the layout is invalid
+modelToView
+public
+Shape
+modelToView
+(int pos,
+Shape
+a,
+Position.Bias
+b)
+throws
+BadLocationException
+Provides a mapping from the document model coordinate space
+ to the coordinate space of the view mapped to it.  This makes
+ sure the allocation is valid before calling the superclass.
+Overrides:
+modelToView
+in class
+CompositeView
+Parameters:
+pos
+- the position to convert >= 0
+a
+- the allocated region to render into
+b
+- a bias value of either
+Position.Bias.Forward
+or
+Position.Bias.Backward
+Returns:
+the bounding box of the given position
+Throws:
+BadLocationException
+- if the given position does
+  not represent a valid location in the associated document
+See Also:
+View.modelToView(int, java.awt.Shape, javax.swing.text.Position.Bias)
+viewToModel
+public
+int
+viewToModel
+(float x,
+ float y,
+Shape
+a,
+Position.Bias
+[] bias)
+Provides a mapping from the view coordinate space to the logical
+ coordinate space of the model.
+Overrides:
+viewToModel
+in class
+CompositeView
+Parameters:
+x
+- x coordinate of the view location to convert >= 0
+y
+- y coordinate of the view location to convert >= 0
+a
+- the allocated region to render into
+bias
+- either
+Position.Bias.Forward
+or
+Position.Bias.Backward
+Returns:
+the location within the model that best represents the
+  given point in the view >= 0
+See Also:
+View.viewToModel(float, float, java.awt.Shape, javax.swing.text.Position.Bias[])
+getAlignment
+public
+float
+getAlignment
+(int axis)
+Determines the desired alignment for this view along an
+ axis.  This is implemented to give the total alignment
+ needed to position the children with the alignment points
+ lined up along the axis orthogonal to the axis that is
+ being tiled.  The axis being tiled will request to be
+ centered (i.e. 0.5f).
+Overrides:
+getAlignment
+in class
+View
+Parameters:
+axis
+- may be either
+View.X_AXIS
+or
+View.Y_AXIS
+Returns:
+the desired alignment >= 0.0f && <= 1.0f; this should
+   be a value between 0.0 and 1.0 where 0 indicates alignment at the
+   origin and 1.0 indicates alignment to the full span
+   away from the origin; an alignment of 0.5 would be the
+   center of the view
+Throws:
+IllegalArgumentException
+- for an invalid axis
+getPreferredSpan
+public
+float
+getPreferredSpan
+(int axis)
+Determines the preferred span for this view along an
+ axis.
+Specified by:
+getPreferredSpan
+in class
+View
+Parameters:
+axis
+- may be either
+View.X_AXIS
+or
+View.Y_AXIS
+Returns:
+the span the view would like to be rendered into >= 0;
+           typically the view is told to render into the span
+           that is returned, although there is no guarantee;
+           the parent may choose to resize or break the view
+Throws:
+IllegalArgumentException
+- for an invalid axis type
+getMinimumSpan
+public
+float
+getMinimumSpan
+(int axis)
+Determines the minimum span for this view along an
+ axis.
+Overrides:
+getMinimumSpan
+in class
+View
+Parameters:
+axis
+- may be either
+View.X_AXIS
+or
+View.Y_AXIS
+Returns:
+the span the view would like to be rendered into >= 0;
+           typically the view is told to render into the span
+           that is returned, although there is no guarantee;
+           the parent may choose to resize or break the view
+Throws:
+IllegalArgumentException
+- for an invalid axis type
+See Also:
+View.getPreferredSpan(int)
+getMaximumSpan
+public
+float
+getMaximumSpan
+(int axis)
+Determines the maximum span for this view along an
+ axis.
+Overrides:
+getMaximumSpan
+in class
+View
+Parameters:
+axis
+- may be either
+View.X_AXIS
+or
+View.Y_AXIS
+Returns:
+the span the view would like to be rendered into >= 0;
+           typically the view is told to render into the span
+           that is returned, although there is no guarantee;
+           the parent may choose to resize or break the view
+Throws:
+IllegalArgumentException
+- for an invalid axis type
+See Also:
+View.getPreferredSpan(int)
+isAllocationValid
+protected
+boolean
+isAllocationValid
+()
+Are the allocations for the children still
+ valid?
+Returns:
+true if allocations still valid
+isBefore
+protected
+boolean
+isBefore
+(int x,
+ int y,
+Rectangle
+innerAlloc)
+Determines if a point falls before an allocated region.
+Specified by:
+isBefore
+in class
+CompositeView
+Parameters:
+x
+- the X coordinate >= 0
+y
+- the Y coordinate >= 0
+innerAlloc
+- the allocated region; this is the area
+   inside of the insets
+Returns:
+true if the point lies before the region else false
+isAfter
+protected
+boolean
+isAfter
+(int x,
+ int y,
+Rectangle
+innerAlloc)
+Determines if a point falls after an allocated region.
+Specified by:
+isAfter
+in class
+CompositeView
+Parameters:
+x
+- the X coordinate >= 0
+y
+- the Y coordinate >= 0
+innerAlloc
+- the allocated region; this is the area
+   inside of the insets
+Returns:
+true if the point lies after the region else false
+getViewAtPoint
+protected
+View
+getViewAtPoint
+(int x,
+ int y,
+Rectangle
+alloc)
+Fetches the child view at the given coordinates.
+Specified by:
+getViewAtPoint
+in class
+CompositeView
+Parameters:
+x
+- the X coordinate >= 0
+y
+- the Y coordinate >= 0
+alloc
+- the parents inner allocation on entry, which should
+   be changed to the child's allocation on exit
+Returns:
+the view
+childAllocation
+protected
+void
+childAllocation
+(int index,
+Rectangle
+alloc)
+Allocates a region for a child view.
+Specified by:
+childAllocation
+in class
+CompositeView
+Parameters:
+index
+- the index of the child view to
+   allocate, >= 0 && < getViewCount()
+alloc
+- the allocated region
+layout
+protected
+void
+layout
+(int width,
+ int height)
+Perform layout on the box
+Parameters:
+width
+- the width (inside of the insets) >= 0
+height
+- the height (inside of the insets) >= 0
+getWidth
+public
+int
+getWidth
+()
+Returns the current width of the box.  This is the width that
+ it was last allocated.
+Returns:
+the current width of the box
+getHeight
+public
+int
+getHeight
+()
+Returns the current height of the box.  This is the height that
+ it was last allocated.
+Returns:
+the current height of the box
+layoutMajorAxis
+protected
+void
+layoutMajorAxis
+(int targetSpan,
+ int axis,
+ int[] offsets,
+ int[] spans)
+Performs layout for the major axis of the box (i.e. the
+ axis that it represents). The results of the layout (the
+ offset and span for each children) are placed in the given
+ arrays which represent the allocations to the children
+ along the major axis.
+Parameters:
+targetSpan
+- the total span given to the view, which
+  would be used to layout the children
+axis
+- the axis being laid out
+offsets
+- the offsets from the origin of the view for
+  each of the child views; this is a return value and is
+  filled in by the implementation of this method
+spans
+- the span of each child view; this is a return
+  value and is filled in by the implementation of this method
+layoutMinorAxis
+protected
+void
+layoutMinorAxis
+(int targetSpan,
+ int axis,
+ int[] offsets,
+ int[] spans)
+Performs layout for the minor axis of the box (i.e. the
+ axis orthogonal to the axis that it represents). The results
+ of the layout (the offset and span for each children) are
+ placed in the given arrays which represent the allocations to
+ the children along the minor axis.
+Parameters:
+targetSpan
+- the total span given to the view, which
+  would be used to layout the children
+axis
+- the axis being laid out
+offsets
+- the offsets from the origin of the view for
+  each of the child views; this is a return value and is
+  filled in by the implementation of this method
+spans
+- the span of each child view; this is a return
+  value and is filled in by the implementation of this method
+calculateMajorAxisRequirements
+protected
+SizeRequirements
+calculateMajorAxisRequirements
+(int axis,
+SizeRequirements
+r)
+Calculates the size requirements for the major axis
+axis
+.
+Parameters:
+axis
+- the axis being studied
+r
+- the
+SizeRequirements
+object;
+          if
+null
+one will be created
+Returns:
+the newly initialized
+SizeRequirements
+object
+See Also:
+SizeRequirements
+calculateMinorAxisRequirements
+protected
+SizeRequirements
+calculateMinorAxisRequirements
+(int axis,
+SizeRequirements
+r)
+Calculates the size requirements for the minor axis
+axis
+.
+Parameters:
+axis
+- the axis being studied
+r
+- the
+SizeRequirements
+object;
+          if
+null
+one will be created
+Returns:
+the newly initialized
+SizeRequirements
+object
+See Also:
+SizeRequirements
+baselineLayout
+protected
+void
+baselineLayout
+(int targetSpan,
+ int axis,
+ int[] offsets,
+ int[] spans)
+Computes the location and extent of each child view
+ in this
+BoxView
+given the
+targetSpan
+,
+ which is the width (or height) of the region we have to
+ work with.
+Parameters:
+targetSpan
+- the total span given to the view, which
+  would be used to layout the children
+axis
+- the axis being studied, either
+View.X_AXIS
+or
+View.Y_AXIS
+offsets
+- an empty array filled by this method with
+          values specifying the location  of each child view
+spans
+- an empty array filled by this method with
+          values specifying the extent of each child view
+baselineRequirements
+protected
+SizeRequirements
+baselineRequirements
+(int axis,
+SizeRequirements
+r)
+Calculates the size requirements for this
+BoxView
+by examining the size of each child view.
+Parameters:
+axis
+- the axis being studied
+r
+- the
+SizeRequirements
+object;
+          if
+null
+one will be created
+Returns:
+the newly initialized
+SizeRequirements
+object
+getOffset
+protected
+int
+getOffset
+(int axis,
+ int childIndex)
+Fetches the offset of a particular child's current layout.
+Parameters:
+axis
+- the axis being studied
+childIndex
+- the index of the requested child
+Returns:
+the offset (location) for the specified child
+getSpan
+protected
+int
+getSpan
+(int axis,
+ int childIndex)
+Fetches the span of a particular child's current layout.
+Parameters:
+axis
+- the axis being studied
+childIndex
+- the index of the requested child
+Returns:
+the span (width or height) of the specified child
+flipEastAndWestAtEnds
+protected
+boolean
+flipEastAndWestAtEnds
+(int position,
+Position.Bias
+bias)
+Determines in which direction the next view lays.
+ Consider the View at index n. Typically the
+View
+s
+ are laid out from left to right, so that the
+View
+to the EAST will be at index n + 1, and the
+View
+to the WEST will be at index n - 1. In certain situations,
+ such as with bidirectional text, it is possible
+ that the
+View
+to EAST is not at index n + 1,
+ but rather at index n - 1, or that the
+View
+to the WEST is not at index n - 1, but index n + 1.
+ In this case this method would return true,
+ indicating the
+View
+s are laid out in
+ descending order. Otherwise the method would return false
+ indicating the
+View
+s are laid out in ascending order.
+If the receiver is laying its
+View
+s along the
+Y_AXIS
+, this will return the value from
+ invoking the same method on the
+View
+responsible for rendering
+position
+and
+bias
+. Otherwise this will return false.
+Overrides:
+flipEastAndWestAtEnds
+in class
+CompositeView
+Parameters:
+position
+- position into the model
+bias
+- either
+Position.Bias.Forward
+or
+Position.Bias.Backward
+Returns:
+true if the
+View
+s surrounding the
+View
+responding for rendering
+position
+and
+bias
+are laid out in descending order; otherwise false
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

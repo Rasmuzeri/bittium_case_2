@@ -1,0 +1,333 @@
+DOMValidateContext (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.xml.crypto
+Package
+javax.xml.crypto.dsig.dom
+Class DOMValidateContext
+java.lang.Object
+javax.xml.crypto.dom.DOMCryptoContext
+javax.xml.crypto.dsig.dom.DOMValidateContext
+All Implemented Interfaces:
+XMLValidateContext
+,
+XMLCryptoContext
+public class
+DOMValidateContext
+extends
+DOMCryptoContext
+implements
+XMLValidateContext
+A DOM-specific
+XMLValidateContext
+. This class contains additional
+ methods to specify the location in a DOM tree where an
+XMLSignature
+is to be unmarshalled and validated from.
+Note that the behavior of an unmarshalled
+XMLSignature
+is undefined if the contents of the underlying DOM tree are modified by the
+ caller after the
+XMLSignature
+is created.
+Also, note that
+DOMValidateContext
+instances can contain
+ information and state specific to the XML signature structure it is
+ used with. The results are unpredictable if a
+DOMValidateContext
+is used with different signature structures
+ (for example, you should not use the same
+DOMValidateContext
+instance to validate two different
+XMLSignature
+objects).
+Implementation Note:
+By default, the JDK implementation enables a secure validation mode by
+ setting the
+org.jcp.xml.dsig.secureValidation
+property to
+Boolean.TRUE
+(see the
+setProperty
+method). When enabled, validation of XML signatures are subject to
+ stricter checking of algorithms and other constraints as specified by the
+jdk.xml.dsig.secureValidationPolicy
+security property.
+ The mode can be disabled by setting the property to
+Boolean.FALSE
+.
+ The mode can also be enabled or disabled by setting the
+org.jcp.xml.dsig.secureValidation
+system property to
+ "true" or "false". Any other value for the system property is also treated
+ as "false". If the system property is set, it supersedes the
+DOMValidateContext
+property value.
+Since:
+1.6
+See Also:
+XMLSignatureFactory.unmarshalXMLSignature(XMLValidateContext)
+Constructor Summary
+Constructors
+Constructor
+Description
+DOMValidateContext
+(
+Key
+validatingKey,
+Node
+node)
+Creates a
+DOMValidateContext
+containing the specified key
+ and node.
+DOMValidateContext
+(
+KeySelector
+ks,
+Node
+node)
+Creates a
+DOMValidateContext
+containing the specified key
+ selector and node.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Node
+getNode
+()
+Returns the node.
+void
+setNode
+(
+Node
+node)
+Sets the node.
+Methods declared in class javax.xml.crypto.dom.
+DOMCryptoContext
+get
+,
+getBaseURI
+,
+getDefaultNamespacePrefix
+,
+getElementById
+,
+getKeySelector
+,
+getNamespacePrefix
+,
+getProperty
+,
+getURIDereferencer
+,
+iterator
+,
+put
+,
+putNamespacePrefix
+,
+setBaseURI
+,
+setDefaultNamespacePrefix
+,
+setIdAttributeNS
+,
+setKeySelector
+,
+setProperty
+,
+setURIDereferencer
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface javax.xml.crypto.
+XMLCryptoContext
+get
+,
+getBaseURI
+,
+getDefaultNamespacePrefix
+,
+getKeySelector
+,
+getNamespacePrefix
+,
+getProperty
+,
+getURIDereferencer
+,
+put
+,
+putNamespacePrefix
+,
+setBaseURI
+,
+setDefaultNamespacePrefix
+,
+setKeySelector
+,
+setProperty
+,
+setURIDereferencer
+Constructor Details
+DOMValidateContext
+public
+DOMValidateContext
+(
+KeySelector
+ks,
+Node
+node)
+Creates a
+DOMValidateContext
+containing the specified key
+ selector and node.
+Parameters:
+ks
+- a key selector for finding a validation key
+node
+- the node
+Throws:
+NullPointerException
+- if
+ks
+or
+node
+is
+null
+DOMValidateContext
+public
+DOMValidateContext
+(
+Key
+validatingKey,
+Node
+node)
+Creates a
+DOMValidateContext
+containing the specified key
+ and node. The validating key will be stored in a
+singleton KeySelector
+that
+ is returned when the
+getKeySelector
+method is called.
+Parameters:
+validatingKey
+- the validating key
+node
+- the node
+Throws:
+NullPointerException
+- if
+validatingKey
+or
+node
+is
+null
+Method Details
+setNode
+public
+void
+setNode
+(
+Node
+node)
+Sets the node.
+Parameters:
+node
+- the node
+Throws:
+NullPointerException
+- if
+node
+is
+null
+See Also:
+getNode()
+getNode
+public
+Node
+getNode
+()
+Returns the node.
+Returns:
+the node (never
+null
+)
+See Also:
+setNode(Node)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

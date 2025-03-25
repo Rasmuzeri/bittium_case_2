@@ -1,0 +1,599 @@
+RandomGeneratorFactory (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.util.random
+Class RandomGeneratorFactory<T extends
+RandomGenerator
+>
+java.lang.Object
+java.util.random.RandomGeneratorFactory<T>
+Type Parameters:
+T
+- type of created random generator
+public final class
+RandomGeneratorFactory<T extends
+RandomGenerator
+>
+extends
+Object
+This is a factory class for generating multiple random number generators
+ of a specific
+algorithm
+.
+RandomGeneratorFactory
+also provides
+ methods for selecting random number generator algorithms.
+
+ A specific
+RandomGeneratorFactory
+can be located by using the
+of(String)
+method, where the argument string
+ is the name of the
+algorithm
+required. The method
+all()
+produces a non-empty
+Stream
+of all available
+RandomGeneratorFactorys
+that can be searched
+ to locate a
+RandomGeneratorFactory
+suitable to the task.
+
+ There are three methods for constructing a RandomGenerator instance,
+ depending on the type of initial seed required.
+create(long)
+is used for long
+ seed construction,
+create(byte[])
+is used for byte[]
+ seed construction, and
+create()
+is used for random seed
+ construction. Example;
+Copy
+RandomGeneratorFactory<RandomGenerator> factory = RandomGeneratorFactory.of("Random");
+
+    for (int i = 0; i < 10; i++) {
+        new Thread(() -> {
+            RandomGenerator random = factory.create(100L);
+            System.out.println(random.nextDouble());
+        }).start();
+    }
+RandomGeneratorFactory also provides methods describing the attributes (or properties)
+ of a generator and can be used to select random number generator
+algorithms
+.
+ These methods are typically used in
+ conjunction with
+all()
+. In this example, the code
+ locates the
+RandomGeneratorFactory
+that produces
+RandomGenerators
+with the highest number of state bits.
+Copy
+RandomGeneratorFactory<RandomGenerator> best = RandomGeneratorFactory.all()
+        .filter(rgf -> !rgf.name().equals("SecureRandom")) // SecureRandom has MAX_VALUE stateBits.
+        .sorted(Comparator.comparingInt(RandomGeneratorFactory<RandomGenerator>::stateBits).reversed())
+        .findFirst()
+        .orElse(RandomGeneratorFactory.of("Random"));
+    System.out.println(best.name() + " in " + best.group() + " was selected");
+
+    RandomGenerator rng = best.create();
+    System.out.println(rng.nextLong());
+Since:
+17
+See Also:
+java.util.random
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+Stream
+<
+RandomGeneratorFactory
+<
+RandomGenerator
+>>
+all
+()
+Returns a non-empty stream of available
+RandomGeneratorFactory(s)
+.
+T
+create
+()
+Create an instance of
+RandomGenerator
+based on
+algorithm
+chosen.
+T
+create
+(byte[] seed)
+Create an instance of
+RandomGenerator
+based on
+algorithm
+chosen
+ providing a starting byte[] seed.
+T
+create
+(long seed)
+Create an instance of
+RandomGenerator
+based on
+algorithm
+chosen
+ providing a starting long seed.
+int
+equidistribution
+()
+Returns the equidistribution of the
+algorithm
+.
+static
+RandomGeneratorFactory
+<
+RandomGenerator
+>
+getDefault
+()
+Returns a
+RandomGeneratorFactory
+meeting the minimal requirement
+ of having an algorithm whose state bits are greater than or equal 64.
+String
+group
+()
+Return the group name of the
+algorithm
+used by the random number generator.
+boolean
+isArbitrarilyJumpable
+()
+Return true if random generator can jump an arbitrarily specified distant
+ point in the state cycle.
+boolean
+isDeprecated
+()
+Return true if the implementation of RandomGenerator (algorithm) has been
+ marked for deprecation.
+boolean
+isHardware
+()
+Return true if random generator uses a hardware device (HRNG) to produce
+ entropic input.
+boolean
+isJumpable
+()
+Return true if random generator can jump a specified distant point in
+ the state cycle.
+boolean
+isLeapable
+()
+Return true if random generator is jumpable and can leap to a very distant
+ point in the state cycle.
+boolean
+isSplittable
+()
+Return true if random generator can be cloned into a separate object with
+ the same properties but positioned further in the state cycle.
+boolean
+isStatistical
+()
+Return true if random generator is computed using an arithmetic
+algorithm
+and is statistically deterministic.
+boolean
+isStochastic
+()
+Return true if random generator is computed using external or entropic
+ sources as inputs.
+boolean
+isStreamable
+()
+Return true if random generator can be used to create
+Streams
+of random numbers.
+String
+name
+()
+Return the name of the
+algorithm
+used by the random number generator.
+static <T extends
+RandomGenerator
+>
+RandomGeneratorFactory
+<T>
+of
+(
+String
+name)
+Returns a
+RandomGeneratorFactory
+that can produce instances of
+RandomGenerator
+that utilize the
+name
+algorithm
+.
+BigInteger
+period
+()
+Return the period of the
+algorithm
+used by the random number generator.
+int
+stateBits
+()
+Returns number of bits used by the
+algorithm
+to maintain state of seed.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Method Details
+of
+public static
+<T extends
+RandomGenerator
+>
+RandomGeneratorFactory
+<T>
+of
+(
+String
+name)
+Returns a
+RandomGeneratorFactory
+that can produce instances of
+RandomGenerator
+that utilize the
+name
+algorithm
+.
+Implementation Requirements:
+Availability is determined by RandomGeneratorFactory using the
+ service provider API to locate implementations of the RandomGenerator interface.
+Type Parameters:
+T
+- Sub-interface of
+RandomGenerator
+to produce
+Parameters:
+name
+- Name of random number generator
+algorithm
+Returns:
+RandomGeneratorFactory
+of
+RandomGenerator
+Throws:
+NullPointerException
+- if name is null
+IllegalArgumentException
+- if the named algorithm is not found
+getDefault
+public static
+RandomGeneratorFactory
+<
+RandomGenerator
+>
+getDefault
+()
+Returns a
+RandomGeneratorFactory
+meeting the minimal requirement
+ of having an algorithm whose state bits are greater than or equal 64.
+Implementation Requirements:
+Since algorithms will improve over time, there is no
+ guarantee that this method will return the same algorithm over time.
+Returns:
+a
+RandomGeneratorFactory
+all
+public static
+Stream
+<
+RandomGeneratorFactory
+<
+RandomGenerator
+>>
+all
+()
+Returns a non-empty stream of available
+RandomGeneratorFactory(s)
+.
+
+ RandomGenerators that are marked as deprecated are not included in the result.
+Implementation Requirements:
+Availability is determined by RandomGeneratorFactory using the service provider API
+ to locate implementations of the RandomGenerator interface.
+Returns:
+a non-empty stream of all available
+RandomGeneratorFactory(s)
+.
+name
+public
+String
+name
+()
+Return the name of the
+algorithm
+used by the random number generator.
+Returns:
+Name of the
+algorithm
+.
+group
+public
+String
+group
+()
+Return the group name of the
+algorithm
+used by the random number generator.
+Returns:
+Group name of the
+algorithm
+.
+stateBits
+public
+int
+stateBits
+()
+Returns number of bits used by the
+algorithm
+to maintain state of seed.
+Returns:
+number of bits used by the
+algorithm
+to maintain state of seed.
+equidistribution
+public
+int
+equidistribution
+()
+Returns the equidistribution of the
+algorithm
+.
+Returns:
+the equidistribution of the
+algorithm
+.
+period
+public
+BigInteger
+period
+()
+Return the period of the
+algorithm
+used by the random number generator.
+ Returns BigInteger.ZERO if period is not determinable.
+Returns:
+BigInteger period.
+isStatistical
+public
+boolean
+isStatistical
+()
+Return true if random generator is computed using an arithmetic
+algorithm
+and is statistically deterministic.
+Returns:
+true if random generator is statistical.
+isStochastic
+public
+boolean
+isStochastic
+()
+Return true if random generator is computed using external or entropic
+ sources as inputs.
+Returns:
+true if random generator is stochastic.
+isHardware
+public
+boolean
+isHardware
+()
+Return true if random generator uses a hardware device (HRNG) to produce
+ entropic input.
+Returns:
+true if random generator is generated by hardware.
+isArbitrarilyJumpable
+public
+boolean
+isArbitrarilyJumpable
+()
+Return true if random generator can jump an arbitrarily specified distant
+ point in the state cycle.
+Returns:
+true if random generator is arbitrarily jumpable.
+isJumpable
+public
+boolean
+isJumpable
+()
+Return true if random generator can jump a specified distant point in
+ the state cycle.
+Returns:
+true if random generator is jumpable.
+isLeapable
+public
+boolean
+isLeapable
+()
+Return true if random generator is jumpable and can leap to a very distant
+ point in the state cycle.
+Returns:
+true if random generator is leapable.
+isSplittable
+public
+boolean
+isSplittable
+()
+Return true if random generator can be cloned into a separate object with
+ the same properties but positioned further in the state cycle.
+Returns:
+true if random generator is splittable.
+isStreamable
+public
+boolean
+isStreamable
+()
+Return true if random generator can be used to create
+Streams
+of random numbers.
+Returns:
+true if random generator is streamable.
+isDeprecated
+public
+boolean
+isDeprecated
+()
+Return true if the implementation of RandomGenerator (algorithm) has been
+ marked for deprecation.
+Implementation Note:
+Random number generator algorithms evolve over time; new
+           algorithms will be introduced and old algorithms will
+           lose standing. If an older algorithm is deemed unsuitable
+           for continued use, it will be marked as deprecated to indicate
+           that it may be removed at some point in the future.
+Returns:
+true if the implementation of RandomGenerator (algorithm) has been
+         marked for deprecation
+create
+public
+T
+create
+()
+Create an instance of
+RandomGenerator
+based on
+algorithm
+chosen.
+Returns:
+new in instance of
+RandomGenerator
+.
+create
+public
+T
+create
+(long seed)
+Create an instance of
+RandomGenerator
+based on
+algorithm
+chosen
+ providing a starting long seed. If long seed is not supported by an
+ algorithm then the no argument form of create is used.
+Parameters:
+seed
+- long random seed value.
+Returns:
+new in instance of
+RandomGenerator
+.
+create
+public
+T
+create
+(byte[] seed)
+Create an instance of
+RandomGenerator
+based on
+algorithm
+chosen
+ providing a starting byte[] seed. If byte[] seed is not supported by an
+algorithm
+then the no
+ argument form of create is used.
+Parameters:
+seed
+- byte array random seed value.
+Returns:
+new in instance of
+RandomGenerator
+.
+Throws:
+NullPointerException
+- if seed is null.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

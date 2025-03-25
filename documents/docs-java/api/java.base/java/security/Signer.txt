@@ -1,0 +1,329 @@
+Signer (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.security
+Class Signer
+java.lang.Object
+java.security.Identity
+java.security.Signer
+All Implemented Interfaces:
+Serializable
+,
+Principal
+@Deprecated
+(
+since
+="1.2",
+forRemoval
+=true)
+public abstract class
+Signer
+extends
+Identity
+Deprecated, for removal: This API element is subject to removal in a future version.
+This class is deprecated and subject to removal in a future
+     version of Java SE. It has been replaced by
+java.security.KeyStore
+, the
+java.security.cert
+package,
+     and
+java.security.Principal
+.
+This class is used to represent an Identity that can also digitally
+ sign data.
+The management of a signer's private keys is an important and
+ sensitive issue that should be handled by subclasses as appropriate
+ to their intended use.
+Since:
+1.1
+See Also:
+Identity
+Serialized Form
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+Signer
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Creates a
+Signer
+.
+Signer
+(
+String
+name)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Creates a
+Signer
+with the specified identity name.
+Signer
+(
+String
+name,
+IdentityScope
+scope)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Creates a
+Signer
+with the specified identity name and scope.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+PrivateKey
+getPrivateKey
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Returns this signer's private key.
+final void
+setKeyPair
+(
+KeyPair
+pair)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Sets the key pair (public key and private key) for this
+Signer
+.
+String
+toString
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Returns a string of information about the
+Signer
+.
+Methods declared in class java.security.
+Identity
+addCertificate
+,
+certificates
+,
+equals
+,
+getInfo
+,
+getName
+,
+getPublicKey
+,
+getScope
+,
+hashCode
+,
+identityEquals
+,
+removeCertificate
+,
+setInfo
+,
+setPublicKey
+,
+toString
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface java.security.
+Principal
+implies
+Constructor Details
+Signer
+protected
+Signer
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Creates a
+Signer
+. This constructor should only be used for
+ serialization.
+Signer
+public
+Signer
+(
+String
+name)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Creates a
+Signer
+with the specified identity name.
+Parameters:
+name
+- the identity name.
+Signer
+public
+Signer
+(
+String
+name,
+IdentityScope
+scope)
+throws
+KeyManagementException
+Deprecated, for removal: This API element is subject to removal in a future version.
+Creates a
+Signer
+with the specified identity name and scope.
+Parameters:
+name
+- the identity name.
+scope
+- the scope of the identity.
+Throws:
+KeyManagementException
+- if there is already an identity
+ with the same name in the scope.
+Method Details
+getPrivateKey
+public
+PrivateKey
+getPrivateKey
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Returns this signer's private key.
+First, if there is a security manager, its
+checkSecurityAccess
+method is called with
+"getSignerPrivateKey"
+as its argument to see if it's ok to return the private key.
+Returns:
+this signer's private key, or
+null
+if the private key has
+ not yet been set.
+Throws:
+SecurityException
+- if a security manager exists and its
+checkSecurityAccess
+method doesn't allow
+ returning the private key.
+See Also:
+SecurityManager.checkSecurityAccess(java.lang.String)
+setKeyPair
+public final
+void
+setKeyPair
+(
+KeyPair
+pair)
+throws
+InvalidParameterException
+,
+KeyException
+Deprecated, for removal: This API element is subject to removal in a future version.
+Sets the key pair (public key and private key) for this
+Signer
+.
+First, if there is a security manager, its
+checkSecurityAccess
+method is called with
+"setSignerKeyPair"
+as its argument to see if it's ok to set the key pair.
+Parameters:
+pair
+- an initialized key pair.
+Throws:
+InvalidParameterException
+- if the key pair is not
+ properly initialized.
+KeyException
+- if the key pair cannot be set for any
+ other reason.
+SecurityException
+- if a security manager exists and its
+checkSecurityAccess
+method doesn't allow
+ setting the key pair.
+See Also:
+SecurityManager.checkSecurityAccess(java.lang.String)
+toString
+public
+String
+toString
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Returns a string of information about the
+Signer
+.
+Specified by:
+toString
+in interface
+Principal
+Overrides:
+toString
+in class
+Identity
+Returns:
+a string of information about the
+Signer
+.
+See Also:
+SecurityManager.checkSecurityAccess(java.lang.String)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

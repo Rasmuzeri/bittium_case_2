@@ -1,0 +1,393 @@
+GarbageCollectionNotificationInfo (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+jdk.management
+Package
+com.sun.management
+Class GarbageCollectionNotificationInfo
+java.lang.Object
+com.sun.management.GarbageCollectionNotificationInfo
+All Implemented Interfaces:
+CompositeDataView
+public class
+GarbageCollectionNotificationInfo
+extends
+Object
+implements
+CompositeDataView
+The information about a garbage collection
+A garbage collection notification is emitted by
+GarbageCollectorMXBean
+when the Java virtual machine completes a garbage collection action
+ The notification emitted will contain the garbage collection notification
+ information about the status of the memory:
+The name of the garbage collector used to perform the collection.
+The action performed by the garbage collector.
+The cause of the garbage collection action.
+A
+GcInfo
+object containing some statistics about the GC cycle
+          (start time, end time) and the memory usage before and after
+          the GC cycle.
+A
+CompositeData
+representing
+ the
+GarbageCollectionNotificationInfo
+object
+ is stored in the
+userdata
+of a
+notification
+.
+ The
+from
+method is provided to convert from
+ a
+CompositeData
+to a
+GarbageCollectionNotificationInfo
+object. For example:
+Notification notif;
+
+      // receive the notification emitted by a GarbageCollectorMXBean and set to notif
+      ...
+
+      String notifType = notif.getType();
+      if (notifType.equals(GarbageCollectionNotificationInfo.GARBAGE_COLLECTION_NOTIFICATION)) {
+          // retrieve the garbage collection notification information
+          CompositeData cd = (CompositeData) notif.getUserData();
+          GarbageCollectionNotificationInfo info = GarbageCollectionNotificationInfo.from(cd);
+          ....
+      }
+The type of the notification emitted by a
+GarbageCollectorMXBean
+is:
+A
+garbage collection notification
+.
+Used by every notification emitted by the garbage collector, the details about
+             the notification are provided in the
+action
+String
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+String
+GARBAGE_COLLECTION_NOTIFICATION
+Notification type denoting that
+ the Java virtual machine has completed a garbage collection cycle.
+Constructor Summary
+Constructors
+Constructor
+Description
+GarbageCollectionNotificationInfo
+(
+String
+gcName,
+String
+gcAction,
+String
+gcCause,
+GcInfo
+gcInfo)
+Constructs a
+GarbageCollectionNotificationInfo
+object.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+GarbageCollectionNotificationInfo
+from
+(
+CompositeData
+cd)
+Returns a
+GarbageCollectionNotificationInfo
+object represented by the
+ given
+CompositeData
+.
+String
+getGcAction
+()
+Returns the action performed by the garbage collector
+String
+getGcCause
+()
+Returns the cause of the garbage collection
+GcInfo
+getGcInfo
+()
+Returns the GC information related to the last garbage collection
+String
+getGcName
+()
+Returns the name of the garbage collector used to perform the collection
+CompositeData
+toCompositeData
+(
+CompositeType
+ct)
+Return a
+CompositeData
+corresponding to the values in
+ this object.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+GARBAGE_COLLECTION_NOTIFICATION
+public static final
+String
+GARBAGE_COLLECTION_NOTIFICATION
+Notification type denoting that
+ the Java virtual machine has completed a garbage collection cycle.
+ This notification is emitted by a
+GarbageCollectorMXBean
+.
+ The value of this notification type is
+com.sun.management.gc.notification
+.
+See Also:
+Constant Field Values
+Constructor Details
+GarbageCollectionNotificationInfo
+public
+GarbageCollectionNotificationInfo
+(
+String
+gcName,
+String
+gcAction,
+String
+gcCause,
+GcInfo
+gcInfo)
+Constructs a
+GarbageCollectionNotificationInfo
+object.
+Parameters:
+gcName
+- The name of the garbage collector used to perform the collection
+gcAction
+- The name of the action performed by the garbage collector
+gcCause
+- The cause of the garbage collection action
+gcInfo
+- a GcInfo object providing statistics about the GC cycle
+Method Details
+getGcName
+public
+String
+getGcName
+()
+Returns the name of the garbage collector used to perform the collection
+Returns:
+the name of the garbage collector used to perform the collection
+getGcAction
+public
+String
+getGcAction
+()
+Returns the action performed by the garbage collector
+Returns:
+the action performed by the garbage collector
+getGcCause
+public
+String
+getGcCause
+()
+Returns the cause of the garbage collection
+Returns:
+the cause of the garbage collection
+getGcInfo
+public
+GcInfo
+getGcInfo
+()
+Returns the GC information related to the last garbage collection
+Returns:
+the GC information related to the
+ last garbage collection
+from
+public static
+GarbageCollectionNotificationInfo
+from
+(
+CompositeData
+cd)
+Returns a
+GarbageCollectionNotificationInfo
+object represented by the
+ given
+CompositeData
+.
+ The given
+CompositeData
+must contain
+ the following attributes:
+description
+Attribute Name
+Type
+gcName
+java.lang.String
+gcAction
+java.lang.String
+gcCause
+java.lang.String
+gcInfo
+javax.management.openmbean.CompositeData
+Parameters:
+cd
+-
+CompositeData
+representing a
+GarbageCollectionNotificationInfo
+Returns:
+a
+GarbageCollectionNotificationInfo
+object represented
+         by
+cd
+if
+cd
+is not
+null
+;
+null
+otherwise.
+Throws:
+IllegalArgumentException
+- if
+cd
+does not
+   represent a
+GarbaageCollectionNotificationInfo
+object.
+toCompositeData
+public
+CompositeData
+toCompositeData
+(
+CompositeType
+ct)
+Description copied from interface:
+CompositeDataView
+Return a
+CompositeData
+corresponding to the values in
+ this object.  The returned value should usually be an instance of
+CompositeDataSupport
+, or a class that serializes as a
+CompositeDataSupport
+via a
+writeReplace
+method.
+ Otherwise, a remote client that receives the object might not be
+ able to reconstruct it.
+Specified by:
+toCompositeData
+in interface
+CompositeDataView
+Parameters:
+ct
+- The expected
+CompositeType
+of the returned
+ value.  If the returned value is
+cd
+, then
+cd.getCompositeType().equals(ct)
+should be true.
+ Typically this will be because
+cd
+is a
+CompositeDataSupport
+constructed with
+ct
+as its
+CompositeType
+.
+Returns:
+the
+CompositeData
+.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,741 @@
+Types (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.lang.model.util
+Interface Types
+public interface
+Types
+Utility methods for operating on types.
+Compatibility Note:
+Methods may be added to this interface
+ in future releases of the platform.
+Since:
+1.6
+See Also:
+ProcessingEnvironment.getTypeUtils()
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+Element
+asElement
+(
+TypeMirror
+t)
+Returns the element corresponding to a type.
+TypeMirror
+asMemberOf
+(
+DeclaredType
+containing,
+Element
+element)
+Returns the type of an element when that element is viewed as
+ a member of, or otherwise directly contained by, a given type.
+TypeElement
+boxedClass
+(
+PrimitiveType
+p)
+Returns the class of a boxed value of the primitive type argument.
+TypeMirror
+capture
+(
+TypeMirror
+t)
+Applies capture conversion to a type.
+boolean
+contains
+(
+TypeMirror
+t1,
+TypeMirror
+t2)
+Tests whether one type argument
+contains
+another.
+List
+<? extends
+TypeMirror
+>
+directSupertypes
+(
+TypeMirror
+t)
+Returns the direct supertypes of a type.
+TypeMirror
+erasure
+(
+TypeMirror
+t)
+Returns the erasure of a type.
+ArrayType
+getArrayType
+(
+TypeMirror
+componentType)
+Returns an array type with the specified component type.
+DeclaredType
+getDeclaredType
+(
+TypeElement
+typeElem,
+TypeMirror
+... typeArgs)
+Returns the type corresponding to a type element and
+ actual type arguments.
+DeclaredType
+getDeclaredType
+(
+DeclaredType
+containing,
+TypeElement
+typeElem,
+TypeMirror
+... typeArgs)
+Returns the type corresponding to a type element
+ and actual type arguments, given a
+containing type
+of which it is a member.
+NoType
+getNoType
+(
+TypeKind
+kind)
+Returns a pseudo-type used where no actual type is appropriate.
+NullType
+getNullType
+()
+Returns the null type.
+PrimitiveType
+getPrimitiveType
+(
+TypeKind
+kind)
+Returns a primitive type.
+WildcardType
+getWildcardType
+(
+TypeMirror
+extendsBound,
+TypeMirror
+superBound)
+Returns a new wildcard type.
+boolean
+isAssignable
+(
+TypeMirror
+t1,
+TypeMirror
+t2)
+Tests whether one type is assignable to another.
+boolean
+isSameType
+(
+TypeMirror
+t1,
+TypeMirror
+t2)
+Tests whether two
+TypeMirror
+objects represent the same type.
+boolean
+isSubsignature
+(
+ExecutableType
+m1,
+ExecutableType
+m2)
+Tests whether the signature of one method is a
+subsignature
+of another.
+boolean
+isSubtype
+(
+TypeMirror
+t1,
+TypeMirror
+t2)
+Tests whether one type is a subtype of another.
+PrimitiveType
+unboxedType
+(
+TypeMirror
+t)
+Returns the type (a primitive type) of unboxed values of a given type.
+Method Details
+asElement
+Element
+asElement
+(
+TypeMirror
+t)
+Returns the element corresponding to a type.
+ The type may be one of:
+a
+DeclaredType
+a
+TypeVariable
+a pseudo-type for a
+package
+or
+module
+The method returns
+null
+if the type is not one with a
+ corresponding element.
+ Types
+without
+corresponding elements include:
+primitive types
+executable types
+"none"
+pseudo-types
+null types
+void
+wildcard type argument
+Parameters:
+t
+- the type to map to an element
+Returns:
+the element corresponding to the given type
+isSameType
+boolean
+isSameType
+(
+TypeMirror
+t1,
+TypeMirror
+t2)
+Tests whether two
+TypeMirror
+objects represent the same type.
+Caveat: if either of the arguments to this method represents a
+ wildcard, this method will return false.  As a consequence, a wildcard
+ is not the same type as itself.  This might be surprising at first,
+ but makes sense once you consider that an example like this must be
+ rejected by the compiler:
+List<?> list = new ArrayList<Object>();
+list.add(list.get(0));
+Since annotations are only meta-data associated with a type,
+ the set of annotations on either argument is
+not
+taken
+ into account when computing whether or not two
+TypeMirror
+objects are the same type. In particular, two
+TypeMirror
+objects can have different annotations and
+ still be considered the same.
+Parameters:
+t1
+- the first type
+t2
+- the second type
+Returns:
+true
+if and only if the two types are the same
+isSubtype
+boolean
+isSubtype
+(
+TypeMirror
+t1,
+TypeMirror
+t2)
+Tests whether one type is a subtype of another.
+ Any type is considered to be a subtype of itself.
+Parameters:
+t1
+- the first type
+t2
+- the second type
+Returns:
+true
+if and only if the first type is a subtype
+          of the second
+Throws:
+IllegalArgumentException
+- if given a type for an executable, package, or module
+See
+Java Language Specification
+:
+4.10 Subtyping
+isAssignable
+boolean
+isAssignable
+(
+TypeMirror
+t1,
+TypeMirror
+t2)
+Tests whether one type is assignable to another.
+Parameters:
+t1
+- the first type
+t2
+- the second type
+Returns:
+true
+if and only if the first type is assignable
+          to the second
+Throws:
+IllegalArgumentException
+- if given a type for an executable, package, or module
+See
+Java Language Specification
+:
+5.2 Assignment Contexts
+contains
+boolean
+contains
+(
+TypeMirror
+t1,
+TypeMirror
+t2)
+Tests whether one type argument
+contains
+another.
+Parameters:
+t1
+- the first type
+t2
+- the second type
+Returns:
+true
+if and only if the first type contains the second
+Throws:
+IllegalArgumentException
+- if given a type for an executable, package, or module
+See
+Java Language Specification
+:
+4.5.1 Type Arguments of Parameterized Types
+isSubsignature
+boolean
+isSubsignature
+(
+ExecutableType
+m1,
+ExecutableType
+m2)
+Tests whether the signature of one method is a
+subsignature
+of another.
+Parameters:
+m1
+- the first method
+m2
+- the second method
+Returns:
+true
+if and only if the first signature is a
+          subsignature of the second
+See
+Java Language Specification
+:
+8.4.2 Method Signature
+directSupertypes
+List
+<? extends
+TypeMirror
+>
+directSupertypes
+(
+TypeMirror
+t)
+Returns the direct supertypes of a type. The interface types, if any,
+ will appear last in the list. For an interface type with no direct
+ super-interfaces, a type mirror representing
+java.lang.Object
+is returned.
+ The type
+java.lang.Object
+has no direct supertype (JLS
+8.1.4
+,
+8.1.5
+) so an empty list is returned for
+ the direct supertypes of a type mirror representing
+java.lang.Object
+.
+Parameters:
+t
+- the type being examined
+Returns:
+the direct supertypes, or an empty list if none
+Throws:
+IllegalArgumentException
+- if given a type for an executable, package, or module
+See
+Java Language Specification
+:
+4.10 Subtyping
+erasure
+TypeMirror
+erasure
+(
+TypeMirror
+t)
+Returns the erasure of a type.
+Parameters:
+t
+- the type to be erased
+Returns:
+the erasure of a type
+Throws:
+IllegalArgumentException
+- if given a type for a package or module
+See
+Java Language Specification
+:
+4.6 Type Erasure
+boxedClass
+TypeElement
+boxedClass
+(
+PrimitiveType
+p)
+Returns the class of a boxed value of the primitive type argument.
+ That is,
+boxing conversion
+is applied.
+Parameters:
+p
+- the primitive type to be converted
+Returns:
+the class of a boxed value of the primitive type argument
+See
+Java Language Specification
+:
+5.1.7 Boxing Conversion
+unboxedType
+PrimitiveType
+unboxedType
+(
+TypeMirror
+t)
+Returns the type (a primitive type) of unboxed values of a given type.
+ That is,
+unboxing conversion
+is applied.
+Parameters:
+t
+- the type to be unboxed
+Returns:
+the type of an unboxed value of type
+t
+Throws:
+IllegalArgumentException
+- if the given type has no
+          unboxing conversion
+See
+Java Language Specification
+:
+5.1.8 Unboxing Conversion
+capture
+TypeMirror
+capture
+(
+TypeMirror
+t)
+Applies capture conversion to a type.
+Parameters:
+t
+- the type to be converted
+Returns:
+the result of applying capture conversion
+Throws:
+IllegalArgumentException
+- if given a type for an executable, package, or module
+See
+Java Language Specification
+:
+5.1.10 Capture Conversion
+getPrimitiveType
+PrimitiveType
+getPrimitiveType
+(
+TypeKind
+kind)
+Returns a primitive type.
+Parameters:
+kind
+- the kind of primitive type to return
+Returns:
+a primitive type
+Throws:
+IllegalArgumentException
+- if
+kind
+is not a primitive kind
+getNullType
+NullType
+getNullType
+()
+Returns the null type.  This is the type of
+null
+.
+Returns:
+the null type
+getNoType
+NoType
+getNoType
+(
+TypeKind
+kind)
+Returns a pseudo-type used where no actual type is appropriate.
+ The kind of type to return may be either
+VOID
+or
+NONE
+.
+To get the pseudo-type corresponding to a package or module,
+ call
+asType()
+on the element modeling the
+package
+or
+module
+. Names can be converted to elements for packages or
+ modules using
+Elements.getPackageElement(CharSequence)
+or
+Elements.getModuleElement(CharSequence)
+,
+ respectively.
+Parameters:
+kind
+- the kind of type to return
+Returns:
+a pseudo-type of kind
+VOID
+or
+NONE
+Throws:
+IllegalArgumentException
+- if
+kind
+is not valid
+getArrayType
+ArrayType
+getArrayType
+(
+TypeMirror
+componentType)
+Returns an array type with the specified component type.
+Parameters:
+componentType
+- the component type
+Returns:
+an array type with the specified component type
+Throws:
+IllegalArgumentException
+- if the component type is not valid for
+          an array
+getWildcardType
+WildcardType
+getWildcardType
+(
+TypeMirror
+extendsBound,
+TypeMirror
+superBound)
+Returns a new wildcard type.  Either of the wildcard's
+ bounds may be specified, or neither, but not both.
+Parameters:
+extendsBound
+- the extends (upper) bound, or
+null
+if none
+superBound
+- the super (lower) bound, or
+null
+if none
+Returns:
+a new wildcard type
+Throws:
+IllegalArgumentException
+- if bounds are not valid
+getDeclaredType
+DeclaredType
+getDeclaredType
+(
+TypeElement
+typeElem,
+TypeMirror
+... typeArgs)
+Returns the type corresponding to a type element and
+ actual type arguments.
+ Given the type element for
+Set
+and the type mirror
+ for
+String
+,
+ for example, this method may be used to get the
+ parameterized type
+Set<String>
+.
+The number of type arguments must either equal the
+ number of the type element's formal type parameters, or must be
+ zero.  If zero, and if the type element is generic,
+ then the type element's raw type is returned.
+If a parameterized type is being returned, its type element
+ must not be contained within a generic outer class.
+ The parameterized type
+Outer<String>.Inner<Number>
+,
+ for example, may be constructed by first using this
+ method to get the type
+Outer<String>
+, and then invoking
+getDeclaredType(DeclaredType, TypeElement, TypeMirror...)
+.
+Parameters:
+typeElem
+- the type element
+typeArgs
+- the actual type arguments
+Returns:
+the type corresponding to a type element and
+ actual type arguments
+Throws:
+IllegalArgumentException
+- if too many or too few
+          type arguments are given, or if an inappropriate type
+          argument or type element is provided
+getDeclaredType
+DeclaredType
+getDeclaredType
+(
+DeclaredType
+containing,
+TypeElement
+typeElem,
+TypeMirror
+... typeArgs)
+Returns the type corresponding to a type element
+ and actual type arguments, given a
+containing type
+of which it is a member.
+ The parameterized type
+Outer<String>.Inner<Number>
+,
+ for example, may be constructed by first using
+getDeclaredType(TypeElement, TypeMirror...)
+to get the type
+Outer<String>
+, and then invoking
+ this method.
+If the containing type is a parameterized type,
+ the number of type arguments must equal the
+ number of
+typeElem
+'s formal type parameters.
+ If it is not parameterized or if it is
+null
+, this method is
+ equivalent to
+getDeclaredType(typeElem, typeArgs)
+.
+Parameters:
+containing
+- the containing type, or
+null
+if none
+typeElem
+- the type element
+typeArgs
+- the actual type arguments
+Returns:
+the type corresponding to the type element and
+          actual type arguments, contained within the given type
+Throws:
+IllegalArgumentException
+- if too many or too few
+          type arguments are given, or if an inappropriate type
+          argument, type element, or containing type is provided
+asMemberOf
+TypeMirror
+asMemberOf
+(
+DeclaredType
+containing,
+Element
+element)
+Returns the type of an element when that element is viewed as
+ a member of, or otherwise directly contained by, a given type.
+ For example,
+ when viewed as a member of the parameterized type
+Set<String>
+,
+ the
+Set.add
+method is an
+ExecutableType
+whose parameter is of type
+String
+.
+Parameters:
+containing
+- the containing type
+element
+- the element
+Returns:
+the type of the element as viewed from the containing type
+Throws:
+IllegalArgumentException
+- if the element is not a valid one
+          for the given type
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

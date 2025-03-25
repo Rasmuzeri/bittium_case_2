@@ -1,0 +1,462 @@
+StreamingExecutionControl (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.jshell
+Package
+jdk.jshell.execution
+Class StreamingExecutionControl
+java.lang.Object
+jdk.jshell.execution.StreamingExecutionControl
+All Implemented Interfaces:
+AutoCloseable
+,
+ExecutionControl
+Direct Known Subclasses:
+JdiExecutionControl
+public class
+StreamingExecutionControl
+extends
+Object
+implements
+ExecutionControl
+An implementation of the
+ExecutionControl
+execution engine SPI which streams requests to a remote agent where
+ execution takes place.
+Since:
+9
+Nested Class Summary
+Nested classes/interfaces declared in interface jdk.jshell.spi.
+ExecutionControl
+ExecutionControl.ClassBytecodes
+,
+ExecutionControl.ClassInstallException
+,
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.ExecutionControlException
+,
+ExecutionControl.InternalException
+,
+ExecutionControl.NotImplementedException
+,
+ExecutionControl.ResolutionException
+,
+ExecutionControl.RunException
+,
+ExecutionControl.StoppedException
+,
+ExecutionControl.UserException
+Constructor Summary
+Constructors
+Constructor
+Description
+StreamingExecutionControl
+(
+ObjectOutput
+out,
+ObjectInput
+in)
+Creates an instance.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+addToClasspath
+(
+String
+path)
+Adds the path to the execution class path.
+void
+close
+()
+Closes the execution engine.
+Object
+extensionCommand
+(
+String
+command,
+Object
+arg)
+Run a non-standard command (or a standard command from a newer version).
+String
+invoke
+(
+String
+classname,
+String
+methodname)
+Invokes an executable Snippet by calling a method on the specified
+ wrapper class.
+void
+load
+(
+ExecutionControl.ClassBytecodes
+[] cbcs)
+Attempts to load new classes.
+void
+redefine
+(
+ExecutionControl.ClassBytecodes
+[] cbcs)
+Attempts to redefine previously loaded classes.
+void
+stop
+()
+Interrupts a running invoke.
+String
+varValue
+(
+String
+classname,
+String
+varname)
+Returns the value of a variable.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+StreamingExecutionControl
+public
+StreamingExecutionControl
+(
+ObjectOutput
+out,
+ObjectInput
+in)
+Creates an instance.
+Parameters:
+out
+- the output for commands
+in
+- the input for command responses
+Method Details
+load
+public
+void
+load
+(
+ExecutionControl.ClassBytecodes
+[] cbcs)
+throws
+ExecutionControl.ClassInstallException
+,
+ExecutionControl.NotImplementedException
+,
+ExecutionControl.EngineTerminationException
+Description copied from interface:
+ExecutionControl
+Attempts to load new classes.
+Specified by:
+load
+in interface
+ExecutionControl
+Parameters:
+cbcs
+- the class name and bytecodes to load
+Throws:
+ExecutionControl.ClassInstallException
+- exception occurred loading the classes,
+ some or all were not loaded
+ExecutionControl.NotImplementedException
+- if not implemented
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+redefine
+public
+void
+redefine
+(
+ExecutionControl.ClassBytecodes
+[] cbcs)
+throws
+ExecutionControl.ClassInstallException
+,
+ExecutionControl.NotImplementedException
+,
+ExecutionControl.EngineTerminationException
+Description copied from interface:
+ExecutionControl
+Attempts to redefine previously loaded classes.
+Specified by:
+redefine
+in interface
+ExecutionControl
+Parameters:
+cbcs
+- the class name and bytecodes to redefine
+Throws:
+ExecutionControl.ClassInstallException
+- exception occurred redefining the classes,
+ some or all were not redefined
+ExecutionControl.NotImplementedException
+- if not implemented
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+invoke
+public
+String
+invoke
+(
+String
+classname,
+String
+methodname)
+throws
+ExecutionControl.RunException
+,
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.InternalException
+Description copied from interface:
+ExecutionControl
+Invokes an executable Snippet by calling a method on the specified
+ wrapper class. The method must have no arguments and return String.
+Specified by:
+invoke
+in interface
+ExecutionControl
+Parameters:
+classname
+- the class whose method should be invoked
+methodname
+- the name of method to invoke
+Returns:
+the result of the execution or null if no result
+Throws:
+ExecutionControl.UserException
+- the invoke raised a user exception
+ExecutionControl.ResolutionException
+- the invoke attempted to directly or
+ indirectly invoke an unresolved snippet
+ExecutionControl.StoppedException
+- if the
+invoke()
+was canceled by
+ExecutionControl.stop()
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+ExecutionControl.InternalException
+- an internal problem occurred
+ExecutionControl.RunException
+varValue
+public
+String
+varValue
+(
+String
+classname,
+String
+varname)
+throws
+ExecutionControl.RunException
+,
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.InternalException
+Description copied from interface:
+ExecutionControl
+Returns the value of a variable.
+Specified by:
+varValue
+in interface
+ExecutionControl
+Parameters:
+classname
+- the name of the wrapper class of the variable
+varname
+- the name of the variable
+Returns:
+the value of the variable
+Throws:
+ExecutionControl.UserException
+- formatting the value raised a user exception
+ExecutionControl.ResolutionException
+- formatting the value attempted to directly or
+ indirectly invoke an unresolved snippet
+ExecutionControl.StoppedException
+- if the formatting the value was canceled by
+ExecutionControl.stop()
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+ExecutionControl.InternalException
+- an internal problem occurred
+ExecutionControl.RunException
+addToClasspath
+public
+void
+addToClasspath
+(
+String
+path)
+throws
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.InternalException
+Description copied from interface:
+ExecutionControl
+Adds the path to the execution class path.
+Specified by:
+addToClasspath
+in interface
+ExecutionControl
+Parameters:
+path
+- the path to add
+Throws:
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+ExecutionControl.InternalException
+- an internal problem occurred
+stop
+public
+void
+stop
+()
+          throws
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.InternalException
+Description copied from interface:
+ExecutionControl
+Interrupts a running invoke.
+Specified by:
+stop
+in interface
+ExecutionControl
+Throws:
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+ExecutionControl.InternalException
+- an internal problem occurred
+extensionCommand
+public
+Object
+extensionCommand
+(
+String
+command,
+Object
+arg)
+throws
+ExecutionControl.RunException
+,
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.InternalException
+Description copied from interface:
+ExecutionControl
+Run a non-standard command (or a standard command from a newer version).
+Specified by:
+extensionCommand
+in interface
+ExecutionControl
+Parameters:
+command
+- the non-standard command
+arg
+- the commands argument
+Returns:
+the commands return value
+Throws:
+ExecutionControl.UserException
+- the command raised a user exception
+ExecutionControl.ResolutionException
+- the command attempted to directly or
+ indirectly invoke an unresolved snippet
+ExecutionControl.StoppedException
+- if the command was canceled by
+ExecutionControl.stop()
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+ExecutionControl.NotImplementedException
+- if not implemented
+ExecutionControl.InternalException
+- an internal problem occurred
+ExecutionControl.RunException
+close
+public
+void
+close
+()
+Closes the execution engine. Send an exit command to the remote agent.
+Specified by:
+close
+in interface
+AutoCloseable
+Specified by:
+close
+in interface
+ExecutionControl
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

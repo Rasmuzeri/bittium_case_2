@@ -1,0 +1,1216 @@
+Query (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.management
+Package
+javax.management
+Class Query
+java.lang.Object
+javax.management.Query
+public class
+Query
+extends
+Object
+Constructs query object constraints.
+The MBean Server can be queried for MBeans that meet a particular
+ condition, using its
+queryNames
+or
+queryMBeans
+method.  The
+QueryExp
+parameter to the method can be any implementation of the interface
+QueryExp
+, but it is usually best to obtain the
+QueryExp
+value by calling the static methods in this class.  This is particularly
+ true when querying a remote MBean Server: a custom implementation of the
+QueryExp
+interface might not be present in the remote MBean Server,
+ but the methods in this class return only standard classes that are
+ part of the JMX implementation.
+As an example, suppose you wanted to find all MBeans where the
+Enabled
+attribute is
+true
+and the
+Owner
+attribute is
+"Duke"
+. Here is how you could construct the appropriate
+QueryExp
+by
+ chaining together method calls:
+QueryExp query =
+     Query.and(Query.eq(Query.attr("Enabled"), Query.value(true)),
+               Query.eq(Query.attr("Owner"), Query.value("Duke")));
+Since:
+1.5
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final int
+DIV
+A code representing the
+div(javax.management.ValueExp, javax.management.ValueExp)
+expression.
+static final int
+EQ
+A code representing the
+eq(javax.management.ValueExp, javax.management.ValueExp)
+query.
+static final int
+GE
+A code representing the
+geq(javax.management.ValueExp, javax.management.ValueExp)
+query.
+static final int
+GT
+A code representing the
+gt(javax.management.ValueExp, javax.management.ValueExp)
+query.
+static final int
+LE
+A code representing the
+leq(javax.management.ValueExp, javax.management.ValueExp)
+query.
+static final int
+LT
+A code representing the
+lt(javax.management.ValueExp, javax.management.ValueExp)
+query.
+static final int
+MINUS
+A code representing the
+minus(javax.management.ValueExp, javax.management.ValueExp)
+expression.
+static final int
+PLUS
+A code representing the
+plus(javax.management.ValueExp, javax.management.ValueExp)
+expression.
+static final int
+TIMES
+A code representing the
+times(javax.management.ValueExp, javax.management.ValueExp)
+expression.
+Constructor Summary
+Constructors
+Constructor
+Description
+Query
+()
+Basic constructor.
+Method Summary
+All Methods
+Static Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+QueryExp
+and
+(
+QueryExp
+q1,
+QueryExp
+q2)
+Returns a query expression that is the conjunction of two other query
+ expressions.
+static
+QueryExp
+anySubString
+(
+AttributeValueExp
+a,
+StringValueExp
+s)
+Returns a query expression that represents a matching constraint on
+ a string argument.
+static
+AttributeValueExp
+attr
+(
+String
+name)
+Returns a new attribute expression.
+static
+AttributeValueExp
+attr
+(
+String
+className,
+String
+name)
+Returns a new qualified attribute expression.
+static
+QueryExp
+between
+(
+ValueExp
+v1,
+ValueExp
+v2,
+ValueExp
+v3)
+Returns a query expression that represents the constraint that one
+ value is between two other values.
+static
+AttributeValueExp
+classattr
+()
+Returns a new class attribute expression which can be used in any
+ Query call that expects a ValueExp.
+static
+ValueExp
+div
+(
+ValueExp
+value1,
+ValueExp
+value2)
+Returns a binary expression representing the quotient of two numeric
+ values.
+static
+QueryExp
+eq
+(
+ValueExp
+v1,
+ValueExp
+v2)
+Returns a query expression that represents an equality constraint on
+ two values.
+static
+QueryExp
+finalSubString
+(
+AttributeValueExp
+a,
+StringValueExp
+s)
+Returns a query expression that represents a matching constraint on
+ a string argument.
+static
+QueryExp
+geq
+(
+ValueExp
+v1,
+ValueExp
+v2)
+Returns a query expression that represents a "greater than or equal
+ to" constraint on two values.
+static
+QueryExp
+gt
+(
+ValueExp
+v1,
+ValueExp
+v2)
+Returns a query expression that represents a "greater than" constraint on
+ two values.
+static
+QueryExp
+in
+(
+ValueExp
+val,
+ValueExp
+[] valueList)
+Returns an expression constraining a value to be one of an explicit list.
+static
+QueryExp
+initialSubString
+(
+AttributeValueExp
+a,
+StringValueExp
+s)
+Returns a query expression that represents a matching constraint on
+ a string argument.
+static
+QueryExp
+isInstanceOf
+(
+StringValueExp
+classNameValue)
+Returns a query expression that represents an inheritance constraint
+ on an MBean class.
+static
+QueryExp
+leq
+(
+ValueExp
+v1,
+ValueExp
+v2)
+Returns a query expression that represents a "less than or equal to"
+ constraint on two values.
+static
+QueryExp
+lt
+(
+ValueExp
+v1,
+ValueExp
+v2)
+Returns a query expression that represents a "less than" constraint on
+ two values.
+static
+QueryExp
+match
+(
+AttributeValueExp
+a,
+StringValueExp
+s)
+Returns a query expression that represents a matching constraint on
+ a string argument.
+static
+ValueExp
+minus
+(
+ValueExp
+value1,
+ValueExp
+value2)
+Returns a binary expression representing the difference between two numeric
+ values.
+static
+QueryExp
+not
+(
+QueryExp
+queryExp)
+Returns a constraint that is the negation of its argument.
+static
+QueryExp
+or
+(
+QueryExp
+q1,
+QueryExp
+q2)
+Returns a query expression that is the disjunction of two other query
+ expressions.
+static
+ValueExp
+plus
+(
+ValueExp
+value1,
+ValueExp
+value2)
+Returns a binary expression representing the sum of two numeric values,
+ or the concatenation of two string values.
+static
+ValueExp
+times
+(
+ValueExp
+value1,
+ValueExp
+value2)
+Returns a binary expression representing the product of two numeric values.
+static
+ValueExp
+value
+(boolean val)
+Returns a boolean value expression that can be used in any Query call
+ that expects a ValueExp.
+static
+ValueExp
+value
+(double val)
+Returns a numeric value expression that can be used in any Query call
+ that expects a ValueExp.
+static
+ValueExp
+value
+(float val)
+Returns a numeric value expression that can be used in any Query call
+ that expects a ValueExp.
+static
+ValueExp
+value
+(int val)
+Returns a numeric value expression that can be used in any Query call
+ that expects a ValueExp.
+static
+ValueExp
+value
+(long val)
+Returns a numeric value expression that can be used in any Query call
+ that expects a ValueExp.
+static
+ValueExp
+value
+(
+Number
+val)
+Returns a numeric value expression that can be used in any Query call
+ that expects a ValueExp.
+static
+StringValueExp
+value
+(
+String
+val)
+Returns a new string expression.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+GT
+public static final
+int
+GT
+A code representing the
+gt(javax.management.ValueExp, javax.management.ValueExp)
+query.  This is chiefly
+ of interest for the serialized form of queries.
+See Also:
+Constant Field Values
+LT
+public static final
+int
+LT
+A code representing the
+lt(javax.management.ValueExp, javax.management.ValueExp)
+query.  This is chiefly
+ of interest for the serialized form of queries.
+See Also:
+Constant Field Values
+GE
+public static final
+int
+GE
+A code representing the
+geq(javax.management.ValueExp, javax.management.ValueExp)
+query.  This is chiefly
+ of interest for the serialized form of queries.
+See Also:
+Constant Field Values
+LE
+public static final
+int
+LE
+A code representing the
+leq(javax.management.ValueExp, javax.management.ValueExp)
+query.  This is chiefly
+ of interest for the serialized form of queries.
+See Also:
+Constant Field Values
+EQ
+public static final
+int
+EQ
+A code representing the
+eq(javax.management.ValueExp, javax.management.ValueExp)
+query.  This is chiefly
+ of interest for the serialized form of queries.
+See Also:
+Constant Field Values
+PLUS
+public static final
+int
+PLUS
+A code representing the
+plus(javax.management.ValueExp, javax.management.ValueExp)
+expression.  This
+ is chiefly of interest for the serialized form of queries.
+See Also:
+Constant Field Values
+MINUS
+public static final
+int
+MINUS
+A code representing the
+minus(javax.management.ValueExp, javax.management.ValueExp)
+expression.  This
+ is chiefly of interest for the serialized form of queries.
+See Also:
+Constant Field Values
+TIMES
+public static final
+int
+TIMES
+A code representing the
+times(javax.management.ValueExp, javax.management.ValueExp)
+expression.  This
+ is chiefly of interest for the serialized form of queries.
+See Also:
+Constant Field Values
+DIV
+public static final
+int
+DIV
+A code representing the
+div(javax.management.ValueExp, javax.management.ValueExp)
+expression.  This is
+ chiefly of interest for the serialized form of queries.
+See Also:
+Constant Field Values
+Constructor Details
+Query
+public
+Query
+()
+Basic constructor.
+Method Details
+and
+public static
+QueryExp
+and
+(
+QueryExp
+q1,
+QueryExp
+q2)
+Returns a query expression that is the conjunction of two other query
+ expressions.
+Parameters:
+q1
+- A query expression.
+q2
+- Another query expression.
+Returns:
+The conjunction of the two arguments.  The returned object
+ will be serialized as an instance of the non-public class
+javax.management.AndQueryExp
+.
+or
+public static
+QueryExp
+or
+(
+QueryExp
+q1,
+QueryExp
+q2)
+Returns a query expression that is the disjunction of two other query
+ expressions.
+Parameters:
+q1
+- A query expression.
+q2
+- Another query expression.
+Returns:
+The disjunction of the two arguments.  The returned object
+ will be serialized as an instance of the non-public class
+javax.management.OrQueryExp
+.
+gt
+public static
+QueryExp
+gt
+(
+ValueExp
+v1,
+ValueExp
+v2)
+Returns a query expression that represents a "greater than" constraint on
+ two values.
+Parameters:
+v1
+- A value expression.
+v2
+- Another value expression.
+Returns:
+A "greater than" constraint on the arguments.  The
+ returned object will be serialized as an instance of the
+ non-public class
+javax.management.BinaryRelQueryExp
+with a
+relOp
+equal
+ to
+GT
+.
+geq
+public static
+QueryExp
+geq
+(
+ValueExp
+v1,
+ValueExp
+v2)
+Returns a query expression that represents a "greater than or equal
+ to" constraint on two values.
+Parameters:
+v1
+- A value expression.
+v2
+- Another value expression.
+Returns:
+A "greater than or equal to" constraint on the
+ arguments.  The returned object will be serialized as an
+ instance of the non-public class
+javax.management.BinaryRelQueryExp
+with a
+relOp
+equal
+ to
+GE
+.
+leq
+public static
+QueryExp
+leq
+(
+ValueExp
+v1,
+ValueExp
+v2)
+Returns a query expression that represents a "less than or equal to"
+ constraint on two values.
+Parameters:
+v1
+- A value expression.
+v2
+- Another value expression.
+Returns:
+A "less than or equal to" constraint on the arguments.
+ The returned object will be serialized as an instance of the
+ non-public class
+javax.management.BinaryRelQueryExp
+with a
+relOp
+equal
+ to
+LE
+.
+lt
+public static
+QueryExp
+lt
+(
+ValueExp
+v1,
+ValueExp
+v2)
+Returns a query expression that represents a "less than" constraint on
+ two values.
+Parameters:
+v1
+- A value expression.
+v2
+- Another value expression.
+Returns:
+A "less than" constraint on the arguments.  The
+ returned object will be serialized as an instance of the
+ non-public class
+javax.management.BinaryRelQueryExp
+with a
+relOp
+equal
+ to
+LT
+.
+eq
+public static
+QueryExp
+eq
+(
+ValueExp
+v1,
+ValueExp
+v2)
+Returns a query expression that represents an equality constraint on
+ two values.
+Parameters:
+v1
+- A value expression.
+v2
+- Another value expression.
+Returns:
+A "equal to" constraint on the arguments.  The
+ returned object will be serialized as an instance of the
+ non-public class
+javax.management.BinaryRelQueryExp
+with a
+relOp
+equal
+ to
+EQ
+.
+between
+public static
+QueryExp
+between
+(
+ValueExp
+v1,
+ValueExp
+v2,
+ValueExp
+v3)
+Returns a query expression that represents the constraint that one
+ value is between two other values.
+Parameters:
+v1
+- A value expression that is "between" v2 and v3.
+v2
+- Value expression that represents a boundary of the constraint.
+v3
+- Value expression that represents a boundary of the constraint.
+Returns:
+The constraint that v1 lies between v2 and v3.  The
+ returned object will be serialized as an instance of the
+ non-public class
+javax.management.BetweenQueryExp
+.
+match
+public static
+QueryExp
+match
+(
+AttributeValueExp
+a,
+StringValueExp
+s)
+Returns a query expression that represents a matching constraint on
+ a string argument. The matching syntax is consistent with file globbing:
+ supports "
+?
+", "
+*
+", "
+[
+",
+ each of which may be escaped with "
+\
+";
+ character classes may use "
+!
+" for negation and
+ "
+-
+" for range.
+ (
+*
+for any character sequence,
+?
+for a single arbitrary character,
+[...]
+for a character sequence).
+ For example:
+a*b?c
+would match a string starting
+ with the character
+a
+, followed
+ by any number of characters, followed by a
+b
+,
+ any single character, and a
+c
+.
+Parameters:
+a
+- An attribute expression
+s
+- A string value expression representing a matching constraint
+Returns:
+A query expression that represents the matching
+ constraint on the string argument.  The returned object will
+ be serialized as an instance of the non-public class
+javax.management.MatchQueryExp
+.
+attr
+public static
+AttributeValueExp
+attr
+(
+String
+name)
+Returns a new attribute expression.  See
+AttributeValueExp
+for a detailed description of the semantics of the expression.
+Evaluating this expression for a given
+objectName
+includes performing
+MBeanServer.getAttribute(objectName,
+ name)
+.
+Parameters:
+name
+- The name of the attribute.
+Returns:
+An attribute expression for the attribute named
+name
+.
+attr
+public static
+AttributeValueExp
+attr
+(
+String
+className,
+String
+name)
+Returns a new qualified attribute expression.
+Evaluating this expression for a given
+objectName
+includes performing
+MBeanServer.getObjectInstance(objectName)
+and
+MBeanServer.getAttribute(objectName,
+ name)
+.
+Parameters:
+className
+- The name of the class possessing the attribute.
+name
+- The name of the attribute.
+Returns:
+An attribute expression for the attribute named name.
+ The returned object will be serialized as an instance of the
+ non-public class
+javax.management.QualifiedAttributeValueExp
+.
+classattr
+public static
+AttributeValueExp
+classattr
+()
+Returns a new class attribute expression which can be used in any
+ Query call that expects a ValueExp.
+Evaluating this expression for a given
+objectName
+includes performing
+MBeanServer.getObjectInstance(objectName)
+.
+Returns:
+A class attribute expression.  The returned object
+ will be serialized as an instance of the non-public class
+javax.management.ClassAttributeValueExp
+.
+not
+public static
+QueryExp
+not
+(
+QueryExp
+queryExp)
+Returns a constraint that is the negation of its argument.
+Parameters:
+queryExp
+- The constraint to negate.
+Returns:
+A negated constraint.  The returned object will be
+ serialized as an instance of the non-public class
+javax.management.NotQueryExp
+.
+in
+public static
+QueryExp
+in
+(
+ValueExp
+val,
+ValueExp
+[] valueList)
+Returns an expression constraining a value to be one of an explicit list.
+Parameters:
+val
+- A value to be constrained.
+valueList
+- An array of ValueExps.
+Returns:
+A QueryExp that represents the constraint.  The
+ returned object will be serialized as an instance of the
+ non-public class
+javax.management.InQueryExp
+.
+value
+public static
+StringValueExp
+value
+(
+String
+val)
+Returns a new string expression.
+Parameters:
+val
+- The string value.
+Returns:
+A ValueExp object containing the string argument.
+value
+public static
+ValueExp
+value
+(
+Number
+val)
+Returns a numeric value expression that can be used in any Query call
+ that expects a ValueExp.
+Parameters:
+val
+- An instance of Number.
+Returns:
+A ValueExp object containing the argument.  The
+ returned object will be serialized as an instance of the
+ non-public class
+javax.management.NumericValueExp
+.
+value
+public static
+ValueExp
+value
+(int val)
+Returns a numeric value expression that can be used in any Query call
+ that expects a ValueExp.
+Parameters:
+val
+- An int value.
+Returns:
+A ValueExp object containing the argument.  The
+ returned object will be serialized as an instance of the
+ non-public class
+javax.management.NumericValueExp
+.
+value
+public static
+ValueExp
+value
+(long val)
+Returns a numeric value expression that can be used in any Query call
+ that expects a ValueExp.
+Parameters:
+val
+- A long value.
+Returns:
+A ValueExp object containing the argument.  The
+ returned object will be serialized as an instance of the
+ non-public class
+javax.management.NumericValueExp
+.
+value
+public static
+ValueExp
+value
+(float val)
+Returns a numeric value expression that can be used in any Query call
+ that expects a ValueExp.
+Parameters:
+val
+- A float value.
+Returns:
+A ValueExp object containing the argument.  The
+ returned object will be serialized as an instance of the
+ non-public class
+javax.management.NumericValueExp
+.
+value
+public static
+ValueExp
+value
+(double val)
+Returns a numeric value expression that can be used in any Query call
+ that expects a ValueExp.
+Parameters:
+val
+- A double value.
+Returns:
+A ValueExp object containing the argument.  The
+ returned object will be serialized as an instance of the
+ non-public class
+javax.management.NumericValueExp
+.
+value
+public static
+ValueExp
+value
+(boolean val)
+Returns a boolean value expression that can be used in any Query call
+ that expects a ValueExp.
+Parameters:
+val
+- A boolean value.
+Returns:
+A ValueExp object containing the argument.  The
+ returned object will be serialized as an instance of the
+ non-public class
+javax.management.BooleanValueExp
+.
+plus
+public static
+ValueExp
+plus
+(
+ValueExp
+value1,
+ValueExp
+value2)
+Returns a binary expression representing the sum of two numeric values,
+ or the concatenation of two string values.
+Parameters:
+value1
+- The first '+' operand.
+value2
+- The second '+' operand.
+Returns:
+A ValueExp representing the sum or concatenation of
+ the two arguments.  The returned object will be serialized as
+ an instance of the non-public class
+javax.management.BinaryOpValueExp
+with an
+op
+equal to
+PLUS
+.
+times
+public static
+ValueExp
+times
+(
+ValueExp
+value1,
+ValueExp
+value2)
+Returns a binary expression representing the product of two numeric values.
+Parameters:
+value1
+- The first '*' operand.
+value2
+- The second '*' operand.
+Returns:
+A ValueExp representing the product.  The returned
+ object will be serialized as an instance of the non-public
+ class
+javax.management.BinaryOpValueExp
+with an
+op
+equal to
+TIMES
+.
+minus
+public static
+ValueExp
+minus
+(
+ValueExp
+value1,
+ValueExp
+value2)
+Returns a binary expression representing the difference between two numeric
+ values.
+Parameters:
+value1
+- The first '-' operand.
+value2
+- The second '-' operand.
+Returns:
+A ValueExp representing the difference between two
+ arguments.  The returned object will be serialized as an
+ instance of the non-public class
+javax.management.BinaryOpValueExp
+with an
+op
+equal to
+MINUS
+.
+div
+public static
+ValueExp
+div
+(
+ValueExp
+value1,
+ValueExp
+value2)
+Returns a binary expression representing the quotient of two numeric
+ values.
+Parameters:
+value1
+- The first '/' operand.
+value2
+- The second '/' operand.
+Returns:
+A ValueExp representing the quotient of two arguments.
+ The returned object will be serialized as an instance of the
+ non-public class
+javax.management.BinaryOpValueExp
+with an
+op
+equal to
+DIV
+.
+initialSubString
+public static
+QueryExp
+initialSubString
+(
+AttributeValueExp
+a,
+StringValueExp
+s)
+Returns a query expression that represents a matching constraint on
+ a string argument. The value must start with the given literal string
+ value.
+Parameters:
+a
+- An attribute expression.
+s
+- A string value expression representing the beginning of the
+ string value.
+Returns:
+The constraint that a matches s.  The returned object
+ will be serialized as an instance of the non-public class
+javax.management.MatchQueryExp
+.
+anySubString
+public static
+QueryExp
+anySubString
+(
+AttributeValueExp
+a,
+StringValueExp
+s)
+Returns a query expression that represents a matching constraint on
+ a string argument. The value must contain the given literal string
+ value.
+Parameters:
+a
+- An attribute expression.
+s
+- A string value expression representing the substring.
+Returns:
+The constraint that a matches s.  The returned object
+ will be serialized as an instance of the non-public class
+javax.management.MatchQueryExp
+.
+finalSubString
+public static
+QueryExp
+finalSubString
+(
+AttributeValueExp
+a,
+StringValueExp
+s)
+Returns a query expression that represents a matching constraint on
+ a string argument. The value must end with the given literal string
+ value.
+Parameters:
+a
+- An attribute expression.
+s
+- A string value expression representing the end of the string
+ value.
+Returns:
+The constraint that a matches s.  The returned object
+ will be serialized as an instance of the non-public class
+javax.management.MatchQueryExp
+.
+isInstanceOf
+public static
+QueryExp
+isInstanceOf
+(
+StringValueExp
+classNameValue)
+Returns a query expression that represents an inheritance constraint
+ on an MBean class.
+Example: to find MBeans that are instances of
+NotificationBroadcaster
+, use
+Query.isInstanceOf(Query.value(NotificationBroadcaster.class.getName()))
+.
+Evaluating this expression for a given
+objectName
+includes performing
+MBeanServer.isInstanceOf(objectName,
+ ((StringValueExp)classNameValue.apply(objectName)).getValue()
+.
+Parameters:
+classNameValue
+- The
+StringValueExp
+returning the name
+        of the class of which selected MBeans should be instances.
+Returns:
+a query expression that represents an inheritance
+ constraint on an MBean class.  The returned object will be
+ serialized as an instance of the non-public class
+javax.management.InstanceOfQueryExp
+.
+Since:
+1.6
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

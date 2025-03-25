@@ -1,0 +1,151 @@
+X509IssuerSerial (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.xml.crypto
+Package
+javax.xml.crypto.dsig.keyinfo
+Interface X509IssuerSerial
+All Superinterfaces:
+XMLStructure
+public interface
+X509IssuerSerial
+extends
+XMLStructure
+A representation of the XML
+X509IssuerSerial
+element as
+ defined in the
+W3C Recommendation for XML-Signature Syntax and Processing
+.
+ An
+X509IssuerSerial
+object contains an X.509 issuer
+ distinguished name (DN) and serial number pair. The XML schema definition is
+ defined as:
+<element name="X509IssuerSerial" type="ds:X509IssuerSerialType"/>
+   <complexType name="X509IssuerSerialType">
+     <sequence>
+       <element name="X509IssuerName" type="string"/>
+       <element name="X509SerialNumber" type="integer"/>
+     </sequence>
+   </complexType>
+An
+X509IssuerSerial
+instance may be created by invoking the
+newX509IssuerSerial
+method
+ of the
+KeyInfoFactory
+class, and passing it a
+String
+and
+BigInteger
+representing the X.500
+ DN and serial number. Here is an example of creating an
+X509IssuerSerial
+from the issuer DN and serial number of an
+ existing
+X509Certificate
+:
+KeyInfoFactory factory = KeyInfoFactory.getInstance("DOM");
+ X509IssuerSerial issuer = factory.newX509IssuerSerial
+     (cert.getIssuerX500Principal().getName(), cert.getSerialNumber());
+Since:
+1.6
+See Also:
+X509Data.getContent()
+KeyInfoFactory.newX509IssuerSerial(String, BigInteger)
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+String
+getIssuerName
+()
+Returns the X.500 distinguished name of this
+X509IssuerSerial
+in
+RFC 2253
+String format.
+BigInteger
+getSerialNumber
+()
+Returns the serial number of this
+X509IssuerSerial
+.
+Methods declared in interface javax.xml.crypto.
+XMLStructure
+isFeatureSupported
+Method Details
+getIssuerName
+String
+getIssuerName
+()
+Returns the X.500 distinguished name of this
+X509IssuerSerial
+in
+RFC 2253
+String format.
+Returns:
+the X.500 distinguished name in RFC 2253 String format (never
+null
+)
+getSerialNumber
+BigInteger
+getSerialNumber
+()
+Returns the serial number of this
+X509IssuerSerial
+.
+Returns:
+the serial number (never
+null
+)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

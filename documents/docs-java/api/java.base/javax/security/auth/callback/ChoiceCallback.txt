@@ -1,0 +1,302 @@
+ChoiceCallback (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+javax.security.auth.callback
+Class ChoiceCallback
+java.lang.Object
+javax.security.auth.callback.ChoiceCallback
+All Implemented Interfaces:
+Serializable
+,
+Callback
+Direct Known Subclasses:
+RealmChoiceCallback
+public class
+ChoiceCallback
+extends
+Object
+implements
+Callback
+,
+Serializable
+Underlying security services instantiate and pass a
+ChoiceCallback
+to the
+handle
+method of a
+CallbackHandler
+to display a list of choices
+ and to retrieve the selected choice(s).
+Since:
+1.4
+See Also:
+CallbackHandler
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+ChoiceCallback
+(
+String
+prompt,
+String
+[] choices,
+ int defaultChoice,
+ boolean multipleSelectionsAllowed)
+Construct a
+ChoiceCallback
+with a prompt,
+ a list of choices, a default choice, and a boolean specifying
+ whether multiple selections from the list of choices are allowed.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+allowMultipleSelections
+()
+Get the boolean determining whether multiple selections from
+ the
+choices
+list are allowed.
+String
+[]
+getChoices
+()
+Get the list of choices.
+int
+getDefaultChoice
+()
+Get the defaultChoice.
+String
+getPrompt
+()
+Get the prompt.
+int[]
+getSelectedIndexes
+()
+Get the selected choices.
+void
+setSelectedIndex
+(int selection)
+Set the selected choice.
+void
+setSelectedIndexes
+(int[] selections)
+Set the selected choices.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+ChoiceCallback
+public
+ChoiceCallback
+(
+String
+prompt,
+String
+[] choices,
+ int defaultChoice,
+ boolean multipleSelectionsAllowed)
+Construct a
+ChoiceCallback
+with a prompt,
+ a list of choices, a default choice, and a boolean specifying
+ whether multiple selections from the list of choices are allowed.
+Parameters:
+prompt
+- the prompt used to describe the list of choices.
+choices
+- the list of choices. The array is cloned to protect
+                  against subsequent modification.
+defaultChoice
+- the choice to be used as the default choice
+                  when the list of choices are displayed.  This value
+                  is represented as an index into the
+choices
+array.
+multipleSelectionsAllowed
+- boolean specifying whether multiple
+                  selections can be made from the list of choices.
+Throws:
+IllegalArgumentException
+- if
+prompt
+is null,
+                  if
+prompt
+has a length of 0,
+                  if
+choices
+is null,
+                  if
+choices
+has a length of 0,
+                  if any element from
+choices
+is null,
+                  if any element from
+choices
+has a length of 0 or if
+defaultChoice
+does not fall within the array boundaries of
+choices
+.
+Method Details
+getPrompt
+public
+String
+getPrompt
+()
+Get the prompt.
+Returns:
+the prompt.
+getChoices
+public
+String
+[]
+getChoices
+()
+Get the list of choices.
+Returns:
+a copy of the list of choices.
+getDefaultChoice
+public
+int
+getDefaultChoice
+()
+Get the defaultChoice.
+Returns:
+the defaultChoice, represented as an index into
+          the
+choices
+list.
+allowMultipleSelections
+public
+boolean
+allowMultipleSelections
+()
+Get the boolean determining whether multiple selections from
+ the
+choices
+list are allowed.
+Returns:
+whether multiple selections are allowed.
+setSelectedIndex
+public
+void
+setSelectedIndex
+(int selection)
+Set the selected choice.
+Parameters:
+selection
+- the selection represented as an index into the
+choices
+list.
+See Also:
+getSelectedIndexes()
+setSelectedIndexes
+public
+void
+setSelectedIndexes
+(int[] selections)
+Set the selected choices.
+Parameters:
+selections
+- the selections represented as indexes into the
+choices
+list. The array is cloned to protect
+          against subsequent modification.
+Throws:
+UnsupportedOperationException
+- if multiple selections are
+          not allowed, as determined by
+allowMultipleSelections
+.
+See Also:
+getSelectedIndexes()
+getSelectedIndexes
+public
+int[]
+getSelectedIndexes
+()
+Get the selected choices.
+Returns:
+a copy of the selected choices, represented as indexes into the
+choices
+list.
+See Also:
+setSelectedIndexes(int[])
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

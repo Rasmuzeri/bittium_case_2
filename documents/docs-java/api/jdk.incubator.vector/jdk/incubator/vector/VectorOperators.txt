@@ -1,0 +1,2243 @@
+VectorOperators (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+jdk.incubator.vector
+Package
+jdk.incubator.vector
+Class VectorOperators
+java.lang.Object
+jdk.incubator.vector.VectorOperators
+public abstract class
+VectorOperators
+extends
+Object
+This class consists solely of static constants
+ that describe lane-wise vector operations, plus nested interfaces
+ which classify them.
+ The static constants serve as tokens denoting specifically
+ requested lane operations in vector expressions, such
+ as the token
+ADD
+in
+w = v0.
+lanewise
+(ADD, v1)
+.
+The documentation for each individual operator token is very brief,
+ giving a symbolic Java expression for the operation that the token
+ requests.  Those symbolic expressions use the following conventional
+ elements:
+a
+,
+b
+,
+c
+— names of lane values
+Java operators like
++
+,
+?:
+, etc. —
+ expression operators
+Java method names like
+max
+,
+sin
+, etc. —
+ methods in standard classes like
+Math
+,
+Double
+, etc.
+ Unqualified method names should be read as if in the context of a
+ static import, and with resolution of overloading.
+bits(x)
+— a function call which produces the
+ underlying bits of the value
+x
+.  If
+x
+is a floating
+ point value, this is either
+doubleToLongBits(x)
+or
+floatToIntBits(x)
+.  Otherwise, the value is just
+x
+.
+ESIZE
+— the size in bytes of the operand type
+EMASK
+— the bit mask of the operand type, where
+EMASK=(1<<(ESIZE*8))-1
+intVal
+,
+byteVal
+, etc. — the operand of a
+ conversion, with the indicated type
+Operations on floating point vectors
+Lane-wise vector operations that apply to floating point vectors
+ follow the accuracy and monotonicity specifications of the equivalent
+ Java operation or method mentioned in its documentation unless specified otherwise.
+ If the vector element type is
+float
+and the Java operation or
+ method only accepts and returns
+double
+values, then the scalar operation
+ on each lane is adapted to cast operands and the result, specifically widening
+float
+operands to
+double
+operands and narrowing the
+double
+result to a
+float
+.
+Certain associative operations that apply to floating point
+ vectors are not truly associative on the floating point lane values.
+ Specifically,
+ADD
+and
+MUL
+used with cross-lane reduction
+ operations, such as
+FloatVector.reduceLanes(Associative)
+.
+ The result of such an operation is a function both of the input
+ values (vector and mask) as well as the order of the scalar operations
+ applied to combine lane values.
+ In such cases the order is intentionally not defined.
+ This allows the JVM to generate optimal machine code for the underlying
+ platform at runtime.  If the platform supports a vector instruction
+ to add or multiply all values in the vector, or if there is some
+ other efficient machine code sequence, then the JVM has the option of
+ generating this machine code. Otherwise, the default
+ implementation is applied, which adds vector elements
+ sequentially from beginning to end.  For this reason, the
+ result of such an operation may vary for the same input values.
+Note that a particular operator token may apply to several
+ different lane types.  Thus, these tokens behave like overloaded
+ operators or methods, not like type-specific method handles or
+ lambdas.  Also unlike method handles or lambdas, these operators do
+ not possess operational semantics; they have no
+apply
+or
+invoke
+method.  They are used only to request lane
+ operations from vector objects, and cannot (by themselves) perform
+ operations on individual lane values.
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+static interface
+VectorOperators.Associative
+Type for all reassociating
+lane-wise
+binary operators,
+ usable in expressions like
+e = v0.
+reduceLanes
+(ADD)
+.
+static interface
+VectorOperators.Binary
+Type for all
+lane-wise
+binary (two-argument) operators,
+ usable in expressions like
+w = v0.
+lanewise
+(ADD, v1)
+.
+static interface
+VectorOperators.Comparison
+Type for all binary
+lane-wise
+boolean comparisons on lane values,
+ usable in expressions like
+m = v0.
+compare
+(LT, v1)
+.
+static interface
+VectorOperators.Conversion
+<
+E
+,
+F
+>
+Type for all
+lane-wise
+conversions on lane values,
+ usable in expressions like
+w1 = v0.
+convert
+(I2D, 1)
+.
+static interface
+VectorOperators.Operator
+Root type for all operator tokens, providing queries for common
+ properties such as arity, argument and return types, symbolic
+ name, and operator name.
+static interface
+VectorOperators.Ternary
+Type for all
+lane-wise
+ternary (three-argument) operators,
+ usable in expressions like
+w = v0.
+lanewise
+(FMA, v1, v2)
+.
+static interface
+VectorOperators.Test
+Type for all unary
+lane-wise
+boolean tests on lane values,
+ usable in expressions like
+m = v0.
+test
+(IS_FINITE)
+.
+static interface
+VectorOperators.Unary
+Type for all
+lane-wise
+unary (one-argument) operators,
+ usable in expressions like
+w = v0.
+lanewise
+(NEG)
+.
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+VectorOperators.Unary
+ABS
+Produce
+abs(a)
+.
+static final
+VectorOperators.Unary
+ACOS
+Produce
+acos(a)
+.
+static final
+VectorOperators.Associative
+ADD
+Produce
+a+b
+.
+static final
+VectorOperators.Associative
+AND
+Produce
+a&b
+.
+static final
+VectorOperators.Binary
+AND_NOT
+Produce
+a&~b
+.
+static final
+VectorOperators.Binary
+ASHR
+Produce
+a>>(n&(ESIZE*8-1))
+.
+static final
+VectorOperators.Unary
+ASIN
+Produce
+asin(a)
+.
+static final
+VectorOperators.Unary
+ATAN
+Produce
+atan(a)
+.
+static final
+VectorOperators.Binary
+ATAN2
+Produce
+atan2(a,b)
+.
+static final
+VectorOperators.Conversion
+<
+Byte
+,
+Double
+>
+B2D
+Convert
+byteVal
+to
+(double)byteVal
+.
+static final
+VectorOperators.Conversion
+<
+Byte
+,
+Float
+>
+B2F
+Convert
+byteVal
+to
+(float)byteVal
+.
+static final
+VectorOperators.Conversion
+<
+Byte
+,
+Integer
+>
+B2I
+Convert
+byteVal
+to
+(int)byteVal
+.
+static final
+VectorOperators.Conversion
+<
+Byte
+,
+Long
+>
+B2L
+Convert
+byteVal
+to
+(long)byteVal
+.
+static final
+VectorOperators.Conversion
+<
+Byte
+,
+Short
+>
+B2S
+Convert
+byteVal
+to
+(short)byteVal
+.
+static final
+VectorOperators.Unary
+BIT_COUNT
+Produce
+bitCount(a)
+static final
+VectorOperators.Ternary
+BITWISE_BLEND
+Produce
+a^((a^b)&c)
+.
+static final
+VectorOperators.Unary
+CBRT
+Produce
+cbrt(a)
+.
+static final
+VectorOperators.Binary
+COMPRESS_BITS
+Produce
+compress(a,n)
+.
+static final
+VectorOperators.Unary
+COS
+Produce
+cos(a)
+.
+static final
+VectorOperators.Unary
+COSH
+Produce
+cosh(a)
+.
+static final
+VectorOperators.Conversion
+<
+Double
+,
+Byte
+>
+D2B
+Convert
+doubleVal
+to
+(byte)doubleVal
+.
+static final
+VectorOperators.Conversion
+<
+Double
+,
+Float
+>
+D2F
+Convert
+doubleVal
+to
+(float)doubleVal
+.
+static final
+VectorOperators.Conversion
+<
+Double
+,
+Integer
+>
+D2I
+Convert
+doubleVal
+to
+(int)doubleVal
+.
+static final
+VectorOperators.Conversion
+<
+Double
+,
+Long
+>
+D2L
+Convert
+doubleVal
+to
+(long)doubleVal
+.
+static final
+VectorOperators.Conversion
+<
+Double
+,
+Short
+>
+D2S
+Convert
+doubleVal
+to
+(short)doubleVal
+.
+static final
+VectorOperators.Binary
+DIV
+Produce
+a/b
+.
+static final
+VectorOperators.Comparison
+EQ
+Compare
+a==b
+.
+static final
+VectorOperators.Unary
+EXP
+Produce
+exp(a)
+.
+static final
+VectorOperators.Binary
+EXPAND_BITS
+Produce
+expand(a,n)
+.
+static final
+VectorOperators.Unary
+EXPM1
+Produce
+expm1(a)
+.
+static final
+VectorOperators.Conversion
+<
+Float
+,
+Byte
+>
+F2B
+Convert
+floatVal
+to
+(byte)floatVal
+.
+static final
+VectorOperators.Conversion
+<
+Float
+,
+Double
+>
+F2D
+Convert
+floatVal
+to
+(double)floatVal
+.
+static final
+VectorOperators.Conversion
+<
+Float
+,
+Integer
+>
+F2I
+Convert
+floatVal
+to
+(int)floatVal
+.
+static final
+VectorOperators.Conversion
+<
+Float
+,
+Long
+>
+F2L
+Convert
+floatVal
+to
+(long)floatVal
+.
+static final
+VectorOperators.Conversion
+<
+Float
+,
+Short
+>
+F2S
+Convert
+floatVal
+to
+(short)floatVal
+.
+static final
+VectorOperators.Associative
+FIRST_NONZERO
+Produce
+bits(a)!=0?a:b
+.
+static final
+VectorOperators.Ternary
+FMA
+Produce
+fma(a,b,c)
+.
+static final
+VectorOperators.Comparison
+GE
+Compare
+a>=b
+.
+static final
+VectorOperators.Comparison
+GT
+Compare
+a>b
+.
+static final
+VectorOperators.Binary
+HYPOT
+Produce
+hypot(a,b)
+.
+static final
+VectorOperators.Conversion
+<
+Integer
+,
+Byte
+>
+I2B
+Convert
+intVal
+to
+(byte)intVal
+.
+static final
+VectorOperators.Conversion
+<
+Integer
+,
+Double
+>
+I2D
+Convert
+intVal
+to
+(double)intVal
+.
+static final
+VectorOperators.Conversion
+<
+Integer
+,
+Float
+>
+I2F
+Convert
+intVal
+to
+(float)intVal
+.
+static final
+VectorOperators.Conversion
+<
+Integer
+,
+Long
+>
+I2L
+Convert
+intVal
+to
+(long)intVal
+.
+static final
+VectorOperators.Conversion
+<
+Integer
+,
+Short
+>
+I2S
+Convert
+intVal
+to
+(short)intVal
+.
+static final
+VectorOperators.Test
+IS_DEFAULT
+Test
+bits(a)==0
+.
+static final
+VectorOperators.Test
+IS_FINITE
+Test
+isFinite(a)
+.
+static final
+VectorOperators.Test
+IS_INFINITE
+Test
+isInfinite(a)
+.
+static final
+VectorOperators.Test
+IS_NAN
+Test
+isNaN(a)
+.
+static final
+VectorOperators.Test
+IS_NEGATIVE
+Test
+bits(a)<0
+.
+static final
+VectorOperators.Conversion
+<
+Long
+,
+Byte
+>
+L2B
+Convert
+longVal
+to
+(byte)longVal
+.
+static final
+VectorOperators.Conversion
+<
+Long
+,
+Double
+>
+L2D
+Convert
+longVal
+to
+(double)longVal
+.
+static final
+VectorOperators.Conversion
+<
+Long
+,
+Float
+>
+L2F
+Convert
+longVal
+to
+(float)longVal
+.
+static final
+VectorOperators.Conversion
+<
+Long
+,
+Integer
+>
+L2I
+Convert
+longVal
+to
+(int)longVal
+.
+static final
+VectorOperators.Conversion
+<
+Long
+,
+Short
+>
+L2S
+Convert
+longVal
+to
+(short)longVal
+.
+static final
+VectorOperators.Comparison
+LE
+Compare
+a<=b
+.
+static final
+VectorOperators.Unary
+LEADING_ZEROS_COUNT
+Produce
+numberOfLeadingZeros(a)
+static final
+VectorOperators.Unary
+LOG
+Produce
+log(a)
+.
+static final
+VectorOperators.Unary
+LOG10
+Produce
+log10(a)
+.
+static final
+VectorOperators.Unary
+LOG1P
+Produce
+log1p(a)
+.
+static final
+VectorOperators.Binary
+LSHL
+Produce
+a<<(n&(ESIZE*8-1))
+.
+static final
+VectorOperators.Binary
+LSHR
+Produce
+(a&EMASK)>>>(n&(ESIZE*8-1))
+.
+static final
+VectorOperators.Comparison
+LT
+Compare
+a<b
+.
+static final
+VectorOperators.Associative
+MAX
+Produce
+max(a,b)
+.
+static final
+VectorOperators.Associative
+MIN
+Produce
+min(a,b)
+.
+static final
+VectorOperators.Associative
+MUL
+Produce
+a*b
+.
+static final
+VectorOperators.Comparison
+NE
+Compare
+a!=b
+.
+static final
+VectorOperators.Unary
+NEG
+Produce
+-a
+.
+static final
+VectorOperators.Unary
+NOT
+Produce
+~a
+.
+static final
+VectorOperators.Associative
+OR
+Produce
+a|b
+.
+static final
+VectorOperators.Binary
+POW
+Produce
+pow(a,b)
+.
+static final
+VectorOperators.Conversion
+<
+Double
+,
+Long
+>
+REINTERPRET_D2L
+Reinterpret bits of
+doubleVal
+as
+long
+.
+static final
+VectorOperators.Conversion
+<
+Float
+,
+Integer
+>
+REINTERPRET_F2I
+Reinterpret bits of
+floatVal
+as
+int
+.
+static final
+VectorOperators.Conversion
+<
+Integer
+,
+Float
+>
+REINTERPRET_I2F
+Reinterpret bits of
+intVal
+as
+float
+.
+static final
+VectorOperators.Conversion
+<
+Long
+,
+Double
+>
+REINTERPRET_L2D
+Reinterpret bits of
+longVal
+as
+double
+.
+static final
+VectorOperators.Unary
+REVERSE
+Produce
+reverse(a)
+static final
+VectorOperators.Unary
+REVERSE_BYTES
+Produce
+reverseBytes(a)
+static final
+VectorOperators.Binary
+ROL
+Produce
+rotateLeft(a,n)
+.
+static final
+VectorOperators.Binary
+ROR
+Produce
+rotateRight(a,n)
+.
+static final
+VectorOperators.Conversion
+<
+Short
+,
+Byte
+>
+S2B
+Convert
+shortVal
+to
+(byte)shortVal
+.
+static final
+VectorOperators.Conversion
+<
+Short
+,
+Double
+>
+S2D
+Convert
+shortVal
+to
+(double)shortVal
+.
+static final
+VectorOperators.Conversion
+<
+Short
+,
+Float
+>
+S2F
+Convert
+shortVal
+to
+(float)shortVal
+.
+static final
+VectorOperators.Conversion
+<
+Short
+,
+Integer
+>
+S2I
+Convert
+shortVal
+to
+(int)shortVal
+.
+static final
+VectorOperators.Conversion
+<
+Short
+,
+Long
+>
+S2L
+Convert
+shortVal
+to
+(long)shortVal
+.
+static final
+VectorOperators.Unary
+SIN
+Produce
+sin(a)
+.
+static final
+VectorOperators.Unary
+SINH
+Produce
+sinh(a)
+.
+static final
+VectorOperators.Unary
+SQRT
+Produce
+sqrt(a)
+.
+static final
+VectorOperators.Binary
+SUB
+Produce
+a-b
+.
+static final
+VectorOperators.Unary
+TAN
+Produce
+tan(a)
+.
+static final
+VectorOperators.Unary
+TANH
+Produce
+tanh(a)
+.
+static final
+VectorOperators.Unary
+TRAILING_ZEROS_COUNT
+Produce
+numberOfTrailingZeros(a)
+static final
+VectorOperators.Comparison
+UNSIGNED_GE
+Unsigned compare
+a>=b
+.
+static final
+VectorOperators.Comparison
+UNSIGNED_GT
+Unsigned compare
+a>b
+.
+static final
+VectorOperators.Comparison
+UNSIGNED_LE
+Unsigned compare
+a<=b
+.
+static final
+VectorOperators.Comparison
+UNSIGNED_LT
+Unsigned compare
+a<b
+.
+static final
+VectorOperators.Associative
+XOR
+Produce
+a^b
+.
+static final
+VectorOperators.Conversion
+<
+Byte
+,
+Integer
+>
+ZERO_EXTEND_B2I
+Zero-extend
+byteVal
+to
+int
+.
+static final
+VectorOperators.Conversion
+<
+Byte
+,
+Long
+>
+ZERO_EXTEND_B2L
+Zero-extend
+byteVal
+to
+long
+.
+static final
+VectorOperators.Conversion
+<
+Byte
+,
+Short
+>
+ZERO_EXTEND_B2S
+Zero-extend
+byteVal
+to
+short
+.
+static final
+VectorOperators.Conversion
+<
+Integer
+,
+Long
+>
+ZERO_EXTEND_I2L
+Zero-extend
+intVal
+to
+long
+.
+static final
+VectorOperators.Conversion
+<
+Short
+,
+Integer
+>
+ZERO_EXTEND_S2I
+Zero-extend
+shortVal
+to
+int
+.
+static final
+VectorOperators.Conversion
+<
+Short
+,
+Long
+>
+ZERO_EXTEND_S2L
+Zero-extend
+shortVal
+to
+long
+.
+static final
+VectorOperators.Unary
+ZOMO
+Produce
+a==0?0:-1
+(zero or minus one).
+Method Summary
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+NOT
+public static final
+VectorOperators.Unary
+NOT
+Produce
+~a
+.  Integral only.
+ZOMO
+public static final
+VectorOperators.Unary
+ZOMO
+Produce
+a==0?0:-1
+(zero or minus one).  Integral only.
+ABS
+public static final
+VectorOperators.Unary
+ABS
+Produce
+abs(a)
+.
+NEG
+public static final
+VectorOperators.Unary
+NEG
+Produce
+-a
+.
+BIT_COUNT
+public static final
+VectorOperators.Unary
+BIT_COUNT
+Produce
+bitCount(a)
+Since:
+19
+TRAILING_ZEROS_COUNT
+public static final
+VectorOperators.Unary
+TRAILING_ZEROS_COUNT
+Produce
+numberOfTrailingZeros(a)
+Since:
+19
+LEADING_ZEROS_COUNT
+public static final
+VectorOperators.Unary
+LEADING_ZEROS_COUNT
+Produce
+numberOfLeadingZeros(a)
+Since:
+19
+REVERSE
+public static final
+VectorOperators.Unary
+REVERSE
+Produce
+reverse(a)
+Since:
+19
+REVERSE_BYTES
+public static final
+VectorOperators.Unary
+REVERSE_BYTES
+Produce
+reverseBytes(a)
+Since:
+19
+SIN
+public static final
+VectorOperators.Unary
+SIN
+Produce
+sin(a)
+.  Floating only.
+  Not guaranteed to be semi-monotonic. See section "Operations on floating point vectors" above
+COS
+public static final
+VectorOperators.Unary
+COS
+Produce
+cos(a)
+.  Floating only.
+  Not guaranteed to be semi-monotonic. See section "Operations on floating point vectors" above
+TAN
+public static final
+VectorOperators.Unary
+TAN
+Produce
+tan(a)
+.  Floating only.
+  Not guaranteed to be semi-monotonic. See section "Operations on floating point vectors" above
+ASIN
+public static final
+VectorOperators.Unary
+ASIN
+Produce
+asin(a)
+.  Floating only.
+  Not guaranteed to be semi-monotonic. See section "Operations on floating point vectors" above
+ACOS
+public static final
+VectorOperators.Unary
+ACOS
+Produce
+acos(a)
+.  Floating only.
+  Not guaranteed to be semi-monotonic. See section "Operations on floating point vectors" above
+ATAN
+public static final
+VectorOperators.Unary
+ATAN
+Produce
+atan(a)
+.  Floating only.
+  Not guaranteed to be semi-monotonic. See section "Operations on floating point vectors" above
+EXP
+public static final
+VectorOperators.Unary
+EXP
+Produce
+exp(a)
+.  Floating only.
+  Not guaranteed to be semi-monotonic. See section "Operations on floating point vectors" above
+LOG
+public static final
+VectorOperators.Unary
+LOG
+Produce
+log(a)
+.  Floating only.
+  Not guaranteed to be semi-monotonic. See section "Operations on floating point vectors" above
+LOG10
+public static final
+VectorOperators.Unary
+LOG10
+Produce
+log10(a)
+.  Floating only.
+  Not guaranteed to be semi-monotonic. See section "Operations on floating point vectors" above
+SQRT
+public static final
+VectorOperators.Unary
+SQRT
+Produce
+sqrt(a)
+.  Floating only.  See section "Operations on floating point vectors" above
+CBRT
+public static final
+VectorOperators.Unary
+CBRT
+Produce
+cbrt(a)
+.  Floating only.
+  Not guaranteed to be semi-monotonic. See section "Operations on floating point vectors" above
+SINH
+public static final
+VectorOperators.Unary
+SINH
+Produce
+sinh(a)
+.  Floating only.
+  Not guaranteed to be semi-monotonic. See section "Operations on floating point vectors" above
+COSH
+public static final
+VectorOperators.Unary
+COSH
+Produce
+cosh(a)
+.  Floating only.
+  Not guaranteed to be semi-monotonic. See section "Operations on floating point vectors" above
+TANH
+public static final
+VectorOperators.Unary
+TANH
+Produce
+tanh(a)
+.  Floating only.
+  Not guaranteed to be semi-monotonic. See section "Operations on floating point vectors" above
+EXPM1
+public static final
+VectorOperators.Unary
+EXPM1
+Produce
+expm1(a)
+.  Floating only.
+  Not guaranteed to be semi-monotonic. See section "Operations on floating point vectors" above
+LOG1P
+public static final
+VectorOperators.Unary
+LOG1P
+Produce
+log1p(a)
+.  Floating only.
+  Not guaranteed to be semi-monotonic. See section "Operations on floating point vectors" above
+ADD
+public static final
+VectorOperators.Associative
+ADD
+Produce
+a+b
+.
+SUB
+public static final
+VectorOperators.Binary
+SUB
+Produce
+a-b
+.
+MUL
+public static final
+VectorOperators.Associative
+MUL
+Produce
+a*b
+.
+DIV
+public static final
+VectorOperators.Binary
+DIV
+Produce
+a/b
+. Floating only.
+MIN
+public static final
+VectorOperators.Associative
+MIN
+Produce
+min(a,b)
+.
+MAX
+public static final
+VectorOperators.Associative
+MAX
+Produce
+max(a,b)
+.
+FIRST_NONZERO
+public static final
+VectorOperators.Associative
+FIRST_NONZERO
+Produce
+bits(a)!=0?a:b
+.
+AND
+public static final
+VectorOperators.Associative
+AND
+Produce
+a&b
+.  Integral only.
+AND_NOT
+public static final
+VectorOperators.Binary
+AND_NOT
+Produce
+a&~b
+.  Integral only.
+OR
+public static final
+VectorOperators.Associative
+OR
+Produce
+a|b
+.  Integral only.
+XOR
+public static final
+VectorOperators.Associative
+XOR
+Produce
+a^b
+.  Integral only.
+LSHL
+public static final
+VectorOperators.Binary
+LSHL
+Produce
+a<<(n&(ESIZE*8-1))
+.  Integral only.
+ASHR
+public static final
+VectorOperators.Binary
+ASHR
+Produce
+a>>(n&(ESIZE*8-1))
+.  Integral only.
+LSHR
+public static final
+VectorOperators.Binary
+LSHR
+Produce
+(a&EMASK)>>>(n&(ESIZE*8-1))
+.  Integral only.
+ROL
+public static final
+VectorOperators.Binary
+ROL
+Produce
+rotateLeft(a,n)
+.  Integral only.
+ROR
+public static final
+VectorOperators.Binary
+ROR
+Produce
+rotateRight(a,n)
+.  Integral only.
+COMPRESS_BITS
+public static final
+VectorOperators.Binary
+COMPRESS_BITS
+Produce
+compress(a,n)
+. Integral,
+int
+and
+long
+, only.
+Since:
+19
+EXPAND_BITS
+public static final
+VectorOperators.Binary
+EXPAND_BITS
+Produce
+expand(a,n)
+. Integral,
+int
+and
+long
+, only.
+Since:
+19
+ATAN2
+public static final
+VectorOperators.Binary
+ATAN2
+Produce
+atan2(a,b)
+. See  Floating only.
+  Not guaranteed to be semi-monotonic. See section "Operations on floating point vectors" above
+POW
+public static final
+VectorOperators.Binary
+POW
+Produce
+pow(a,b)
+.  Floating only.
+  Not guaranteed to be semi-monotonic. See section "Operations on floating point vectors" above
+HYPOT
+public static final
+VectorOperators.Binary
+HYPOT
+Produce
+hypot(a,b)
+.  Floating only.
+  Not guaranteed to be semi-monotonic. See section "Operations on floating point vectors" above
+BITWISE_BLEND
+public static final
+VectorOperators.Ternary
+BITWISE_BLEND
+Produce
+a^((a^b)&c)
+.  (Bitwise
+(c(i)?b(i):a(i))
+.)  Integral only.
+FMA
+public static final
+VectorOperators.Ternary
+FMA
+Produce
+fma(a,b,c)
+.  Floating only.
+IS_DEFAULT
+public static final
+VectorOperators.Test
+IS_DEFAULT
+Test
+bits(a)==0
+.  (Not true of
+-0.0
+.)
+IS_NEGATIVE
+public static final
+VectorOperators.Test
+IS_NEGATIVE
+Test
+bits(a)<0
+.  (True of
+-0.0
+.)
+IS_FINITE
+public static final
+VectorOperators.Test
+IS_FINITE
+Test
+isFinite(a)
+.  Floating only.
+IS_NAN
+public static final
+VectorOperators.Test
+IS_NAN
+Test
+isNaN(a)
+.  Floating only.
+IS_INFINITE
+public static final
+VectorOperators.Test
+IS_INFINITE
+Test
+isInfinite(a)
+.  Floating only.
+EQ
+public static final
+VectorOperators.Comparison
+EQ
+Compare
+a==b
+.
+NE
+public static final
+VectorOperators.Comparison
+NE
+Compare
+a!=b
+.
+LT
+public static final
+VectorOperators.Comparison
+LT
+Compare
+a<b
+.
+LE
+public static final
+VectorOperators.Comparison
+LE
+Compare
+a<=b
+.
+GT
+public static final
+VectorOperators.Comparison
+GT
+Compare
+a>b
+.
+GE
+public static final
+VectorOperators.Comparison
+GE
+Compare
+a>=b
+.
+UNSIGNED_LT
+public static final
+VectorOperators.Comparison
+UNSIGNED_LT
+Unsigned compare
+a<b
+.  Integral only.
+See Also:
+Integer.compareUnsigned(int, int)
+Long.compareUnsigned(long, long)
+UNSIGNED_LE
+public static final
+VectorOperators.Comparison
+UNSIGNED_LE
+Unsigned compare
+a<=b
+.  Integral only.
+See Also:
+Integer.compareUnsigned(int, int)
+Long.compareUnsigned(long, long)
+UNSIGNED_GT
+public static final
+VectorOperators.Comparison
+UNSIGNED_GT
+Unsigned compare
+a>b
+.  Integral only.
+See Also:
+Integer.compareUnsigned(int, int)
+Long.compareUnsigned(long, long)
+UNSIGNED_GE
+public static final
+VectorOperators.Comparison
+UNSIGNED_GE
+Unsigned compare
+a>=b
+.  Integral only.
+See Also:
+Integer.compareUnsigned(int, int)
+Long.compareUnsigned(long, long)
+B2D
+public static final
+VectorOperators.Conversion
+<
+Byte
+,
+Double
+>
+B2D
+Convert
+byteVal
+to
+(double)byteVal
+.
+B2F
+public static final
+VectorOperators.Conversion
+<
+Byte
+,
+Float
+>
+B2F
+Convert
+byteVal
+to
+(float)byteVal
+.
+B2I
+public static final
+VectorOperators.Conversion
+<
+Byte
+,
+Integer
+>
+B2I
+Convert
+byteVal
+to
+(int)byteVal
+.
+B2L
+public static final
+VectorOperators.Conversion
+<
+Byte
+,
+Long
+>
+B2L
+Convert
+byteVal
+to
+(long)byteVal
+.
+B2S
+public static final
+VectorOperators.Conversion
+<
+Byte
+,
+Short
+>
+B2S
+Convert
+byteVal
+to
+(short)byteVal
+.
+D2B
+public static final
+VectorOperators.Conversion
+<
+Double
+,
+Byte
+>
+D2B
+Convert
+doubleVal
+to
+(byte)doubleVal
+.
+D2F
+public static final
+VectorOperators.Conversion
+<
+Double
+,
+Float
+>
+D2F
+Convert
+doubleVal
+to
+(float)doubleVal
+.
+D2I
+public static final
+VectorOperators.Conversion
+<
+Double
+,
+Integer
+>
+D2I
+Convert
+doubleVal
+to
+(int)doubleVal
+.
+D2L
+public static final
+VectorOperators.Conversion
+<
+Double
+,
+Long
+>
+D2L
+Convert
+doubleVal
+to
+(long)doubleVal
+.
+D2S
+public static final
+VectorOperators.Conversion
+<
+Double
+,
+Short
+>
+D2S
+Convert
+doubleVal
+to
+(short)doubleVal
+.
+F2B
+public static final
+VectorOperators.Conversion
+<
+Float
+,
+Byte
+>
+F2B
+Convert
+floatVal
+to
+(byte)floatVal
+.
+F2D
+public static final
+VectorOperators.Conversion
+<
+Float
+,
+Double
+>
+F2D
+Convert
+floatVal
+to
+(double)floatVal
+.
+F2I
+public static final
+VectorOperators.Conversion
+<
+Float
+,
+Integer
+>
+F2I
+Convert
+floatVal
+to
+(int)floatVal
+.
+F2L
+public static final
+VectorOperators.Conversion
+<
+Float
+,
+Long
+>
+F2L
+Convert
+floatVal
+to
+(long)floatVal
+.
+F2S
+public static final
+VectorOperators.Conversion
+<
+Float
+,
+Short
+>
+F2S
+Convert
+floatVal
+to
+(short)floatVal
+.
+I2B
+public static final
+VectorOperators.Conversion
+<
+Integer
+,
+Byte
+>
+I2B
+Convert
+intVal
+to
+(byte)intVal
+.
+I2D
+public static final
+VectorOperators.Conversion
+<
+Integer
+,
+Double
+>
+I2D
+Convert
+intVal
+to
+(double)intVal
+.
+I2F
+public static final
+VectorOperators.Conversion
+<
+Integer
+,
+Float
+>
+I2F
+Convert
+intVal
+to
+(float)intVal
+.
+I2L
+public static final
+VectorOperators.Conversion
+<
+Integer
+,
+Long
+>
+I2L
+Convert
+intVal
+to
+(long)intVal
+.
+I2S
+public static final
+VectorOperators.Conversion
+<
+Integer
+,
+Short
+>
+I2S
+Convert
+intVal
+to
+(short)intVal
+.
+L2B
+public static final
+VectorOperators.Conversion
+<
+Long
+,
+Byte
+>
+L2B
+Convert
+longVal
+to
+(byte)longVal
+.
+L2D
+public static final
+VectorOperators.Conversion
+<
+Long
+,
+Double
+>
+L2D
+Convert
+longVal
+to
+(double)longVal
+.
+L2F
+public static final
+VectorOperators.Conversion
+<
+Long
+,
+Float
+>
+L2F
+Convert
+longVal
+to
+(float)longVal
+.
+L2I
+public static final
+VectorOperators.Conversion
+<
+Long
+,
+Integer
+>
+L2I
+Convert
+longVal
+to
+(int)longVal
+.
+L2S
+public static final
+VectorOperators.Conversion
+<
+Long
+,
+Short
+>
+L2S
+Convert
+longVal
+to
+(short)longVal
+.
+S2B
+public static final
+VectorOperators.Conversion
+<
+Short
+,
+Byte
+>
+S2B
+Convert
+shortVal
+to
+(byte)shortVal
+.
+S2D
+public static final
+VectorOperators.Conversion
+<
+Short
+,
+Double
+>
+S2D
+Convert
+shortVal
+to
+(double)shortVal
+.
+S2F
+public static final
+VectorOperators.Conversion
+<
+Short
+,
+Float
+>
+S2F
+Convert
+shortVal
+to
+(float)shortVal
+.
+S2I
+public static final
+VectorOperators.Conversion
+<
+Short
+,
+Integer
+>
+S2I
+Convert
+shortVal
+to
+(int)shortVal
+.
+S2L
+public static final
+VectorOperators.Conversion
+<
+Short
+,
+Long
+>
+S2L
+Convert
+shortVal
+to
+(long)shortVal
+.
+REINTERPRET_D2L
+public static final
+VectorOperators.Conversion
+<
+Double
+,
+Long
+>
+REINTERPRET_D2L
+Reinterpret bits of
+doubleVal
+as
+long
+. As if by
+Double.doubleToRawLongBits(double)
+REINTERPRET_F2I
+public static final
+VectorOperators.Conversion
+<
+Float
+,
+Integer
+>
+REINTERPRET_F2I
+Reinterpret bits of
+floatVal
+as
+int
+. As if by
+Float.floatToRawIntBits(float)
+REINTERPRET_I2F
+public static final
+VectorOperators.Conversion
+<
+Integer
+,
+Float
+>
+REINTERPRET_I2F
+Reinterpret bits of
+intVal
+as
+float
+. As if by
+Float.intBitsToFloat(int)
+REINTERPRET_L2D
+public static final
+VectorOperators.Conversion
+<
+Long
+,
+Double
+>
+REINTERPRET_L2D
+Reinterpret bits of
+longVal
+as
+double
+. As if by
+Double.longBitsToDouble(long)
+ZERO_EXTEND_B2I
+public static final
+VectorOperators.Conversion
+<
+Byte
+,
+Integer
+>
+ZERO_EXTEND_B2I
+Zero-extend
+byteVal
+to
+int
+.
+ZERO_EXTEND_B2L
+public static final
+VectorOperators.Conversion
+<
+Byte
+,
+Long
+>
+ZERO_EXTEND_B2L
+Zero-extend
+byteVal
+to
+long
+.
+ZERO_EXTEND_B2S
+public static final
+VectorOperators.Conversion
+<
+Byte
+,
+Short
+>
+ZERO_EXTEND_B2S
+Zero-extend
+byteVal
+to
+short
+.
+ZERO_EXTEND_I2L
+public static final
+VectorOperators.Conversion
+<
+Integer
+,
+Long
+>
+ZERO_EXTEND_I2L
+Zero-extend
+intVal
+to
+long
+.
+ZERO_EXTEND_S2I
+public static final
+VectorOperators.Conversion
+<
+Short
+,
+Integer
+>
+ZERO_EXTEND_S2I
+Zero-extend
+shortVal
+to
+int
+.
+ZERO_EXTEND_S2L
+public static final
+VectorOperators.Conversion
+<
+Short
+,
+Long
+>
+ZERO_EXTEND_S2L
+Zero-extend
+shortVal
+to
+long
+.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

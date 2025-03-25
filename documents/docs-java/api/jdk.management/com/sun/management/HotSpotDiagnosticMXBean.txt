@@ -1,0 +1,324 @@
+HotSpotDiagnosticMXBean (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.management
+Package
+com.sun.management
+Interface HotSpotDiagnosticMXBean
+All Superinterfaces:
+PlatformManagedObject
+public interface
+HotSpotDiagnosticMXBean
+extends
+PlatformManagedObject
+Diagnostic management interface for the HotSpot Virtual Machine.
+The diagnostic MBean is registered to the platform MBeanServer
+ as are other platform MBeans.
+The
+ObjectName
+for uniquely identifying the diagnostic
+ MXBean within an MBeanServer is:
+com.sun.management:type=HotSpotDiagnostic
+It can be obtained by calling the
+PlatformManagedObject.getObjectName()
+method.
+
+ All methods throw a
+NullPointerException
+if any input argument is
+null
+unless it's stated otherwise.
+See Also:
+ManagementFactory.getPlatformMXBeans(Class)
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Interface
+Description
+static enum
+HotSpotDiagnosticMXBean.ThreadDumpFormat
+Thread dump format.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+void
+dumpHeap
+(
+String
+outputFile,
+ boolean live)
+Dumps the heap to the
+outputFile
+file in the same
+ format as the hprof heap dump.
+default void
+dumpThreads
+(
+String
+outputFile,
+HotSpotDiagnosticMXBean.ThreadDumpFormat
+format)
+Generate a thread dump to the given file in the given format.
+List
+<
+VMOption
+>
+getDiagnosticOptions
+()
+Returns a list of
+VMOption
+objects for all diagnostic options.
+VMOption
+getVMOption
+(
+String
+name)
+Returns a
+VMOption
+object for a VM option of the given
+ name.
+void
+setVMOption
+(
+String
+name,
+String
+value)
+Sets a VM option of the given name to the specified value.
+Methods declared in interface java.lang.management.
+PlatformManagedObject
+getObjectName
+Method Details
+dumpHeap
+void
+dumpHeap
+(
+String
+outputFile,
+ boolean live)
+throws
+IOException
+Dumps the heap to the
+outputFile
+file in the same
+ format as the hprof heap dump.
+If this method is called remotely from another process,
+ the heap dump output is written to a file named
+outputFile
+on the machine where the target VM is running.  If outputFile is
+ a relative path, it is relative to the working directory where
+ the target VM was started.
+Parameters:
+outputFile
+- the system-dependent filename
+live
+- if
+true
+dump only
+live
+objects
+         i.e. objects that are reachable from others
+Throws:
+IOException
+- if the
+outputFile
+already exists,
+                     cannot be created, opened, or written to.
+UnsupportedOperationException
+- if this operation is not supported.
+IllegalArgumentException
+- if
+outputFile
+does not end with ".hprof" suffix.
+NullPointerException
+- if
+outputFile
+is
+null
+.
+SecurityException
+- If a security manager exists and its
+SecurityManager.checkWrite(java.lang.String)
+method denies write access to the named file
+         or the caller does not have ManagmentPermission("control").
+getDiagnosticOptions
+List
+<
+VMOption
+>
+getDiagnosticOptions
+()
+Returns a list of
+VMOption
+objects for all diagnostic options.
+ A diagnostic option is a
+writeable
+VM option that can be set dynamically mainly for troubleshooting
+ and diagnosis.
+Returns:
+a list of
+VMOption
+objects for all diagnostic options.
+getVMOption
+VMOption
+getVMOption
+(
+String
+name)
+Returns a
+VMOption
+object for a VM option of the given
+ name.
+Returns:
+a
+VMOption
+object for a VM option of the given name.
+Throws:
+NullPointerException
+- if name is
+null
+.
+IllegalArgumentException
+- if a VM option of the given name
+                                     does not exist.
+setVMOption
+void
+setVMOption
+(
+String
+name,
+String
+value)
+Sets a VM option of the given name to the specified value.
+ The new value will be reflected in a new
+VMOption
+object returned by the
+getVMOption(java.lang.String)
+method or
+ the
+getDiagnosticOptions()
+method.  This method does
+ not change the value of this
+VMOption
+object.
+Parameters:
+name
+- Name of a VM option
+value
+- New value of the VM option to be set
+Throws:
+IllegalArgumentException
+- if the VM option of the given name
+                                     does not exist.
+IllegalArgumentException
+- if the new value is invalid.
+IllegalArgumentException
+- if the VM option is not writable.
+NullPointerException
+- if name or value is
+null
+.
+SecurityException
+- if a security manager exists and the caller does not have
+     ManagementPermission("control").
+dumpThreads
+default
+void
+dumpThreads
+(
+String
+outputFile,
+HotSpotDiagnosticMXBean.ThreadDumpFormat
+format)
+throws
+IOException
+Generate a thread dump to the given file in the given format. The
+outputFile
+parameter must be an absolute path to a file that
+ does not exist.
+The thread dump will include output for all platform threads. It may
+ include output for some or all virtual threads.
+API Note:
+The output file is required to be an absolute path as the MXBean may be
+ accessed remotely from a tool or program with a different current working
+ directory.
+Implementation Requirements:
+The default implementation throws
+UnsupportedOperationException
+.
+Parameters:
+outputFile
+- the path to the file to create
+format
+- the format to use
+Throws:
+IllegalArgumentException
+- if the file path is not absolute
+IOException
+- if the file already exists or an I/O exception is
+         thrown writing to the file
+NullPointerException
+- if either parameter is
+null
+SecurityException
+- if a security manager is set and its
+SecurityManager.checkWrite(java.lang.String)
+method denies write
+         access to the file or
+ManagementPermission("control")
+is denied
+UnsupportedOperationException
+- if this operation is not supported
+Since:
+21
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

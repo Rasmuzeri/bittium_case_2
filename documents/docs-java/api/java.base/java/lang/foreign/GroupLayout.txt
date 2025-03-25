@@ -1,0 +1,250 @@
+GroupLayout (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang.foreign
+Interface GroupLayout
+All Superinterfaces:
+MemoryLayout
+PREVIEW
+All Known Subinterfaces:
+StructLayout
+PREVIEW
+,
+UnionLayout
+PREVIEW
+public sealed interface
+GroupLayout
+extends
+MemoryLayout
+PREVIEW
+permits
+StructLayout
+PREVIEW
+,
+UnionLayout
+PREVIEW
+GroupLayout
+is a preview API of the Java platform.
+Programs can only use
+GroupLayout
+when preview features are enabled.
+Preview features may be removed in a future release, or upgraded to permanent features of the Java platform.
+A compound layout that is an aggregation of multiple, heterogeneous
+member layouts
+. There are two ways in which member layouts
+ can be combined: if member layouts are laid out one after the other, the resulting group layout is a
+struct layout
+PREVIEW
+; conversely, if all member layouts are laid out at the same starting offset,
+ the resulting group layout is a
+union layout
+PREVIEW
+.
+Implementation Requirements:
+This class is immutable, thread-safe and
+value-based
+.
+Sealed Class Hierarchy Graph:
+Since:
+19
+Nested Class Summary
+Nested classes/interfaces declared in interface java.lang.foreign.
+MemoryLayout
+PREVIEW
+MemoryLayout.PathElement
+PREVIEW
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+List
+<
+MemoryLayout
+PREVIEW
+>
+memberLayouts
+()
+Returns the member layouts of this group layout.
+GroupLayout
+PREVIEW
+withByteAlignment
+(long byteAlignment)
+Returns a memory layout with the same characteristics as this layout, but with the given
+ alignment constraint (in bytes).
+GroupLayout
+PREVIEW
+withName
+(
+String
+name)
+Returns a memory layout with the same characteristics as this layout, but with the given name.
+GroupLayout
+PREVIEW
+withoutName
+()
+Returns a memory layout with the same characteristics as this layout, but with no name.
+Methods declared in interface java.lang.foreign.
+MemoryLayout
+PREVIEW
+byteAlignment
+,
+byteOffset
+,
+byteOffsetHandle
+,
+byteSize
+,
+equals
+,
+hashCode
+,
+name
+,
+select
+,
+sliceHandle
+,
+toString
+,
+varHandle
+Method Details
+memberLayouts
+List
+<
+MemoryLayout
+PREVIEW
+>
+memberLayouts
+()
+Returns the member layouts of this group layout.
+API Note:
+the order in which member layouts are returned is the same order in which member layouts have
+ been passed to one of the group layout factory methods (see
+MemoryLayout.structLayout(MemoryLayout...)
+PREVIEW
+,
+MemoryLayout.unionLayout(MemoryLayout...)
+PREVIEW
+).
+Returns:
+the member layouts of this group layout
+withName
+GroupLayout
+PREVIEW
+withName
+(
+String
+name)
+Returns a memory layout with the same characteristics as this layout, but with the given name.
+Specified by:
+withName
+in interface
+MemoryLayout
+PREVIEW
+Parameters:
+name
+- the layout name.
+Returns:
+a memory layout with the same characteristics as this layout, but with the given name
+See Also:
+MemoryLayout.name()
+PREVIEW
+withoutName
+GroupLayout
+PREVIEW
+withoutName
+()
+Returns a memory layout with the same characteristics as this layout, but with no name.
+Specified by:
+withoutName
+in interface
+MemoryLayout
+PREVIEW
+Returns:
+a memory layout with the same characteristics as this layout, but with no name
+See Also:
+MemoryLayout.name()
+PREVIEW
+withByteAlignment
+GroupLayout
+PREVIEW
+withByteAlignment
+(long byteAlignment)
+Returns a memory layout with the same characteristics as this layout, but with the given
+ alignment constraint (in bytes).
+Specified by:
+withByteAlignment
+in interface
+MemoryLayout
+PREVIEW
+Parameters:
+byteAlignment
+- the layout alignment constraint, expressed in bytes.
+Returns:
+a memory layout with the same characteristics as this layout, but with the given
+ alignment constraint (in bytes)
+Throws:
+IllegalArgumentException
+- if
+byteAlignment
+is not a power of two.
+IllegalArgumentException
+- if
+byteAlignment
+is less than
+M
+, where
+M
+is the maximum alignment
+ constraint in any of the member layouts associated with this group layout.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

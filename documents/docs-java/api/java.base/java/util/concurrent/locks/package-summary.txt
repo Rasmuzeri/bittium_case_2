@@ -1,0 +1,187 @@
+java.util.concurrent.locks (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages
+|
+Classes and Interfaces
+SEARCH
+Module
+java.base
+Package java.util.concurrent.locks
+package
+java.util.concurrent.locks
+Interfaces and classes providing a framework for locking and waiting
+ for conditions that is distinct from built-in synchronization and
+ monitors.  The framework permits much greater flexibility in the use of
+ locks and conditions, at the expense of more awkward syntax.
+The
+Lock
+interface supports
+ locking disciplines that differ in semantics (reentrant, fair, etc),
+ and that can be used in non-block-structured contexts including
+ hand-over-hand and lock reordering algorithms.  The main implementation
+ is
+ReentrantLock
+.
+The
+ReadWriteLock
+interface
+ similarly defines locks that may be shared among readers but are
+ exclusive to writers.  Only a single implementation,
+ReentrantReadWriteLock
+, is provided, since
+ it covers most standard usage contexts.  But programmers may create
+ their own implementations to cover nonstandard requirements.
+The
+Condition
+interface
+ describes condition variables that may be associated with Locks.
+ These are similar in usage to the implicit monitors accessed using
+Object.wait
+, but offer extended capabilities.
+ In particular, multiple
+Condition
+objects may be associated
+ with a single
+Lock
+.  To avoid compatibility issues, the
+ names of
+Condition
+methods are different from the
+ corresponding
+Object
+versions.
+The
+AbstractQueuedSynchronizer
+class serves as a useful superclass for defining locks and other
+ synchronizers that rely on queuing blocked threads.  The
+AbstractQueuedLongSynchronizer
+class
+ provides the same functionality but extends support to 64 bits of
+ synchronization state.  Both extend class
+AbstractOwnableSynchronizer
+, a simple
+ class that helps record the thread currently holding exclusive
+ synchronization.  The
+LockSupport
+class provides lower-level blocking and unblocking support that is
+ useful for those developers implementing their own customized lock
+ classes.
+Since:
+1.5
+Related Packages
+Package
+Description
+java.util.concurrent
+Utility classes commonly useful in concurrent programming.
+java.util.concurrent.atomic
+A small toolkit of classes that support lock-free thread-safe
+ programming on single variables.
+All Classes and Interfaces
+Interfaces
+Classes
+Class
+Description
+AbstractOwnableSynchronizer
+A synchronizer that may be exclusively owned by a thread.
+AbstractQueuedLongSynchronizer
+A version of
+AbstractQueuedSynchronizer
+in
+ which synchronization state is maintained as a
+long
+.
+AbstractQueuedSynchronizer
+Provides a framework for implementing blocking locks and related
+ synchronizers (semaphores, events, etc) that rely on
+ first-in-first-out (FIFO) wait queues.
+Condition
+Condition
+factors out the
+Object
+monitor
+ methods (
+wait
+,
+notify
+and
+notifyAll
+) into distinct objects to
+ give the effect of having multiple wait-sets per object, by
+ combining them with the use of arbitrary
+Lock
+implementations.
+Lock
+Lock
+implementations provide more extensive locking
+ operations than can be obtained using
+synchronized
+methods
+ and statements.
+LockSupport
+Basic thread blocking primitives for creating locks and other
+ synchronization classes.
+ReadWriteLock
+A
+ReadWriteLock
+maintains a pair of associated
+locks
+, one for read-only operations and one for writing.
+ReentrantLock
+A reentrant mutual exclusion
+Lock
+with the same basic
+ behavior and semantics as the implicit monitor lock accessed using
+synchronized
+methods and statements, but with extended
+ capabilities.
+ReentrantReadWriteLock
+An implementation of
+ReadWriteLock
+supporting similar
+ semantics to
+ReentrantLock
+.
+ReentrantReadWriteLock.ReadLock
+The lock returned by method
+ReentrantReadWriteLock.readLock()
+.
+ReentrantReadWriteLock.WriteLock
+The lock returned by method
+ReentrantReadWriteLock.writeLock()
+.
+StampedLock
+A capability-based lock with three modes for controlling read/write
+ access.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

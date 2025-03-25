@@ -1,0 +1,161 @@
+JavaFileManager.Location (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.tools
+Interface JavaFileManager.Location
+All Known Implementing Classes:
+DocumentationTool.Location
+,
+StandardLocation
+Enclosing interface:
+JavaFileManager
+public static interface
+JavaFileManager.Location
+Interface for locations of file objects.  Used by file managers
+ to determine where to place or search for file objects.
+Informally, a
+Location
+corresponds to a "search path", such as a class
+ path or module path, as used by command-line tools that use the default file system.
+Some locations are typically used to identify a place in which
+ a tool can find files to be read; others are typically used to identify
+ a place where a tool can write files. If a location is used to identify
+ a place for reading files, those files may be organized in a simple
+package/class
+hierarchy: such locations are described as
+package-oriented
+.
+ Alternatively, the files may be organized in a
+module/package/class
+hierarchy: such locations are described as
+module-oriented
+.
+ If a location is typically used to identify a place where a tool can write files,
+ it is up to the tool that writes the files to specify how those files will be
+ organized.
+You can access the classes in a package-oriented location using methods like
+JavaFileManager.getJavaFileForInput(javax.tools.JavaFileManager.Location, java.lang.String, javax.tools.JavaFileObject.Kind)
+or
+JavaFileManager.list(javax.tools.JavaFileManager.Location, java.lang.String, java.util.Set<javax.tools.JavaFileObject.Kind>, boolean)
+.
+ It is not possible to directly list the classes in a module-oriented
+ location. Instead, you can get a package-oriented location for any specific module
+ using methods like
+JavaFileManager.getLocationForModule(javax.tools.JavaFileManager.Location, java.lang.String)
+or
+JavaFileManager.listLocationsForModules(javax.tools.JavaFileManager.Location)
+.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+String
+getName
+()
+Returns the name of this location.
+default boolean
+isModuleOrientedLocation
+()
+Indicates if this location is module-oriented location, and therefore
+ expected to contain classes in a
+module/package/class
+hierarchy, as compared to a package-oriented location, which
+ is expected to contain classes in a
+package/class
+hierarchy.
+boolean
+isOutputLocation
+()
+Determines if this is an output location.
+Method Details
+getName
+String
+getName
+()
+Returns the name of this location.
+Returns:
+a name
+isOutputLocation
+boolean
+isOutputLocation
+()
+Determines if this is an output location.
+ An output location is a location that is conventionally used for
+ output.
+API Note:
+An output location may be used to write files in either
+ a package-oriented organization or in a module-oriented organization.
+Returns:
+true if this is an output location, false otherwise
+isModuleOrientedLocation
+default
+boolean
+isModuleOrientedLocation
+()
+Indicates if this location is module-oriented location, and therefore
+ expected to contain classes in a
+module/package/class
+hierarchy, as compared to a package-oriented location, which
+ is expected to contain classes in a
+package/class
+hierarchy.
+ The result of this method is undefined if this is an output
+ location.
+Implementation Note:
+This implementation returns true if the name includes
+ the word "MODULE".
+Returns:
+true if this location is expected to contain modules
+Since:
+9
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

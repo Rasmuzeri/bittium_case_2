@@ -1,0 +1,392 @@
+HttpsServer (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.httpserver
+Package
+com.sun.net.httpserver
+Class HttpsServer
+java.lang.Object
+com.sun.net.httpserver.HttpServer
+com.sun.net.httpserver.HttpsServer
+public abstract class
+HttpsServer
+extends
+HttpServer
+This class is an extension of
+HttpServer
+which provides support for
+ HTTPS.
+A
+HttpsServer
+must have an associated
+HttpsConfigurator
+object
+ which is used to establish the SSL configuration for the SSL connections.
+All other configuration is the same as for
+HttpServer
+.
+Since:
+1.6
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+HttpsServer
+()
+Constructor for subclasses to call.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+HttpsServer
+create
+()
+Creates a
+HttpsServer
+instance which is initially not bound to any
+ local address/port.
+static
+HttpsServer
+create
+(
+InetSocketAddress
+addr,
+ int backlog)
+Create a
+HttpsServer
+instance which will bind to the specified
+InetSocketAddress
+(IP address and port number).
+static
+HttpsServer
+create
+(
+InetSocketAddress
+addr,
+ int backlog,
+String
+path,
+HttpHandler
+handler,
+Filter
+... filters)
+Creates an
+HttpsServer
+instance with an initial context.
+abstract
+HttpsConfigurator
+getHttpsConfigurator
+()
+Gets this server's
+HttpsConfigurator
+object, if it has been set.
+abstract void
+setHttpsConfigurator
+(
+HttpsConfigurator
+config)
+Sets this server's
+HttpsConfigurator
+object.
+Methods declared in class com.sun.net.httpserver.
+HttpServer
+bind
+,
+createContext
+,
+createContext
+,
+getAddress
+,
+getExecutor
+,
+removeContext
+,
+removeContext
+,
+setExecutor
+,
+start
+,
+stop
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+HttpsServer
+protected
+HttpsServer
+()
+Constructor for subclasses to call.
+Method Details
+create
+public static
+HttpsServer
+create
+()
+                          throws
+IOException
+Creates a
+HttpsServer
+instance which is initially not bound to any
+ local address/port. The
+HttpsServer
+is acquired from the currently
+ installed
+HttpServerProvider
+. The server must be bound using
+HttpServer.bind(InetSocketAddress,int)
+before it can be used. The server
+ must also have a
+HttpsConfigurator
+established with
+setHttpsConfigurator(HttpsConfigurator)
+.
+Returns:
+an instance of
+HttpsServer
+Throws:
+IOException
+- if an I/O error occurs
+create
+public static
+HttpsServer
+create
+(
+InetSocketAddress
+addr,
+ int backlog)
+throws
+IOException
+Create a
+HttpsServer
+instance which will bind to the specified
+InetSocketAddress
+(IP address and port number).
+
+ A maximum backlog can also be specified. This is the maximum number of
+ queued incoming connections to allow on the listening socket. Queued TCP
+ connections exceeding this limit may be rejected by the TCP implementation.
+ The
+HttpsServer
+is acquired from the currently installed
+HttpServerProvider
+. The server must have a
+HttpsConfigurator
+established with
+setHttpsConfigurator(HttpsConfigurator)
+.
+Parameters:
+addr
+- the address to listen on, if
+null
+then
+HttpServer.bind(InetSocketAddress,int)
+must be called to set
+             the address
+backlog
+- the socket backlog. If this value is less than or equal to
+               zero, then a system default value is used.
+Returns:
+an instance of
+HttpsServer
+Throws:
+BindException
+- if the server cannot bind to the requested address,
+          or if the server is already bound
+IOException
+- if an I/O error occurs
+create
+public static
+HttpsServer
+create
+(
+InetSocketAddress
+addr,
+ int backlog,
+String
+path,
+HttpHandler
+handler,
+Filter
+... filters)
+throws
+IOException
+Creates an
+HttpsServer
+instance with an initial context.
+The server is created with an
+initial context
+that maps the
+ URI
+path
+to the exchange
+handler
+. The initial context is
+ created as if by an invocation of
+createContext(path)
+. The
+filters
+, if any, are added to the initial context, in the order
+ they are given. The returned server is not started so can be configured
+ further if required.
+The server instance will bind to the given
+InetSocketAddress
+.
+A maximum backlog can also be specified. This is the maximum number
+ of queued incoming connections to allow on the listening socket.
+ Queued TCP connections exceeding this limit may be rejected by
+ the TCP implementation. The HttpsServer is acquired from the currently
+ installed
+HttpServerProvider
+.
+The server must have an HttpsConfigurator established with
+setHttpsConfigurator(HttpsConfigurator)
+.
+Parameters:
+addr
+- the address to listen on, if
+null
+then
+bind
+must be called to set the address
+backlog
+- the socket backlog. If this value is less than or
+                equal to zero, then a system default value is used
+path
+- the root URI path of the context, must be absolute
+handler
+- the HttpHandler for the context
+filters
+- the Filters for the context, optional
+Returns:
+the HttpsServer
+Throws:
+BindException
+- if the server cannot bind to the address
+IOException
+- if an I/O error occurs
+IllegalArgumentException
+- if path is invalid
+NullPointerException
+- if any of:
+path
+,
+handler
+,
+filters
+, or any element of
+filters
+, are
+null
+Since:
+18
+setHttpsConfigurator
+public abstract
+void
+setHttpsConfigurator
+(
+HttpsConfigurator
+config)
+Sets this server's
+HttpsConfigurator
+object.
+Parameters:
+config
+- the
+HttpsConfigurator
+to set
+Throws:
+NullPointerException
+- if config is
+null
+getHttpsConfigurator
+public abstract
+HttpsConfigurator
+getHttpsConfigurator
+()
+Gets this server's
+HttpsConfigurator
+object, if it has been set.
+Returns:
+the
+HttpsConfigurator
+for this server, or
+null
+if
+ not set
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

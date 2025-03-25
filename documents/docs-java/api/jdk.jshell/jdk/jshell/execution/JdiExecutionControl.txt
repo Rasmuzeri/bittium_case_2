@@ -1,0 +1,284 @@
+JdiExecutionControl (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.jshell
+Package
+jdk.jshell.execution
+Class JdiExecutionControl
+java.lang.Object
+jdk.jshell.execution.StreamingExecutionControl
+jdk.jshell.execution.JdiExecutionControl
+All Implemented Interfaces:
+AutoCloseable
+,
+ExecutionControl
+Direct Known Subclasses:
+JdiDefaultExecutionControl
+public abstract class
+JdiExecutionControl
+extends
+StreamingExecutionControl
+implements
+ExecutionControl
+Abstract JDI implementation of
+ExecutionControl
+.
+Since:
+9
+Nested Class Summary
+Nested classes/interfaces declared in interface jdk.jshell.spi.
+ExecutionControl
+ExecutionControl.ClassBytecodes
+,
+ExecutionControl.ClassInstallException
+,
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.ExecutionControlException
+,
+ExecutionControl.InternalException
+,
+ExecutionControl.NotImplementedException
+,
+ExecutionControl.ResolutionException
+,
+ExecutionControl.RunException
+,
+ExecutionControl.StoppedException
+,
+ExecutionControl.UserException
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+JdiExecutionControl
+(
+ObjectOutput
+out,
+ObjectInput
+in)
+Create an instance.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+redefine
+(
+ExecutionControl.ClassBytecodes
+[] cbcs)
+Redefine the specified classes.
+protected
+ReferenceType
+referenceType
+(
+VirtualMachine
+vm,
+String
+name)
+Returns the JDI
+ReferenceType
+corresponding to the specified
+ class name.
+protected abstract
+VirtualMachine
+vm
+()
+Returns the JDI
+VirtualMachine
+instance.
+Methods declared in class jdk.jshell.execution.
+StreamingExecutionControl
+addToClasspath
+,
+close
+,
+extensionCommand
+,
+invoke
+,
+load
+,
+stop
+,
+varValue
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface jdk.jshell.spi.
+ExecutionControl
+addToClasspath
+,
+close
+,
+extensionCommand
+,
+invoke
+,
+load
+,
+stop
+,
+varValue
+Constructor Details
+JdiExecutionControl
+protected
+JdiExecutionControl
+(
+ObjectOutput
+out,
+ObjectInput
+in)
+Create an instance.
+Parameters:
+out
+- the output from the remote agent
+in
+- the input to the remote agent
+Method Details
+vm
+protected abstract
+VirtualMachine
+vm
+()
+                              throws
+ExecutionControl.EngineTerminationException
+Returns the JDI
+VirtualMachine
+instance.
+Returns:
+the virtual machine
+Throws:
+ExecutionControl.EngineTerminationException
+- if the VM is dead/disconnected
+redefine
+public
+void
+redefine
+(
+ExecutionControl.ClassBytecodes
+[] cbcs)
+throws
+ExecutionControl.ClassInstallException
+,
+ExecutionControl.EngineTerminationException
+Redefine the specified classes. Where 'redefine' is, as in JDI and JVMTI,
+ an in-place replacement of the classes (preserving class identity) --
+ that is, existing references to the class do not need to be recompiled.
+ This implementation uses JDI
+VirtualMachine.redefineClasses(java.util.Map)
+.
+ It will be unsuccessful if
+ the signature of the class has changed (see the JDI spec). The
+ JShell-core is designed to adapt to unsuccessful redefine.
+Specified by:
+redefine
+in interface
+ExecutionControl
+Parameters:
+cbcs
+- the class name and bytecodes to redefine
+Throws:
+ExecutionControl.ClassInstallException
+- exception occurred redefining the classes,
+ some or all were not redefined
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+referenceType
+protected
+ReferenceType
+referenceType
+(
+VirtualMachine
+vm,
+String
+name)
+Returns the JDI
+ReferenceType
+corresponding to the specified
+ class name.
+Parameters:
+vm
+- the current JDI
+VirtualMachine
+as returned by
+vm()
+name
+- the class name to look-up
+Returns:
+the corresponding
+ReferenceType
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

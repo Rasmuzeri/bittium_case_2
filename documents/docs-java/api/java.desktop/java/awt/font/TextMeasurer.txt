@@ -1,0 +1,491 @@
+TextMeasurer (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt.font
+Class TextMeasurer
+java.lang.Object
+java.awt.font.TextMeasurer
+All Implemented Interfaces:
+Cloneable
+public final class
+TextMeasurer
+extends
+Object
+implements
+Cloneable
+The
+TextMeasurer
+class provides the primitive operations
+ needed for line break: measuring up to a given advance, determining the
+ advance of a range of characters, and generating a
+TextLayout
+for a range of characters. It also provides
+ methods for incremental editing of paragraphs.
+A
+TextMeasurer
+object is constructed with an
+AttributedCharacterIterator
+representing a single paragraph of text.  The value returned by the
+getBeginIndex
+method of
+AttributedCharacterIterator
+defines the absolute index of the first character.  The value
+ returned by the
+getEndIndex
+method of
+AttributedCharacterIterator
+defines the index
+ past the last character.  These values define the range of indexes to
+ use in calls to the
+TextMeasurer
+.  For example, calls to
+ get the advance of a range of text or the line break of a range of text
+ must use indexes between the beginning and end index values.  Calls to
+insertChar
+and
+deleteChar
+reset the
+TextMeasurer
+to use the beginning index and end
+ index of the
+AttributedCharacterIterator
+passed in those calls.
+Most clients will use the more convenient
+LineBreakMeasurer
+,
+ which implements the standard line break policy (placing as many words
+ as will fit on each line).
+Since:
+1.3
+See Also:
+LineBreakMeasurer
+Constructor Summary
+Constructors
+Constructor
+Description
+TextMeasurer
+(
+AttributedCharacterIterator
+text,
+FontRenderContext
+frc)
+Constructs a
+TextMeasurer
+from the source text.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+protected
+Object
+clone
+()
+Creates and returns a copy of this object.
+void
+deleteChar
+(
+AttributedCharacterIterator
+newParagraph,
+ int deletePos)
+Updates the
+TextMeasurer
+after a single character has
+ been deleted
+ from the paragraph currently represented by this
+TextMeasurer
+.
+float
+getAdvanceBetween
+(int start,
+ int limit)
+Returns the graphical width of a line beginning at
+start
+and including characters up to
+limit
+.
+TextLayout
+getLayout
+(int start,
+ int limit)
+Returns a
+TextLayout
+on the given character range.
+int
+getLineBreakIndex
+(int start,
+ float maxAdvance)
+Returns the index of the first character which will not fit on
+ on a line beginning at
+start
+and possible
+ measuring up to
+maxAdvance
+in graphical width.
+void
+insertChar
+(
+AttributedCharacterIterator
+newParagraph,
+ int insertPos)
+Updates the
+TextMeasurer
+after a single character has
+ been inserted
+ into the paragraph currently represented by this
+TextMeasurer
+.
+Methods declared in class java.lang.
+Object
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+TextMeasurer
+public
+TextMeasurer
+(
+AttributedCharacterIterator
+text,
+FontRenderContext
+frc)
+Constructs a
+TextMeasurer
+from the source text.
+ The source text should be a single entire paragraph.
+Parameters:
+text
+- the source paragraph.  Cannot be null.
+frc
+- the information about a graphics device which is needed
+       to measure the text correctly.  Cannot be null.
+Method Details
+clone
+protected
+Object
+clone
+()
+Description copied from class:
+Object
+Creates and returns a copy of this object.  The precise meaning
+ of "copy" may depend on the class of the object. The general
+ intent is that, for any object
+x
+, the expression:
+x.clone() != x
+will be true, and that the expression:
+x.clone().getClass() == x.getClass()
+will be
+true
+, but these are not absolute requirements.
+ While it is typically the case that:
+x.clone().equals(x)
+will be
+true
+, this is not an absolute requirement.
+By convention, the returned object should be obtained by calling
+super.clone
+.  If a class and all of its superclasses (except
+Object
+) obey this convention, it will be the case that
+x.clone().getClass() == x.getClass()
+.
+By convention, the object returned by this method should be independent
+ of this object (which is being cloned).  To achieve this independence,
+ it may be necessary to modify one or more fields of the object returned
+ by
+super.clone
+before returning it.  Typically, this means
+ copying any mutable objects that comprise the internal "deep structure"
+ of the object being cloned and replacing the references to these
+ objects with references to the copies.  If a class contains only
+ primitive fields or references to immutable objects, then it is usually
+ the case that no fields in the object returned by
+super.clone
+need to be modified.
+Overrides:
+clone
+in class
+Object
+Returns:
+a clone of this instance.
+See Also:
+Cloneable
+getLineBreakIndex
+public
+int
+getLineBreakIndex
+(int start,
+ float maxAdvance)
+Returns the index of the first character which will not fit on
+ on a line beginning at
+start
+and possible
+ measuring up to
+maxAdvance
+in graphical width.
+Parameters:
+start
+- the character index at which to start measuring.
+start
+is an absolute index, not relative to the
+  start of the paragraph
+maxAdvance
+- the graphical width in which the line must fit
+Returns:
+the index after the last character that will fit
+  on a line beginning at
+start
+, which is not longer
+  than
+maxAdvance
+in graphical width
+Throws:
+IllegalArgumentException
+- if
+start
+is
+          less than the beginning of the paragraph.
+getAdvanceBetween
+public
+float
+getAdvanceBetween
+(int start,
+ int limit)
+Returns the graphical width of a line beginning at
+start
+and including characters up to
+limit
+.
+start
+and
+limit
+are absolute indices,
+ not relative to the start of the paragraph.
+Parameters:
+start
+- the character index at which to start measuring
+limit
+- the character index at which to stop measuring
+Returns:
+the graphical width of a line beginning at
+start
+and including characters up to
+limit
+Throws:
+IndexOutOfBoundsException
+- if
+limit
+is less
+         than
+start
+IllegalArgumentException
+- if
+start
+or
+limit
+is not between the beginning of
+          the paragraph and the end of the paragraph.
+getLayout
+public
+TextLayout
+getLayout
+(int start,
+ int limit)
+Returns a
+TextLayout
+on the given character range.
+Parameters:
+start
+- the index of the first character
+limit
+- the index after the last character.  Must be greater
+   than
+start
+Returns:
+a
+TextLayout
+for the characters beginning at
+start
+up to (but not including)
+limit
+Throws:
+IndexOutOfBoundsException
+- if
+limit
+is less
+         than
+start
+IllegalArgumentException
+- if
+start
+or
+limit
+is not between the beginning of
+          the paragraph and the end of the paragraph.
+insertChar
+public
+void
+insertChar
+(
+AttributedCharacterIterator
+newParagraph,
+ int insertPos)
+Updates the
+TextMeasurer
+after a single character has
+ been inserted
+ into the paragraph currently represented by this
+TextMeasurer
+.  After this call, this
+TextMeasurer
+is equivalent to a new
+TextMeasurer
+created from the text;  however, it will
+ usually be more efficient to update an existing
+TextMeasurer
+than to create a new one from scratch.
+Parameters:
+newParagraph
+- the text of the paragraph after performing
+ the insertion.  Cannot be null.
+insertPos
+- the position in the text where the character was
+ inserted.  Must not be less than the start of
+newParagraph
+, and must be less than the end of
+newParagraph
+.
+Throws:
+IndexOutOfBoundsException
+- if
+insertPos
+is less
+         than the start of
+newParagraph
+or greater than
+         or equal to the end of
+newParagraph
+NullPointerException
+- if
+newParagraph
+is
+null
+deleteChar
+public
+void
+deleteChar
+(
+AttributedCharacterIterator
+newParagraph,
+ int deletePos)
+Updates the
+TextMeasurer
+after a single character has
+ been deleted
+ from the paragraph currently represented by this
+TextMeasurer
+.  After this call, this
+TextMeasurer
+is equivalent to a new
+TextMeasurer
+created from the text;  however, it will usually be more efficient
+ to update an existing
+TextMeasurer
+than to create a new one
+ from scratch.
+Parameters:
+newParagraph
+- the text of the paragraph after performing
+ the deletion.  Cannot be null.
+deletePos
+- the position in the text where the character was removed.
+ Must not be less than
+ the start of
+newParagraph
+, and must not be greater than the
+ end of
+newParagraph
+.
+Throws:
+IndexOutOfBoundsException
+- if
+deletePos
+is
+         less than the start of
+newParagraph
+or greater
+         than the end of
+newParagraph
+NullPointerException
+- if
+newParagraph
+is
+null
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

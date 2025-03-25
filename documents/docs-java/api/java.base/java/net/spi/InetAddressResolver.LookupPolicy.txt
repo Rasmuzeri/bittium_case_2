@@ -1,0 +1,250 @@
+InetAddressResolver.LookupPolicy (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.net.spi
+Class InetAddressResolver.LookupPolicy
+java.lang.Object
+java.net.spi.InetAddressResolver.LookupPolicy
+Enclosing interface:
+InetAddressResolver
+public static final class
+InetAddressResolver.LookupPolicy
+extends
+Object
+A
+LookupPolicy
+object describes characteristics that can be applied to a lookup operation.
+ In particular, it is used to specify the ordering and which filtering should be performed when
+looking up host addresses
+.
+The default platform-wide lookup policy is constructed by consulting
+System Properties
+which affect
+ how IPv4 and IPv6 addresses are returned.
+Since:
+18
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final int
+IPV4
+Characteristic value signifying if IPv4 addresses need to be queried during lookup.
+static final int
+IPV4_FIRST
+Characteristic value signifying if IPv4 addresses should be returned
+ first by
+InetAddressResolver
+.
+static final int
+IPV6
+Characteristic value signifying if IPv6 addresses need to be queried during lookup.
+static final int
+IPV6_FIRST
+Characteristic value signifying if IPv6 addresses should be returned
+ first by
+InetAddressResolver
+.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+int
+characteristics
+()
+Returns the set of characteristics of this lookup policy.
+static
+InetAddressResolver.LookupPolicy
+of
+(int characteristics)
+This factory method creates a
+LookupPolicy
+instance with
+ the given
+characteristics
+value.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+IPV4
+@Native
+public static final
+int
+IPV4
+Characteristic value signifying if IPv4 addresses need to be queried during lookup.
+See Also:
+Constant Field Values
+IPV6
+@Native
+public static final
+int
+IPV6
+Characteristic value signifying if IPv6 addresses need to be queried during lookup.
+See Also:
+Constant Field Values
+IPV4_FIRST
+@Native
+public static final
+int
+IPV4_FIRST
+Characteristic value signifying if IPv4 addresses should be returned
+ first by
+InetAddressResolver
+.
+See Also:
+Constant Field Values
+IPV6_FIRST
+@Native
+public static final
+int
+IPV6_FIRST
+Characteristic value signifying if IPv6 addresses should be returned
+ first by
+InetAddressResolver
+.
+See Also:
+Constant Field Values
+Method Details
+of
+public static
+InetAddressResolver.LookupPolicy
+of
+(int characteristics)
+This factory method creates a
+LookupPolicy
+instance with
+ the given
+characteristics
+value.
+The
+characteristics
+value is an integer bit mask which defines
+ parameters of a forward lookup operation. These parameters define at least:
+the family type of the returned addresses
+the order in which a
+resolver
+implementation should return its results
+To request addresses of specific family types the following bit masks can be combined:
+IPV4
+: to request IPv4 addresses
+IPV6
+: to request IPv6 addresses
+It is an error if neither
+IPV4
+or
+IPV6
+are set.
+To request a specific ordering of the results:
+IPV4_FIRST
+: return IPv4 addresses before any IPv6 address
+IPV6_FIRST
+: return IPv6 addresses before any IPv4 address
+If neither
+IPV4_FIRST
+or
+IPV6_FIRST
+are set it
+ implies
+"system"
+order of addresses.
+ It is an error to request both
+IPV4_FIRST
+and
+IPV6_FIRST
+.
+Parameters:
+characteristics
+- a value which represents the set of lookup characteristics
+Returns:
+an instance of
+InetAddressResolver.LookupPolicy
+Throws:
+IllegalArgumentException
+- if an illegal characteristics bit mask is provided
+See Also:
+InetAddressResolver.lookupByName(String, LookupPolicy)
+characteristics
+public
+int
+characteristics
+()
+Returns the set of characteristics of this lookup policy.
+Returns:
+a characteristics value
+See Also:
+InetAddressResolver.lookupByName(String, LookupPolicy)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

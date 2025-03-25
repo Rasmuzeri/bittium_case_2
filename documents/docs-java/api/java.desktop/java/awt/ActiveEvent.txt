@@ -1,0 +1,100 @@
+ActiveEvent (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt
+Interface ActiveEvent
+All Known Implementing Classes:
+InvocationEvent
+public interface
+ActiveEvent
+An interface for events that know how to dispatch themselves.
+ By implementing this interface an event can be placed upon the event
+ queue and its
+dispatch()
+method will be called when the event
+ is dispatched, using the
+EventDispatchThread
+.
+This is a very useful mechanism for avoiding deadlocks. If
+ a thread is executing in a critical section (i.e., it has entered
+ one or more monitors), calling other synchronized code may
+ cause deadlocks. To avoid the potential deadlocks, an
+ActiveEvent
+can be created to run the second section of
+ code at later time. If there is contention on the monitor,
+ the second thread will simply block until the first thread
+ has finished its work and exited its monitors.
+For security reasons, it is often desirable to use an
+ActiveEvent
+to avoid calling untrusted code from a critical thread. For
+ instance, peer implementations can use this facility to avoid
+ making calls into user code from a system thread. Doing so avoids
+ potential deadlocks and denial-of-service attacks.
+Since:
+1.2
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+void
+dispatch
+()
+Dispatch the event to its target, listeners of the events source,
+ or do whatever it is this event is supposed to do.
+Method Details
+dispatch
+void
+dispatch
+()
+Dispatch the event to its target, listeners of the events source,
+ or do whatever it is this event is supposed to do.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

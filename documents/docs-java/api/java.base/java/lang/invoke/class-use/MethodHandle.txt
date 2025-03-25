@@ -1,0 +1,2378 @@
+Uses of Class java.lang.invoke.MethodHandle (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Class
+java.lang.invoke.MethodHandle
+Packages that use
+MethodHandle
+Package
+Description
+java.lang
+Provides classes that are fundamental to the design of the Java
+ programming language.
+java.lang.constant
+Classes and interfaces to represent
+nominal descriptors
+for run-time
+ entities such as classes or method handles, and classfile entities such as
+ constant pool entries or
+invokedynamic
+call sites.
+java.lang.foreign
+Provides low-level access to memory and functions outside the Java runtime.
+java.lang.invoke
+The
+java.lang.invoke
+package provides low-level primitives for interacting
+ with the Java Virtual Machine.
+java.lang.runtime
+The
+java.lang.runtime
+package provides low-level runtime support
+ for the Java language.
+java.util
+Contains the collections framework, some internationalization support classes,
+ a service loader, properties, random number generation, string parsing
+ and scanning classes, base64 encoding and decoding, a bit array, and
+ several miscellaneous utility classes.
+jdk.dynalink
+Contains interfaces and classes that are used to link an
+invokedynamic
+call site.
+jdk.dynalink.beans
+Contains the linker for ordinary Java objects.
+jdk.dynalink.linker
+Contains interfaces and classes needed by language runtimes to implement
+ their own language-specific object models and type conversions.
+jdk.dynalink.linker.support
+Contains classes that make it more convenient for language runtimes to
+ implement their own language-specific object models and type conversions
+ by providing basic implementations of some classes as well as various
+ utilities.
+jdk.dynalink.support
+Contains classes that make using Dynalink more convenient by providing
+ basic implementations of some classes as well as various utilities.
+Uses of
+MethodHandle
+in
+java.lang
+Methods in
+java.lang
+that return
+MethodHandle
+Modifier and Type
+Method
+Description
+MethodHandle
+StringTemplate.Processor.Linkage.
+linkage
+(
+List
+<
+String
+> fragments,
+MethodType
+type)
+This method creates a
+MethodHandle
+that when invoked with arguments of
+ those specified in
+type
+returns a result that equals that returned by
+ the template processor's process method.
+Uses of
+MethodHandle
+in
+java.lang.constant
+Methods in
+java.lang.constant
+that return
+MethodHandle
+Modifier and Type
+Method
+Description
+MethodHandle
+MethodHandleDesc.
+resolveConstantDesc
+(
+MethodHandles.Lookup
+lookup)
+Uses of
+MethodHandle
+in
+java.lang.foreign
+Methods in
+java.lang.foreign
+that return
+MethodHandle
+Modifier and Type
+Method
+Description
+default
+MethodHandle
+MemoryLayout.
+byteOffsetHandle
+(
+MemoryLayout.PathElement
+PREVIEW
+... elements)
+Creates a method handle that computes the offset, in bytes, of the layout selected
+ by the given layout path, where the initial layout in the path is this layout.
+MethodHandle
+Linker.
+downcallHandle
+(
+FunctionDescriptor
+PREVIEW
+function,
+Linker.Option
+PREVIEW
+... options)
+Creates a method handle which is used to call a foreign function with the given signature.
+MethodHandle
+Linker.
+downcallHandle
+(
+MemorySegment
+PREVIEW
+address,
+FunctionDescriptor
+PREVIEW
+function,
+Linker.Option
+PREVIEW
+... options)
+Creates a method handle which is used to call a foreign function with the given signature and address.
+default
+MethodHandle
+MemoryLayout.
+sliceHandle
+(
+MemoryLayout.PathElement
+PREVIEW
+... elements)
+Creates a method handle which, given a memory segment, returns a
+slice
+PREVIEW
+corresponding to the layout selected by the given layout path, where the initial layout in the path is this layout.
+Methods in
+java.lang.foreign
+with parameters of type
+MethodHandle
+Modifier and Type
+Method
+Description
+MemorySegment
+PREVIEW
+Linker.
+upcallStub
+(
+MethodHandle
+target,
+FunctionDescriptor
+PREVIEW
+function,
+Arena
+PREVIEW
+arena,
+Linker.Option
+PREVIEW
+... options)
+Creates an upcall stub which can be passed to other foreign functions as a function pointer, associated with the given
+ arena.
+Uses of
+MethodHandle
+in
+java.lang.invoke
+Methods in
+java.lang.invoke
+that return
+MethodHandle
+Modifier and Type
+Method
+Description
+static
+MethodHandle
+MethodHandles.
+arrayConstructor
+(
+Class
+<?> arrayClass)
+Produces a method handle constructing arrays of a desired type,
+ as if by the
+anewarray
+bytecode.
+static
+MethodHandle
+MethodHandles.
+arrayElementGetter
+(
+Class
+<?> arrayClass)
+Produces a method handle giving read access to elements of an array,
+ as if by the
+aaload
+bytecode.
+static
+MethodHandle
+MethodHandles.
+arrayElementSetter
+(
+Class
+<?> arrayClass)
+Produces a method handle giving write access to elements of an array,
+ as if by the
+astore
+bytecode.
+static
+MethodHandle
+MethodHandles.
+arrayLength
+(
+Class
+<?> arrayClass)
+Produces a method handle returning the length of an array,
+ as if by the
+arraylength
+bytecode.
+MethodHandle
+MethodHandle.
+asCollector
+(int collectArgPos,
+Class
+<?> arrayType,
+ int arrayLength)
+Makes an
+array-collecting
+method handle, which accepts a given number of positional arguments starting
+ at a given position, and collects them into an array argument.
+MethodHandle
+MethodHandle.
+asCollector
+(
+Class
+<?> arrayType,
+ int arrayLength)
+Makes an
+array-collecting
+method handle, which accepts a given number of trailing
+ positional arguments and collects them into an array argument.
+MethodHandle
+MethodHandle.
+asFixedArity
+()
+Makes a
+fixed arity
+method handle which is otherwise
+ equivalent to the current method handle.
+MethodHandle
+MethodHandle.
+asSpreader
+(int spreadArgPos,
+Class
+<?> arrayType,
+ int arrayLength)
+Makes an
+array-spreading
+method handle, which accepts an array argument at a given position and spreads
+ its elements as positional arguments in place of the array.
+MethodHandle
+MethodHandle.
+asSpreader
+(
+Class
+<?> arrayType,
+ int arrayLength)
+Makes an
+array-spreading
+method handle, which accepts a trailing array argument
+ and spreads its elements as positional arguments.
+final
+MethodHandle
+MethodHandle.
+asType
+(
+MethodType
+newType)
+Produces an adapter method handle which adapts the type of the
+ current method handle to a new type.
+MethodHandle
+MethodHandle.
+asVarargsCollector
+(
+Class
+<?> arrayType)
+Makes a
+variable arity
+adapter which is able to accept
+ any number of trailing positional arguments and collect them
+ into an array argument.
+MethodHandle
+MethodHandles.Lookup.
+bind
+(
+Object
+receiver,
+String
+name,
+MethodType
+type)
+Produces an early-bound method handle for a non-static method.
+MethodHandle
+MethodHandle.
+bindTo
+(
+Object
+x)
+Binds a value
+x
+to the first argument of a method handle, without invoking it.
+static
+MethodHandle
+MethodHandles.
+catchException
+(
+MethodHandle
+target,
+Class
+<? extends
+Throwable
+> exType,
+MethodHandle
+handler)
+Makes a method handle which adapts a target method handle,
+ by running it inside an exception handler.
+static
+MethodHandle
+MethodHandles.
+collectArguments
+(
+MethodHandle
+target,
+ int pos,
+MethodHandle
+filter)
+Adapts a target method handle by pre-processing
+ a sub-sequence of its arguments with a filter (another method handle).
+static
+MethodHandle
+MethodHandles.
+constant
+(
+Class
+<?> type,
+Object
+value)
+Produces a method handle of the requested return type which returns the given
+ constant value every time it is invoked.
+static
+MethodHandle
+MethodHandles.
+countedLoop
+(
+MethodHandle
+iterations,
+MethodHandle
+init,
+MethodHandle
+body)
+Constructs a loop that runs a given number of iterations.
+static
+MethodHandle
+MethodHandles.
+countedLoop
+(
+MethodHandle
+start,
+MethodHandle
+end,
+MethodHandle
+init,
+MethodHandle
+body)
+Constructs a loop that counts over a range of numbers.
+static
+MethodHandle
+MethodHandles.
+doWhileLoop
+(
+MethodHandle
+init,
+MethodHandle
+body,
+MethodHandle
+pred)
+Constructs a
+do-while
+loop from an initializer, a body, and a predicate.
+static
+MethodHandle
+MethodHandles.
+dropArguments
+(
+MethodHandle
+target,
+ int pos,
+Class
+<?>... valueTypes)
+Produces a method handle which will discard some dummy arguments
+ before calling some other specified
+target
+method handle.
+static
+MethodHandle
+MethodHandles.
+dropArguments
+(
+MethodHandle
+target,
+ int pos,
+List
+<
+Class
+<?>> valueTypes)
+Produces a method handle which will discard some dummy arguments
+ before calling some other specified
+target
+method handle.
+static
+MethodHandle
+MethodHandles.
+dropArgumentsToMatch
+(
+MethodHandle
+target,
+ int skip,
+List
+<
+Class
+<?>> newTypes,
+ int pos)
+Adapts a target method handle to match the given parameter type list.
+static
+MethodHandle
+MethodHandles.
+dropReturn
+(
+MethodHandle
+target)
+Drop the return value of the target handle (if any).
+abstract
+MethodHandle
+CallSite.
+dynamicInvoker
+()
+Produces a method handle equivalent to an invokedynamic instruction
+ which has been linked to this call site.
+final
+MethodHandle
+ConstantCallSite.
+dynamicInvoker
+()
+Returns this call site's permanent target.
+final
+MethodHandle
+MutableCallSite.
+dynamicInvoker
+()
+Produces a method handle equivalent to an invokedynamic instruction
+ which has been linked to this call site.
+final
+MethodHandle
+VolatileCallSite.
+dynamicInvoker
+()
+Produces a method handle equivalent to an invokedynamic instruction
+ which has been linked to this call site.
+static
+MethodHandle
+MethodHandles.
+empty
+(
+MethodType
+type)
+Produces a method handle of the requested type which ignores any arguments, does nothing,
+ and returns a suitable default depending on the return type.
+static
+MethodHandle
+MethodHandles.
+exactInvoker
+(
+MethodType
+type)
+Produces a special
+invoker method handle
+which can be used to
+ invoke any method handle of the given type, as if by
+invokeExact
+.
+static
+MethodHandle
+MethodHandles.
+explicitCastArguments
+(
+MethodHandle
+target,
+MethodType
+newType)
+Produces a method handle which adapts the type of the
+ given method handle to a new type by pairwise argument and return type conversion.
+static
+MethodHandle
+MethodHandles.
+filterArguments
+(
+MethodHandle
+target,
+ int pos,
+MethodHandle
+... filters)
+Adapts a target method handle by pre-processing
+ one or more of its arguments, each with its own unary filter function,
+ and then calling the target with each pre-processed argument
+ replaced by the result of its corresponding filter function.
+static
+MethodHandle
+MethodHandles.
+filterReturnValue
+(
+MethodHandle
+target,
+MethodHandle
+filter)
+Adapts a target method handle by post-processing
+ its return value (if any) with a filter (another method handle).
+MethodHandle
+MethodHandles.Lookup.
+findConstructor
+(
+Class
+<?> refc,
+MethodType
+type)
+Produces a method handle which creates an object and initializes it, using
+ the constructor of the specified type.
+MethodHandle
+MethodHandles.Lookup.
+findGetter
+(
+Class
+<?> refc,
+String
+name,
+Class
+<?> type)
+Produces a method handle giving read access to a non-static field.
+MethodHandle
+MethodHandles.Lookup.
+findSetter
+(
+Class
+<?> refc,
+String
+name,
+Class
+<?> type)
+Produces a method handle giving write access to a non-static field.
+MethodHandle
+MethodHandles.Lookup.
+findSpecial
+(
+Class
+<?> refc,
+String
+name,
+MethodType
+type,
+Class
+<?> specialCaller)
+Produces an early-bound method handle for a virtual method.
+MethodHandle
+MethodHandles.Lookup.
+findStatic
+(
+Class
+<?> refc,
+String
+name,
+MethodType
+type)
+Produces a method handle for a static method.
+MethodHandle
+MethodHandles.Lookup.
+findStaticGetter
+(
+Class
+<?> refc,
+String
+name,
+Class
+<?> type)
+Produces a method handle giving read access to a static field.
+MethodHandle
+MethodHandles.Lookup.
+findStaticSetter
+(
+Class
+<?> refc,
+String
+name,
+Class
+<?> type)
+Produces a method handle giving write access to a static field.
+MethodHandle
+MethodHandles.Lookup.
+findVirtual
+(
+Class
+<?> refc,
+String
+name,
+MethodType
+type)
+Produces a method handle for a virtual method.
+static
+MethodHandle
+MethodHandles.
+foldArguments
+(
+MethodHandle
+target,
+ int pos,
+MethodHandle
+combiner)
+Adapts a target method handle by pre-processing some of its arguments, starting at a given position, and then
+ calling the target with the result of the pre-processing, inserted into the original sequence of arguments just
+ before the folded arguments.
+static
+MethodHandle
+MethodHandles.
+foldArguments
+(
+MethodHandle
+target,
+MethodHandle
+combiner)
+Adapts a target method handle by pre-processing
+ some of its arguments, and then calling the target with
+ the result of the pre-processing, inserted into the original
+ sequence of arguments.
+abstract
+MethodHandle
+CallSite.
+getTarget
+()
+Returns the target method of the call site, according to the
+ behavior defined by this call site's specific class.
+final
+MethodHandle
+ConstantCallSite.
+getTarget
+()
+Returns the target method of the call site, which behaves
+ like a
+final
+field of the
+ConstantCallSite
+.
+final
+MethodHandle
+MutableCallSite.
+getTarget
+()
+Returns the target method of the call site, which behaves
+ like a normal field of the
+MutableCallSite
+.
+final
+MethodHandle
+VolatileCallSite.
+getTarget
+()
+Returns the target method of the call site, which behaves
+ like a
+volatile
+field of the
+VolatileCallSite
+.
+static
+MethodHandle
+MethodHandles.
+guardWithTest
+(
+MethodHandle
+test,
+MethodHandle
+target,
+MethodHandle
+fallback)
+Makes a method handle which adapts a target method handle,
+ by guarding it with a test, a boolean-valued method handle.
+MethodHandle
+SwitchPoint.
+guardWithTest
+(
+MethodHandle
+target,
+MethodHandle
+fallback)
+Returns a method handle which always delegates either to the target or the fallback.
+static
+MethodHandle
+MethodHandles.
+identity
+(
+Class
+<?> type)
+Produces a method handle which returns its sole argument when invoked.
+static
+MethodHandle
+MethodHandles.
+insertArguments
+(
+MethodHandle
+target,
+ int pos,
+Object
+... values)
+Provides a target method handle with one or more
+bound arguments
+in advance of the method handle's invocation.
+static
+MethodHandle
+MethodHandles.
+invoker
+(
+MethodType
+type)
+Produces a special
+invoker method handle
+which can be used to
+ invoke any method handle compatible with the given type, as if by
+invoke
+.
+static
+MethodHandle
+MethodHandles.
+iteratedLoop
+(
+MethodHandle
+iterator,
+MethodHandle
+init,
+MethodHandle
+body)
+Constructs a loop that ranges over the values produced by an
+Iterator<T>
+.
+static
+MethodHandle
+MethodHandles.
+loop
+(
+MethodHandle
+[]... clauses)
+Constructs a method handle representing a loop with several loop variables that are updated and checked upon each
+ iteration.
+static
+MethodHandle
+StringConcatFactory.
+makeConcatWithTemplate
+(
+List
+<
+String
+> fragments,
+List
+<
+Class
+<?>> ptypes)
+Preview.
+Simplified concatenation method to facilitate
+StringTemplate
+PREVIEW
+concatenation.
+static
+MethodHandle
+StringConcatFactory.
+makeConcatWithTemplateGetters
+(
+List
+<
+String
+> fragments,
+List
+<
+MethodHandle
+> getters,
+ int maxSlots)
+Preview.
+This method creates a
+MethodHandle
+expecting one input, the
+ receiver of the supplied getters.
+static
+MethodHandle
+MethodHandles.
+permuteArguments
+(
+MethodHandle
+target,
+MethodType
+newType,
+ int... reorder)
+Produces a method handle which adapts the calling sequence of the
+ given method handle to a new type, by reordering the arguments.
+static
+MethodHandle
+MethodHandles.
+spreadInvoker
+(
+MethodType
+type,
+ int leadingArgCount)
+Produces a method handle which will invoke any method handle of the
+ given
+type
+, with a given number of trailing arguments replaced by
+ a single trailing
+Object[]
+array.
+static
+MethodHandle
+MethodHandles.
+tableSwitch
+(
+MethodHandle
+fallback,
+MethodHandle
+... targets)
+Creates a table switch method handle, which can be used to switch over a set of target
+ method handles, based on a given target index, called selector.
+static
+MethodHandle
+MethodHandles.
+throwException
+(
+Class
+<?> returnType,
+Class
+<? extends
+Throwable
+> exType)
+Produces a method handle which will throw exceptions of the given
+exType
+.
+MethodHandle
+VarHandle.
+toMethodHandle
+(
+VarHandle.AccessMode
+accessMode)
+Obtains a method handle bound to this VarHandle and the given access
+ mode.
+static
+MethodHandle
+MethodHandles.
+tryFinally
+(
+MethodHandle
+target,
+MethodHandle
+cleanup)
+Makes a method handle that adapts a
+target
+method handle by wrapping it in a
+try-finally
+block.
+MethodHandle
+MethodHandles.Lookup.
+unreflect
+(
+Method
+m)
+Makes a
+direct method handle
+to
+m
+, if the lookup class has permission.
+MethodHandle
+MethodHandles.Lookup.
+unreflectConstructor
+(
+Constructor
+<?> c)
+Produces a method handle for a reflected constructor.
+MethodHandle
+MethodHandles.Lookup.
+unreflectGetter
+(
+Field
+f)
+Produces a method handle giving read access to a reflected field.
+MethodHandle
+MethodHandles.Lookup.
+unreflectSetter
+(
+Field
+f)
+Produces a method handle giving write access to a reflected field.
+MethodHandle
+MethodHandles.Lookup.
+unreflectSpecial
+(
+Method
+m,
+Class
+<?> specialCaller)
+Produces a method handle for a reflected method.
+static
+MethodHandle
+MethodHandles.
+varHandleExactInvoker
+(
+VarHandle.AccessMode
+accessMode,
+MethodType
+type)
+Produces a special
+invoker method handle
+which can be used to
+ invoke a signature-polymorphic access mode method on any VarHandle whose
+ associated access mode type is compatible with the given type.
+static
+MethodHandle
+MethodHandles.
+varHandleInvoker
+(
+VarHandle.AccessMode
+accessMode,
+MethodType
+type)
+Produces a special
+invoker method handle
+which can be used to
+ invoke a signature-polymorphic access mode method on any VarHandle whose
+ associated access mode type is compatible with the given type.
+static
+MethodHandle
+MethodHandles.
+whileLoop
+(
+MethodHandle
+init,
+MethodHandle
+pred,
+MethodHandle
+body)
+Constructs a
+while
+loop from an initializer, a body, and a predicate.
+MethodHandle
+MethodHandle.
+withVarargs
+(boolean makeVarargs)
+Adapts this method handle to be
+variable arity
+if the boolean flag is true, else
+fixed arity
+.
+static
+MethodHandle
+MethodHandleProxies.
+wrapperInstanceTarget
+(
+Object
+x)
+Produces or recovers a target method handle which is behaviorally
+ equivalent to the unique method of this wrapper instance.
+static
+MethodHandle
+MethodHandles.
+zero
+(
+Class
+<?> type)
+Produces a constant method handle of the requested return type which
+ returns the default value for that type every time it is invoked.
+Methods in
+java.lang.invoke
+that return types with arguments of type
+MethodHandle
+Modifier and Type
+Method
+Description
+static
+List
+<
+MethodHandle
+>
+StringConcatFactory.
+makeConcatWithTemplateCluster
+(
+List
+<
+String
+> fragments,
+List
+<
+Class
+<?>> ptypes,
+ int maxSlots)
+Preview.
+This method breaks up large concatenations into separate
+MethodHandles
+based on the number of slots required
+ per
+MethodHandle
+.
+Methods in
+java.lang.invoke
+with parameters of type
+MethodHandle
+Modifier and Type
+Method
+Description
+static <T> T
+MethodHandleProxies.
+asInterfaceInstance
+(
+Class
+<T> intfc,
+MethodHandle
+target)
+Produces an instance of the given single-method interface which redirects
+ its calls to the given method handle.
+static
+MethodHandle
+MethodHandles.
+catchException
+(
+MethodHandle
+target,
+Class
+<? extends
+Throwable
+> exType,
+MethodHandle
+handler)
+Makes a method handle which adapts a target method handle,
+ by running it inside an exception handler.
+static
+MethodHandle
+MethodHandles.
+collectArguments
+(
+MethodHandle
+target,
+ int pos,
+MethodHandle
+filter)
+Adapts a target method handle by pre-processing
+ a sub-sequence of its arguments with a filter (another method handle).
+static
+VarHandle
+MethodHandles.
+collectCoordinates
+(
+VarHandle
+target,
+ int pos,
+MethodHandle
+filter)
+Preview.
+Adapts a target var handle by pre-processing
+ a sub-sequence of its coordinate values with a filter (a method handle).
+static
+MethodHandle
+MethodHandles.
+countedLoop
+(
+MethodHandle
+iterations,
+MethodHandle
+init,
+MethodHandle
+body)
+Constructs a loop that runs a given number of iterations.
+static
+MethodHandle
+MethodHandles.
+countedLoop
+(
+MethodHandle
+start,
+MethodHandle
+end,
+MethodHandle
+init,
+MethodHandle
+body)
+Constructs a loop that counts over a range of numbers.
+static
+MethodHandle
+MethodHandles.
+doWhileLoop
+(
+MethodHandle
+init,
+MethodHandle
+body,
+MethodHandle
+pred)
+Constructs a
+do-while
+loop from an initializer, a body, and a predicate.
+static
+MethodHandle
+MethodHandles.
+dropArguments
+(
+MethodHandle
+target,
+ int pos,
+Class
+<?>... valueTypes)
+Produces a method handle which will discard some dummy arguments
+ before calling some other specified
+target
+method handle.
+static
+MethodHandle
+MethodHandles.
+dropArguments
+(
+MethodHandle
+target,
+ int pos,
+List
+<
+Class
+<?>> valueTypes)
+Produces a method handle which will discard some dummy arguments
+ before calling some other specified
+target
+method handle.
+static
+MethodHandle
+MethodHandles.
+dropArgumentsToMatch
+(
+MethodHandle
+target,
+ int skip,
+List
+<
+Class
+<?>> newTypes,
+ int pos)
+Adapts a target method handle to match the given parameter type list.
+static
+MethodHandle
+MethodHandles.
+dropReturn
+(
+MethodHandle
+target)
+Drop the return value of the target handle (if any).
+static
+MethodHandle
+MethodHandles.
+explicitCastArguments
+(
+MethodHandle
+target,
+MethodType
+newType)
+Produces a method handle which adapts the type of the
+ given method handle to a new type by pairwise argument and return type conversion.
+static
+MethodHandle
+MethodHandles.
+filterArguments
+(
+MethodHandle
+target,
+ int pos,
+MethodHandle
+... filters)
+Adapts a target method handle by pre-processing
+ one or more of its arguments, each with its own unary filter function,
+ and then calling the target with each pre-processed argument
+ replaced by the result of its corresponding filter function.
+static
+VarHandle
+MethodHandles.
+filterCoordinates
+(
+VarHandle
+target,
+ int pos,
+MethodHandle
+... filters)
+Preview.
+Adapts a target var handle by pre-processing incoming coordinate values using unary filter functions.
+static
+MethodHandle
+MethodHandles.
+filterReturnValue
+(
+MethodHandle
+target,
+MethodHandle
+filter)
+Adapts a target method handle by post-processing
+ its return value (if any) with a filter (another method handle).
+static
+VarHandle
+MethodHandles.
+filterValue
+(
+VarHandle
+target,
+MethodHandle
+filterToTarget,
+MethodHandle
+filterFromTarget)
+Preview.
+Adapts a target var handle by pre-processing incoming and outgoing values using a pair of filter functions.
+static
+MethodHandle
+MethodHandles.
+foldArguments
+(
+MethodHandle
+target,
+ int pos,
+MethodHandle
+combiner)
+Adapts a target method handle by pre-processing some of its arguments, starting at a given position, and then
+ calling the target with the result of the pre-processing, inserted into the original sequence of arguments just
+ before the folded arguments.
+static
+MethodHandle
+MethodHandles.
+foldArguments
+(
+MethodHandle
+target,
+MethodHandle
+combiner)
+Adapts a target method handle by pre-processing
+ some of its arguments, and then calling the target with
+ the result of the pre-processing, inserted into the original
+ sequence of arguments.
+static
+MethodHandle
+MethodHandles.
+guardWithTest
+(
+MethodHandle
+test,
+MethodHandle
+target,
+MethodHandle
+fallback)
+Makes a method handle which adapts a target method handle,
+ by guarding it with a test, a boolean-valued method handle.
+MethodHandle
+SwitchPoint.
+guardWithTest
+(
+MethodHandle
+target,
+MethodHandle
+fallback)
+Returns a method handle which always delegates either to the target or the fallback.
+static
+MethodHandle
+MethodHandles.
+insertArguments
+(
+MethodHandle
+target,
+ int pos,
+Object
+... values)
+Provides a target method handle with one or more
+bound arguments
+in advance of the method handle's invocation.
+static
+Object
+ConstantBootstraps.
+invoke
+(
+MethodHandles.Lookup
+lookup,
+String
+name,
+Class
+<?> type,
+MethodHandle
+handle,
+Object
+... args)
+Returns the result of invoking a method handle with the provided
+ arguments.
+static
+MethodHandle
+MethodHandles.
+iteratedLoop
+(
+MethodHandle
+iterator,
+MethodHandle
+init,
+MethodHandle
+body)
+Constructs a loop that ranges over the values produced by an
+Iterator<T>
+.
+static
+MethodHandle
+MethodHandles.
+loop
+(
+MethodHandle
+[]... clauses)
+Constructs a method handle representing a loop with several loop variables that are updated and checked upon each
+ iteration.
+static
+CallSite
+LambdaMetafactory.
+metafactory
+(
+MethodHandles.Lookup
+caller,
+String
+interfaceMethodName,
+MethodType
+factoryType,
+MethodType
+interfaceMethodType,
+MethodHandle
+implementation,
+MethodType
+dynamicMethodType)
+Facilitates the creation of simple "function objects" that implement one
+ or more interfaces by delegation to a provided
+MethodHandle
+,
+ after appropriate type adaptation and partial evaluation of arguments.
+static
+MethodHandle
+MethodHandles.
+permuteArguments
+(
+MethodHandle
+target,
+MethodType
+newType,
+ int... reorder)
+Produces a method handle which adapts the calling sequence of the
+ given method handle to a new type, by reordering the arguments.
+static <T extends
+Member
+>
+T
+MethodHandles.
+reflectAs
+(
+Class
+<T> expected,
+MethodHandle
+target)
+Performs an unchecked "crack" of a
+direct method handle
+.
+MethodHandleInfo
+MethodHandles.Lookup.
+revealDirect
+(
+MethodHandle
+target)
+Cracks a
+direct method handle
+created by this lookup object or a similar one.
+abstract void
+CallSite.
+setTarget
+(
+MethodHandle
+newTarget)
+Updates the target method of this call site, according to the
+ behavior defined by this call site's specific class.
+final void
+ConstantCallSite.
+setTarget
+(
+MethodHandle
+ignore)
+Always throws an
+UnsupportedOperationException
+.
+void
+MutableCallSite.
+setTarget
+(
+MethodHandle
+newTarget)
+Updates the target method of this call site, as a normal variable.
+void
+VolatileCallSite.
+setTarget
+(
+MethodHandle
+newTarget)
+Updates the target method of this call site, as a volatile variable.
+static
+MethodHandle
+MethodHandles.
+tableSwitch
+(
+MethodHandle
+fallback,
+MethodHandle
+... targets)
+Creates a table switch method handle, which can be used to switch over a set of target
+ method handles, based on a given target index, called selector.
+static
+MethodHandle
+MethodHandles.
+tryFinally
+(
+MethodHandle
+target,
+MethodHandle
+cleanup)
+Makes a method handle that adapts a
+target
+method handle by wrapping it in a
+try-finally
+block.
+static
+MethodHandle
+MethodHandles.
+whileLoop
+(
+MethodHandle
+init,
+MethodHandle
+pred,
+MethodHandle
+body)
+Constructs a
+while
+loop from an initializer, a body, and a predicate.
+Constructors in
+java.lang.invoke
+with parameters of type
+MethodHandle
+Modifier
+Constructor
+Description
+ConstantCallSite
+(
+MethodHandle
+target)
+Creates a call site with a permanent target.
+protected
+ConstantCallSite
+(
+MethodType
+targetType,
+MethodHandle
+createTargetHook)
+Creates a call site with a permanent target, possibly bound to the call site itself.
+MutableCallSite
+(
+MethodHandle
+target)
+Creates a call site object with an initial target method handle.
+VolatileCallSite
+(
+MethodHandle
+target)
+Creates a call site with a volatile binding to its target.
+Uses of
+MethodHandle
+in
+java.lang.runtime
+Methods in
+java.lang.runtime
+with parameters of type
+MethodHandle
+Modifier and Type
+Method
+Description
+static
+Object
+ObjectMethods.
+bootstrap
+(
+MethodHandles.Lookup
+lookup,
+String
+methodName,
+TypeDescriptor
+type,
+Class
+<?> recordClass,
+String
+names,
+MethodHandle
+... getters)
+Bootstrap method to generate the
+Object.equals(Object)
+,
+Object.hashCode()
+, and
+Object.toString()
+methods, based
+ on a description of the component names and accessor methods, for either
+invokedynamic
+call sites or dynamic constant pool entries.
+static
+CallSite
+TemplateRuntime.
+processStringTemplate
+(
+MethodHandles.Lookup
+lookup,
+String
+name,
+MethodType
+type,
+MethodHandle
+processorGetter,
+String
+... fragments)
+String template bootstrap method for static final processors.
+Uses of
+MethodHandle
+in
+java.util
+Methods in
+java.util
+that return
+MethodHandle
+Modifier and Type
+Method
+Description
+MethodHandle
+FormatProcessor.
+linkage
+(
+List
+<
+String
+> fragments,
+MethodType
+type)
+Constructs a
+MethodHandle
+that when supplied with the values from
+ a
+StringTemplate
+PREVIEW
+will produce a result equivalent to that provided by
+FormatProcessor.process(StringTemplate)
+PREVIEW
+.
+Uses of
+MethodHandle
+in
+jdk.dynalink
+Methods in
+jdk.dynalink
+with parameters of type
+MethodHandle
+Modifier and Type
+Method
+Description
+void
+RelinkableCallSite.
+initialize
+(
+MethodHandle
+relinkAndInvoke)
+Invoked by dynamic linker to initialize the relinkable call site by
+ setting a relink-and-invoke method handle.
+void
+RelinkableCallSite.
+relink
+(
+GuardedInvocation
+guardedInvocation,
+MethodHandle
+relinkAndInvoke)
+This method will be called by the dynamic linker every time the call site
+ is relinked (but see
+RelinkableCallSite.resetAndRelink(GuardedInvocation, MethodHandle)
+for an
+ exception).
+void
+RelinkableCallSite.
+resetAndRelink
+(
+GuardedInvocation
+guardedInvocation,
+MethodHandle
+relinkAndInvoke)
+This method will be called by the dynamic linker every time the call site
+ is relinked
+and
+the linker wishes the call site to throw away any
+ prior linkage state (that is how it differs from
+RelinkableCallSite.relink(GuardedInvocation, MethodHandle)
+).
+Uses of
+MethodHandle
+in
+jdk.dynalink.beans
+Methods in
+jdk.dynalink.beans
+that return
+MethodHandle
+Modifier and Type
+Method
+Description
+MethodHandle
+MissingMemberHandlerFactory.
+createMissingMemberHandler
+(
+LinkRequest
+linkRequest,
+LinkerServices
+linkerServices)
+Returns a method handle suitable for implementing missing member behavior
+ for a particular link request.
+Uses of
+MethodHandle
+in
+jdk.dynalink.linker
+Methods in
+jdk.dynalink.linker
+that return
+MethodHandle
+Modifier and Type
+Method
+Description
+MethodHandle
+LinkerServices.
+asType
+(
+MethodHandle
+handle,
+MethodType
+fromType)
+Similar to
+asType(MethodType)
+except it also hooks
+ in method handles produced by all available
+GuardingTypeConverterFactory
+implementations, providing for
+ language-specific type coercing of parameters.
+MethodHandle
+MethodTypeConversionStrategy.
+asType
+(
+MethodHandle
+target,
+MethodType
+newType)
+Converts a method handle to a new type.
+default
+MethodHandle
+LinkerServices.
+asTypeLosslessReturn
+(
+MethodHandle
+handle,
+MethodType
+fromType)
+Similar to
+LinkerServices.asType(MethodHandle, MethodType)
+except it treats
+ return value type conversion specially.
+MethodHandle
+GuardedInvocation.
+compose
+(
+MethodHandle
+fallback)
+Composes the invocation, guard, switch points, and the exception into a
+ composite method handle that knows how to fall back when the guard fails
+ or the invocation is invalidated.
+MethodHandle
+GuardedInvocation.
+compose
+(
+MethodHandle
+guardFallback,
+MethodHandle
+switchpointFallback,
+MethodHandle
+catchFallback)
+Composes the invocation, guard, switch points, and the exception into a
+ composite method handle that knows how to fall back when the guard fails
+ or the invocation is invalidated.
+MethodHandle
+LinkerServices.
+filterInternalObjects
+(
+MethodHandle
+target)
+Modifies the method handle so that any parameters that can receive
+ potentially internal language runtime objects will have a filter added on
+ them to prevent them from escaping, potentially by wrapping them.
+MethodHandle
+GuardedInvocation.
+getGuard
+()
+Returns the guard method handle.
+MethodHandle
+GuardedInvocation.
+getInvocation
+()
+Returns the invocation method handle.
+MethodHandle
+LinkerServices.
+getTypeConverter
+(
+Class
+<?> sourceType,
+Class
+<?> targetType)
+Given a source and target type, returns a method handle that converts
+ between them.
+MethodHandle
+MethodHandleTransformer.
+transform
+(
+MethodHandle
+target)
+Transforms a method handle.
+Methods in
+jdk.dynalink.linker
+with parameters of type
+MethodHandle
+Modifier and Type
+Method
+Description
+MethodHandle
+LinkerServices.
+asType
+(
+MethodHandle
+handle,
+MethodType
+fromType)
+Similar to
+asType(MethodType)
+except it also hooks
+ in method handles produced by all available
+GuardingTypeConverterFactory
+implementations, providing for
+ language-specific type coercing of parameters.
+MethodHandle
+MethodTypeConversionStrategy.
+asType
+(
+MethodHandle
+target,
+MethodType
+newType)
+Converts a method handle to a new type.
+default
+MethodHandle
+LinkerServices.
+asTypeLosslessReturn
+(
+MethodHandle
+handle,
+MethodType
+fromType)
+Similar to
+LinkerServices.asType(MethodHandle, MethodType)
+except it treats
+ return value type conversion specially.
+MethodHandle
+GuardedInvocation.
+compose
+(
+MethodHandle
+fallback)
+Composes the invocation, guard, switch points, and the exception into a
+ composite method handle that knows how to fall back when the guard fails
+ or the invocation is invalidated.
+MethodHandle
+GuardedInvocation.
+compose
+(
+MethodHandle
+guardFallback,
+MethodHandle
+switchpointFallback,
+MethodHandle
+catchFallback)
+Composes the invocation, guard, switch points, and the exception into a
+ composite method handle that knows how to fall back when the guard fails
+ or the invocation is invalidated.
+GuardedInvocation
+GuardedInvocation.
+filterArguments
+(int pos,
+MethodHandle
+... filters)
+Applies argument filters to both the invocation and the guard
+ (if it exists and has at least
+pos + 1
+parameters) with
+MethodHandles.filterArguments(MethodHandle, int, MethodHandle...)
+.
+MethodHandle
+LinkerServices.
+filterInternalObjects
+(
+MethodHandle
+target)
+Modifies the method handle so that any parameters that can receive
+ potentially internal language runtime objects will have a filter added on
+ them to prevent them from escaping, potentially by wrapping them.
+GuardedInvocation
+GuardedInvocation.
+replaceMethods
+(
+MethodHandle
+newInvocation,
+MethodHandle
+newGuard)
+Creates a new guarded invocation with different methods, preserving the switch point.
+MethodHandle
+MethodHandleTransformer.
+transform
+(
+MethodHandle
+target)
+Transforms a method handle.
+Constructors in
+jdk.dynalink.linker
+with parameters of type
+MethodHandle
+Modifier
+Constructor
+Description
+GuardedInvocation
+(
+MethodHandle
+invocation)
+Creates a new unconditional guarded invocation.
+GuardedInvocation
+(
+MethodHandle
+invocation,
+MethodHandle
+guard)
+Creates a new guarded invocation, with a guard method handle.
+GuardedInvocation
+(
+MethodHandle
+invocation,
+MethodHandle
+guard,
+SwitchPoint
+switchPoint)
+Creates a new guarded invocation, with both a guard method handle and a
+ switch point that can be used to invalidate it.
+GuardedInvocation
+(
+MethodHandle
+invocation,
+MethodHandle
+guard,
+SwitchPoint
+[] switchPoints,
+Class
+<? extends
+Throwable
+> exception)
+Creates a new guarded invocation, with a guard method handle, any number
+ of switch points that can be used to invalidate it, and an exception that
+ if thrown when invoked also invalidates it.
+GuardedInvocation
+(
+MethodHandle
+invocation,
+MethodHandle
+guard,
+SwitchPoint
+switchPoint,
+Class
+<? extends
+Throwable
+> exception)
+Creates a new guarded invocation, with a guard method handle, a
+ switch point that can be used to invalidate it, and an exception that if
+ thrown when invoked also invalidates it.
+GuardedInvocation
+(
+MethodHandle
+invocation,
+SwitchPoint
+switchPoint)
+Creates a new guarded invocation that can be invalidated by a switch
+ point.
+Uses of
+MethodHandle
+in
+jdk.dynalink.linker.support
+Methods in
+jdk.dynalink.linker.support
+that return
+MethodHandle
+Modifier and Type
+Method
+Description
+static
+MethodHandle
+Guards.
+asType
+(
+MethodHandle
+test,
+MethodType
+type)
+Takes a method handle intended to be used as a guard, and adapts it to
+ the requested type, but returning a boolean.
+static
+MethodHandle
+Guards.
+asType
+(
+LinkerServices
+linkerServices,
+MethodHandle
+test,
+MethodType
+type)
+Takes a method handle intended to be used as a guard, and adapts it to
+ the requested type, but returning a boolean.
+MethodHandle
+Lookup.
+findGetter
+(
+Class
+<?> refc,
+String
+name,
+Class
+<?> type)
+Performs a
+MethodHandles.Lookup.findGetter(Class, String, Class)
+,
+ converting any encountered
+IllegalAccessException
+into an
+IllegalAccessError
+and
+NoSuchFieldException
+into a
+NoSuchFieldError
+.
+static
+MethodHandle
+Lookup.
+findOwnSpecial
+(
+MethodHandles.Lookup
+lookup,
+String
+name,
+Class
+<?> rtype,
+Class
+<?>... ptypes)
+Given a lookup, finds using
+Lookup.findSpecial(Class, String, MethodType)
+a method on that lookup's class.
+MethodHandle
+Lookup.
+findOwnSpecial
+(
+String
+name,
+Class
+<?> rtype,
+Class
+<?>... ptypes)
+Finds using
+Lookup.findSpecial(Class, String, MethodType)
+a method on
+ that lookup's class.
+static
+MethodHandle
+Lookup.
+findOwnStatic
+(
+MethodHandles.Lookup
+lookup,
+String
+name,
+Class
+<?> rtype,
+Class
+<?>... ptypes)
+Given a lookup, finds using
+Lookup.findStatic(Class, String, MethodType)
+a method on that lookup's class.
+MethodHandle
+Lookup.
+findOwnStatic
+(
+String
+name,
+Class
+<?> rtype,
+Class
+<?>... ptypes)
+Finds using
+Lookup.findStatic(Class, String, MethodType)
+a method on
+ that lookup's class.
+MethodHandle
+Lookup.
+findSpecial
+(
+Class
+<?> declaringClass,
+String
+name,
+MethodType
+type)
+Performs a
+MethodHandles.Lookup.findSpecial(Class, String, MethodType, Class)
+on the underlying lookup.
+MethodHandle
+Lookup.
+findStatic
+(
+Class
+<?> declaringClass,
+String
+name,
+MethodType
+type)
+Performs a
+MethodHandles.Lookup.findStatic(Class, String, MethodType)
+on the underlying lookup.
+MethodHandle
+Lookup.
+findVirtual
+(
+Class
+<?> declaringClass,
+String
+name,
+MethodType
+type)
+Performs a
+MethodHandles.Lookup.findVirtual(Class, String, MethodType)
+on the underlying lookup.
+static
+MethodHandle
+Guards.
+getClassGuard
+(
+Class
+<?> clazz)
+Creates a guard method that tests its only argument for being of an exact particular class.
+static
+MethodHandle
+Guards.
+getIdentityGuard
+(
+Object
+obj)
+Creates a guard method that tests its only argument for being referentially identical to another object
+static
+MethodHandle
+Guards.
+getInstanceOfGuard
+(
+Class
+<?> clazz)
+Creates a guard method that tests its only argument for being an instance of a particular class.
+static
+MethodHandle
+Guards.
+isArray
+(int pos,
+MethodType
+type)
+Creates a method handle that returns true if the argument in the specified position is a Java array.
+static
+MethodHandle
+Guards.
+isInstance
+(
+Class
+<?> clazz,
+ int pos,
+MethodType
+type)
+Creates a method handle with arguments of a specified type, but with boolean return value.
+static
+MethodHandle
+Guards.
+isInstance
+(
+Class
+<?> clazz,
+MethodType
+type)
+Creates a method handle with arguments of a specified type, but with boolean return value.
+static
+MethodHandle
+Guards.
+isNotNull
+()
+Returns a guard that tests whether the first argument is not null.
+static
+MethodHandle
+Guards.
+isNull
+()
+Returns a guard that tests whether the first argument is null.
+static
+MethodHandle
+Guards.
+isOfClass
+(
+Class
+<?> clazz,
+MethodType
+type)
+Creates a guard method handle with arguments of a specified type, but with boolean return value.
+MethodHandle
+DefaultInternalObjectFilter.
+transform
+(
+MethodHandle
+target)
+static
+MethodHandle
+Lookup.
+unreflect
+(
+MethodHandles.Lookup
+lookup,
+Method
+m)
+Performs a
+MethodHandles.Lookup.unreflect(Method)
+,
+ converting any encountered
+IllegalAccessException
+into an
+IllegalAccessError
+.
+MethodHandle
+Lookup.
+unreflect
+(
+Method
+m)
+Performs a
+MethodHandles.Lookup.unreflect(Method)
+,
+ converting any encountered
+IllegalAccessException
+into an
+IllegalAccessError
+.
+static
+MethodHandle
+Lookup.
+unreflectConstructor
+(
+MethodHandles.Lookup
+lookup,
+Constructor
+<?> c)
+Performs a
+MethodHandles.Lookup.unreflectConstructor(Constructor)
+,
+ converting any encountered
+IllegalAccessException
+into an
+IllegalAccessError
+.
+MethodHandle
+Lookup.
+unreflectConstructor
+(
+Constructor
+<?> c)
+Performs a
+MethodHandles.Lookup.unreflectConstructor(Constructor)
+,
+ converting any encountered
+IllegalAccessException
+into an
+IllegalAccessError
+.
+MethodHandle
+Lookup.
+unreflectGetter
+(
+Field
+f)
+Performs a
+MethodHandles.Lookup.unreflectGetter(Field)
+,
+ converting any encountered
+IllegalAccessException
+into an
+IllegalAccessError
+.
+MethodHandle
+Lookup.
+unreflectSetter
+(
+Field
+f)
+Performs a
+MethodHandles.Lookup.unreflectSetter(Field)
+,
+ converting any encountered
+IllegalAccessException
+into an
+IllegalAccessError
+.
+Methods in
+jdk.dynalink.linker.support
+with parameters of type
+MethodHandle
+Modifier and Type
+Method
+Description
+static
+MethodHandle
+Guards.
+asType
+(
+MethodHandle
+test,
+MethodType
+type)
+Takes a method handle intended to be used as a guard, and adapts it to
+ the requested type, but returning a boolean.
+static
+MethodHandle
+Guards.
+asType
+(
+LinkerServices
+linkerServices,
+MethodHandle
+test,
+MethodType
+type)
+Takes a method handle intended to be used as a guard, and adapts it to
+ the requested type, but returning a boolean.
+MethodHandle
+DefaultInternalObjectFilter.
+transform
+(
+MethodHandle
+target)
+Constructors in
+jdk.dynalink.linker.support
+with parameters of type
+MethodHandle
+Modifier
+Constructor
+Description
+DefaultInternalObjectFilter
+(
+MethodHandle
+parameterFilter,
+MethodHandle
+returnFilter)
+Creates a new filter.
+Uses of
+MethodHandle
+in
+jdk.dynalink.support
+Methods in
+jdk.dynalink.support
+with parameters of type
+MethodHandle
+Modifier and Type
+Method
+Description
+void
+AbstractRelinkableCallSite.
+initialize
+(
+MethodHandle
+relinkAndInvoke)
+void
+ChainedCallSite.
+relink
+(
+GuardedInvocation
+guardedInvocation,
+MethodHandle
+relinkAndInvoke)
+void
+SimpleRelinkableCallSite.
+relink
+(
+GuardedInvocation
+guardedInvocation,
+MethodHandle
+relinkAndInvoke)
+void
+ChainedCallSite.
+resetAndRelink
+(
+GuardedInvocation
+guardedInvocation,
+MethodHandle
+relinkAndInvoke)
+void
+SimpleRelinkableCallSite.
+resetAndRelink
+(
+GuardedInvocation
+guardedInvocation,
+MethodHandle
+relinkAndInvoke)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

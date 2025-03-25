@@ -1,0 +1,458 @@
+ArrayReference (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.jdi
+Package
+com.sun.jdi
+Interface ArrayReference
+All Superinterfaces:
+Mirror
+,
+ObjectReference
+,
+Value
+public interface
+ArrayReference
+extends
+ObjectReference
+Provides access to an array object and its components in the target VM.
+ Each array component is mirrored by a
+Value
+object.
+ The array components, in aggregate, are placed in
+List
+objects instead of arrays for consistency with the rest of the API and
+ for interoperability with other APIs.
+Since:
+1.3
+Field Summary
+Fields declared in interface com.sun.jdi.
+ObjectReference
+INVOKE_NONVIRTUAL
+,
+INVOKE_SINGLE_THREADED
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+Value
+getValue
+(int index)
+Returns an array component value.
+List
+<
+Value
+>
+getValues
+()
+Returns all of the components in this array.
+List
+<
+Value
+>
+getValues
+(int index,
+ int length)
+Returns a range of array components.
+int
+length
+()
+Returns the number of components in this array.
+void
+setValue
+(int index,
+Value
+value)
+Replaces an array component with another value.
+void
+setValues
+(int index,
+List
+<? extends
+Value
+> values,
+ int srcIndex,
+ int length)
+Replaces a range of array components with other values.
+void
+setValues
+(
+List
+<? extends
+Value
+> values)
+Replaces all array components with other values.
+Methods declared in interface com.sun.jdi.
+Mirror
+toString
+,
+virtualMachine
+Methods declared in interface com.sun.jdi.
+ObjectReference
+disableCollection
+,
+enableCollection
+,
+entryCount
+,
+equals
+,
+getValue
+,
+getValues
+,
+hashCode
+,
+invokeMethod
+,
+isCollected
+,
+owningThread
+,
+referenceType
+,
+referringObjects
+,
+setValue
+,
+uniqueID
+,
+waitingThreads
+Methods declared in interface com.sun.jdi.
+Value
+type
+Method Details
+length
+int
+length
+()
+Returns the number of components in this array.
+Returns:
+the integer count of components in this array.
+getValue
+Value
+getValue
+(int index)
+Returns an array component value.
+Parameters:
+index
+- the index of the component to retrieve
+Returns:
+the
+Value
+at the given index.
+Throws:
+IndexOutOfBoundsException
+- if
+index
+is outside the range of this array,
+ that is, if either of the following are true:
+index
+< 0
+index
+>=
+length()
+getValues
+List
+<
+Value
+>
+getValues
+()
+Returns all of the components in this array.
+Returns:
+a list of
+Value
+objects, one for each array
+ component ordered by array index.  For zero length arrays,
+ an empty list is returned.
+getValues
+List
+<
+Value
+>
+getValues
+(int index,
+ int length)
+Returns a range of array components.
+Parameters:
+index
+- the index of the first component to retrieve
+length
+- the number of components to retrieve, or -1 to
+ retrieve all components to the end of this array.
+Returns:
+a list of
+Value
+objects, one for each requested
+ array component ordered by array index.  When there are
+ no elements in the specified range (e.g.
+length
+is zero) an empty list is returned
+Throws:
+IndexOutOfBoundsException
+- if the range
+ specified with
+index
+and
+length
+is not within the range of the array,
+ that is, if either of the following are true:
+index
+< 0
+index
+>
+length()
+or if
+length
+!= -1
+and
+ either of the following are true:
+length
+< 0
+index
++
+length
+>
+length()
+setValue
+void
+setValue
+(int index,
+Value
+value)
+throws
+InvalidTypeException
+,
+ClassNotLoadedException
+Replaces an array component with another value.
+Object values must be assignment compatible with the component type
+ (This implies that the component type must be loaded through the
+ declaring class's class loader). Primitive values must be
+ either assignment compatible with the component type or must be
+ convertible to the component type without loss of information.
+ See JLS section 5.2 for more information on assignment
+ compatibility.
+Parameters:
+index
+- the index of the component to set
+value
+- the new value
+Throws:
+IndexOutOfBoundsException
+- if
+index
+is outside the range of this array,
+ that is, if either of the following are true:
+index
+< 0
+index
+>=
+length()
+InvalidTypeException
+- if the type of
+value
+is not compatible with the declared type of array components.
+ClassNotLoadedException
+- if the array component type
+ has not yet been loaded
+ through the appropriate class loader.
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only - see
+VirtualMachine.canBeModified()
+.
+See Also:
+ArrayType.componentType()
+setValues
+void
+setValues
+(
+List
+<? extends
+Value
+> values)
+throws
+InvalidTypeException
+,
+ClassNotLoadedException
+Replaces all array components with other values. If the given
+ list is larger in size than the array, the values at the
+ end of the list are ignored.
+Object values must be assignment compatible with the element type
+ (This implies that the component type must be loaded through the
+ enclosing class's class loader). Primitive values must be
+ either assignment compatible with the component type or must be
+ convertible to the component type without loss of information.
+ See JLS section 5.2 for more information on assignment
+ compatibility.
+Parameters:
+values
+- a list of
+Value
+objects to be placed
+ in this array.  If
+values
+.size()
+is
+ less that the length of the array, the first
+values
+.size()
+elements are set.
+Throws:
+InvalidTypeException
+- if any of the
+ new
+values
+is not compatible with the declared type of array components.
+ClassNotLoadedException
+- if the array component
+ type has not yet been loaded
+ through the appropriate class loader.
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only - see
+VirtualMachine.canBeModified()
+.
+See Also:
+ArrayType.componentType()
+setValues
+void
+setValues
+(int index,
+List
+<? extends
+Value
+> values,
+ int srcIndex,
+ int length)
+throws
+InvalidTypeException
+,
+ClassNotLoadedException
+Replaces a range of array components with other values.
+Object values must be assignment compatible with the component type
+ (This implies that the component type must be loaded through the
+ enclosing class's class loader). Primitive values must be
+ either assignment compatible with the component type or must be
+ convertible to the component type without loss of information.
+ See JLS section 5.2 for more information on assignment
+ compatibility.
+Parameters:
+index
+- the index of the first component to set.
+values
+- a list of
+Value
+objects to be placed
+ in this array.
+srcIndex
+- the index of the first source value to use.
+length
+- the number of components to set, or -1 to set
+ all components to the end of this array or the end of
+values
+(whichever comes first).
+Throws:
+InvalidTypeException
+- if any element of
+values
+is not compatible with the declared type of array components.
+IndexOutOfBoundsException
+- if the
+ array range specified with
+index
+and
+length
+is not within the range of the array,
+ or if the source range specified with
+srcIndex
+and
+length
+is not within
+values
+,
+ that is, if any of the following are true:
+index
+< 0
+index
+>
+length()
+srcIndex
+< 0
+srcIndex
+>
+values
+.size()
+or if
+length
+!= -1
+and any of the
+ following are true:
+length
+< 0
+index
++
+length
+>
+length()
+srcIndex
++
+length
+>
+values
+.size()
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only - see
+VirtualMachine.canBeModified()
+.
+ClassNotLoadedException
+See Also:
+ArrayType.componentType()
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

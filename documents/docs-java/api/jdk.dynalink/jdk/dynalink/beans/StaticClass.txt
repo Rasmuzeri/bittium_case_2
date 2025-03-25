@@ -1,0 +1,210 @@
+StaticClass (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.dynalink
+Package
+jdk.dynalink.beans
+Class StaticClass
+java.lang.Object
+jdk.dynalink.beans.StaticClass
+All Implemented Interfaces:
+Serializable
+public final class
+StaticClass
+extends
+Object
+implements
+Serializable
+Object that allows access to the static members of a class (its static
+ methods, properties, and fields), as well as construction of instances using
+StandardOperation.NEW
+operation. In Dynalink,
+Class
+objects
+ are not treated specially and act as ordinary Java objects; you can use e.g.
+GET:PROPERTY:superclass
+as a property getter to
+ invoke
+clazz.getSuperclass()
+. On the other hand, you can not use
+Class
+objects to access static members of a class, nor to create new
+ instances of the class using
+NEW
+. This is consistent with how
+Class
+objects behave in Java: in Java, you write e.g.
+new BitSet()
+instead of
+new BitSet.class()
+. Similarly, you
+ write
+System.out
+and not
+System.class.out
+. It is this aspect
+ of using a class name as the constructor and a namespace for static members
+ that
+StaticClass
+embodies.
+Objects of this class are recognized by the
+BeansLinker
+as being
+ special, and operations on them will be linked against the represented class'
+ static members. The
+"class"
+synthetic property is additionally
+ recognized and returns the Java
+Class
+object, just as in Java
+System.class
+evaluates to the
+Class
+object for the
+  System class. Conversely,
+Class
+objects exposed through
+BeansLinker
+expose the
+"static"
+synthetic property which
+ returns their
+StaticClass
+object (there is no equivalent to this in
+ Java).
+In summary, instances of this class act as namespaces for static members and
+ as constructors for classes, much the same way as specifying a class name in
+ Java language does, except that in Java this is just a syntactic element,
+ while in Dynalink they are expressed as actual objects.
+StaticClass
+objects representing Java array types will act as
+ constructors taking a single int argument and create an array of the
+ specified size.
+If the class has several constructors,
+StandardOperation.NEW
+on
+StaticClass
+will try to select the most specific applicable
+ constructor. You might want to expose a mechanism in your language for
+ selecting a constructor with an explicit signature through
+BeansLinker.getConstructorMethod(Class, String)
+.
+See Also:
+Serialized Form
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+StaticClass
+forClass
+(
+Class
+<?> clazz)
+Retrieves the
+StaticClass
+instance for the specified class.
+Class
+<?>
+getRepresentedClass
+()
+Returns the represented Java class.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Method Details
+forClass
+public static
+StaticClass
+forClass
+(
+Class
+<?> clazz)
+Retrieves the
+StaticClass
+instance for the specified class.
+Parameters:
+clazz
+- the class for which the static facet is requested.
+Returns:
+the
+StaticClass
+instance representing the specified class.
+getRepresentedClass
+public
+Class
+<?>
+getRepresentedClass
+()
+Returns the represented Java class.
+Returns:
+the represented Java class.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

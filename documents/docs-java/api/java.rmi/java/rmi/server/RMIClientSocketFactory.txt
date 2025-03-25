@@ -1,0 +1,141 @@
+RMIClientSocketFactory (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.rmi
+Package
+java.rmi.server
+Interface RMIClientSocketFactory
+All Known Implementing Classes:
+RMISocketFactory
+,
+SslRMIClientSocketFactory
+public interface
+RMIClientSocketFactory
+An
+RMIClientSocketFactory
+instance is used by the RMI runtime
+ in order to obtain client sockets for RMI calls.  A remote object can be
+ associated with an
+RMIClientSocketFactory
+when it is
+ created/exported via the constructors or
+exportObject
+methods
+ of
+java.rmi.server.UnicastRemoteObject
+.
+An
+RMIClientSocketFactory
+instance associated with a remote
+ object will be downloaded to clients when the remote object's reference is
+ transmitted in an RMI call.  This
+RMIClientSocketFactory
+will
+ be used to create connections to the remote object for remote method calls.
+An
+RMIClientSocketFactory
+instance can also be associated
+ with a remote object registry so that clients can use custom socket
+ communication with a remote object registry.
+An implementation of this interface should be serializable and
+ should implement
+Object.equals(java.lang.Object)
+to return
+true
+when
+ passed an instance that represents the same (functionally equivalent)
+ client socket factory, and
+false
+otherwise (and it should also
+ implement
+Object.hashCode()
+consistently with its
+Object.equals
+implementation).
+Since:
+1.2
+See Also:
+UnicastRemoteObject
+LocateRegistry
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+Socket
+createSocket
+(
+String
+host,
+ int port)
+Create a client socket connected to the specified host and port.
+Method Details
+createSocket
+Socket
+createSocket
+(
+String
+host,
+ int port)
+throws
+IOException
+Create a client socket connected to the specified host and port.
+Parameters:
+host
+- the host name
+port
+- the port number
+Returns:
+a socket connected to the specified host and port.
+Throws:
+IOException
+- if an I/O error occurs during socket creation
+Since:
+1.2
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

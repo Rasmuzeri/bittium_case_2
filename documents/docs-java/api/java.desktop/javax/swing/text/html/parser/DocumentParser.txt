@@ -1,0 +1,422 @@
+DocumentParser (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.text.html.parser
+Class DocumentParser
+java.lang.Object
+javax.swing.text.html.parser.Parser
+javax.swing.text.html.parser.DocumentParser
+All Implemented Interfaces:
+DTDConstants
+public class
+DocumentParser
+extends
+Parser
+A Parser for HTML Documents (actually, you can specify a DTD, but
+ you should really only use this class with the html dtd in swing).
+ Reads an InputStream of HTML and
+ invokes the appropriate methods in the ParserCallback class. This
+ is the default parser used by HTMLEditorKit to parse HTML url's.
+This will message the callback for all valid tags, as well as
+ tags that are implied but not explicitly specified. For example, the
+ html string (<p>blah) only has a p tag defined. The callback
+ will see the following methods:
+handleStartTag(html, ...)
+handleStartTag(head, ...)
+handleEndTag(head)
+handleStartTag(body, ...)
+handleStartTag(p, ...)
+handleText(...)
+handleEndTag(p)
+handleEndTag(body)
+handleEndTag(html)
+The items in
+italic
+are implied, that is, although they were not
+ explicitly specified, to be correct html they should have been present
+ (head isn't necessary, but it is still generated). For tags that
+ are implied, the AttributeSet argument will have a value of
+Boolean.TRUE
+for the key
+HTMLEditorKit.ParserCallback.IMPLIED
+.
+HTML.Attributes defines a type safe enumeration of html attributes.
+ If an attribute key of a tag is defined in HTML.Attribute, the
+ HTML.Attribute will be used as the key, otherwise a String will be used.
+ For example <p foo=bar class=neat> has two attributes. foo is
+ not defined in HTML.Attribute, where as class is, therefore the
+ AttributeSet will have two values in it, HTML.Attribute.CLASS with
+ a String value of 'neat' and the String key 'foo' with a String value of
+ 'bar'.
+The position argument will indicate the start of the tag, comment
+ or text. Similar to arrays, the first character in the stream has a
+ position of 0. For tags that are
+ implied the position will indicate
+ the location of the next encountered tag. In the first example,
+ the implied start body and html tags will have the same position as the
+ p tag, and the implied end p, html and body tags will all have the same
+ position.
+As html skips whitespace the position for text will be the position
+ of the first valid character, eg in the string '\n\n\nblah'
+ the text 'blah' will have a position of 3, the newlines are skipped.
+For attributes that do not have a value, eg in the html
+ string
+<foo blah>
+the attribute
+blah
+does not have a value, there are two possible values that will be
+ placed in the AttributeSet's value:
+If the DTD does not contain an definition for the element, or the
+     definition does not have an explicit value then the value in the
+     AttributeSet will be
+HTML.NULL_ATTRIBUTE_VALUE
+.
+If the DTD contains an explicit value, as in:
+<!ATTLIST OPTION selected (selected) #IMPLIED>
+this value from the dtd (in this case selected) will be used.
+Once the stream has been parsed, the callback is notified of the most
+ likely end of line string. The end of line string will be one of
+ \n, \r or \r\n, which ever is encountered the most in parsing the
+ stream.
+Field Summary
+Fields declared in class javax.swing.text.html.parser.
+Parser
+dtd
+,
+strict
+Fields declared in interface javax.swing.text.html.parser.
+DTDConstants
+ANY
+,
+CDATA
+,
+CONREF
+,
+CURRENT
+,
+DEFAULT
+,
+EMPTY
+,
+ENDTAG
+,
+ENTITIES
+,
+ENTITY
+,
+FIXED
+,
+GENERAL
+,
+ID
+,
+IDREF
+,
+IDREFS
+,
+IMPLIED
+,
+MD
+,
+MODEL
+,
+MS
+,
+NAME
+,
+NAMES
+,
+NMTOKEN
+,
+NMTOKENS
+,
+NOTATION
+,
+NUMBER
+,
+NUMBERS
+,
+NUTOKEN
+,
+NUTOKENS
+,
+PARAMETER
+,
+PI
+,
+PUBLIC
+,
+RCDATA
+,
+REQUIRED
+,
+SDATA
+,
+STARTTAG
+,
+SYSTEM
+Constructor Summary
+Constructors
+Constructor
+Description
+DocumentParser
+(
+DTD
+dtd)
+Creates document parser with the specified
+dtd
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+protected void
+handleEmptyTag
+(
+TagElement
+tag)
+Handle Empty Tag.
+protected void
+handleEndTag
+(
+TagElement
+tag)
+Handle End Tag.
+protected void
+handleStartTag
+(
+TagElement
+tag)
+Handle Start Tag.
+protected void
+handleText
+(char[] data)
+Handle Text.
+void
+parse
+(
+Reader
+in,
+HTMLEditorKit.ParserCallback
+callback,
+ boolean ignoreCharSet)
+Parse an HTML stream, given a DTD.
+Methods declared in class javax.swing.text.html.parser.
+Parser
+endTag
+,
+error
+,
+error
+,
+error
+,
+error
+,
+flushAttributes
+,
+getAttributes
+,
+getCurrentLine
+,
+getCurrentPos
+,
+handleComment
+,
+handleEOFInComment
+,
+handleError
+,
+handleTitle
+,
+makeTag
+,
+makeTag
+,
+markFirstTime
+,
+parse
+,
+parseDTDMarkup
+,
+parseMarkupDeclarations
+,
+startTag
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+DocumentParser
+public
+DocumentParser
+(
+DTD
+dtd)
+Creates document parser with the specified
+dtd
+.
+Parameters:
+dtd
+- the dtd.
+Method Details
+parse
+public
+void
+parse
+(
+Reader
+in,
+HTMLEditorKit.ParserCallback
+callback,
+ boolean ignoreCharSet)
+throws
+IOException
+Parse an HTML stream, given a DTD.
+Parameters:
+in
+- the reader to read the source from
+callback
+- the callback
+ignoreCharSet
+- if
+true
+the charset is ignored
+Throws:
+IOException
+- if an I/O error occurs
+handleStartTag
+protected
+void
+handleStartTag
+(
+TagElement
+tag)
+Handle Start Tag.
+Overrides:
+handleStartTag
+in class
+Parser
+Parameters:
+tag
+- the tag being handled
+handleEmptyTag
+protected
+void
+handleEmptyTag
+(
+TagElement
+tag)
+throws
+ChangedCharSetException
+Handle Empty Tag.
+Overrides:
+handleEmptyTag
+in class
+Parser
+Parameters:
+tag
+- the tag being handled
+Throws:
+ChangedCharSetException
+- if the document charset was changed
+handleEndTag
+protected
+void
+handleEndTag
+(
+TagElement
+tag)
+Handle End Tag.
+Overrides:
+handleEndTag
+in class
+Parser
+Parameters:
+tag
+- the tag being handled
+handleText
+protected
+void
+handleText
+(char[] data)
+Handle Text.
+Overrides:
+handleText
+in class
+Parser
+Parameters:
+data
+- the section text
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

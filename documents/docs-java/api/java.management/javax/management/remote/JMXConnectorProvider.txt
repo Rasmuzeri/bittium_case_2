@@ -1,0 +1,139 @@
+JMXConnectorProvider (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.management
+Package
+javax.management.remote
+Interface JMXConnectorProvider
+public interface
+JMXConnectorProvider
+A provider for creating JMX API connector clients using a given
+ protocol.  Instances of this interface are created by
+JMXConnectorFactory
+as part of its
+newJMXConnector
+method.
+Since:
+1.5
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+JMXConnector
+newJMXConnector
+(
+JMXServiceURL
+serviceURL,
+Map
+<
+String
+,
+?> environment)
+Creates a new connector client that is ready to connect
+ to the connector server at the given address.
+Method Details
+newJMXConnector
+JMXConnector
+newJMXConnector
+(
+JMXServiceURL
+serviceURL,
+Map
+<
+String
+,
+?> environment)
+throws
+IOException
+Creates a new connector client that is ready to connect
+ to the connector server at the given address.  Each successful
+ call to this method produces a different
+JMXConnector
+object.
+Parameters:
+serviceURL
+- the address of the connector server to connect to.
+environment
+- a read-only Map containing named attributes
+ to determine how the connection is made.  Keys in this map must
+ be Strings.  The appropriate type of each associated value
+ depends on the attribute.
+Returns:
+a
+JMXConnector
+representing the new
+ connector client.  Each successful call to this method produces
+ a different object.
+Throws:
+NullPointerException
+- if
+serviceURL
+or
+environment
+is null.
+IOException
+- It is recommended for a provider
+ implementation to throw
+MalformedURLException
+if the
+ protocol in the
+serviceURL
+is not recognized by this
+ provider,
+JMXProviderException
+if this is a provider
+ for the protocol in
+serviceURL
+but it cannot be used
+ for some reason or any other
+IOException
+if the
+ connection cannot be made because of a communication problem.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

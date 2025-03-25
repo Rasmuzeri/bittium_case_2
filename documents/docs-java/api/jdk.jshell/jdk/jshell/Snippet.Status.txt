@@ -1,0 +1,542 @@
+Snippet.Status (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Enum Constants
+Field
+Method
+Detail:
+Enum Constants
+Field
+Method
+Summary:
+Nested
+|
+Enum Constants
+|
+Field |
+Method
+Detail:
+Enum Constants
+|
+Field |
+Method
+SEARCH
+Module
+jdk.jshell
+Package
+jdk.jshell
+Enum Class Snippet.Status
+java.lang.Object
+java.lang.Enum
+<
+Snippet.Status
+>
+jdk.jshell.Snippet.Status
+All Implemented Interfaces:
+Serializable
+,
+Comparable
+<
+Snippet.Status
+>
+,
+Constable
+Enclosing class:
+Snippet
+public static enum
+Snippet.Status
+extends
+Enum
+<
+Snippet.Status
+>
+Describes the current state of a Snippet.
+ This is a dynamic property of a Snippet within the JShell state --
+ thus is retrieved with a
+query on
+JShell
+.
+The
+Status
+changes as the state changes.
+ For example, creation of another snippet with
+eval
+may resolve dependencies of this Snippet (or invalidate those dependencies), or
+overwrite
+this Snippet changing its
+Status
+.
+Important properties associated with
+Status
+are:
+isDefined()
+, if it is visible to other
+ existing and new snippets; and
+isActive()
+, if, as the
+ JShell state changes, the snippet will update, possibly
+ changing
+Status
+.
+ An executable Snippet can only be executed if it is in the
+VALID
+Status
+.
+See Also:
+JShell.status(jdk.jshell.Snippet)
+Nested Class Summary
+Nested classes/interfaces declared in class java.lang.
+Enum
+Enum.EnumDesc
+<
+E
+extends
+Enum
+<
+E
+>>
+Enum Constant Summary
+Enum Constants
+Enum Constant
+Description
+DROPPED
+The snippet is inactive because of an explicit call to
+ the
+JShell.drop(Snippet)
+.
+NONEXISTENT
+The snippet is inactive because it does not yet exist.
+OVERWRITTEN
+The snippet is inactive because it has been replaced by a new
+ snippet.
+RECOVERABLE_DEFINED
+The snippet is a declaration snippet with potentially recoverable
+ unresolved references or other issues in its body
+ (in the context of current
+JShell
+state).
+RECOVERABLE_NOT_DEFINED
+The snippet is a declaration snippet with potentially recoverable
+ unresolved references or other issues
+ (in the context of current
+JShell
+state).
+REJECTED
+The snippet is inactive because it failed compilation on initial
+ evaluation and it is not capable of becoming valid with further
+ changes to the JShell state.
+VALID
+The snippet is a valid snippet
+ (in the context of current
+JShell
+state).
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+isActive
+()
+Indicates whether the Snippet is active, that is,
+ will a
+persistent
+snippet be re-evaluated when a new
+JShell.eval(String)
+or
+JShell.drop(Snippet)
+that could change
+ its status is invoked.
+boolean
+isDefined
+()
+Indicates whether the snippet is currently part of the defined state
+ of the JShell.
+static
+Snippet.Status
+valueOf
+(
+String
+name)
+Returns the enum constant of this class with the specified name.
+static
+Snippet.Status
+[]
+values
+()
+Returns an array containing the constants of this enum class, in
+the order they are declared.
+Methods declared in class java.lang.
+Enum
+clone
+,
+compareTo
+,
+describeConstable
+,
+equals
+,
+finalize
+,
+getDeclaringClass
+,
+hashCode
+,
+name
+,
+ordinal
+,
+toString
+,
+valueOf
+Methods declared in class java.lang.
+Object
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Enum Constant Details
+VALID
+public static final
+Snippet.Status
+VALID
+The snippet is a valid snippet
+ (in the context of current
+JShell
+state).
+ Only snippets with
+VALID
+Status
+can be executed (though not all
+VALID
+snippets have executable code).
+The snippet is defined
+ (
+isDefined() == true
+).
+ If the snippet is a declaration or import
+ (
+Snippet.Kind.isPersistent()
+),
+ it is visible to other snippets
+The snippet will update as dependents change
+ (
+isActive() == true
+), its
+ status could become
+RECOVERABLE_DEFINED
+,
+RECOVERABLE_NOT_DEFINED
+,
+DROPPED
+, or
+OVERWRITTEN
+.
+RECOVERABLE_DEFINED
+public static final
+Snippet.Status
+RECOVERABLE_DEFINED
+The snippet is a declaration snippet with potentially recoverable
+ unresolved references or other issues in its body
+ (in the context of current
+JShell
+state).
+ Only a
+DeclarationSnippet
+can have this
+Status
+.
+The snippet has a valid signature and it is visible to other
+ snippets
+ (
+isDefined() == true
+)
+ and thus can be referenced in existing or new snippets
+ but the snippet cannot be executed.
+ An
+UnresolvedReferenceException
+will be thrown on an attempt
+ to execute it.
+The snippet will update as dependents change
+ (
+isActive() == true
+), its
+ status could become
+VALID
+,
+RECOVERABLE_NOT_DEFINED
+,
+DROPPED
+, or
+OVERWRITTEN
+.
+Note: both
+RECOVERABLE_DEFINED
+and
+RECOVERABLE_NOT_DEFINED
+indicate potentially recoverable errors, they differ in that, for
+RECOVERABLE_DEFINED
+, the snippet is
+defined
+.
+RECOVERABLE_NOT_DEFINED
+public static final
+Snippet.Status
+RECOVERABLE_NOT_DEFINED
+The snippet is a declaration snippet with potentially recoverable
+ unresolved references or other issues
+ (in the context of current
+JShell
+state).
+ Only a
+DeclarationSnippet
+can have this
+Status
+.
+The snippet has an invalid signature or the implementation is
+ otherwise unable to define it.
+ The snippet it is not visible to other snippets
+ (
+isDefined() == false
+)
+ and thus cannot be referenced or executed.
+The snippet will update as dependents change
+ (
+isActive() == true
+), its
+ status could become
+VALID
+,
+RECOVERABLE_DEFINED
+,
+DROPPED
+, or
+OVERWRITTEN
+.
+Note: both
+RECOVERABLE_DEFINED
+and
+RECOVERABLE_NOT_DEFINED
+indicate potentially recoverable errors, they differ in that, for
+RECOVERABLE_DEFINED
+, the snippet is
+defined
+.
+DROPPED
+public static final
+Snippet.Status
+DROPPED
+The snippet is inactive because of an explicit call to
+ the
+JShell.drop(Snippet)
+.
+The snippet is not visible to other snippets
+ (
+isDefined() == false
+)
+ and thus cannot be referenced or executed.
+The snippet will not update as dependents change
+ (
+isActive() == false
+), its
+Status
+will never change again.
+OVERWRITTEN
+public static final
+Snippet.Status
+OVERWRITTEN
+The snippet is inactive because it has been replaced by a new
+ snippet.  This occurs when the new snippet added with
+eval
+matches a previous snippet.
+ A
+TypeDeclSnippet
+will match another
+TypeDeclSnippet
+if the names match.
+ For example
+class X { }
+will overwrite
+class X { int ii; }
+or
+interface X { }
+.
+ A
+MethodSnippet
+will match another
+MethodSnippet
+if the names and parameter types
+ match.
+ For example
+void m(int a) { }
+will overwrite
+int m(int a) { return a+a; }
+.
+ A
+VarSnippet
+will match another
+VarSnippet
+if the names match.
+ For example
+double z;
+will overwrite
+long z = 2L;
+.
+ Only a
+PersistentSnippet
+can have this
+Status
+.
+The snippet is not visible to other snippets
+ (
+isDefined() == false
+)
+ and thus cannot be referenced or executed.
+The snippet will not update as dependents change
+ (
+isActive() == false
+), its
+Status
+will never change again.
+REJECTED
+public static final
+Snippet.Status
+REJECTED
+The snippet is inactive because it failed compilation on initial
+ evaluation and it is not capable of becoming valid with further
+ changes to the JShell state.
+The snippet is not visible to other snippets
+ (
+isDefined() == false
+)
+ and thus cannot be referenced or executed.
+The snippet will not update as dependents change
+ (
+isActive() == false
+), its
+Status
+will never change again.
+NONEXISTENT
+public static final
+Snippet.Status
+NONEXISTENT
+The snippet is inactive because it does not yet exist.
+ Used only in
+SnippetEvent.previousStatus
+for new
+ snippets.
+JShell.status(Snippet)
+will never return this
+Status
+.
+Vacuously,
+isDefined()
+and
+isActive()
+are both defined
+false
+.
+Method Details
+values
+public static
+Snippet.Status
+[]
+values
+()
+Returns an array containing the constants of this enum class, in
+the order they are declared.
+Returns:
+an array containing the constants of this enum class, in the order they are declared
+valueOf
+public static
+Snippet.Status
+valueOf
+(
+String
+name)
+Returns the enum constant of this class with the specified name.
+The string must match
+exactly
+an identifier used to declare an
+enum constant in this class.  (Extraneous whitespace characters are 
+not permitted.)
+Parameters:
+name
+- the name of the enum constant to be returned.
+Returns:
+the enum constant with the specified name
+Throws:
+IllegalArgumentException
+- if this enum class has no constant with the specified name
+NullPointerException
+- if the argument is null
+isActive
+public
+boolean
+isActive
+()
+Indicates whether the Snippet is active, that is,
+ will a
+persistent
+snippet be re-evaluated when a new
+JShell.eval(String)
+or
+JShell.drop(Snippet)
+that could change
+ its status is invoked.  This is more broad than
+isDefined()
+since a Snippet which is
+RECOVERABLE_NOT_DEFINED
+will be updated.
+Returns:
+true
+if the Snippet is active; otherwise
+false
+isDefined
+public
+boolean
+isDefined
+()
+Indicates whether the snippet is currently part of the defined state
+ of the JShell. Is it visible to compilation of other snippets?
+Returns:
+true
+if the Snippet is defined; otherwise
+false
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

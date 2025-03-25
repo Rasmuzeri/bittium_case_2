@@ -1,0 +1,405 @@
+TIFFImageReadParam (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.imageio.plugins.tiff
+Class TIFFImageReadParam
+java.lang.Object
+javax.imageio.IIOParam
+javax.imageio.ImageReadParam
+javax.imageio.plugins.tiff.TIFFImageReadParam
+public final class
+TIFFImageReadParam
+extends
+ImageReadParam
+A subclass of
+ImageReadParam
+allowing control over
+ the TIFF reading process.
+Because TIFF is an extensible format, the reader requires
+ information about any tags used by TIFF extensions in order to emit
+ meaningful metadata.  Also, TIFF extensions may define new
+ compression types.  Both types of information about extensions may
+ be provided by this interface.
+Additional TIFF tags must be organized into
+TIFFTagSet
+s.  A
+TIFFTagSet
+may be
+ provided to the reader by means of the
+addAllowedTagSet
+method.  By default, the tag sets
+BaselineTIFFTagSet
+,
+FaxTIFFTagSet
+,
+ExifParentTIFFTagSet
+, and
+GeoTIFFTagSet
+are included.
+Forcing reading of fields corresponding to
+TIFFTag
+s
+ not in any of the allowed
+TIFFTagSet
+s may be effected via
+setReadUnknownTags
+.
+Since:
+9
+Field Summary
+Fields declared in class javax.imageio.
+ImageReadParam
+canSetSourceRenderSize
+,
+destination
+,
+destinationBands
+,
+minProgressivePass
+,
+numProgressivePasses
+,
+sourceRenderSize
+Fields declared in class javax.imageio.
+IIOParam
+controller
+,
+defaultController
+,
+destinationOffset
+,
+destinationType
+,
+sourceBands
+,
+sourceRegion
+,
+sourceXSubsampling
+,
+sourceYSubsampling
+,
+subsamplingXOffset
+,
+subsamplingYOffset
+Constructor Summary
+Constructors
+Constructor
+Description
+TIFFImageReadParam
+()
+Constructs a
+TIFFImageReadParam
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+addAllowedTagSet
+(
+TIFFTagSet
+tagSet)
+Adds a
+TIFFTagSet
+object to the list of allowed
+ tag sets.
+List
+<
+TIFFTagSet
+>
+getAllowedTagSets
+()
+Returns a
+List
+containing the allowed
+TIFFTagSet
+objects.
+boolean
+getReadUnknownTags
+()
+Retrieve the setting of whether to read fields corresponding to unknown
+TIFFTag
+s.
+void
+removeAllowedTagSet
+(
+TIFFTagSet
+tagSet)
+Removes a
+TIFFTagSet
+object from the list of
+ allowed tag sets.
+void
+setReadUnknownTags
+(boolean readUnknownTags)
+Set whether to read fields corresponding to
+TIFFTag
+s not in
+ the allowed
+TIFFTagSet
+s.
+Methods declared in class javax.imageio.
+ImageReadParam
+canSetSourceRenderSize
+,
+getDestination
+,
+getDestinationBands
+,
+getSourceMaxProgressivePass
+,
+getSourceMinProgressivePass
+,
+getSourceNumProgressivePasses
+,
+getSourceRenderSize
+,
+setDestination
+,
+setDestinationBands
+,
+setSourceProgressivePasses
+,
+setSourceRenderSize
+Methods declared in class javax.imageio.
+IIOParam
+activateController
+,
+getController
+,
+getDefaultController
+,
+getDestinationOffset
+,
+getDestinationType
+,
+getSourceBands
+,
+getSourceRegion
+,
+getSourceXSubsampling
+,
+getSourceYSubsampling
+,
+getSubsamplingXOffset
+,
+getSubsamplingYOffset
+,
+hasController
+,
+setController
+,
+setDestinationOffset
+,
+setDestinationType
+,
+setSourceBands
+,
+setSourceRegion
+,
+setSourceSubsampling
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+TIFFImageReadParam
+public
+TIFFImageReadParam
+()
+Constructs a
+TIFFImageReadParam
+.  Tags defined by
+ the
+TIFFTagSet
+s
+BaselineTIFFTagSet
+,
+FaxTIFFTagSet
+,
+ExifParentTIFFTagSet
+, and
+GeoTIFFTagSet
+will be supported.
+See Also:
+BaselineTIFFTagSet
+FaxTIFFTagSet
+ExifParentTIFFTagSet
+GeoTIFFTagSet
+Method Details
+addAllowedTagSet
+public
+void
+addAllowedTagSet
+(
+TIFFTagSet
+tagSet)
+Adds a
+TIFFTagSet
+object to the list of allowed
+ tag sets.  Attempting to add a duplicate object to the list
+ has no effect.
+Parameters:
+tagSet
+- a
+TIFFTagSet
+.
+Throws:
+IllegalArgumentException
+- if
+tagSet
+is
+null
+.
+removeAllowedTagSet
+public
+void
+removeAllowedTagSet
+(
+TIFFTagSet
+tagSet)
+Removes a
+TIFFTagSet
+object from the list of
+ allowed tag sets.  Removal is based on the
+equals
+method of the
+TIFFTagSet
+, which is normally
+ defined as reference equality.
+Parameters:
+tagSet
+- a
+TIFFTagSet
+.
+Throws:
+IllegalArgumentException
+- if
+tagSet
+is
+null
+.
+getAllowedTagSets
+public
+List
+<
+TIFFTagSet
+>
+getAllowedTagSets
+()
+Returns a
+List
+containing the allowed
+TIFFTagSet
+objects.
+Returns:
+a
+List
+of
+TIFFTagSet
+s.
+setReadUnknownTags
+public
+void
+setReadUnknownTags
+(boolean readUnknownTags)
+Set whether to read fields corresponding to
+TIFFTag
+s not in
+ the allowed
+TIFFTagSet
+s. The default setting is
+false
+.
+ If the TIFF
+ImageReader
+is ignoring metadata, then a setting
+ of
+true
+is overridden as all metadata are ignored except those
+ essential to reading the image itself.
+Parameters:
+readUnknownTags
+- Whether to read fields of unrecognized tags
+getReadUnknownTags
+public
+boolean
+getReadUnknownTags
+()
+Retrieve the setting of whether to read fields corresponding to unknown
+TIFFTag
+s.
+Returns:
+Whether to read fields of unrecognized tags
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

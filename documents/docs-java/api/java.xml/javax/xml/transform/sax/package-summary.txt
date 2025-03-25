@@ -1,0 +1,166 @@
+javax.xml.transform.sax (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages
+|
+Classes and Interfaces
+SEARCH
+Module
+java.xml
+Package javax.xml.transform.sax
+package
+javax.xml.transform.sax
+Provides SAX specific transformation classes.
+The
+SAXSource
+class allows the
+ setting of an
+XMLReader
+to be used for pulling
+ parse events, and an
+InputSource
+that may be used to
+ specify the SAX source.
+The
+SAXResult
+class allows the
+ setting of a
+ContentHandler
+to be the receiver of
+ SAX2 events from the transformation.
+The
+SAXTransformerFactory
+extends
+TransformerFactory
+to provide factory
+ methods for creating
+TemplatesHandler
+,
+TransformerHandler
+, and
+XMLReader
+instances.
+To obtain a
+SAXTransformerFactory
+,
+ the caller must cast the
+TransformerFactory
+instance returned from
+TransformerFactory.newInstance()
+.
+The
+TransformerHandler
+interface
+ allows a transformation to be created from SAX2 parse events, which is a "push"
+ model rather than the "pull" model that normally occurs for a transformation.
+ Normal parse events are received through the
+ContentHandler
+interface, lexical events such as
+ startCDATA and endCDATA are received through the
+LexicalHandler
+interface, and events that signal
+ the start or end of disabling output escaping are received via
+ContentHandler.processingInstruction(java.lang.String, java.lang.String)
+, with the
+ target parameter being
+Result.PI_DISABLE_OUTPUT_ESCAPING
+and
+Result.PI_ENABLE_OUTPUT_ESCAPING
+. If
+ parameters, output properties, or other features need to be set on the
+ Transformer handler, a
+Transformer
+reference
+ will need to be obtained from
+TransformerHandler.getTransformer()
+, and
+ the methods invoked from that reference.
+The
+TemplatesHandler
+interface
+ allows the creation of
+Templates
+objects
+ from SAX2 parse events. Once the
+ContentHandler
+events are complete, the Templates object may be obtained from
+TemplatesHandler.getTemplates()
+. Note that
+TemplatesHandler.setSystemId(java.lang.String)
+should
+ normally be called in order to establish a base system ID from which relative
+ URLs may be resolved.
+The
+SAXTransformerFactory.newXMLFilter(javax.xml.transform.Source)
+method allows the creation of a
+XMLFilter
+, which
+ encapsulates the SAX2 notion of a "pull" transformation. The resulting
+XMLFilters
+can be chained together so that a series of transformations
+ can happen with one's output becoming another's input.
+Since:
+1.5
+Related Packages
+Package
+Description
+javax.xml.transform
+Defines the generic APIs for processing transformation instructions,
+ and performing a transformation from source to result.
+javax.xml.transform.dom
+Provides DOM specific transformation classes.
+javax.xml.transform.stax
+Provides StAX specific transformation classes.
+javax.xml.transform.stream
+Provides stream and URI specific transformation classes.
+All Classes and Interfaces
+Interfaces
+Classes
+Class
+Description
+SAXResult
+Acts as an holder for a transformation Result.
+SAXSource
+Acts as an holder for SAX-style Source.
+SAXTransformerFactory
+This class extends TransformerFactory to provide SAX-specific
+ factory methods.
+TemplatesHandler
+A SAX ContentHandler that may be used to process SAX
+ parse events (parsing transformation instructions) into a Templates object.
+TransformerHandler
+A TransformerHandler
+ listens for SAX ContentHandler parse events and transforms
+ them to a Result.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

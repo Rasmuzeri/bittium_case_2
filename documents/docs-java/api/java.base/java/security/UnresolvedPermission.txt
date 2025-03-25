@@ -1,0 +1,487 @@
+UnresolvedPermission (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.security
+Class UnresolvedPermission
+java.lang.Object
+java.security.Permission
+java.security.UnresolvedPermission
+All Implemented Interfaces:
+Serializable
+,
+Guard
+public final class
+UnresolvedPermission
+extends
+Permission
+implements
+Serializable
+The
+UnresolvedPermission
+class is used to hold Permissions that
+ were "unresolved" when the Policy was initialized.
+ An unresolved permission is one whose actual Permission class
+ does not yet exist at the time the Policy is initialized (see below).
+The policy for a Java runtime (specifying
+ which permissions are available for code from various principals)
+ is represented by a Policy object.
+ Whenever a Policy is initialized or refreshed, Permission objects of
+ appropriate classes are created for all permissions
+ allowed by the Policy.
+Many permission class types
+ referenced by the policy configuration are ones that exist
+ locally (i.e., ones that can be found on CLASSPATH).
+ Objects for such permissions can be instantiated during
+ Policy initialization. For example, it is always possible
+ to instantiate a java.io.FilePermission, since the
+ FilePermission class is found on the CLASSPATH.
+Other permission classes may not yet exist during Policy
+ initialization. For example, a referenced permission class may
+ be in a JAR file that will later be loaded.
+ For each such class, an
+UnresolvedPermission
+is instantiated.
+ Thus, an
+UnresolvedPermission
+is essentially a "placeholder"
+ containing information about the permission.
+Later, when code calls
+AccessController.checkPermission(java.security.Permission)
+on a permission of a type that was previously unresolved,
+ but whose class has since been loaded, previously-unresolved
+ permissions of that type are "resolved". That is,
+ for each such
+UnresolvedPermission
+, a new object of
+ the appropriate class type is instantiated, based on the
+ information in the
+UnresolvedPermission
+.
+To instantiate the new class,
+UnresolvedPermission
+assumes
+ the class provides a zero, one, and/or two-argument constructor.
+ The zero-argument constructor would be used to instantiate
+ a permission without a name and without actions.
+ A one-arg constructor is assumed to take a
+String
+name as input, and a two-arg constructor is assumed to take a
+String
+name and
+String
+actions
+ as input.
+UnresolvedPermission
+may invoke a
+ constructor with a
+null
+name and/or actions.
+ If an appropriate permission constructor is not available,
+ the
+UnresolvedPermission
+is ignored and the relevant permission
+ will not be granted to executing code.
+The newly created permission object replaces the
+UnresolvedPermission
+, which is removed.
+Note that the
+getName
+method for an
+UnresolvedPermission
+returns the
+type
+(class name) for the underlying permission
+ that has not been resolved.
+Since:
+1.2
+See Also:
+Permission
+Permissions
+PermissionCollection
+Policy
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+UnresolvedPermission
+(
+String
+type,
+String
+name,
+String
+actions,
+Certificate
+[] certs)
+Creates a new
+UnresolvedPermission
+containing the permission
+ information needed later to actually create a Permission of the
+ specified class, when the permission is resolved.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+equals
+(
+Object
+obj)
+Checks two
+UnresolvedPermission
+objects for equality.
+String
+getActions
+()
+Returns the canonical string representation of the actions,
+ which currently is the empty string "", since there are no actions for
+ an
+UnresolvedPermission
+.
+String
+getUnresolvedActions
+()
+Get the actions for the underlying permission that
+ has not been resolved.
+Certificate
+[]
+getUnresolvedCerts
+()
+Get the signer certificates (without any supporting chain)
+ for the underlying permission that has not been resolved.
+String
+getUnresolvedName
+()
+Get the target name of the underlying permission that
+ has not been resolved.
+String
+getUnresolvedType
+()
+Get the type (class name) of the underlying permission that
+ has not been resolved.
+int
+hashCode
+()
+Returns the hash code value for this object.
+boolean
+implies
+(
+Permission
+p)
+This method always returns
+false
+for unresolved permissions.
+PermissionCollection
+newPermissionCollection
+()
+Returns a new PermissionCollection object for storing
+UnresolvedPermission
+objects.
+String
+toString
+()
+Returns a string describing this
+UnresolvedPermission
+.
+Methods declared in class java.security.
+Permission
+checkGuard
+,
+getName
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+UnresolvedPermission
+public
+UnresolvedPermission
+(
+String
+type,
+String
+name,
+String
+actions,
+Certificate
+[] certs)
+Creates a new
+UnresolvedPermission
+containing the permission
+ information needed later to actually create a Permission of the
+ specified class, when the permission is resolved.
+Parameters:
+type
+- the class name of the Permission class that will be
+ created when this unresolved permission is resolved.
+name
+- the name of the permission.
+actions
+- the actions of the permission.
+certs
+- the certificates the permission's class was signed with.
+ This is a list of certificate chains, where each chain is composed of a
+ signer certificate and optionally its supporting certificate chain.
+ Each chain is ordered bottom-to-top (i.e., with the signer certificate
+ first and the (root) certificate authority last). The signer
+ certificates are copied from the array. Subsequent changes to
+ the array will not affect this UnresolvedPermission.
+Method Details
+implies
+public
+boolean
+implies
+(
+Permission
+p)
+This method always returns
+false
+for unresolved permissions.
+ That is, an
+UnresolvedPermission
+is never considered to
+ imply another permission.
+Specified by:
+implies
+in class
+Permission
+Parameters:
+p
+- the permission to check against.
+Returns:
+false
+.
+equals
+public
+boolean
+equals
+(
+Object
+obj)
+Checks two
+UnresolvedPermission
+objects for equality.
+ Checks that
+obj
+is an
+UnresolvedPermission
+, and has
+ the same type (class) name, permission name, actions, and
+ certificates as this object.
+To determine certificate equality, this method only compares
+ actual signer certificates.  Supporting certificate chains
+ are not taken into consideration by this method.
+Specified by:
+equals
+in class
+Permission
+Parameters:
+obj
+- the object we are testing for equality with this object.
+Returns:
+true if
+obj
+is an
+UnresolvedPermission
+,
+ and has the same type (class) name, permission name, actions, and
+ certificates as this object.
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+public
+int
+hashCode
+()
+Returns the hash code value for this object.
+Specified by:
+hashCode
+in class
+Permission
+Returns:
+a hash code value for this object.
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+getActions
+public
+String
+getActions
+()
+Returns the canonical string representation of the actions,
+ which currently is the empty string "", since there are no actions for
+ an
+UnresolvedPermission
+. That is, the actions for the
+ permission that will be created when this
+UnresolvedPermission
+is resolved may be non-null, but an
+UnresolvedPermission
+itself is never considered to have any actions.
+Specified by:
+getActions
+in class
+Permission
+Returns:
+the empty string "".
+getUnresolvedType
+public
+String
+getUnresolvedType
+()
+Get the type (class name) of the underlying permission that
+ has not been resolved.
+Returns:
+the type (class name) of the underlying permission that
+  has not been resolved
+Since:
+1.5
+getUnresolvedName
+public
+String
+getUnresolvedName
+()
+Get the target name of the underlying permission that
+ has not been resolved.
+Returns:
+the target name of the underlying permission that
+          has not been resolved, or
+null
+,
+          if there is no target name
+Since:
+1.5
+getUnresolvedActions
+public
+String
+getUnresolvedActions
+()
+Get the actions for the underlying permission that
+ has not been resolved.
+Returns:
+the actions for the underlying permission that
+          has not been resolved, or
+null
+if there are no actions
+Since:
+1.5
+getUnresolvedCerts
+public
+Certificate
+[]
+getUnresolvedCerts
+()
+Get the signer certificates (without any supporting chain)
+ for the underlying permission that has not been resolved.
+Returns:
+the signer certificates for the underlying permission that
+ has not been resolved, or
+null
+, if there are no signer
+ certificates.
+ Returns a new array each time this method is called.
+Since:
+1.5
+toString
+public
+String
+toString
+()
+Returns a string describing this
+UnresolvedPermission
+.
+ The convention is to specify the class name, the permission name,
+ and the actions, in the following format:
+ '(unresolved "ClassName" "name" "actions")'.
+Overrides:
+toString
+in class
+Permission
+Returns:
+information about this
+UnresolvedPermission
+.
+newPermissionCollection
+public
+PermissionCollection
+newPermissionCollection
+()
+Returns a new PermissionCollection object for storing
+UnresolvedPermission
+objects.
+Overrides:
+newPermissionCollection
+in class
+Permission
+Returns:
+a new PermissionCollection object suitable for
+ storing
+UnresolvedPermissions
+.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,152 @@
+LongStream.Builder (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.util.stream
+Interface LongStream.Builder
+All Superinterfaces:
+LongConsumer
+Enclosing interface:
+LongStream
+public static interface
+LongStream.Builder
+extends
+LongConsumer
+A mutable builder for a
+LongStream
+.
+A stream builder has a lifecycle, which starts in a building
+ phase, during which elements can be added, and then transitions to a built
+ phase, after which elements may not be added.  The built phase begins
+ begins when the
+build()
+method is called, which creates an
+ ordered stream whose elements are the elements that were added to the
+ stream builder, in the order they were added.
+Since:
+1.8
+See Also:
+LongStream.builder()
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+void
+accept
+(long t)
+Adds an element to the stream being built.
+default
+LongStream.Builder
+add
+(long t)
+Adds an element to the stream being built.
+LongStream
+build
+()
+Builds the stream, transitioning this builder to the built state.
+Methods declared in interface java.util.function.
+LongConsumer
+andThen
+Method Details
+accept
+void
+accept
+(long t)
+Adds an element to the stream being built.
+Specified by:
+accept
+in interface
+LongConsumer
+Parameters:
+t
+- the input argument
+Throws:
+IllegalStateException
+- if the builder has already transitioned
+ to the built state
+add
+default
+LongStream.Builder
+add
+(long t)
+Adds an element to the stream being built.
+Implementation Requirements:
+The default implementation behaves as if:
+accept(t)
+     return this;
+Parameters:
+t
+- the element to add
+Returns:
+this
+builder
+Throws:
+IllegalStateException
+- if the builder has already transitioned
+ to the built state
+build
+LongStream
+build
+()
+Builds the stream, transitioning this builder to the built state.
+ An
+IllegalStateException
+is thrown if there are further
+ attempts to operate on the builder after it has entered the built
+ state.
+Returns:
+the built stream
+Throws:
+IllegalStateException
+- if the builder has already transitioned
+ to the built state
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

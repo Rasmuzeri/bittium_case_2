@@ -1,0 +1,113 @@
+QuitHandler (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt.desktop
+Interface QuitHandler
+public interface
+QuitHandler
+An implementor determines if requests to quit this application should proceed
+ or cancel.
+Since:
+9
+See Also:
+Desktop.setQuitHandler(QuitHandler)
+Desktop.setQuitStrategy(QuitStrategy)
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+void
+handleQuitRequestWith
+(
+QuitEvent
+e,
+QuitResponse
+response)
+Invoked when the application is asked to quit.
+Method Details
+handleQuitRequestWith
+void
+handleQuitRequestWith
+(
+QuitEvent
+e,
+QuitResponse
+response)
+Invoked when the application is asked to quit.
+Implementors must call either
+QuitResponse.cancelQuit()
+,
+QuitResponse.performQuit()
+, or ensure the application terminates.
+ The process (or log-out) requesting this app to quit will be blocked
+ until the
+QuitResponse
+is handled. Apps that require complex UI
+ to shutdown may call the
+QuitResponse
+from any thread. Your app
+ may be asked to quit multiple times before you have responded to the
+ initial request. This handler is called each time a quit is requested,
+ and the same
+QuitResponse
+object is passed until it is handled.
+ Once used, the
+QuitResponse
+cannot be used again to change the
+ decision.
+Parameters:
+e
+- the request to quit this application
+response
+- the one-shot response object used to cancel or proceed
+         with the quit action
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

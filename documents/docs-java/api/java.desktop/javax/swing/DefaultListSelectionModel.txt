@@ -1,0 +1,1155 @@
+DefaultListSelectionModel (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing
+Class DefaultListSelectionModel
+java.lang.Object
+javax.swing.DefaultListSelectionModel
+All Implemented Interfaces:
+Serializable
+,
+Cloneable
+,
+ListSelectionModel
+public class
+DefaultListSelectionModel
+extends
+Object
+implements
+ListSelectionModel
+,
+Cloneable
+,
+Serializable
+Default data model for list selections.
+Warning:
+Serialized objects of this class will not be compatible with
+ future Swing releases. The current serialization support is
+ appropriate for short term storage or RMI between applications running
+ the same version of Swing.  As of 1.4, support for long term storage
+ of all JavaBeans
+ has been added to the
+java.beans
+package.
+ Please see
+XMLEncoder
+.
+Since:
+1.2
+See Also:
+ListSelectionModel
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected boolean
+leadAnchorNotificationEnabled
+Whether or not the lead anchor notification is enabled.
+protected
+EventListenerList
+listenerList
+The list of listeners.
+Fields declared in interface javax.swing.
+ListSelectionModel
+MULTIPLE_INTERVAL_SELECTION
+,
+SINGLE_INTERVAL_SELECTION
+,
+SINGLE_SELECTION
+Constructor Summary
+Constructors
+Constructor
+Description
+DefaultListSelectionModel
+()
+Constructs a
+DefaultListSelectionModel
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+addListSelectionListener
+(
+ListSelectionListener
+l)
+Add a listener to the list that's notified each time a change
+ to the selection occurs.
+void
+addSelectionInterval
+(int index0,
+ int index1)
+Changes the selection to be the set union of the current selection
+ and the indices between
+index0
+and
+index1
+inclusive.
+void
+clearSelection
+()
+Change the selection to the empty set.
+Object
+clone
+()
+Returns a clone of this selection model with the same selection.
+protected void
+fireValueChanged
+(boolean isAdjusting)
+Notifies listeners that we have ended a series of adjustments.
+protected void
+fireValueChanged
+(int firstIndex,
+ int lastIndex)
+Notifies
+ListSelectionListeners
+that the value
+ of the selection, in the closed interval
+firstIndex
+,
+lastIndex
+, has changed.
+protected void
+fireValueChanged
+(int firstIndex,
+ int lastIndex,
+ boolean isAdjusting)
+Notifies
+ListSelectionListeners
+that the value
+ of the selection, in the closed interval
+firstIndex
+,
+lastIndex
+, has changed and if this is the final change
+ in the series of adjustments.
+int
+getAnchorSelectionIndex
+()
+Return the first index argument from the most recent call to
+ setSelectionInterval(), addSelectionInterval() or removeSelectionInterval().
+int
+getLeadSelectionIndex
+()
+Return the second index argument from the most recent call to
+ setSelectionInterval(), addSelectionInterval() or removeSelectionInterval().
+<T extends
+EventListener
+>
+T[]
+getListeners
+(
+Class
+<T> listenerType)
+Returns an array of all the objects currently registered as
+Foo
+Listener
+s
+ upon this model.
+ListSelectionListener
+[]
+getListSelectionListeners
+()
+Returns an array of all the list selection listeners
+ registered on this
+DefaultListSelectionModel
+.
+int
+getMaxSelectionIndex
+()
+Returns the last selected index or -1 if the selection is empty.
+int
+getMinSelectionIndex
+()
+Returns the first selected index or -1 if the selection is empty.
+int
+getSelectionMode
+()
+Returns the current selection mode.
+boolean
+getValueIsAdjusting
+()
+Returns
+true
+if the selection is undergoing a series of changes.
+void
+insertIndexInterval
+(int index,
+ int length,
+ boolean before)
+Insert length indices beginning before/after index.
+boolean
+isLeadAnchorNotificationEnabled
+()
+Returns the value of the
+leadAnchorNotificationEnabled
+flag.
+boolean
+isSelectedIndex
+(int index)
+Returns true if the specified index is selected.
+boolean
+isSelectionEmpty
+()
+Returns true if no indices are selected.
+void
+moveLeadSelectionIndex
+(int leadIndex)
+Set the lead selection index, leaving all selection values unchanged.
+void
+removeIndexInterval
+(int index0,
+ int index1)
+Remove the indices in the interval index0,index1 (inclusive) from
+ the selection model.
+void
+removeListSelectionListener
+(
+ListSelectionListener
+l)
+Remove a listener from the list that's notified each time a
+ change to the selection occurs.
+void
+removeSelectionInterval
+(int index0,
+ int index1)
+Changes the selection to be the set difference of the current selection
+ and the indices between
+index0
+and
+index1
+inclusive.
+void
+setAnchorSelectionIndex
+(int anchorIndex)
+Set the anchor selection index, leaving all selection values unchanged.
+void
+setLeadAnchorNotificationEnabled
+(boolean flag)
+Sets the value of the leadAnchorNotificationEnabled flag.
+void
+setLeadSelectionIndex
+(int leadIndex)
+Sets the lead selection index, ensuring that values between the
+ anchor and the new lead are either all selected or all deselected.
+void
+setSelectionInterval
+(int index0,
+ int index1)
+Changes the selection to be between
+index0
+and
+index1
+inclusive.
+void
+setSelectionMode
+(int selectionMode)
+Sets the selection mode.
+void
+setValueIsAdjusting
+(boolean isAdjusting)
+Sets the
+valueIsAdjusting
+property, which indicates whether
+ or not upcoming selection changes should be considered part of a single
+ change.
+String
+toString
+()
+Returns a string that displays and identifies this
+ object's properties.
+Methods declared in class java.lang.
+Object
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface javax.swing.
+ListSelectionModel
+getSelectedIndices
+,
+getSelectedItemsCount
+Field Details
+listenerList
+protected
+EventListenerList
+listenerList
+The list of listeners.
+leadAnchorNotificationEnabled
+protected
+boolean
+leadAnchorNotificationEnabled
+Whether or not the lead anchor notification is enabled.
+Constructor Details
+DefaultListSelectionModel
+public
+DefaultListSelectionModel
+()
+Constructs a
+DefaultListSelectionModel
+.
+Method Details
+getMinSelectionIndex
+public
+int
+getMinSelectionIndex
+()
+Returns the first selected index or -1 if the selection is empty.
+Specified by:
+getMinSelectionIndex
+in interface
+ListSelectionModel
+Returns:
+the first selected index or -1 if the selection is empty.
+getMaxSelectionIndex
+public
+int
+getMaxSelectionIndex
+()
+Returns the last selected index or -1 if the selection is empty.
+Specified by:
+getMaxSelectionIndex
+in interface
+ListSelectionModel
+Returns:
+the last selected index or -1 if the selection is empty.
+getValueIsAdjusting
+public
+boolean
+getValueIsAdjusting
+()
+Returns
+true
+if the selection is undergoing a series of changes.
+Specified by:
+getValueIsAdjusting
+in interface
+ListSelectionModel
+Returns:
+true if the selection is undergoing a series of changes
+See Also:
+ListSelectionModel.setValueIsAdjusting(boolean)
+getSelectionMode
+public
+int
+getSelectionMode
+()
+Returns the current selection mode.
+Specified by:
+getSelectionMode
+in interface
+ListSelectionModel
+Returns:
+the current selection mode
+See Also:
+ListSelectionModel.setSelectionMode(int)
+setSelectionMode
+public
+void
+setSelectionMode
+(int selectionMode)
+Sets the selection mode. The following list describes the accepted
+ selection modes:
+ListSelectionModel.SINGLE_SELECTION
+-
+   Only one list index can be selected at a time. In this mode,
+setSelectionInterval
+and
+addSelectionInterval
+are
+   equivalent, both replacing the current selection with the index
+   represented by the second argument (the "lead").
+ListSelectionModel.SINGLE_INTERVAL_SELECTION
+-
+   Only one contiguous interval can be selected at a time.
+   In this mode,
+addSelectionInterval
+behaves like
+setSelectionInterval
+(replacing the current selection),
+   unless the given interval is immediately adjacent to or overlaps
+   the existing selection, and can therefore be used to grow it.
+ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
+-
+   In this mode, there's no restriction on what can be selected.
+Specified by:
+setSelectionMode
+in interface
+ListSelectionModel
+Parameters:
+selectionMode
+- the selection mode
+Throws:
+IllegalArgumentException
+- if the selection mode isn't
+         one of those allowed
+See Also:
+ListSelectionModel.getSelectionMode()
+isSelectedIndex
+public
+boolean
+isSelectedIndex
+(int index)
+Returns true if the specified index is selected.
+Specified by:
+isSelectedIndex
+in interface
+ListSelectionModel
+Parameters:
+index
+- an index
+Returns:
+true
+if the specified index is selected
+isSelectionEmpty
+public
+boolean
+isSelectionEmpty
+()
+Returns true if no indices are selected.
+Specified by:
+isSelectionEmpty
+in interface
+ListSelectionModel
+Returns:
+true
+if no indices are selected.
+addListSelectionListener
+public
+void
+addListSelectionListener
+(
+ListSelectionListener
+l)
+Add a listener to the list that's notified each time a change
+ to the selection occurs.
+Specified by:
+addListSelectionListener
+in interface
+ListSelectionModel
+Parameters:
+l
+- the ListSelectionListener
+See Also:
+ListSelectionModel.removeListSelectionListener(javax.swing.event.ListSelectionListener)
+ListSelectionModel.setSelectionInterval(int, int)
+ListSelectionModel.addSelectionInterval(int, int)
+ListSelectionModel.removeSelectionInterval(int, int)
+ListSelectionModel.clearSelection()
+ListSelectionModel.insertIndexInterval(int, int, boolean)
+ListSelectionModel.removeIndexInterval(int, int)
+removeListSelectionListener
+public
+void
+removeListSelectionListener
+(
+ListSelectionListener
+l)
+Remove a listener from the list that's notified each time a
+ change to the selection occurs.
+Specified by:
+removeListSelectionListener
+in interface
+ListSelectionModel
+Parameters:
+l
+- the ListSelectionListener
+See Also:
+ListSelectionModel.addListSelectionListener(javax.swing.event.ListSelectionListener)
+getListSelectionListeners
+public
+ListSelectionListener
+[]
+getListSelectionListeners
+()
+Returns an array of all the list selection listeners
+ registered on this
+DefaultListSelectionModel
+.
+Returns:
+all of this model's
+ListSelectionListener
+s
+         or an empty
+         array if no list selection listeners are currently registered
+Since:
+1.4
+See Also:
+addListSelectionListener(javax.swing.event.ListSelectionListener)
+removeListSelectionListener(javax.swing.event.ListSelectionListener)
+fireValueChanged
+protected
+void
+fireValueChanged
+(boolean isAdjusting)
+Notifies listeners that we have ended a series of adjustments.
+Parameters:
+isAdjusting
+- true if this is the final change in a series of
+          adjustments
+fireValueChanged
+protected
+void
+fireValueChanged
+(int firstIndex,
+ int lastIndex)
+Notifies
+ListSelectionListeners
+that the value
+ of the selection, in the closed interval
+firstIndex
+,
+lastIndex
+, has changed.
+Parameters:
+firstIndex
+- the first index in the interval
+lastIndex
+- the last index in the interval
+fireValueChanged
+protected
+void
+fireValueChanged
+(int firstIndex,
+ int lastIndex,
+ boolean isAdjusting)
+Notifies
+ListSelectionListeners
+that the value
+ of the selection, in the closed interval
+firstIndex
+,
+lastIndex
+, has changed and if this is the final change
+ in the series of adjustments.
+Parameters:
+firstIndex
+- the first index in the interval
+lastIndex
+- the last index in the interval
+isAdjusting
+- true if this is the final change in a series of
+          adjustments
+See Also:
+EventListenerList
+getListeners
+public
+<T extends
+EventListener
+>
+T[]
+getListeners
+(
+Class
+<T> listenerType)
+Returns an array of all the objects currently registered as
+Foo
+Listener
+s
+ upon this model.
+Foo
+Listener
+s
+ are registered using the
+add
+Foo
+Listener
+method.
+You can specify the
+listenerType
+argument
+ with a class literal, such as
+Foo
+Listener.class
+.
+ For example, you can query a
+DefaultListSelectionModel
+instance
+m
+for its list selection listeners
+ with the following code:
+ListSelectionListener[] lsls = (ListSelectionListener[])(m.getListeners(ListSelectionListener.class));
+If no such listeners exist,
+ this method returns an empty array.
+Type Parameters:
+T
+- the type of
+EventListener
+class being requested
+Parameters:
+listenerType
+- the type of listeners requested;
+          this parameter should specify an interface
+          that descends from
+java.util.EventListener
+Returns:
+an array of all objects registered as
+Foo
+Listener
+s
+          on this model,
+          or an empty array if no such
+          listeners have been added
+Throws:
+ClassCastException
+- if
+listenerType
+doesn't
+          specify a class or interface that implements
+java.util.EventListener
+Since:
+1.3
+See Also:
+getListSelectionListeners()
+setLeadAnchorNotificationEnabled
+public
+void
+setLeadAnchorNotificationEnabled
+(boolean flag)
+Sets the value of the leadAnchorNotificationEnabled flag.
+Parameters:
+flag
+- boolean value for
+leadAnchorNotificationEnabled
+See Also:
+isLeadAnchorNotificationEnabled()
+isLeadAnchorNotificationEnabled
+public
+boolean
+isLeadAnchorNotificationEnabled
+()
+Returns the value of the
+leadAnchorNotificationEnabled
+flag.
+ When
+leadAnchorNotificationEnabled
+is true the model
+ generates notification events with bounds that cover all the changes to
+ the selection plus the changes to the lead and anchor indices.
+ Setting the flag to false causes a narrowing of the event's bounds to
+ include only the elements that have been selected or deselected since
+ the last change. Either way, the model continues to maintain the lead
+ and anchor variables internally. The default is true.
+Note: It is possible for the lead or anchor to be changed without a
+ change to the selection. Notification of these changes is often
+ important, such as when the new lead or anchor needs to be updated in
+ the view. Therefore, caution is urged when changing the default value.
+Returns:
+the value of the
+leadAnchorNotificationEnabled
+flag
+See Also:
+setLeadAnchorNotificationEnabled(boolean)
+clearSelection
+public
+void
+clearSelection
+()
+Change the selection to the empty set.  If this represents
+ a change to the current selection then notify each ListSelectionListener.
+Specified by:
+clearSelection
+in interface
+ListSelectionModel
+See Also:
+ListSelectionModel.addListSelectionListener(javax.swing.event.ListSelectionListener)
+setSelectionInterval
+public
+void
+setSelectionInterval
+(int index0,
+ int index1)
+Changes the selection to be between
+index0
+and
+index1
+inclusive.
+index0
+doesn't have to be less than or equal to
+index1
+.
+In
+SINGLE_SELECTION
+selection mode, only the second index
+ is used.
+If this represents a change to the current selection, then each
+ListSelectionListener
+is notified of the change.
+If either index is
+-1
+, this method does nothing and returns
+ without exception. Otherwise, if either index is less than
+-1
+,
+ an
+IndexOutOfBoundsException
+is thrown.
+Specified by:
+setSelectionInterval
+in interface
+ListSelectionModel
+Parameters:
+index0
+- one end of the interval.
+index1
+- other end of the interval
+Throws:
+IndexOutOfBoundsException
+- if either index is less than
+-1
+(and neither index is
+-1
+)
+See Also:
+addListSelectionListener(javax.swing.event.ListSelectionListener)
+addSelectionInterval
+public
+void
+addSelectionInterval
+(int index0,
+ int index1)
+Changes the selection to be the set union of the current selection
+ and the indices between
+index0
+and
+index1
+inclusive.
+In
+SINGLE_SELECTION
+selection mode, this is equivalent
+ to calling
+setSelectionInterval
+, and only the second index
+ is used. In
+SINGLE_INTERVAL_SELECTION
+selection mode, this
+ method behaves like
+setSelectionInterval
+, unless the given
+ interval is immediately adjacent to or overlaps the existing selection,
+ and can therefore be used to grow it.
+If this represents a change to the current selection, then each
+ListSelectionListener
+is notified of the change. Note that
+index0
+doesn't have to be less than or equal to
+index1
+.
+If either index is
+-1
+, this method does nothing and returns
+ without exception. Otherwise, if either index is less than
+-1
+,
+ an
+IndexOutOfBoundsException
+is thrown.
+Specified by:
+addSelectionInterval
+in interface
+ListSelectionModel
+Parameters:
+index0
+- one end of the interval.
+index1
+- other end of the interval
+Throws:
+IndexOutOfBoundsException
+- if either index is less than
+-1
+(and neither index is
+-1
+)
+See Also:
+addListSelectionListener(javax.swing.event.ListSelectionListener)
+setSelectionInterval(int, int)
+removeSelectionInterval
+public
+void
+removeSelectionInterval
+(int index0,
+ int index1)
+Changes the selection to be the set difference of the current selection
+ and the indices between
+index0
+and
+index1
+inclusive.
+index0
+doesn't have to be less than or equal to
+index1
+.
+In
+SINGLE_INTERVAL_SELECTION
+selection mode, if the removal
+ would produce two disjoint selections, the removal is extended through
+ the greater end of the selection. For example, if the selection is
+0-10
+and you supply indices
+5,6
+(in any order) the
+ resulting selection is
+0-4
+.
+If this represents a change to the current selection, then each
+ListSelectionListener
+is notified of the change.
+If either index is
+-1
+, this method does nothing and returns
+ without exception. Otherwise, if either index is less than
+-1
+,
+ an
+IndexOutOfBoundsException
+is thrown.
+Specified by:
+removeSelectionInterval
+in interface
+ListSelectionModel
+Parameters:
+index0
+- one end of the interval
+index1
+- other end of the interval
+Throws:
+IndexOutOfBoundsException
+- if either index is less than
+-1
+(and neither index is
+-1
+)
+See Also:
+addListSelectionListener(javax.swing.event.ListSelectionListener)
+insertIndexInterval
+public
+void
+insertIndexInterval
+(int index,
+ int length,
+ boolean before)
+Insert length indices beginning before/after index. If the value
+ at index is itself selected and the selection mode is not
+ SINGLE_SELECTION, set all of the newly inserted items as selected.
+ Otherwise leave them unselected. This method is typically
+ called to sync the selection model with a corresponding change
+ in the data model.
+Specified by:
+insertIndexInterval
+in interface
+ListSelectionModel
+Parameters:
+index
+- the beginning of the interval
+length
+- the length of the interval
+before
+- if
+true
+, interval inserts before the
+index
+,
+               otherwise, interval inserts after the
+index
+Throws:
+IndexOutOfBoundsException
+- if either
+index
+or
+length
+is negative
+removeIndexInterval
+public
+void
+removeIndexInterval
+(int index0,
+ int index1)
+Remove the indices in the interval index0,index1 (inclusive) from
+ the selection model.  This is typically called to sync the selection
+ model width a corresponding change in the data model.  Note
+ that (as always) index0 need not be <= index1.
+Specified by:
+removeIndexInterval
+in interface
+ListSelectionModel
+Parameters:
+index0
+- the beginning of the interval
+index1
+- the end of the interval
+Throws:
+IndexOutOfBoundsException
+- if either index is negative
+setValueIsAdjusting
+public
+void
+setValueIsAdjusting
+(boolean isAdjusting)
+Sets the
+valueIsAdjusting
+property, which indicates whether
+ or not upcoming selection changes should be considered part of a single
+ change. The value of this property is used to initialize the
+valueIsAdjusting
+property of the
+ListSelectionEvent
+s that
+ are generated.
+For example, if the selection is being updated in response to a user
+ drag, this property can be set to
+true
+when the drag is initiated
+ and set to
+false
+when the drag is finished. During the drag,
+ listeners receive events with a
+valueIsAdjusting
+property
+ set to
+true
+. At the end of the drag, when the change is
+ finalized, listeners receive an event with the value set to
+false
+.
+ Listeners can use this pattern if they wish to update only when a change
+ has been finalized.
+Setting this property to
+true
+begins a series of changes that
+ is to be considered part of a single change. When the property is changed
+ back to
+false
+, an event is sent out characterizing the entire
+ selection change (if there was one), with the event's
+valueIsAdjusting
+property set to
+false
+.
+Specified by:
+setValueIsAdjusting
+in interface
+ListSelectionModel
+Parameters:
+isAdjusting
+- the new value of the property
+See Also:
+ListSelectionModel.getValueIsAdjusting()
+ListSelectionEvent.getValueIsAdjusting()
+toString
+public
+String
+toString
+()
+Returns a string that displays and identifies this
+ object's properties.
+Overrides:
+toString
+in class
+Object
+Returns:
+a
+String
+representation of this object
+clone
+public
+Object
+clone
+()
+             throws
+CloneNotSupportedException
+Returns a clone of this selection model with the same selection.
+listenerLists
+are not duplicated.
+Overrides:
+clone
+in class
+Object
+Returns:
+a clone of this instance.
+Throws:
+CloneNotSupportedException
+- if the selection model does not
+    both (a) implement the Cloneable interface and (b) define a
+clone
+method.
+See Also:
+Cloneable
+getAnchorSelectionIndex
+public
+int
+getAnchorSelectionIndex
+()
+Return the first index argument from the most recent call to
+ setSelectionInterval(), addSelectionInterval() or removeSelectionInterval().
+ The most recent index0 is considered the "anchor" and the most recent
+ index1 is considered the "lead".  Some interfaces display these
+ indices specially, e.g. Windows95 displays the lead index with a
+ dotted yellow outline.
+Specified by:
+getAnchorSelectionIndex
+in interface
+ListSelectionModel
+Returns:
+the anchor selection index
+See Also:
+ListSelectionModel.getLeadSelectionIndex()
+ListSelectionModel.setSelectionInterval(int, int)
+ListSelectionModel.addSelectionInterval(int, int)
+getLeadSelectionIndex
+public
+int
+getLeadSelectionIndex
+()
+Return the second index argument from the most recent call to
+ setSelectionInterval(), addSelectionInterval() or removeSelectionInterval().
+Specified by:
+getLeadSelectionIndex
+in interface
+ListSelectionModel
+Returns:
+the lead selection index.
+See Also:
+ListSelectionModel.getAnchorSelectionIndex()
+ListSelectionModel.setSelectionInterval(int, int)
+ListSelectionModel.addSelectionInterval(int, int)
+setAnchorSelectionIndex
+public
+void
+setAnchorSelectionIndex
+(int anchorIndex)
+Set the anchor selection index, leaving all selection values unchanged.
+ If leadAnchorNotificationEnabled is true, send a notification covering
+ the old and new anchor cells.
+Specified by:
+setAnchorSelectionIndex
+in interface
+ListSelectionModel
+Parameters:
+anchorIndex
+- the anchor selection index
+See Also:
+getAnchorSelectionIndex()
+setLeadSelectionIndex(int)
+moveLeadSelectionIndex
+public
+void
+moveLeadSelectionIndex
+(int leadIndex)
+Set the lead selection index, leaving all selection values unchanged.
+ If leadAnchorNotificationEnabled is true, send a notification covering
+ the old and new lead cells.
+Parameters:
+leadIndex
+- the new lead selection index
+Since:
+1.5
+See Also:
+setAnchorSelectionIndex(int)
+setLeadSelectionIndex(int)
+getLeadSelectionIndex()
+setLeadSelectionIndex
+public
+void
+setLeadSelectionIndex
+(int leadIndex)
+Sets the lead selection index, ensuring that values between the
+ anchor and the new lead are either all selected or all deselected.
+ If the value at the anchor index is selected, first clear all the
+ values in the range [anchor, oldLeadIndex], then select all the values
+ in the range [anchor, newLeadIndex], where oldLeadIndex is the old
+ leadIndex and newLeadIndex is the new one.
+If the value at the anchor index is not selected, do the same thing in
+ reverse selecting values in the old range and deselecting values in the
+ new one.
+Generate a single event for this change and notify all listeners.
+ For the purposes of generating minimal bounds in this event, do the
+ operation in a single pass; that way the first and last index inside the
+ ListSelectionEvent that is broadcast will refer to cells that actually
+ changed value because of this method. If, instead, this operation were
+ done in two steps the effect on the selection state would be the same
+ but two events would be generated and the bounds around the changed
+ values would be wider, including cells that had been first cleared only
+ to later be set.
+This method can be used in the
+mouseDragged
+method
+ of a UI class to extend a selection.
+Specified by:
+setLeadSelectionIndex
+in interface
+ListSelectionModel
+Parameters:
+leadIndex
+- the lead selection index
+See Also:
+getLeadSelectionIndex()
+setAnchorSelectionIndex(int)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

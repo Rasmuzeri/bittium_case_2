@@ -1,0 +1,264 @@
+Paint (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt
+Interface Paint
+All Superinterfaces:
+Transparency
+All Known Implementing Classes:
+Color
+,
+ColorUIResource
+,
+GradientPaint
+,
+LinearGradientPaint
+,
+MultipleGradientPaint
+,
+RadialGradientPaint
+,
+SystemColor
+,
+TexturePaint
+public interface
+Paint
+extends
+Transparency
+This
+Paint
+interface defines how color patterns
+ can be generated for
+Graphics2D
+operations.  A class
+ implementing the
+Paint
+interface is added to the
+Graphics2D
+context in order to define the color
+ pattern used by the
+draw
+and
+fill
+methods.
+Instances of classes implementing
+Paint
+must be
+ read-only because the
+Graphics2D
+does not clone
+ these objects when they are set as an attribute with the
+setPaint
+method or when the
+Graphics2D
+object is itself cloned.
+See Also:
+PaintContext
+Color
+GradientPaint
+TexturePaint
+Graphics2D.setPaint(java.awt.Paint)
+Field Summary
+Fields declared in interface java.awt.
+Transparency
+BITMASK
+,
+OPAQUE
+,
+TRANSLUCENT
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+PaintContext
+createContext
+(
+ColorModel
+cm,
+Rectangle
+deviceBounds,
+Rectangle2D
+userBounds,
+AffineTransform
+xform,
+RenderingHints
+hints)
+Creates and returns a
+PaintContext
+used to
+ generate the color pattern.
+Methods declared in interface java.awt.
+Transparency
+getTransparency
+Method Details
+createContext
+PaintContext
+createContext
+(
+ColorModel
+cm,
+Rectangle
+deviceBounds,
+Rectangle2D
+userBounds,
+AffineTransform
+xform,
+RenderingHints
+hints)
+Creates and returns a
+PaintContext
+used to
+ generate the color pattern.
+ The arguments to this method convey additional information
+ about the rendering operation that may be
+ used or ignored on various implementations of the
+Paint
+interface.
+ A caller must pass non-
+null
+values for all of the arguments
+ except for the
+ColorModel
+argument which may be
+null
+to
+ indicate that no specific
+ColorModel
+type is preferred.
+ Implementations of the
+Paint
+interface are allowed to use or ignore
+ any of the arguments as makes sense for their function, and are
+ not constrained to use the specified
+ColorModel
+for the returned
+PaintContext
+, even if it is not
+null
+.
+ Implementations are allowed to throw
+NullPointerException
+for
+ any
+null
+argument other than the
+ColorModel
+argument,
+ but are not required to do so.
+Parameters:
+cm
+- the preferred
+ColorModel
+which represents the most convenient
+           format for the caller to receive the pixel data, or
+null
+if there is no preference.
+deviceBounds
+- the device space bounding box
+                     of the graphics primitive being rendered.
+                     Implementations of the
+Paint
+interface
+                     are allowed to throw
+NullPointerException
+for a
+null deviceBounds
+.
+userBounds
+- the user space bounding box
+                   of the graphics primitive being rendered.
+                     Implementations of the
+Paint
+interface
+                     are allowed to throw
+NullPointerException
+for a
+null userBounds
+.
+xform
+- the
+AffineTransform
+from user
+              space into device space.
+                     Implementations of the
+Paint
+interface
+                     are allowed to throw
+NullPointerException
+for a
+null xform
+.
+hints
+- the set of hints that the context object can use to
+              choose between rendering alternatives.
+                     Implementations of the
+Paint
+interface
+                     are allowed to throw
+NullPointerException
+for a
+null hints
+.
+Returns:
+the
+PaintContext
+for
+         generating color patterns.
+See Also:
+PaintContext
+ColorModel
+Rectangle
+Rectangle2D
+AffineTransform
+RenderingHints
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

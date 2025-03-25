@@ -1,0 +1,276 @@
+MonitorInfo (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.management
+Package
+java.lang.management
+Class MonitorInfo
+java.lang.Object
+java.lang.management.LockInfo
+java.lang.management.MonitorInfo
+public class
+MonitorInfo
+extends
+LockInfo
+Information about an object monitor lock.  An object monitor is locked
+ when entering a synchronization block or method on that object.
+MXBean Mapping
+MonitorInfo
+is mapped to a
+CompositeData
+with attributes as specified in
+ the
+from
+method.
+Since:
+1.6
+Constructor Summary
+Constructors
+Constructor
+Description
+MonitorInfo
+(
+String
+className,
+ int identityHashCode,
+ int stackDepth,
+StackTraceElement
+stackFrame)
+Construct a
+MonitorInfo
+object.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+MonitorInfo
+from
+(
+CompositeData
+cd)
+Returns a
+MonitorInfo
+object represented by the
+ given
+CompositeData
+.
+int
+getLockedStackDepth
+()
+Returns the depth in the stack trace where the object monitor
+ was locked.
+StackTraceElement
+getLockedStackFrame
+()
+Returns the stack frame that locked the object monitor.
+Methods declared in class java.lang.management.
+LockInfo
+getClassName
+,
+getIdentityHashCode
+,
+toString
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+MonitorInfo
+public
+MonitorInfo
+(
+String
+className,
+ int identityHashCode,
+ int stackDepth,
+StackTraceElement
+stackFrame)
+Construct a
+MonitorInfo
+object.
+Parameters:
+className
+- the fully qualified name of the class of the lock object.
+identityHashCode
+- the
+identity hash code
+of the lock object.
+stackDepth
+- the depth in the stack trace where the object monitor
+                   was locked.
+stackFrame
+- the stack frame that locked the object monitor.
+Throws:
+IllegalArgumentException
+- if
+stackDepth
+≥ 0 but
+stackFrame
+is
+null
+,
+    or
+stackDepth
+< 0 but
+stackFrame
+is not
+null
+.
+Method Details
+getLockedStackDepth
+public
+int
+getLockedStackDepth
+()
+Returns the depth in the stack trace where the object monitor
+ was locked.  The depth is the index to the
+StackTraceElement
+array returned in the
+ThreadInfo.getStackTrace()
+method.
+Returns:
+the depth in the stack trace where the object monitor
+         was locked, or a negative number if not available.
+getLockedStackFrame
+public
+StackTraceElement
+getLockedStackFrame
+()
+Returns the stack frame that locked the object monitor.
+Returns:
+StackTraceElement
+that locked the object monitor,
+         or
+null
+if not available.
+from
+public static
+MonitorInfo
+from
+(
+CompositeData
+cd)
+Returns a
+MonitorInfo
+object represented by the
+ given
+CompositeData
+.
+ The given
+CompositeData
+must contain the following attributes
+ as well as the attributes specified in the
+mapped type
+for the
+LockInfo
+class:
+The attributes and their types the given CompositeData contains
+Attribute Name
+Type
+lockedStackFrame
+CompositeData
+for
+StackTraceElement
+as specified
+       in
+ThreadInfo.from(CompositeData)
+method.
+lockedStackDepth
+java.lang.Integer
+Parameters:
+cd
+-
+CompositeData
+representing a
+MonitorInfo
+Returns:
+a
+MonitorInfo
+object represented
+         by
+cd
+if
+cd
+is not
+null
+;
+null
+otherwise.
+Throws:
+IllegalArgumentException
+- if
+cd
+does not
+   represent a
+MonitorInfo
+with the attributes described
+   above.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

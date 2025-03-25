@@ -1,0 +1,417 @@
+ObjID (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.rmi
+Package
+java.rmi.server
+Class ObjID
+java.lang.Object
+java.rmi.server.ObjID
+All Implemented Interfaces:
+Serializable
+public final class
+ObjID
+extends
+Object
+implements
+Serializable
+An
+ObjID
+is used to identify a remote object exported
+ to an RMI runtime.  When a remote object is exported, it is assigned
+ an object identifier either implicitly or explicitly, depending on
+ the API used to export.
+The
+ObjID()
+constructor can be used to generate a unique
+ object identifier.  Such an
+ObjID
+is unique over time
+ with respect to the host it is generated on.
+
+ The
+ObjID(int)
+constructor can be used to create a
+ "well-known" object identifier.  The scope of a well-known
+ObjID
+depends on the RMI runtime it is exported to.
+An
+ObjID
+instance contains an object number (of type
+long
+) and an address space identifier (of type
+UID
+).  In a unique
+ObjID
+, the address space
+ identifier is unique with respect to a given host over time.  In a
+ well-known
+ObjID
+, the address space identifier is
+ equivalent to one returned by invoking the
+UID(short)
+constructor with the value zero.
+If the system property
+java.rmi.server.randomIDs
+is defined to equal the string
+"true"
+(case insensitive),
+ then the
+ObjID()
+constructor will use a cryptographically
+ strong random number generator to choose the object number of the
+ returned
+ObjID
+.
+Since:
+1.1
+See Also:
+Serialized Form
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final int
+ACTIVATOR_ID
+Object number for well-known
+ObjID
+of the activator.
+static final int
+DGC_ID
+Object number for well-known
+ObjID
+of
+ the distributed garbage collector.
+static final int
+REGISTRY_ID
+Object number for well-known
+ObjID
+of the registry.
+Constructor Summary
+Constructors
+Constructor
+Description
+ObjID
+()
+Generates a unique object identifier.
+ObjID
+(int objNum)
+Creates a "well-known" object identifier.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+equals
+(
+Object
+obj)
+Compares the specified object with this
+ObjID
+for
+ equality.
+int
+hashCode
+()
+Returns the hash code value for this object identifier, the
+ object number.
+static
+ObjID
+read
+(
+ObjectInput
+in)
+Constructs and returns a new
+ObjID
+instance by
+ unmarshalling a binary representation from an
+ObjectInput
+instance.
+String
+toString
+()
+Returns a string representation of this object identifier.
+void
+write
+(
+ObjectOutput
+out)
+Marshals a binary representation of this
+ObjID
+to
+ an
+ObjectOutput
+instance.
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Field Details
+REGISTRY_ID
+public static final
+int
+REGISTRY_ID
+Object number for well-known
+ObjID
+of the registry.
+See Also:
+Constant Field Values
+ACTIVATOR_ID
+public static final
+int
+ACTIVATOR_ID
+Object number for well-known
+ObjID
+of the activator.
+See Also:
+Constant Field Values
+DGC_ID
+public static final
+int
+DGC_ID
+Object number for well-known
+ObjID
+of
+ the distributed garbage collector.
+See Also:
+Constant Field Values
+Constructor Details
+ObjID
+public
+ObjID
+()
+Generates a unique object identifier.
+If the system property
+java.rmi.server.randomIDs
+is defined to equal the string
+"true"
+(case insensitive),
+ then this constructor will use a cryptographically
+ strong random number generator to choose the object number of the
+ returned
+ObjID
+.
+ObjID
+public
+ObjID
+(int objNum)
+Creates a "well-known" object identifier.
+An
+ObjID
+created via this constructor will not
+ clash with any
+ObjID
+s generated via the no-arg
+ constructor.
+Parameters:
+objNum
+- object number for well-known object identifier
+Method Details
+write
+public
+void
+write
+(
+ObjectOutput
+out)
+throws
+IOException
+Marshals a binary representation of this
+ObjID
+to
+ an
+ObjectOutput
+instance.
+Specifically, this method first invokes the given stream's
+DataOutput.writeLong(long)
+method with this object
+ identifier's object number, and then it writes its address
+ space identifier by invoking its
+UID.write(DataOutput)
+method with the stream.
+Parameters:
+out
+- the
+ObjectOutput
+instance to write
+ this
+ObjID
+to
+Throws:
+IOException
+- if an I/O error occurs while performing
+ this operation
+read
+public static
+ObjID
+read
+(
+ObjectInput
+in)
+throws
+IOException
+Constructs and returns a new
+ObjID
+instance by
+ unmarshalling a binary representation from an
+ObjectInput
+instance.
+Specifically, this method first invokes the given stream's
+DataInput.readLong()
+method to read an object number,
+ then it invokes
+UID.read(DataInput)
+with the
+ stream to read an address space identifier, and then it
+ creates and returns a new
+ObjID
+instance that
+ contains the object number and address space identifier that
+ were read from the stream.
+Parameters:
+in
+- the
+ObjectInput
+instance to read
+ObjID
+from
+Returns:
+unmarshalled
+ObjID
+instance
+Throws:
+IOException
+- if an I/O error occurs while performing
+ this operation
+hashCode
+public
+int
+hashCode
+()
+Returns the hash code value for this object identifier, the
+ object number.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+the hash code value for this object identifier
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+equals
+public
+boolean
+equals
+(
+Object
+obj)
+Compares the specified object with this
+ObjID
+for
+ equality.
+
+ This method returns
+true
+if and only if the
+ specified object is an
+ObjID
+instance with the same
+ object number and address space identifier as this one.
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- the object to compare this
+ObjID
+to
+Returns:
+true
+if the given object is equivalent to
+ this one, and
+false
+otherwise
+See Also:
+Object.hashCode()
+HashMap
+toString
+public
+String
+toString
+()
+Returns a string representation of this object identifier.
+Overrides:
+toString
+in class
+Object
+Returns:
+a string representation of this object identifier
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

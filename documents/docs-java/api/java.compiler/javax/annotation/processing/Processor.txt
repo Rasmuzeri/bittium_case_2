@@ -1,0 +1,645 @@
+Processor (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.annotation.processing
+Interface Processor
+All Known Implementing Classes:
+AbstractProcessor
+public interface
+Processor
+The interface for an annotation processor.
+Annotation processing happens in a sequence of
+rounds
+.  On each
+ round, a processor may be asked to
+process
+a
+ subset of the annotations found on the source and class files
+ produced by a prior round.  The inputs to the first round of
+ processing are the initial inputs to a run of the tool; these
+ initial inputs can be regarded as the output of a virtual zeroth
+ round of processing.  If a processor was asked to process on a
+ given round, it will be asked to process on subsequent rounds,
+ including the last round, even if there are no annotations for it
+ to process.  The tool infrastructure may also ask a processor to
+ process files generated implicitly by the tool's operation.
+Each implementation of a
+Processor
+must provide a
+ public no-argument constructor to be used by tools to instantiate
+ the processor.  The tool infrastructure will interact with classes
+ implementing this interface as follows:
+If an existing
+Processor
+object is not being used, to
+ create an instance of a processor the tool calls the no-arg
+ constructor of the processor class.
+Next, the tool calls the
+init
+method with
+ an appropriate
+ProcessingEnvironment
+.
+Afterwards, the tool calls
+getSupportedAnnotationTypes
+,
+getSupportedOptions
+, and
+getSupportedSourceVersion
+.  These methods are only called once per
+ run, not on each round.
+As appropriate, the tool calls the
+process
+method on the
+Processor
+object; a new
+Processor
+object is
+not
+created for each round.
+If a processor object is created and used without the above
+ protocol being followed, then the processor's behavior is not
+ defined by this interface specification.
+The tool uses a
+discovery process
+to find annotation
+ processors and decide whether or not they should be run.  By
+ configuring the tool, the set of potential processors can be
+ controlled.  For example, for a
+JavaCompiler
+the list of candidate processors to run can be
+set directly
+or controlled by a
+search path
+used for a
+service-style
+lookup.  Other tool implementations may have different
+ configuration mechanisms, such as command line options; for
+ details, refer to the particular tool's documentation.  Which
+ processors the tool asks to
+run
+is a function
+ of the interfaces of the annotations
+present
+on the
+root elements
+, what
+annotation interfaces a processor
+ supports
+, and whether or not a processor
+claims the annotation interfaces it processes
+.  A processor will
+ be asked to process a subset of the annotation interfaces it
+ supports, possibly an empty set.
+
+ For a given round, the tool computes the set of annotation
+ interfaces that are present on the elements enclosed within the
+ root elements.  If there is at least one annotation interface
+ present, then as processors claim annotation interfaces, they are
+ removed from the set of unmatched annotation interfaces.  When the
+ set is empty or no more processors are available, the round has run
+ to completion.  If there are no annotation interfaces present,
+ annotation processing still occurs but only
+universal
+ processors
+which support processing all annotation interfaces,
+"*"
+, can claim the (empty) set of annotation interfaces.
+An annotation interface is considered present if there is at least
+ one annotation of that interface present on an element enclosed within
+ the root elements of a round. For this purpose, a type parameter is
+ considered to be enclosed by its
+generic
+ element
+.
+
+ For this purpose, a package element is
+not
+considered to
+ enclose the top-level classes and interfaces within that
+ package. (A root element representing a package is created when a
+package-info
+file is processed.) Likewise, for this
+ purpose, a module element is
+not
+considered to enclose the
+ packages within that module. (A root element representing a module
+ is created when a
+module-info
+file is processed.)
+
+ Annotations on
+type uses
+, as opposed to
+ annotations on elements, are ignored when computing whether or not
+ an annotation interface is present.
+An annotation is
+present
+if it meets the definition of being
+ present given in
+AnnotatedConstruct
+. In brief, an
+ annotation is considered present for the purposes of discovery if
+ it is directly present or present via inheritance. An annotation is
+not
+considered present by virtue of being wrapped by a
+ container annotation. Operationally, this is equivalent to an
+ annotation being present on an element if and only if it would be
+ included in the results of
+Elements.getAllAnnotationMirrors(Element)
+called on that element. Since
+ annotations inside container annotations are not considered
+ present, to properly process
+repeatable annotation interfaces
+,
+ processors are advised to include both the repeatable annotation
+ interface and its containing annotation interface in the set of
+supported annotation interfaces
+of a
+ processor.
+Note that if a processor supports
+"*"
+and returns
+true
+, all annotations are claimed.  Therefore, a universal
+ processor being used to, for example, implement additional validity
+ checks should return
+false
+so as to not prevent other such
+ checkers from being able to run.
+If a processor throws an uncaught exception, the tool may cease
+ other active annotation processors.  If a processor raises an
+ error, the current round will run to completion and the subsequent
+ round will indicate an
+error was raised
+.  Since annotation processors are run in a
+ cooperative environment, a processor should throw an uncaught
+ exception only in situations where no error recovery or reporting
+ is feasible.
+The tool environment is not required to support annotation
+ processors that access environmental resources, either
+per round
+or
+cross-round
+, in a multi-threaded fashion.
+If the methods that return configuration information about the
+ annotation processor return
+null
+, return other invalid
+ input, or throw an exception, the tool infrastructure must treat
+ this as an error condition.
+To be robust when running in different tool implementations, an
+ annotation processor should have the following properties:
+The result of processing a given input is not a function of the presence or absence
+ of other inputs (orthogonality).
+Processing the same input produces the same output (consistency).
+Processing input
+A
+followed by processing input
+B
+is equivalent to processing
+B
+then
+A
+(commutativity)
+Processing an input does not rely on the presence of the output
+ of other annotation processors (independence)
+The
+Filer
+interface discusses restrictions on how
+ processors can operate on files.
+API Note:
+Implementors of this interface may find it convenient
+ to extend
+AbstractProcessor
+rather than implementing this
+ interface directly.
+Since:
+1.6
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+Iterable
+<? extends
+Completion
+>
+getCompletions
+(
+Element
+element,
+AnnotationMirror
+annotation,
+ExecutableElement
+member,
+String
+userText)
+Returns to the tool infrastructure an iterable of suggested
+ completions to an annotation.
+Set
+<
+String
+>
+getSupportedAnnotationTypes
+()
+Returns the names of the annotation interfaces supported by this
+ processor.
+Set
+<
+String
+>
+getSupportedOptions
+()
+Returns the options recognized by this processor.
+SourceVersion
+getSupportedSourceVersion
+()
+Returns the latest source version supported by this annotation
+ processor.
+void
+init
+(
+ProcessingEnvironment
+processingEnv)
+Initializes the processor with the processing environment.
+boolean
+process
+(
+Set
+<? extends
+TypeElement
+> annotations,
+RoundEnvironment
+roundEnv)
+Processes a set of annotation interfaces on
+root elements
+originating
+ from the prior round and returns whether or not these
+ annotation interfaces are claimed by this processor.
+Method Details
+getSupportedOptions
+Set
+<
+String
+>
+getSupportedOptions
+()
+Returns the options recognized by this processor.  An
+ implementation of the processing tool must provide a way to
+ pass processor-specific options distinctly from options passed
+ to the tool itself, see
+getOptions
+.
+Each string returned in the set must be a period separated
+ sequence of
+identifiers
+:
+SupportedOptionString:
+Identifiers
+Identifiers:
+Identifier
+Identifier
+.
+Identifiers
+Identifier:
+Syntactic identifier, including keywords and literals
+A tool might use this information to determine if any
+ options provided by a user are unrecognized by any processor,
+ in which case it may wish to report a warning.
+Returns:
+the options recognized by this processor or an
+         empty set if none
+See Also:
+SupportedOptions
+getSupportedAnnotationTypes
+Set
+<
+String
+>
+getSupportedAnnotationTypes
+()
+Returns the names of the annotation interfaces supported by this
+ processor.  An element of the result may be the canonical
+ (fully qualified) name of a supported annotation interface.
+ Alternately it may be of the form "
+name
+.*
+"
+ representing the set of all annotation interfaces with canonical
+ names beginning with "
+name.
+".
+
+ In either of those cases, the name of the annotation interface can
+ be optionally preceded by a module name followed by a
+"/"
+character. For example, if a processor supports
+"a.B"
+, this can include multiple annotation interfaces named
+a.B
+which reside in different modules. To only support
+a.B
+in the
+foo
+module, instead use
+"foo/a.B"
+.
+
+ If a module name is included, only an annotation in that module
+ is matched. In particular, if a module name is given in an
+ environment where modules are not supported, such as an
+ annotation processing environment configured for a
+source version
+without modules, then the annotation interfaces with
+ a module name do
+not
+match.
+
+ Finally,
+"*"
+by itself represents the set of all
+ annotation interfaces, including the empty set.  Note that a
+ processor should not claim
+"*"
+unless it is actually
+ processing all files; claiming unnecessary annotations may
+ cause a performance slowdown in some environments.
+Each string returned in the set must be accepted by the
+ following grammar:
+SupportedAnnotationTypeString:
+ModulePrefix
+opt
+TypeName
+DotStar
+opt
+*
+ModulePrefix:
+ModuleName
+/
+DotStar:
+.
+*
+where
+TypeName
+and
+ModuleName
+are as defined in
+The Java Language Specification
+(
+6.5 Determining the Meaning of a Name
+).
+API Note:
+When running in an environment which supports modules,
+ processors are encouraged to include the module prefix when
+ describing their supported annotation interfaces. The method
+AbstractProcessor.getSupportedAnnotationTypes
+provides support
+ for stripping off the module prefix when running in an
+ environment without modules.
+Returns:
+the names of the annotation interfaces supported by this processor
+          or an empty set if none
+See
+Java Language Specification
+:
+3.8 Identifiers
+See Also:
+SupportedAnnotationTypes
+getSupportedSourceVersion
+SourceVersion
+getSupportedSourceVersion
+()
+Returns the latest source version supported by this annotation
+ processor.
+Returns:
+the latest source version supported by this annotation
+ processor
+See Also:
+SupportedSourceVersion
+ProcessingEnvironment.getSourceVersion()
+init
+void
+init
+(
+ProcessingEnvironment
+processingEnv)
+Initializes the processor with the processing environment.
+Parameters:
+processingEnv
+- environment for facilities the tool framework
+ provides to the processor
+process
+boolean
+process
+(
+Set
+<? extends
+TypeElement
+> annotations,
+RoundEnvironment
+roundEnv)
+Processes a set of annotation interfaces on
+root elements
+originating
+ from the prior round and returns whether or not these
+ annotation interfaces are claimed by this processor.  If
+true
+is returned, the annotation interfaces are claimed and
+ subsequent processors will not be asked to process them; if
+false
+is returned, the annotation interfaces are
+ unclaimed and subsequent processors may be asked to process
+ them.  A processor may always return the same boolean value or
+ may vary the result based on its own chosen criteria.
+The input set will be empty if the processor supports
+"*"
+and the root elements have no annotations.  A
+Processor
+must gracefully handle an empty set of annotations.
+Parameters:
+annotations
+- the annotation interfaces requested to be processed
+roundEnv
+- environment for information about the current and prior round
+Returns:
+whether or not the set of annotation interfaces are claimed by this processor
+getCompletions
+Iterable
+<? extends
+Completion
+>
+getCompletions
+(
+Element
+element,
+AnnotationMirror
+annotation,
+ExecutableElement
+member,
+String
+userText)
+Returns to the tool infrastructure an iterable of suggested
+ completions to an annotation.  Since completions are being asked
+ for, the information provided about the annotation may be
+ incomplete, as if for a source code fragment. A processor may
+ return an empty iterable.  Annotation processors should focus
+ their efforts on providing completions for annotation members
+ with additional validity constraints known to the processor, for
+ example an
+int
+member whose value should lie between 1
+ and 10 or a string member that should be recognized by a known
+ grammar, such as a regular expression or a URL.
+Since incomplete programs are being modeled, some of the
+ parameters may only have partial information or may be
+null
+.  At least one of
+element
+and
+userText
+must be non-
+null
+.  If
+element
+is non-
+null
+,
+annotation
+and
+member
+may be
+null
+.  Processors may not throw a
+NullPointerException
+if some parameters are
+null
+; if a processor has no
+ completions to offer based on the provided information, an
+ empty iterable can be returned.  The processor may also return
+ a single completion with an empty value string and a message
+ describing why there are no completions.
+Completions are informative and may reflect additional
+ validity checks performed by annotation processors.  For
+ example, consider the simple annotation:
+@MersennePrime {
+    int value();
+ }
+(A Mersenne prime is prime number of the form
+ 2
+n
+- 1.) Given an
+AnnotationMirror
+for this annotation interface, a list of all such primes in the
+int
+range could be returned without examining any other
+ arguments to
+getCompletions
+:
+import static javax.annotation.processing.Completions.*;
+ ...
+ return List.of(
+of
+("3"),
+                of("7"),
+                of("31"),
+                of("127"),
+                of("8191"),
+                of("131071"),
+                of("524287"),
+                of("2147483647"));
+A more informative set of completions would include the number
+ of each prime:
+return List.of(
+of
+("3",          "M2"),
+                of("7",          "M3"),
+                of("31",         "M5"),
+                of("127",        "M7"),
+                of("8191",       "M13"),
+                of("131071",     "M17"),
+                of("524287",     "M19"),
+                of("2147483647", "M31"));
+However, if the
+userText
+is available, it can be checked
+ to see if only a subset of the Mersenne primes are valid.  For
+ example, if the user has typed
+@MersennePrime(1
+the value of
+userText
+will be
+"1"
+; and only
+ two of the primes are possible completions:
+return Arrays.asList(of("127",        "M7"),
+                      of("131071",     "M17"));
+Sometimes no valid completion is possible.  For example, there
+ is no in-range Mersenne prime starting with 9:
+@MersennePrime(9
+An appropriate response in this case is to either return an
+ empty list of completions,
+return Collections.emptyList();
+or a single empty completion with a helpful message
+return Arrays.asList(of("", "No in-range Mersenne primes start with 9"));
+Parameters:
+element
+- the element being annotated
+annotation
+- the (perhaps partial) annotation being
+                   applied to the element
+member
+- the annotation member to return possible completions for
+userText
+- source code text to be completed
+Returns:
+suggested completions to the annotation
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

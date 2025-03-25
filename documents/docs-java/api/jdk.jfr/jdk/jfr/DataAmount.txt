@@ -1,0 +1,141 @@
+DataAmount (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Field
+Required
+Optional
+Detail:
+Field
+Element
+Summary:
+Field
+|
+Required |
+Optional
+Detail:
+Field
+|
+Element
+SEARCH
+Module
+jdk.jfr
+Package
+jdk.jfr
+Annotation Interface DataAmount
+@Retention
+(
+RUNTIME
+)
+@Target
+({
+FIELD
+,
+TYPE
+,
+METHOD
+})
+public @interface
+DataAmount
+Event field annotation, specifies that a value represents an amount of data (for example, bytes).
+The following example shows how the
+DataAmount
+annotation can be used to
+ set the units
+BITS
+and
+BYTES
+to event fields.
+Copy
+@Name("com.example.ImageRender")
+@Label("Image Render")
+public class ImageRender extends Event {
+    @Label("Height")
+    long height;
+
+    @Label("Width")
+    long width;
+
+    @Label("Color Depth")
+    @DataAmount(DataAmount.BITS)
+    int colorDepth;
+
+    @Label("Memory Size")
+    @DataAmount // bytes by default
+    long memorySize;
+}
+Since:
+9
+Optional Element Summary
+Optional Elements
+Modifier and Type
+Optional Element
+Description
+String
+value
+Returns the unit for the data amount, by default bytes.
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+String
+BITS
+Unit for bits
+static final
+String
+BYTES
+Unit for bytes
+Field Details
+BITS
+static final
+String
+BITS
+Unit for bits
+See Also:
+Constant Field Values
+BYTES
+static final
+String
+BYTES
+Unit for bytes
+See Also:
+Constant Field Values
+Element Details
+value
+String
+value
+Returns the unit for the data amount, by default bytes.
+Returns:
+the data amount unit, default
+BYTES
+, not
+null
+Default:
+"BYTES"
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

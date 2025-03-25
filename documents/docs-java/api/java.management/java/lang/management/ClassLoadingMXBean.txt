@@ -1,0 +1,181 @@
+ClassLoadingMXBean (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.management
+Package
+java.lang.management
+Interface ClassLoadingMXBean
+All Superinterfaces:
+PlatformManagedObject
+public interface
+ClassLoadingMXBean
+extends
+PlatformManagedObject
+The management interface for the class loading system of
+ the Java virtual machine.
+A Java virtual machine has a single instance of the implementation
+ class of this interface.  This instance implementing this interface is
+ an
+MXBean
+that can be obtained by calling
+ the
+ManagementFactory.getClassLoadingMXBean()
+method or
+ from the
+platform MBeanServer
+.
+The
+ObjectName
+for uniquely identifying the MXBean for
+ the class loading system within an
+MBeanServer
+is:
+java.lang:type=ClassLoading
+It can be obtained by calling the
+PlatformManagedObject.getObjectName()
+method.
+Since:
+1.5
+See Also:
+ManagementFactory.getPlatformMXBeans(Class)
+JMX Specification.
+Ways to Access MXBeans
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+int
+getLoadedClassCount
+()
+Returns the number of classes that are currently loaded in the
+ Java virtual machine.
+long
+getTotalLoadedClassCount
+()
+Returns the total number of classes that have been loaded since
+ the Java virtual machine has started execution.
+long
+getUnloadedClassCount
+()
+Returns the total number of classes unloaded since the Java virtual machine
+ has started execution.
+boolean
+isVerbose
+()
+Tests if the verbose output for the class loading system is enabled.
+void
+setVerbose
+(boolean value)
+Enables or disables the verbose output for the class loading
+ system.
+Methods declared in interface java.lang.management.
+PlatformManagedObject
+getObjectName
+Method Details
+getTotalLoadedClassCount
+long
+getTotalLoadedClassCount
+()
+Returns the total number of classes that have been loaded since
+ the Java virtual machine has started execution.
+Returns:
+the total number of classes loaded.
+getLoadedClassCount
+int
+getLoadedClassCount
+()
+Returns the number of classes that are currently loaded in the
+ Java virtual machine.
+Returns:
+the number of currently loaded classes.
+getUnloadedClassCount
+long
+getUnloadedClassCount
+()
+Returns the total number of classes unloaded since the Java virtual machine
+ has started execution.
+Returns:
+the total number of unloaded classes.
+isVerbose
+boolean
+isVerbose
+()
+Tests if the verbose output for the class loading system is enabled.
+Returns:
+true
+if the verbose output for the class loading
+ system is enabled;
+false
+otherwise.
+setVerbose
+void
+setVerbose
+(boolean value)
+Enables or disables the verbose output for the class loading
+ system.  The verbose output information and the output stream
+ to which the verbose information is emitted are implementation
+ dependent.  Typically, a Java virtual machine implementation
+ prints a message each time a class file is loaded.
+This method can be called by multiple threads concurrently.
+ Each invocation of this method enables or disables the verbose
+ output globally.
+Parameters:
+value
+-
+true
+to enable the verbose output;
+false
+to disable.
+Throws:
+SecurityException
+- if a security manager
+          exists and the caller does not have
+          ManagementPermission("control").
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

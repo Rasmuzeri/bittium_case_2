@@ -1,0 +1,350 @@
+HttpsParameters (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.httpserver
+Package
+com.sun.net.httpserver
+Class HttpsParameters
+java.lang.Object
+com.sun.net.httpserver.HttpsParameters
+public abstract class
+HttpsParameters
+extends
+Object
+Represents the set of parameters for each https connection negotiated with
+ clients. One of these is created and passed to
+HttpsConfigurator.configure(HttpsParameters)
+for every incoming https
+ connection, in order to determine the parameters to use.
+The underlying SSL parameters may be established either via the set/get
+ methods of this class, or else via a
+SSLParameters
+object.
+SSLParameters
+is the preferred method, because in the future,
+ additional configuration capabilities may be added to that class, and it is
+ easier to determine the set of supported parameters and their default values
+ with SSLParameters. Also, if an
+SSLParameters
+object is provided via
+setSSLParameters(SSLParameters)
+then those parameter settings are
+ used, and any settings made in this object are ignored.
+Since:
+1.6
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+HttpsParameters
+()
+Constructor for subclasses to call.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+String
+[]
+getCipherSuites
+()
+Returns a copy of the array of ciphersuites or
+null
+if none
+ have been set.
+abstract
+InetSocketAddress
+getClientAddress
+()
+Returns the address of the remote client initiating the connection.
+abstract
+HttpsConfigurator
+getHttpsConfigurator
+()
+Returns the
+HttpsConfigurator
+for this
+HttpsParameters
+.
+boolean
+getNeedClientAuth
+()
+Returns whether client authentication should be required.
+String
+[]
+getProtocols
+()
+Returns a copy of the array of protocols or
+null
+if none have been
+ set.
+boolean
+getWantClientAuth
+()
+Returns whether client authentication should be requested.
+void
+setCipherSuites
+(
+String
+[] cipherSuites)
+Sets the array of ciphersuites.
+void
+setNeedClientAuth
+(boolean needClientAuth)
+Sets whether client authentication should be required.
+void
+setProtocols
+(
+String
+[] protocols)
+Sets the array of protocols.
+abstract void
+setSSLParameters
+(
+SSLParameters
+params)
+Sets the
+SSLParameters
+to use for this
+HttpsParameters
+.
+void
+setWantClientAuth
+(boolean wantClientAuth)
+Sets whether client authentication should be requested.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+HttpsParameters
+protected
+HttpsParameters
+()
+Constructor for subclasses to call.
+Method Details
+getHttpsConfigurator
+public abstract
+HttpsConfigurator
+getHttpsConfigurator
+()
+Returns the
+HttpsConfigurator
+for this
+HttpsParameters
+.
+Returns:
+HttpsConfigurator
+for this instance of
+HttpsParameters
+getClientAddress
+public abstract
+InetSocketAddress
+getClientAddress
+()
+Returns the address of the remote client initiating the connection.
+Returns:
+address of the remote client initiating the connection
+setSSLParameters
+public abstract
+void
+setSSLParameters
+(
+SSLParameters
+params)
+Sets the
+SSLParameters
+to use for this
+HttpsParameters
+.
+ The parameters must be supported by the
+SSLContext
+contained
+ by the
+HttpsConfigurator
+associated with this
+HttpsParameters
+.
+ If no parameters are set, then the default behavior is to use
+ the default parameters from the associated
+SSLContext
+.
+Parameters:
+params
+- the
+SSLParameters
+to set. If
+null
+then the
+               existing parameters (if any) remain unchanged
+Throws:
+IllegalArgumentException
+- if any of the parameters are invalid or
+ unsupported
+getCipherSuites
+public
+String
+[]
+getCipherSuites
+()
+Returns a copy of the array of ciphersuites or
+null
+if none
+ have been set.
+Returns:
+a copy of the array of ciphersuites or
+null
+if none have
+ been set
+setCipherSuites
+public
+void
+setCipherSuites
+(
+String
+[] cipherSuites)
+Sets the array of ciphersuites.
+Parameters:
+cipherSuites
+- the array of ciphersuites (or
+null
+)
+getProtocols
+public
+String
+[]
+getProtocols
+()
+Returns a copy of the array of protocols or
+null
+if none have been
+ set.
+Returns:
+a copy of the array of protocols or
+null
+if none have been
+ set
+setProtocols
+public
+void
+setProtocols
+(
+String
+[] protocols)
+Sets the array of protocols.
+Parameters:
+protocols
+- the array of protocols (or
+null
+)
+getWantClientAuth
+public
+boolean
+getWantClientAuth
+()
+Returns whether client authentication should be requested.
+Returns:
+whether client authentication should be requested
+setWantClientAuth
+public
+void
+setWantClientAuth
+(boolean wantClientAuth)
+Sets whether client authentication should be requested. Calling this
+ method clears the
+needClientAuth
+flag.
+Parameters:
+wantClientAuth
+- whether client authentication should be requested
+getNeedClientAuth
+public
+boolean
+getNeedClientAuth
+()
+Returns whether client authentication should be required.
+Returns:
+whether client authentication should be required
+setNeedClientAuth
+public
+void
+setNeedClientAuth
+(boolean needClientAuth)
+Sets whether client authentication should be required. Calling this method
+ clears the
+wantClientAuth
+flag.
+Parameters:
+needClientAuth
+- whether client authentication should be required
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

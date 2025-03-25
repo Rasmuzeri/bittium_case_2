@@ -1,0 +1,169 @@
+DocumentEvent (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.event
+Interface DocumentEvent
+All Known Implementing Classes:
+AbstractDocument.DefaultDocumentEvent
+public interface
+DocumentEvent
+Interface for document change notifications.  This provides
+ detailed information to Document observers about how the
+ Document changed.  It provides high level information such
+ as type of change and where it occurred, as well as the more
+ detailed structural changes (What Elements were inserted and
+ removed).
+See Also:
+Document
+DocumentListener
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Interface
+Description
+static interface
+DocumentEvent.ElementChange
+Describes changes made to a specific element.
+static final class
+DocumentEvent.EventType
+Enumeration for document event types
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+DocumentEvent.ElementChange
+getChange
+(
+Element
+elem)
+Gets the change information for the given element.
+Document
+getDocument
+()
+Gets the document that sourced the change event.
+int
+getLength
+()
+Returns the length of the change.
+int
+getOffset
+()
+Returns the offset within the document of the start
+ of the change.
+DocumentEvent.EventType
+getType
+()
+Gets the type of event.
+Method Details
+getOffset
+int
+getOffset
+()
+Returns the offset within the document of the start
+ of the change.
+Returns:
+the offset >= 0
+getLength
+int
+getLength
+()
+Returns the length of the change.
+Returns:
+the length >= 0
+getDocument
+Document
+getDocument
+()
+Gets the document that sourced the change event.
+Returns:
+the document
+getType
+DocumentEvent.EventType
+getType
+()
+Gets the type of event.
+Returns:
+the type
+getChange
+DocumentEvent.ElementChange
+getChange
+(
+Element
+elem)
+Gets the change information for the given element.
+ The change information describes what elements were
+ added and removed and the location.  If there were
+ no changes, null is returned.
+This method is for observers to discover the structural
+ changes that were made.  This means that only elements
+ that existed prior to the mutation (and still exist after
+ the mutation) need to have ElementChange records.
+ The changes made available need not be recursive.
+For example, if an element is removed from its
+ parent, this method should report that the parent
+ changed and provide an ElementChange implementation
+ that describes the change to the parent.  If the
+ child element removed had children, these elements
+ do not need to be reported as removed.
+If a child element is inserted into a parent element,
+ the parent element should report a change.  If the
+ child element also had elements inserted into it
+ (grandchildren to the parent) these elements need
+ not report change.
+Parameters:
+elem
+- the element
+Returns:
+the change information, or null if the
+   element was not modified
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

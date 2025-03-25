@@ -1,0 +1,335 @@
+EncryptionKey (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.security.jgss
+Package
+javax.security.auth.kerberos
+Class EncryptionKey
+java.lang.Object
+javax.security.auth.kerberos.EncryptionKey
+All Implemented Interfaces:
+Serializable
+,
+Key
+,
+SecretKey
+,
+Destroyable
+public final class
+EncryptionKey
+extends
+Object
+implements
+SecretKey
+This class encapsulates an EncryptionKey used in Kerberos.
+An EncryptionKey is defined in Section 4.2.9 of the Kerberos Protocol
+ Specification (
+RFC 4120
+) as:
+EncryptionKey   ::= SEQUENCE {
+             keytype         [0] Int32 -- actually encryption type --,
+             keyvalue        [1] OCTET STRING
+     }
+The key material of an
+EncryptionKey
+is defined as the value
+ of the
+keyValue
+above.
+Since:
+9
+See Also:
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+EncryptionKey
+(byte[] keyBytes,
+ int keyType)
+Constructs an
+EncryptionKey
+from the given bytes and
+ the key type.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+destroy
+()
+Destroys this key by clearing out the key material of this key.
+boolean
+equals
+(
+Object
+other)
+Compares the specified object with this key for equality.
+String
+getAlgorithm
+()
+Returns the standard algorithm name for this key.
+byte[]
+getEncoded
+()
+Returns the key material of this key.
+String
+getFormat
+()
+Returns the name of the encoding format for this key.
+int
+getKeyType
+()
+Returns the key type for this key.
+int
+hashCode
+()
+Returns a hash code for this
+EncryptionKey
+.
+String
+toString
+()
+Returns an informative textual representation of this
+EncryptionKey
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface javax.security.auth.
+Destroyable
+isDestroyed
+Constructor Details
+EncryptionKey
+public
+EncryptionKey
+(byte[] keyBytes,
+ int keyType)
+Constructs an
+EncryptionKey
+from the given bytes and
+ the key type.
+The contents of the byte array are copied; subsequent modification of
+ the byte array does not affect the newly created key.
+Parameters:
+keyBytes
+- the key material for the key
+keyType
+- the key type for the key as defined by the
+                Kerberos protocol specification.
+Throws:
+NullPointerException
+- if keyBytes is null
+Method Details
+getKeyType
+public
+int
+getKeyType
+()
+Returns the key type for this key.
+Returns:
+the key type.
+Throws:
+IllegalStateException
+- if the key is destroyed
+getAlgorithm
+public
+String
+getAlgorithm
+()
+Returns the standard algorithm name for this key. The algorithm names
+ are the encryption type string defined on the IANA
+Kerberos Encryption Type Numbers
+page.
+This method can return the following value not defined on the IANA page:
+none: for etype equal to 0
+unknown: for etype greater than 0 but unsupported by
+         the implementation
+private: for etype smaller than 0
+Specified by:
+getAlgorithm
+in interface
+Key
+Returns:
+the name of the algorithm associated with this key.
+Throws:
+IllegalStateException
+- if the key is destroyed
+getFormat
+public
+String
+getFormat
+()
+Returns the name of the encoding format for this key.
+Specified by:
+getFormat
+in interface
+Key
+Returns:
+the String "RAW"
+Throws:
+IllegalStateException
+- if the key is destroyed
+getEncoded
+public
+byte[]
+getEncoded
+()
+Returns the key material of this key.
+Specified by:
+getEncoded
+in interface
+Key
+Returns:
+a newly allocated byte array that contains the key material
+Throws:
+IllegalStateException
+- if the key is destroyed
+destroy
+public
+void
+destroy
+()
+             throws
+DestroyFailedException
+Destroys this key by clearing out the key material of this key.
+Specified by:
+destroy
+in interface
+Destroyable
+Throws:
+DestroyFailedException
+- if some error occurs while destroying
+ this key.
+toString
+public
+String
+toString
+()
+Returns an informative textual representation of this
+EncryptionKey
+.
+Overrides:
+toString
+in class
+Object
+Returns:
+an informative textual representation of this
+EncryptionKey
+.
+hashCode
+public
+int
+hashCode
+()
+Returns a hash code for this
+EncryptionKey
+.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+a hash code for this
+EncryptionKey
+.
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+equals
+public
+boolean
+equals
+(
+Object
+other)
+Compares the specified object with this key for equality.
+ Returns true if the given object is also an
+EncryptionKey
+and the two
+EncryptionKey
+instances are equivalent. More formally two
+EncryptionKey
+instances are equal if they have equal key types
+ and key material.
+ A destroyed
+EncryptionKey
+object is only equal to itself.
+Overrides:
+equals
+in class
+Object
+Parameters:
+other
+- the object to compare to
+Returns:
+true if the specified object is equal to this
+EncryptionKey
+, false otherwise.
+See Also:
+Object.hashCode()
+HashMap
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

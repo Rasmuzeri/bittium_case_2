@@ -1,0 +1,329 @@
+StringSelection (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.datatransfer
+Package
+java.awt.datatransfer
+Class StringSelection
+java.lang.Object
+java.awt.datatransfer.StringSelection
+All Implemented Interfaces:
+ClipboardOwner
+,
+Transferable
+public class
+StringSelection
+extends
+Object
+implements
+Transferable
+,
+ClipboardOwner
+A
+Transferable
+which implements the capability required to transfer a
+String
+.
+This
+Transferable
+properly supports
+DataFlavor.stringFlavor
+and all equivalent flavors. Support for
+DataFlavor.plainTextFlavor
+and all equivalent flavors is
+deprecated
+. No other
+DataFlavor
+s
+ are supported.
+Since:
+1.1
+See Also:
+DataFlavor.stringFlavor
+DataFlavor.plainTextFlavor
+Constructor Summary
+Constructors
+Constructor
+Description
+StringSelection
+(
+String
+data)
+Creates a
+Transferable
+capable of transferring the specified
+String
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Object
+getTransferData
+(
+DataFlavor
+flavor)
+Returns the
+Transferable
+'s data in the requested
+DataFlavor
+if possible.
+DataFlavor
+[]
+getTransferDataFlavors
+()
+Returns an array of flavors in which this
+Transferable
+can
+ provide the data.
+boolean
+isDataFlavorSupported
+(
+DataFlavor
+flavor)
+Returns whether the requested flavor is supported by this
+Transferable
+.
+void
+lostOwnership
+(
+Clipboard
+clipboard,
+Transferable
+contents)
+Notifies this object that it is no longer the clipboard owner.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+StringSelection
+public
+StringSelection
+(
+String
+data)
+Creates a
+Transferable
+capable of transferring the specified
+String
+.
+Parameters:
+data
+- the string to be transferred
+Method Details
+getTransferDataFlavors
+public
+DataFlavor
+[]
+getTransferDataFlavors
+()
+Returns an array of flavors in which this
+Transferable
+can
+ provide the data.
+DataFlavor.stringFlavor
+is properly supported.
+ Support for
+DataFlavor.plainTextFlavor
+is
+deprecated
+.
+Specified by:
+getTransferDataFlavors
+in interface
+Transferable
+Returns:
+an array of length two, whose elements are
+DataFlavor.stringFlavor
+and
+DataFlavor.plainTextFlavor
+isDataFlavorSupported
+public
+boolean
+isDataFlavorSupported
+(
+DataFlavor
+flavor)
+Returns whether the requested flavor is supported by this
+Transferable
+.
+Specified by:
+isDataFlavorSupported
+in interface
+Transferable
+Parameters:
+flavor
+- the requested flavor for the data
+Returns:
+true
+if
+flavor
+is equal to
+DataFlavor.stringFlavor
+or
+DataFlavor.plainTextFlavor
+;
+false
+if
+flavor
+is not one of the above flavors
+Throws:
+NullPointerException
+- if
+flavor
+is
+null
+getTransferData
+public
+Object
+getTransferData
+(
+DataFlavor
+flavor)
+throws
+UnsupportedFlavorException
+,
+IOException
+Returns the
+Transferable
+'s data in the requested
+DataFlavor
+if possible. If the desired flavor is
+DataFlavor.stringFlavor
+, or an equivalent flavor, the
+String
+representing the selection is returned. If the desired
+ flavor is
+DataFlavor.plainTextFlavor
+, or an equivalent flavor, a
+Reader
+is returned.
+Note:
+The behavior of this method for
+DataFlavor.plainTextFlavor
+and equivalent
+DataFlavor
+s is inconsistent with the definition of
+DataFlavor.plainTextFlavor
+.
+Specified by:
+getTransferData
+in interface
+Transferable
+Parameters:
+flavor
+- the requested flavor for the data
+Returns:
+the data in the requested flavor, as outlined above
+Throws:
+UnsupportedFlavorException
+- if the requested data flavor is not
+         equivalent to either
+DataFlavor.stringFlavor
+or
+DataFlavor.plainTextFlavor
+IOException
+- if an IOException occurs while retrieving the data.
+         By default, StringSelection never throws this exception, but a
+         subclass may.
+NullPointerException
+- if
+flavor
+is
+null
+See Also:
+Reader
+lostOwnership
+public
+void
+lostOwnership
+(
+Clipboard
+clipboard,
+Transferable
+contents)
+Description copied from interface:
+ClipboardOwner
+Notifies this object that it is no longer the clipboard owner. This
+ method will be called when another application or another object within
+ this application asserts ownership of the clipboard.
+Specified by:
+lostOwnership
+in interface
+ClipboardOwner
+Parameters:
+clipboard
+- the clipboard that is no longer owned
+contents
+- the contents which this owner had placed on the
+clipboard
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

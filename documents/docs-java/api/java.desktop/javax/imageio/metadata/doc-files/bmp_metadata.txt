@@ -1,0 +1,155 @@
+BMP Metadata Format Specification (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+BMP Metadata Format Specification
+The XML schema for the native image metadata format is as follows:
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Schema for BMP native image metadata format. -->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://javax.imageio.plugins"
+            targetNamespace="http://javax.imageio.plugins">
+
+  <!-- Coordinates of a point in the CIE XYZ color space. -->
+  <xsd:complexType name="XYZPoint">
+    <xsd:sequence>
+      <xsd:element name="X" type="xsd:double"/>
+      <xsd:element name="Y" type="xsd:double"/>
+      <xsd:element name="Z" type="xsd:double"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <!-- BMP Schema 1.0 root element. -->
+  <xsd:element name="javax_imageio_bmp_1.0">
+    <xsd:complexType>
+      <xsd:sequence>
+
+        <!-- BMP version string -->
+        <xsd:element name="BMPVersion" type="xsd:string"/>
+
+        <!-- Bitmap width -->
+        <xsd:element name="Width" type="xsd:unsignedInt"/>
+
+        <!-- Bitmap height -->
+        <xsd:element name="Height" type="xsd:unsignedInt"/>
+
+        <!-- Number of bits per pixel -->
+        <xsd:element name="BitsPerPixel" type="xsd:unsignedShort"/>
+
+        <!-- Compression type -->
+        <xsd:element name="Compression" type="xsd:unsignedInt" minOccurs="0"/>
+
+        <!-- Image size in bytes -->
+        <xsd:element name="ImageSize" type="xsd:unsignedInt" minOccurs="0"/>
+
+        <!-- Resolution in pixels per unit distance -->
+        <xsd:element name="PixelsPerMeter" minOccurs="0">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="X" type="xsd:unsignedInt"/>
+              <xsd:element name="Y" type="xsd:unsignedInt"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element> <!-- PixelsPerMeter -->
+
+
+        <!-- Number of color indexes in the color table actually used -->
+        <xsd:element name="ColorsUsed" type="xsd:unsignedInt" minOccurs="0"/>
+
+        <!-- Number of color indexes considered important for display -->
+        <xsd:element name="ColorsImportant" type="xsd:unsignedInt"
+                     minOccurs="0"/>
+
+        <!-- Color masks; present for BI_BITFIELDS compression only -->
+        <xsd:element name="Mask" minOccurs="0">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="Red" type="xsd:unsignedInt"/>
+              <xsd:element name="Green" type="xsd:unsignedInt"/>
+              <xsd:element name="Blue" type="xsd:unsignedInt"/>
+              <xsd:element name="Alpha" type="xsd:unsignedInt" minOccurs="0"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+
+        <!-- Color space  -->
+        <xsd:element name="ColorSpaceType" type="xsd:unsignedInt"
+                     minOccurs="0"/>
+
+        <!-- CIE XYZ for the LCS_CALIBRATED_RGB color space -->
+        <xsd:element name="CIEXYZEndpoints" minOccurs="0">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="Red" type="XYZPoint"/>
+              <xsd:element name="Green" type="XYZPoint"/>
+              <xsd:element name="Blue" type="XYZPoint"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+
+        <!-- Gamma values for the LCS_CALIBRATED_RGB color space -->
+        <xsd:element name="Gamma" minOccurs="0">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="Red" type="xsd:unsignedInt"/>
+              <xsd:element name="Green" type="xsd:unsignedInt"/>
+              <xsd:element name="Blue" type="xsd:unsignedInt"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+
+        <!-- Rendering intent -->
+        <xsd:element name="Intent" type="xsd:unsignedInt" minOccurs="0"/>
+
+        <!-- The image colormap -->
+        <xsd:element name="Palette" minOccurs="0">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="PaletteEntry">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="Red" type="xsd:unsignedByte"/>
+                    <xsd:element name="Green" type="xsd:unsignedByte"/>
+                    <xsd:element name="Blue" type="xsd:unsignedByte"/>
+                    <xsd:element name="Alpha" type="xsd:unsignedByte" minOccurs="0"/>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element> <!-- bmp_image_1.0 -->
+
+</xsd:schema>
+Since:
+1.5
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

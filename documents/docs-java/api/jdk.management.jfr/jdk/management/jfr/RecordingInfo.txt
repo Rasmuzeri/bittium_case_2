@@ -1,0 +1,538 @@
+RecordingInfo (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.management.jfr
+Package
+jdk.management.jfr
+Class RecordingInfo
+java.lang.Object
+jdk.management.jfr.RecordingInfo
+public final class
+RecordingInfo
+extends
+Object
+Management representation of a
+Recording
+.
+Since:
+9
+See Also:
+Recording
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+RecordingInfo
+from
+(
+CompositeData
+cd)
+Returns a
+RecordingInfo
+represented by the specified
+CompositeData
+object.
+String
+getDestination
+()
+Returns destination path where data, for the recording associated with
+ this
+RecordingInfo
+, should be written when the recording stops,
+ or
+null
+if the recording should not be written.
+boolean
+getDumpOnExit
+()
+Returns if the recording associated with this
+RecordingInfo
+should be dumped to file when the JVM exits.
+long
+getDuration
+()
+Returns the desired duration, measured in seconds, of the recording
+ associated with this
+RecordingInfo
+, or
+0
+if no duration
+ has been set.
+long
+getId
+()
+Returns the unique ID for the recording associated with this
+RecordingInfo
+.
+long
+getMaxAge
+()
+Returns how many seconds data should be kept on disk, or
+0
+if
+ data is to be kept forever.
+long
+getMaxSize
+()
+Returns the amount of data, measured in bytes, the recording associated
+ with this
+RecordingInfo
+, should be kept on disk, before it's
+ rotated away, or
+0
+if data is to be kept indefinitely.
+String
+getName
+()
+Returns the name of the recording associated with this
+RecordingInfo
+.
+Map
+<
+String
+,
+String
+>
+getSettings
+()
+Returns the settings for the recording associated with this
+RecordingInfo
+.
+long
+getSize
+()
+Returns the amount data recorded by recording. associated with this
+RecordingInfo
+.
+long
+getStartTime
+()
+Returns start time of the recording associated with this
+RecordingInfo
+, measured as ms since epoch, or
+null
+if the
+ recording hasn't started.
+String
+getState
+()
+Returns a
+String
+representation of state of the recording
+ associated with this
+RecordingInfo
+.
+long
+getStopTime
+()
+Returns the actual or expected stop time of the recording associated with
+ this
+RecordingInfo
+, measured as ms since epoch, or
+null
+if the expected or actual stop time is not known, which can only happen
+ if the recording has not yet been stopped.
+boolean
+isToDisk
+()
+Returns
+true
+if the recording associated with this
+RecordingInfo
+should be flushed to disk, when memory buffers are
+ full,
+false
+otherwise.
+String
+toString
+()
+Returns a string description of the recording associated with this
+RecordingInfo
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Method Details
+getName
+public
+String
+getName
+()
+Returns the name of the recording associated with this
+RecordingInfo
+.
+Returns:
+the recording name, not
+null
+See Also:
+Recording.getName()
+getId
+public
+long
+getId
+()
+Returns the unique ID for the recording associated with this
+RecordingInfo
+.
+Returns:
+the recording ID
+See Also:
+Recording.getId()
+getDumpOnExit
+public
+boolean
+getDumpOnExit
+()
+Returns if the recording associated with this
+RecordingInfo
+should be dumped to file when the JVM exits.
+Returns:
+true
+if recording should be dumped on exit,
+false
+otherwise
+See Also:
+Recording.getDumpOnExit()
+getMaxAge
+public
+long
+getMaxAge
+()
+Returns how many seconds data should be kept on disk, or
+0
+if
+ data is to be kept forever.
+In-memory recordings are not affected by maximum age.
+Returns:
+how long data should be kept on disk, measured in seconds
+See Also:
+Recording.getMaxAge()
+Recording.setToDisk(boolean)
+getMaxSize
+public
+long
+getMaxSize
+()
+Returns the amount of data, measured in bytes, the recording associated
+ with this
+RecordingInfo
+, should be kept on disk, before it's
+ rotated away, or
+0
+if data is to be kept indefinitely.
+In-memory recordings are not affected by maximum size.
+Returns:
+the amount of data should be kept on disk, in bytes
+See Also:
+Recording.setToDisk(boolean)
+Recording.getMaxSize()
+getState
+public
+String
+getState
+()
+Returns a
+String
+representation of state of the recording
+ associated with this
+RecordingInfo
+.
+Valid return values are
+"NEW"
+,
+"DELAYED"
+,
+"STARTING"
+,
+"RUNNING"
+,
+"STOPPING"
+,
+"STOPPED"
+and
+"CLOSED"
+.
+Returns:
+the recording state, not
+null
+See Also:
+Enum.toString()
+Recording.getState()
+getStartTime
+public
+long
+getStartTime
+()
+Returns start time of the recording associated with this
+RecordingInfo
+, measured as ms since epoch, or
+null
+if the
+ recording hasn't started.
+Returns:
+the start time of the recording, or
+null
+if the recording
+         hasn't started
+See Also:
+Recording.getStartTime()
+getStopTime
+public
+long
+getStopTime
+()
+Returns the actual or expected stop time of the recording associated with
+ this
+RecordingInfo
+, measured as ms since epoch, or
+null
+if the expected or actual stop time is not known, which can only happen
+ if the recording has not yet been stopped.
+Returns:
+the stop time of recording, or
+null
+if recording hasn't
+         been stopped.
+See Also:
+Recording.getStopTime()
+getSettings
+public
+Map
+<
+String
+,
+String
+>
+getSettings
+()
+Returns the settings for the recording associated with this
+RecordingInfo
+.
+Returns:
+the recording settings, not
+null
+See Also:
+Recording.getSettings()
+getDestination
+public
+String
+getDestination
+()
+Returns destination path where data, for the recording associated with
+ this
+RecordingInfo
+, should be written when the recording stops,
+ or
+null
+if the recording should not be written.
+Returns:
+the destination, or
+null
+if not set
+See Also:
+Recording.getDestination()
+toString
+public
+String
+toString
+()
+Returns a string description of the recording associated with this
+RecordingInfo
+Overrides:
+toString
+in class
+Object
+Returns:
+description, not
+null
+getSize
+public
+long
+getSize
+()
+Returns the amount data recorded by recording. associated with this
+RecordingInfo
+.
+Returns:
+the amount of recorded data, measured in bytes
+isToDisk
+public
+boolean
+isToDisk
+()
+Returns
+true
+if the recording associated with this
+RecordingInfo
+should be flushed to disk, when memory buffers are
+ full,
+false
+otherwise.
+Returns:
+true
+if recording is to disk,
+false
+otherwise
+getDuration
+public
+long
+getDuration
+()
+Returns the desired duration, measured in seconds, of the recording
+ associated with this
+RecordingInfo
+, or
+0
+if no duration
+ has been set.
+Returns:
+the desired duration, or
+0
+if no duration has been set
+See Also:
+Recording.getDuration()
+from
+public static
+RecordingInfo
+from
+(
+CompositeData
+cd)
+Returns a
+RecordingInfo
+represented by the specified
+CompositeData
+object.
+The specified
+CompositeData
+must have the following item names and
+ item types to be valid.
+Supported names and types in a specified
+CompositeData
+object
+Name
+Type
+id
+Long
+name
+String
+state
+String
+dumpOnExit
+Boolean
+size
+Long
+toDisk
+Boolean
+maxAge
+Long
+maxSize
+Long
+startTime
+Long
+stopTime
+Long
+destination
+String
+duration
+Long
+settings
+javax.management.openmbean.CompositeData[]
+whose element type
+ is the mapped type for
+SettingDescriptorInfo
+as specified in the
+SettingDescriptorInfo.from(javax.management.openmbean.CompositeData)
+method.
+Parameters:
+cd
+-
+CompositeData
+representing the
+RecordingInfo
+to
+        return
+Returns:
+the
+RecordingInfo
+represented by
+cd
+, or
+null
+if
+cd
+is
+null
+Throws:
+IllegalArgumentException
+- if
+cd
+does not represent a valid
+RecordingInfo
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

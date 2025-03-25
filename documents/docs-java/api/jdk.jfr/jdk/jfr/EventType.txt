@@ -1,0 +1,438 @@
+EventType (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.jfr
+Package
+jdk.jfr
+Class EventType
+java.lang.Object
+jdk.jfr.EventType
+public final class
+EventType
+extends
+Object
+Describes an event, its fields, settings and annotations.
+The following example shows how the
+EventType
+class can
+ be used to print metadata about an event.
+Copy
+for (EventType eventType : FlightRecorder.getFlightRecorder().getEventTypes()) {
+    System.out.println("Event Type: " + eventType.getName());
+    if (eventType.getLabel() != null) {
+        System.out.println("Label: " + eventType.getLabel());
+    }
+    if (eventType.getDescription() != null) {
+        System.out.println("Description: " + eventType.getDescription());
+    }
+    StringJoiner s = new StringJoiner(" / ");
+    for (String category : eventType.getCategoryNames()) {
+        s.add(category);
+    }
+    System.out.println("Category: " + s);
+    System.out.println("Fields: " + eventType.getFields().size());
+    System.out.println("Annotations: " + eventType.getAnnotationElements().size());
+    System.out.println("Settings: " + eventType.getSettingDescriptors().size());
+    System.out.println("Enabled: " + eventType.isEnabled());
+    System.out.println();
+}
+Since:
+9
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+<A extends
+Annotation
+>
+A
+getAnnotation
+(
+Class
+<A> annotationClass)
+Returns the first annotation for the specified type if an annotation
+ element with the same name is directly present, otherwise
+null
+.
+List
+<
+AnnotationElement
+>
+getAnnotationElements
+()
+Returns an immutable list of annotation elements for this event type.
+List
+<
+String
+>
+getCategoryNames
+()
+Returns the list of human-readable names that makes up the categories for
+ this event type (for example,
+"Java Application"
+,
+"Statistics"
+).
+String
+getDescription
+()
+Returns a short sentence that describes the event class.
+static
+EventType
+getEventType
+(
+Class
+<? extends
+Event
+> eventClass)
+Returns the event type for an event class, or
+null
+if it doesn't
+ exist.
+ValueDescriptor
+getField
+(
+String
+name)
+Returns the field with the specified name, or
+null
+if it doesn't
+ exist.
+List
+<
+ValueDescriptor
+>
+getFields
+()
+Returns an immutable list of descriptors that describe the event fields of
+ this event type.
+long
+getId
+()
+Returns a unique ID for this event type in the Java Virtual Machine (JVM).
+String
+getLabel
+()
+Returns a human-readable name (for example,
+"CPU Load"
+).
+String
+getName
+()
+Returns an identifier for the event (for example,
+"jdk.CPULoad"
+).
+List
+<
+SettingDescriptor
+>
+getSettingDescriptors
+()
+Returns an immutable list of the setting descriptors that describe the available
+ event settings for this event type.
+boolean
+isEnabled
+()
+Returns
+true
+if the event is enabled and at least one recording is
+ running,
+false
+otherwise.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Method Details
+getFields
+public
+List
+<
+ValueDescriptor
+>
+getFields
+()
+Returns an immutable list of descriptors that describe the event fields of
+ this event type.
+Returns:
+the list of field descriptors, not
+null
+getField
+public
+ValueDescriptor
+getField
+(
+String
+name)
+Returns the field with the specified name, or
+null
+if it doesn't
+ exist.
+It's possible to index into a nested field by using
+"."
+(for
+ instance
+"thread.group.parent.name
+").
+Parameters:
+name
+- of the field to get, not
+null
+Returns:
+a value descriptor that describes the field, or
+null
+if
+         the field with the specified name doesn't exist
+getName
+public
+String
+getName
+()
+Returns an identifier for the event (for example,
+"jdk.CPULoad"
+).
+The identifier is the fully qualified name of the event class, if not set using
+ the
+Name
+annotation.
+Returns:
+the name, not
+null
+See Also:
+Name
+getLabel
+public
+String
+getLabel
+()
+Returns a human-readable name (for example,
+"CPU Load"
+).
+The label of an event class can be set with
+Label
+.
+Returns:
+the label, or
+null
+if a label is not set
+See Also:
+Label
+getId
+public
+long
+getId
+()
+Returns a unique ID for this event type in the Java Virtual Machine (JVM).
+Returns:
+the ID that is used in the JVM
+getAnnotationElements
+public
+List
+<
+AnnotationElement
+>
+getAnnotationElements
+()
+Returns an immutable list of annotation elements for this event type.
+Returns:
+an immutable list of annotations or an empty list if no
+         annotations exists, not
+null
+isEnabled
+public
+boolean
+isEnabled
+()
+Returns
+true
+if the event is enabled and at least one recording is
+ running,
+false
+otherwise.
+By default, the event is enabled. The event can be enabled or disabled by
+ setting the enabled setting to
+true
+or
+false
+, programmatically or by using a
+ configuration file. The event can also be disabled by annotating event with
+ the
+@Enabled(false)
+annotation.
+Returns:
+true if event is enabled, false otherwise
+See Also:
+Enabled
+Recording.enable(Class)
+getDescription
+public
+String
+getDescription
+()
+Returns a short sentence that describes the event class.
+The description of an event class can be set with
+Description
+.
+Returns:
+the description, or
+null
+if no description exists
+See Also:
+Description
+getAnnotation
+public
+<A extends
+Annotation
+>
+A
+getAnnotation
+(
+Class
+<A> annotationClass)
+Returns the first annotation for the specified type if an annotation
+ element with the same name is directly present, otherwise
+null
+.
+Type Parameters:
+A
+- the type of the annotation to query for and return if present
+Parameters:
+annotationClass
+- the
+Class
+object that corresponds to the
+        annotation type, not
+null
+Returns:
+this element's annotation for the specified annotation type if
+         directly present, else
+null
+getEventType
+public static
+EventType
+getEventType
+(
+Class
+<? extends
+Event
+> eventClass)
+Returns the event type for an event class, or
+null
+if it doesn't
+ exist.
+Parameters:
+eventClass
+- the event class, not
+null
+Returns:
+the event class, or null if class doesn't exist
+Throws:
+IllegalArgumentException
+- if
+eventClass
+is an abstract class
+IllegalStateException
+- if the class is annotated with
+Registered(false)
+, but not manually registered
+getSettingDescriptors
+public
+List
+<
+SettingDescriptor
+>
+getSettingDescriptors
+()
+Returns an immutable list of the setting descriptors that describe the available
+ event settings for this event type.
+Returns:
+the list of setting descriptors for this event type, not
+null
+getCategoryNames
+public
+List
+<
+String
+>
+getCategoryNames
+()
+Returns the list of human-readable names that makes up the categories for
+ this event type (for example,
+"Java Application"
+,
+"Statistics"
+).
+Returns:
+an immutable list of category names, or a list with the name
+"Uncategorized"
+if no category is set
+See Also:
+Category
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

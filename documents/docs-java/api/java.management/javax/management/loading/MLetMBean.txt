@@ -1,0 +1,359 @@
+MLetMBean (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.management
+Package
+javax.management.loading
+Interface MLetMBean
+All Known Implementing Classes:
+MLet
+,
+PrivateMLet
+@Deprecated
+(
+since
+="20",
+forRemoval
+=true)
+public interface
+MLetMBean
+Deprecated, for removal: This API element is subject to removal in a future version.
+This API is part of Management Applets (m-lets), which is a legacy feature that allows loading
+ of remote MBeans. This feature is not usable without a Security Manager, which is deprecated and subject to
+ removal in a future release. Consequently, this API is also deprecated and subject to removal. There is no replacement.
+Exposes the remote management interface of the MLet
+ MBean.
+Since:
+1.5
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+void
+addURL
+(
+String
+url)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Appends the specified URL to the list of URLs to search for classes and
+ resources.
+void
+addURL
+(
+URL
+url)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Appends the specified URL to the list of URLs to search for classes and
+ resources.
+String
+getLibraryDirectory
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Gets the current directory used by the library loader for
+ storing native libraries before they are loaded into memory.
+Set
+<
+Object
+>
+getMBeansFromURL
+(
+String
+url)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Loads a text file containing MLET tags that define the MBeans
+ to be added to the MBean server.
+Set
+<
+Object
+>
+getMBeansFromURL
+(
+URL
+url)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Loads a text file containing MLET tags that define the MBeans
+ to be added to the MBean server.
+URL
+getResource
+(
+String
+name)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Finds the resource with the given name.
+InputStream
+getResourceAsStream
+(
+String
+name)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Returns an input stream for reading the specified resource.
+Enumeration
+<
+URL
+>
+getResources
+(
+String
+name)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Finds all the resources with the given name.
+URL
+[]
+getURLs
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Returns the search path of URLs for loading classes and resources.
+void
+setLibraryDirectory
+(
+String
+libdir)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Sets the directory used by the library loader for storing
+ native libraries before they are loaded into memory.
+Method Details
+getMBeansFromURL
+Set
+<
+Object
+>
+getMBeansFromURL
+(
+String
+url)
+throws
+ServiceNotFoundException
+Deprecated, for removal: This API element is subject to removal in a future version.
+Loads a text file containing MLET tags that define the MBeans
+ to be added to the MBean server. The location of the text file is
+ specified by a URL. The text file is read using the UTF-8
+ encoding. The MBeans specified in the MLET file will be
+ instantiated and registered in the MBean server.
+Parameters:
+url
+- The URL of the text file to be loaded as String object.
+Returns:
+A set containing one entry per MLET tag in the m-let
+ text file loaded.  Each entry specifies either the
+ ObjectInstance for the created MBean, or a throwable object
+ (that is, an error or an exception) if the MBean could not be
+ created.
+Throws:
+ServiceNotFoundException
+- One of the following errors
+ has occurred: The m-let text file does not contain an MLET tag,
+ the m-let text file is not found, a mandatory attribute of the
+ MLET tag is not specified, the value of url is malformed.
+getMBeansFromURL
+Set
+<
+Object
+>
+getMBeansFromURL
+(
+URL
+url)
+throws
+ServiceNotFoundException
+Deprecated, for removal: This API element is subject to removal in a future version.
+Loads a text file containing MLET tags that define the MBeans
+ to be added to the MBean server. The location of the text file is
+ specified by a URL. The text file is read using the UTF-8
+ encoding. The MBeans specified in the MLET file will be
+ instantiated and registered in the MBean server.
+Parameters:
+url
+- The URL of the text file to be loaded as URL object.
+Returns:
+A set containing one entry per MLET tag in the m-let
+ text file loaded.  Each entry specifies either the
+ ObjectInstance for the created MBean, or a throwable object
+ (that is, an error or an exception) if the MBean could not be
+ created.
+Throws:
+ServiceNotFoundException
+- One of the following errors
+ has occurred: The m-let text file does not contain an MLET tag,
+ the m-let text file is not found, a mandatory attribute of the
+ MLET tag is not specified, the value of url is null.
+addURL
+void
+addURL
+(
+URL
+url)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Appends the specified URL to the list of URLs to search for classes and
+ resources.
+Parameters:
+url
+- the URL to add.
+addURL
+void
+addURL
+(
+String
+url)
+throws
+ServiceNotFoundException
+Deprecated, for removal: This API element is subject to removal in a future version.
+Appends the specified URL to the list of URLs to search for classes and
+ resources.
+Parameters:
+url
+- the URL to add.
+Throws:
+ServiceNotFoundException
+- The specified URL is malformed.
+getURLs
+URL
+[]
+getURLs
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Returns the search path of URLs for loading classes and resources.
+ This includes the original list of URLs specified to the constructor,
+ along with any URLs subsequently appended by the addURL() method.
+Returns:
+the list of URLs.
+getResource
+URL
+getResource
+(
+String
+name)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Finds the resource with the given name.
+ A resource is some data (images, audio, text, etc) that can be accessed by class code in a way that is
+   independent of the location of the code.
+   The name of a resource is a "/"-separated path name that identifies the resource.
+Parameters:
+name
+- The resource name
+Returns:
+An URL for reading the resource, or null if the resource could not be found or the caller doesn't have adequate privileges to get the
+ resource.
+getResourceAsStream
+InputStream
+getResourceAsStream
+(
+String
+name)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Returns an input stream for reading the specified resource. The search order is described in the documentation for
+  getResource(String).
+Parameters:
+name
+- The resource name
+Returns:
+An input stream for reading the resource, or null if the resource could not be found
+getResources
+Enumeration
+<
+URL
+>
+getResources
+(
+String
+name)
+throws
+IOException
+Deprecated, for removal: This API element is subject to removal in a future version.
+Finds all the resources with the given name. A resource is some
+ data (images, audio, text, etc) that can be accessed by class
+ code in a way that is independent of the location of the code.
+ The name of a resource is a "/"-separated path name that
+ identifies the resource.
+Parameters:
+name
+- The  resource name.
+Returns:
+An enumeration of URL to the resource. If no resources
+ could be found, the enumeration will be empty. Resources that
+ cannot be accessed will not be in the enumeration.
+Throws:
+IOException
+- if an I/O exception occurs when
+ searching for resources.
+getLibraryDirectory
+String
+getLibraryDirectory
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Gets the current directory used by the library loader for
+ storing native libraries before they are loaded into memory.
+Returns:
+The current directory used by the library loader.
+Throws:
+UnsupportedOperationException
+- if this implementation
+ does not support storing native libraries in this way.
+See Also:
+setLibraryDirectory(java.lang.String)
+setLibraryDirectory
+void
+setLibraryDirectory
+(
+String
+libdir)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Sets the directory used by the library loader for storing
+ native libraries before they are loaded into memory.
+Parameters:
+libdir
+- The directory used by the library loader.
+Throws:
+UnsupportedOperationException
+- if this implementation
+ does not support storing native libraries in this way.
+See Also:
+getLibraryDirectory()
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

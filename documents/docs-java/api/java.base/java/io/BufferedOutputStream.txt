@@ -1,0 +1,304 @@
+BufferedOutputStream (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.io
+Class BufferedOutputStream
+java.lang.Object
+java.io.OutputStream
+java.io.FilterOutputStream
+java.io.BufferedOutputStream
+All Implemented Interfaces:
+Closeable
+,
+Flushable
+,
+AutoCloseable
+public class
+BufferedOutputStream
+extends
+FilterOutputStream
+The class implements a buffered output stream. By setting up such
+ an output stream, an application can write bytes to the underlying
+ output stream without necessarily causing a call to the underlying
+ system for each byte written.
+Since:
+1.0
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected byte[]
+buf
+The internal buffer where data is stored.
+protected int
+count
+The number of valid bytes in the buffer.
+Fields declared in class java.io.
+FilterOutputStream
+out
+Constructor Summary
+Constructors
+Constructor
+Description
+BufferedOutputStream
+(
+OutputStream
+out)
+Creates a new buffered output stream to write data to the
+ specified underlying output stream.
+BufferedOutputStream
+(
+OutputStream
+out,
+ int size)
+Creates a new buffered output stream to write data to the
+ specified underlying output stream with the specified buffer
+ size.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+flush
+()
+Flushes this buffered output stream.
+void
+write
+(byte[] b,
+ int off,
+ int len)
+Writes
+len
+bytes from the specified byte array
+ starting at offset
+off
+to this buffered output stream.
+void
+write
+(int b)
+Writes the specified byte to this buffered output stream.
+Methods declared in class java.io.
+FilterOutputStream
+close
+,
+write
+Methods declared in class java.io.
+OutputStream
+nullOutputStream
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+buf
+protected
+byte[]
+buf
+The internal buffer where data is stored.
+count
+protected
+int
+count
+The number of valid bytes in the buffer. This value is always
+ in the range
+0
+through
+buf.length
+; elements
+buf[0]
+through
+buf[count-1]
+contain valid
+ byte data.
+Constructor Details
+BufferedOutputStream
+public
+BufferedOutputStream
+(
+OutputStream
+out)
+Creates a new buffered output stream to write data to the
+ specified underlying output stream.
+Parameters:
+out
+- the underlying output stream.
+BufferedOutputStream
+public
+BufferedOutputStream
+(
+OutputStream
+out,
+ int size)
+Creates a new buffered output stream to write data to the
+ specified underlying output stream with the specified buffer
+ size.
+Parameters:
+out
+- the underlying output stream.
+size
+- the buffer size.
+Throws:
+IllegalArgumentException
+- if size <= 0.
+Method Details
+write
+public
+void
+write
+(int b)
+throws
+IOException
+Writes the specified byte to this buffered output stream.
+Overrides:
+write
+in class
+FilterOutputStream
+Parameters:
+b
+- the byte to be written.
+Throws:
+IOException
+- if an I/O error occurs.
+write
+public
+void
+write
+(byte[] b,
+ int off,
+ int len)
+throws
+IOException
+Writes
+len
+bytes from the specified byte array
+ starting at offset
+off
+to this buffered output stream.
+Ordinarily this method stores bytes from the given array into this
+ stream's buffer, flushing the buffer to the underlying output stream as
+ needed.  If the requested length is at least as large as this stream's
+ buffer, however, then this method will flush the buffer and write the
+ bytes directly to the underlying output stream.  Thus redundant
+BufferedOutputStream
+s will not copy data unnecessarily.
+Overrides:
+write
+in class
+FilterOutputStream
+Parameters:
+b
+- the data.
+off
+- the start offset in the data.
+len
+- the number of bytes to write.
+Throws:
+IOException
+- if an I/O error occurs.
+IndexOutOfBoundsException
+- If
+off
+is negative,
+len
+is negative, or
+len
+is greater than
+b.length - off
+See Also:
+FilterOutputStream.write(int)
+flush
+public
+void
+flush
+()
+           throws
+IOException
+Flushes this buffered output stream. This forces any buffered
+ output bytes to be written out to the underlying output stream.
+Specified by:
+flush
+in interface
+Flushable
+Overrides:
+flush
+in class
+FilterOutputStream
+Throws:
+IOException
+- if an I/O error occurs.
+See Also:
+FilterOutputStream.out
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

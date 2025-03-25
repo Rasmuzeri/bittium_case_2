@@ -1,0 +1,393 @@
+Uses of Interface java.util.concurrent.Flow.Subscriber (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Interface
+java.util.concurrent.Flow.Subscriber
+Packages that use
+Flow.Subscriber
+Package
+Description
+java.net.http
+HTTP Client and WebSocket APIs
+java.util.concurrent
+Utility classes commonly useful in concurrent programming.
+Uses of
+Flow.Subscriber
+in
+java.net.http
+Subinterfaces of
+Flow.Subscriber
+in
+java.net.http
+Modifier and Type
+Interface
+Description
+static interface
+HttpResponse.BodySubscriber
+<T>
+A
+BodySubscriber
+consumes response body bytes and converts them
+ into a higher-level Java type.
+Methods in
+java.net.http
+with type parameters of type
+Flow.Subscriber
+Modifier and Type
+Method
+Description
+static <S extends
+Flow.Subscriber
+<? super
+String
+>,
+T>
+HttpResponse.BodyHandler
+<T>
+HttpResponse.BodyHandlers.
+fromLineSubscriber
+(S subscriber,
+Function
+<? super S,
+? extends T> finisher,
+String
+lineSeparator)
+Returns a response body handler that returns a
+BodySubscriber
+<T>
+obtained from
+BodySubscribers.fromLineSubscriber(subscriber, finisher, charset, lineSeparator)
+,
+ with the given
+subscriber
+,
+finisher
+function, and line separator.
+static <S extends
+Flow.Subscriber
+<? super
+String
+>,
+T>
+HttpResponse.BodySubscriber
+<T>
+HttpResponse.BodySubscribers.
+fromLineSubscriber
+(S subscriber,
+Function
+<? super S,
+? extends T> finisher,
+Charset
+charset,
+String
+lineSeparator)
+Returns a body subscriber that forwards all response body to the
+ given
+Flow.Subscriber
+, line by line.
+static <S extends
+Flow.Subscriber
+<? super
+List
+<
+ByteBuffer
+>>,
+T>
+HttpResponse.BodyHandler
+<T>
+HttpResponse.BodyHandlers.
+fromSubscriber
+(S subscriber,
+Function
+<? super S,
+? extends T> finisher)
+Returns a response body handler that returns a
+BodySubscriber
+<T>
+obtained from
+HttpResponse.BodySubscribers.fromSubscriber(Subscriber, Function)
+, with the
+ given
+subscriber
+and
+finisher
+function.
+static <S extends
+Flow.Subscriber
+<? super
+List
+<
+ByteBuffer
+>>,
+T>
+HttpResponse.BodySubscriber
+<T>
+HttpResponse.BodySubscribers.
+fromSubscriber
+(S subscriber,
+Function
+<? super S,
+? extends T> finisher)
+Returns a body subscriber that forwards all response body to the
+ given
+Flow.Subscriber
+.
+Methods in
+java.net.http
+with parameters of type
+Flow.Subscriber
+Modifier and Type
+Method
+Description
+static
+HttpResponse.BodyHandler
+<
+Void
+>
+HttpResponse.BodyHandlers.
+fromLineSubscriber
+(
+Flow.Subscriber
+<? super
+String
+> subscriber)
+Returns a response body handler that returns a
+BodySubscriber
+<Void>
+obtained from
+BodySubscribers.fromLineSubscriber(subscriber, s -> null, charset, null)
+,
+ with the given
+subscriber
+.
+static
+HttpResponse.BodySubscriber
+<
+Void
+>
+HttpResponse.BodySubscribers.
+fromLineSubscriber
+(
+Flow.Subscriber
+<? super
+String
+> subscriber)
+Returns a body subscriber that forwards all response body to the
+ given
+Flow.Subscriber
+, line by line.
+static
+HttpResponse.BodyHandler
+<
+Void
+>
+HttpResponse.BodyHandlers.
+fromSubscriber
+(
+Flow.Subscriber
+<? super
+List
+<
+ByteBuffer
+>> subscriber)
+Returns a response body handler that returns a
+BodySubscriber
+<Void>
+obtained from
+HttpResponse.BodySubscribers.fromSubscriber(Subscriber)
+, with the given
+subscriber
+.
+static
+HttpResponse.BodySubscriber
+<
+Void
+>
+HttpResponse.BodySubscribers.
+fromSubscriber
+(
+Flow.Subscriber
+<? super
+List
+<
+ByteBuffer
+>> subscriber)
+Returns a body subscriber that forwards all response body to the
+ given
+Flow.Subscriber
+.
+Uses of
+Flow.Subscriber
+in
+java.util.concurrent
+Subinterfaces of
+Flow.Subscriber
+in
+java.util.concurrent
+Modifier and Type
+Interface
+Description
+static interface
+Flow.Processor
+<T,
+R>
+A component that acts as both a Subscriber and Publisher.
+Methods in
+java.util.concurrent
+that return types with arguments of type
+Flow.Subscriber
+Modifier and Type
+Method
+Description
+List
+<
+Flow.Subscriber
+<? super
+T
+>>
+SubmissionPublisher.
+getSubscribers
+()
+Returns a list of current subscribers for monitoring and
+ tracking purposes, not for invoking
+Flow.Subscriber
+methods on the subscribers.
+Methods in
+java.util.concurrent
+with parameters of type
+Flow.Subscriber
+Modifier and Type
+Method
+Description
+boolean
+SubmissionPublisher.
+isSubscribed
+(
+Flow.Subscriber
+<? super
+T
+> subscriber)
+Returns true if the given Subscriber is currently subscribed.
+void
+Flow.Publisher.
+subscribe
+(
+Flow.Subscriber
+<? super
+T
+> subscriber)
+Adds the given Subscriber if possible.
+void
+SubmissionPublisher.
+subscribe
+(
+Flow.Subscriber
+<? super
+T
+> subscriber)
+Adds the given Subscriber unless already subscribed.
+Method parameters in
+java.util.concurrent
+with type arguments of type
+Flow.Subscriber
+Modifier and Type
+Method
+Description
+int
+SubmissionPublisher.
+offer
+(
+T
+item,
+ long timeout,
+TimeUnit
+unit,
+BiPredicate
+<
+Flow.Subscriber
+<? super
+T
+>,
+? super
+T
+> onDrop)
+Publishes the given item, if possible, to each current subscriber
+ by asynchronously invoking its
+onNext
+method, blocking while
+ resources for any subscription are unavailable, up to the
+ specified timeout or until the caller thread is interrupted, at
+ which point the given handler (if non-null) is invoked, and if it
+ returns true, retried once.
+int
+SubmissionPublisher.
+offer
+(
+T
+item,
+BiPredicate
+<
+Flow.Subscriber
+<? super
+T
+>,
+? super
+T
+> onDrop)
+Publishes the given item, if possible, to each current subscriber
+ by asynchronously invoking its
+onNext
+method.
+Constructor parameters in
+java.util.concurrent
+with type arguments of type
+Flow.Subscriber
+Modifier
+Constructor
+Description
+SubmissionPublisher
+(
+Executor
+executor,
+ int maxBufferCapacity,
+BiConsumer
+<? super
+Flow.Subscriber
+<? super
+T
+>,
+? super
+Throwable
+> handler)
+Creates a new SubmissionPublisher using the given Executor for
+ async delivery to subscribers, with the given maximum buffer size
+ for each subscriber, and, if non-null, the given handler invoked
+ when any Subscriber throws an exception in method
+onNext
+.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

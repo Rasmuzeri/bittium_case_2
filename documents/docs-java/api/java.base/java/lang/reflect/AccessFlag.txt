@@ -1,0 +1,867 @@
+AccessFlag (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Enum Constants
+Field
+Method
+Detail:
+Enum Constants
+Field
+Method
+Summary:
+Nested
+|
+Enum Constants
+|
+Field |
+Method
+Detail:
+Enum Constants
+|
+Field |
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang.reflect
+Enum Class AccessFlag
+java.lang.Object
+java.lang.Enum
+<
+AccessFlag
+>
+java.lang.reflect.AccessFlag
+All Implemented Interfaces:
+Serializable
+,
+Comparable
+<
+AccessFlag
+>
+,
+Constable
+public enum
+AccessFlag
+extends
+Enum
+<
+AccessFlag
+>
+Represents a JVM access or module-related flag on a runtime member,
+ such as a
+class
+,
+field
+, or
+method
+.
+JVM access and module-related flags are related to, but distinct
+ from Java language
+modifiers
+. Some modifiers
+ and access flags have a one-to-one correspondence, such as
+public
+. In other cases, some language-level modifiers do
+not
+have an access flag, such as
+sealed
+(JVMS
+4.7.31
+) and some access flags have no corresponding
+ modifier, such as
+synthetic
+.
+The values for the constants representing the access and module
+ flags are taken from sections of
+The Java Virtual Machine
+ Specification
+including
+4.1
+(class access and
+ property modifiers),
+4.5
+(field access and property flags),
+4.6
+(method access and property flags),
+4.7.6
+(nested class access and property flags),
+4.7.24
+(method
+ parameters), and
+4.7.25
+(module flags and requires,
+ exports, and opens flags).
+The
+mask
+values for the different access
+ flags are
+not
+distinct. Flags are defined for different
+ kinds of JVM structures and the same bit position has different
+ meanings in different contexts. For example,
+0x0000_0040
+indicates a
+volatile
+field but a
+bridge method
+;
+0x0000_0080
+indicates a
+transient
+field but a
+variable
+ arity (varargs)
+method.
+API Note:
+The JVM class file format has a
+new version
+defined for each new
+feature release
+. A new class
+ file version may define new access flags or retire old ones.
+AccessFlag
+is intended to model the set of access flags across
+ class file format versions. The range of versions an access flag is
+ recognized is not explicitly indicated in this API. See the current
+The Java Virtual Machine Specification
+for
+ details. Unless otherwise indicated, access flags can be assumed to
+ be recognized in the
+current
+ version
+.
+Implementation Requirements:
+The access flag constants are ordered by non-decreasing mask
+ value; that is the mask value of a constant is greater than or
+ equal to the mask value of an immediate neighbor to its (syntactic)
+ left. If new constants are added, this property will be
+ maintained. That implies new constants will not necessarily be
+ added at the end of the existing list.
+Since:
+20
+See Also:
+Modifier
+ModuleDescriptor.Modifier
+ModuleDescriptor.Requires.Modifier
+ModuleDescriptor.Exports.Modifier
+ModuleDescriptor.Opens.Modifier
+Modifier
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+static enum
+AccessFlag.Location
+A location within a class file where flags can be applied.
+Nested classes/interfaces declared in class java.lang.
+Enum
+Enum.EnumDesc
+<
+E
+extends
+Enum
+<
+E
+>>
+Enum Constant Summary
+Enum Constants
+Enum Constant
+Description
+ABSTRACT
+The access flag
+ACC_ABSTRACT
+, corresponding to the
+ source modifier
+abstract
+, with a mask
+ value of
+0x0400
+.
+ANNOTATION
+The access flag
+ACC_ANNOTATION
+with a mask value of
+0x2000
+.
+BRIDGE
+The access flag
+ACC_BRIDGE
+with a mask value of
+0x0040
+ENUM
+The access flag
+ACC_ENUM
+with a mask value of
+0x4000
+.
+FINAL
+The access flag
+ACC_FINAL
+, corresponding to the source
+ modifier
+final
+, with a mask
+ value of
+0x0010
+.
+INTERFACE
+The access flag
+ACC_INTERFACE
+with a mask value of
+0x0200
+.
+MANDATED
+The access flag
+ACC_MANDATED
+with a mask value of
+0x8000
+.
+MODULE
+The access flag
+ACC_MODULE
+with a mask value of
+0x8000
+.
+NATIVE
+The access flag
+ACC_NATIVE
+, corresponding to the source
+ modifier
+native
+, with a mask value of
+0x0100
+.
+OPEN
+The module flag
+ACC_OPEN
+with a mask value of
+0x0020
+.
+PRIVATE
+The access flag
+ACC_PRIVATE
+, corresponding to the
+ source modifier
+private
+, with a mask
+ value of
+0x0002
+.
+PROTECTED
+The access flag
+ACC_PROTECTED
+, corresponding to the
+ source modifier
+protected
+, with a mask
+ value of
+0x0004
+.
+PUBLIC
+The access flag
+ACC_PUBLIC
+, corresponding to the source
+ modifier
+public
+, with a mask value of
+0x0001
+.
+STATIC
+The access flag
+ACC_STATIC
+, corresponding to the source
+ modifier
+static
+, with a mask value of
+0x0008
+.
+STATIC_PHASE
+The module requires flag
+ACC_STATIC_PHASE
+with a mask
+ value of
+0x0040
+.
+STRICT
+The access flag
+ACC_STRICT
+, corresponding to the source
+ modifier
+strictfp
+, with a mask value of
+0x0800
+.
+SUPER
+The access flag
+ACC_SUPER
+with a mask value of
+0x0020
+.
+SYNCHRONIZED
+The access flag
+ACC_SYNCHRONIZED
+, corresponding to the
+ source modifier
+synchronized
+, with
+ a mask value of
+0x0020
+.
+SYNTHETIC
+The access flag
+ACC_SYNTHETIC
+with a mask value of
+0x1000
+.
+TRANSIENT
+The access flag
+ACC_TRANSIENT
+, corresponding to the
+ source modifier
+transient
+, with a
+ mask value of
+0x0080
+.
+TRANSITIVE
+The module requires flag
+ACC_TRANSITIVE
+with a mask
+ value of
+0x0020
+.
+VARARGS
+The access flag
+ACC_VARARGS
+with a mask value of
+0x0080
+.
+VOLATILE
+The access flag
+ACC_VOLATILE
+, corresponding to the
+ source modifier
+volatile
+, with a mask
+ value of
+0x0040
+.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Set
+<
+AccessFlag.Location
+>
+locations
+()
+Returns kinds of constructs the flag can be applied to in the
+ latest class file format version.
+Set
+<
+AccessFlag.Location
+>
+locations
+(
+ClassFileFormatVersion
+cffv)
+Returns kinds of constructs the flag can be applied to in the
+ given class file format version.
+int
+mask
+()
+Returns the corresponding integer mask for the access flag.
+static
+Set
+<
+AccessFlag
+>
+maskToAccessFlags
+(int mask,
+AccessFlag.Location
+location)
+Returns an unmodifiable set of access flags for the given mask value
+ appropriate for the location in question.
+boolean
+sourceModifier
+()
+Returns whether or not the flag has a directly corresponding
+ modifier in the Java programming language.
+static
+AccessFlag
+valueOf
+(
+String
+name)
+Returns the enum constant of this class with the specified name.
+static
+AccessFlag
+[]
+values
+()
+Returns an array containing the constants of this enum class, in
+the order they are declared.
+Methods declared in class java.lang.
+Enum
+clone
+,
+compareTo
+,
+describeConstable
+,
+equals
+,
+finalize
+,
+getDeclaringClass
+,
+hashCode
+,
+name
+,
+ordinal
+,
+toString
+,
+valueOf
+Methods declared in class java.lang.
+Object
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Enum Constant Details
+PUBLIC
+public static final
+AccessFlag
+PUBLIC
+The access flag
+ACC_PUBLIC
+, corresponding to the source
+ modifier
+public
+, with a mask value of
+0x0001
+.
+PRIVATE
+public static final
+AccessFlag
+PRIVATE
+The access flag
+ACC_PRIVATE
+, corresponding to the
+ source modifier
+private
+, with a mask
+ value of
+0x0002
+.
+PROTECTED
+public static final
+AccessFlag
+PROTECTED
+The access flag
+ACC_PROTECTED
+, corresponding to the
+ source modifier
+protected
+, with a mask
+ value of
+0x0004
+.
+STATIC
+public static final
+AccessFlag
+STATIC
+The access flag
+ACC_STATIC
+, corresponding to the source
+ modifier
+static
+, with a mask value of
+0x0008
+.
+FINAL
+public static final
+AccessFlag
+FINAL
+The access flag
+ACC_FINAL
+, corresponding to the source
+ modifier
+final
+, with a mask
+ value of
+0x0010
+.
+SUPER
+public static final
+AccessFlag
+SUPER
+The access flag
+ACC_SUPER
+with a mask value of
+0x0020
+.
+API Note:
+In Java SE 8 and above, the JVM treats the
+ACC_SUPER
+flag as set in every class file (JVMS
+4.1
+).
+OPEN
+public static final
+AccessFlag
+OPEN
+The module flag
+ACC_OPEN
+with a mask value of
+0x0020
+.
+See Also:
+ModuleDescriptor.isOpen()
+TRANSITIVE
+public static final
+AccessFlag
+TRANSITIVE
+The module requires flag
+ACC_TRANSITIVE
+with a mask
+ value of
+0x0020
+.
+See Also:
+ModuleDescriptor.Requires.Modifier.TRANSITIVE
+SYNCHRONIZED
+public static final
+AccessFlag
+SYNCHRONIZED
+The access flag
+ACC_SYNCHRONIZED
+, corresponding to the
+ source modifier
+synchronized
+, with
+ a mask value of
+0x0020
+.
+STATIC_PHASE
+public static final
+AccessFlag
+STATIC_PHASE
+The module requires flag
+ACC_STATIC_PHASE
+with a mask
+ value of
+0x0040
+.
+See Also:
+ModuleDescriptor.Requires.Modifier.STATIC
+VOLATILE
+public static final
+AccessFlag
+VOLATILE
+The access flag
+ACC_VOLATILE
+, corresponding to the
+ source modifier
+volatile
+, with a mask
+ value of
+0x0040
+.
+BRIDGE
+public static final
+AccessFlag
+BRIDGE
+The access flag
+ACC_BRIDGE
+with a mask value of
+0x0040
+See Also:
+Method.isBridge()
+TRANSIENT
+public static final
+AccessFlag
+TRANSIENT
+The access flag
+ACC_TRANSIENT
+, corresponding to the
+ source modifier
+transient
+, with a
+ mask value of
+0x0080
+.
+VARARGS
+public static final
+AccessFlag
+VARARGS
+The access flag
+ACC_VARARGS
+with a mask value of
+0x0080
+.
+See Also:
+Executable.isVarArgs()
+NATIVE
+public static final
+AccessFlag
+NATIVE
+The access flag
+ACC_NATIVE
+, corresponding to the source
+ modifier
+native
+, with a mask value of
+0x0100
+.
+INTERFACE
+public static final
+AccessFlag
+INTERFACE
+The access flag
+ACC_INTERFACE
+with a mask value of
+0x0200
+.
+See Also:
+Class.isInterface()
+ABSTRACT
+public static final
+AccessFlag
+ABSTRACT
+The access flag
+ACC_ABSTRACT
+, corresponding to the
+ source modifier
+abstract
+, with a mask
+ value of
+0x0400
+.
+STRICT
+public static final
+AccessFlag
+STRICT
+The access flag
+ACC_STRICT
+, corresponding to the source
+ modifier
+strictfp
+, with a mask value of
+0x0800
+.
+API Note:
+The
+ACC_STRICT
+access flag is defined for class file
+ major versions 46 through 60, inclusive (JVMS
+4.6
+),
+ corresponding to Java SE 1.2 through 16.
+SYNTHETIC
+public static final
+AccessFlag
+SYNTHETIC
+The access flag
+ACC_SYNTHETIC
+with a mask value of
+0x1000
+.
+See Also:
+Class.isSynthetic()
+Executable.isSynthetic()
+ModuleDescriptor.Modifier.SYNTHETIC
+ANNOTATION
+public static final
+AccessFlag
+ANNOTATION
+The access flag
+ACC_ANNOTATION
+with a mask value of
+0x2000
+.
+See Also:
+Class.isAnnotation()
+ENUM
+public static final
+AccessFlag
+ENUM
+The access flag
+ACC_ENUM
+with a mask value of
+0x4000
+.
+See Also:
+Class.isEnum()
+MANDATED
+public static final
+AccessFlag
+MANDATED
+The access flag
+ACC_MANDATED
+with a mask value of
+0x8000
+.
+MODULE
+public static final
+AccessFlag
+MODULE
+The access flag
+ACC_MODULE
+with a mask value of
+0x8000
+.
+Method Details
+values
+public static
+AccessFlag
+[]
+values
+()
+Returns an array containing the constants of this enum class, in
+the order they are declared.
+Returns:
+an array containing the constants of this enum class, in the order they are declared
+valueOf
+public static
+AccessFlag
+valueOf
+(
+String
+name)
+Returns the enum constant of this class with the specified name.
+The string must match
+exactly
+an identifier used to declare an
+enum constant in this class.  (Extraneous whitespace characters are 
+not permitted.)
+Parameters:
+name
+- the name of the enum constant to be returned.
+Returns:
+the enum constant with the specified name
+Throws:
+IllegalArgumentException
+- if this enum class has no constant with the specified name
+NullPointerException
+- if the argument is null
+mask
+public
+int
+mask
+()
+Returns the corresponding integer mask for the access flag.
+Returns:
+the corresponding integer mask for the access flag
+sourceModifier
+public
+boolean
+sourceModifier
+()
+Returns whether or not the flag has a directly corresponding
+ modifier in the Java programming language.
+Returns:
+whether or not the flag has a directly corresponding
+ modifier in the Java programming language
+locations
+public
+Set
+<
+AccessFlag.Location
+>
+locations
+()
+Returns kinds of constructs the flag can be applied to in the
+ latest class file format version.
+Returns:
+kinds of constructs the flag can be applied to in the
+ latest class file format version
+locations
+public
+Set
+<
+AccessFlag.Location
+>
+locations
+(
+ClassFileFormatVersion
+cffv)
+Returns kinds of constructs the flag can be applied to in the
+ given class file format version.
+Parameters:
+cffv
+- the class file format version to use
+Returns:
+kinds of constructs the flag can be applied to in the
+ given class file format version
+Throws:
+NullPointerException
+- if the parameter is
+null
+maskToAccessFlags
+public static
+Set
+<
+AccessFlag
+>
+maskToAccessFlags
+(int mask,
+AccessFlag.Location
+location)
+Returns an unmodifiable set of access flags for the given mask value
+ appropriate for the location in question.
+Parameters:
+mask
+- bit mask of access flags
+location
+- context to interpret mask value
+Returns:
+an unmodifiable set of access flags for the given mask value
+ appropriate for the location in question
+Throws:
+IllegalArgumentException
+- if the mask contains bit
+ positions not support for the location in question
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

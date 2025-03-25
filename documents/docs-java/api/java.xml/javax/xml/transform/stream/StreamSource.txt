@@ -1,0 +1,486 @@
+StreamSource (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.xml
+Package
+javax.xml.transform.stream
+Class StreamSource
+java.lang.Object
+javax.xml.transform.stream.StreamSource
+All Implemented Interfaces:
+Source
+public class
+StreamSource
+extends
+Object
+implements
+Source
+Acts as an holder for a transformation Source in the form
+ of a stream of XML markup.
+Note:
+Due to their internal use of either a
+Reader
+or
+InputStream
+instance,
+StreamSource
+instances may only be used once.
+Since:
+1.4
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+String
+FEATURE
+If
+TransformerFactory.getFeature(java.lang.String)
+returns true when passed this value as an argument,
+ the Transformer supports Source input of this type.
+Constructor Summary
+Constructors
+Constructor
+Description
+StreamSource
+()
+Zero-argument default constructor.
+StreamSource
+(
+File
+f)
+Construct a StreamSource from a File.
+StreamSource
+(
+InputStream
+inputStream)
+Construct a StreamSource from a byte stream.
+StreamSource
+(
+InputStream
+inputStream,
+String
+systemId)
+Construct a StreamSource from a byte stream.
+StreamSource
+(
+Reader
+reader)
+Construct a StreamSource from a character reader.
+StreamSource
+(
+Reader
+reader,
+String
+systemId)
+Construct a StreamSource from a character reader.
+StreamSource
+(
+String
+systemId)
+Construct a StreamSource from a URL.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+InputStream
+getInputStream
+()
+Get the byte stream that was set with setByteStream.
+String
+getPublicId
+()
+Get the public identifier that was set with setPublicId.
+Reader
+getReader
+()
+Get the character stream that was set with setReader.
+String
+getSystemId
+()
+Get the system identifier that was set with setSystemId.
+boolean
+isEmpty
+()
+Indicates whether the
+StreamSource
+object is empty.
+void
+setInputStream
+(
+InputStream
+inputStream)
+Set the byte stream to be used as input.
+void
+setPublicId
+(
+String
+publicId)
+Set the public identifier for this Source.
+void
+setReader
+(
+Reader
+reader)
+Set the input to be a character reader.
+void
+setSystemId
+(
+File
+f)
+Set the system ID from a File reference.
+void
+setSystemId
+(
+String
+systemId)
+Set the system identifier for this Source.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+FEATURE
+public static final
+String
+FEATURE
+If
+TransformerFactory.getFeature(java.lang.String)
+returns true when passed this value as an argument,
+ the Transformer supports Source input of this type.
+See Also:
+Constant Field Values
+Constructor Details
+StreamSource
+public
+StreamSource
+()
+Zero-argument default constructor.  If this constructor is used, and
+ no Stream source is set using
+setInputStream(java.io.InputStream inputStream)
+or
+setReader(java.io.Reader reader)
+, then the
+Transformer
+will
+ create an empty source
+InputStream
+using
+new InputStream()
+.
+See Also:
+Transformer.transform(Source xmlSource, Result outputTarget)
+StreamSource
+public
+StreamSource
+(
+InputStream
+inputStream)
+Construct a StreamSource from a byte stream.  Normally,
+ a stream should be used rather than a reader, so
+ the XML parser can resolve character encoding specified
+ by the XML declaration.
+If this constructor is used to process a stylesheet, normally
+ setSystemId should also be called, so that relative URI references
+ can be resolved.
+Parameters:
+inputStream
+- A valid InputStream reference to an XML stream.
+StreamSource
+public
+StreamSource
+(
+InputStream
+inputStream,
+String
+systemId)
+Construct a StreamSource from a byte stream.  Normally,
+ a stream should be used rather than a reader, so that
+ the XML parser can resolve character encoding specified
+ by the XML declaration.
+This constructor allows the systemID to be set in addition
+ to the input stream, which allows relative URIs
+ to be processed.
+Parameters:
+inputStream
+- A valid InputStream reference to an XML stream.
+systemId
+- Must be a String that conforms to the URI syntax.
+StreamSource
+public
+StreamSource
+(
+Reader
+reader)
+Construct a StreamSource from a character reader.  Normally,
+ a stream should be used rather than a reader, so that
+ the XML parser can resolve character encoding specified
+ by the XML declaration.  However, in many cases the encoding
+ of the input stream is already resolved, as in the case of
+ reading XML from a StringReader.
+Parameters:
+reader
+- A valid Reader reference to an XML character stream.
+StreamSource
+public
+StreamSource
+(
+Reader
+reader,
+String
+systemId)
+Construct a StreamSource from a character reader.  Normally,
+ a stream should be used rather than a reader, so that
+ the XML parser may resolve character encoding specified
+ by the XML declaration.  However, in many cases the encoding
+ of the input stream is already resolved, as in the case of
+ reading XML from a StringReader.
+Parameters:
+reader
+- A valid Reader reference to an XML character stream.
+systemId
+- Must be a String that conforms to the URI syntax.
+StreamSource
+public
+StreamSource
+(
+String
+systemId)
+Construct a StreamSource from a URL.
+Parameters:
+systemId
+- Must be a String that conforms to the URI syntax.
+StreamSource
+public
+StreamSource
+(
+File
+f)
+Construct a StreamSource from a File.
+Parameters:
+f
+- Must a non-null File reference.
+Method Details
+setInputStream
+public
+void
+setInputStream
+(
+InputStream
+inputStream)
+Set the byte stream to be used as input.  Normally,
+ a stream should be used rather than a reader, so that
+ the XML parser can resolve character encoding specified
+ by the XML declaration.
+If this Source object is used to process a stylesheet, normally
+ setSystemId should also be called, so that relative URL references
+ can be resolved.
+Parameters:
+inputStream
+- A valid InputStream reference to an XML stream.
+getInputStream
+public
+InputStream
+getInputStream
+()
+Get the byte stream that was set with setByteStream.
+Returns:
+The byte stream that was set with setByteStream, or null
+ if setByteStream or the ByteStream constructor was not called.
+setReader
+public
+void
+setReader
+(
+Reader
+reader)
+Set the input to be a character reader.  Normally,
+ a stream should be used rather than a reader, so that
+ the XML parser can resolve character encoding specified
+ by the XML declaration.  However, in many cases the encoding
+ of the input stream is already resolved, as in the case of
+ reading XML from a StringReader.
+Parameters:
+reader
+- A valid Reader reference to an XML CharacterStream.
+getReader
+public
+Reader
+getReader
+()
+Get the character stream that was set with setReader.
+Returns:
+The character stream that was set with setReader, or null
+ if setReader or the Reader constructor was not called.
+setPublicId
+public
+void
+setPublicId
+(
+String
+publicId)
+Set the public identifier for this Source.
+The public identifier is always optional: if the application
+ writer includes one, it will be provided as part of the
+ location information.
+Parameters:
+publicId
+- The public identifier as a string.
+getPublicId
+public
+String
+getPublicId
+()
+Get the public identifier that was set with setPublicId.
+Returns:
+The public identifier that was set with setPublicId, or null
+ if setPublicId was not called.
+setSystemId
+public
+void
+setSystemId
+(
+String
+systemId)
+Set the system identifier for this Source.
+The system identifier is optional if there is a byte stream
+ or a character stream, but it is still useful to provide one,
+ since the application can use it to resolve relative URIs
+ and can include it in error messages and warnings (the parser
+ will attempt to open a connection to the URI only if
+ there is no byte stream or character stream specified).
+Specified by:
+setSystemId
+in interface
+Source
+Parameters:
+systemId
+- The system identifier as a URL string.
+getSystemId
+public
+String
+getSystemId
+()
+Get the system identifier that was set with setSystemId.
+Specified by:
+getSystemId
+in interface
+Source
+Returns:
+The system identifier that was set with setSystemId, or null
+ if setSystemId was not called.
+setSystemId
+public
+void
+setSystemId
+(
+File
+f)
+Set the system ID from a File reference.
+Parameters:
+f
+- Must a non-null File reference.
+isEmpty
+public
+boolean
+isEmpty
+()
+Indicates whether the
+StreamSource
+object is empty. Empty is
+ defined as follows:
+All of the input sources, including the public identifier, system
+ identifier, byte stream, and character stream, are
+null
+.
+The public identifier and system identifier are
+null
+, and
+ byte and character stream are either
+null
+or contain no byte or
+ character.
+Note that this method will reset the byte stream if it is provided, or
+ the character stream if the byte stream is not provided.
+In case of error while checking the byte or character stream, the method
+ will return false to allow the XML processor to handle the error.
+Specified by:
+isEmpty
+in interface
+Source
+Returns:
+true if the
+StreamSource
+object is empty, false otherwise
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

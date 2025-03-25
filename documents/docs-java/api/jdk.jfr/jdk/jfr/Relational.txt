@@ -1,0 +1,107 @@
+Relational (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Field
+Required
+Optional
+Detail:
+Field
+Element
+Summary:
+Field |
+Required |
+Optional
+Detail:
+Field |
+Element
+SEARCH
+Module
+jdk.jfr
+Package
+jdk.jfr
+Annotation Interface Relational
+@Retention
+(
+RUNTIME
+)
+@Target
+(
+ANNOTATION_TYPE
+)
+public @interface
+Relational
+Meta annotation for relational annotations, to be used on an annotation.
+The following example shows how a relational annotation can be created and
+ used. The
+Orderid
+annotation indicates there is a relation between
+OrderEvent
+and
+OrderLineEvent
+. if they have the same ID,
+ the order line belongs to the order.
+Copy
+@MetadataDefinition
+@Relational
+@Name("com.example.OrderId")
+@Label("Order ID")
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface OrderId {
+}
+
+@Name("com.example.Order")
+@Label("Order")
+@Category("Orders")
+class OrderEvent extends Event {
+    @Label("Order ID")
+    @OrderId
+    long orderId;
+
+    @Label("Order Date")
+    @Timestamp
+    long orderDate;
+}
+
+@Name("com.example.OrderLine")
+@Label("Order Line")
+@Category("Orders")
+class OrderLineEvent extends Event {
+    @Label("Order ID")
+    @OrderId
+    long orderId;
+
+    @Label("Quantity")
+    long quantity;
+
+    @Label("Product")
+    String product;
+}
+Since:
+9
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,322 @@
+IDN (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.net
+Class IDN
+java.lang.Object
+java.net.IDN
+public final class
+IDN
+extends
+Object
+Provides methods to convert internationalized domain names (IDNs) between
+ a normal Unicode representation and an ASCII Compatible Encoding (ACE) representation.
+ Internationalized domain names can use characters from the entire range of
+ Unicode, while traditional domain names are restricted to ASCII characters.
+ ACE is an encoding of Unicode strings that uses only ASCII characters and
+ can be used with software (such as the Domain Name System) that only
+ understands traditional domain names.
+Internationalized domain names are defined in
+RFC 3490
+.
+ RFC 3490 defines two operations: ToASCII and ToUnicode. These 2 operations employ
+Nameprep
+algorithm, which is a
+ profile of
+Stringprep
+, and
+Punycode
+algorithm to convert
+ domain name string back and forth.
+The behavior of aforementioned conversion process can be adjusted by various flags:
+If the ALLOW_UNASSIGNED flag is used, the domain name string to be converted
+         can contain code points that are unassigned in Unicode 3.2, which is the
+         Unicode version on which IDN conversion is based. If the flag is not used,
+         the presence of such unassigned code points is treated as an error.
+If the USE_STD3_ASCII_RULES flag is used, ASCII strings are checked against
+RFC 1122
+and
+RFC 1123
+.
+         It is an error if they don't meet the requirements.
+These flags can be logically OR'ed together.
+The security consideration is important with respect to internationalization
+ domain name support. For example, English domain names may be
+homographed
+- maliciously misspelled by substitution of non-Latin letters.
+Unicode Technical Report #36
+discusses security issues of IDN support as well as possible solutions.
+ Applications are responsible for taking adequate security measures when using
+ international domain names.
+Since:
+1.6
+External Specifications
+RFC 1122: Requirements for Internet Hosts - Communication Layers
+RFC 1123: Requirements for Internet Hosts - Application and Support
+RFC 3454: Preparation of Internationalized Strings ("stringprep")
+RFC 3490: Internationalizing Domain Names in Applications (IDNA)
+RFC 3491: Nameprep: A Stringprep Profile for Internationalized Domain Names (IDN)
+RFC 3492: Punycode: A Bootstring encoding of Unicode for Internationalized Domain Names in Applications (IDNA)
+Unicode Security Considerations
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final int
+ALLOW_UNASSIGNED
+Flag to allow processing of unassigned code points
+static final int
+USE_STD3_ASCII_RULES
+Flag to turn on the check against STD-3 ASCII rules
+Method Summary
+All Methods
+Static Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+String
+toASCII
+(
+String
+input)
+Translates a string from Unicode to ASCII Compatible Encoding (ACE),
+ as defined by the ToASCII operation of
+RFC 3490
+.
+static
+String
+toASCII
+(
+String
+input,
+ int flag)
+Translates a string from Unicode to ASCII Compatible Encoding (ACE),
+ as defined by the ToASCII operation of
+RFC 3490
+.
+static
+String
+toUnicode
+(
+String
+input)
+Translates a string from ASCII Compatible Encoding (ACE) to Unicode,
+ as defined by the ToUnicode operation of
+RFC 3490
+.
+static
+String
+toUnicode
+(
+String
+input,
+ int flag)
+Translates a string from ASCII Compatible Encoding (ACE) to Unicode,
+ as defined by the ToUnicode operation of
+RFC 3490
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+ALLOW_UNASSIGNED
+public static final
+int
+ALLOW_UNASSIGNED
+Flag to allow processing of unassigned code points
+See Also:
+Constant Field Values
+USE_STD3_ASCII_RULES
+public static final
+int
+USE_STD3_ASCII_RULES
+Flag to turn on the check against STD-3 ASCII rules
+See Also:
+Constant Field Values
+Method Details
+toASCII
+public static
+String
+toASCII
+(
+String
+input,
+ int flag)
+Translates a string from Unicode to ASCII Compatible Encoding (ACE),
+ as defined by the ToASCII operation of
+RFC 3490
+.
+ToASCII operation can fail. ToASCII fails if any step of it fails.
+ If ToASCII operation fails, an IllegalArgumentException will be thrown.
+ In this case, the input string should not be used in an internationalized domain name.
+A label is an individual part of a domain name. The original ToASCII operation,
+ as defined in RFC 3490, only operates on a single label. This method can handle
+ both label and entire domain name, by assuming that labels in a domain name are
+ always separated by dots. The following characters are recognized as dots:
+ \u002E (full stop), \u3002 (ideographic full stop), \uFF0E (fullwidth full stop),
+ and \uFF61 (halfwidth ideographic full stop). if dots are
+ used as label separators, this method also changes all of them to \u002E (full stop)
+ in output translated string.
+Parameters:
+input
+- the string to be processed
+flag
+- process flag; can be 0 or any logical OR of possible flags
+Returns:
+the translated
+String
+Throws:
+IllegalArgumentException
+- if the input string doesn't conform to RFC 3490 specification
+External Specifications
+RFC 3490: Internationalizing Domain Names in Applications (IDNA)
+toASCII
+public static
+String
+toASCII
+(
+String
+input)
+Translates a string from Unicode to ASCII Compatible Encoding (ACE),
+ as defined by the ToASCII operation of
+RFC 3490
+.
+This convenience method works as if by invoking the
+ two-argument counterpart as follows:
+toASCII
+(input, 0);
+Parameters:
+input
+- the string to be processed
+Returns:
+the translated
+String
+Throws:
+IllegalArgumentException
+- if the input string doesn't conform to RFC 3490 specification
+External Specifications
+RFC 3490: Internationalizing Domain Names in Applications (IDNA)
+toUnicode
+public static
+String
+toUnicode
+(
+String
+input,
+ int flag)
+Translates a string from ASCII Compatible Encoding (ACE) to Unicode,
+ as defined by the ToUnicode operation of
+RFC 3490
+.
+ToUnicode never fails. In case of any error, the input string is returned unmodified.
+A label is an individual part of a domain name. The original ToUnicode operation,
+ as defined in RFC 3490, only operates on a single label. This method can handle
+ both label and entire domain name, by assuming that labels in a domain name are
+ always separated by dots. The following characters are recognized as dots:
+ \u002E (full stop), \u3002 (ideographic full stop), \uFF0E (fullwidth full stop),
+ and \uFF61 (halfwidth ideographic full stop).
+Parameters:
+input
+- the string to be processed
+flag
+- process flag; can be 0 or any logical OR of possible flags
+Returns:
+the translated
+String
+External Specifications
+RFC 3490: Internationalizing Domain Names in Applications (IDNA)
+toUnicode
+public static
+String
+toUnicode
+(
+String
+input)
+Translates a string from ASCII Compatible Encoding (ACE) to Unicode,
+ as defined by the ToUnicode operation of
+RFC 3490
+.
+This convenience method works as if by invoking the
+ two-argument counterpart as follows:
+toUnicode
+(input, 0);
+Parameters:
+input
+- the string to be processed
+Returns:
+the translated
+String
+External Specifications
+RFC 3490: Internationalizing Domain Names in Applications (IDNA)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

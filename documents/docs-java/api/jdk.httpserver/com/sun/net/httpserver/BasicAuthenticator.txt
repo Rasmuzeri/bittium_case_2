@@ -1,0 +1,333 @@
+BasicAuthenticator (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+jdk.httpserver
+Package
+com.sun.net.httpserver
+Class BasicAuthenticator
+java.lang.Object
+com.sun.net.httpserver.Authenticator
+com.sun.net.httpserver.BasicAuthenticator
+public abstract class
+BasicAuthenticator
+extends
+Authenticator
+BasicAuthenticator provides an implementation of HTTP Basic
+ authentication. It is an abstract class and must be extended
+ to provide an implementation of
+checkCredentials(String,String)
+which is called to verify each incoming request.
+Nested Class Summary
+Nested classes/interfaces declared in class com.sun.net.httpserver.
+Authenticator
+Authenticator.Failure
+,
+Authenticator.Result
+,
+Authenticator.Retry
+,
+Authenticator.Success
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected final
+String
+realm
+The HTTP Basic authentication realm.
+Constructor Summary
+Constructors
+Constructor
+Description
+BasicAuthenticator
+(
+String
+realm)
+Creates a
+BasicAuthenticator
+for the given HTTP realm.
+BasicAuthenticator
+(
+String
+realm,
+Charset
+charset)
+Creates a
+BasicAuthenticator
+for the given HTTP realm and using the
+ given
+Charset
+to decode the Basic authentication credentials
+ (username and password).
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Authenticator.Result
+authenticate
+(
+HttpExchange
+t)
+Called to authenticate each incoming request.
+abstract boolean
+checkCredentials
+(
+String
+username,
+String
+password)
+Called for each incoming request to verify the
+ given name and password in the context of this
+ authenticator's realm.
+String
+getRealm
+()
+Returns the realm this
+BasicAuthenticator
+was created with.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+realm
+protected final
+String
+realm
+The HTTP Basic authentication realm.
+Constructor Details
+BasicAuthenticator
+public
+BasicAuthenticator
+(
+String
+realm)
+Creates a
+BasicAuthenticator
+for the given HTTP realm.
+ The Basic authentication credentials (username and password) are decoded
+ using the platform's
+default character set
+.
+API Note:
+The value of the
+realm
+parameter will be embedded in a
+ quoted string.
+Parameters:
+realm
+- the HTTP Basic authentication realm
+Throws:
+NullPointerException
+- if realm is
+null
+IllegalArgumentException
+- if realm is an empty string or is not
+         correctly quoted, as specified in
+RFC 7230 section-3.2
+. Note, any
+\
+character used for
+         quoting must itself be quoted in source code.
+BasicAuthenticator
+public
+BasicAuthenticator
+(
+String
+realm,
+Charset
+charset)
+Creates a
+BasicAuthenticator
+for the given HTTP realm and using the
+ given
+Charset
+to decode the Basic authentication credentials
+ (username and password).
+API Note:
+UTF-8
+is the recommended charset because its usage is
+ communicated to the client, and therefore more likely to be used also
+ by the client.
+The value of the
+realm
+parameter will be embedded in a quoted
+ string.
+Parameters:
+realm
+- the HTTP Basic authentication realm
+charset
+- the
+Charset
+to decode incoming credentials from the client
+Throws:
+NullPointerException
+- if realm or charset are
+null
+IllegalArgumentException
+- if realm is an empty string or is not
+         correctly quoted, as specified in
+RFC 7230 section-3.2
+. Note, any
+\
+character used for
+         quoting must itself be quoted in source code.
+Method Details
+getRealm
+public
+String
+getRealm
+()
+Returns the realm this
+BasicAuthenticator
+was created with.
+Returns:
+the authenticator's realm string
+authenticate
+public
+Authenticator.Result
+authenticate
+(
+HttpExchange
+t)
+Description copied from class:
+Authenticator
+Called to authenticate each incoming request. The implementation
+ must return a
+Authenticator.Failure
+,
+Authenticator.Success
+or
+Authenticator.Retry
+object as appropriate:
+Failure
+means the authentication has completed, but has
+     failed due to invalid credentials.
+Success
+means that the authentication has succeeded,
+     and a
+Principal
+object representing the user can be retrieved
+     by calling
+Authenticator.Success.getPrincipal()
+.
+Retry
+means that another HTTP
+exchange
+is required. Any response headers needing to be sent back to the client are set
+     in the given
+HttpExchange
+. The response code to be returned must be
+     provided in the
+Retry
+object.
+Retry
+may occur multiple times.
+Specified by:
+authenticate
+in class
+Authenticator
+Parameters:
+t
+- the
+HttpExchange
+upon which authenticate is called
+Returns:
+the result
+checkCredentials
+public abstract
+boolean
+checkCredentials
+(
+String
+username,
+String
+password)
+Called for each incoming request to verify the
+ given name and password in the context of this
+ authenticator's realm. Any caching of credentials
+ must be done by the implementation of this method.
+Parameters:
+username
+- the username from the request
+password
+- the password from the request
+Returns:
+true
+if the credentials are valid,
+false
+otherwise
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,200 @@
+NotificationEmitter (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.management
+Package
+javax.management
+Interface NotificationEmitter
+All Superinterfaces:
+NotificationBroadcaster
+All Known Implementing Classes:
+CounterMonitor
+,
+GaugeMonitor
+,
+JMXConnectorServer
+,
+MBeanServerDelegate
+,
+Monitor
+,
+NotificationBroadcasterSupport
+,
+RelationService
+,
+RequiredModelMBean
+,
+RMIConnectorServer
+,
+StandardEmitterMBean
+,
+StringMonitor
+,
+Timer
+public interface
+NotificationEmitter
+extends
+NotificationBroadcaster
+Interface implemented by an MBean that emits Notifications. It
+ allows a listener to be registered with the MBean as a notification
+ listener.
+Notification dispatch
+When an MBean emits a notification, it considers each listener that has been
+ added with
+addNotificationListener
+and not
+ subsequently removed with
+removeNotificationListener
+.
+ If a filter was provided with that listener, and if the filter's
+isNotificationEnabled
+method returns
+ false, the listener is ignored.  Otherwise, the listener's
+handleNotification
+method is called with
+ the notification, as well as the handback object that was provided to
+addNotificationListener
+.
+If the same listener is added more than once, it is considered as many times as it was
+ added.  It is often useful to add the same listener with different filters or handback
+ objects.
+Implementations of this interface can differ regarding the thread in which the methods
+ of filters and listeners are called.
+If the method call of a filter or listener throws an
+Exception
+, then that
+ exception should not prevent other listeners from being invoked.  However, if the method
+ call throws an
+Error
+, then it is recommended that processing of the notification
+ stop at that point, and if it is possible to propagate the
+Error
+to the sender of
+ the notification, this should be done.
+This interface should be used by new code in preference to the
+NotificationBroadcaster
+interface.
+Implementations of this interface and of
+NotificationBroadcaster
+should be careful about synchronization.  In particular, it is not a good
+ idea for an implementation to hold any locks while it is calling a
+ listener.  To deal with the possibility that the list of listeners might
+ change while a notification is being dispatched, a good strategy is to
+ use a
+CopyOnWriteArrayList
+for this list.
+Since:
+1.5
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+void
+removeNotificationListener
+(
+NotificationListener
+listener,
+NotificationFilter
+filter,
+Object
+handback)
+Removes a listener from this MBean.
+Methods declared in interface javax.management.
+NotificationBroadcaster
+addNotificationListener
+,
+getNotificationInfo
+,
+removeNotificationListener
+Method Details
+removeNotificationListener
+void
+removeNotificationListener
+(
+NotificationListener
+listener,
+NotificationFilter
+filter,
+Object
+handback)
+throws
+ListenerNotFoundException
+Removes a listener from this MBean.  The MBean must have a
+ listener that exactly matches the given
+listener
+,
+filter
+, and
+handback
+parameters.  If
+ there is more than one such listener, only one is removed.
+The
+filter
+and
+handback
+parameters
+ may be null if and only if they are null in a listener to be
+ removed.
+Parameters:
+listener
+- A listener that was previously added to this
+ MBean.
+filter
+- The filter that was specified when the listener
+ was added.
+handback
+- The handback that was specified when the listener was
+ added.
+Throws:
+ListenerNotFoundException
+- The listener is not
+ registered with the MBean, or it is not registered with the
+ given filter and handback.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

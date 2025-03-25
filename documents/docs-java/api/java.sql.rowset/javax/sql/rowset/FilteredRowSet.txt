@@ -1,0 +1,1054 @@
+FilteredRowSet (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.sql.rowset
+Package
+javax.sql.rowset
+Interface FilteredRowSet
+All Superinterfaces:
+AutoCloseable
+,
+CachedRowSet
+,
+Joinable
+,
+ResultSet
+,
+RowSet
+,
+WebRowSet
+,
+Wrapper
+public interface
+FilteredRowSet
+extends
+WebRowSet
+The standard interface that all standard implementations of
+FilteredRowSet
+must implement. The
+FilteredRowSetImpl
+class
+ provides the reference implementation which may be extended if required.
+ Alternatively, a vendor is free to implement its own version
+ by implementing this interface.
+1.0 Background
+There are occasions when a
+RowSet
+object has a need to provide a degree
+ of filtering to its contents. One possible solution is to provide
+ a query language for all standard
+RowSet
+implementations; however,
+ this is an impractical approach for lightweight components such as disconnected
+RowSet
+objects. The
+FilteredRowSet
+interface seeks to address this need
+ without supplying a heavyweight query language along with the processing that
+ such a query language would require.
+A JDBC
+FilteredRowSet
+standard implementation implements the
+RowSet
+interfaces and extends the
+CachedRowSet
+class. The
+CachedRowSet
+class provides a set of protected cursor manipulation
+ methods, which a
+FilteredRowSet
+implementation can override
+ to supply filtering support.
+2.0 Predicate Sharing
+If a
+FilteredRowSet
+implementation is shared using the
+ inherited
+createShared
+method in parent interfaces, the
+Predicate
+should be shared without modification by all
+FilteredRowSet
+instance clones.
+3.0 Usage
+By implementing a
+Predicate
+(see example in
+Predicate
+class JavaDoc), a
+FilteredRowSet
+could then be used as described
+ below.
+FilteredRowSet frs = new FilteredRowSetImpl();
+     frs.populate(rs);
+
+     Range name = new Range("Alpha", "Bravo", "columnName");
+     frs.setFilter(name);
+
+     frs.next() // only names from "Alpha" to "Bravo" will be returned
+In the example above, we initialize a
+Range
+object which
+ implements the
+Predicate
+interface. This object expresses
+ the following constraints: All rows outputted or modified from this
+FilteredRowSet
+object must fall between the values 'Alpha' and
+ 'Bravo' both values inclusive, in the column 'columnName'. If a filter is
+ applied to a
+FilteredRowSet
+object that contains no data that
+ falls within the range of the filter, no rows are returned.
+This framework allows multiple classes implementing predicates to be
+ used in combination to achieved the required filtering result with
+ out the need for query language processing.
+4.0 Updating a
+FilteredRowSet
+Object
+The predicate set on a
+FilteredRowSet
+object
+ applies a criterion on all rows in a
+RowSet
+object to manage a subset of rows in a
+RowSet
+object. This criterion governs the subset of rows that are visible and also
+ defines which rows can be modified, deleted or inserted.
+Therefore, the predicate set on a
+FilteredRowSet
+object must be
+ considered as bi-directional and the set criterion as the gating mechanism
+ for all views and updates to the
+FilteredRowSet
+object. Any attempt
+ to update the
+FilteredRowSet
+that violates the criterion will
+ result in a
+SQLException
+object being thrown.
+The
+FilteredRowSet
+range criterion can be modified by applying
+ a new
+Predicate
+object to the
+FilteredRowSet
+instance at any time. This is  possible if no additional references to the
+FilteredRowSet
+object are detected. A new filter has an
+ immediate effect on criterion enforcement within the
+FilteredRowSet
+object, and all subsequent views and updates will be
+ subject to similar enforcement.
+5.0 Behavior of Rows Outside the Filter
+Rows that fall outside of the filter set on a
+FilteredRowSet
+object cannot be modified until the filter is removed or a
+ new filter is applied.
+Furthermore, only rows that fall within the bounds of a filter will be
+ synchronized with the data source.
+Since:
+1.5
+Field Summary
+Fields declared in interface javax.sql.rowset.
+CachedRowSet
+COMMIT_ON_ACCEPT_CHANGES
+Fields declared in interface java.sql.
+ResultSet
+CLOSE_CURSORS_AT_COMMIT
+,
+CONCUR_READ_ONLY
+,
+CONCUR_UPDATABLE
+,
+FETCH_FORWARD
+,
+FETCH_REVERSE
+,
+FETCH_UNKNOWN
+,
+HOLD_CURSORS_OVER_COMMIT
+,
+TYPE_FORWARD_ONLY
+,
+TYPE_SCROLL_INSENSITIVE
+,
+TYPE_SCROLL_SENSITIVE
+Fields declared in interface javax.sql.rowset.
+WebRowSet
+PUBLIC_XML_SCHEMA
+,
+SCHEMA_SYSTEM_ID
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+Predicate
+getFilter
+()
+Retrieves the active filter for this
+FilteredRowSet
+object.
+void
+setFilter
+(
+Predicate
+p)
+Applies the given
+Predicate
+object to this
+FilteredRowSet
+object.
+Methods declared in interface javax.sql.rowset.
+CachedRowSet
+acceptChanges
+,
+acceptChanges
+,
+columnUpdated
+,
+columnUpdated
+,
+commit
+,
+createCopy
+,
+createCopyNoConstraints
+,
+createCopySchema
+,
+createShared
+,
+execute
+,
+getKeyColumns
+,
+getOriginal
+,
+getOriginalRow
+,
+getPageSize
+,
+getRowSetWarnings
+,
+getShowDeleted
+,
+getSyncProvider
+,
+getTableName
+,
+nextPage
+,
+populate
+,
+populate
+,
+previousPage
+,
+release
+,
+restoreOriginal
+,
+rollback
+,
+rollback
+,
+rowSetPopulated
+,
+setKeyColumns
+,
+setMetaData
+,
+setOriginalRow
+,
+setPageSize
+,
+setShowDeleted
+,
+setSyncProvider
+,
+setTableName
+,
+size
+,
+toCollection
+,
+toCollection
+,
+toCollection
+,
+undoDelete
+,
+undoInsert
+,
+undoUpdate
+Methods declared in interface javax.sql.rowset.
+Joinable
+getMatchColumnIndexes
+,
+getMatchColumnNames
+,
+setMatchColumn
+,
+setMatchColumn
+,
+setMatchColumn
+,
+setMatchColumn
+,
+unsetMatchColumn
+,
+unsetMatchColumn
+,
+unsetMatchColumn
+,
+unsetMatchColumn
+Methods declared in interface java.sql.
+ResultSet
+absolute
+,
+afterLast
+,
+beforeFirst
+,
+cancelRowUpdates
+,
+clearWarnings
+,
+close
+,
+deleteRow
+,
+findColumn
+,
+first
+,
+getArray
+,
+getArray
+,
+getAsciiStream
+,
+getAsciiStream
+,
+getBigDecimal
+,
+getBigDecimal
+,
+getBigDecimal
+,
+getBigDecimal
+,
+getBinaryStream
+,
+getBinaryStream
+,
+getBlob
+,
+getBlob
+,
+getBoolean
+,
+getBoolean
+,
+getByte
+,
+getByte
+,
+getBytes
+,
+getBytes
+,
+getCharacterStream
+,
+getCharacterStream
+,
+getClob
+,
+getClob
+,
+getConcurrency
+,
+getCursorName
+,
+getDate
+,
+getDate
+,
+getDate
+,
+getDate
+,
+getDouble
+,
+getDouble
+,
+getFetchDirection
+,
+getFetchSize
+,
+getFloat
+,
+getFloat
+,
+getHoldability
+,
+getInt
+,
+getInt
+,
+getLong
+,
+getLong
+,
+getMetaData
+,
+getNCharacterStream
+,
+getNCharacterStream
+,
+getNClob
+,
+getNClob
+,
+getNString
+,
+getNString
+,
+getObject
+,
+getObject
+,
+getObject
+,
+getObject
+,
+getObject
+,
+getObject
+,
+getRef
+,
+getRef
+,
+getRow
+,
+getRowId
+,
+getRowId
+,
+getShort
+,
+getShort
+,
+getSQLXML
+,
+getSQLXML
+,
+getStatement
+,
+getString
+,
+getString
+,
+getTime
+,
+getTime
+,
+getTime
+,
+getTime
+,
+getTimestamp
+,
+getTimestamp
+,
+getTimestamp
+,
+getTimestamp
+,
+getType
+,
+getUnicodeStream
+,
+getUnicodeStream
+,
+getURL
+,
+getURL
+,
+getWarnings
+,
+insertRow
+,
+isAfterLast
+,
+isBeforeFirst
+,
+isClosed
+,
+isFirst
+,
+isLast
+,
+last
+,
+moveToCurrentRow
+,
+moveToInsertRow
+,
+next
+,
+previous
+,
+refreshRow
+,
+relative
+,
+rowDeleted
+,
+rowInserted
+,
+rowUpdated
+,
+setFetchDirection
+,
+setFetchSize
+,
+updateArray
+,
+updateArray
+,
+updateAsciiStream
+,
+updateAsciiStream
+,
+updateAsciiStream
+,
+updateAsciiStream
+,
+updateAsciiStream
+,
+updateAsciiStream
+,
+updateBigDecimal
+,
+updateBigDecimal
+,
+updateBinaryStream
+,
+updateBinaryStream
+,
+updateBinaryStream
+,
+updateBinaryStream
+,
+updateBinaryStream
+,
+updateBinaryStream
+,
+updateBlob
+,
+updateBlob
+,
+updateBlob
+,
+updateBlob
+,
+updateBlob
+,
+updateBlob
+,
+updateBoolean
+,
+updateBoolean
+,
+updateByte
+,
+updateByte
+,
+updateBytes
+,
+updateBytes
+,
+updateCharacterStream
+,
+updateCharacterStream
+,
+updateCharacterStream
+,
+updateCharacterStream
+,
+updateCharacterStream
+,
+updateCharacterStream
+,
+updateClob
+,
+updateClob
+,
+updateClob
+,
+updateClob
+,
+updateClob
+,
+updateClob
+,
+updateDate
+,
+updateDate
+,
+updateDouble
+,
+updateDouble
+,
+updateFloat
+,
+updateFloat
+,
+updateInt
+,
+updateInt
+,
+updateLong
+,
+updateLong
+,
+updateNCharacterStream
+,
+updateNCharacterStream
+,
+updateNCharacterStream
+,
+updateNCharacterStream
+,
+updateNClob
+,
+updateNClob
+,
+updateNClob
+,
+updateNClob
+,
+updateNClob
+,
+updateNClob
+,
+updateNString
+,
+updateNString
+,
+updateNull
+,
+updateNull
+,
+updateObject
+,
+updateObject
+,
+updateObject
+,
+updateObject
+,
+updateObject
+,
+updateObject
+,
+updateObject
+,
+updateObject
+,
+updateRef
+,
+updateRef
+,
+updateRow
+,
+updateRowId
+,
+updateRowId
+,
+updateShort
+,
+updateShort
+,
+updateSQLXML
+,
+updateSQLXML
+,
+updateString
+,
+updateString
+,
+updateTime
+,
+updateTime
+,
+updateTimestamp
+,
+updateTimestamp
+,
+wasNull
+Methods declared in interface javax.sql.
+RowSet
+addRowSetListener
+,
+clearParameters
+,
+execute
+,
+getCommand
+,
+getDataSourceName
+,
+getEscapeProcessing
+,
+getMaxFieldSize
+,
+getMaxRows
+,
+getPassword
+,
+getQueryTimeout
+,
+getTransactionIsolation
+,
+getTypeMap
+,
+getUrl
+,
+getUsername
+,
+isReadOnly
+,
+removeRowSetListener
+,
+setArray
+,
+setAsciiStream
+,
+setAsciiStream
+,
+setAsciiStream
+,
+setAsciiStream
+,
+setBigDecimal
+,
+setBigDecimal
+,
+setBinaryStream
+,
+setBinaryStream
+,
+setBinaryStream
+,
+setBinaryStream
+,
+setBlob
+,
+setBlob
+,
+setBlob
+,
+setBlob
+,
+setBlob
+,
+setBlob
+,
+setBoolean
+,
+setBoolean
+,
+setByte
+,
+setByte
+,
+setBytes
+,
+setBytes
+,
+setCharacterStream
+,
+setCharacterStream
+,
+setCharacterStream
+,
+setCharacterStream
+,
+setClob
+,
+setClob
+,
+setClob
+,
+setClob
+,
+setClob
+,
+setClob
+,
+setCommand
+,
+setConcurrency
+,
+setDataSourceName
+,
+setDate
+,
+setDate
+,
+setDate
+,
+setDate
+,
+setDouble
+,
+setDouble
+,
+setEscapeProcessing
+,
+setFloat
+,
+setFloat
+,
+setInt
+,
+setInt
+,
+setLong
+,
+setLong
+,
+setMaxFieldSize
+,
+setMaxRows
+,
+setNCharacterStream
+,
+setNCharacterStream
+,
+setNCharacterStream
+,
+setNCharacterStream
+,
+setNClob
+,
+setNClob
+,
+setNClob
+,
+setNClob
+,
+setNClob
+,
+setNClob
+,
+setNString
+,
+setNString
+,
+setNull
+,
+setNull
+,
+setNull
+,
+setNull
+,
+setObject
+,
+setObject
+,
+setObject
+,
+setObject
+,
+setObject
+,
+setObject
+,
+setPassword
+,
+setQueryTimeout
+,
+setReadOnly
+,
+setRef
+,
+setRowId
+,
+setRowId
+,
+setShort
+,
+setShort
+,
+setSQLXML
+,
+setSQLXML
+,
+setString
+,
+setString
+,
+setTime
+,
+setTime
+,
+setTime
+,
+setTime
+,
+setTimestamp
+,
+setTimestamp
+,
+setTimestamp
+,
+setTimestamp
+,
+setTransactionIsolation
+,
+setType
+,
+setTypeMap
+,
+setUrl
+,
+setURL
+,
+setUsername
+Methods declared in interface javax.sql.rowset.
+WebRowSet
+readXml
+,
+readXml
+,
+writeXml
+,
+writeXml
+,
+writeXml
+,
+writeXml
+Methods declared in interface java.sql.
+Wrapper
+isWrapperFor
+,
+unwrap
+Method Details
+setFilter
+void
+setFilter
+(
+Predicate
+p)
+throws
+SQLException
+Applies the given
+Predicate
+object to this
+FilteredRowSet
+object. The filter applies controls both to inbound and outbound views,
+ constraining which rows are visible and which
+ rows can be manipulated.
+A new
+Predicate
+object may be set at any time. This has the
+ effect of changing constraints on the
+RowSet
+object's data.
+ In addition, modifying the filter at runtime presents issues whereby
+ multiple components may be operating on one
+FilteredRowSet
+object.
+ Application developers must take responsibility for managing multiple handles
+ to
+FilteredRowSet
+objects when their underling
+Predicate
+objects change.
+Parameters:
+p
+- a
+Predicate
+object defining the filter for this
+FilteredRowSet
+object. Setting a
+null
+value
+ will clear the predicate, allowing all rows to become visible.
+Throws:
+SQLException
+- if an error occurs when setting the
+Predicate
+object
+getFilter
+Predicate
+getFilter
+()
+Retrieves the active filter for this
+FilteredRowSet
+object.
+Returns:
+p the
+Predicate
+for this
+FilteredRowSet
+object;
+null
+if no filter has been set.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

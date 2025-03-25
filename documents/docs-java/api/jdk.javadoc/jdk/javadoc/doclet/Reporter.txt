@@ -1,0 +1,389 @@
+Reporter (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.javadoc
+Package
+jdk.javadoc.doclet
+Interface Reporter
+public interface
+Reporter
+Interface for reporting diagnostics and other messages.
+Diagnostics consist of a
+diagnostic kind
+and a message,
+ and may additionally be associated with an
+element
+,
+ a
+tree node
+in a documentation comment,
+ or an arbitrary position in a given
+file
+.
+ Other messages may be written directly to one of two streams that are informally
+ for use by "standard output" and "diagnostic output", where "standard output"
+ means the output that is the expected result of executing some operation,
+ such as the command-line help that is generated when using a
+--help
+option,
+ and "diagnostic output" refers to any errors, warnings and other output that is
+ a side effect of executing the operation.
+The exact manner in which diagnostics are output is unspecified and depends
+ on the enclosing context. For example:
+The
+DocumentationTool
+API allows a client to specify a
+DiagnosticListener
+to which diagnostics will be
+reported
+. If no listener is specified,
+ diagnostics will be written to a given stream, or to
+System.err
+if no such
+ stream is provided.
+The
+ToolProvider
+API allows a client to specify
+ the streams to be used for reporting standard and diagnostic output.
+Since:
+9
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+default
+PrintWriter
+getDiagnosticWriter
+()
+Returns a writer that can be used to write diagnostic output,
+ or
+null
+if no such writer is available.
+default
+PrintWriter
+getStandardWriter
+()
+Returns a writer that can be used to write non-diagnostic output,
+ or
+null
+if no such writer is available.
+default void
+print
+(
+Diagnostic.Kind
+kind,
+DocTreePath
+path,
+ int start,
+ int pos,
+ int end,
+String
+message)
+Prints a diagnostic message related to a position within a range of characters in a tree node.
+void
+print
+(
+Diagnostic.Kind
+kind,
+DocTreePath
+path,
+String
+message)
+Prints a diagnostic message related to a tree node in a documentation comment.
+void
+print
+(
+Diagnostic.Kind
+kind,
+String
+message)
+Prints a diagnostic message.
+void
+print
+(
+Diagnostic.Kind
+kind,
+Element
+element,
+String
+message)
+Prints a diagnostic message related to an element.
+default void
+print
+(
+Diagnostic.Kind
+kind,
+FileObject
+file,
+ int start,
+ int pos,
+ int end,
+String
+message)
+Prints a diagnostic message related to a position within a range of characters in a file.
+Method Details
+print
+void
+print
+(
+Diagnostic.Kind
+kind,
+String
+message)
+Prints a diagnostic message.
+Parameters:
+kind
+- the kind of diagnostic
+message
+- the message to be printed
+print
+void
+print
+(
+Diagnostic.Kind
+kind,
+DocTreePath
+path,
+String
+message)
+Prints a diagnostic message related to a tree node in a documentation comment.
+Parameters:
+kind
+- the kind of diagnostic
+path
+- the path for the tree node
+message
+- the message to be printed
+print
+default
+void
+print
+(
+Diagnostic.Kind
+kind,
+DocTreePath
+path,
+ int start,
+ int pos,
+ int end,
+String
+message)
+Prints a diagnostic message related to a position within a range of characters in a tree node.
+
+ Only kinds of
+DocTree
+that wrap a simple string value are supported as leaf nodes
+ of the given path. This currently includes
+CommentTree
+,
+DocTypeTree
+,
+ReferenceTree
+, and
+TextTree
+.
+
+ The positions are all 0-based character offsets from the beginning of string.
+ The positions should satisfy the relation
+start <= pos <= end
+.
+Implementation Requirements:
+This implementation ignores the
+(start, pos, end)
+values and simply calls
+print(kind, path, message)
+.
+Parameters:
+kind
+- the kind of diagnostic
+path
+- the path for the tree node
+start
+- the beginning of the enclosing range
+pos
+- the position
+end
+- the end of the enclosing range
+message
+- the message to be printed
+Throws:
+IllegalArgumentException
+- if
+start
+,
+pos
+and
+end
+do
+          not form a valid range.
+Since:
+18
+print
+void
+print
+(
+Diagnostic.Kind
+kind,
+Element
+element,
+String
+message)
+Prints a diagnostic message related to an element.
+Parameters:
+kind
+- the kind of diagnostic
+element
+- the element
+message
+- the message to be printed
+print
+default
+void
+print
+(
+Diagnostic.Kind
+kind,
+FileObject
+file,
+ int start,
+ int pos,
+ int end,
+String
+message)
+Prints a diagnostic message related to a position within a range of characters in a file.
+ The positions are all 0-based character offsets from the beginning of content of the file.
+ The positions should satisfy the relation
+start <= pos <= end
+.
+Implementation Requirements:
+This implementation always throws
+UnsupportedOperationException
+.
+ The implementation provided by the
+javadoc
+tool to
+initialize
+a doclet
+ overrides this implementation.
+Parameters:
+kind
+- the kind of diagnostic
+file
+- the file
+start
+- the beginning of the enclosing range
+pos
+- the position
+end
+- the end of the enclosing range
+message
+- the message to be printed
+Since:
+17
+getStandardWriter
+default
+PrintWriter
+getStandardWriter
+()
+Returns a writer that can be used to write non-diagnostic output,
+ or
+null
+if no such writer is available.
+API Note:
+The value may or may not be the same as that returned by
+getDiagnosticWriter()
+.
+Implementation Requirements:
+This implementation returns
+null
+.
+ The implementation provided by the
+javadoc
+tool to
+initialize
+a doclet
+ always returns a non-
+null
+value.
+Returns:
+the writer
+Since:
+17
+getDiagnosticWriter
+default
+PrintWriter
+getDiagnosticWriter
+()
+Returns a writer that can be used to write diagnostic output,
+ or
+null
+if no such writer is available.
+API Note:
+The value may or may not be the same as that returned by
+getStandardWriter()
+.
+Implementation Requirements:
+This implementation returns
+null
+.
+ The implementation provided by the
+javadoc
+tool to
+initialize
+a doclet
+ always returns a non-
+null
+value.
+Returns:
+the writer
+Since:
+17
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

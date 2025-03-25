@@ -1,0 +1,443 @@
+Uses of Class javax.imageio.ImageTypeSpecifier (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Class
+javax.imageio.ImageTypeSpecifier
+Packages that use
+ImageTypeSpecifier
+Package
+Description
+javax.imageio
+The main package of the Java Image I/O API.
+javax.imageio.metadata
+A package of the Java Image I/O API dealing with reading and writing
+ metadata.
+javax.imageio.spi
+A package of the Java Image I/O API containing the plug-in interfaces for
+ readers, writers, transcoders, and streams, and a runtime registry.
+Uses of
+ImageTypeSpecifier
+in
+javax.imageio
+Fields in
+javax.imageio
+declared as
+ImageTypeSpecifier
+Modifier and Type
+Field
+Description
+protected
+ImageTypeSpecifier
+IIOParam.
+destinationType
+An
+ImageTypeSpecifier
+to be used to generate a
+ destination image when reading, or to set the output color type
+ when writing.
+Methods in
+javax.imageio
+that return
+ImageTypeSpecifier
+Modifier and Type
+Method
+Description
+static
+ImageTypeSpecifier
+ImageTypeSpecifier.
+createBanded
+(
+ColorSpace
+colorSpace,
+ int[] bankIndices,
+ int[] bandOffsets,
+ int dataType,
+ boolean hasAlpha,
+ boolean isAlphaPremultiplied)
+Returns a specifier for a banded image format that will use a
+ComponentColorModel
+and a
+BandedSampleModel
+to store each channel in a
+ separate array.
+static
+ImageTypeSpecifier
+ImageTypeSpecifier.
+createFromBufferedImageType
+(int bufferedImageType)
+Returns an
+ImageTypeSpecifier
+that encodes
+ one of the standard
+BufferedImage
+types
+ (other than
+TYPE_CUSTOM
+).
+static
+ImageTypeSpecifier
+ImageTypeSpecifier.
+createFromRenderedImage
+(
+RenderedImage
+image)
+Returns an
+ImageTypeSpecifier
+that encodes the
+ layout of a
+RenderedImage
+(which may be a
+BufferedImage
+).
+static
+ImageTypeSpecifier
+ImageTypeSpecifier.
+createGrayscale
+(int bits,
+ int dataType,
+ boolean isSigned)
+Returns a specifier for a grayscale image format that will pack
+ pixels of the given bit depth into array elements of
+ the specified data type.
+static
+ImageTypeSpecifier
+ImageTypeSpecifier.
+createGrayscale
+(int bits,
+ int dataType,
+ boolean isSigned,
+ boolean isAlphaPremultiplied)
+Returns a specifier for a grayscale plus alpha image format
+ that will pack pixels of the given bit depth into array
+ elements of the specified data type.
+static
+ImageTypeSpecifier
+ImageTypeSpecifier.
+createIndexed
+(byte[] redLUT,
+ byte[] greenLUT,
+ byte[] blueLUT,
+ byte[] alphaLUT,
+ int bits,
+ int dataType)
+Returns a specifier for an indexed-color image format that will pack
+ index values of the given bit depth into array elements of
+ the specified data type.
+static
+ImageTypeSpecifier
+ImageTypeSpecifier.
+createInterleaved
+(
+ColorSpace
+colorSpace,
+ int[] bandOffsets,
+ int dataType,
+ boolean hasAlpha,
+ boolean isAlphaPremultiplied)
+Returns a specifier for an interleaved image format that will
+ use a
+ComponentColorModel
+and a
+PixelInterleavedSampleModel
+to store each pixel
+ component in a separate byte, short, or int.
+static
+ImageTypeSpecifier
+ImageTypeSpecifier.
+createPacked
+(
+ColorSpace
+colorSpace,
+ int redMask,
+ int greenMask,
+ int blueMask,
+ int alphaMask,
+ int transferType,
+ boolean isAlphaPremultiplied)
+Returns a specifier for a packed image format that will use a
+DirectColorModel
+and a packed
+SampleModel
+to store each pixel packed into in a
+ single byte, short, or int.
+ImageTypeSpecifier
+IIOParam.
+getDestinationType
+()
+Returns the type of image to be returned by the read, if one
+ was set by a call to
+setDestination(ImageTypeSpecifier)
+, as an
+ImageTypeSpecifier
+.
+ImageTypeSpecifier
+ImageReader.
+getRawImageType
+(int imageIndex)
+Returns an
+ImageTypeSpecifier
+indicating the
+SampleModel
+and
+ColorModel
+which most
+ closely represents the "raw" internal format of the image.
+Methods in
+javax.imageio
+that return types with arguments of type
+ImageTypeSpecifier
+Modifier and Type
+Method
+Description
+abstract
+Iterator
+<
+ImageTypeSpecifier
+>
+ImageReader.
+getImageTypes
+(int imageIndex)
+Returns an
+Iterator
+containing possible image
+ types to which the given image may be decoded, in the form of
+ImageTypeSpecifiers
+s.
+Methods in
+javax.imageio
+with parameters of type
+ImageTypeSpecifier
+Modifier and Type
+Method
+Description
+IIOMetadata
+ImageTranscoder.
+convertImageMetadata
+(
+IIOMetadata
+inData,
+ImageTypeSpecifier
+imageType,
+ImageWriteParam
+param)
+Returns an
+IIOMetadata
+object that may be used for
+ encoding and optionally modified using its document interfaces
+ or other interfaces specific to the writer plug-in that will be
+ used for encoding.
+abstract
+IIOMetadata
+ImageWriter.
+getDefaultImageMetadata
+(
+ImageTypeSpecifier
+imageType,
+ImageWriteParam
+param)
+Returns an
+IIOMetadata
+object containing default
+ values for encoding an image of the given type.
+static
+Iterator
+<
+ImageWriter
+>
+ImageIO.
+getImageWriters
+(
+ImageTypeSpecifier
+type,
+String
+formatName)
+Returns an
+Iterator
+containing all currently
+ registered
+ImageWriter
+s that claim to be able to
+ encode images of the given layout (specified using an
+ImageTypeSpecifier
+) in the given format.
+int
+ImageWriter.
+getNumThumbnailsSupported
+(
+ImageTypeSpecifier
+imageType,
+ImageWriteParam
+param,
+IIOMetadata
+streamMetadata,
+IIOMetadata
+imageMetadata)
+Returns the number of thumbnails supported by the format being
+ written, given the image type and any additional write
+ parameters and metadata objects that will be used during
+ encoding.
+Dimension
+[]
+ImageWriter.
+getPreferredThumbnailSizes
+(
+ImageTypeSpecifier
+imageType,
+ImageWriteParam
+param,
+IIOMetadata
+streamMetadata,
+IIOMetadata
+imageMetadata)
+Returns an array of
+Dimension
+s indicating the
+ legal size ranges for thumbnail images as they will be encoded
+ in the output file or stream.
+void
+ImageWriter.
+prepareInsertEmpty
+(int imageIndex,
+ImageTypeSpecifier
+imageType,
+ int width,
+ int height,
+IIOMetadata
+imageMetadata,
+List
+<? extends
+BufferedImage
+> thumbnails,
+ImageWriteParam
+param)
+Begins the insertion of a new image with undefined pixel values
+ into an existing image stream.
+void
+ImageWriter.
+prepareWriteEmpty
+(
+IIOMetadata
+streamMetadata,
+ImageTypeSpecifier
+imageType,
+ int width,
+ int height,
+IIOMetadata
+imageMetadata,
+List
+<? extends
+BufferedImage
+> thumbnails,
+ImageWriteParam
+param)
+Begins the writing of a complete image stream, consisting of a
+ single image with undefined pixel values and associated
+ metadata and thumbnails, to the output.
+void
+IIOParam.
+setDestinationType
+(
+ImageTypeSpecifier
+destinationType)
+Sets the desired image type for the destination image, using an
+ImageTypeSpecifier
+.
+Method parameters in
+javax.imageio
+with type arguments of type
+ImageTypeSpecifier
+Modifier and Type
+Method
+Description
+protected static
+BufferedImage
+ImageReader.
+getDestination
+(
+ImageReadParam
+param,
+Iterator
+<
+ImageTypeSpecifier
+> imageTypes,
+ int width,
+ int height)
+Returns the
+BufferedImage
+to which decoded pixel
+ data should be written.
+Uses of
+ImageTypeSpecifier
+in
+javax.imageio.metadata
+Methods in
+javax.imageio.metadata
+with parameters of type
+ImageTypeSpecifier
+Modifier and Type
+Method
+Description
+boolean
+IIOMetadataFormat.
+canNodeAppear
+(
+String
+elementName,
+ImageTypeSpecifier
+imageType)
+Returns
+true
+if the element (and the subtree below
+ it) is allowed to appear in a metadata document for an image of
+ the given type, defined by an
+ImageTypeSpecifier
+.
+Uses of
+ImageTypeSpecifier
+in
+javax.imageio.spi
+Methods in
+javax.imageio.spi
+with parameters of type
+ImageTypeSpecifier
+Modifier and Type
+Method
+Description
+abstract boolean
+ImageWriterSpi.
+canEncodeImage
+(
+ImageTypeSpecifier
+type)
+Returns
+true
+if the
+ImageWriter
+implementation associated with this service provider is able to
+ encode an image with the given layout.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

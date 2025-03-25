@@ -1,0 +1,682 @@
+BlockView (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.text.html
+Class BlockView
+java.lang.Object
+javax.swing.text.View
+javax.swing.text.CompositeView
+javax.swing.text.BoxView
+javax.swing.text.html.BlockView
+All Implemented Interfaces:
+SwingConstants
+Direct Known Subclasses:
+ListView
+public class
+BlockView
+extends
+BoxView
+A view implementation to display a block (as a box)
+ with CSS specifications.
+Field Summary
+Fields declared in class javax.swing.text.
+View
+BadBreakWeight
+,
+ExcellentBreakWeight
+,
+ForcedBreakWeight
+,
+GoodBreakWeight
+,
+X_AXIS
+,
+Y_AXIS
+Fields declared in interface javax.swing.
+SwingConstants
+BOTTOM
+,
+CENTER
+,
+EAST
+,
+HORIZONTAL
+,
+LEADING
+,
+LEFT
+,
+NEXT
+,
+NORTH
+,
+NORTH_EAST
+,
+NORTH_WEST
+,
+PREVIOUS
+,
+RIGHT
+,
+SOUTH
+,
+SOUTH_EAST
+,
+SOUTH_WEST
+,
+TOP
+,
+TRAILING
+,
+VERTICAL
+,
+WEST
+Constructor Summary
+Constructors
+Constructor
+Description
+BlockView
+(
+Element
+elem,
+ int axis)
+Creates a new view that represents an
+ html box.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+protected
+SizeRequirements
+calculateMajorAxisRequirements
+(int axis,
+SizeRequirements
+r)
+Calculate the requirements of the block along the major
+ axis (i.e. the axis along with it tiles).
+protected
+SizeRequirements
+calculateMinorAxisRequirements
+(int axis,
+SizeRequirements
+r)
+Calculate the requirements of the block along the minor
+ axis (i.e. the axis orthogonal to the axis along with it tiles).
+float
+getAlignment
+(int axis)
+Gets the alignment.
+AttributeSet
+getAttributes
+()
+Fetches the attributes to use when rendering.
+float
+getMaximumSpan
+(int axis)
+Determines the maximum span for this view along an
+ axis.
+float
+getMinimumSpan
+(int axis)
+Determines the minimum span for this view along an
+ axis.
+float
+getPreferredSpan
+(int axis)
+Determines the preferred span for this view along an
+ axis.
+int
+getResizeWeight
+(int axis)
+Gets the resize weight.
+protected
+StyleSheet
+getStyleSheet
+()
+Convenient method to get the StyleSheet.
+protected void
+layoutMinorAxis
+(int targetSpan,
+ int axis,
+ int[] offsets,
+ int[] spans)
+Performs layout for the minor axis of the box (i.e. the
+ axis orthogonal to the axis that it represents).
+void
+paint
+(
+Graphics
+g,
+Shape
+allocation)
+Renders using the given rendering surface and area on that
+ surface.
+void
+setParent
+(
+View
+parent)
+Establishes the parent view for this view.
+protected void
+setPropertiesFromAttributes
+()
+Update any cached values that come from attributes.
+Methods declared in class javax.swing.text.
+BoxView
+baselineLayout
+,
+baselineRequirements
+,
+childAllocation
+,
+flipEastAndWestAtEnds
+,
+forwardUpdate
+,
+getAxis
+,
+getChildAllocation
+,
+getHeight
+,
+getOffset
+,
+getSpan
+,
+getViewAtPoint
+,
+getWidth
+,
+isAfter
+,
+isAllocationValid
+,
+isBefore
+,
+isLayoutValid
+,
+layout
+,
+layoutChanged
+,
+layoutMajorAxis
+,
+modelToView
+,
+paintChild
+,
+preferenceChanged
+,
+replace
+,
+setAxis
+,
+setSize
+,
+viewToModel
+Methods declared in class javax.swing.text.
+CompositeView
+getBottomInset
+,
+getInsideAllocation
+,
+getLeftInset
+,
+getNextEastWestVisualPositionFrom
+,
+getNextNorthSouthVisualPositionFrom
+,
+getNextVisualPositionFrom
+,
+getRightInset
+,
+getTopInset
+,
+getView
+,
+getViewAtPosition
+,
+getViewCount
+,
+getViewIndex
+,
+getViewIndexAtPosition
+,
+loadChildren
+,
+modelToView
+,
+setInsets
+,
+setParagraphInsets
+Methods declared in class javax.swing.text.
+View
+append
+,
+breakView
+,
+changedUpdate
+,
+createFragment
+,
+forwardUpdateToView
+,
+getBreakWeight
+,
+getContainer
+,
+getDocument
+,
+getElement
+,
+getEndOffset
+,
+getGraphics
+,
+getParent
+,
+getStartOffset
+,
+getToolTipText
+,
+getViewFactory
+,
+getViewIndex
+,
+insert
+,
+insertUpdate
+,
+isVisible
+,
+modelToView
+,
+remove
+,
+removeAll
+,
+removeUpdate
+,
+updateChildren
+,
+updateLayout
+,
+viewToModel
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+BlockView
+public
+BlockView
+(
+Element
+elem,
+ int axis)
+Creates a new view that represents an
+ html box.  This can be used for a number
+ of elements.
+Parameters:
+elem
+- the element to create a view for
+axis
+- either View.X_AXIS or View.Y_AXIS
+Method Details
+setParent
+public
+void
+setParent
+(
+View
+parent)
+Establishes the parent view for this view.  This is
+ guaranteed to be called before any other methods if the
+ parent view is functioning properly.
+This is implemented
+ to forward to the superclass as well as call the
+setPropertiesFromAttributes()
+method to set the paragraph properties from the css
+ attributes.  The call is made at this time to ensure
+ the ability to resolve upward through the parents
+ view attributes.
+Overrides:
+setParent
+in class
+CompositeView
+Parameters:
+parent
+- the new parent, or null if the view is
+  being removed from a parent it was previously added
+  to
+calculateMajorAxisRequirements
+protected
+SizeRequirements
+calculateMajorAxisRequirements
+(int axis,
+SizeRequirements
+r)
+Calculate the requirements of the block along the major
+ axis (i.e. the axis along with it tiles).  This is implemented
+ to provide the superclass behavior and then adjust it if the
+ CSS width or height attribute is specified and applicable to
+ the axis.
+Overrides:
+calculateMajorAxisRequirements
+in class
+BoxView
+Parameters:
+axis
+- the axis being studied
+r
+- the
+SizeRequirements
+object;
+          if
+null
+one will be created
+Returns:
+the newly initialized
+SizeRequirements
+object
+See Also:
+SizeRequirements
+calculateMinorAxisRequirements
+protected
+SizeRequirements
+calculateMinorAxisRequirements
+(int axis,
+SizeRequirements
+r)
+Calculate the requirements of the block along the minor
+ axis (i.e. the axis orthogonal to the axis along with it tiles).
+ This is implemented
+ to provide the superclass behavior and then adjust it if the
+ CSS width or height attribute is specified and applicable to
+ the axis.
+Overrides:
+calculateMinorAxisRequirements
+in class
+BoxView
+Parameters:
+axis
+- the axis being studied
+r
+- the
+SizeRequirements
+object;
+          if
+null
+one will be created
+Returns:
+the newly initialized
+SizeRequirements
+object
+See Also:
+SizeRequirements
+layoutMinorAxis
+protected
+void
+layoutMinorAxis
+(int targetSpan,
+ int axis,
+ int[] offsets,
+ int[] spans)
+Performs layout for the minor axis of the box (i.e. the
+ axis orthogonal to the axis that it represents). The results
+ of the layout (the offset and span for each children) are
+ placed in the given arrays which represent the allocations to
+ the children along the minor axis.
+Overrides:
+layoutMinorAxis
+in class
+BoxView
+Parameters:
+targetSpan
+- the total span given to the view, which
+  would be used to layout the children.
+axis
+- the axis being laid out
+offsets
+- the offsets from the origin of the view for
+  each of the child views; this is a return value and is
+  filled in by the implementation of this method
+spans
+- the span of each child view; this is a return
+  value and is filled in by the implementation of this method
+paint
+public
+void
+paint
+(
+Graphics
+g,
+Shape
+allocation)
+Renders using the given rendering surface and area on that
+ surface.  This is implemented to delegate to the css box
+ painter to paint the border and background prior to the
+ interior.
+Overrides:
+paint
+in class
+BoxView
+Parameters:
+g
+- the rendering surface to use
+allocation
+- the allocated region to render into
+See Also:
+View.paint(java.awt.Graphics, java.awt.Shape)
+getAttributes
+public
+AttributeSet
+getAttributes
+()
+Fetches the attributes to use when rendering.  This is
+ implemented to multiplex the attributes specified in the
+ model with a StyleSheet.
+Overrides:
+getAttributes
+in class
+View
+Returns:
+the attributes to use when rendering
+getResizeWeight
+public
+int
+getResizeWeight
+(int axis)
+Gets the resize weight.
+Overrides:
+getResizeWeight
+in class
+BoxView
+Parameters:
+axis
+- may be either X_AXIS or Y_AXIS
+Returns:
+the weight
+Throws:
+IllegalArgumentException
+- for an invalid axis
+getAlignment
+public
+float
+getAlignment
+(int axis)
+Gets the alignment.
+Overrides:
+getAlignment
+in class
+BoxView
+Parameters:
+axis
+- may be either X_AXIS or Y_AXIS
+Returns:
+the alignment
+getPreferredSpan
+public
+float
+getPreferredSpan
+(int axis)
+Determines the preferred span for this view along an
+ axis.
+Overrides:
+getPreferredSpan
+in class
+BoxView
+Parameters:
+axis
+- may be either
+View.X_AXIS
+or
+View.Y_AXIS
+Returns:
+the span the view would like to be rendered into >= 0;
+           typically the view is told to render into the span
+           that is returned, although there is no guarantee;
+           the parent may choose to resize or break the view
+Throws:
+IllegalArgumentException
+- for an invalid axis type
+getMinimumSpan
+public
+float
+getMinimumSpan
+(int axis)
+Determines the minimum span for this view along an
+ axis.
+Overrides:
+getMinimumSpan
+in class
+BoxView
+Parameters:
+axis
+- may be either
+View.X_AXIS
+or
+View.Y_AXIS
+Returns:
+the span the view would like to be rendered into >= 0;
+           typically the view is told to render into the span
+           that is returned, although there is no guarantee;
+           the parent may choose to resize or break the view
+Throws:
+IllegalArgumentException
+- for an invalid axis type
+See Also:
+View.getPreferredSpan(int)
+getMaximumSpan
+public
+float
+getMaximumSpan
+(int axis)
+Determines the maximum span for this view along an
+ axis.
+Overrides:
+getMaximumSpan
+in class
+BoxView
+Parameters:
+axis
+- may be either
+View.X_AXIS
+or
+View.Y_AXIS
+Returns:
+the span the view would like to be rendered into >= 0;
+           typically the view is told to render into the span
+           that is returned, although there is no guarantee;
+           the parent may choose to resize or break the view
+Throws:
+IllegalArgumentException
+- for an invalid axis type
+See Also:
+View.getPreferredSpan(int)
+setPropertiesFromAttributes
+protected
+void
+setPropertiesFromAttributes
+()
+Update any cached values that come from attributes.
+getStyleSheet
+protected
+StyleSheet
+getStyleSheet
+()
+Convenient method to get the StyleSheet.
+Returns:
+the StyleSheet
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,259 @@
+CardTerminal (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.smartcardio
+Package
+javax.smartcardio
+Class CardTerminal
+java.lang.Object
+javax.smartcardio.CardTerminal
+public abstract class
+CardTerminal
+extends
+Object
+A Smart Card terminal, sometimes referred to as a Smart Card Reader.
+ A CardTerminal object can be obtained by calling
+CardTerminals.list()
+or
+CardTerminals.getTerminal()
+.
+Note that physical card readers with slots for multiple cards are
+ represented by one
+CardTerminal
+object per such slot.
+Since:
+1.6
+See Also:
+CardTerminals
+TerminalFactory
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+CardTerminal
+()
+Constructs a new CardTerminal object.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+abstract
+Card
+connect
+(
+String
+protocol)
+Establishes a connection to the card.
+abstract
+String
+getName
+()
+Returns the unique name of this terminal.
+abstract boolean
+isCardPresent
+()
+Returns whether a card is present in this terminal.
+abstract boolean
+waitForCardAbsent
+(long timeout)
+Waits until a card is absent in this terminal or the timeout
+ expires.
+abstract boolean
+waitForCardPresent
+(long timeout)
+Waits until a card is present in this terminal or the timeout
+ expires.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+CardTerminal
+protected
+CardTerminal
+()
+Constructs a new CardTerminal object.
+This constructor is called by subclasses only. Application should
+ call
+list()
+or
+getTerminal()
+to obtain a CardTerminal object.
+Method Details
+getName
+public abstract
+String
+getName
+()
+Returns the unique name of this terminal.
+Returns:
+the unique name of this terminal.
+connect
+public abstract
+Card
+connect
+(
+String
+protocol)
+throws
+CardException
+Establishes a connection to the card.
+ If a connection has previously established using
+ the specified protocol, this method returns the same Card object as
+ the previous call.
+Parameters:
+protocol
+- the protocol to use ("T=0", "T=1", or "T=CL"), or "*" to
+   connect using any available protocol.
+Returns:
+the card the connection has been established with
+Throws:
+NullPointerException
+- if protocol is null
+IllegalArgumentException
+- if protocol is an invalid protocol
+   specification
+CardNotPresentException
+- if no card is present in this terminal
+CardException
+- if a connection could not be established
+   using the specified protocol or if a connection has previously been
+   established using a different protocol
+SecurityException
+- if a SecurityManager exists and the
+   caller does not have the required
+permission
+isCardPresent
+public abstract
+boolean
+isCardPresent
+()
+                               throws
+CardException
+Returns whether a card is present in this terminal.
+Returns:
+whether a card is present in this terminal.
+Throws:
+CardException
+- if the status could not be determined
+waitForCardPresent
+public abstract
+boolean
+waitForCardPresent
+(long timeout)
+throws
+CardException
+Waits until a card is present in this terminal or the timeout
+ expires. If the method returns due to an expired timeout, it returns
+ false. Otherwise it return true.
+If a card is present in this terminal when this
+ method is called, it returns immediately.
+Parameters:
+timeout
+- if positive, block for up to
+timeout
+milliseconds; if zero, block indefinitely; must not be negative
+Returns:
+false if the method returns due to an expired timeout,
+   true otherwise.
+Throws:
+IllegalArgumentException
+- if timeout is negative
+CardException
+- if the operation failed
+waitForCardAbsent
+public abstract
+boolean
+waitForCardAbsent
+(long timeout)
+throws
+CardException
+Waits until a card is absent in this terminal or the timeout
+ expires. If the method returns due to an expired timeout, it returns
+ false. Otherwise it return true.
+If no card is present in this terminal when this
+ method is called, it returns immediately.
+Parameters:
+timeout
+- if positive, block for up to
+timeout
+milliseconds; if zero, block indefinitely; must not be negative
+Returns:
+false if the method returns due to an expired timeout,
+   true otherwise.
+Throws:
+IllegalArgumentException
+- if timeout is negative
+CardException
+- if the operation failed
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

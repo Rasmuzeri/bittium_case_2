@@ -1,0 +1,447 @@
+CodeSource (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.security
+Class CodeSource
+java.lang.Object
+java.security.CodeSource
+All Implemented Interfaces:
+Serializable
+public class
+CodeSource
+extends
+Object
+implements
+Serializable
+This class extends the concept of a codebase to
+ encapsulate not only the location (URL) but also the certificate chains
+ that were used to verify signed code originating from that location.
+Since:
+1.2
+See Also:
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+CodeSource
+(
+URL
+url,
+Certificate
+[] certs)
+Constructs a
+CodeSource
+and associates it with the specified
+ location and set of certificates.
+CodeSource
+(
+URL
+url,
+CodeSigner
+[] signers)
+Constructs a
+CodeSource
+and associates it with the specified
+ location and set of code signers.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+equals
+(
+Object
+obj)
+Tests for equality between the specified object and this
+ object.
+final
+Certificate
+[]
+getCertificates
+()
+Returns the certificates associated with this
+CodeSource
+.
+final
+CodeSigner
+[]
+getCodeSigners
+()
+Returns the code signers associated with this
+CodeSource
+.
+final
+URL
+getLocation
+()
+Returns the location associated with this
+CodeSource
+.
+int
+hashCode
+()
+Returns the hash code value for this object.
+boolean
+implies
+(
+CodeSource
+codesource)
+Returns true if this
+CodeSource
+object "implies" the specified
+CodeSource
+.
+String
+toString
+()
+Returns a string describing this
+CodeSource
+, telling its
+ URL and certificates.
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+CodeSource
+public
+CodeSource
+(
+URL
+url,
+Certificate
+[] certs)
+Constructs a
+CodeSource
+and associates it with the specified
+ location and set of certificates.
+Parameters:
+url
+- the location (URL).  It may be
+null
+.
+certs
+- the certificate(s). It may be
+null
+. The contents
+ of the array are copied to protect against subsequent modification.
+CodeSource
+public
+CodeSource
+(
+URL
+url,
+CodeSigner
+[] signers)
+Constructs a
+CodeSource
+and associates it with the specified
+ location and set of code signers.
+Parameters:
+url
+- the location (URL).  It may be
+null
+.
+signers
+- the code signers. It may be
+null
+. The contents
+ of the array are copied to protect against subsequent modification.
+Since:
+1.5
+Method Details
+hashCode
+public
+int
+hashCode
+()
+Returns the hash code value for this object.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+a hash code value for this object.
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+equals
+public
+boolean
+equals
+(
+Object
+obj)
+Tests for equality between the specified object and this
+ object. Two
+CodeSource
+objects are considered equal if their
+ locations are of identical value and if their signer certificate
+ chains are of identical value. It is not required that
+ the certificate chains be in the same order.
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- the object to test for equality with this object.
+Returns:
+true
+if the objects are considered equal,
+false
+otherwise.
+See Also:
+Object.hashCode()
+HashMap
+getLocation
+public final
+URL
+getLocation
+()
+Returns the location associated with this
+CodeSource
+.
+Returns:
+the location (URL), or
+null
+if no URL was supplied
+ during construction.
+getCertificates
+public final
+Certificate
+[]
+getCertificates
+()
+Returns the certificates associated with this
+CodeSource
+.
+If this
+CodeSource
+object was created using the
+CodeSource(URL url, CodeSigner[] signers)
+constructor then its certificate chains are extracted and used to
+ create an array of
+Certificate
+objects. Each signer certificate
+ is followed by its supporting certificate chain (which may be empty).
+ Each signer certificate and its supporting certificate chain is ordered
+ bottom-to-top (i.e., with the signer certificate first and the (root)
+ certificate authority last).
+Returns:
+a copy of the certificate array, or
+null
+if there
+ is none.
+getCodeSigners
+public final
+CodeSigner
+[]
+getCodeSigners
+()
+Returns the code signers associated with this
+CodeSource
+.
+If this
+CodeSource
+object was created using the
+CodeSource(URL url, java.security.cert.Certificate[] certs)
+constructor then its certificate chains are extracted and used to
+ create an array of
+CodeSigner
+objects. Note that only X.509
+ certificates are examined - all other certificate types are ignored.
+Returns:
+a copy of the code signer array, or
+null
+if there
+ is none.
+Since:
+1.5
+implies
+public
+boolean
+implies
+(
+CodeSource
+codesource)
+Returns true if this
+CodeSource
+object "implies" the specified
+CodeSource
+.
+More specifically, this method makes the following checks.
+ If any fail, it returns
+false
+. If they all succeed, it returns
+true
+.
+codesource
+must not be null.
+If this object's certificates are not null, then all
+ of this object's certificates must be present in
+codesource
+'s
+ certificates.
+If this object's location (getLocation()) is not null, then the
+ following checks are made against this object's location and
+codesource
+'s:
+codesource
+'s location must not be null.
+If this object's location
+           equals
+codesource
+'s location, then return true.
+This object's protocol (getLocation().getProtocol()) must be
+           equal to
+codesource
+'s protocol, ignoring case.
+If this object's host (getLocation().getHost()) is not null,
+           then the SocketPermission
+           constructed with this object's host must imply the
+           SocketPermission constructed with
+codesource
+'s host.
+If this object's port (getLocation().getPort()) is not
+           equal to -1 (that is, if a port is specified), it must equal
+codesource
+'s port or default port
+           (codesource.getLocation().getDefaultPort()).
+If this object's file (getLocation().getFile()) doesn't equal
+codesource
+'s file, then the following checks are made:
+           If this object's file ends with "/-",
+           then
+codesource
+'s file must start with this object's
+           file (exclusive the trailing "-").
+           If this object's file ends with a "/*",
+           then
+codesource
+'s file must start with this object's
+           file and must not have any further "/" separators.
+           If this object's file doesn't end with a "/",
+           then
+codesource
+'s file must match this object's
+           file with a '/' appended.
+If this object's reference (getLocation().getRef()) is
+           not null, it must equal
+codesource
+'s reference.
+For example, the codesource objects with the following locations
+ and
+null
+certificates all imply the codesource with the location
+http://www.example.com/classes/foo.jar
+and
+null
+certificates:
+http:
+     http://*.example.com/classes/*
+     http://www.example.com/classes/-
+     http://www.example.com/classes/foo.jar
+Note that if this
+CodeSource
+has a
+null
+location and a
+null
+certificate chain, then it implies every other
+CodeSource
+.
+Parameters:
+codesource
+-
+CodeSource
+to compare against.
+Returns:
+true
+if the specified codesource is implied by this
+ codesource,
+false
+if not.
+toString
+public
+String
+toString
+()
+Returns a string describing this
+CodeSource
+, telling its
+ URL and certificates.
+Overrides:
+toString
+in class
+Object
+Returns:
+information about this
+CodeSource
+.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

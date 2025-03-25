@@ -1,0 +1,366 @@
+VectorShape (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Enum Constants
+Field
+Method
+Detail:
+Enum Constants
+Field
+Method
+Summary:
+Nested
+|
+Enum Constants
+|
+Field |
+Method
+Detail:
+Enum Constants
+|
+Field |
+Method
+SEARCH
+Module
+jdk.incubator.vector
+Package
+jdk.incubator.vector
+Enum Class VectorShape
+java.lang.Object
+java.lang.Enum
+<
+VectorShape
+>
+jdk.incubator.vector.VectorShape
+All Implemented Interfaces:
+Serializable
+,
+Comparable
+<
+VectorShape
+>
+,
+Constable
+public enum
+VectorShape
+extends
+Enum
+<
+VectorShape
+>
+A
+VectorShape
+selects a particular implementation of
+Vector
+s.
+
+ A shape in combination with the element type determines
+ a particular
+vector species
+object.
+API Note:
+Because not all shapes are supported by all platforms,
+ shape-agnostic code is more portable.
+ User code that selects particular shapes may
+ fail to run, or run slowly, on some platforms.
+ Use
+VectorShape.preferredShape()
+and
+VectorSpecies.ofPreferred()
+to select the shape that is usually preferable for
+ most uses.
+Nested Class Summary
+Nested classes/interfaces declared in class java.lang.
+Enum
+Enum.EnumDesc
+<
+E
+extends
+Enum
+<
+E
+>>
+Enum Constant Summary
+Enum Constants
+Enum Constant
+Description
+S_128_BIT
+Shape of length 128 bits
+S_256_BIT
+Shape of length 256 bits
+S_512_BIT
+Shape of length 512 bits
+S_64_BIT
+Shape of length 64 bits
+S_Max_BIT
+Shape of maximum length supported on the platform
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+VectorShape
+forBitSize
+(int bitSize)
+Finds an appropriate shape depending on the
+ proposed bit-size of a vector.
+static
+VectorShape
+forIndexBitSize
+(int indexBitSize,
+ int elementSize)
+Finds an appropriate index shape depending on the
+ proposed index-bit-size and element-size of a vector.
+static
+VectorShape
+preferredShape
+()
+Finds the vector shape preferred by the current platform
+ for all vector element types.
+static
+VectorShape
+valueOf
+(
+String
+name)
+Returns the enum constant of this class with the specified name.
+static
+VectorShape
+[]
+values
+()
+Returns an array containing the constants of this enum class, in
+the order they are declared.
+int
+vectorBitSize
+()
+Returns the size, in bits, of vectors of this shape.
+<E>
+VectorSpecies
+<E>
+withLanes
+(
+Class
+<E> elementType)
+Finds a vector species with the given element type
+ and the current shape.
+Methods declared in class java.lang.
+Enum
+clone
+,
+compareTo
+,
+describeConstable
+,
+equals
+,
+finalize
+,
+getDeclaringClass
+,
+hashCode
+,
+name
+,
+ordinal
+,
+toString
+,
+valueOf
+Methods declared in class java.lang.
+Object
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Enum Constant Details
+S_64_BIT
+public static final
+VectorShape
+S_64_BIT
+Shape of length 64 bits
+S_128_BIT
+public static final
+VectorShape
+S_128_BIT
+Shape of length 128 bits
+S_256_BIT
+public static final
+VectorShape
+S_256_BIT
+Shape of length 256 bits
+S_512_BIT
+public static final
+VectorShape
+S_512_BIT
+Shape of length 512 bits
+S_Max_BIT
+public static final
+VectorShape
+S_Max_BIT
+Shape of maximum length supported on the platform
+Method Details
+values
+public static
+VectorShape
+[]
+values
+()
+Returns an array containing the constants of this enum class, in
+the order they are declared.
+Returns:
+an array containing the constants of this enum class, in the order they are declared
+valueOf
+public static
+VectorShape
+valueOf
+(
+String
+name)
+Returns the enum constant of this class with the specified name.
+The string must match
+exactly
+an identifier used to declare an
+enum constant in this class.  (Extraneous whitespace characters are 
+not permitted.)
+Parameters:
+name
+- the name of the enum constant to be returned.
+Returns:
+the enum constant with the specified name
+Throws:
+IllegalArgumentException
+- if this enum class has no constant with the specified name
+NullPointerException
+- if the argument is null
+vectorBitSize
+public
+int
+vectorBitSize
+()
+Returns the size, in bits, of vectors of this shape.
+Returns:
+the size, in bits, of vectors of this shape.
+withLanes
+public
+<E>
+VectorSpecies
+<E>
+withLanes
+(
+Class
+<E> elementType)
+Finds a vector species with the given element type
+ and the current shape.
+ Returns the same value as
+VectorSpecies.of(elementType, this)
+.
+Type Parameters:
+E
+- the boxed element type
+Parameters:
+elementType
+- the required element type
+Returns:
+a species for the given element type and this shape
+See Also:
+VectorSpecies.of(Class, VectorShape)
+forBitSize
+public static
+VectorShape
+forBitSize
+(int bitSize)
+Finds an appropriate shape depending on the
+ proposed bit-size of a vector.
+Parameters:
+bitSize
+- the proposed vector size in bits
+Returns:
+a shape corresponding to the vector bit-size
+Throws:
+IllegalArgumentException
+- if no such vector shape exists
+See Also:
+vectorBitSize()
+forIndexBitSize
+public static
+VectorShape
+forIndexBitSize
+(int indexBitSize,
+ int elementSize)
+Finds an appropriate index shape depending on the
+ proposed index-bit-size and element-size of a vector.
+Parameters:
+indexBitSize
+- the proposed index vector size in bits
+elementSize
+- the proposed element size in bits
+Returns:
+a shape corresponding to the index vector bit-size
+ and element size.
+Throws:
+IllegalArgumentException
+- if no such vector shape exists
+See Also:
+vectorBitSize()
+preferredShape
+public static
+VectorShape
+preferredShape
+()
+Finds the vector shape preferred by the current platform
+ for all vector element types.
+The preferred shape by the platform has the largest possible
+ bit-size, under the constraint that all lane sizes are
+ supported, from
+byte
+to
+double
+.  Thus, all the
+preferred vector species
+for various lane types will have a common underlying shape.
+Returns:
+a preferred shape for all element types
+Throws:
+UnsupportedOperationException
+- if no such shape exists
+See Also:
+VectorSpecies.ofPreferred(Class)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

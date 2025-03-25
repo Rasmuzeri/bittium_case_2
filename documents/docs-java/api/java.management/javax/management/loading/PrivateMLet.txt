@@ -1,0 +1,377 @@
+PrivateMLet (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.management
+Package
+javax.management.loading
+Class PrivateMLet
+java.lang.Object
+java.lang.ClassLoader
+java.security.SecureClassLoader
+java.net.URLClassLoader
+javax.management.loading.MLet
+javax.management.loading.PrivateMLet
+All Implemented Interfaces:
+Closeable
+,
+Externalizable
+,
+Serializable
+,
+AutoCloseable
+,
+MLetMBean
+,
+PrivateClassLoader
+,
+MBeanRegistration
+@Deprecated
+(
+since
+="20",
+forRemoval
+=true)
+public class
+PrivateMLet
+extends
+MLet
+implements
+PrivateClassLoader
+Deprecated, for removal: This API element is subject to removal in a future version.
+This API is part of Management Applets (m-lets), which is a legacy feature that allows loading
+ of remote MBeans. This feature is not usable without a Security Manager, which is deprecated and subject to
+ removal in a future release. Consequently, this API is also deprecated and subject to removal. There is no replacement.
+An MLet that is not added to the
+ClassLoaderRepository
+.
+ This class acts exactly like its parent class,
+MLet
+, with
+ one exception.  When a PrivateMLet is registered in an MBean
+ server, it is not added to that MBean server's
+ClassLoaderRepository
+.  This is true because this class implements
+ the interface
+PrivateClassLoader
+.
+Since:
+1.5
+See Also:
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+PrivateMLet
+(
+URL
+[] urls,
+ boolean delegateToCLR)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Constructs a new PrivateMLet for the specified URLs using the
+ default delegation parent ClassLoader.
+PrivateMLet
+(
+URL
+[] urls,
+ClassLoader
+parent,
+ boolean delegateToCLR)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Constructs a new PrivateMLet for the given URLs.
+PrivateMLet
+(
+URL
+[] urls,
+ClassLoader
+parent,
+URLStreamHandlerFactory
+factory,
+ boolean delegateToCLR)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Constructs a new PrivateMLet for the specified URLs, parent
+ class loader, and URLStreamHandlerFactory.
+Method Summary
+Methods declared in class javax.management.loading.
+MLet
+addURL
+,
+addURL
+,
+check
+,
+findClass
+,
+findLibrary
+,
+getLibraryDirectory
+,
+getMBeansFromURL
+,
+getMBeansFromURL
+,
+getURLs
+,
+loadClass
+,
+postDeregister
+,
+postRegister
+,
+preDeregister
+,
+preRegister
+,
+readExternal
+,
+setLibraryDirectory
+,
+writeExternal
+Methods declared in class java.net.
+URLClassLoader
+close
+,
+definePackage
+,
+findResource
+,
+findResources
+,
+getPermissions
+,
+getResourceAsStream
+,
+newInstance
+,
+newInstance
+Methods declared in class java.security.
+SecureClassLoader
+defineClass
+,
+defineClass
+Methods declared in class java.lang.
+ClassLoader
+clearAssertionStatus
+,
+defineClass
+,
+defineClass
+,
+defineClass
+,
+defineClass
+,
+definePackage
+,
+findClass
+,
+findLoadedClass
+,
+findResource
+,
+findSystemClass
+,
+getClassLoadingLock
+,
+getDefinedPackage
+,
+getDefinedPackages
+,
+getName
+,
+getPackage
+,
+getPackages
+,
+getParent
+,
+getPlatformClassLoader
+,
+getResource
+,
+getResources
+,
+getSystemClassLoader
+,
+getSystemResource
+,
+getSystemResourceAsStream
+,
+getSystemResources
+,
+getUnnamedModule
+,
+isRegisteredAsParallelCapable
+,
+loadClass
+,
+loadClass
+,
+registerAsParallelCapable
+,
+resolveClass
+,
+resources
+,
+setClassAssertionStatus
+,
+setDefaultAssertionStatus
+,
+setPackageAssertionStatus
+,
+setSigners
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface javax.management.loading.
+MLetMBean
+getResource
+,
+getResourceAsStream
+,
+getResources
+Constructor Details
+PrivateMLet
+public
+PrivateMLet
+(
+URL
+[] urls,
+ boolean delegateToCLR)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Constructs a new PrivateMLet for the specified URLs using the
+ default delegation parent ClassLoader.  The URLs will be
+ searched in the order specified for classes and resources
+ after first searching in the parent class loader.
+Parameters:
+urls
+- The URLs from which to load classes and resources.
+delegateToCLR
+- True if, when a class is not found in
+ either the parent ClassLoader or the URLs, the MLet should delegate
+ to its containing MBeanServer's
+ClassLoaderRepository
+.
+PrivateMLet
+public
+PrivateMLet
+(
+URL
+[] urls,
+ClassLoader
+parent,
+ boolean delegateToCLR)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Constructs a new PrivateMLet for the given URLs. The URLs will
+ be searched in the order specified for classes and resources
+ after first searching in the specified parent class loader.
+ The parent argument will be used as the parent class loader
+ for delegation.
+Parameters:
+urls
+- The URLs from which to load classes and resources.
+parent
+- The parent class loader for delegation.
+delegateToCLR
+- True if, when a class is not found in
+ either the parent ClassLoader or the URLs, the MLet should delegate
+ to its containing MBeanServer's
+ClassLoaderRepository
+.
+PrivateMLet
+public
+PrivateMLet
+(
+URL
+[] urls,
+ClassLoader
+parent,
+URLStreamHandlerFactory
+factory,
+ boolean delegateToCLR)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Constructs a new PrivateMLet for the specified URLs, parent
+ class loader, and URLStreamHandlerFactory. The parent argument
+ will be used as the parent class loader for delegation. The
+ factory argument will be used as the stream handler factory to
+ obtain protocol handlers when creating new URLs.
+Parameters:
+urls
+- The URLs from which to load classes and resources.
+parent
+- The parent class loader for delegation.
+factory
+- The URLStreamHandlerFactory to use when creating URLs.
+delegateToCLR
+- True if, when a class is not found in
+ either the parent ClassLoader or the URLs, the MLet should delegate
+ to its containing MBeanServer's
+ClassLoaderRepository
+.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

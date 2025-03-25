@@ -1,0 +1,371 @@
+AbstractProcessor (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.annotation.processing
+Class AbstractProcessor
+java.lang.Object
+javax.annotation.processing.AbstractProcessor
+All Implemented Interfaces:
+Processor
+public abstract class
+AbstractProcessor
+extends
+Object
+implements
+Processor
+An abstract annotation processor designed to be a convenient
+ superclass for most concrete annotation processors.  This class
+ examines annotation values to compute the
+options
+,
+annotation interfaces
+, and
+source version
+supported by
+ its subtypes.
+The getter methods may
+issue
+ warnings
+about noteworthy conditions using the facilities available
+ after the processor has been
+initialized
+.
+Subclasses are free to override the implementation and
+ specification of any of the methods in this class as long as the
+ general
+Processor
+contract for that method is obeyed.
+Since:
+1.6
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected
+ProcessingEnvironment
+processingEnv
+Processing environment providing by the tool framework.
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+AbstractProcessor
+()
+Constructor for subclasses to call.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Iterable
+<? extends
+Completion
+>
+getCompletions
+(
+Element
+element,
+AnnotationMirror
+annotation,
+ExecutableElement
+member,
+String
+userText)
+Returns an empty iterable of completions.
+Set
+<
+String
+>
+getSupportedAnnotationTypes
+()
+If the processor class is annotated with
+SupportedAnnotationTypes
+, return an unmodifiable set with the
+ same set of strings as the annotation.
+Set
+<
+String
+>
+getSupportedOptions
+()
+If the processor class is annotated with
+SupportedOptions
+, return an unmodifiable set with the same set
+ of strings as the annotation.
+SourceVersion
+getSupportedSourceVersion
+()
+If the processor class is annotated with
+SupportedSourceVersion
+, return the source version in the
+ annotation.
+void
+init
+(
+ProcessingEnvironment
+processingEnv)
+Initializes the processor with the processing environment by
+ setting the
+processingEnv
+field to the value of the
+processingEnv
+argument.
+protected boolean
+isInitialized
+()
+Returns
+true
+if this object has been
+initialized
+,
+false
+otherwise.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface javax.annotation.processing.
+Processor
+process
+Field Details
+processingEnv
+protected
+ProcessingEnvironment
+processingEnv
+Processing environment providing by the tool framework.
+Constructor Details
+AbstractProcessor
+protected
+AbstractProcessor
+()
+Constructor for subclasses to call.
+Method Details
+getSupportedOptions
+public
+Set
+<
+String
+>
+getSupportedOptions
+()
+If the processor class is annotated with
+SupportedOptions
+, return an unmodifiable set with the same set
+ of strings as the annotation.  If the class is not so
+ annotated, an empty set is returned.
+Specified by:
+getSupportedOptions
+in interface
+Processor
+Returns:
+the options recognized by this processor, or an empty
+ set if none
+See Also:
+SupportedOptions
+getSupportedAnnotationTypes
+public
+Set
+<
+String
+>
+getSupportedAnnotationTypes
+()
+If the processor class is annotated with
+SupportedAnnotationTypes
+, return an unmodifiable set with the
+ same set of strings as the annotation.  If the class is not so
+ annotated, an empty set is returned.
+
+ If the
+source
+ version
+does not support modules, in other words if it is less
+ than or equal to
+RELEASE_8
+,
+ then any leading
+module prefixes
+are stripped from the names.
+Specified by:
+getSupportedAnnotationTypes
+in interface
+Processor
+Returns:
+the names of the annotation interfaces supported by
+ this processor, or an empty set if none
+See Also:
+SupportedAnnotationTypes
+getSupportedSourceVersion
+public
+SourceVersion
+getSupportedSourceVersion
+()
+If the processor class is annotated with
+SupportedSourceVersion
+, return the source version in the
+ annotation.  If the class is not so annotated,
+SourceVersion.RELEASE_6
+is returned.
+Specified by:
+getSupportedSourceVersion
+in interface
+Processor
+Returns:
+the latest source version supported by this processor
+See Also:
+SupportedSourceVersion
+ProcessingEnvironment.getSourceVersion()
+init
+public
+void
+init
+(
+ProcessingEnvironment
+processingEnv)
+Initializes the processor with the processing environment by
+ setting the
+processingEnv
+field to the value of the
+processingEnv
+argument.  An
+IllegalStateException
+will be thrown if this method is called
+ more than once on the same object.
+Specified by:
+init
+in interface
+Processor
+Parameters:
+processingEnv
+- environment to access facilities the tool framework
+ provides to the processor
+Throws:
+IllegalStateException
+- if this method is called more than once.
+getCompletions
+public
+Iterable
+<? extends
+Completion
+>
+getCompletions
+(
+Element
+element,
+AnnotationMirror
+annotation,
+ExecutableElement
+member,
+String
+userText)
+Returns an empty iterable of completions.
+Specified by:
+getCompletions
+in interface
+Processor
+Parameters:
+element
+- the element being annotated
+annotation
+- the (perhaps partial) annotation being
+                   applied to the element
+member
+- the annotation member to return possible completions for
+userText
+- source code text to be completed
+Returns:
+an empty iterable of completions
+isInitialized
+protected
+boolean
+isInitialized
+()
+Returns
+true
+if this object has been
+initialized
+,
+false
+otherwise.
+Returns:
+true
+if this object has been
+initialized
+,
+false
+otherwise
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,190 @@
+Connector.Argument (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.jdi
+Package
+com.sun.jdi.connect
+Interface Connector.Argument
+All Superinterfaces:
+Serializable
+All Known Subinterfaces:
+Connector.BooleanArgument
+,
+Connector.IntegerArgument
+,
+Connector.SelectedArgument
+,
+Connector.StringArgument
+Enclosing interface:
+Connector
+public static interface
+Connector.Argument
+extends
+Serializable
+Specification for and value of a Connector argument.
+ Will always implement a subinterface of Argument:
+Connector.StringArgument
+,
+Connector.BooleanArgument
+,
+Connector.IntegerArgument
+,
+ or
+Connector.SelectedArgument
+.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+String
+description
+()
+Returns a human-readable description of this argument
+ and its purpose.
+boolean
+isValid
+(
+String
+value)
+Performs basic sanity check of argument.
+String
+label
+()
+Returns a short human-readable label for this argument.
+boolean
+mustSpecify
+()
+Indicates whether the argument must be specified.
+String
+name
+()
+Returns a short, unique identifier for the argument.
+void
+setValue
+(
+String
+value)
+Sets the value of the argument.
+String
+value
+()
+Returns the current value of the argument.
+Method Details
+name
+String
+name
+()
+Returns a short, unique identifier for the argument.
+ Not intended for exposure to end-user.
+Returns:
+the name of this argument.
+label
+String
+label
+()
+Returns a short human-readable label for this argument.
+Returns:
+a label for this argument
+description
+String
+description
+()
+Returns a human-readable description of this argument
+ and its purpose.
+Returns:
+the description of this argument
+value
+String
+value
+()
+Returns the current value of the argument. Initially, the
+ default value is returned. If the value is currently unspecified,
+ null is returned.
+Returns:
+the current value of the argument.
+setValue
+void
+setValue
+(
+String
+value)
+Sets the value of the argument.
+ The value should be checked with
+isValid(String)
+before setting it; invalid values will throw an exception
+ when the connection is established - for example,
+ on
+LaunchingConnector.launch(java.util.Map<java.lang.String, ? extends com.sun.jdi.connect.Connector.Argument>)
+isValid
+boolean
+isValid
+(
+String
+value)
+Performs basic sanity check of argument.
+Returns:
+true
+if the value is valid to be
+ used in
+setValue(String)
+mustSpecify
+boolean
+mustSpecify
+()
+Indicates whether the argument must be specified. If true,
+setValue(java.lang.String)
+must be used to set a non-null value before
+ using this argument in establishing a connection.
+Returns:
+true
+if the argument must be specified;
+false
+otherwise.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

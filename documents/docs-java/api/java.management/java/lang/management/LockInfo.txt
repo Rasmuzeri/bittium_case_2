@@ -1,0 +1,274 @@
+LockInfo (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.management
+Package
+java.lang.management
+Class LockInfo
+java.lang.Object
+java.lang.management.LockInfo
+Direct Known Subclasses:
+MonitorInfo
+public class
+LockInfo
+extends
+Object
+Information about a
+lock
+.  A lock can be a built-in object monitor,
+ an
+ownable synchronizer
+, or the
+Condition
+object associated with synchronizers.
+An ownable synchronizer
+is
+ a synchronizer that may be exclusively owned by a thread and uses
+AbstractOwnableSynchronizer
+(or its subclass) to implement its synchronization property.
+ReentrantLock
+and the write-lock (but not
+ the read-lock) of
+ReentrantReadWriteLock
+are
+ two examples of ownable synchronizers provided by the platform.
+MXBean Mapping
+LockInfo
+is mapped to a
+CompositeData
+as specified in the
+from
+method.
+Since:
+1.6
+See Also:
+AbstractOwnableSynchronizer
+Condition
+Constructor Summary
+Constructors
+Constructor
+Description
+LockInfo
+(
+String
+className,
+ int identityHashCode)
+Constructs a
+LockInfo
+object.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+LockInfo
+from
+(
+CompositeData
+cd)
+Returns a
+LockInfo
+object represented by the
+ given
+CompositeData
+.
+String
+getClassName
+()
+Returns the fully qualified name of the class of the lock object.
+int
+getIdentityHashCode
+()
+Returns the identity hash code of the lock object
+ returned from the
+System.identityHashCode(java.lang.Object)
+method.
+String
+toString
+()
+Returns a string representation of a lock.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+LockInfo
+public
+LockInfo
+(
+String
+className,
+ int identityHashCode)
+Constructs a
+LockInfo
+object.
+Parameters:
+className
+- the fully qualified name of the class of the lock object.
+identityHashCode
+- the
+identity hash code
+of the lock object.
+Method Details
+getClassName
+public
+String
+getClassName
+()
+Returns the fully qualified name of the class of the lock object.
+Returns:
+the fully qualified name of the class of the lock object.
+getIdentityHashCode
+public
+int
+getIdentityHashCode
+()
+Returns the identity hash code of the lock object
+ returned from the
+System.identityHashCode(java.lang.Object)
+method.
+Returns:
+the identity hash code of the lock object.
+from
+public static
+LockInfo
+from
+(
+CompositeData
+cd)
+Returns a
+LockInfo
+object represented by the
+ given
+CompositeData
+.
+ The given
+CompositeData
+must contain the following attributes:
+The attributes and the types the given CompositeData contains
+Attribute Name
+Type
+className
+java.lang.String
+identityHashCode
+java.lang.Integer
+Parameters:
+cd
+-
+CompositeData
+representing a
+LockInfo
+Returns:
+a
+LockInfo
+object represented
+         by
+cd
+if
+cd
+is not
+null
+;
+null
+otherwise.
+Throws:
+IllegalArgumentException
+- if
+cd
+does not
+   represent a
+LockInfo
+with the attributes described
+   above.
+Since:
+1.8
+toString
+public
+String
+toString
+()
+Returns a string representation of a lock.  The returned
+ string representation consists of the name of the class of the
+ lock object, the at-sign character `@', and the unsigned
+ hexadecimal representation of the
+identity
+hash code
+ of the object.  This method returns a string equals to the value of:
+lock.getClass().getName() + '@' + Integer.toHexString(System.identityHashCode(lock))
+where
+lock
+is the lock object.
+Overrides:
+toString
+in class
+Object
+Returns:
+the string representation of a lock.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,472 @@
+Uses of Interface java.net.http.HttpResponse.BodyHandler (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Interface
+java.net.http.HttpResponse.BodyHandler
+Packages that use
+HttpResponse.BodyHandler
+Package
+Description
+java.net.http
+HTTP Client and WebSocket APIs
+Uses of
+HttpResponse.BodyHandler
+in
+java.net.http
+Methods in
+java.net.http
+that return
+HttpResponse.BodyHandler
+Modifier and Type
+Method
+Description
+static <T>
+HttpResponse.BodyHandler
+<T>
+HttpResponse.BodyHandlers.
+buffering
+(
+HttpResponse.BodyHandler
+<T> downstreamHandler,
+ int bufferSize)
+Returns a
+BodyHandler
+which, when invoked, returns a
+buffering BodySubscriber
+that buffers data before delivering it to the downstream subscriber.
+static
+HttpResponse.BodyHandler
+<
+Void
+>
+HttpResponse.BodyHandlers.
+discarding
+()
+Returns a response body handler that discards the response body.
+static
+HttpResponse.BodyHandler
+<
+Void
+>
+HttpResponse.BodyHandlers.
+fromLineSubscriber
+(
+Flow.Subscriber
+<? super
+String
+> subscriber)
+Returns a response body handler that returns a
+BodySubscriber
+<Void>
+obtained from
+BodySubscribers.fromLineSubscriber(subscriber, s -> null, charset, null)
+,
+ with the given
+subscriber
+.
+static <S extends
+Flow.Subscriber
+<? super
+String
+>,
+T>
+HttpResponse.BodyHandler
+<T>
+HttpResponse.BodyHandlers.
+fromLineSubscriber
+(S subscriber,
+Function
+<? super S,
+? extends T> finisher,
+String
+lineSeparator)
+Returns a response body handler that returns a
+BodySubscriber
+<T>
+obtained from
+BodySubscribers.fromLineSubscriber(subscriber, finisher, charset, lineSeparator)
+,
+ with the given
+subscriber
+,
+finisher
+function, and line separator.
+static
+HttpResponse.BodyHandler
+<
+Void
+>
+HttpResponse.BodyHandlers.
+fromSubscriber
+(
+Flow.Subscriber
+<? super
+List
+<
+ByteBuffer
+>> subscriber)
+Returns a response body handler that returns a
+BodySubscriber
+<Void>
+obtained from
+HttpResponse.BodySubscribers.fromSubscriber(Subscriber)
+, with the given
+subscriber
+.
+static <S extends
+Flow.Subscriber
+<? super
+List
+<
+ByteBuffer
+>>,
+T>
+HttpResponse.BodyHandler
+<T>
+HttpResponse.BodyHandlers.
+fromSubscriber
+(S subscriber,
+Function
+<? super S,
+? extends T> finisher)
+Returns a response body handler that returns a
+BodySubscriber
+<T>
+obtained from
+HttpResponse.BodySubscribers.fromSubscriber(Subscriber, Function)
+, with the
+ given
+subscriber
+and
+finisher
+function.
+static
+HttpResponse.BodyHandler
+<byte[]>
+HttpResponse.BodyHandlers.
+ofByteArray
+()
+Returns a
+BodyHandler<byte[]>
+that returns a
+BodySubscriber
+<byte[]>
+obtained
+ from
+BodySubscribers.ofByteArray()
+.
+static
+HttpResponse.BodyHandler
+<
+Void
+>
+HttpResponse.BodyHandlers.
+ofByteArrayConsumer
+(
+Consumer
+<
+Optional
+<byte[]>> consumer)
+Returns a
+BodyHandler<Void>
+that returns a
+BodySubscriber
+<Void>
+obtained from
+BodySubscribers.ofByteArrayConsumer(Consumer)
+.
+static
+HttpResponse.BodyHandler
+<
+Path
+>
+HttpResponse.BodyHandlers.
+ofFile
+(
+Path
+file)
+Returns a
+BodyHandler<Path>
+that returns a
+BodySubscriber
+<Path>
+.
+static
+HttpResponse.BodyHandler
+<
+Path
+>
+HttpResponse.BodyHandlers.
+ofFile
+(
+Path
+file,
+OpenOption
+... openOptions)
+Returns a
+BodyHandler<Path>
+that returns a
+BodySubscriber
+<Path>
+obtained from
+BodySubscribers.ofFile(Path,OpenOption...)
+.
+static
+HttpResponse.BodyHandler
+<
+Path
+>
+HttpResponse.BodyHandlers.
+ofFileDownload
+(
+Path
+directory,
+OpenOption
+... openOptions)
+Returns a
+BodyHandler<Path>
+that returns a
+BodySubscriber
+<
+Path
+>
+ where the download directory is specified, but the filename is
+ obtained from the
+Content-Disposition
+response header.
+static
+HttpResponse.BodyHandler
+<
+InputStream
+>
+HttpResponse.BodyHandlers.
+ofInputStream
+()
+Returns a
+BodyHandler<InputStream>
+that returns a
+BodySubscriber
+<InputStream>
+obtained from
+BodySubscribers.ofInputStream
+.
+static
+HttpResponse.BodyHandler
+<
+Stream
+<
+String
+>>
+HttpResponse.BodyHandlers.
+ofLines
+()
+Returns a
+BodyHandler<Stream<String>>
+that returns a
+BodySubscriber
+<Stream<String>>
+obtained
+ from
+BodySubscribers.ofLines(charset)
+.
+static
+HttpResponse.BodyHandler
+<
+Flow.Publisher
+<
+List
+<
+ByteBuffer
+>>>
+HttpResponse.BodyHandlers.
+ofPublisher
+()
+Returns a
+BodyHandler<Publisher<List<ByteBuffer>>>
+that creates a
+BodySubscriber
+<Publisher<List<ByteBuffer>>>
+obtained from
+BodySubscribers.ofPublisher()
+.
+static
+HttpResponse.BodyHandler
+<
+String
+>
+HttpResponse.BodyHandlers.
+ofString
+()
+Returns a
+BodyHandler<String>
+that returns a
+BodySubscriber
+<String>
+obtained from
+BodySubscribers.ofString(Charset)
+.
+static
+HttpResponse.BodyHandler
+<
+String
+>
+HttpResponse.BodyHandlers.
+ofString
+(
+Charset
+charset)
+Returns a
+BodyHandler<String>
+that returns a
+BodySubscriber
+<String>
+obtained from
+BodySubscribers.ofString(Charset)
+.
+static <U>
+HttpResponse.BodyHandler
+<U>
+HttpResponse.BodyHandlers.
+replacing
+(U value)
+Returns a response body handler that returns the given replacement
+ value, after discarding the response body.
+Methods in
+java.net.http
+with parameters of type
+HttpResponse.BodyHandler
+Modifier and Type
+Method
+Description
+static <T>
+HttpResponse.BodyHandler
+<T>
+HttpResponse.BodyHandlers.
+buffering
+(
+HttpResponse.BodyHandler
+<T> downstreamHandler,
+ int bufferSize)
+Returns a
+BodyHandler
+which, when invoked, returns a
+buffering BodySubscriber
+that buffers data before delivering it to the downstream subscriber.
+abstract <T>
+HttpResponse
+<T>
+HttpClient.
+send
+(
+HttpRequest
+request,
+HttpResponse.BodyHandler
+<T> responseBodyHandler)
+Sends the given request using this client, blocking if necessary to get
+ the response.
+abstract <T>
+CompletableFuture
+<
+HttpResponse
+<T>>
+HttpClient.
+sendAsync
+(
+HttpRequest
+request,
+HttpResponse.BodyHandler
+<T> responseBodyHandler)
+Sends the given request asynchronously using this client with the given
+ response body handler.
+abstract <T>
+CompletableFuture
+<
+HttpResponse
+<T>>
+HttpClient.
+sendAsync
+(
+HttpRequest
+request,
+HttpResponse.BodyHandler
+<T> responseBodyHandler,
+HttpResponse.PushPromiseHandler
+<T> pushPromiseHandler)
+Sends the given request asynchronously using this client with the given
+ response body handler and push promise handler.
+Method parameters in
+java.net.http
+with type arguments of type
+HttpResponse.BodyHandler
+Modifier and Type
+Method
+Description
+void
+HttpResponse.PushPromiseHandler.
+applyPushPromise
+(
+HttpRequest
+initiatingRequest,
+HttpRequest
+pushPromiseRequest,
+Function
+<
+HttpResponse.BodyHandler
+<
+T
+>,
+CompletableFuture
+<
+HttpResponse
+<
+T
+>>> acceptor)
+Notification of an incoming push promise.
+static <T>
+HttpResponse.PushPromiseHandler
+<T>
+HttpResponse.PushPromiseHandler.
+of
+(
+Function
+<
+HttpRequest
+,
+HttpResponse.BodyHandler
+<T>> pushPromiseHandler,
+ConcurrentMap
+<
+HttpRequest
+,
+CompletableFuture
+<
+HttpResponse
+<T>>> pushPromisesMap)
+Returns a push promise handler that accumulates push promises, and
+ their responses, into the given map.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

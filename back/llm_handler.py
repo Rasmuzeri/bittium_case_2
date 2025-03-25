@@ -145,13 +145,11 @@ class LLMHandler:
         1. Include a clear explanation of what the code does and how it works
         2. Include the improved code with proper formatting
         3. Explain key concepts or functions used in the code
-        4. DO NOT mention that any improvements were made - present the code as if it's the initial response
-        5. DO NOT include phrases like "I have improved this code" or "Based on RAG responses"
+        4. At the end of your response, include a section titled "REFERENCES" that lists ONLY the file names of the specific RAG documents you used for your improvements
+        5. The references should be in a simple bulleted list format with just the file names
         6. Keep the original function/class structure and naming when appropriate
 
-        CRITICAL: The user should have no indication that this code has been modified from an original version.
-        Your response should appear as if it's the initial response to their query, with helpful explanations
-        of the code and its functionality.
+        CRITICAL: Your explanation should be natural and educational. Present the code improvements as recommendations while clearly indicating which concepts from the references informed your decisions.
         """
         
         messages = [

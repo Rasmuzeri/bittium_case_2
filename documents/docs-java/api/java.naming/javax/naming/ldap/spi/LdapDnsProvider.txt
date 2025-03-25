@@ -1,0 +1,220 @@
+LdapDnsProvider (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.naming
+Package
+javax.naming.ldap.spi
+Class LdapDnsProvider
+java.lang.Object
+javax.naming.ldap.spi.LdapDnsProvider
+public abstract class
+LdapDnsProvider
+extends
+Object
+Service-provider class for DNS lookups when performing LDAP operations.
+An LDAP DNS provider is a concrete subclass of this class that
+ has a zero-argument constructor. LDAP DNS providers are located using the
+ ServiceLoader facility, as specified by
+InitialDirectContext
+.
+
+ The
+ServiceLoader
+is used to create and register
+ implementations of
+LdapDnsProvider
+.
+An LDAP DNS provider can be used in environments where the default
+ DNS resolution mechanism is not sufficient to accurately pinpoint the
+ correct LDAP servers needed to perform LDAP operations. For example, in an
+ environment containing a mix of
+ldap
+and
+ldaps
+servers
+ you may want the
+LdapContext
+to query
+ldaps
+servers only.
+Since:
+12
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+LdapDnsProvider
+()
+Creates a new instance of
+LdapDnsProvider
+.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+abstract
+Optional
+<
+LdapDnsProviderResult
+>
+lookupEndpoints
+(
+String
+url,
+Map
+<?,
+?> env)
+Lookup the endpoints and domain name for the given
+Context
+provider URL
+and environment.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+LdapDnsProvider
+protected
+LdapDnsProvider
+()
+Creates a new instance of
+LdapDnsProvider
+.
+Throws:
+SecurityException
+- if a security manager is present and its
+checkPermission
+method doesn't allow
+                           the
+RuntimePermission("ldapDnsProvider")
+.
+Method Details
+lookupEndpoints
+public abstract
+Optional
+<
+LdapDnsProviderResult
+>
+lookupEndpoints
+(
+String
+url,
+Map
+<?,
+?> env)
+throws
+NamingException
+Lookup the endpoints and domain name for the given
+Context
+provider URL
+and environment. The resolved
+ endpoints and domain name are returned as an
+LdapDnsProviderResult
+.
+An endpoint is a
+String
+representation of an LDAP URL which
+ points to an LDAP server to be used for LDAP operations. The syntax of
+ an LDAP URL is defined by
+RFC 2255: The LDAP URL Format
+.
+Parameters:
+url
+- The
+Context
+provider URL
+env
+- The
+Context
+environment.
+Returns:
+an
+LdapDnsProviderResult
+or empty
+Optional
+if the lookup fails.
+Throws:
+NamingException
+- if the
+url
+is not valid or an error
+                              occurred while performing the lookup.
+NullPointerException
+- if either
+url
+or
+env
+are
+null
+.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

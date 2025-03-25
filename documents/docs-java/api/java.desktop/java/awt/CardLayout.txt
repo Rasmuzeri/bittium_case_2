@@ -1,0 +1,656 @@
+CardLayout (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt
+Class CardLayout
+java.lang.Object
+java.awt.CardLayout
+All Implemented Interfaces:
+LayoutManager
+,
+LayoutManager2
+,
+Serializable
+public class
+CardLayout
+extends
+Object
+implements
+LayoutManager2
+,
+Serializable
+A
+CardLayout
+object is a layout manager for a
+ container. It treats each component in the container as a card.
+ Only one card is visible at a time, and the container acts as
+ a stack of cards. The first component added to a
+CardLayout
+object is the visible component when the
+ container is first displayed.
+The ordering of cards is determined by the container's own internal
+ ordering of its component objects.
+CardLayout
+defines a set of methods that allow an application to flip
+ through these cards sequentially, or to show a specified card.
+ The
+addLayoutComponent(java.awt.Component, java.lang.Object)
+method can be used to associate a string identifier with a given card
+ for fast random access.
+Since:
+1.0
+See Also:
+Container
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+CardLayout
+()
+Creates a new card layout with gaps of size zero.
+CardLayout
+(int hgap,
+ int vgap)
+Creates a new card layout with the specified horizontal and
+ vertical gaps.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+void
+addLayoutComponent
+(
+Component
+comp,
+Object
+constraints)
+Adds the specified component to this card layout's internal
+ table of names.
+void
+addLayoutComponent
+(
+String
+name,
+Component
+comp)
+Deprecated.
+replaced by
+addLayoutComponent(Component, Object)
+.
+void
+first
+(
+Container
+parent)
+Flips to the first card of the container.
+int
+getHgap
+()
+Gets the horizontal gap between components.
+float
+getLayoutAlignmentX
+(
+Container
+parent)
+Returns the alignment along the x axis.
+float
+getLayoutAlignmentY
+(
+Container
+parent)
+Returns the alignment along the y axis.
+int
+getVgap
+()
+Gets the vertical gap between components.
+void
+invalidateLayout
+(
+Container
+target)
+Invalidates the layout, indicating that if the layout manager
+ has cached information it should be discarded.
+void
+last
+(
+Container
+parent)
+Flips to the last card of the container.
+void
+layoutContainer
+(
+Container
+parent)
+Lays out the specified container using this card layout.
+Dimension
+maximumLayoutSize
+(
+Container
+target)
+Returns the maximum dimensions for this layout given the components
+ in the specified target container.
+Dimension
+minimumLayoutSize
+(
+Container
+parent)
+Calculates the minimum size for the specified panel.
+void
+next
+(
+Container
+parent)
+Flips to the next card of the specified container.
+Dimension
+preferredLayoutSize
+(
+Container
+parent)
+Determines the preferred size of the container argument using
+ this card layout.
+void
+previous
+(
+Container
+parent)
+Flips to the previous card of the specified container.
+void
+removeLayoutComponent
+(
+Component
+comp)
+Removes the specified component from the layout.
+void
+setHgap
+(int hgap)
+Sets the horizontal gap between components.
+void
+setVgap
+(int vgap)
+Sets the vertical gap between components.
+void
+show
+(
+Container
+parent,
+String
+name)
+Flips to the component that was added to this layout with the
+ specified
+name
+, using
+addLayoutComponent
+.
+String
+toString
+()
+Returns a string representation of the state of this card layout.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+CardLayout
+public
+CardLayout
+()
+Creates a new card layout with gaps of size zero.
+CardLayout
+public
+CardLayout
+(int hgap,
+ int vgap)
+Creates a new card layout with the specified horizontal and
+ vertical gaps. The horizontal gaps are placed at the left and
+ right edges. The vertical gaps are placed at the top and bottom
+ edges.
+Parameters:
+hgap
+- the horizontal gap.
+vgap
+- the vertical gap.
+Method Details
+getHgap
+public
+int
+getHgap
+()
+Gets the horizontal gap between components.
+Returns:
+the horizontal gap between components.
+Since:
+1.1
+See Also:
+setHgap(int)
+getVgap()
+setHgap
+public
+void
+setHgap
+(int hgap)
+Sets the horizontal gap between components.
+Parameters:
+hgap
+- the horizontal gap between components.
+Since:
+1.1
+See Also:
+getHgap()
+setVgap(int)
+getVgap
+public
+int
+getVgap
+()
+Gets the vertical gap between components.
+Returns:
+the vertical gap between components.
+See Also:
+setVgap(int)
+getHgap()
+setVgap
+public
+void
+setVgap
+(int vgap)
+Sets the vertical gap between components.
+Parameters:
+vgap
+- the vertical gap between components.
+Since:
+1.1
+See Also:
+getVgap()
+setHgap(int)
+addLayoutComponent
+public
+void
+addLayoutComponent
+(
+Component
+comp,
+Object
+constraints)
+Adds the specified component to this card layout's internal
+ table of names. The object specified by
+constraints
+must be a string. The card layout stores this string as a key-value
+ pair that can be used for random access to a particular card.
+ By calling the
+show
+method, an application can
+ display the component with the specified name.
+Specified by:
+addLayoutComponent
+in interface
+LayoutManager2
+Parameters:
+comp
+- the component to be added.
+constraints
+- a tag that identifies a particular
+                                        card in the layout.
+Throws:
+IllegalArgumentException
+- if the constraint is not a string.
+See Also:
+show(java.awt.Container, java.lang.String)
+addLayoutComponent
+@Deprecated
+public
+void
+addLayoutComponent
+(
+String
+name,
+Component
+comp)
+Deprecated.
+replaced by
+addLayoutComponent(Component, Object)
+.
+Description copied from interface:
+LayoutManager
+If the layout manager uses a per-component string,
+ adds the component
+comp
+to the layout,
+ associating it
+ with the string specified by
+name
+.
+Specified by:
+addLayoutComponent
+in interface
+LayoutManager
+Parameters:
+name
+- the string to be associated with the component
+comp
+- the component to be added
+removeLayoutComponent
+public
+void
+removeLayoutComponent
+(
+Component
+comp)
+Removes the specified component from the layout.
+ If the card was visible on top, the next card underneath it is shown.
+Specified by:
+removeLayoutComponent
+in interface
+LayoutManager
+Parameters:
+comp
+- the component to be removed.
+See Also:
+Container.remove(java.awt.Component)
+Container.removeAll()
+preferredLayoutSize
+public
+Dimension
+preferredLayoutSize
+(
+Container
+parent)
+Determines the preferred size of the container argument using
+ this card layout.
+Specified by:
+preferredLayoutSize
+in interface
+LayoutManager
+Parameters:
+parent
+- the parent container in which to do the layout
+Returns:
+the preferred dimensions to lay out the subcomponents
+                of the specified container
+See Also:
+Container.getPreferredSize()
+minimumLayoutSize(java.awt.Container)
+minimumLayoutSize
+public
+Dimension
+minimumLayoutSize
+(
+Container
+parent)
+Calculates the minimum size for the specified panel.
+Specified by:
+minimumLayoutSize
+in interface
+LayoutManager
+Parameters:
+parent
+- the parent container in which to do the layout
+Returns:
+the minimum dimensions required to lay out the
+                subcomponents of the specified container
+See Also:
+Container.doLayout()
+preferredLayoutSize(java.awt.Container)
+maximumLayoutSize
+public
+Dimension
+maximumLayoutSize
+(
+Container
+target)
+Returns the maximum dimensions for this layout given the components
+ in the specified target container.
+Specified by:
+maximumLayoutSize
+in interface
+LayoutManager2
+Parameters:
+target
+- the component which needs to be laid out
+Returns:
+the maximum size of the container
+See Also:
+Container
+minimumLayoutSize(java.awt.Container)
+preferredLayoutSize(java.awt.Container)
+getLayoutAlignmentX
+public
+float
+getLayoutAlignmentX
+(
+Container
+parent)
+Returns the alignment along the x axis.  This specifies how
+ the component would like to be aligned relative to other
+ components.  The value should be a number between 0 and 1
+ where 0 represents alignment along the origin, 1 is aligned
+ the furthest away from the origin, 0.5 is centered, etc.
+Specified by:
+getLayoutAlignmentX
+in interface
+LayoutManager2
+Parameters:
+parent
+- the target container
+Returns:
+the x-axis alignment preference
+getLayoutAlignmentY
+public
+float
+getLayoutAlignmentY
+(
+Container
+parent)
+Returns the alignment along the y axis.  This specifies how
+ the component would like to be aligned relative to other
+ components.  The value should be a number between 0 and 1
+ where 0 represents alignment along the origin, 1 is aligned
+ the furthest away from the origin, 0.5 is centered, etc.
+Specified by:
+getLayoutAlignmentY
+in interface
+LayoutManager2
+Parameters:
+parent
+- the target container
+Returns:
+the y-axis alignment preference
+invalidateLayout
+public
+void
+invalidateLayout
+(
+Container
+target)
+Invalidates the layout, indicating that if the layout manager
+ has cached information it should be discarded.
+Specified by:
+invalidateLayout
+in interface
+LayoutManager2
+Parameters:
+target
+- the target container
+layoutContainer
+public
+void
+layoutContainer
+(
+Container
+parent)
+Lays out the specified container using this card layout.
+Each component in the
+parent
+container is reshaped
+ to be the size of the container, minus space for surrounding
+ insets, horizontal gaps, and vertical gaps.
+Specified by:
+layoutContainer
+in interface
+LayoutManager
+Parameters:
+parent
+- the parent container in which to do the layout
+See Also:
+Container.doLayout()
+first
+public
+void
+first
+(
+Container
+parent)
+Flips to the first card of the container.
+Parameters:
+parent
+- the parent container in which to do the layout
+See Also:
+last(java.awt.Container)
+next
+public
+void
+next
+(
+Container
+parent)
+Flips to the next card of the specified container. If the
+ currently visible card is the last one, this method flips to the
+ first card in the layout.
+Parameters:
+parent
+- the parent container in which to do the layout
+See Also:
+previous(java.awt.Container)
+previous
+public
+void
+previous
+(
+Container
+parent)
+Flips to the previous card of the specified container. If the
+ currently visible card is the first one, this method flips to the
+ last card in the layout.
+Parameters:
+parent
+- the parent container in which to do the layout
+See Also:
+next(java.awt.Container)
+last
+public
+void
+last
+(
+Container
+parent)
+Flips to the last card of the container.
+Parameters:
+parent
+- the parent container in which to do the layout
+See Also:
+first(java.awt.Container)
+show
+public
+void
+show
+(
+Container
+parent,
+String
+name)
+Flips to the component that was added to this layout with the
+ specified
+name
+, using
+addLayoutComponent
+.
+ If no such component exists, then nothing happens.
+Parameters:
+parent
+- the parent container in which to do the layout
+name
+- the component name
+See Also:
+addLayoutComponent(java.awt.Component, java.lang.Object)
+toString
+public
+String
+toString
+()
+Returns a string representation of the state of this card layout.
+Overrides:
+toString
+in class
+Object
+Returns:
+a string representation of this card layout.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

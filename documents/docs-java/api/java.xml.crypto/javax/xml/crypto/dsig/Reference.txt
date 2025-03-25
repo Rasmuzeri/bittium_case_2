@@ -1,0 +1,306 @@
+Reference (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.xml.crypto
+Package
+javax.xml.crypto.dsig
+Interface Reference
+All Superinterfaces:
+URIReference
+,
+XMLStructure
+public interface
+Reference
+extends
+URIReference
+,
+XMLStructure
+A representation of the
+Reference
+element as defined in the
+W3C Recommendation for XML-Signature Syntax and Processing
+.
+ The XML schema is defined as:
+<element name="Reference" type="ds:ReferenceType"/>
+ <complexType name="ReferenceType">
+   <sequence>
+     <element ref="ds:Transforms" minOccurs="0"/>
+     <element ref="ds:DigestMethod"/>
+     <element ref="ds:DigestValue"/>
+   </sequence>
+   <attribute name="Id" type="ID" use="optional"/>
+   <attribute name="URI" type="anyURI" use="optional"/>
+   <attribute name="Type" type="anyURI" use="optional"/>
+ </complexType>
+
+ <element name="DigestValue" type="ds:DigestValueType"/>
+ <simpleType name="DigestValueType">
+   <restriction base="base64Binary"/>
+ </simpleType>
+A
+Reference
+instance may be created by invoking one of the
+newReference
+methods of the
+XMLSignatureFactory
+class; for example:
+XMLSignatureFactory factory = XMLSignatureFactory.getInstance("DOM");
+   Reference ref = factory.newReference
+     ("http://www.ietf.org/rfc/rfc3275.txt",
+      factory.newDigestMethod(DigestMethod.SHA1, null));
+Since:
+1.6
+See Also:
+XMLSignatureFactory.newReference(String, DigestMethod)
+XMLSignatureFactory.newReference(String, DigestMethod, List, String, String)
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+byte[]
+getCalculatedDigestValue
+()
+Returns the calculated digest value of this
+Reference
+after a validation operation.
+Data
+getDereferencedData
+()
+Returns the dereferenced data, if
+reference caching
+is enabled.
+InputStream
+getDigestInputStream
+()
+Returns the pre-digested input stream, if
+reference caching
+is enabled.
+DigestMethod
+getDigestMethod
+()
+Returns the digest method of this
+Reference
+.
+byte[]
+getDigestValue
+()
+Returns the digest value of this
+Reference
+.
+String
+getId
+()
+Returns the optional
+Id
+attribute of this
+Reference
+, which permits this reference to be
+ referenced from elsewhere.
+List
+<
+Transform
+>
+getTransforms
+()
+Returns an
+unmodifiable
+ list
+of
+Transform
+s that are contained in this
+Reference
+.
+boolean
+validate
+(
+XMLValidateContext
+validateContext)
+Validates this reference.
+Methods declared in interface javax.xml.crypto.
+URIReference
+getType
+,
+getURI
+Methods declared in interface javax.xml.crypto.
+XMLStructure
+isFeatureSupported
+Method Details
+getTransforms
+List
+<
+Transform
+>
+getTransforms
+()
+Returns an
+unmodifiable
+ list
+of
+Transform
+s that are contained in this
+Reference
+.
+Returns:
+an unmodifiable list of
+Transform
+s
+    (may be empty but never
+null
+)
+getDigestMethod
+DigestMethod
+getDigestMethod
+()
+Returns the digest method of this
+Reference
+.
+Returns:
+the digest method
+getId
+String
+getId
+()
+Returns the optional
+Id
+attribute of this
+Reference
+, which permits this reference to be
+ referenced from elsewhere.
+Returns:
+the
+Id
+attribute (may be
+null
+if not
+    specified)
+getDigestValue
+byte[]
+getDigestValue
+()
+Returns the digest value of this
+Reference
+.
+Returns:
+the raw digest value, or
+null
+if this reference has
+    not been digested yet. Each invocation of this method returns a new
+    clone to protect against subsequent modification.
+getCalculatedDigestValue
+byte[]
+getCalculatedDigestValue
+()
+Returns the calculated digest value of this
+Reference
+after a validation operation. This method is useful for debugging if
+ the reference fails to validate.
+Returns:
+the calculated digest value, or
+null
+if this
+    reference has not been validated yet. Each invocation of this method
+    returns a new clone to protect against subsequent modification.
+validate
+boolean
+validate
+(
+XMLValidateContext
+validateContext)
+throws
+XMLSignatureException
+Validates this reference. This method verifies the digest of this
+ reference.
+This method only validates the reference the first time it is
+ invoked. On subsequent invocations, it returns a cached result.
+Parameters:
+validateContext
+- the validating context
+Returns:
+true
+if this reference was validated successfully;
+false
+otherwise
+Throws:
+NullPointerException
+- if
+validateContext
+is
+null
+XMLSignatureException
+- if an unexpected exception occurs while
+    validating the reference
+getDereferencedData
+Data
+getDereferencedData
+()
+Returns the dereferenced data, if
+reference caching
+is enabled. This is the result of dereferencing the URI of this
+ reference during a validation or generation operation.
+Returns:
+the dereferenced data, or
+null
+if reference
+    caching is not enabled or this reference has not been generated or
+    validated
+getDigestInputStream
+InputStream
+getDigestInputStream
+()
+Returns the pre-digested input stream, if
+reference caching
+is enabled. This is the input to the digest operation during a
+ validation or signing operation.
+Returns:
+an input stream containing the pre-digested input, or
+null
+if reference caching is not enabled or this
+    reference has not been generated or validated
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

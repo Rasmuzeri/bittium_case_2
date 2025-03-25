@@ -1,0 +1,330 @@
+RecordingFile (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.jfr
+Package
+jdk.jfr.consumer
+Class RecordingFile
+java.lang.Object
+jdk.jfr.consumer.RecordingFile
+All Implemented Interfaces:
+Closeable
+,
+AutoCloseable
+public final class
+RecordingFile
+extends
+Object
+implements
+Closeable
+A recording file.
+The following example shows how read and print all events in a recording file.
+Copy
+try (RecordingFile recordingFile = new RecordingFile(Paths.get("recording.jfr"))) {
+    while (recordingFile.hasMoreEvents()) {
+        RecordedEvent event = recordingFile.readEvent();
+        System.out.println(event);
+    }
+}
+Since:
+9
+Constructor Summary
+Constructors
+Constructor
+Description
+RecordingFile
+(
+Path
+file)
+Creates a recording file.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+close
+()
+Closes this recording file and releases any system resources that are
+ associated with it.
+boolean
+hasMoreEvents
+()
+Returns
+true
+if unread events exist in the recording file,
+false
+otherwise.
+static
+List
+<
+RecordedEvent
+>
+readAllEvents
+(
+Path
+path)
+Returns a list of all events in a file.
+RecordedEvent
+readEvent
+()
+Reads the next event in the recording.
+List
+<
+EventType
+>
+readEventTypes
+()
+Returns a list of all event types in this recording.
+void
+write
+(
+Path
+destination,
+Predicate
+<
+RecordedEvent
+> filter)
+Filter out events and write them to a new file.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+RecordingFile
+public
+RecordingFile
+(
+Path
+file)
+throws
+IOException
+Creates a recording file.
+Only recording files from trusted sources should be used.
+Parameters:
+file
+- the path of the file to open, not
+null
+Throws:
+IOException
+- if it's not a valid recording file, or an I/O error
+         occurred
+NoSuchFileException
+- if the
+file
+can't be located
+SecurityException
+- if a security manager exists and its
+checkRead
+method denies read access to the file.
+Method Details
+readEvent
+public
+RecordedEvent
+readEvent
+()
+                        throws
+IOException
+Reads the next event in the recording.
+Returns:
+the next event, not
+null
+Throws:
+EOFException
+- if no more events exist in the recording file
+IOException
+- if an I/O error occurs
+See Also:
+hasMoreEvents()
+hasMoreEvents
+public
+boolean
+hasMoreEvents
+()
+Returns
+true
+if unread events exist in the recording file,
+false
+otherwise.
+Returns:
+true
+if unread events exist in the recording,
+false
+otherwise.
+readEventTypes
+public
+List
+<
+EventType
+>
+readEventTypes
+()
+                               throws
+IOException
+Returns a list of all event types in this recording.
+Returns:
+a list of event types, not
+null
+Throws:
+IOException
+- if an I/O error occurred while reading from the file
+See Also:
+hasMoreEvents()
+close
+public
+void
+close
+()
+           throws
+IOException
+Closes this recording file and releases any system resources that are
+ associated with it.
+Specified by:
+close
+in interface
+AutoCloseable
+Specified by:
+close
+in interface
+Closeable
+Throws:
+IOException
+- if an I/O error occurred
+write
+public
+void
+write
+(
+Path
+destination,
+Predicate
+<
+RecordedEvent
+> filter)
+throws
+IOException
+Filter out events and write them to a new file.
+Parameters:
+destination
+- path where the new file should be written, not
+null
+filter
+- filter that determines if an event should be included, not
+null
+Throws:
+IOException
+- if an I/O error occurred, it's not a Flight
+                           Recorder file or a version of a JFR file that can't
+                           be parsed
+SecurityException
+- if a security manager exists and its
+checkWrite
+method denies write access to the
+                           file
+Since:
+19
+readAllEvents
+public static
+List
+<
+RecordedEvent
+>
+readAllEvents
+(
+Path
+path)
+throws
+IOException
+Returns a list of all events in a file.
+This method is intended for simple cases where it's convenient to read all
+ events in a single operation. It isn't intended for reading large files.
+Only recording files from trusted sources should be used.
+Parameters:
+path
+- the path to the file, not
+null
+Returns:
+the events from the file as a
+List
+object; whether the
+List
+is modifiable or not is implementation dependent and
+         therefore not specified, not
+null
+Throws:
+IOException
+- if an I/O error occurred, it's not a Flight Recorder
+         file or a version of a JFR file that can't be parsed
+SecurityException
+- if a security manager exists and its
+checkRead
+method denies read access to the file.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

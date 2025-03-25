@@ -1,0 +1,763 @@
+DataBuffer (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt.image
+Class DataBuffer
+java.lang.Object
+java.awt.image.DataBuffer
+Direct Known Subclasses:
+DataBufferByte
+,
+DataBufferDouble
+,
+DataBufferFloat
+,
+DataBufferInt
+,
+DataBufferShort
+,
+DataBufferUShort
+public abstract class
+DataBuffer
+extends
+Object
+This class exists to wrap one or more data arrays.  Each data array in
+ the DataBuffer is referred to as a bank.  Accessor methods for getting
+ and setting elements of the DataBuffer's banks exist with and without
+ a bank specifier.  The methods without a bank specifier use the default 0th
+ bank.  The DataBuffer can optionally take an offset per bank, so that
+ data in an existing array can be used even if the interesting data
+ doesn't start at array location zero.  Getting or setting the 0th
+ element of a bank, uses the (0+offset)th element of the array.  The
+ size field specifies how much of the data array is available for
+ use.  Size + offset for a given bank should never be greater
+ than the length of the associated data array.  The data type of
+ a data buffer indicates the type of the data array(s) and may also
+ indicate additional semantics, e.g. storing unsigned 8-bit data
+ in elements of a byte array.  The data type may be TYPE_UNDEFINED
+ or one of the types defined below.  Other types may be added in
+ the future.  Generally, an object of class DataBuffer will be cast down
+ to one of its data type specific subclasses to access data type specific
+ methods for improved performance.  Currently, the Java 2D(tm) API
+ image classes use TYPE_BYTE, TYPE_USHORT, TYPE_INT, TYPE_SHORT,
+ TYPE_FLOAT, and TYPE_DOUBLE DataBuffers to store image data.
+See Also:
+Raster
+SampleModel
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected int
+banks
+The number of banks in this DataBuffer.
+protected int
+dataType
+The data type of this DataBuffer.
+protected int
+offset
+Offset into default (first) bank from which to get the first element.
+protected int[]
+offsets
+Offsets into all banks.
+protected int
+size
+Usable size of all banks.
+static final int
+TYPE_BYTE
+Tag for unsigned byte data.
+static final int
+TYPE_DOUBLE
+Tag for double data.
+static final int
+TYPE_FLOAT
+Tag for float data.
+static final int
+TYPE_INT
+Tag for int data.
+static final int
+TYPE_SHORT
+Tag for signed short data.
+static final int
+TYPE_UNDEFINED
+Tag for undefined data.
+static final int
+TYPE_USHORT
+Tag for unsigned short data.
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+DataBuffer
+(int dataType,
+ int size)
+Constructs a DataBuffer containing one bank of the specified
+  data type and size.
+protected
+DataBuffer
+(int dataType,
+ int size,
+ int numBanks)
+Constructs a DataBuffer containing the specified number of
+  banks.
+protected
+DataBuffer
+(int dataType,
+ int size,
+ int numBanks,
+ int offset)
+Constructs a DataBuffer that contains the specified number
+  of banks.
+protected
+DataBuffer
+(int dataType,
+ int size,
+ int numBanks,
+ int[] offsets)
+Constructs a DataBuffer which contains the specified number
+  of banks.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+int
+getDataType
+()
+Returns the data type of this DataBuffer.
+static int
+getDataTypeSize
+(int type)
+Returns the size (in bits) of the data type, given a datatype tag.
+int
+getElem
+(int i)
+Returns the requested data array element from the first (default) bank
+ as an integer.
+abstract int
+getElem
+(int bank,
+ int i)
+Returns the requested data array element from the specified bank
+ as an integer.
+double
+getElemDouble
+(int i)
+Returns the requested data array element from the first (default) bank
+ as a double.
+double
+getElemDouble
+(int bank,
+ int i)
+Returns the requested data array element from the specified bank as
+ a double.
+float
+getElemFloat
+(int i)
+Returns the requested data array element from the first (default) bank
+ as a float.
+float
+getElemFloat
+(int bank,
+ int i)
+Returns the requested data array element from the specified bank
+ as a float.
+int
+getNumBanks
+()
+Returns the number of banks in this DataBuffer.
+int
+getOffset
+()
+Returns the offset of the default bank in array elements.
+int[]
+getOffsets
+()
+Returns the offsets (in array elements) of all the banks.
+int
+getSize
+()
+Returns the size (in array elements) of all banks.
+void
+setElem
+(int i,
+ int val)
+Sets the requested data array element in the first (default) bank
+ from the given integer.
+abstract void
+setElem
+(int bank,
+ int i,
+ int val)
+Sets the requested data array element in the specified bank
+ from the given integer.
+void
+setElemDouble
+(int i,
+ double val)
+Sets the requested data array element in the first (default) bank
+ from the given double.
+void
+setElemDouble
+(int bank,
+ int i,
+ double val)
+Sets the requested data array element in the specified bank
+ from the given double.
+void
+setElemFloat
+(int i,
+ float val)
+Sets the requested data array element in the first (default) bank
+ from the given float.
+void
+setElemFloat
+(int bank,
+ int i,
+ float val)
+Sets the requested data array element in the specified bank
+ from the given float.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+TYPE_BYTE
+@Native
+public static final
+int
+TYPE_BYTE
+Tag for unsigned byte data.
+See Also:
+Constant Field Values
+TYPE_USHORT
+@Native
+public static final
+int
+TYPE_USHORT
+Tag for unsigned short data.
+See Also:
+Constant Field Values
+TYPE_SHORT
+@Native
+public static final
+int
+TYPE_SHORT
+Tag for signed short data.
+See Also:
+Constant Field Values
+TYPE_INT
+@Native
+public static final
+int
+TYPE_INT
+Tag for int data.
+See Also:
+Constant Field Values
+TYPE_FLOAT
+@Native
+public static final
+int
+TYPE_FLOAT
+Tag for float data.
+See Also:
+Constant Field Values
+TYPE_DOUBLE
+@Native
+public static final
+int
+TYPE_DOUBLE
+Tag for double data.
+See Also:
+Constant Field Values
+TYPE_UNDEFINED
+@Native
+public static final
+int
+TYPE_UNDEFINED
+Tag for undefined data.
+See Also:
+Constant Field Values
+dataType
+protected
+int
+dataType
+The data type of this DataBuffer.
+banks
+protected
+int
+banks
+The number of banks in this DataBuffer.
+offset
+protected
+int
+offset
+Offset into default (first) bank from which to get the first element.
+size
+protected
+int
+size
+Usable size of all banks.
+offsets
+protected
+int[]
+offsets
+Offsets into all banks.
+Constructor Details
+DataBuffer
+protected
+DataBuffer
+(int dataType,
+ int size)
+Constructs a DataBuffer containing one bank of the specified
+  data type and size.
+Parameters:
+dataType
+- the data type of this
+DataBuffer
+size
+- the size of the banks
+DataBuffer
+protected
+DataBuffer
+(int dataType,
+ int size,
+ int numBanks)
+Constructs a DataBuffer containing the specified number of
+  banks.  Each bank has the specified size and an offset of 0.
+Parameters:
+dataType
+- the data type of this
+DataBuffer
+size
+- the size of the banks
+numBanks
+- the number of banks in this
+DataBuffer
+DataBuffer
+protected
+DataBuffer
+(int dataType,
+ int size,
+ int numBanks,
+ int offset)
+Constructs a DataBuffer that contains the specified number
+  of banks.  Each bank has the specified datatype, size and offset.
+Parameters:
+dataType
+- the data type of this
+DataBuffer
+size
+- the size of the banks
+numBanks
+- the number of banks in this
+DataBuffer
+offset
+- the offset for each bank
+DataBuffer
+protected
+DataBuffer
+(int dataType,
+ int size,
+ int numBanks,
+ int[] offsets)
+Constructs a DataBuffer which contains the specified number
+  of banks.  Each bank has the specified datatype and size.  The
+  offset for each bank is specified by its respective entry in
+  the offsets array.
+Parameters:
+dataType
+- the data type of this
+DataBuffer
+size
+- the size of the banks
+numBanks
+- the number of banks in this
+DataBuffer
+offsets
+- an array containing an offset for each bank.
+Throws:
+ArrayIndexOutOfBoundsException
+- if
+numBanks
+does not equal the length of
+offsets
+Method Details
+getDataTypeSize
+public static
+int
+getDataTypeSize
+(int type)
+Returns the size (in bits) of the data type, given a datatype tag.
+Parameters:
+type
+- the value of one of the defined datatype tags
+Returns:
+the size of the data type
+Throws:
+IllegalArgumentException
+- if
+type
+is less than
+         zero or greater than
+TYPE_DOUBLE
+getDataType
+public
+int
+getDataType
+()
+Returns the data type of this DataBuffer.
+Returns:
+the data type of this
+DataBuffer
+.
+getSize
+public
+int
+getSize
+()
+Returns the size (in array elements) of all banks.
+Returns:
+the size of all banks.
+getOffset
+public
+int
+getOffset
+()
+Returns the offset of the default bank in array elements.
+Returns:
+the offset of the default bank.
+getOffsets
+public
+int[]
+getOffsets
+()
+Returns the offsets (in array elements) of all the banks.
+Returns:
+the offsets of all banks.
+getNumBanks
+public
+int
+getNumBanks
+()
+Returns the number of banks in this DataBuffer.
+Returns:
+the number of banks.
+getElem
+public
+int
+getElem
+(int i)
+Returns the requested data array element from the first (default) bank
+ as an integer.
+Parameters:
+i
+- the index of the requested data array element
+Returns:
+the data array element at the specified index.
+See Also:
+setElem(int, int)
+setElem(int, int, int)
+getElem
+public abstract
+int
+getElem
+(int bank,
+ int i)
+Returns the requested data array element from the specified bank
+ as an integer.
+Parameters:
+bank
+- the specified bank
+i
+- the index of the requested data array element
+Returns:
+the data array element at the specified index from the
+         specified bank at the specified index.
+See Also:
+setElem(int, int)
+setElem(int, int, int)
+setElem
+public
+void
+setElem
+(int i,
+ int val)
+Sets the requested data array element in the first (default) bank
+ from the given integer.
+Parameters:
+i
+- the specified index into the data array
+val
+- the data to set the element at the specified index in
+ the data array
+See Also:
+getElem(int)
+getElem(int, int)
+setElem
+public abstract
+void
+setElem
+(int bank,
+ int i,
+ int val)
+Sets the requested data array element in the specified bank
+ from the given integer.
+Parameters:
+bank
+- the specified bank
+i
+- the specified index into the data array
+val
+- the data to set the element in the specified bank
+ at the specified index in the data array
+See Also:
+getElem(int)
+getElem(int, int)
+getElemFloat
+public
+float
+getElemFloat
+(int i)
+Returns the requested data array element from the first (default) bank
+ as a float.  The implementation in this class is to cast getElem(i)
+ to a float.  Subclasses may override this method if another
+ implementation is needed.
+Parameters:
+i
+- the index of the requested data array element
+Returns:
+a float value representing the data array element at the
+  specified index.
+See Also:
+setElemFloat(int, float)
+setElemFloat(int, int, float)
+getElemFloat
+public
+float
+getElemFloat
+(int bank,
+ int i)
+Returns the requested data array element from the specified bank
+ as a float.  The implementation in this class is to cast
+getElem(int, int)
+to a float.  Subclasses can override this method if another
+ implementation is needed.
+Parameters:
+bank
+- the specified bank
+i
+- the index of the requested data array element
+Returns:
+a float value representing the data array element from the
+ specified bank at the specified index.
+See Also:
+setElemFloat(int, float)
+setElemFloat(int, int, float)
+setElemFloat
+public
+void
+setElemFloat
+(int i,
+ float val)
+Sets the requested data array element in the first (default) bank
+ from the given float.  The implementation in this class is to cast
+ val to an int and call
+setElem(int, int)
+.  Subclasses
+ can override this method if another implementation is needed.
+Parameters:
+i
+- the specified index
+val
+- the value to set the element at the specified index in
+ the data array
+See Also:
+getElemFloat(int)
+getElemFloat(int, int)
+setElemFloat
+public
+void
+setElemFloat
+(int bank,
+ int i,
+ float val)
+Sets the requested data array element in the specified bank
+ from the given float.  The implementation in this class is to cast
+ val to an int and call
+setElem(int, int)
+.  Subclasses can
+ override this method if another implementation is needed.
+Parameters:
+bank
+- the specified bank
+i
+- the specified index
+val
+- the value to set the element in the specified bank at
+ the specified index in the data array
+See Also:
+getElemFloat(int)
+getElemFloat(int, int)
+getElemDouble
+public
+double
+getElemDouble
+(int i)
+Returns the requested data array element from the first (default) bank
+ as a double.  The implementation in this class is to cast
+getElem(int)
+to a double.  Subclasses can override this method if another
+ implementation is needed.
+Parameters:
+i
+- the specified index
+Returns:
+a double value representing the element at the specified
+ index in the data array.
+See Also:
+setElemDouble(int, double)
+setElemDouble(int, int, double)
+getElemDouble
+public
+double
+getElemDouble
+(int bank,
+ int i)
+Returns the requested data array element from the specified bank as
+ a double.  The implementation in this class is to cast getElem(bank, i)
+ to a double.  Subclasses may override this method if another
+ implementation is needed.
+Parameters:
+bank
+- the specified bank
+i
+- the specified index
+Returns:
+a double value representing the element from the specified
+ bank at the specified index in the data array.
+See Also:
+setElemDouble(int, double)
+setElemDouble(int, int, double)
+setElemDouble
+public
+void
+setElemDouble
+(int i,
+ double val)
+Sets the requested data array element in the first (default) bank
+ from the given double.  The implementation in this class is to cast
+ val to an int and call
+setElem(int, int)
+.  Subclasses can
+ override this method if another implementation is needed.
+Parameters:
+i
+- the specified index
+val
+- the value to set the element at the specified index
+ in the data array
+See Also:
+getElemDouble(int)
+getElemDouble(int, int)
+setElemDouble
+public
+void
+setElemDouble
+(int bank,
+ int i,
+ double val)
+Sets the requested data array element in the specified bank
+ from the given double.  The implementation in this class is to cast
+ val to an int and call
+setElem(int, int)
+.  Subclasses can
+ override this method if another implementation is needed.
+Parameters:
+bank
+- the specified bank
+i
+- the specified index
+val
+- the value to set the element in the specified bank
+ at the specified index of the data array
+See Also:
+getElemDouble(int)
+getElemDouble(int, int)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

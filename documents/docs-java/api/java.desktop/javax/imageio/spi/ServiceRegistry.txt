@@ -1,0 +1,1021 @@
+ServiceRegistry (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.imageio.spi
+Class ServiceRegistry
+java.lang.Object
+javax.imageio.spi.ServiceRegistry
+Direct Known Subclasses:
+IIORegistry
+public class
+ServiceRegistry
+extends
+Object
+A registry for service provider instances for Image I/O service types.
+Service providers are stored in one or more
+categories
+,
+ each of which is defined by a class or interface (described by a
+Class
+object) that all of its members must implement.
+The set of categories supported by this class is limited
+ to the following standard Image I/O service types:
+ImageInputStreamSpi
+ImageOutputStreamSpi
+ImageReaderSpi
+ImageTranscoderSpi
+ImageWriterSpi
+An attempt to load a provider that is not a subtype of one of the
+ above types will result in
+IllegalArgumentException
+.
+For the general mechanism to load service providers, see
+ServiceLoader
+, which is
+ the underlying standard mechanism used by this class.
+Only a single instance of a given leaf class (that is, the
+ actual class returned by
+getClass()
+, as opposed to any
+ inherited classes or interfaces) may be registered.  That is,
+ suppose that the
+com.mycompany.mypkg.GreenImageReaderProvider
+class
+ is a subclass of
+javax.imageio.spi.ImageReaderSpi
+.
+ If a
+GreenImageReaderProvider
+instance is
+ registered, it will be stored in the category defined by the
+ImageReaderSpi
+class.  If a new instance of
+GreenImageReaderProvider
+is registered, it will replace
+ the previous instance.  In practice, service provider objects are
+ usually singletons so this behavior is appropriate.
+The service provider classes should be lightweight and
+ quick to load.  Implementations of these interfaces should avoid
+ complex dependencies on other classes and on native code. The usual
+ pattern for more complex services is to register a lightweight
+ proxy for the heavyweight service.
+An application may customize the contents of a registry as it
+ sees fit, so long as it has the appropriate runtime permission.
+For information on how to create and deploy service providers,
+ refer to the documentation on
+ServiceLoader
+See Also:
+RegisterableService
+ServiceLoader
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+static interface
+ServiceRegistry.Filter
+A simple filter interface used by
+ServiceRegistry.getServiceProviders
+to select
+ providers matching an arbitrary criterion.
+Constructor Summary
+Constructors
+Constructor
+Description
+ServiceRegistry
+(
+Iterator
+<
+Class
+<?>> categories)
+Constructs a
+ServiceRegistry
+instance with a
+ set of categories taken from the
+categories
+argument.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+boolean
+contains
+(
+Object
+provider)
+Returns
+true
+if
+provider
+is currently
+ registered.
+void
+deregisterAll
+()
+Deregisters all currently registered service providers from all
+ categories.
+void
+deregisterAll
+(
+Class
+<?> category)
+Deregisters all service provider object currently registered
+ under the given category.
+void
+deregisterServiceProvider
+(
+Object
+provider)
+Removes a service provider object from all categories that
+ contain it.
+<T> boolean
+deregisterServiceProvider
+(T provider,
+Class
+<T> category)
+Removes a service provider object from the given category.
+void
+finalize
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Finalization has been deprecated for removal.
+Iterator
+<
+Class
+<?>>
+getCategories
+()
+Returns an
+Iterator
+of
+Class
+objects
+ indicating the current set of categories.
+<T> T
+getServiceProviderByClass
+(
+Class
+<T> providerClass)
+Returns the currently registered service provider object that
+ is of the given class type.
+<T>
+Iterator
+<T>
+getServiceProviders
+(
+Class
+<T> category,
+ boolean useOrdering)
+Returns an
+Iterator
+containing all registered
+ service providers in the given category.
+<T>
+Iterator
+<T>
+getServiceProviders
+(
+Class
+<T> category,
+ServiceRegistry.Filter
+filter,
+ boolean useOrdering)
+Returns an
+Iterator
+containing service provider
+ objects within a given category that satisfy a criterion
+ imposed by the supplied
+ServiceRegistry.Filter
+object's
+filter
+method.
+static <T>
+Iterator
+<T>
+lookupProviders
+(
+Class
+<T> providerClass)
+Locates and incrementally instantiates the available providers
+ of a given service using the context class loader.
+static <T>
+Iterator
+<T>
+lookupProviders
+(
+Class
+<T> providerClass,
+ClassLoader
+loader)
+Searches for implementations of a particular service class
+ using the given class loader.
+void
+registerServiceProvider
+(
+Object
+provider)
+Adds a service provider object to the registry.
+<T> boolean
+registerServiceProvider
+(T provider,
+Class
+<T> category)
+Adds a service provider object to the registry.
+void
+registerServiceProviders
+(
+Iterator
+<?> providers)
+Adds a set of service provider objects, taken from an
+Iterator
+to the registry.
+<T> boolean
+setOrdering
+(
+Class
+<T> category,
+ T firstProvider,
+ T secondProvider)
+Sets a pairwise ordering between two service provider objects
+ within a given category.
+<T> boolean
+unsetOrdering
+(
+Class
+<T> category,
+ T firstProvider,
+ T secondProvider)
+Sets a pairwise ordering between two service provider objects
+ within a given category.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+ServiceRegistry
+public
+ServiceRegistry
+(
+Iterator
+<
+Class
+<?>> categories)
+Constructs a
+ServiceRegistry
+instance with a
+ set of categories taken from the
+categories
+argument. The categories must all be members of the set
+ of service types listed in the class specification.
+Parameters:
+categories
+- an
+Iterator
+containing
+Class
+objects to be used to define categories.
+Throws:
+IllegalArgumentException
+- if
+categories
+is
+null
+, or if
+ one of the categories is not an allowed service type.
+Method Details
+lookupProviders
+public static
+<T>
+Iterator
+<T>
+lookupProviders
+(
+Class
+<T> providerClass,
+ClassLoader
+loader)
+Searches for implementations of a particular service class
+ using the given class loader.
+The service class must be one of the service types listed
+ in the class specification. If it is not,
+IllegalArgumentException
+will be thrown.
+This method transforms the name of the given service class
+ into a provider-configuration filename as described in the
+ class comment and then uses the
+getResources
+method of the given class loader to find all available files
+ with that name.  These files are then read and parsed to
+ produce a list of provider-class names.  The iterator that is
+ returned uses the given class loader to look up and then
+ instantiate each element of the list.
+Because it is possible for extensions to be installed into
+ a running Java virtual machine, this method may return
+ different results each time it is invoked.
+Type Parameters:
+T
+- the type of the providerClass.
+Parameters:
+providerClass
+- a
+Class
+object indicating the
+ class or interface of the service providers being detected.
+loader
+- the class loader to be used to load
+ provider-configuration files and instantiate provider classes,
+ or
+null
+if the system class loader (or, failing that
+ the bootstrap class loader) is to be used.
+Returns:
+An
+Iterator
+that yields provider objects
+ for the given service, in some arbitrary order.  The iterator
+ will throw an
+Error
+if a provider-configuration
+ file violates the specified format or if a provider class
+ cannot be found and instantiated.
+Throws:
+IllegalArgumentException
+- if
+providerClass
+is
+null
+, or if it is
+ not one of the allowed service types.
+lookupProviders
+public static
+<T>
+Iterator
+<T>
+lookupProviders
+(
+Class
+<T> providerClass)
+Locates and incrementally instantiates the available providers
+ of a given service using the context class loader.  This
+ convenience method is equivalent to:
+ClassLoader cl = Thread.currentThread().getContextClassLoader();
+   return Service.providers(service, cl);
+The service class must be one of the service types listed
+ in the class specification. If it is not,
+IllegalArgumentException
+will be thrown.
+Type Parameters:
+T
+- the type of the providerClass.
+Parameters:
+providerClass
+- a
+Class
+object indicating the
+ class or interface of the service providers being detected.
+Returns:
+An
+Iterator
+that yields provider objects
+ for the given service, in some arbitrary order.  The iterator
+ will throw an
+Error
+if a provider-configuration
+ file violates the specified format or if a provider class
+ cannot be found and instantiated.
+Throws:
+IllegalArgumentException
+- if
+providerClass
+is
+null
+, or if it is
+ not one of the allowed service types.
+getCategories
+public
+Iterator
+<
+Class
+<?>>
+getCategories
+()
+Returns an
+Iterator
+of
+Class
+objects
+ indicating the current set of categories.  The iterator will be
+ empty if no categories exist.
+Returns:
+an
+Iterator
+containing
+Class
+objects.
+registerServiceProvider
+public
+<T>
+boolean
+registerServiceProvider
+(T provider,
+Class
+<T> category)
+Adds a service provider object to the registry.  The provider
+ is associated with the given category.
+If
+provider
+implements the
+RegisterableService
+interface, its
+onRegistration
+method will be called.  Its
+onDeregistration
+method will be called each time
+ it is deregistered from a category, for example if a
+ category is removed or the registry is garbage collected.
+Type Parameters:
+T
+- the type of the provider.
+Parameters:
+provider
+- the service provide object to be registered.
+category
+- the category under which to register the
+ provider.
+Returns:
+true if no provider of the same class was previously
+ registered in the same category category.
+Throws:
+IllegalArgumentException
+- if
+provider
+is
+null
+.
+IllegalArgumentException
+- if there is no category
+ corresponding to
+category
+.
+ClassCastException
+- if provider does not implement
+ the
+Class
+defined by
+category
+.
+registerServiceProvider
+public
+void
+registerServiceProvider
+(
+Object
+provider)
+Adds a service provider object to the registry.  The provider
+ is associated within each category present in the registry
+ whose
+Class
+it implements.
+If
+provider
+implements the
+RegisterableService
+interface, its
+onRegistration
+method will be called once for each
+ category it is registered under.  Its
+onDeregistration
+method will be called each time
+ it is deregistered from a category or when the registry is
+ finalized.
+Parameters:
+provider
+- the service provider object to be registered.
+Throws:
+IllegalArgumentException
+- if
+provider
+is
+null
+.
+registerServiceProviders
+public
+void
+registerServiceProviders
+(
+Iterator
+<?> providers)
+Adds a set of service provider objects, taken from an
+Iterator
+to the registry.  Each provider is
+ associated within each category present in the registry whose
+Class
+it implements.
+For each entry of
+providers
+that implements
+ the
+RegisterableService
+interface, its
+onRegistration
+method will be called once for each
+ category it is registered under.  Its
+onDeregistration
+method will be called each time
+ it is deregistered from a category or when the registry is
+ finalized.
+Parameters:
+providers
+- an Iterator containing service provider
+ objects to be registered.
+Throws:
+IllegalArgumentException
+- if
+providers
+is
+null
+or contains a
+null
+entry.
+deregisterServiceProvider
+public
+<T>
+boolean
+deregisterServiceProvider
+(T provider,
+Class
+<T> category)
+Removes a service provider object from the given category.  If
+ the provider was not previously registered, nothing happens and
+false
+is returned.  Otherwise,
+true
+is returned.  If an object of the same class as
+provider
+but not equal (using
+==
+) to
+provider
+is registered, it will not be
+ deregistered.
+If
+provider
+implements the
+RegisterableService
+interface, its
+onDeregistration
+method will be called.
+Type Parameters:
+T
+- the type of the provider.
+Parameters:
+provider
+- the service provider object to be deregistered.
+category
+- the category from which to deregister the
+ provider.
+Returns:
+true
+if the provider was previously
+ registered in the same category category,
+false
+otherwise.
+Throws:
+IllegalArgumentException
+- if
+provider
+is
+null
+.
+IllegalArgumentException
+- if there is no category
+ corresponding to
+category
+.
+ClassCastException
+- if provider does not implement
+ the class defined by
+category
+.
+deregisterServiceProvider
+public
+void
+deregisterServiceProvider
+(
+Object
+provider)
+Removes a service provider object from all categories that
+ contain it.
+Parameters:
+provider
+- the service provider object to be deregistered.
+Throws:
+IllegalArgumentException
+- if
+provider
+is
+null
+.
+contains
+public
+boolean
+contains
+(
+Object
+provider)
+Returns
+true
+if
+provider
+is currently
+ registered.
+Parameters:
+provider
+- the service provider object to be queried.
+Returns:
+true
+if the given provider has been
+ registered.
+Throws:
+IllegalArgumentException
+- if
+provider
+is
+null
+.
+getServiceProviders
+public
+<T>
+Iterator
+<T>
+getServiceProviders
+(
+Class
+<T> category,
+ boolean useOrdering)
+Returns an
+Iterator
+containing all registered
+ service providers in the given category.  If
+useOrdering
+is
+false
+, the iterator
+ will return all of the server provider objects in an arbitrary
+ order.  Otherwise, the ordering will respect any pairwise
+ orderings that have been set.  If the graph of pairwise
+ orderings contains cycles, any providers that belong to a cycle
+ will not be returned.
+Type Parameters:
+T
+- the type of the category.
+Parameters:
+category
+- the category to be retrieved from.
+useOrdering
+-
+true
+if pairwise orderings
+ should be taken account in ordering the returned objects.
+Returns:
+an
+Iterator
+containing service provider
+ objects from the given category, possibly in order.
+Throws:
+IllegalArgumentException
+- if there is no category
+ corresponding to
+category
+.
+getServiceProviders
+public
+<T>
+Iterator
+<T>
+getServiceProviders
+(
+Class
+<T> category,
+ServiceRegistry.Filter
+filter,
+ boolean useOrdering)
+Returns an
+Iterator
+containing service provider
+ objects within a given category that satisfy a criterion
+ imposed by the supplied
+ServiceRegistry.Filter
+object's
+filter
+method.
+The
+useOrdering
+argument controls the
+ ordering of the results using the same rules as
+getServiceProviders(Class, boolean)
+.
+Type Parameters:
+T
+- the type of the category.
+Parameters:
+category
+- the category to be retrieved from.
+filter
+- an instance of
+ServiceRegistry.Filter
+whose
+filter
+method will be invoked.
+useOrdering
+-
+true
+if pairwise orderings
+ should be taken account in ordering the returned objects.
+Returns:
+an
+Iterator
+containing service provider
+ objects from the given category, possibly in order.
+Throws:
+IllegalArgumentException
+- if there is no category
+ corresponding to
+category
+.
+getServiceProviderByClass
+public
+<T>
+T
+getServiceProviderByClass
+(
+Class
+<T> providerClass)
+Returns the currently registered service provider object that
+ is of the given class type.  At most one object of a given
+ class is allowed to be registered at any given time.  If no
+ registered object has the desired class type,
+null
+is returned.
+Type Parameters:
+T
+- the type of the provider.
+Parameters:
+providerClass
+- the
+Class
+of the desired
+ service provider object.
+Returns:
+a currently registered service provider object with the
+ desired
+Class
+type, or
+null
+is none is
+ present.
+Throws:
+IllegalArgumentException
+- if
+providerClass
+is
+null
+.
+setOrdering
+public
+<T>
+boolean
+setOrdering
+(
+Class
+<T> category,
+ T firstProvider,
+ T secondProvider)
+Sets a pairwise ordering between two service provider objects
+ within a given category.  If one or both objects are not
+ currently registered within the given category, or if the
+ desired ordering is already set, nothing happens and
+false
+is returned.  If the providers previously
+ were ordered in the reverse direction, that ordering is
+ removed.
+The ordering will be used by the
+getServiceProviders
+methods when their
+useOrdering
+argument is
+true
+.
+Type Parameters:
+T
+- the type of the category.
+Parameters:
+category
+- a
+Class
+object indicating the
+ category under which the preference is to be established.
+firstProvider
+- the preferred provider.
+secondProvider
+- the provider to which
+firstProvider
+is preferred.
+Returns:
+true
+if a previously unset ordering
+ was established.
+Throws:
+IllegalArgumentException
+- if either provider is
+null
+or they are the same object.
+IllegalArgumentException
+- if there is no category
+ corresponding to
+category
+.
+unsetOrdering
+public
+<T>
+boolean
+unsetOrdering
+(
+Class
+<T> category,
+ T firstProvider,
+ T secondProvider)
+Sets a pairwise ordering between two service provider objects
+ within a given category.  If one or both objects are not
+ currently registered within the given category, or if no
+ ordering is currently set between them, nothing happens
+ and
+false
+is returned.
+The ordering will be used by the
+getServiceProviders
+methods when their
+useOrdering
+argument is
+true
+.
+Type Parameters:
+T
+- the type of the category.
+Parameters:
+category
+- a
+Class
+object indicating the
+ category under which the preference is to be disestablished.
+firstProvider
+- the formerly preferred provider.
+secondProvider
+- the provider to which
+firstProvider
+was formerly preferred.
+Returns:
+true
+if a previously set ordering was
+ disestablished.
+Throws:
+IllegalArgumentException
+- if either provider is
+null
+or they are the same object.
+IllegalArgumentException
+- if there is no category
+ corresponding to
+category
+.
+deregisterAll
+public
+void
+deregisterAll
+(
+Class
+<?> category)
+Deregisters all service provider object currently registered
+ under the given category.
+Parameters:
+category
+- the category to be emptied.
+Throws:
+IllegalArgumentException
+- if there is no category
+ corresponding to
+category
+.
+deregisterAll
+public
+void
+deregisterAll
+()
+Deregisters all currently registered service providers from all
+ categories.
+finalize
+@Deprecated
+(
+since
+="9",
+forRemoval
+=true)
+public
+void
+finalize
+()
+              throws
+Throwable
+Deprecated, for removal: This API element is subject to removal in a future version.
+Finalization has been deprecated for removal.  See
+Object.finalize()
+for background information and details
+ about migration options.
+Finalizes this object prior to garbage collection.  The
+deregisterAll
+method is called to deregister all
+ currently registered service providers.  This method should not
+ be called from application code.
+Overrides:
+finalize
+in class
+Object
+Throws:
+Throwable
+- if an error occurs during superclass
+ finalization.
+See Also:
+WeakReference
+PhantomReference
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

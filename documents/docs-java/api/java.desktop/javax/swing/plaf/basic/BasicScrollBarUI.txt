@@ -1,0 +1,1256 @@
+BasicScrollBarUI (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.plaf.basic
+Class BasicScrollBarUI
+java.lang.Object
+javax.swing.plaf.ComponentUI
+javax.swing.plaf.ScrollBarUI
+javax.swing.plaf.basic.BasicScrollBarUI
+All Implemented Interfaces:
+LayoutManager
+,
+SwingConstants
+Direct Known Subclasses:
+MetalScrollBarUI
+,
+SynthScrollBarUI
+public class
+BasicScrollBarUI
+extends
+ScrollBarUI
+implements
+LayoutManager
+,
+SwingConstants
+Implementation of ScrollBarUI for the Basic Look and Feel
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+protected class
+BasicScrollBarUI.ArrowButtonListener
+Listener for cursor keys.
+protected class
+BasicScrollBarUI.ModelListener
+A listener to listen for model changes.
+class
+BasicScrollBarUI.PropertyChangeHandler
+Property change handler
+protected class
+BasicScrollBarUI.ScrollListener
+Listener for scrolling events initiated in the
+ScrollPane
+.
+protected class
+BasicScrollBarUI.TrackListener
+Track mouse drags.
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected
+BasicScrollBarUI.ArrowButtonListener
+buttonListener
+Button listener
+protected
+JButton
+decrButton
+Decrement button
+protected static final int
+DECREASE_HIGHLIGHT
+Decrease highlight
+protected int
+decrGap
+Distance between the decrement button and the track.
+protected
+JButton
+incrButton
+Increment button
+protected static final int
+INCREASE_HIGHLIGHT
+Increase highlight
+protected int
+incrGap
+Distance between the increment button and the track.
+protected boolean
+isDragging
+Dragging
+protected
+Dimension
+maximumThumbSize
+Maximum thumb size
+protected
+Dimension
+minimumThumbSize
+Minimum thumb size
+protected
+BasicScrollBarUI.ModelListener
+modelListener
+Model listener
+protected static final int
+NO_HIGHLIGHT
+No highlight
+protected
+PropertyChangeListener
+propertyChangeListener
+Property change listener
+protected
+JScrollBar
+scrollbar
+Scrollbar
+protected int
+scrollBarWidth
+Hint as to what width (when vertical) or height (when horizontal)
+ should be.
+protected
+BasicScrollBarUI.ScrollListener
+scrollListener
+Scroll listener
+protected
+Timer
+scrollTimer
+Scroll timer
+protected
+Color
+thumbColor
+Thumb color
+protected
+Color
+thumbDarkShadowColor
+Thumb dark shadow color
+protected
+Color
+thumbHighlightColor
+Thumb highlight color
+protected
+Color
+thumbLightShadowColor
+Thumb light shadow color
+protected
+Rectangle
+thumbRect
+Thumb rectangle
+protected
+Color
+trackColor
+Track color
+protected int
+trackHighlight
+Track highlight
+protected
+Color
+trackHighlightColor
+Track highlight color
+protected
+BasicScrollBarUI.TrackListener
+trackListener
+Track listener
+protected
+Rectangle
+trackRect
+Track rectangle
+Fields declared in interface javax.swing.
+SwingConstants
+BOTTOM
+,
+CENTER
+,
+EAST
+,
+HORIZONTAL
+,
+LEADING
+,
+LEFT
+,
+NEXT
+,
+NORTH
+,
+NORTH_EAST
+,
+NORTH_WEST
+,
+PREVIOUS
+,
+RIGHT
+,
+SOUTH
+,
+SOUTH_EAST
+,
+SOUTH_WEST
+,
+TOP
+,
+TRAILING
+,
+VERTICAL
+,
+WEST
+Constructor Summary
+Constructors
+Constructor
+Description
+BasicScrollBarUI
+()
+Constructs a
+BasicScrollBarUI
+.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+addLayoutComponent
+(
+String
+name,
+Component
+child)
+If the layout manager uses a per-component string,
+ adds the component
+comp
+to the layout,
+ associating it
+ with the string specified by
+name
+.
+protected void
+configureScrollBarColors
+()
+Configures the scroll bar colors.
+protected
+BasicScrollBarUI.ArrowButtonListener
+createArrowButtonListener
+()
+Creates an arrow button listener.
+protected
+JButton
+createDecreaseButton
+(int orientation)
+Creates a decrease button.
+protected
+JButton
+createIncreaseButton
+(int orientation)
+Creates an increase button.
+protected
+BasicScrollBarUI.ModelListener
+createModelListener
+()
+Creates a model listener.
+protected
+PropertyChangeListener
+createPropertyChangeListener
+()
+Creates a property change listener.
+protected
+BasicScrollBarUI.ScrollListener
+createScrollListener
+()
+Creates a scroll listener.
+protected
+BasicScrollBarUI.TrackListener
+createTrackListener
+()
+Creates a track listener.
+static
+ComponentUI
+createUI
+(
+JComponent
+c)
+Creates the UI.
+Dimension
+getMaximumSize
+(
+JComponent
+c)
+Returns the specified component's maximum size appropriate for
+ the look and feel.
+protected
+Dimension
+getMaximumThumbSize
+()
+Returns the largest acceptable size for the thumb.
+protected
+Dimension
+getMinimumThumbSize
+()
+Returns the smallest acceptable size for the thumb.
+Dimension
+getPreferredSize
+(
+JComponent
+c)
+A vertical scrollbar's preferred width is the maximum of
+ preferred widths of the (non
+null
+)
+ increment/decrement buttons,
+ and the minimum width of the thumb.
+boolean
+getSupportsAbsolutePositioning
+()
+Indicates whether the user can absolutely position the thumb with
+ a mouse gesture (usually the middle mouse button).
+protected
+Rectangle
+getThumbBounds
+()
+Return the current size/location of the thumb.
+protected
+Rectangle
+getTrackBounds
+()
+Returns the current bounds of the track, i.e. the space in between
+ the increment and decrement buttons, less the insets.
+protected void
+installComponents
+()
+Installs the components.
+protected void
+installDefaults
+()
+Installs the defaults.
+protected void
+installKeyboardActions
+()
+Installs the keyboard actions.
+protected void
+installListeners
+()
+Installs the listeners.
+void
+installUI
+(
+JComponent
+c)
+Installs the UI.
+boolean
+isThumbRollover
+()
+Returns true if the mouse is currently over the thumb.
+void
+layoutContainer
+(
+Container
+scrollbarContainer)
+Lays out the specified container.
+protected void
+layoutHScrollbar
+(
+JScrollBar
+sb)
+Lays out a horizontal scroll bar.
+protected void
+layoutVScrollbar
+(
+JScrollBar
+sb)
+Lays out a vertical scroll bar.
+Dimension
+minimumLayoutSize
+(
+Container
+scrollbarContainer)
+Calculates the minimum size dimensions for the specified
+ container, given the components it contains.
+protected void
+paintDecreaseHighlight
+(
+Graphics
+g)
+Paints the decrease highlight.
+protected void
+paintIncreaseHighlight
+(
+Graphics
+g)
+Paints the increase highlight.
+protected void
+paintThumb
+(
+Graphics
+g,
+JComponent
+c,
+Rectangle
+thumbBounds)
+Paints the thumb.
+protected void
+paintTrack
+(
+Graphics
+g,
+JComponent
+c,
+Rectangle
+trackBounds)
+Paints the track.
+Dimension
+preferredLayoutSize
+(
+Container
+scrollbarContainer)
+Calculates the preferred size dimensions for the specified
+ container, given the components it contains.
+void
+removeLayoutComponent
+(
+Component
+child)
+Removes the specified component from the layout.
+protected void
+scrollByBlock
+(int direction)
+Scrolls by block.
+protected void
+scrollByUnit
+(int direction)
+Scrolls by unit.
+protected void
+setThumbBounds
+(int x,
+ int y,
+ int width,
+ int height)
+Set the bounds of the thumb and force a repaint that includes
+ the old thumbBounds and the new one.
+protected void
+setThumbRollover
+(boolean active)
+Sets whether or not the mouse is currently over the thumb.
+protected void
+uninstallComponents
+()
+Uninstalls the components.
+protected void
+uninstallDefaults
+()
+Uninstalls the defaults.
+protected void
+uninstallKeyboardActions
+()
+Uninstalls the keyboard actions.
+protected void
+uninstallListeners
+()
+Uninstall the listeners.
+void
+uninstallUI
+(
+JComponent
+c)
+Uninstalls the UI.
+Methods declared in class javax.swing.plaf.
+ComponentUI
+contains
+,
+getAccessibleChild
+,
+getAccessibleChildrenCount
+,
+getBaseline
+,
+getBaselineResizeBehavior
+,
+getMinimumSize
+,
+paint
+,
+update
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+minimumThumbSize
+protected
+Dimension
+minimumThumbSize
+Minimum thumb size
+maximumThumbSize
+protected
+Dimension
+maximumThumbSize
+Maximum thumb size
+thumbHighlightColor
+protected
+Color
+thumbHighlightColor
+Thumb highlight color
+thumbLightShadowColor
+protected
+Color
+thumbLightShadowColor
+Thumb light shadow color
+thumbDarkShadowColor
+protected
+Color
+thumbDarkShadowColor
+Thumb dark shadow color
+thumbColor
+protected
+Color
+thumbColor
+Thumb color
+trackColor
+protected
+Color
+trackColor
+Track color
+trackHighlightColor
+protected
+Color
+trackHighlightColor
+Track highlight color
+scrollbar
+protected
+JScrollBar
+scrollbar
+Scrollbar
+incrButton
+protected
+JButton
+incrButton
+Increment button
+decrButton
+protected
+JButton
+decrButton
+Decrement button
+isDragging
+protected
+boolean
+isDragging
+Dragging
+trackListener
+protected
+BasicScrollBarUI.TrackListener
+trackListener
+Track listener
+buttonListener
+protected
+BasicScrollBarUI.ArrowButtonListener
+buttonListener
+Button listener
+modelListener
+protected
+BasicScrollBarUI.ModelListener
+modelListener
+Model listener
+thumbRect
+protected
+Rectangle
+thumbRect
+Thumb rectangle
+trackRect
+protected
+Rectangle
+trackRect
+Track rectangle
+trackHighlight
+protected
+int
+trackHighlight
+Track highlight
+NO_HIGHLIGHT
+protected static final
+int
+NO_HIGHLIGHT
+No highlight
+See Also:
+Constant Field Values
+DECREASE_HIGHLIGHT
+protected static final
+int
+DECREASE_HIGHLIGHT
+Decrease highlight
+See Also:
+Constant Field Values
+INCREASE_HIGHLIGHT
+protected static final
+int
+INCREASE_HIGHLIGHT
+Increase highlight
+See Also:
+Constant Field Values
+scrollListener
+protected
+BasicScrollBarUI.ScrollListener
+scrollListener
+Scroll listener
+propertyChangeListener
+protected
+PropertyChangeListener
+propertyChangeListener
+Property change listener
+scrollTimer
+protected
+Timer
+scrollTimer
+Scroll timer
+scrollBarWidth
+protected
+int
+scrollBarWidth
+Hint as to what width (when vertical) or height (when horizontal)
+ should be.
+Since:
+1.7
+incrGap
+protected
+int
+incrGap
+Distance between the increment button and the track. This may be a negative
+ number. If negative, then an overlap between the button and track will occur,
+ which is useful for shaped buttons.
+Since:
+1.7
+decrGap
+protected
+int
+decrGap
+Distance between the decrement button and the track. This may be a negative
+ number. If negative, then an overlap between the button and track will occur,
+ which is useful for shaped buttons.
+Since:
+1.7
+Constructor Details
+BasicScrollBarUI
+public
+BasicScrollBarUI
+()
+Constructs a
+BasicScrollBarUI
+.
+Method Details
+createUI
+public static
+ComponentUI
+createUI
+(
+JComponent
+c)
+Creates the UI.
+Parameters:
+c
+- the component
+Returns:
+the UI
+configureScrollBarColors
+protected
+void
+configureScrollBarColors
+()
+Configures the scroll bar colors.
+installUI
+public
+void
+installUI
+(
+JComponent
+c)
+Installs the UI.
+Overrides:
+installUI
+in class
+ComponentUI
+Parameters:
+c
+- the component
+See Also:
+ComponentUI.uninstallUI(javax.swing.JComponent)
+JComponent.setUI(javax.swing.plaf.ComponentUI)
+JComponent.updateUI()
+uninstallUI
+public
+void
+uninstallUI
+(
+JComponent
+c)
+Uninstalls the UI.
+Overrides:
+uninstallUI
+in class
+ComponentUI
+Parameters:
+c
+- the component
+See Also:
+ComponentUI.installUI(javax.swing.JComponent)
+JComponent.updateUI()
+installDefaults
+protected
+void
+installDefaults
+()
+Installs the defaults.
+installComponents
+protected
+void
+installComponents
+()
+Installs the components.
+uninstallComponents
+protected
+void
+uninstallComponents
+()
+Uninstalls the components.
+installListeners
+protected
+void
+installListeners
+()
+Installs the listeners.
+installKeyboardActions
+protected
+void
+installKeyboardActions
+()
+Installs the keyboard actions.
+uninstallKeyboardActions
+protected
+void
+uninstallKeyboardActions
+()
+Uninstalls the keyboard actions.
+uninstallListeners
+protected
+void
+uninstallListeners
+()
+Uninstall the listeners.
+uninstallDefaults
+protected
+void
+uninstallDefaults
+()
+Uninstalls the defaults.
+createTrackListener
+protected
+BasicScrollBarUI.TrackListener
+createTrackListener
+()
+Creates a track listener.
+Returns:
+a track listener
+createArrowButtonListener
+protected
+BasicScrollBarUI.ArrowButtonListener
+createArrowButtonListener
+()
+Creates an arrow button listener.
+Returns:
+an arrow button   listener
+createModelListener
+protected
+BasicScrollBarUI.ModelListener
+createModelListener
+()
+Creates a model listener.
+Returns:
+a model listener
+createScrollListener
+protected
+BasicScrollBarUI.ScrollListener
+createScrollListener
+()
+Creates a scroll listener.
+Returns:
+a scroll listener
+createPropertyChangeListener
+protected
+PropertyChangeListener
+createPropertyChangeListener
+()
+Creates a property change listener.
+Returns:
+a property change listener
+setThumbRollover
+protected
+void
+setThumbRollover
+(boolean active)
+Sets whether or not the mouse is currently over the thumb.
+Parameters:
+active
+- True indicates the thumb is currently active.
+Since:
+1.5
+isThumbRollover
+public
+boolean
+isThumbRollover
+()
+Returns true if the mouse is currently over the thumb.
+Returns:
+true if the thumb is currently active
+Since:
+1.5
+getPreferredSize
+public
+Dimension
+getPreferredSize
+(
+JComponent
+c)
+A vertical scrollbar's preferred width is the maximum of
+ preferred widths of the (non
+null
+)
+ increment/decrement buttons,
+ and the minimum width of the thumb. The preferred height is the
+ sum of the preferred heights of the same parts.  The basis for
+ the preferred size of a horizontal scrollbar is similar.
+The
+preferredSize
+is only computed once, subsequent
+ calls to this method just return a cached size.
+Overrides:
+getPreferredSize
+in class
+ComponentUI
+Parameters:
+c
+- the
+JScrollBar
+that's delegating this method to us
+Returns:
+the preferred size of a Basic JScrollBar
+See Also:
+getMaximumSize(javax.swing.JComponent)
+ComponentUI.getMinimumSize(javax.swing.JComponent)
+getMaximumSize
+public
+Dimension
+getMaximumSize
+(
+JComponent
+c)
+Description copied from class:
+ComponentUI
+Returns the specified component's maximum size appropriate for
+ the look and feel.  If
+null
+is returned, the maximum
+ size will be calculated by the component's layout manager instead
+ (this is the preferred approach for any component with a specific
+ layout manager installed).  The default implementation of this
+ method invokes
+getPreferredSize
+and returns that value.
+Overrides:
+getMaximumSize
+in class
+ComponentUI
+Parameters:
+c
+- The JScrollBar that's delegating this method to us.
+Returns:
+new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE);
+See Also:
+ComponentUI.getMinimumSize(javax.swing.JComponent)
+getPreferredSize(javax.swing.JComponent)
+createDecreaseButton
+protected
+JButton
+createDecreaseButton
+(int orientation)
+Creates a decrease button.
+Parameters:
+orientation
+- the orientation
+Returns:
+a decrease button
+createIncreaseButton
+protected
+JButton
+createIncreaseButton
+(int orientation)
+Creates an increase button.
+Parameters:
+orientation
+- the orientation
+Returns:
+an increase button
+paintDecreaseHighlight
+protected
+void
+paintDecreaseHighlight
+(
+Graphics
+g)
+Paints the decrease highlight.
+Parameters:
+g
+- the graphics
+paintIncreaseHighlight
+protected
+void
+paintIncreaseHighlight
+(
+Graphics
+g)
+Paints the increase highlight.
+Parameters:
+g
+- the graphics
+paintTrack
+protected
+void
+paintTrack
+(
+Graphics
+g,
+JComponent
+c,
+Rectangle
+trackBounds)
+Paints the track.
+Parameters:
+g
+- the graphics
+c
+- the component
+trackBounds
+- the track bounds
+paintThumb
+protected
+void
+paintThumb
+(
+Graphics
+g,
+JComponent
+c,
+Rectangle
+thumbBounds)
+Paints the thumb.
+Parameters:
+g
+- the graphics
+c
+- the component
+thumbBounds
+- the thumb bounds
+getMinimumThumbSize
+protected
+Dimension
+getMinimumThumbSize
+()
+Returns the smallest acceptable size for the thumb.  If the scrollbar
+ becomes so small that this size isn't available, the thumb will be
+ hidden.
+Warning
+: the value returned by this method should not be
+ be modified, it's a shared static constant.
+Returns:
+The smallest acceptable size for the thumb.
+See Also:
+getMaximumThumbSize()
+getMaximumThumbSize
+protected
+Dimension
+getMaximumThumbSize
+()
+Returns the largest acceptable size for the thumb.  To create a fixed
+ size thumb one make this method and
+getMinimumThumbSize
+return the same value.
+Warning
+: the value returned by this method should not be
+ be modified, it's a shared static constant.
+Returns:
+The largest acceptable size for the thumb.
+See Also:
+getMinimumThumbSize()
+addLayoutComponent
+public
+void
+addLayoutComponent
+(
+String
+name,
+Component
+child)
+Description copied from interface:
+LayoutManager
+If the layout manager uses a per-component string,
+ adds the component
+comp
+to the layout,
+ associating it
+ with the string specified by
+name
+.
+Specified by:
+addLayoutComponent
+in interface
+LayoutManager
+Parameters:
+name
+- the string to be associated with the component
+child
+- the component to be added
+removeLayoutComponent
+public
+void
+removeLayoutComponent
+(
+Component
+child)
+Description copied from interface:
+LayoutManager
+Removes the specified component from the layout.
+Specified by:
+removeLayoutComponent
+in interface
+LayoutManager
+Parameters:
+child
+- the component to be removed
+preferredLayoutSize
+public
+Dimension
+preferredLayoutSize
+(
+Container
+scrollbarContainer)
+Description copied from interface:
+LayoutManager
+Calculates the preferred size dimensions for the specified
+ container, given the components it contains.
+Specified by:
+preferredLayoutSize
+in interface
+LayoutManager
+Parameters:
+scrollbarContainer
+- the container to be laid out
+Returns:
+the preferred dimension for the container
+See Also:
+LayoutManager.minimumLayoutSize(java.awt.Container)
+minimumLayoutSize
+public
+Dimension
+minimumLayoutSize
+(
+Container
+scrollbarContainer)
+Description copied from interface:
+LayoutManager
+Calculates the minimum size dimensions for the specified
+ container, given the components it contains.
+Specified by:
+minimumLayoutSize
+in interface
+LayoutManager
+Parameters:
+scrollbarContainer
+- the component to be laid out
+Returns:
+the minimum dimension for the container
+See Also:
+LayoutManager.preferredLayoutSize(java.awt.Container)
+layoutVScrollbar
+protected
+void
+layoutVScrollbar
+(
+JScrollBar
+sb)
+Lays out a vertical scroll bar.
+Parameters:
+sb
+- the scroll bar
+layoutHScrollbar
+protected
+void
+layoutHScrollbar
+(
+JScrollBar
+sb)
+Lays out a horizontal scroll bar.
+Parameters:
+sb
+- the scroll bar
+layoutContainer
+public
+void
+layoutContainer
+(
+Container
+scrollbarContainer)
+Description copied from interface:
+LayoutManager
+Lays out the specified container.
+Specified by:
+layoutContainer
+in interface
+LayoutManager
+Parameters:
+scrollbarContainer
+- the container to be laid out
+setThumbBounds
+protected
+void
+setThumbBounds
+(int x,
+ int y,
+ int width,
+ int height)
+Set the bounds of the thumb and force a repaint that includes
+ the old thumbBounds and the new one.
+Parameters:
+x
+- set the x location of the thumb
+y
+- set the y location of the thumb
+width
+- set the width of the thumb
+height
+- set the height of the thumb
+See Also:
+getThumbBounds()
+getThumbBounds
+protected
+Rectangle
+getThumbBounds
+()
+Return the current size/location of the thumb.
+Warning
+: the value returned by this method should not be
+ be modified, it's a reference to the actual rectangle, not a copy.
+Returns:
+The current size/location of the thumb.
+See Also:
+setThumbBounds(int, int, int, int)
+getTrackBounds
+protected
+Rectangle
+getTrackBounds
+()
+Returns the current bounds of the track, i.e. the space in between
+ the increment and decrement buttons, less the insets.  The value
+ returned by this method is updated each time the scrollbar is
+ laid out (validated).
+Warning
+: the value returned by this method should not be
+ be modified, it's a reference to the actual rectangle, not a copy.
+Returns:
+the current bounds of the scrollbar track
+See Also:
+layoutContainer(java.awt.Container)
+scrollByBlock
+protected
+void
+scrollByBlock
+(int direction)
+Scrolls by block.
+Parameters:
+direction
+- the direction to scroll
+scrollByUnit
+protected
+void
+scrollByUnit
+(int direction)
+Scrolls by unit.
+Parameters:
+direction
+- the direction to scroll
+getSupportsAbsolutePositioning
+public
+boolean
+getSupportsAbsolutePositioning
+()
+Indicates whether the user can absolutely position the thumb with
+ a mouse gesture (usually the middle mouse button).
+Returns:
+true if a mouse gesture can absolutely position the thumb
+Since:
+1.5
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

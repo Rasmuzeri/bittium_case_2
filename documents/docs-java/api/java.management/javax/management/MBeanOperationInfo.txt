@@ -1,0 +1,470 @@
+MBeanOperationInfo (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.management
+Package
+javax.management
+Class MBeanOperationInfo
+java.lang.Object
+javax.management.MBeanFeatureInfo
+javax.management.MBeanOperationInfo
+All Implemented Interfaces:
+Serializable
+,
+Cloneable
+,
+DescriptorRead
+Direct Known Subclasses:
+ModelMBeanOperationInfo
+,
+OpenMBeanOperationInfoSupport
+public class
+MBeanOperationInfo
+extends
+MBeanFeatureInfo
+implements
+Cloneable
+Describes a management operation exposed by an MBean.  Instances of
+ this class are immutable.  Subclasses may be mutable but this is
+ not recommended.
+Since:
+1.5
+See Also:
+Serialized Form
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final int
+ACTION
+Indicates that the operation is write-like: it has an effect but does
+ not return any information from the MBean.
+static final int
+ACTION_INFO
+Indicates that the operation is both read-like and write-like:
+ it has an effect, and it also returns information from the MBean.
+static final int
+INFO
+Indicates that the operation is read-like:
+ it returns information but does not change any state.
+static final int
+UNKNOWN
+Indicates that the impact of the operation is unknown or cannot be
+ expressed using one of the other values.
+Fields declared in class javax.management.
+MBeanFeatureInfo
+description
+,
+name
+Constructor Summary
+Constructors
+Constructor
+Description
+MBeanOperationInfo
+(
+String
+description,
+Method
+method)
+Constructs an
+MBeanOperationInfo
+object.
+MBeanOperationInfo
+(
+String
+name,
+String
+description,
+MBeanParameterInfo
+[] signature,
+String
+type,
+ int impact)
+Constructs an
+MBeanOperationInfo
+object.
+MBeanOperationInfo
+(
+String
+name,
+String
+description,
+MBeanParameterInfo
+[] signature,
+String
+type,
+ int impact,
+Descriptor
+descriptor)
+Constructs an
+MBeanOperationInfo
+object.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Object
+clone
+()
+Returns a shallow clone of this instance.
+boolean
+equals
+(
+Object
+o)
+Compare this MBeanOperationInfo to another.
+int
+getImpact
+()
+Returns the impact of the method, one of
+INFO, ACTION, ACTION_INFO, UNKNOWN
+.
+String
+getReturnType
+()
+Returns the type of the method's return value.
+MBeanParameterInfo
+[]
+getSignature
+()
+Returns the list of parameters for this operation.
+Methods declared in class javax.management.
+MBeanFeatureInfo
+getDescription
+,
+getDescriptor
+,
+getName
+Methods declared in class java.lang.
+Object
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+INFO
+public static final
+int
+INFO
+Indicates that the operation is read-like:
+ it returns information but does not change any state.
+See Also:
+Constant Field Values
+ACTION
+public static final
+int
+ACTION
+Indicates that the operation is write-like: it has an effect but does
+ not return any information from the MBean.
+See Also:
+Constant Field Values
+ACTION_INFO
+public static final
+int
+ACTION_INFO
+Indicates that the operation is both read-like and write-like:
+ it has an effect, and it also returns information from the MBean.
+See Also:
+Constant Field Values
+UNKNOWN
+public static final
+int
+UNKNOWN
+Indicates that the impact of the operation is unknown or cannot be
+ expressed using one of the other values.
+See Also:
+Constant Field Values
+Constructor Details
+MBeanOperationInfo
+public
+MBeanOperationInfo
+(
+String
+description,
+Method
+method)
+Constructs an
+MBeanOperationInfo
+object.  The
+Descriptor
+of the constructed object will include
+ fields contributed by any annotations on the
+Method
+object that contain the
+DescriptorKey
+meta-annotation.
+Parameters:
+description
+- A human readable description of the operation.
+method
+- The
+java.lang.reflect.Method
+object
+ describing the MBean operation.
+MBeanOperationInfo
+public
+MBeanOperationInfo
+(
+String
+name,
+String
+description,
+MBeanParameterInfo
+[] signature,
+String
+type,
+ int impact)
+Constructs an
+MBeanOperationInfo
+object.
+Parameters:
+name
+- The name of the method.
+description
+- A human readable description of the operation.
+signature
+-
+MBeanParameterInfo
+objects
+ describing the parameters(arguments) of the method.  This may be
+ null with the same effect as a zero-length array.
+type
+- The type of the method's return value.
+impact
+- The impact of the method, one of
+INFO
+,
+ACTION
+,
+ACTION_INFO
+,
+UNKNOWN
+.
+MBeanOperationInfo
+public
+MBeanOperationInfo
+(
+String
+name,
+String
+description,
+MBeanParameterInfo
+[] signature,
+String
+type,
+ int impact,
+Descriptor
+descriptor)
+Constructs an
+MBeanOperationInfo
+object.
+Parameters:
+name
+- The name of the method.
+description
+- A human readable description of the operation.
+signature
+-
+MBeanParameterInfo
+objects
+ describing the parameters(arguments) of the method.  This may be
+ null with the same effect as a zero-length array.
+type
+- The type of the method's return value.
+impact
+- The impact of the method, one of
+INFO
+,
+ACTION
+,
+ACTION_INFO
+,
+UNKNOWN
+.
+descriptor
+- The descriptor for the operation.  This may be null
+ which is equivalent to an empty descriptor.
+Throws:
+IllegalArgumentException
+- if
+impact
+is not one of
+ACTION
+,
+ACTION_INFO
+,
+INFO
+or
+UNKNOWN
+.
+Since:
+1.6
+Method Details
+clone
+public
+Object
+clone
+()
+Returns a shallow clone of this instance.
+ The clone is obtained by simply calling
+super.clone()
+,
+ thus calling the default native shallow cloning mechanism
+ implemented by
+Object.clone()
+.
+ No deeper cloning of any internal field is made.
+Since this class is immutable, cloning is chiefly of interest
+ to subclasses.
+Overrides:
+clone
+in class
+Object
+Returns:
+a clone of this instance.
+See Also:
+Cloneable
+getReturnType
+public
+String
+getReturnType
+()
+Returns the type of the method's return value.
+Returns:
+the return type.
+getSignature
+public
+MBeanParameterInfo
+[]
+getSignature
+()
+Returns the list of parameters for this operation.  Each
+ parameter is described by an
+MBeanParameterInfo
+object.
+The returned array is a shallow copy of the internal array,
+ which means that it is a copy of the internal array of
+ references to the
+MBeanParameterInfo
+objects but
+ that each referenced
+MBeanParameterInfo
+object is
+ not copied.
+Returns:
+An array of
+MBeanParameterInfo
+objects.
+getImpact
+public
+int
+getImpact
+()
+Returns the impact of the method, one of
+INFO, ACTION, ACTION_INFO, UNKNOWN
+.
+Returns:
+the impact code.
+equals
+public
+boolean
+equals
+(
+Object
+o)
+Compare this MBeanOperationInfo to another.
+Overrides:
+equals
+in class
+MBeanFeatureInfo
+Parameters:
+o
+- the object to compare to.
+Returns:
+true if and only if
+o
+is an MBeanOperationInfo such
+ that its
+MBeanFeatureInfo.getName()
+,
+getReturnType()
+,
+MBeanFeatureInfo.getDescription()
+,
+getImpact()
+,
+MBeanFeatureInfo.getDescriptor()
+and
+getSignature()
+values are equal (not necessarily identical)
+ to those of this MBeanConstructorInfo.  Two signature arrays
+ are equal if their elements are pairwise equal.
+See Also:
+Object.hashCode()
+HashMap
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,272 @@
+ResponseAPDU (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.smartcardio
+Package
+javax.smartcardio
+Class ResponseAPDU
+java.lang.Object
+javax.smartcardio.ResponseAPDU
+All Implemented Interfaces:
+Serializable
+public final class
+ResponseAPDU
+extends
+Object
+implements
+Serializable
+A response APDU as defined in ISO/IEC 7816-4. It consists of a conditional
+ body and a two byte trailer.
+ This class does not attempt to verify that the APDU encodes a semantically
+ valid response.
+Instances of this class are immutable. Where data is passed in or out
+ via byte arrays, defensive cloning is performed.
+Since:
+1.6
+See Also:
+CommandAPDU
+CardChannel.transmit
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+ResponseAPDU
+(byte[] apdu)
+Constructs a ResponseAPDU from a byte array containing the complete
+ APDU contents (conditional body and trailed).
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+equals
+(
+Object
+obj)
+Compares the specified object with this response APDU for equality.
+byte[]
+getBytes
+()
+Returns a copy of the bytes in this APDU.
+byte[]
+getData
+()
+Returns a copy of the data bytes in the response body.
+int
+getNr
+()
+Returns the number of data bytes in the response body (Nr) or 0 if this
+ APDU has no body.
+int
+getSW
+()
+Returns the value of the status bytes SW1 and SW2 as a single
+ status word SW.
+int
+getSW1
+()
+Returns the value of the status byte SW1 as a value between 0 and 255.
+int
+getSW2
+()
+Returns the value of the status byte SW2 as a value between 0 and 255.
+int
+hashCode
+()
+Returns the hash code value for this response APDU.
+String
+toString
+()
+Returns a string representation of this response APDU.
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+ResponseAPDU
+public
+ResponseAPDU
+(byte[] apdu)
+Constructs a ResponseAPDU from a byte array containing the complete
+ APDU contents (conditional body and trailed).
+Note that the byte array is cloned to protect against subsequent
+ modification.
+Parameters:
+apdu
+- the complete response APDU
+Throws:
+NullPointerException
+- if apdu is null
+IllegalArgumentException
+- if apdu.length is less than 2
+Method Details
+getNr
+public
+int
+getNr
+()
+Returns the number of data bytes in the response body (Nr) or 0 if this
+ APDU has no body. This call is equivalent to
+getData().length
+.
+Returns:
+the number of data bytes in the response body or 0 if this APDU
+ has no body.
+getData
+public
+byte[]
+getData
+()
+Returns a copy of the data bytes in the response body. If this APDU has
+ no body, this method returns a byte array with a length of zero.
+Returns:
+a copy of the data bytes in the response body or the empty
+    byte array if this APDU has no body.
+getSW1
+public
+int
+getSW1
+()
+Returns the value of the status byte SW1 as a value between 0 and 255.
+Returns:
+the value of the status byte SW1 as a value between 0 and 255.
+getSW2
+public
+int
+getSW2
+()
+Returns the value of the status byte SW2 as a value between 0 and 255.
+Returns:
+the value of the status byte SW2 as a value between 0 and 255.
+getSW
+public
+int
+getSW
+()
+Returns the value of the status bytes SW1 and SW2 as a single
+ status word SW.
+ It is defined as
+(getSW1() << 8) | getSW2()
+Returns:
+the value of the status word SW.
+getBytes
+public
+byte[]
+getBytes
+()
+Returns a copy of the bytes in this APDU.
+Returns:
+a copy of the bytes in this APDU.
+toString
+public
+String
+toString
+()
+Returns a string representation of this response APDU.
+Overrides:
+toString
+in class
+Object
+Returns:
+a String representation of this response APDU.
+equals
+public
+boolean
+equals
+(
+Object
+obj)
+Compares the specified object with this response APDU for equality.
+ Returns true if the given object is also a ResponseAPDU and its bytes are
+ identical to the bytes in this ResponseAPDU.
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- the object to be compared for equality with this response APDU
+Returns:
+true if the specified object is equal to this response APDU
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+public
+int
+hashCode
+()
+Returns the hash code value for this response APDU.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+the hash code value for this response APDU.
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

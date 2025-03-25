@@ -1,0 +1,296 @@
+KerberosCredMessage (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.security.jgss
+Package
+javax.security.auth.kerberos
+Class KerberosCredMessage
+java.lang.Object
+javax.security.auth.kerberos.KerberosCredMessage
+All Implemented Interfaces:
+Destroyable
+public final class
+KerberosCredMessage
+extends
+Object
+implements
+Destroyable
+This class encapsulates a Kerberos 5 KRB_CRED message which can be used to
+ send Kerberos credentials from one principal to another.
+A KRB_CRED message is defined in Section 5.8.1 of the Kerberos Protocol
+ Specification (
+RFC 4120
+) as:
+KRB-CRED        ::= [APPLICATION 22] SEQUENCE {
+            pvno            [0] INTEGER (5),
+            msg-type        [1] INTEGER (22),
+            tickets         [2] SEQUENCE OF Ticket,
+            enc-part        [3] EncryptedData -- EncKrbCredPart
+    }
+Since:
+9
+Constructor Summary
+Constructors
+Constructor
+Description
+KerberosCredMessage
+(
+KerberosPrincipal
+sender,
+KerberosPrincipal
+recipient,
+ byte[] message)
+Constructs a
+KerberosCredMessage
+object.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+destroy
+()
+Destroys this object by clearing out the message.
+boolean
+equals
+(
+Object
+other)
+Compares the specified object with this
+KerberosCredMessage
+for equality.
+byte[]
+getEncoded
+()
+Returns the DER encoded form of the KRB_CRED message.
+KerberosPrincipal
+getRecipient
+()
+Returns the recipient of this message.
+KerberosPrincipal
+getSender
+()
+Returns the sender of this message.
+int
+hashCode
+()
+Returns a hash code for this
+KerberosCredMessage
+.
+String
+toString
+()
+Returns an informative textual representation of this
+KerberosCredMessage
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface javax.security.auth.
+Destroyable
+isDestroyed
+Constructor Details
+KerberosCredMessage
+public
+KerberosCredMessage
+(
+KerberosPrincipal
+sender,
+KerberosPrincipal
+recipient,
+ byte[] message)
+Constructs a
+KerberosCredMessage
+object.
+The contents of the
+message
+argument are copied; subsequent
+ modification of the byte array does not affect the newly created object.
+Parameters:
+sender
+- the sender of the message
+recipient
+- the recipient of the message
+message
+- the DER encoded KRB_CRED message
+Throws:
+NullPointerException
+- if any of sender, recipient
+                              or message is null
+Method Details
+getEncoded
+public
+byte[]
+getEncoded
+()
+Returns the DER encoded form of the KRB_CRED message.
+Returns:
+a newly allocated byte array that contains the encoded form
+Throws:
+IllegalStateException
+- if the object is destroyed
+getSender
+public
+KerberosPrincipal
+getSender
+()
+Returns the sender of this message.
+Returns:
+the sender
+Throws:
+IllegalStateException
+- if the object is destroyed
+getRecipient
+public
+KerberosPrincipal
+getRecipient
+()
+Returns the recipient of this message.
+Returns:
+the recipient
+Throws:
+IllegalStateException
+- if the object is destroyed
+destroy
+public
+void
+destroy
+()
+Destroys this object by clearing out the message.
+Specified by:
+destroy
+in interface
+Destroyable
+toString
+public
+String
+toString
+()
+Returns an informative textual representation of this
+KerberosCredMessage
+.
+Overrides:
+toString
+in class
+Object
+Returns:
+an informative textual representation of this
+KerberosCredMessage
+.
+hashCode
+public
+int
+hashCode
+()
+Returns a hash code for this
+KerberosCredMessage
+.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+a hash code for this
+KerberosCredMessage
+.
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+equals
+public
+boolean
+equals
+(
+Object
+other)
+Compares the specified object with this
+KerberosCredMessage
+for equality. Returns true if the given object is also a
+KerberosCredMessage
+and the two
+KerberosCredMessage
+instances are equivalent. More formally two
+KerberosCredMessage
+instances are equal if they have equal sender, recipient, and encoded
+ KRB_CRED messages.
+ A destroyed
+KerberosCredMessage
+object is only equal to itself.
+Overrides:
+equals
+in class
+Object
+Parameters:
+other
+- the object to compare to
+Returns:
+true if the specified object is equal to this
+KerberosCredMessage
+, false otherwise.
+See Also:
+Object.hashCode()
+HashMap
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

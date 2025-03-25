@@ -1,0 +1,307 @@
+ElementIterator (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.text
+Class ElementIterator
+java.lang.Object
+javax.swing.text.ElementIterator
+All Implemented Interfaces:
+Cloneable
+public class
+ElementIterator
+extends
+Object
+implements
+Cloneable
+ElementIterator
+, as the name suggests, iterates over the
+Element
+tree. The constructor can be invoked with either
+Document
+or an
+Element
+as an argument. If the constructor is
+ invoked with a
+Document
+as an argument then the root of the iteration
+ is the return value of
+document.getDefaultRootElement()
+.
+The iteration happens in a depth-first manner. In terms of how boundary
+ conditions are handled:
+if
+next()
+is called before
+first()
+or
+current()
+,
+   the root will be returned
+next()
+returns
+null
+to indicate the end of the list
+previous()
+returns
+null
+when the current element is the
+   root or
+next()
+has returned
+null
+The
+ElementIterator
+does no locking of the
+Element
+tree. This
+ means that it does not track any changes. It is the responsibility of the
+ user of this class, to ensure that no changes happen during element
+ iteration.
+Simple usage example:
+public void iterate() {
+      ElementIterator it = new ElementIterator(root);
+      Element elem;
+      while (true) {
+          if ((elem = it.next()) != null) {
+              // process element
+              System.out.println("elem: " + elem.getName());
+          } else {
+              break;
+          }
+      }
+ }
+Constructor Summary
+Constructors
+Constructor
+Description
+ElementIterator
+(
+Document
+document)
+Creates a new
+ElementIterator
+.
+ElementIterator
+(
+Element
+root)
+Creates a new
+ElementIterator
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Object
+clone
+()
+Clones the
+ElementIterator
+.
+Element
+current
+()
+Fetches the current
+Element
+.
+int
+depth
+()
+Fetches the current depth of element tree.
+Element
+first
+()
+Fetches the first element.
+Element
+next
+()
+Fetches the next
+Element
+.
+Element
+previous
+()
+Fetches the previous
+Element
+.
+Methods declared in class java.lang.
+Object
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+ElementIterator
+public
+ElementIterator
+(
+Document
+document)
+Creates a new
+ElementIterator
+. The root element is taken to get
+ the default root element of the document.
+Parameters:
+document
+- a
+Document
+ElementIterator
+public
+ElementIterator
+(
+Element
+root)
+Creates a new
+ElementIterator
+.
+Parameters:
+root
+- the root
+Element
+Method Details
+clone
+public
+Object
+clone
+()
+Clones the
+ElementIterator
+.
+Overrides:
+clone
+in class
+Object
+Returns:
+a cloned
+ElementIterator
+Object
+See Also:
+Cloneable
+first
+public
+Element
+first
+()
+Fetches the first element.
+Returns:
+an
+Element
+depth
+public
+int
+depth
+()
+Fetches the current depth of element tree.
+Returns:
+the depth
+current
+public
+Element
+current
+()
+Fetches the current
+Element
+.
+Returns:
+element on top of the stack or
+null
+if the root element
+         is
+null
+next
+public
+Element
+next
+()
+Fetches the next
+Element
+. The strategy used to locate the next
+ element is a depth-first search.
+Returns:
+the next element or
+null
+at the end of the list
+previous
+public
+Element
+previous
+()
+Fetches the previous
+Element
+. If however the current element is
+ the last element, or the current element is
+null
+, then
+null
+is returned.
+Returns:
+previous
+Element
+if available
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

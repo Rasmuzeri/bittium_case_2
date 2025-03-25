@@ -1,0 +1,190 @@
+java.nio.charset (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages
+|
+Classes and Interfaces
+SEARCH
+Module
+java.base
+Package java.nio.charset
+package
+java.nio.charset
+Defines charsets, decoders, and encoders, for translating between
+ bytes and Unicode characters.
+Summary of charsets, decoders, and encoders in this package
+Class name
+Description
+Charset
+A named mapping between characters and bytes
+CharsetDecoder
+Decodes bytes into characters
+CharsetEncoder
+Encodes characters into bytes
+CoderResult
+Describes coder results
+CodingErrorAction
+Describes actions to take when coding errors are detected
+A
+charset
+is named mapping between sequences of
+ sixteen-bit Unicode characters and sequences of bytes, in the sense
+ defined in
+RFC 2278
+.
+ A
+decoder
+is an engine which transforms bytes in a specific
+ charset into characters, and an
+encoder
+is an engine which
+ transforms characters into bytes.  Encoders and decoders operate on
+ byte and character buffers.  They are collectively referred to as
+coders
+.
+The
+Charset
+class defines methods for
+ creating coders for a given charset and for retrieving the various
+ names associated with a charset.  It also defines static methods
+ for testing whether a particular charset is supported, for locating
+ charset instances by name, and for constructing a map that contains
+ every charset for which support is available in the current Java
+ virtual machine.
+Most users will not use these classes directly; instead they
+ will use the existing charset-related constructors and methods in
+ the
+String
+class, together with the existing
+InputStreamReader
+and
+OutputStreamWriter
+classes, all of whose implementations
+ have been reworked to make use of the charset facilities defined in
+ this package.  A small number of changes have been made to the
+InputStreamReader
+and
+OutputStreamWriter
+classes in order to allow explicit
+ charset objects to be specified in the construction of instances of
+ those classes.
+Support for new charsets can be made available via the
+ interface defined in the
+CharsetProvider
+class in the
+java.nio.charset.spi
+package.
+Unless otherwise noted, passing a
+null
+argument to a
+ constructor or method in any class or interface in this package
+ will cause a
+NullPointerException
+to be thrown.
+Since:
+1.4
+External Specifications
+RFC 2278: IANA Charset Registration Procedures
+Related Packages
+Package
+Description
+java.nio
+Defines buffers, which are containers for data, and provides an
+ overview of the other NIO packages.
+java.nio.charset.spi
+Service-provider classes for the
+java.nio.charset
+package.
+java.nio.channels
+Defines channels, which represent connections to entities that are capable of
+ performing I/O operations, such as files and sockets; defines selectors, for
+ multiplexed, non-blocking I/O operations.
+java.nio.file
+Defines interfaces and classes for the Java virtual machine to access files,
+ file attributes, and file systems.
+All Classes and Interfaces
+Classes
+Exception Classes
+Class
+Description
+CharacterCodingException
+Checked exception thrown when a character encoding
+ or decoding error occurs.
+Charset
+A named mapping between sequences of sixteen-bit Unicode
+code units
+and sequences of
+ bytes.
+CharsetDecoder
+An engine that can transform a sequence of bytes in a specific charset into a sequence of
+ sixteen-bit Unicode characters.
+CharsetEncoder
+An engine that can transform a sequence of sixteen-bit Unicode characters into a sequence of
+ bytes in a specific charset.
+CoderMalfunctionError
+Error thrown when the
+decodeLoop
+method of
+ a
+CharsetDecoder
+, or the
+encodeLoop
+method of a
+CharsetEncoder
+, throws an unexpected
+ exception.
+CoderResult
+A description of the result state of a coder.
+CodingErrorAction
+A typesafe enumeration for coding-error actions.
+IllegalCharsetNameException
+Unchecked exception thrown when a string that is not a
+legal charset name
+is used as such.
+MalformedInputException
+Checked exception thrown when an input byte sequence is not legal for given
+ charset, or an input character sequence is not a legal sixteen-bit Unicode
+ sequence.
+StandardCharsets
+Constant definitions for the standard
+charsets
+.
+UnmappableCharacterException
+Checked exception thrown when an input character (or byte) sequence
+ is valid but cannot be mapped to an output byte (or character)
+ sequence.
+UnsupportedCharsetException
+Unchecked exception thrown when no support is available
+ for a requested charset.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,501 @@
+TableView.TableRow (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.text
+Class TableView.TableRow
+java.lang.Object
+javax.swing.text.View
+javax.swing.text.CompositeView
+javax.swing.text.BoxView
+javax.swing.text.TableView.TableRow
+All Implemented Interfaces:
+SwingConstants
+Enclosing class:
+TableView
+public class
+TableView.TableRow
+extends
+BoxView
+View of a row in a row-centric table.
+Field Summary
+Fields declared in class javax.swing.text.
+View
+BadBreakWeight
+,
+ExcellentBreakWeight
+,
+ForcedBreakWeight
+,
+GoodBreakWeight
+,
+X_AXIS
+,
+Y_AXIS
+Fields declared in interface javax.swing.
+SwingConstants
+BOTTOM
+,
+CENTER
+,
+EAST
+,
+HORIZONTAL
+,
+LEADING
+,
+LEFT
+,
+NEXT
+,
+NORTH
+,
+NORTH_EAST
+,
+NORTH_WEST
+,
+PREVIOUS
+,
+RIGHT
+,
+SOUTH
+,
+SOUTH_EAST
+,
+SOUTH_WEST
+,
+TOP
+,
+TRAILING
+,
+VERTICAL
+,
+WEST
+Constructor Summary
+Constructors
+Constructor
+Description
+TableRow
+(
+Element
+elem)
+Constructs a TableView for the given element.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+int
+getResizeWeight
+(int axis)
+Determines the resizability of the view along the
+ given axis.
+protected
+View
+getViewAtPosition
+(int pos,
+Rectangle
+a)
+Fetches the child view that represents the given position in
+ the model.
+protected void
+layoutMajorAxis
+(int targetSpan,
+ int axis,
+ int[] offsets,
+ int[] spans)
+Perform layout for the major axis of the box (i.e. the
+ axis that it represents).
+protected void
+layoutMinorAxis
+(int targetSpan,
+ int axis,
+ int[] offsets,
+ int[] spans)
+Perform layout for the minor axis of the box (i.e. the
+ axis orthogonal to the axis that it represents).
+void
+replace
+(int offset,
+ int length,
+View
+[] views)
+Change the child views.
+Methods declared in class javax.swing.text.
+BoxView
+baselineLayout
+,
+baselineRequirements
+,
+calculateMajorAxisRequirements
+,
+calculateMinorAxisRequirements
+,
+childAllocation
+,
+flipEastAndWestAtEnds
+,
+forwardUpdate
+,
+getAlignment
+,
+getAxis
+,
+getChildAllocation
+,
+getHeight
+,
+getMaximumSpan
+,
+getMinimumSpan
+,
+getOffset
+,
+getPreferredSpan
+,
+getSpan
+,
+getViewAtPoint
+,
+getWidth
+,
+isAfter
+,
+isAllocationValid
+,
+isBefore
+,
+isLayoutValid
+,
+layout
+,
+layoutChanged
+,
+modelToView
+,
+paint
+,
+paintChild
+,
+preferenceChanged
+,
+setAxis
+,
+setSize
+,
+viewToModel
+Methods declared in class javax.swing.text.
+CompositeView
+getBottomInset
+,
+getInsideAllocation
+,
+getLeftInset
+,
+getNextEastWestVisualPositionFrom
+,
+getNextNorthSouthVisualPositionFrom
+,
+getNextVisualPositionFrom
+,
+getRightInset
+,
+getTopInset
+,
+getView
+,
+getViewCount
+,
+getViewIndex
+,
+getViewIndexAtPosition
+,
+loadChildren
+,
+modelToView
+,
+setInsets
+,
+setParagraphInsets
+,
+setParent
+Methods declared in class javax.swing.text.
+View
+append
+,
+breakView
+,
+changedUpdate
+,
+createFragment
+,
+forwardUpdateToView
+,
+getAttributes
+,
+getBreakWeight
+,
+getContainer
+,
+getDocument
+,
+getElement
+,
+getEndOffset
+,
+getGraphics
+,
+getParent
+,
+getStartOffset
+,
+getToolTipText
+,
+getViewFactory
+,
+getViewIndex
+,
+insert
+,
+insertUpdate
+,
+isVisible
+,
+modelToView
+,
+remove
+,
+removeAll
+,
+removeUpdate
+,
+updateChildren
+,
+updateLayout
+,
+viewToModel
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+TableRow
+public
+TableRow
+(
+Element
+elem)
+Constructs a TableView for the given element.
+Parameters:
+elem
+- the element that this view is responsible for
+Since:
+1.4
+Method Details
+replace
+public
+void
+replace
+(int offset,
+ int length,
+View
+[] views)
+Change the child views.  This is implemented to
+ provide the superclass behavior and invalidate the
+ grid so that rows and columns will be recalculated.
+Overrides:
+replace
+in class
+BoxView
+Parameters:
+offset
+- the starting index into the child views to insert
+   the new views; this should be a value >= 0 and <= getViewCount
+length
+- the number of existing child views to remove;
+   This should be a value >= 0 and <= (getViewCount() - offset)
+views
+- the child views to add; this value can be
+null
+to indicate no children are being added
+   (useful to remove)
+layoutMajorAxis
+protected
+void
+layoutMajorAxis
+(int targetSpan,
+ int axis,
+ int[] offsets,
+ int[] spans)
+Perform layout for the major axis of the box (i.e. the
+ axis that it represents).  The results of the layout should
+ be placed in the given arrays which represent the allocations
+ to the children along the major axis.
+This is re-implemented to give each child the span of the column
+ width for the table, and to give cells that span multiple columns
+ the multi-column span.
+Overrides:
+layoutMajorAxis
+in class
+BoxView
+Parameters:
+targetSpan
+- the total span given to the view, which
+  would be used to layout the children.
+axis
+- the axis being laid out.
+offsets
+- the offsets from the origin of the view for
+  each of the child views.  This is a return value and is
+  filled in by the implementation of this method.
+spans
+- the span of each child view.  This is a return
+  value and is filled in by the implementation of this method.
+layoutMinorAxis
+protected
+void
+layoutMinorAxis
+(int targetSpan,
+ int axis,
+ int[] offsets,
+ int[] spans)
+Perform layout for the minor axis of the box (i.e. the
+ axis orthogonal to the axis that it represents).  The results
+ of the layout should be placed in the given arrays which represent
+ the allocations to the children along the minor axis.  This
+ is called by the superclass whenever the layout needs to be
+ updated along the minor axis.
+This is implemented to delegate to the superclass, then adjust
+ the span for any cell that spans multiple rows.
+Overrides:
+layoutMinorAxis
+in class
+BoxView
+Parameters:
+targetSpan
+- the total span given to the view, which
+  would be used to layout the children.
+axis
+- the axis being laid out.
+offsets
+- the offsets from the origin of the view for
+  each of the child views.  This is a return value and is
+  filled in by the implementation of this method.
+spans
+- the span of each child view.  This is a return
+  value and is filled in by the implementation of this method.
+getResizeWeight
+public
+int
+getResizeWeight
+(int axis)
+Determines the resizability of the view along the
+ given axis.  A value of 0 or less is not resizable.
+Overrides:
+getResizeWeight
+in class
+BoxView
+Parameters:
+axis
+- may be either View.X_AXIS or View.Y_AXIS
+Returns:
+the resize weight
+Throws:
+IllegalArgumentException
+- for an invalid axis
+getViewAtPosition
+protected
+View
+getViewAtPosition
+(int pos,
+Rectangle
+a)
+Fetches the child view that represents the given position in
+ the model.  This is implemented to walk through the children
+ looking for a range that contains the given position.  In this
+ view the children do not necessarily have a one to one mapping
+ with the child elements.
+Overrides:
+getViewAtPosition
+in class
+CompositeView
+Parameters:
+pos
+- the search position >= 0
+a
+- the allocation to the table on entry, and the
+   allocation of the view containing the position on exit
+Returns:
+the view representing the given position, or
+null
+if there isn't one
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

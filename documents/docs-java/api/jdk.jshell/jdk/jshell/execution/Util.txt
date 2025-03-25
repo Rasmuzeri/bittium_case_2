@@ -1,0 +1,331 @@
+Util (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.jshell
+Package
+jdk.jshell.execution
+Class Util
+java.lang.Object
+jdk.jshell.execution.Util
+public class
+Util
+extends
+Object
+Miscellaneous utility methods for setting-up implementations of
+ExecutionControl
+. Particularly implementations with remote
+ execution.
+Since:
+9
+Method Summary
+All Methods
+Static Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static void
+detectJdiExitEvent
+(
+VirtualMachine
+vm,
+Consumer
+<
+String
+> unbiddenExitHandler)
+Monitor the JDI event stream for
+VMDeathEvent
+and
+VMDisconnectEvent
+.
+static void
+forwardExecutionControl
+(
+ExecutionControl
+ec,
+ObjectInput
+in,
+ObjectOutput
+out)
+Forward commands from the input to the specified
+ExecutionControl
+instance, then responses back on the output.
+static void
+forwardExecutionControlAndIO
+(
+ExecutionControl
+ec,
+InputStream
+inStream,
+OutputStream
+outStream,
+Map
+<
+String
+,
+Consumer
+<
+OutputStream
+>> outputStreamMap,
+Map
+<
+String
+,
+Consumer
+<
+InputStream
+>> inputStreamMap)
+Forward commands from the input to the specified
+ExecutionControl
+instance, then responses back on the output.
+static
+ExecutionControl
+remoteInputOutput
+(
+InputStream
+input,
+OutputStream
+output,
+Map
+<
+String
+,
+OutputStream
+> outputStreamMap,
+Map
+<
+String
+,
+InputStream
+> inputStreamMap,
+BiFunction
+<
+ObjectInput
+,
+ObjectOutput
+,
+ExecutionControl
+> factory)
+Creates an ExecutionControl for given packetized input and output.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Method Details
+forwardExecutionControl
+public static
+void
+forwardExecutionControl
+(
+ExecutionControl
+ec,
+ObjectInput
+in,
+ObjectOutput
+out)
+Forward commands from the input to the specified
+ExecutionControl
+instance, then responses back on the output.
+Parameters:
+ec
+- the direct instance of
+ExecutionControl
+to process commands
+in
+- the command input
+out
+- the command response output
+forwardExecutionControlAndIO
+public static
+void
+forwardExecutionControlAndIO
+(
+ExecutionControl
+ec,
+InputStream
+inStream,
+OutputStream
+outStream,
+Map
+<
+String
+,
+Consumer
+<
+OutputStream
+>> outputStreamMap,
+Map
+<
+String
+,
+Consumer
+<
+InputStream
+>> inputStreamMap)
+throws
+IOException
+Forward commands from the input to the specified
+ExecutionControl
+instance, then responses back on the output.
+Parameters:
+ec
+- the direct instance of
+ExecutionControl
+to process commands
+inStream
+- the stream from which to create the command input
+outStream
+- the stream that will carry any specified auxiliary channels (like
+System.out
+and
+System.err
+), and the command response output.
+outputStreamMap
+- a map between names of additional streams to carry and setters
+                        for the stream. Names starting with '$' are reserved for internal use.
+inputStreamMap
+- a map between names of additional streams to carry and setters
+                       for the stream. Names starting with '$' are reserved for internal use.
+Throws:
+IOException
+- if there are errors using the passed streams
+remoteInputOutput
+public static
+ExecutionControl
+remoteInputOutput
+(
+InputStream
+input,
+OutputStream
+output,
+Map
+<
+String
+,
+OutputStream
+> outputStreamMap,
+Map
+<
+String
+,
+InputStream
+> inputStreamMap,
+BiFunction
+<
+ObjectInput
+,
+ObjectOutput
+,
+ExecutionControl
+> factory)
+throws
+IOException
+Creates an ExecutionControl for given packetized input and output. The given InputStream
+ is de-packetized, and content forwarded to ObjectInput and given OutputStreams. The ObjectOutput
+ and values read from the given InputStream are packetized and sent to the given OutputStream.
+Parameters:
+input
+- the packetized input stream
+output
+- the packetized output stream
+outputStreamMap
+- a map between stream names and the output streams to forward.
+                        Names starting with '$' are reserved for internal use.
+inputStreamMap
+- a map between stream names and the input streams to forward.
+                       Names starting with '$' are reserved for internal use.
+factory
+- to create the ExecutionControl from ObjectInput and ObjectOutput.
+Returns:
+the created ExecutionControl
+Throws:
+IOException
+- if setting up the streams raised an exception
+detectJdiExitEvent
+public static
+void
+detectJdiExitEvent
+(
+VirtualMachine
+vm,
+Consumer
+<
+String
+> unbiddenExitHandler)
+Monitor the JDI event stream for
+VMDeathEvent
+and
+VMDisconnectEvent
+. If encountered, invokes
+unbiddenExitHandler
+.
+Parameters:
+vm
+- the virtual machine to check
+unbiddenExitHandler
+- the handler, which will accept the exit
+ information
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,278 @@
+XMLFormatter (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.logging
+Package
+java.util.logging
+Class XMLFormatter
+java.lang.Object
+java.util.logging.Formatter
+java.util.logging.XMLFormatter
+public class
+XMLFormatter
+extends
+Formatter
+Format a LogRecord into a standard XML format.
+The DTD specification is provided as Appendix A to the
+ Java Logging APIs specification.
+The XMLFormatter can be used with arbitrary character encodings,
+ but it is recommended that it normally be used with UTF-8.  The
+ character encoding can be set on the output Handler.
+Implementation Requirements:
+Since JDK 9, instances of
+LogRecord
+contain
+ an
+Instant
+which can have nanoseconds below
+ the millisecond resolution.
+ The DTD specification has been updated to allow for an optional
+<nanos>
+element. By default, the XMLFormatter will compute the
+ nanosecond adjustment below the millisecond resolution (using
+LogRecord.getInstant().getNano() % 1000_000
+) - and if this is not 0,
+ this adjustment value will be printed in the new
+<nanos>
+element.
+ The event instant can then be reconstructed using
+Instant.ofEpochSecond(millis/1000L, (millis % 1000L) * 1000_000L + nanos)
+where
+millis
+and
+nanos
+represent the numbers serialized in
+ the
+<millis>
+and
+<nanos>
+elements, respectively.
+The
+<date>
+element will now contain the whole instant as formatted
+ by the
+DateTimeFormatter.ISO_INSTANT
+formatter.
+For compatibility with old parsers, XMLFormatters can
+ be configured to revert to the old format by specifying a
+<xml-formatter-fully-qualified-class-name>.useInstant = false
+property
+in the
+ logging configuration. When
+useInstant
+is
+false
+, the old
+ formatting will be preserved. When
+useInstant
+is
+true
+(the default), the
+<nanos>
+element will be printed and the
+<date>
+element will contain the
+formatted
+instant.
+For instance, in order to configure plain instances of XMLFormatter to omit
+ the new
+<nano>
+element,
+java.util.logging.XMLFormatter.useInstant = false
+can be specified
+ in the logging configuration.
+Since:
+1.4
+Constructor Summary
+Constructors
+Constructor
+Description
+XMLFormatter
+()
+Creates a new instance of XMLFormatter.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+String
+format
+(
+LogRecord
+record)
+Format the given message to XML.
+String
+getHead
+(
+Handler
+h)
+Return the header string for a set of XML formatted records.
+String
+getTail
+(
+Handler
+h)
+Return the tail string for a set of XML formatted records.
+Methods declared in class java.util.logging.
+Formatter
+formatMessage
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+XMLFormatter
+public
+XMLFormatter
+()
+Creates a new instance of XMLFormatter.
+Implementation Requirements:
+Since JDK 9, the XMLFormatter will print out the record
+event time
+as an Instant. This instant
+    has the best resolution available on the system. The
+<date>
+element will contain the instant as formatted by the
+DateTimeFormatter.ISO_INSTANT
+.
+    In addition, an optional
+<nanos>
+element containing a
+    nanosecond adjustment will be printed if the instant contains some
+    nanoseconds below the millisecond resolution.
+This new behavior can be turned off, and the old formatting restored,
+    by specifying a property in the
+logging configuration
+.
+    If
+LogManager.getLogManager().getProperty(
+    this.getClass().getName()+".useInstant")
+is
+"false"
+or
+"0"
+, the old formatting will be restored.
+Method Details
+format
+public
+String
+format
+(
+LogRecord
+record)
+Format the given message to XML.
+This method can be overridden in a subclass.
+ It is recommended to use the
+Formatter.formatMessage(java.util.logging.LogRecord)
+convenience method to localize and format the message field.
+Specified by:
+format
+in class
+Formatter
+Parameters:
+record
+- the log record to be formatted.
+Returns:
+a formatted log record
+getHead
+public
+String
+getHead
+(
+Handler
+h)
+Return the header string for a set of XML formatted records.
+Overrides:
+getHead
+in class
+Formatter
+Parameters:
+h
+- The target handler (can be null)
+Returns:
+a valid XML string
+getTail
+public
+String
+getTail
+(
+Handler
+h)
+Return the tail string for a set of XML formatted records.
+Overrides:
+getTail
+in class
+Formatter
+Parameters:
+h
+- The target handler (can be null)
+Returns:
+a valid XML string
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

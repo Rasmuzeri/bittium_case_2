@@ -1,0 +1,671 @@
+EventStream (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.jfr
+Package
+jdk.jfr.consumer
+Interface EventStream
+All Superinterfaces:
+AutoCloseable
+All Known Implementing Classes:
+RecordingStream
+,
+RemoteRecordingStream
+public interface
+EventStream
+extends
+AutoCloseable
+Represents a stream of events.
+A stream is a sequence of events and the way to interact with a stream is to
+ register actions. The
+EventStream
+interface is not to be implemented
+ and future versions of the JDK may prevent this completely.
+To receive a notification when an event arrives, register an action using the
+onEvent(Consumer)
+method. To filter the stream for an event with a
+ specific name, use
+onEvent(String, Consumer)
+method.
+By default, the same
+RecordedEvent
+object can be used to
+ represent two or more distinct events. That object can be delivered
+ multiple times to the same action as well as to other actions. To use an
+ event object after the action is completed, the
+setReuse(boolean)
+method should be set to
+false
+so a
+ new object is allocated for each event.
+Events are delivered in batches. To receive a notification when a batch is
+ complete, register an action using the
+onFlush(Runnable)
+method.
+ This is an opportunity to aggregate or push data to external systems while
+ the Java Virtual Machine (JVM) is preparing the next batch.
+Events within a batch are sorted chronologically by their end time.
+ Well-ordering of events is only maintained for events available to the JVM at
+ the point of flush, i.e. for the set of events delivered as a unit in a
+ single batch. Events delivered in a batch could therefore be out-of-order
+ compared to events delivered in a previous batch, but never out-of-order with
+ events within the same batch. If ordering is not a concern, sorting can be
+ disabled using the
+setOrdered(boolean)
+method.
+To dispatch events to registered actions, the stream must be started. To
+ start processing in the current thread, invoke the
+start()
+method.
+ To process actions asynchronously in a separate thread, invoke the
+startAsync()
+method. To await completion of the stream, use the
+ awaitTermination
+awaitTermination()
+or the
+awaitTermination(Duration)
+method.
+When a stream ends it is automatically closed. To manually stop processing of
+ events, close the stream by invoking the
+close()
+method. A stream
+ can also be automatically closed in exceptional circumstances, for example if
+ the JVM that is being monitored exits. To receive a notification in any of
+ these occasions, use the
+onClose(Runnable)
+method to register an
+ action.
+If an unexpected exception occurs in an action, it is possible to catch the
+ exception in an error handler. An error handler can be registered using the
+onError(Consumer)
+method. If no error handler is registered, the
+ default behavior is to print the exception and its backtrace to the standard
+ error stream.
+The following example shows how an
+EventStream
+can be used to listen
+ to events on a JVM running Flight Recorder
+Copy
+try (var es = EventStream.openRepository()) {
+    es.onEvent("jdk.CPULoad", event -> {
+        System.out.println("CPU Load " + event.getEndTime());
+        System.out.println(" Machine total: " + 100 * event.getFloat("machineTotal") + "%");
+        System.out.println(" JVM User: " + 100 * event.getFloat("jvmUser") + "%");
+        System.out.println(" JVM System: " + 100 * event.getFloat("jvmSystem") + "%");
+        System.out.println();
+    });
+    es.onEvent("jdk.GarbageCollection", event -> {
+        System.out.println("Garbage collection: " + event.getLong("gcId"));
+        System.out.println(" Cause: " + event.getString("cause"));
+        System.out.println(" Total pause: " + event.getDuration("sumOfPauses"));
+        System.out.println(" Longest pause: " + event.getDuration("longestPause"));
+        System.out.println();
+    });
+    es.start();
+}
+To start recording together with the stream, see
+RecordingStream
+.
+Since:
+14
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+void
+awaitTermination
+()
+Blocks until all actions are completed, or the stream is closed, or the
+ current thread is interrupted, whichever happens first.
+void
+awaitTermination
+(
+Duration
+timeout)
+Blocks until all actions are completed, or the stream is closed, or the
+ timeout occurs, or the current thread is interrupted, whichever happens
+ first.
+void
+close
+()
+Releases all resources associated with this stream.
+void
+onClose
+(
+Runnable
+action)
+Registers an action to perform when the stream is closed.
+void
+onError
+(
+Consumer
+<
+Throwable
+> action)
+Registers an action to perform if an exception occurs.
+void
+onEvent
+(
+String
+eventName,
+Consumer
+<
+RecordedEvent
+> action)
+Registers an action to perform on all events matching a name.
+void
+onEvent
+(
+Consumer
+<
+RecordedEvent
+> action)
+Registers an action to perform on all events in the stream.
+void
+onFlush
+(
+Runnable
+action)
+Registers an action to perform after the stream has been flushed.
+default void
+onMetadata
+(
+Consumer
+<
+MetadataEvent
+> action)
+Registers an action to perform when new metadata arrives in the stream.
+static
+EventStream
+openFile
+(
+Path
+file)
+Creates an event stream from a file.
+static
+EventStream
+openRepository
+()
+Creates a stream from the repository of the current Java Virtual Machine
+ (JVM).
+static
+EventStream
+openRepository
+(
+Path
+directory)
+Creates an event stream from a disk repository.
+boolean
+remove
+(
+Object
+action)
+Unregisters an action.
+void
+setEndTime
+(
+Instant
+endTime)
+Specifies the end time of the stream.
+void
+setOrdered
+(boolean ordered)
+Specifies that events arrives in chronological order, sorted by the time
+ they were committed to the stream.
+void
+setReuse
+(boolean reuse)
+Specifies that the event object in an
+onEvent(Consumer)
+action
+ can be reused.
+void
+setStartTime
+(
+Instant
+startTime)
+Specifies the start time of the stream.
+void
+start
+()
+Starts processing of actions.
+void
+startAsync
+()
+Starts asynchronous processing of actions.
+Method Details
+openRepository
+static
+EventStream
+openRepository
+()
+                           throws
+IOException
+Creates a stream from the repository of the current Java Virtual Machine
+ (JVM).
+By default, the stream starts with the next event flushed by Flight
+ Recorder.
+Returns:
+an event stream, not
+null
+Throws:
+IOException
+- if a stream can't be opened, or an I/O error occurs
+         when trying to access the repository
+SecurityException
+- if a security manager exists and the caller
+         does not have
+FlightRecorderPermission("accessFlightRecorder")
+openRepository
+static
+EventStream
+openRepository
+(
+Path
+directory)
+throws
+IOException
+Creates an event stream from a disk repository.
+By default, the stream starts with the next event flushed by Flight
+ Recorder.
+Only trusted disk repositories should be opened.
+Parameters:
+directory
+- location of the disk repository, not
+null
+Returns:
+an event stream, not
+null
+Throws:
+IOException
+- if a stream can't be opened, or an I/O error occurs
+         when trying to access the repository
+SecurityException
+- if a security manager exists and its
+checkRead
+method denies read access to the directory, or
+         files in the directory.
+openFile
+static
+EventStream
+openFile
+(
+Path
+file)
+throws
+IOException
+Creates an event stream from a file.
+By default, the stream starts with the first event in the file.
+Only recording files from trusted sources should be opened.
+Parameters:
+file
+- location of the file, not
+null
+Returns:
+an event stream, not
+null
+Throws:
+IOException
+- if the file can't be opened, or an I/O error occurs
+         during reading
+SecurityException
+- if a security manager exists and its
+checkRead
+method denies read access to the file
+onMetadata
+default
+void
+onMetadata
+(
+Consumer
+<
+MetadataEvent
+> action)
+Registers an action to perform when new metadata arrives in the stream.
+
+ The event type of an event always arrives sometime before the actual event.
+ The action must be registered before the stream is started.
+The following example shows how to listen to new event types, register
+ an action if the event type name matches a regular expression and increase a
+ counter if a matching event is found. A benefit of using an action per
+ event type, instead of the generic
+onEvent(Consumer)
+method,
+ is that a stream implementation can avoid reading events that are of no
+ interest.
+Copy
+static long count = 0;
+public static void main(String... args) throws IOException {
+    Path file = Path.of(args[0]);
+    String regExp = args[1];
+    var pr = Pattern.compile(regExp).asMatchPredicate();
+    try (var s = EventStream.openFile(file)) {
+        s.setOrdered(false);
+        s.onMetadata(metadata -> metadata.getAddedEventTypes()
+         .stream().map(EventType::getName).filter(pr)
+         .forEach(eventName -> s.onEvent(eventName, event -> count++)));
+        s.start();
+        System.out.println(count + " events matches " + regExp);
+    }
+}
+Implementation Requirements:
+The default implementation of this method is empty.
+Parameters:
+action
+- to perform, not
+null
+Throws:
+IllegalStateException
+- if an action is added after the stream has
+                               started
+Since:
+16
+onEvent
+void
+onEvent
+(
+Consumer
+<
+RecordedEvent
+> action)
+Registers an action to perform on all events in the stream.
+To perform an action on a subset of event types, consider using
+onEvent(String, Consumer)
+and
+onMetadata(Consumer)
+as it is
+ likely more performant than any selection or filtering mechanism implemented
+ in a generic action.
+Parameters:
+action
+- an action to perform on each
+RecordedEvent
+, not
+null
+See Also:
+onEvent(Consumer)
+onMetadata(Consumer)
+onEvent
+void
+onEvent
+(
+String
+eventName,
+Consumer
+<
+RecordedEvent
+> action)
+Registers an action to perform on all events matching a name.
+Parameters:
+eventName
+- the name of the event, not
+null
+action
+- an action to perform on each
+RecordedEvent
+matching
+        the event name, not
+null
+onFlush
+void
+onFlush
+(
+Runnable
+action)
+Registers an action to perform after the stream has been flushed.
+Parameters:
+action
+- an action to perform after the stream has been
+        flushed, not
+null
+onError
+void
+onError
+(
+Consumer
+<
+Throwable
+> action)
+Registers an action to perform if an exception occurs.
+If an action is not registered, an exception stack trace is printed to
+ standard error.
+Registering an action overrides the default behavior. If multiple actions
+ have been registered, they are performed in the order of registration.
+If this method itself throws an exception, resulting behavior is
+ undefined.
+Parameters:
+action
+- an action to perform if an exception occurs, not
+null
+onClose
+void
+onClose
+(
+Runnable
+action)
+Registers an action to perform when the stream is closed.
+If the stream is already closed, the action will be performed immediately
+ in the current thread.
+Parameters:
+action
+- an action to perform after the stream is closed, not
+null
+See Also:
+close()
+close
+void
+close
+()
+Releases all resources associated with this stream.
+If a stream is started, asynchronously or synchronously, it is stopped
+ immediately or after the next flush. This method does
+NOT
+guarantee that all registered actions are completed before return.
+Closing a previously closed stream has no effect.
+Specified by:
+close
+in interface
+AutoCloseable
+remove
+boolean
+remove
+(
+Object
+action)
+Unregisters an action.
+If the action has been registered multiple times, all instances are
+ unregistered.
+Parameters:
+action
+- the action to unregister, not
+null
+Returns:
+true
+if the action was unregistered,
+false
+otherwise
+See Also:
+onEvent(Consumer)
+onEvent(String, Consumer)
+onFlush(Runnable)
+onClose(Runnable)
+onError(Consumer)
+setReuse
+void
+setReuse
+(boolean reuse)
+Specifies that the event object in an
+onEvent(Consumer)
+action
+ can be reused.
+If reuse is set to
+true
+, an action should not keep a reference
+ to the event object after the action has completed.
+Parameters:
+reuse
+-
+true
+if an event object can be reused,
+false
+otherwise
+setOrdered
+void
+setOrdered
+(boolean ordered)
+Specifies that events arrives in chronological order, sorted by the time
+ they were committed to the stream.
+Parameters:
+ordered
+- if event objects arrive in chronological order to
+onEvent(Consumer)
+setStartTime
+void
+setStartTime
+(
+Instant
+startTime)
+Specifies the start time of the stream.
+The start time must be set before starting the stream
+Parameters:
+startTime
+- the start time, not
+null
+Throws:
+IllegalStateException
+- if the stream is already started
+See Also:
+start()
+startAsync()
+setEndTime
+void
+setEndTime
+(
+Instant
+endTime)
+Specifies the end time of the stream.
+The end time must be set before starting the stream.
+At end time, the stream is closed.
+Parameters:
+endTime
+- the end time, not
+null
+Throws:
+IllegalStateException
+- if the stream is already started
+See Also:
+start()
+startAsync()
+start
+void
+start
+()
+Starts processing of actions.
+Actions are performed in the current thread.
+To stop the stream, use the
+close()
+method.
+Throws:
+IllegalStateException
+- if the stream is already started or closed
+startAsync
+void
+startAsync
+()
+Starts asynchronous processing of actions.
+Actions are performed in a single separate thread.
+To stop the stream, use the
+close()
+method.
+Throws:
+IllegalStateException
+- if the stream is already started or closed
+awaitTermination
+void
+awaitTermination
+(
+Duration
+timeout)
+throws
+InterruptedException
+Blocks until all actions are completed, or the stream is closed, or the
+ timeout occurs, or the current thread is interrupted, whichever happens
+ first.
+Parameters:
+timeout
+- the maximum time to wait, not
+null
+Throws:
+IllegalArgumentException
+- if timeout is negative
+InterruptedException
+- if interrupted while waiting
+See Also:
+start()
+startAsync()
+Thread.interrupt()
+awaitTermination
+void
+awaitTermination
+()
+               throws
+InterruptedException
+Blocks until all actions are completed, or the stream is closed, or the
+ current thread is interrupted, whichever happens first.
+Throws:
+InterruptedException
+- if interrupted while waiting
+See Also:
+start()
+startAsync()
+Thread.interrupt()
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

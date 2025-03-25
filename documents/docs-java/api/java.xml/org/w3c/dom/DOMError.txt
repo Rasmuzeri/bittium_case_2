@@ -1,0 +1,245 @@
+DOMError (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+java.xml
+Package
+org.w3c.dom
+Interface DOMError
+public interface
+DOMError
+DOMError
+is an interface that describes an error.
+See also the
+Document Object Model (DOM) Level 3 Core Specification
+.
+Since:
+1.5, DOM Level 3
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final short
+SEVERITY_ERROR
+The severity of the error described by the
+DOMError
+is
+ error.
+static final short
+SEVERITY_FATAL_ERROR
+The severity of the error described by the
+DOMError
+is
+ fatal error.
+static final short
+SEVERITY_WARNING
+The severity of the error described by the
+DOMError
+is
+ warning.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+DOMLocator
+getLocation
+()
+The location of the error.
+String
+getMessage
+()
+An implementation specific string describing the error that occurred.
+Object
+getRelatedData
+()
+The related
+DOMError.type
+dependent data if any.
+Object
+getRelatedException
+()
+The related platform dependent exception if any.
+short
+getSeverity
+()
+The severity of the error, either
+SEVERITY_WARNING
+,
+SEVERITY_ERROR
+, or
+SEVERITY_FATAL_ERROR
+.
+String
+getType
+()
+A
+DOMString
+indicating which related data is expected in
+relatedData
+.
+Field Details
+SEVERITY_WARNING
+static final
+short
+SEVERITY_WARNING
+The severity of the error described by the
+DOMError
+is
+ warning. A
+SEVERITY_WARNING
+will not cause the
+ processing to stop, unless
+DOMErrorHandler.handleError()
+returns
+false
+.
+See Also:
+Constant Field Values
+SEVERITY_ERROR
+static final
+short
+SEVERITY_ERROR
+The severity of the error described by the
+DOMError
+is
+ error. A
+SEVERITY_ERROR
+may not cause the processing to
+ stop if the error can be recovered, unless
+DOMErrorHandler.handleError()
+returns
+false
+.
+See Also:
+Constant Field Values
+SEVERITY_FATAL_ERROR
+static final
+short
+SEVERITY_FATAL_ERROR
+The severity of the error described by the
+DOMError
+is
+ fatal error. A
+SEVERITY_FATAL_ERROR
+will cause the
+ normal processing to stop. The return value of
+DOMErrorHandler.handleError()
+is ignored unless the
+ implementation chooses to continue, in which case the behavior
+ becomes undefined.
+See Also:
+Constant Field Values
+Method Details
+getSeverity
+short
+getSeverity
+()
+The severity of the error, either
+SEVERITY_WARNING
+,
+SEVERITY_ERROR
+, or
+SEVERITY_FATAL_ERROR
+.
+getMessage
+String
+getMessage
+()
+An implementation specific string describing the error that occurred.
+getType
+String
+getType
+()
+A
+DOMString
+indicating which related data is expected in
+relatedData
+. Users should refer to the specification of
+ the error in order to find its
+DOMString
+type and
+relatedData
+definitions if any.
+Note:
+As an example,
+Document.normalizeDocument()
+does generate warnings when
+ the "split-cdata-sections" parameter is in use. Therefore, the method
+ generates a
+SEVERITY_WARNING
+with
+type
+"cdata-sections-splitted"
+and the first
+CDATASection
+node in document order resulting from the
+ split is returned by the
+relatedData
+attribute.
+getRelatedException
+Object
+getRelatedException
+()
+The related platform dependent exception if any.
+getRelatedData
+Object
+getRelatedData
+()
+The related
+DOMError.type
+dependent data if any.
+getLocation
+DOMLocator
+getLocation
+()
+The location of the error.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

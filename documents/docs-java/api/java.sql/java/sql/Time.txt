@@ -1,0 +1,599 @@
+Time (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.sql
+Package
+java.sql
+Class Time
+java.lang.Object
+java.util.Date
+java.sql.Time
+All Implemented Interfaces:
+Serializable
+,
+Cloneable
+,
+Comparable
+<
+Date
+>
+public class
+Time
+extends
+Date
+A thin wrapper around the
+java.util.Date
+class that allows the JDBC
+ API to identify this as an SQL
+TIME
+value. The
+Time
+class adds formatting and
+ parsing operations to support the JDBC escape syntax for time
+ values.
+The date components should be set to the "zero epoch"
+ value of January 1, 1970 and should not be accessed.
+Since:
+1.1
+See Also:
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+Time
+(int hour,
+ int minute,
+ int second)
+Deprecated.
+Use the constructor that takes a milliseconds value
+             in place of this constructor
+Time
+(long time)
+Constructs a
+Time
+object using a milliseconds time value.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+int
+getDate
+()
+Deprecated.
+int
+getDay
+()
+Deprecated.
+int
+getMonth
+()
+Deprecated.
+int
+getYear
+()
+Deprecated.
+void
+setDate
+(int i)
+Deprecated.
+void
+setMonth
+(int i)
+Deprecated.
+void
+setTime
+(long time)
+Sets a
+Time
+object using a milliseconds time value.
+void
+setYear
+(int i)
+Deprecated.
+Instant
+toInstant
+()
+This method always throws an UnsupportedOperationException and should
+ not be used because SQL
+Time
+values do not have a date
+ component.
+LocalTime
+toLocalTime
+()
+Converts this
+Time
+object to a
+LocalTime
+.
+String
+toString
+()
+Formats a time in JDBC time escape format.
+static
+Time
+valueOf
+(
+String
+s)
+Converts a string in JDBC time escape format to a
+Time
+value.
+static
+Time
+valueOf
+(
+LocalTime
+time)
+Obtains an instance of
+Time
+from a
+LocalTime
+object
+ with the same hour, minute and second time value as the given
+LocalTime
+.
+Methods declared in class java.util.
+Date
+after
+,
+before
+,
+clone
+,
+compareTo
+,
+equals
+,
+from
+,
+getHours
+,
+getMinutes
+,
+getSeconds
+,
+getTime
+,
+getTimezoneOffset
+,
+hashCode
+,
+parse
+,
+setHours
+,
+setMinutes
+,
+setSeconds
+,
+toGMTString
+,
+toLocaleString
+,
+UTC
+Methods declared in class java.lang.
+Object
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+Time
+@Deprecated
+(
+since
+="1.2")
+public
+Time
+(int hour,
+ int minute,
+ int second)
+Deprecated.
+Use the constructor that takes a milliseconds value
+             in place of this constructor
+Constructs a
+Time
+object initialized with the
+ given values for the hour, minute, and second.
+ The driver sets the date components to January 1, 1970.
+ Any method that attempts to access the date components of a
+Time
+object will throw a
+java.lang.IllegalArgumentException
+.
+The result is undefined if a given argument is out of bounds.
+Parameters:
+hour
+- 0 to 23
+minute
+- 0 to 59
+second
+- 0 to 59
+Time
+public
+Time
+(long time)
+Constructs a
+Time
+object using a milliseconds time value.
+Parameters:
+time
+- milliseconds since January 1, 1970, 00:00:00 GMT;
+             a negative number is milliseconds before
+               January 1, 1970, 00:00:00 GMT
+Method Details
+setTime
+public
+void
+setTime
+(long time)
+Sets a
+Time
+object using a milliseconds time value.
+Overrides:
+setTime
+in class
+Date
+Parameters:
+time
+- milliseconds since January 1, 1970, 00:00:00 GMT;
+             a negative number is milliseconds before
+               January 1, 1970, 00:00:00 GMT
+valueOf
+public static
+Time
+valueOf
+(
+String
+s)
+Converts a string in JDBC time escape format to a
+Time
+value.
+Parameters:
+s
+- time in format "hh:mm:ss"
+Returns:
+a corresponding
+Time
+object
+toString
+public
+String
+toString
+()
+Formats a time in JDBC time escape format.
+Overrides:
+toString
+in class
+Date
+Returns:
+a
+String
+in hh:mm:ss format
+See Also:
+Date.toLocaleString()
+Date.toGMTString()
+getYear
+@Deprecated
+(
+since
+="1.2")
+public
+int
+getYear
+()
+Deprecated.
+This method is deprecated and should not be used because SQL
+TIME
+values do not have a year component.
+Overrides:
+getYear
+in class
+Date
+Returns:
+the year represented by this date, minus 1900.
+Throws:
+IllegalArgumentException
+- if this
+         method is invoked
+See Also:
+setYear(int)
+getMonth
+@Deprecated
+(
+since
+="1.2")
+public
+int
+getMonth
+()
+Deprecated.
+This method is deprecated and should not be used because SQL
+TIME
+values do not have a month component.
+Overrides:
+getMonth
+in class
+Date
+Returns:
+the month represented by this date.
+Throws:
+IllegalArgumentException
+- if this
+         method is invoked
+See Also:
+setMonth(int)
+getDay
+@Deprecated
+(
+since
+="1.2")
+public
+int
+getDay
+()
+Deprecated.
+This method is deprecated and should not be used because SQL
+TIME
+values do not have a day component.
+Overrides:
+getDay
+in class
+Date
+Returns:
+the day of the week represented by this date.
+Throws:
+IllegalArgumentException
+- if this
+         method is invoked
+See Also:
+Calendar
+getDate
+@Deprecated
+(
+since
+="1.2")
+public
+int
+getDate
+()
+Deprecated.
+This method is deprecated and should not be used because SQL
+TIME
+values do not have a date component.
+Overrides:
+getDate
+in class
+Date
+Returns:
+the day of the month represented by this date.
+Throws:
+IllegalArgumentException
+- if this
+         method is invoked
+See Also:
+setDate(int)
+setYear
+@Deprecated
+(
+since
+="1.2")
+public
+void
+setYear
+(int i)
+Deprecated.
+This method is deprecated and should not be used because SQL
+TIME
+values do not have a year component.
+Overrides:
+setYear
+in class
+Date
+Parameters:
+i
+- the year value.
+Throws:
+IllegalArgumentException
+- if this
+         method is invoked
+See Also:
+getYear()
+setMonth
+@Deprecated
+(
+since
+="1.2")
+public
+void
+setMonth
+(int i)
+Deprecated.
+This method is deprecated and should not be used because SQL
+TIME
+values do not have a month component.
+Overrides:
+setMonth
+in class
+Date
+Parameters:
+i
+- the month value between 0-11.
+Throws:
+IllegalArgumentException
+- if this
+         method is invoked
+See Also:
+getMonth()
+setDate
+@Deprecated
+(
+since
+="1.2")
+public
+void
+setDate
+(int i)
+Deprecated.
+This method is deprecated and should not be used because SQL
+TIME
+values do not have a date component.
+Overrides:
+setDate
+in class
+Date
+Parameters:
+i
+- the day of the month value between 1-31.
+Throws:
+IllegalArgumentException
+- if this
+         method is invoked
+See Also:
+getDate()
+valueOf
+public static
+Time
+valueOf
+(
+LocalTime
+time)
+Obtains an instance of
+Time
+from a
+LocalTime
+object
+ with the same hour, minute and second time value as the given
+LocalTime
+. The nanosecond field from
+LocalTime
+is
+ not part of the newly created
+Time
+object.
+Parameters:
+time
+- a
+LocalTime
+to convert
+Returns:
+a
+Time
+object
+Throws:
+NullPointerException
+- if
+time
+is null
+Since:
+1.8
+toLocalTime
+public
+LocalTime
+toLocalTime
+()
+Converts this
+Time
+object to a
+LocalTime
+.
+The conversion creates a
+LocalTime
+that represents the same
+ hour, minute, and second time value as this
+Time
+. The
+ nanosecond
+LocalTime
+field will be set to zero.
+Returns:
+a
+LocalTime
+object representing the same time value
+Since:
+1.8
+toInstant
+public
+Instant
+toInstant
+()
+This method always throws an UnsupportedOperationException and should
+ not be used because SQL
+Time
+values do not have a date
+ component.
+Overrides:
+toInstant
+in class
+Date
+Returns:
+an instant representing the same point on the time-line as
+  this
+Date
+object
+Throws:
+UnsupportedOperationException
+- if this method is invoked
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

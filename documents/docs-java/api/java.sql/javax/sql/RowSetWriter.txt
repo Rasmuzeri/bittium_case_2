@@ -1,0 +1,126 @@
+RowSetWriter (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.sql
+Package
+javax.sql
+Interface RowSetWriter
+All Known Subinterfaces:
+TransactionalWriter
+,
+XmlWriter
+public interface
+RowSetWriter
+An object that implements the
+RowSetWriter
+interface,
+ called a
+writer
+. A writer may be registered with a
+RowSet
+object that supports the reader/writer paradigm.
+If a disconnected
+RowSet
+object modifies some of its data,
+ and it has a writer associated with it, it may be implemented so that it
+ calls on the writer's
+writeData
+method internally
+ to write the updates back to the data source. In order to do this, the writer
+ must first establish a connection with the rowset's data source.
+If the data to be updated has already been changed in the data source, there
+ is a conflict, in which case the writer will not write
+ the changes to the data source.  The algorithm the writer uses for preventing
+ or limiting conflicts depends entirely on its implementation.
+Since:
+1.4
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+boolean
+writeData
+(
+RowSetInternal
+caller)
+Writes the changes in this
+RowSetWriter
+object's
+ rowset back to the data source from which it got its data.
+Method Details
+writeData
+boolean
+writeData
+(
+RowSetInternal
+caller)
+throws
+SQLException
+Writes the changes in this
+RowSetWriter
+object's
+ rowset back to the data source from which it got its data.
+Parameters:
+caller
+- the
+RowSet
+object (1) that has implemented the
+RowSetInternal
+interface, (2) with which this writer is
+        registered, and (3) that called this method internally
+Returns:
+true
+if the modified data was written;
+false
+if not, which will be the case if there is a conflict
+Throws:
+SQLException
+- if a database access error occurs
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

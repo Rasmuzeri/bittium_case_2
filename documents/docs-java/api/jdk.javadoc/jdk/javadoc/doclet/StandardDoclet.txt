@@ -1,0 +1,312 @@
+StandardDoclet (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.javadoc
+Package
+jdk.javadoc.doclet
+Class StandardDoclet
+java.lang.Object
+jdk.javadoc.doclet.StandardDoclet
+All Implemented Interfaces:
+Doclet
+public class
+StandardDoclet
+extends
+Object
+implements
+Doclet
+This doclet generates HTML-formatted documentation for the specified modules,
+ packages and types.
+User-Defined Taglets
+The standard doclet supports user-defined
+taglets
+,
+ which can be used to generate customized output for user-defined tags
+ in documentation comments.
+
+ Taglets invoked by the standard doclet must return strings from
+Taglet.toString
+as follows:
+Inline Tags
+The returned string must be
+flow content
+,
+      or any valid fragment of HTML code that may appear in the body of a document.
+      There may be additional constraints, depending on how the tag is to be
+      used in a documentation comment: for example, if the tag may be used
+      within an inline element such as
+<b>
+or
+<i>
+, the taglet
+      must not return a string containing block tags, like
+<h3>
+or
+<p>
+.
+Block Tags
+The returned string must be suitable content for a definition list,
+      or
+<dl>
+element. It will typically be a series of pairs
+      of
+<dt>
+and
+<dd>
+elements.
+External Specifications
+Documentation Comment Specification for the Standard Doclet
+HTML Standard
+Nested Class Summary
+Nested classes/interfaces declared in interface jdk.javadoc.doclet.
+Doclet
+Doclet.Option
+Constructor Summary
+Constructors
+Constructor
+Description
+StandardDoclet
+()
+Creates an instance of the standard doclet, used to generate HTML-formatted
+ documentation.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Locale
+getLocale
+()
+Returns the locale for this doclet.
+String
+getName
+()
+Returns a name identifying the doclet.
+Reporter
+getReporter
+()
+Returns the reporter for this doclet.
+Set
+<? extends
+Doclet.Option
+>
+getSupportedOptions
+()
+Returns all the supported options.
+SourceVersion
+getSupportedSourceVersion
+()
+Returns the version of the Java Programming Language supported
+ by this doclet.
+void
+init
+(
+Locale
+locale,
+Reporter
+reporter)
+Initializes this doclet with the given locale and error reporter.
+boolean
+run
+(
+DocletEnvironment
+docEnv)
+The entry point of the doclet.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+StandardDoclet
+public
+StandardDoclet
+()
+Creates an instance of the standard doclet, used to generate HTML-formatted
+ documentation.
+Method Details
+init
+public
+void
+init
+(
+Locale
+locale,
+Reporter
+reporter)
+Description copied from interface:
+Doclet
+Initializes this doclet with the given locale and error reporter.
+ This locale will be used by the reporter and the doclet components.
+Specified by:
+init
+in interface
+Doclet
+Parameters:
+locale
+- the locale to be used
+reporter
+- the reporter to be used
+getName
+public
+String
+getName
+()
+Description copied from interface:
+Doclet
+Returns a name identifying the doclet. A name is a simple identifier
+ without white spaces, as defined in
+The Java Language Specification
+,
+ section 6.2 "Names and Identifiers".
+Specified by:
+getName
+in interface
+Doclet
+Returns:
+name of the Doclet
+getSupportedOptions
+public
+Set
+<? extends
+Doclet.Option
+>
+getSupportedOptions
+()
+Description copied from interface:
+Doclet
+Returns all the supported options.
+Specified by:
+getSupportedOptions
+in interface
+Doclet
+Returns:
+a set containing all the supported options, an empty set if none
+getSupportedSourceVersion
+public
+SourceVersion
+getSupportedSourceVersion
+()
+Description copied from interface:
+Doclet
+Returns the version of the Java Programming Language supported
+ by this doclet.
+Specified by:
+getSupportedSourceVersion
+in interface
+Doclet
+Returns:
+the language version supported by this doclet, usually
+ the latest version
+run
+public
+boolean
+run
+(
+DocletEnvironment
+docEnv)
+Description copied from interface:
+Doclet
+The entry point of the doclet. Further processing will commence as
+ instructed by this method.
+Specified by:
+run
+in interface
+Doclet
+Parameters:
+docEnv
+- from which essential information can be extracted
+Returns:
+true on success
+getLocale
+public
+Locale
+getLocale
+()
+Returns the locale for this doclet.
+Returns:
+the locale for this doclet
+Since:
+17
+See Also:
+init(Locale, Reporter)
+getReporter
+public
+Reporter
+getReporter
+()
+Returns the reporter for this doclet.
+Returns:
+the reporter for this doclet
+Since:
+17
+See Also:
+init(Locale, Reporter)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

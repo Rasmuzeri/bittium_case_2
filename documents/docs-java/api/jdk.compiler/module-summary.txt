@@ -1,0 +1,388 @@
+jdk.compiler (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Module:
+Description
+Modules
+Packages
+Services
+Module:
+Description
+|
+Modules
+|
+Packages
+|
+Services
+SEARCH
+Module jdk.compiler
+module
+jdk.compiler
+Defines the implementation of the
+system Java compiler
+and its command line equivalent,
+javac
+.
+The
+com.sun.source.*
+packages provide the
+Compiler Tree API
+:
+ an API for accessing the abstract trees (ASTs) representing Java source code
+ and documentation comments, used by
+javac
+,
+javadoc
+and related tools.
+javac
+This module provides the equivalent of command-line access to
+javac
+via the
+ToolProvider
+and
+Tool
+service provider interfaces (SPIs),
+ and more flexible access via the
+JavaCompiler
+SPI.
+Instances of the tools can be obtained by calling
+ToolProvider.findFirst
+or the
+service loader
+with the name
+"javac"
+.
+In addition, instances of
+JavaCompiler.CompilationTask
+obtained from
+JavaCompiler
+can be
+ downcast to
+JavacTask
+for access to
+ lower level aspects of
+javac
+, such as the
+Abstract Syntax Tree
+(AST).
+This module uses the
+FileSystemProvider
+API to locate file system providers. In particular,
+ this means that a jar file system provider, such as that in the
+jdk.zipfs
+module, must be available if the compiler is to be able
+ to read JAR files.
+Options and Environment Variables
+The full set of options and environment variables supported by
+javac
+is given in the
+javac Tool Guide
+.
+ However, there are some restrictions when the compiler is invoked through
+ its API.
+The
+-J
+option is not supported.
+          Any necessary VM options must be set in the VM used to invoke the API.
+IllegalArgumentException
+will be thrown if the option
+          is used when invoking the tool through the
+JavaCompiler
+API;
+          an error will be reported if the option is used when invoking
+javac
+through the
+ToolProvider
+or legacy
+Main
+API.
+The "classpath wildcard" feature is not supported.
+          The feature is only supported by the native launcher.
+          When invoking the tool through its API, all necessary jar
+          files should be included directly in the
+--class-path
+option, or the
+CLASSPATH
+environment variable.
+          When invoking the tool through its API, all components of the
+          class path will be taken literally, and will be ignored if there
+          is no matching directory or file. The
+-Xlint:paths
+option can be used to generate warnings about missing components.
+The following restrictions apply when invoking the compiler through
+ the
+JavaCompiler
+interface.
+Argument files (so-called @-files) are not supported.
+          The content of any such files should be included directly
+          in the list of options provided when invoking the tool
+          though this API.
+IllegalArgumentException
+will be thrown if
+          the option is used when invoking the tool through this API.
+The environment variable
+JDK_JAVAC_OPTIONS
+is not supported.
+          Any options defined in the environment variable should be included
+          directly in the list of options provided when invoking the
+          API; any values in the environment variable will be ignored.
+Options that are just used to obtain information (such as
+--help
+,
+--help-extended
+,
+--version
+and
+--full-version
+) are not supported.
+IllegalArgumentException
+will be thrown if any of
+          these options are used when invoking the tool through this API.
+Path-related options depend on the file manager being used
+          when calling
+JavaCompiler.getTask(java.io.Writer, javax.tools.JavaFileManager, javax.tools.DiagnosticListener<? super javax.tools.JavaFileObject>, java.lang.Iterable<java.lang.String>, java.lang.Iterable<java.lang.String>, java.lang.Iterable<? extends javax.tools.JavaFileObject>)
+. The "standard"
+          options, such as
+--class-path
+,
+--module-path
+,
+          and so on are available when using the default file manager,
+          or one derived from it. These options may not be available
+          and different options may be available, when using a different
+          file manager.
+IllegalArgumentException
+will be thrown if any option
+          that is unknown to the tool or the file manager is used when
+          invoking the tool through this API.
+Note that the
+CLASSPATH
+environment variable
+is
+honored
+ when invoking the compiler through its API, although such use is discouraged.
+ An environment variable cannot be unset once a VM has been started,
+ and so it is recommended to ensure that the environment variable is not set
+ when starting a VM that will be used to invoke the compiler.
+ However, if a value has been set, any such value can be overridden by
+ using the
+--class-path
+option when invoking the compiler,
+ or setting
+StandardLocation.CLASS_PATH
+in the file manager
+ when invoking the compiler through the
+JavaCompiler
+interface.
+SuppressWarnings
+JLS
+9.6.4.5
+specifies a number of strings that can be used to
+ suppress warnings that may be generated by a Java compiler.
+
+ In addition,
+javac
+also supports other strings that can be used
+ to suppress other kinds of warnings. The following table lists all the
+ strings that can be used with
+@SuppressWarnings
+.
+Strings supported by
+SuppressWarnings
+String
+Suppress Warnings About ...
+auxiliaryclass
+an auxiliary class that is hidden in a source file, and is used
+                                                      from other files
+cast
+use of unnecessary casts
+classfile
+issues related to classfile contents
+deprecation
+use of deprecated items
+dep-ann
+items marked as deprecated in a documentation comment but not
+                                                      using the
+@Deprecated
+annotation
+divzero
+division by constant integer
+0
+empty
+empty statement after
+if
+exports
+issues regarding module exports
+fallthrough
+falling through from one case of a
+switch
+statement to
+                                                      the next
+finally
+finally
+clauses that do not terminate normally
+lossy-conversions
+possible lossy conversions in compound assignment
+missing-explicit-ctor
+missing explicit constructors in public and protected classes
+                                                      in exported packages
+module
+module system related issues
+opens
+issues regarding module opens
+overloads
+issues regarding method overloads
+overrides
+issues regarding method overrides
+path
+invalid path elements on the command line
+preview
+use of preview language features
+rawtypes
+use of raw types
+removal
+use of API that has been marked for removal
+requires-automatic
+use of automatic modules in the
+requires
+clauses
+requires-transitive-automatic
+automatic modules in
+requires transitive
+serial
+Serializable
+classes
+                                                      that do not have a
+serialVersionUID
+field, or other
+                                                      suspect declarations in
+Serializable
+and
+Externalizable
+classes
+                                                      and interfaces
+static
+accessing a static member using an instance
+strictfp
+unnecessary use of the
+strictfp
+modifier
+synchronization
+synchronization attempts on instances of value-based classes
+text-blocks
+inconsistent white space characters in text block indentation
+this-escape
+superclass constructor leaking
+this
+before subclass initialized
+try
+issues relating to use of
+try
+blocks
+                                                      (that is, try-with-resources)
+unchecked
+unchecked operations
+varargs
+potentially unsafe vararg methods
+doclint:accessibility
+accessibility issues found in documentation comments
+doclint:all
+all issues found in documentation comments
+doclint:html
+HTML issues found in documentation comments
+doclint:missing
+missing items in documentation comments
+doclint:reference
+reference issues found in documentation comments
+doclint:syntax
+syntax issues found in documentation comments
+Module Graph:
+Tool Guides:
+javac
+Since:
+9
+Packages
+Exports
+Package
+Description
+com.sun.source.doctree
+Provides interfaces to represent documentation comments as abstract syntax
+ trees (AST).
+com.sun.source.tree
+Provides interfaces to represent source code as abstract syntax
+ trees (AST).
+com.sun.source.util
+Provides utilities for operations on abstract syntax trees (AST).
+com.sun.tools.javac
+This package provides a legacy entry point for the
+javac
+tool.
+Indirect Exports
+From
+Packages
+java.compiler
+javax.annotation.processing
+javax.lang.model
+javax.lang.model.element
+javax.lang.model.type
+javax.lang.model.util
+javax.tools
+Modules
+Requires
+Modifier
+Module
+Description
+transitive
+java.compiler
+Defines the Language Model, Annotation Processing, and
+ Java Compiler APIs.
+Services
+Provides
+Type
+Description
+JavaCompiler
+Interface to invoke Java programming language compilers from
+ programs.
+Tool
+Common interface for tools that can be invoked from a program.
+ToolProvider
+Use
+ToolProvider.findFirst("javac")
+to obtain an instance of a
+ToolProvider
+that provides the equivalent
+     of command-line access to the
+javac
+tool.
+Uses
+Type
+Description
+Plugin
+The interface for a javac plug-in.
+Processor
+The interface for an annotation processor.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

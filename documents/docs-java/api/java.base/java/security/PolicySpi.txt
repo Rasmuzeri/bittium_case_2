@@ -1,0 +1,260 @@
+PolicySpi (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.security
+Class PolicySpi
+java.lang.Object
+java.security.PolicySpi
+@Deprecated
+(
+since
+="17",
+forRemoval
+=true)
+public abstract class
+PolicySpi
+extends
+Object
+Deprecated, for removal: This API element is subject to removal in a future version.
+This class is only useful in conjunction with
+the Security Manager
+, which is deprecated
+       and subject to removal in a future release. Consequently, this class
+       is also deprecated and subject to removal. There is no replacement for
+       the Security Manager or this class.
+This class defines the
+Service Provider Interface
+(
+SPI
+)
+ for the
+Policy
+class.
+ All the abstract methods in this class must be implemented by each
+ service provider who wishes to supply a
+Policy
+implementation.
+Subclass implementations of this abstract class must provide
+ a public constructor that takes a
+Policy.Parameters
+object as an input parameter.  This constructor also must throw
+ an
+IllegalArgumentException
+if it does not understand the
+Policy.Parameters
+input.
+Since:
+1.6
+Constructor Summary
+Constructors
+Constructor
+Description
+PolicySpi
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Constructor for subclasses to call.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+protected
+PermissionCollection
+engineGetPermissions
+(
+CodeSource
+codesource)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Return a PermissionCollection object containing the set of
+ permissions granted to the specified CodeSource.
+protected
+PermissionCollection
+engineGetPermissions
+(
+ProtectionDomain
+domain)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Return a PermissionCollection object containing the set of
+ permissions granted to the specified ProtectionDomain.
+protected abstract boolean
+engineImplies
+(
+ProtectionDomain
+domain,
+Permission
+permission)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Check whether the policy has granted a Permission to a ProtectionDomain.
+protected void
+engineRefresh
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Refreshes/reloads the policy configuration.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+PolicySpi
+public
+PolicySpi
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Constructor for subclasses to call.
+Method Details
+engineImplies
+protected abstract
+boolean
+engineImplies
+(
+ProtectionDomain
+domain,
+Permission
+permission)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Check whether the policy has granted a Permission to a ProtectionDomain.
+Parameters:
+domain
+- the ProtectionDomain to check.
+permission
+- check whether this permission is granted to the
+          specified domain.
+Returns:
+boolean
+true
+if the permission is granted to the domain.
+engineRefresh
+protected
+void
+engineRefresh
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Refreshes/reloads the policy configuration. The behavior of this method
+ depends on the implementation. For example, calling
+refresh
+on a file-based policy will cause the file to be re-read.
+The default implementation of this method does nothing.
+ This method should be overridden if a refresh operation is supported
+ by the policy implementation.
+engineGetPermissions
+protected
+PermissionCollection
+engineGetPermissions
+(
+CodeSource
+codesource)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Return a PermissionCollection object containing the set of
+ permissions granted to the specified CodeSource.
+The default implementation of this method returns
+ Policy.UNSUPPORTED_EMPTY_COLLECTION object.  This method can be
+ overridden if the policy implementation can return a set of
+ permissions granted to a CodeSource.
+Parameters:
+codesource
+- the CodeSource to which the returned
+          PermissionCollection has been granted.
+Returns:
+a set of permissions granted to the specified CodeSource.
+          If this operation is supported, the returned
+          set of permissions must be a new mutable instance
+          and it must support heterogeneous Permission types.
+          If this operation is not supported,
+          Policy.UNSUPPORTED_EMPTY_COLLECTION is returned.
+engineGetPermissions
+protected
+PermissionCollection
+engineGetPermissions
+(
+ProtectionDomain
+domain)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Return a PermissionCollection object containing the set of
+ permissions granted to the specified ProtectionDomain.
+The default implementation of this method returns
+ Policy.UNSUPPORTED_EMPTY_COLLECTION object.  This method can be
+ overridden if the policy implementation can return a set of
+ permissions granted to a ProtectionDomain.
+Parameters:
+domain
+- the ProtectionDomain to which the returned
+          PermissionCollection has been granted.
+Returns:
+a set of permissions granted to the specified ProtectionDomain.
+          If this operation is supported, the returned
+          set of permissions must be a new mutable instance
+          and it must support heterogeneous Permission types.
+          If this operation is not supported,
+          Policy.UNSUPPORTED_EMPTY_COLLECTION is returned.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

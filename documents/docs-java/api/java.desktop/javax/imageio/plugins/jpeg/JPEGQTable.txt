@@ -1,0 +1,278 @@
+JPEGQTable (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.imageio.plugins.jpeg
+Class JPEGQTable
+java.lang.Object
+javax.imageio.plugins.jpeg.JPEGQTable
+public class
+JPEGQTable
+extends
+Object
+A class encapsulating a single JPEG quantization table.
+ The elements appear in natural order (as opposed to zig-zag order).
+ Static variables are provided for the "standard" tables taken from
+  Annex K of the JPEG specification, as well as the default tables
+ conventionally used for visually lossless encoding.
+For more information about the operation of the standard JPEG plug-in,
+ see the
+JPEG
+ metadata format specification and usage notes
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+JPEGQTable
+K1Div2Luminance
+The sample luminance quantization table given in the JPEG
+ specification, table K.1, with all elements divided by 2.
+static final
+JPEGQTable
+K1Luminance
+The sample luminance quantization table given in the JPEG
+ specification, table K.1.
+static final
+JPEGQTable
+K2Chrominance
+The sample chrominance quantization table given in the JPEG
+ specification, table K.2.
+static final
+JPEGQTable
+K2Div2Chrominance
+The sample chrominance quantization table given in the JPEG
+ specification, table K.1, with all elements divided by 2.
+Constructor Summary
+Constructors
+Constructor
+Description
+JPEGQTable
+(int[] table)
+Constructs a quantization table from the argument, which must
+ contain 64 elements in natural order (not zig-zag order).
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+JPEGQTable
+getScaledInstance
+(float scaleFactor,
+ boolean forceBaseline)
+Returns a new quantization table where the values are multiplied
+ by
+scaleFactor
+and then clamped to the range 1..32767
+ (or to 1..255 if
+forceBaseline
+is true).
+int[]
+getTable
+()
+Returns a copy of the current quantization table as an array
+ of
+int
+s in natural (not zig-zag) order.
+String
+toString
+()
+Returns a
+String
+representing this quantization table.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Field Details
+K1Luminance
+public static final
+JPEGQTable
+K1Luminance
+The sample luminance quantization table given in the JPEG
+ specification, table K.1. According to the specification,
+ these values produce "good" quality output.
+See Also:
+K1Div2Luminance
+K1Div2Luminance
+public static final
+JPEGQTable
+K1Div2Luminance
+The sample luminance quantization table given in the JPEG
+ specification, table K.1, with all elements divided by 2.
+ According to the specification, these values produce "very good"
+ quality output. This is the table usually used for "visually lossless"
+ encoding, and is the default luminance table used if the default
+ tables and quality settings are used.
+See Also:
+K1Luminance
+K2Chrominance
+public static final
+JPEGQTable
+K2Chrominance
+The sample chrominance quantization table given in the JPEG
+ specification, table K.2. According to the specification,
+ these values produce "good" quality output.
+See Also:
+K2Div2Chrominance
+K2Div2Chrominance
+public static final
+JPEGQTable
+K2Div2Chrominance
+The sample chrominance quantization table given in the JPEG
+ specification, table K.1, with all elements divided by 2.
+ According to the specification, these values produce "very good"
+ quality output. This is the table usually used for "visually lossless"
+ encoding, and is the default chrominance table used if the default
+ tables and quality settings are used.
+See Also:
+K2Chrominance
+Constructor Details
+JPEGQTable
+public
+JPEGQTable
+(int[] table)
+Constructs a quantization table from the argument, which must
+ contain 64 elements in natural order (not zig-zag order).
+ A copy is made of the input array.
+Parameters:
+table
+- the quantization table, as an
+int
+array.
+Throws:
+IllegalArgumentException
+- if
+table
+is
+null
+or
+table.length
+is not equal to 64.
+Method Details
+getTable
+public
+int[]
+getTable
+()
+Returns a copy of the current quantization table as an array
+ of
+int
+s in natural (not zig-zag) order.
+Returns:
+A copy of the current quantization table.
+getScaledInstance
+public
+JPEGQTable
+getScaledInstance
+(float scaleFactor,
+ boolean forceBaseline)
+Returns a new quantization table where the values are multiplied
+ by
+scaleFactor
+and then clamped to the range 1..32767
+ (or to 1..255 if
+forceBaseline
+is true).
+Values of
+scaleFactor
+less than 1 tend to improve
+ the quality level of the table, and values greater than 1.0
+ degrade the quality level of the table.
+Parameters:
+scaleFactor
+- multiplication factor for the table.
+forceBaseline
+- if
+true
+,
+ the values will be clamped to the range 1..255
+Returns:
+a new quantization table that is a linear multiple
+ of the current table.
+toString
+public
+String
+toString
+()
+Returns a
+String
+representing this quantization table.
+Overrides:
+toString
+in class
+Object
+Returns:
+a
+String
+representing this quantization table.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

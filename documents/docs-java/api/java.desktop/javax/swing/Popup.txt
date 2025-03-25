@@ -1,0 +1,277 @@
+Popup (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing
+Class Popup
+java.lang.Object
+javax.swing.Popup
+public class
+Popup
+extends
+Object
+Popups are used to display a
+Component
+to the user, typically
+ on top of all the other
+Component
+s in a particular containment
+ hierarchy.
+Popup
+s have a very small life cycle. Once you
+ have obtained a
+Popup
+, and hidden it (invoked the
+hide
+method), you should no longer
+ invoke any methods on it. This allows the
+PopupFactory
+to cache
+Popup
+s for later use.
+The general contract is that if you need to change the size of the
+Component
+, or location of the
+Popup
+, you should
+ obtain a new
+Popup
+.
+Popup
+does not descend from
+Component
+, rather
+ implementations of
+Popup
+are responsible for creating
+ and maintaining their own
+Component
+s to render the
+ requested
+Component
+to the user.
+You typically do not explicitly create an instance of
+Popup
+,
+ instead obtain one from a
+PopupFactory
+.
+Since:
+1.4
+See Also:
+PopupFactory
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+Popup
+()
+Creates a
+Popup
+.
+protected
+Popup
+(
+Component
+owner,
+Component
+contents,
+ int x,
+ int y)
+Creates a
+Popup
+for the Component
+owner
+containing the Component
+contents
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+hide
+()
+Hides and disposes of the
+Popup
+.
+void
+show
+()
+Makes the
+Popup
+visible.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+Popup
+protected
+Popup
+(
+Component
+owner,
+Component
+contents,
+ int x,
+ int y)
+Creates a
+Popup
+for the Component
+owner
+containing the Component
+contents
+.
+owner
+is used to determine which
+Window
+the new
+Popup
+will parent the
+Component
+the
+Popup
+creates to.
+ A null
+owner
+implies there is no valid parent.
+x
+and
+y
+specify the preferred initial location to place
+ the
+Popup
+at. Based on screen size, or other parameters,
+ the
+Popup
+may not display at
+x
+and
+y
+.
+Parameters:
+owner
+- Component mouse coordinates are relative to, may be null
+contents
+- Contents of the Popup
+x
+- Initial x screen coordinate
+y
+- Initial y screen coordinate
+Throws:
+IllegalArgumentException
+- if contents is null
+Popup
+protected
+Popup
+()
+Creates a
+Popup
+. This is provided for subclasses.
+Method Details
+show
+public
+void
+show
+()
+Makes the
+Popup
+visible. If the
+Popup
+is
+ currently visible, this has no effect.
+hide
+public
+void
+hide
+()
+Hides and disposes of the
+Popup
+. Once a
+Popup
+has been disposed you should no longer invoke methods on it. A
+dispose
+d
+Popup
+may be reclaimed and later used
+ based on the
+PopupFactory
+. As such, if you invoke methods
+ on a
+disposed
+Popup
+, indeterminate
+ behavior will result.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

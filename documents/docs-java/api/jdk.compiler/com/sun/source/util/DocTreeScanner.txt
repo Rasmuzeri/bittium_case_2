@@ -1,0 +1,1857 @@
+DocTreeScanner (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.compiler
+Package
+com.sun.source.util
+Class DocTreeScanner<R,
+P>
+java.lang.Object
+com.sun.source.util.DocTreeScanner<R,
+P>
+Type Parameters:
+R
+- the return type of this visitor's methods.  Use
+Void
+for visitors that do not need to return results.
+P
+- the type of the additional parameter to this visitor's
+            methods.  Use
+Void
+for visitors that do not need an
+            additional parameter.
+All Implemented Interfaces:
+DocTreeVisitor
+<R,
+P>
+Direct Known Subclasses:
+DocTreePathScanner
+public class
+DocTreeScanner<R,
+P>
+extends
+Object
+implements
+DocTreeVisitor
+<R,
+P>
+A DocTreeVisitor that visits all the child tree nodes.
+ To visit nodes of a particular type, just override the
+ corresponding visitXYZ method.
+ Inside your method, call super.visitXYZ to visit descendant
+ nodes.
+Here is an example to count the number of erroneous nodes in a tree:
+class CountErrors extends DocTreeScanner<Integer,Void> {
+      @Override
+      public Integer visitErroneous(ErroneousTree node, Void p) {
+          return 1;
+      }
+      @Override
+      public Integer reduce(Integer r1, Integer r2) {
+          return (r1 == null ? 0 : r1) + (r2 == null ? 0 : r2);
+      }
+   }
+Implementation Requirements:
+The default implementation of the visitXYZ methods will determine
+ a result as follows:
+If the node being visited has no children, the result will be
+null
+.
+If the node being visited has one child, the result will be the
+ result of calling
+scan
+with that child. The child may be a simple node
+ or itself a list of nodes.
+If the node being visited has more than one child, the result will
+ be determined by calling
+scan
+with each child in turn, and then combining the
+ result of each scan after the first with the cumulative result
+ so far, as determined by the
+reduce(R, R)
+method. Each child may be either
+ a simple node or a list of nodes. The default behavior of the
+reduce
+method is such that the result of the visitXYZ method will be the result of
+ the last child scanned.
+Since:
+1.8
+Constructor Summary
+Constructors
+Constructor
+Description
+DocTreeScanner
+()
+Constructs a
+DocTreeScanner
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+R
+reduce
+(
+R
+r1,
+R
+r2)
+Reduces two results into a combined result.
+R
+scan
+(
+DocTree
+node,
+P
+p)
+Scans a single node.
+R
+scan
+(
+Iterable
+<? extends
+DocTree
+> nodes,
+P
+p)
+Scans a sequence of nodes.
+R
+visitAttribute
+(
+AttributeTree
+node,
+P
+p)
+Visits an
+AttributeTree
+node.
+R
+visitAuthor
+(
+AuthorTree
+node,
+P
+p)
+Visits an
+AuthorTree
+node.
+R
+visitComment
+(
+CommentTree
+node,
+P
+p)
+Visits a
+CommentTree
+node.
+R
+visitDeprecated
+(
+DeprecatedTree
+node,
+P
+p)
+Visits a
+DeprecatedTree
+node.
+R
+visitDocComment
+(
+DocCommentTree
+node,
+P
+p)
+Visits a
+DocCommentTree
+node.
+R
+visitDocRoot
+(
+DocRootTree
+node,
+P
+p)
+Visits a
+DocRootTree
+node.
+R
+visitDocType
+(
+DocTypeTree
+node,
+P
+p)
+Visits a
+DocTypeTree
+node.
+R
+visitEndElement
+(
+EndElementTree
+node,
+P
+p)
+Visits an
+EndElementTree
+node.
+R
+visitEntity
+(
+EntityTree
+node,
+P
+p)
+Visits an
+EntityTree
+node.
+R
+visitErroneous
+(
+ErroneousTree
+node,
+P
+p)
+Visits an
+ErroneousTree
+node.
+R
+visitEscape
+(
+EscapeTree
+node,
+P
+p)
+Visits an
+EscapeTree
+node.
+R
+visitHidden
+(
+HiddenTree
+node,
+P
+p)
+Visits a
+HiddenTree
+node.
+R
+visitIdentifier
+(
+IdentifierTree
+node,
+P
+p)
+Visits an
+IdentifierTree
+node.
+R
+visitIndex
+(
+IndexTree
+node,
+P
+p)
+Visits an
+IndexTree
+node.
+R
+visitInheritDoc
+(
+InheritDocTree
+node,
+P
+p)
+Visits an
+InheritDocTree
+node.
+R
+visitLink
+(
+LinkTree
+node,
+P
+p)
+Visits a
+LinkTree
+node.
+R
+visitLiteral
+(
+LiteralTree
+node,
+P
+p)
+Visits an
+LiteralTree
+node.
+R
+visitOther
+(
+DocTree
+node,
+P
+p)
+Visits an unknown type of
+DocTree
+node.
+R
+visitParam
+(
+ParamTree
+node,
+P
+p)
+Visits a
+ParamTree
+node.
+R
+visitProvides
+(
+ProvidesTree
+node,
+P
+p)
+Visits a
+ProvidesTree
+node.
+R
+visitReference
+(
+ReferenceTree
+node,
+P
+p)
+Visits a
+ReferenceTree
+node.
+R
+visitReturn
+(
+ReturnTree
+node,
+P
+p)
+Visits a
+ReturnTree
+node.
+R
+visitSee
+(
+SeeTree
+node,
+P
+p)
+Visits a
+SeeTree
+node.
+R
+visitSerial
+(
+SerialTree
+node,
+P
+p)
+Visits a
+SerialTree
+node.
+R
+visitSerialData
+(
+SerialDataTree
+node,
+P
+p)
+Visits a
+SerialDataTree
+node.
+R
+visitSerialField
+(
+SerialFieldTree
+node,
+P
+p)
+Visits a
+SerialFieldTree
+node.
+R
+visitSince
+(
+SinceTree
+node,
+P
+p)
+Visits a
+SinceTree
+node.
+R
+visitSnippet
+(
+SnippetTree
+node,
+P
+p)
+Visits a
+SnippetTree
+node.
+R
+visitSpec
+(
+SpecTree
+node,
+P
+p)
+Visits a
+SpecTree
+node.
+R
+visitStartElement
+(
+StartElementTree
+node,
+P
+p)
+Visits a
+StartElementTree
+node.
+R
+visitSummary
+(
+SummaryTree
+node,
+P
+p)
+Visits a
+SummaryTree
+node.
+R
+visitSystemProperty
+(
+SystemPropertyTree
+node,
+P
+p)
+Visits a
+SystemPropertyTree
+node.
+R
+visitText
+(
+TextTree
+node,
+P
+p)
+Visits a
+TextTree
+node.
+R
+visitThrows
+(
+ThrowsTree
+node,
+P
+p)
+Visits a
+ThrowsTree
+node.
+R
+visitUnknownBlockTag
+(
+UnknownBlockTagTree
+node,
+P
+p)
+Visits an
+UnknownBlockTagTree
+node.
+R
+visitUnknownInlineTag
+(
+UnknownInlineTagTree
+node,
+P
+p)
+Visits an
+UnknownInlineTagTree
+node.
+R
+visitUses
+(
+UsesTree
+node,
+P
+p)
+Visits a
+UsesTree
+node.
+R
+visitValue
+(
+ValueTree
+node,
+P
+p)
+Visits a
+ValueTree
+node.
+R
+visitVersion
+(
+VersionTree
+node,
+P
+p)
+Visits a
+VersionTree
+node.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+DocTreeScanner
+public
+DocTreeScanner
+()
+Constructs a
+DocTreeScanner
+.
+Method Details
+scan
+public
+R
+scan
+(
+DocTree
+node,
+P
+p)
+Scans a single node.
+Parameters:
+node
+- the node to be scanned
+p
+- a parameter value passed to the visit method
+Returns:
+the result value from the visit method
+scan
+public
+R
+scan
+(
+Iterable
+<? extends
+DocTree
+> nodes,
+P
+p)
+Scans a sequence of nodes.
+Parameters:
+nodes
+- the nodes to be scanned
+p
+- a parameter value to be passed to the visit method for each node
+Returns:
+the combined return value from the visit methods.
+      The values are combined using the
+reduce
+method.
+reduce
+public
+R
+reduce
+(
+R
+r1,
+R
+r2)
+Reduces two results into a combined result.
+ The default implementation is to return the first parameter.
+ The general contract of the method is that it may take any action whatsoever.
+Parameters:
+r1
+- the first of the values to be combined
+r2
+- the second of the values to be combined
+Returns:
+the result of combining the two parameters
+visitAttribute
+public
+R
+visitAttribute
+(
+AttributeTree
+node,
+P
+p)
+Visits an
+AttributeTree
+node.
+Specified by:
+visitAttribute
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitAuthor
+public
+R
+visitAuthor
+(
+AuthorTree
+node,
+P
+p)
+Visits an
+AuthorTree
+node.
+Specified by:
+visitAuthor
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitComment
+public
+R
+visitComment
+(
+CommentTree
+node,
+P
+p)
+Visits a
+CommentTree
+node.
+Specified by:
+visitComment
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitDeprecated
+public
+R
+visitDeprecated
+(
+DeprecatedTree
+node,
+P
+p)
+Visits a
+DeprecatedTree
+node.
+Specified by:
+visitDeprecated
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitDocComment
+public
+R
+visitDocComment
+(
+DocCommentTree
+node,
+P
+p)
+Visits a
+DocCommentTree
+node.
+Specified by:
+visitDocComment
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitDocRoot
+public
+R
+visitDocRoot
+(
+DocRootTree
+node,
+P
+p)
+Visits a
+DocRootTree
+node.
+Specified by:
+visitDocRoot
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitDocType
+public
+R
+visitDocType
+(
+DocTypeTree
+node,
+P
+p)
+Visits a
+DocTypeTree
+node.
+Specified by:
+visitDocType
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitEndElement
+public
+R
+visitEndElement
+(
+EndElementTree
+node,
+P
+p)
+Visits an
+EndElementTree
+node.
+Specified by:
+visitEndElement
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitEntity
+public
+R
+visitEntity
+(
+EntityTree
+node,
+P
+p)
+Visits an
+EntityTree
+node.
+Specified by:
+visitEntity
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitErroneous
+public
+R
+visitErroneous
+(
+ErroneousTree
+node,
+P
+p)
+Visits an
+ErroneousTree
+node.
+Specified by:
+visitErroneous
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitEscape
+public
+R
+visitEscape
+(
+EscapeTree
+node,
+P
+p)
+Visits an
+EscapeTree
+node.
+Specified by:
+visitEscape
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+Since:
+21
+visitHidden
+public
+R
+visitHidden
+(
+HiddenTree
+node,
+P
+p)
+Visits a
+HiddenTree
+node.
+Specified by:
+visitHidden
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitIdentifier
+public
+R
+visitIdentifier
+(
+IdentifierTree
+node,
+P
+p)
+Visits an
+IdentifierTree
+node.
+Specified by:
+visitIdentifier
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitIndex
+public
+R
+visitIndex
+(
+IndexTree
+node,
+P
+p)
+Visits an
+IndexTree
+node.
+Specified by:
+visitIndex
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitInheritDoc
+public
+R
+visitInheritDoc
+(
+InheritDocTree
+node,
+P
+p)
+Visits an
+InheritDocTree
+node.
+Specified by:
+visitInheritDoc
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitLink
+public
+R
+visitLink
+(
+LinkTree
+node,
+P
+p)
+Visits a
+LinkTree
+node.
+Specified by:
+visitLink
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitLiteral
+public
+R
+visitLiteral
+(
+LiteralTree
+node,
+P
+p)
+Visits an
+LiteralTree
+node.
+Specified by:
+visitLiteral
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitParam
+public
+R
+visitParam
+(
+ParamTree
+node,
+P
+p)
+Visits a
+ParamTree
+node.
+Specified by:
+visitParam
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitProvides
+public
+R
+visitProvides
+(
+ProvidesTree
+node,
+P
+p)
+Visits a
+ProvidesTree
+node.
+Specified by:
+visitProvides
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitReference
+public
+R
+visitReference
+(
+ReferenceTree
+node,
+P
+p)
+Visits a
+ReferenceTree
+node.
+Specified by:
+visitReference
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitReturn
+public
+R
+visitReturn
+(
+ReturnTree
+node,
+P
+p)
+Visits a
+ReturnTree
+node.
+Specified by:
+visitReturn
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitSee
+public
+R
+visitSee
+(
+SeeTree
+node,
+P
+p)
+Visits a
+SeeTree
+node.
+Specified by:
+visitSee
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitSerial
+public
+R
+visitSerial
+(
+SerialTree
+node,
+P
+p)
+Visits a
+SerialTree
+node.
+Specified by:
+visitSerial
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitSerialData
+public
+R
+visitSerialData
+(
+SerialDataTree
+node,
+P
+p)
+Visits a
+SerialDataTree
+node.
+Specified by:
+visitSerialData
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitSerialField
+public
+R
+visitSerialField
+(
+SerialFieldTree
+node,
+P
+p)
+Visits a
+SerialFieldTree
+node.
+Specified by:
+visitSerialField
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitSince
+public
+R
+visitSince
+(
+SinceTree
+node,
+P
+p)
+Visits a
+SinceTree
+node.
+Specified by:
+visitSince
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitSnippet
+public
+R
+visitSnippet
+(
+SnippetTree
+node,
+P
+p)
+Visits a
+SnippetTree
+node.
+Specified by:
+visitSnippet
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+Since:
+18
+visitSpec
+public
+R
+visitSpec
+(
+SpecTree
+node,
+P
+p)
+Visits a
+SpecTree
+node.
+Specified by:
+visitSpec
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+Since:
+20
+visitStartElement
+public
+R
+visitStartElement
+(
+StartElementTree
+node,
+P
+p)
+Visits a
+StartElementTree
+node.
+Specified by:
+visitStartElement
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitSummary
+public
+R
+visitSummary
+(
+SummaryTree
+node,
+P
+p)
+Visits a
+SummaryTree
+node.
+Specified by:
+visitSummary
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+Since:
+10
+visitSystemProperty
+public
+R
+visitSystemProperty
+(
+SystemPropertyTree
+node,
+P
+p)
+Visits a
+SystemPropertyTree
+node.
+Specified by:
+visitSystemProperty
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+Since:
+12
+visitText
+public
+R
+visitText
+(
+TextTree
+node,
+P
+p)
+Visits a
+TextTree
+node.
+Specified by:
+visitText
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitThrows
+public
+R
+visitThrows
+(
+ThrowsTree
+node,
+P
+p)
+Visits a
+ThrowsTree
+node.
+Specified by:
+visitThrows
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitUnknownBlockTag
+public
+R
+visitUnknownBlockTag
+(
+UnknownBlockTagTree
+node,
+P
+p)
+Visits an
+UnknownBlockTagTree
+node.
+Specified by:
+visitUnknownBlockTag
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitUnknownInlineTag
+public
+R
+visitUnknownInlineTag
+(
+UnknownInlineTagTree
+node,
+P
+p)
+Visits an
+UnknownInlineTagTree
+node.
+Specified by:
+visitUnknownInlineTag
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitUses
+public
+R
+visitUses
+(
+UsesTree
+node,
+P
+p)
+Visits a
+UsesTree
+node.
+Specified by:
+visitUses
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitValue
+public
+R
+visitValue
+(
+ValueTree
+node,
+P
+p)
+Visits a
+ValueTree
+node.
+Specified by:
+visitValue
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitVersion
+public
+R
+visitVersion
+(
+VersionTree
+node,
+P
+p)
+Visits a
+VersionTree
+node.
+Specified by:
+visitVersion
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitOther
+public
+R
+visitOther
+(
+DocTree
+node,
+P
+p)
+Visits an unknown type of
+DocTree
+node.
+ This can occur if the set of tags evolves and new kinds
+ of nodes are added to the
+DocTree
+hierarchy.
+Specified by:
+visitOther
+in interface
+DocTreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

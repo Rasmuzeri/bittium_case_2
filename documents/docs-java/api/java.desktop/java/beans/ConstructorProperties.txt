@@ -1,0 +1,113 @@
+ConstructorProperties (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Field
+Required
+Optional
+Detail:
+Field
+Element
+Summary:
+Field |
+Required
+|
+Optional
+Detail:
+Field |
+Element
+SEARCH
+Module
+java.desktop
+Package
+java.beans
+Annotation Interface ConstructorProperties
+@Documented
+@Target
+(
+CONSTRUCTOR
+)
+@Retention
+(
+RUNTIME
+)
+public @interface
+ConstructorProperties
+An annotation on a constructor that shows how the parameters of
+   that constructor correspond to the constructed object's getter
+   methods.  For example:
+public class Point {
+       @ConstructorProperties({"x", "y"})
+       public Point(int x, int y) {
+           this.x = x;
+           this.y = y;
+       }
+
+       public int getX() {
+           return x;
+       }
+
+       public int getY() {
+           return y;
+       }
+
+       private final int x, y;
+   }
+The annotation shows that the first parameter of the constructor
+   can be retrieved with the
+getX()
+method and the second with
+   the
+getY()
+method.  Since parameter names are not in
+   general available at runtime, without the annotation there would be
+   no way to know whether the parameters correspond to
+getX()
+and
+getY()
+or the other way around.
+Since:
+1.6
+Required Element Summary
+Required Elements
+Modifier and Type
+Required Element
+Description
+String
+[]
+value
+The getter names.
+Element Details
+value
+String
+[]
+value
+The getter names.
+Returns:
+the getter names corresponding to the parameters in the
+       annotated constructor.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

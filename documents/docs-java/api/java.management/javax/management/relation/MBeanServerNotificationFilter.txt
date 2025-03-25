@@ -1,0 +1,286 @@
+MBeanServerNotificationFilter (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.management
+Package
+javax.management.relation
+Class MBeanServerNotificationFilter
+java.lang.Object
+javax.management.NotificationFilterSupport
+javax.management.relation.MBeanServerNotificationFilter
+All Implemented Interfaces:
+Serializable
+,
+NotificationFilter
+public class
+MBeanServerNotificationFilter
+extends
+NotificationFilterSupport
+Filter for
+MBeanServerNotification
+.
+ This filter filters MBeanServerNotification notifications by
+ selecting the ObjectNames of interest and the operations (registration,
+ unregistration, both) of interest (corresponding to notification
+ types).
+The
+serialVersionUID
+of this class is
+2605900539589789736L
+.
+Since:
+1.5
+See Also:
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+MBeanServerNotificationFilter
+()
+Creates a filter selecting all MBeanServerNotification notifications for
+ all ObjectNames.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+disableAllObjectNames
+()
+Disables any MBeanServerNotification (all ObjectNames are
+ deselected).
+void
+disableObjectName
+(
+ObjectName
+objectName)
+Disables MBeanServerNotifications concerning given ObjectName.
+void
+enableAllObjectNames
+()
+Enables all MBeanServerNotifications (all ObjectNames are selected).
+void
+enableObjectName
+(
+ObjectName
+objectName)
+Enables MBeanServerNotifications concerning given ObjectName.
+Vector
+<
+ObjectName
+>
+getDisabledObjectNames
+()
+Gets all the ObjectNames disabled.
+Vector
+<
+ObjectName
+>
+getEnabledObjectNames
+()
+Gets all the ObjectNames enabled.
+boolean
+isNotificationEnabled
+(
+Notification
+notif)
+Invoked before sending the specified notification to the listener.
+Methods declared in class javax.management.
+NotificationFilterSupport
+disableAllTypes
+,
+disableType
+,
+enableType
+,
+getEnabledTypes
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+MBeanServerNotificationFilter
+public
+MBeanServerNotificationFilter
+()
+Creates a filter selecting all MBeanServerNotification notifications for
+ all ObjectNames.
+Method Details
+disableAllObjectNames
+public
+void
+disableAllObjectNames
+()
+Disables any MBeanServerNotification (all ObjectNames are
+ deselected).
+disableObjectName
+public
+void
+disableObjectName
+(
+ObjectName
+objectName)
+throws
+IllegalArgumentException
+Disables MBeanServerNotifications concerning given ObjectName.
+Parameters:
+objectName
+- ObjectName no longer of interest
+Throws:
+IllegalArgumentException
+- if the given ObjectName is null
+enableAllObjectNames
+public
+void
+enableAllObjectNames
+()
+Enables all MBeanServerNotifications (all ObjectNames are selected).
+enableObjectName
+public
+void
+enableObjectName
+(
+ObjectName
+objectName)
+throws
+IllegalArgumentException
+Enables MBeanServerNotifications concerning given ObjectName.
+Parameters:
+objectName
+- ObjectName of interest
+Throws:
+IllegalArgumentException
+- if the given ObjectName is null
+getEnabledObjectNames
+public
+Vector
+<
+ObjectName
+>
+getEnabledObjectNames
+()
+Gets all the ObjectNames enabled.
+Returns:
+Vector of ObjectNames:
+- null means all ObjectNames are implicitly selected, except the
+ ObjectNames explicitly deselected
+- empty means all ObjectNames are deselected, i.e. no ObjectName
+ selected.
+getDisabledObjectNames
+public
+Vector
+<
+ObjectName
+>
+getDisabledObjectNames
+()
+Gets all the ObjectNames disabled.
+Returns:
+Vector of ObjectNames:
+- null means all ObjectNames are implicitly deselected, except the
+ ObjectNames explicitly selected
+- empty means all ObjectNames are selected, i.e. no ObjectName
+ deselected.
+isNotificationEnabled
+public
+boolean
+isNotificationEnabled
+(
+Notification
+notif)
+throws
+IllegalArgumentException
+Invoked before sending the specified notification to the listener.
+If:
+- the ObjectName of the concerned MBean is selected (explicitly OR
+ (implicitly and not explicitly deselected))
+AND
+- the type of the operation (registration or unregistration) is
+ selected
+then the notification is sent to the listener.
+Specified by:
+isNotificationEnabled
+in interface
+NotificationFilter
+Overrides:
+isNotificationEnabled
+in class
+NotificationFilterSupport
+Parameters:
+notif
+- The notification to be sent.
+Returns:
+true if the notification has to be sent to the listener, false
+ otherwise.
+Throws:
+IllegalArgumentException
+- if null parameter
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

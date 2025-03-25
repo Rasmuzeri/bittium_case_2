@@ -1,0 +1,440 @@
+AttributeListImpl (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.xml
+Package
+org.xml.sax.helpers
+Class AttributeListImpl
+java.lang.Object
+org.xml.sax.helpers.AttributeListImpl
+All Implemented Interfaces:
+AttributeList
+@Deprecated
+(
+since
+="1.5")
+public class
+AttributeListImpl
+extends
+Object
+implements
+AttributeList
+Deprecated.
+This class implements a deprecated interface,
+AttributeList
+;
+             that interface has been replaced by
+Attributes
+,
+             which is implemented in the
+AttributesImpl
+helper class.
+Default implementation for AttributeList.
+AttributeList implements the deprecated SAX1
+AttributeList
+interface, and has been
+ replaced by the new SAX2
+AttributesImpl
+interface.
+This class provides a convenience implementation of the SAX
+AttributeList
+interface.  This
+ implementation is useful both for SAX parser writers, who can use
+ it to provide attributes to the application, and for SAX application
+ writers, who can use it to create a persistent copy of an element's
+ attribute specifications:
+private AttributeList myatts;
+
+ public void startElement (String name, AttributeList atts)
+ {
+              // create a persistent copy of the attribute list
+              // for use outside this method
+   myatts = new AttributeListImpl(atts);
+   [...]
+ }
+Please note that SAX parsers are not required to use this
+ class to provide an implementation of AttributeList; it is
+ supplied only as an optional convenience.  In particular,
+ parser writers are encouraged to invent more efficient
+ implementations.
+Since:
+1.4, SAX 1.0
+See Also:
+AttributeList
+DocumentHandler.startElement(java.lang.String, org.xml.sax.AttributeList)
+Constructor Summary
+Constructors
+Constructor
+Description
+AttributeListImpl
+()
+Deprecated.
+Create an empty attribute list.
+AttributeListImpl
+(
+AttributeList
+atts)
+Deprecated.
+Construct a persistent copy of an existing attribute list.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+void
+addAttribute
+(
+String
+name,
+String
+type,
+String
+value)
+Deprecated.
+Add an attribute to an attribute list.
+void
+clear
+()
+Deprecated.
+Clear the attribute list.
+int
+getLength
+()
+Deprecated.
+Return the number of attributes in the list.
+String
+getName
+(int i)
+Deprecated.
+Get the name of an attribute (by position).
+String
+getType
+(int i)
+Deprecated.
+Get the type of an attribute (by position).
+String
+getType
+(
+String
+name)
+Deprecated.
+Get the type of an attribute (by name).
+String
+getValue
+(int i)
+Deprecated.
+Get the value of an attribute (by position).
+String
+getValue
+(
+String
+name)
+Deprecated.
+Get the value of an attribute (by name).
+void
+removeAttribute
+(
+String
+name)
+Deprecated.
+Remove an attribute from the list.
+void
+setAttributeList
+(
+AttributeList
+atts)
+Deprecated.
+Set the attribute list, discarding previous contents.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+AttributeListImpl
+public
+AttributeListImpl
+()
+Deprecated.
+Create an empty attribute list.
+This constructor is most useful for parser writers, who
+ will use it to create a single, reusable attribute list that
+ can be reset with the clear method between elements.
+See Also:
+addAttribute(java.lang.String, java.lang.String, java.lang.String)
+clear()
+AttributeListImpl
+public
+AttributeListImpl
+(
+AttributeList
+atts)
+Deprecated.
+Construct a persistent copy of an existing attribute list.
+This constructor is most useful for application writers,
+ who will use it to create a persistent copy of an existing
+ attribute list.
+Parameters:
+atts
+- The attribute list to copy
+See Also:
+DocumentHandler.startElement(java.lang.String, org.xml.sax.AttributeList)
+Method Details
+setAttributeList
+public
+void
+setAttributeList
+(
+AttributeList
+atts)
+Deprecated.
+Set the attribute list, discarding previous contents.
+This method allows an application writer to reuse an
+ attribute list easily.
+Parameters:
+atts
+- The attribute list to copy.
+addAttribute
+public
+void
+addAttribute
+(
+String
+name,
+String
+type,
+String
+value)
+Deprecated.
+Add an attribute to an attribute list.
+This method is provided for SAX parser writers, to allow them
+ to build up an attribute list incrementally before delivering
+ it to the application.
+Parameters:
+name
+- The attribute name.
+type
+- The attribute type ("NMTOKEN" for an enumeration).
+value
+- The attribute value (must not be null).
+See Also:
+removeAttribute(java.lang.String)
+DocumentHandler.startElement(java.lang.String, org.xml.sax.AttributeList)
+removeAttribute
+public
+void
+removeAttribute
+(
+String
+name)
+Deprecated.
+Remove an attribute from the list.
+SAX application writers can use this method to filter an
+ attribute out of an AttributeList.  Note that invoking this
+ method will change the length of the attribute list and
+ some of the attribute's indices.
+If the requested attribute is not in the list, this is
+ a no-op.
+Parameters:
+name
+- The attribute name.
+See Also:
+addAttribute(java.lang.String, java.lang.String, java.lang.String)
+clear
+public
+void
+clear
+()
+Deprecated.
+Clear the attribute list.
+SAX parser writers can use this method to reset the attribute
+ list between DocumentHandler.startElement events.  Normally,
+ it will make sense to reuse the same AttributeListImpl object
+ rather than allocating a new one each time.
+See Also:
+DocumentHandler.startElement(java.lang.String, org.xml.sax.AttributeList)
+getLength
+public
+int
+getLength
+()
+Deprecated.
+Return the number of attributes in the list.
+Specified by:
+getLength
+in interface
+AttributeList
+Returns:
+The number of attributes in the list.
+See Also:
+AttributeList.getLength()
+getName
+public
+String
+getName
+(int i)
+Deprecated.
+Get the name of an attribute (by position).
+Specified by:
+getName
+in interface
+AttributeList
+Parameters:
+i
+- The position of the attribute in the list.
+Returns:
+The attribute name as a string, or null if there
+         is no attribute at that position.
+See Also:
+AttributeList.getName(int)
+getType
+public
+String
+getType
+(int i)
+Deprecated.
+Get the type of an attribute (by position).
+Specified by:
+getType
+in interface
+AttributeList
+Parameters:
+i
+- The position of the attribute in the list.
+Returns:
+The attribute type as a string ("NMTOKEN" for an
+         enumeration, and "CDATA" if no declaration was
+         read), or null if there is no attribute at
+         that position.
+See Also:
+AttributeList.getType(int)
+getValue
+public
+String
+getValue
+(int i)
+Deprecated.
+Get the value of an attribute (by position).
+Specified by:
+getValue
+in interface
+AttributeList
+Parameters:
+i
+- The position of the attribute in the list.
+Returns:
+The attribute value as a string, or null if
+         there is no attribute at that position.
+See Also:
+AttributeList.getValue(int)
+getType
+public
+String
+getType
+(
+String
+name)
+Deprecated.
+Get the type of an attribute (by name).
+Specified by:
+getType
+in interface
+AttributeList
+Parameters:
+name
+- The attribute name.
+Returns:
+The attribute type as a string ("NMTOKEN" for an
+         enumeration, and "CDATA" if no declaration was
+         read).
+See Also:
+AttributeList.getType(java.lang.String)
+getValue
+public
+String
+getValue
+(
+String
+name)
+Deprecated.
+Get the value of an attribute (by name).
+Specified by:
+getValue
+in interface
+AttributeList
+Parameters:
+name
+- The attribute name.
+Returns:
+The attribute value as a string, or null if
+         no such attribute exists.
+See Also:
+AttributeList.getValue(java.lang.String)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

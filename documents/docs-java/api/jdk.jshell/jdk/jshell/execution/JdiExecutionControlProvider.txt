@@ -1,0 +1,288 @@
+JdiExecutionControlProvider (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+jdk.jshell
+Package
+jdk.jshell.execution
+Class JdiExecutionControlProvider
+java.lang.Object
+jdk.jshell.execution.JdiExecutionControlProvider
+All Implemented Interfaces:
+ExecutionControlProvider
+public class
+JdiExecutionControlProvider
+extends
+Object
+implements
+ExecutionControlProvider
+A provider of remote JDI-controlled execution engines.
+Since:
+9
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+String
+PARAM_HOST_NAME
+The local hostname to connect to.
+static final
+String
+PARAM_LAUNCH
+Should JDI-controlled launching be used?
+static final
+String
+PARAM_REMOTE_AGENT
+The remote agent to launch.
+static final
+String
+PARAM_TIMEOUT
+Milliseconds before connect timeout.
+Constructor Summary
+Constructors
+Constructor
+Description
+JdiExecutionControlProvider
+()
+Create an instance.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Map
+<
+String
+,
+String
+>
+defaultParameters
+()
+Create and return the default parameter map for this
+ExecutionControlProvider
+.
+ExecutionControl
+generate
+(
+ExecutionEnv
+env,
+Map
+<
+String
+,
+String
+> parameters)
+Create and return the
+ExecutionControl
+instance.
+String
+name
+()
+The unique name of this
+ExecutionControlProvider
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+PARAM_REMOTE_AGENT
+public static final
+String
+PARAM_REMOTE_AGENT
+The remote agent to launch.
+See Also:
+Constant Field Values
+PARAM_TIMEOUT
+public static final
+String
+PARAM_TIMEOUT
+Milliseconds before connect timeout.
+See Also:
+Constant Field Values
+PARAM_HOST_NAME
+public static final
+String
+PARAM_HOST_NAME
+The local hostname to connect to.
+See Also:
+Constant Field Values
+PARAM_LAUNCH
+public static final
+String
+PARAM_LAUNCH
+Should JDI-controlled launching be used?
+See Also:
+Constant Field Values
+Constructor Details
+JdiExecutionControlProvider
+public
+JdiExecutionControlProvider
+()
+Create an instance.  An instance can be used to
+generate
+an
+ExecutionControl
+instance
+ that uses the Java Debug Interface as part of the control of a remote
+ process.
+Method Details
+name
+public
+String
+name
+()
+The unique name of this
+ExecutionControlProvider
+.
+Specified by:
+name
+in interface
+ExecutionControlProvider
+Returns:
+"jdi"
+defaultParameters
+public
+Map
+<
+String
+,
+String
+>
+defaultParameters
+()
+Create and return the default parameter map for this
+ExecutionControlProvider
+. The map can optionally be modified;
+ Modified or unmodified it can be passed to
+generate(jdk.jshell.spi.ExecutionEnv, java.util.Map)
+.
+Parameters
+Parameter
+Description
+Constant Field
+remoteAgent
+the remote agent to launch
+PARAM_REMOTE_AGENT
+timeout
+milliseconds before connect timeout
+PARAM_TIMEOUT
+launch
+"true" for JDI controlled launch
+PARAM_LAUNCH
+hostname
+connect to the named of the local host ("" for discovered)
+PARAM_HOST_NAME
+Specified by:
+defaultParameters
+in interface
+ExecutionControlProvider
+Returns:
+the default parameter map
+generate
+public
+ExecutionControl
+generate
+(
+ExecutionEnv
+env,
+Map
+<
+String
+,
+String
+> parameters)
+throws
+IOException
+Description copied from interface:
+ExecutionControlProvider
+Create and return the
+ExecutionControl
+instance.
+Specified by:
+generate
+in interface
+ExecutionControlProvider
+Parameters:
+env
+- the execution environment, provided by JShell
+parameters
+- the
+default
+or
+ modified parameter map.
+Returns:
+the execution engine
+Throws:
+IOException
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

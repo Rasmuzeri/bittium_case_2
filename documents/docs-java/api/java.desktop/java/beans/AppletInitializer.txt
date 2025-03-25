@@ -1,0 +1,142 @@
+AppletInitializer (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.beans
+Interface AppletInitializer
+@Deprecated
+(
+since
+="9",
+forRemoval
+=true)
+public interface
+AppletInitializer
+Deprecated, for removal: This API element is subject to removal in a future version.
+The Applet API is deprecated. See the
+java.applet package
+ documentation
+for further information.
+This interface is designed to work in collusion with java.beans.Beans.instantiate.
+ The interface is intended to provide mechanism to allow the proper
+ initialization of JavaBeans that are also Applets, during their
+ instantiation by java.beans.Beans.instantiate().
+Since:
+1.2
+See Also:
+Beans.instantiate(java.lang.ClassLoader, java.lang.String)
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+void
+activate
+(
+Applet
+newApplet)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Activate, and/or mark Applet active.
+void
+initialize
+(
+Applet
+newAppletBean,
+BeanContext
+bCtxt)
+Deprecated, for removal: This API element is subject to removal in a future version.
+If passed to the appropriate variant of java.beans.Beans.instantiate
+ this method will be called in order to associate the newly instantiated
+ Applet (JavaBean) with its AppletContext, AppletStub, and Container.
+Method Details
+initialize
+void
+initialize
+(
+Applet
+newAppletBean,
+BeanContext
+bCtxt)
+Deprecated, for removal: This API element is subject to removal in a future version.
+If passed to the appropriate variant of java.beans.Beans.instantiate
+ this method will be called in order to associate the newly instantiated
+ Applet (JavaBean) with its AppletContext, AppletStub, and Container.
+Conformant implementations shall:
+Associate the newly instantiated Applet with the appropriate
+ AppletContext.
+Instantiate an AppletStub() and associate that AppletStub with
+ the Applet via an invocation of setStub().
+If BeanContext parameter is null, then it shall associate the
+ Applet with its appropriate Container by adding that Applet to its
+ Container via an invocation of add(). If the BeanContext parameter is
+ non-null, then it is the responsibility of the BeanContext to associate
+ the Applet with its Container during the subsequent invocation of its
+ addChildren() method.
+Parameters:
+newAppletBean
+- The newly instantiated JavaBean
+bCtxt
+- The BeanContext intended for this Applet, or
+                       null.
+activate
+void
+activate
+(
+Applet
+newApplet)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Activate, and/or mark Applet active. Implementors of this interface
+ shall mark this Applet as active, and optionally invoke its start()
+ method.
+Parameters:
+newApplet
+- The newly instantiated JavaBean
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

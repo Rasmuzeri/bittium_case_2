@@ -1,0 +1,200 @@
+UserDataHandler (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+java.xml
+Package
+org.w3c.dom
+Interface UserDataHandler
+public interface
+UserDataHandler
+When associating an object to a key on a node using
+Node.setUserData()
+the application can provide a handler
+ that gets called when the node the object is associated to is being
+ cloned, imported, or renamed. This can be used by the application to
+ implement various behaviors regarding the data it associates to the DOM
+ nodes. This interface defines that handler.
+See also the
+Document Object Model (DOM) Level 3 Core Specification
+.
+Since:
+1.5, DOM Level 3
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final short
+NODE_ADOPTED
+The node is adopted, using
+Document.adoptNode()
+.
+static final short
+NODE_CLONED
+The node is cloned, using
+Node.cloneNode()
+.
+static final short
+NODE_DELETED
+The node is deleted.
+static final short
+NODE_IMPORTED
+The node is imported, using
+Document.importNode()
+.
+static final short
+NODE_RENAMED
+The node is renamed, using
+Document.renameNode()
+.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+void
+handle
+(short operation,
+String
+key,
+Object
+data,
+Node
+src,
+Node
+dst)
+This method is called whenever the node for which this handler is
+ registered is imported or cloned.
+Field Details
+NODE_CLONED
+static final
+short
+NODE_CLONED
+The node is cloned, using
+Node.cloneNode()
+.
+See Also:
+Constant Field Values
+NODE_IMPORTED
+static final
+short
+NODE_IMPORTED
+The node is imported, using
+Document.importNode()
+.
+See Also:
+Constant Field Values
+NODE_DELETED
+static final
+short
+NODE_DELETED
+The node is deleted.
+Note:
+This may not be supported or may not be reliable in
+ certain environments, such as Java, where the implementation has no
+ real control over when objects are actually deleted.
+See Also:
+Constant Field Values
+NODE_RENAMED
+static final
+short
+NODE_RENAMED
+The node is renamed, using
+Document.renameNode()
+.
+See Also:
+Constant Field Values
+NODE_ADOPTED
+static final
+short
+NODE_ADOPTED
+The node is adopted, using
+Document.adoptNode()
+.
+See Also:
+Constant Field Values
+Method Details
+handle
+void
+handle
+(short operation,
+String
+key,
+Object
+data,
+Node
+src,
+Node
+dst)
+This method is called whenever the node for which this handler is
+ registered is imported or cloned.
+DOM applications must not raise exceptions in a
+UserDataHandler
+. The effect of throwing exceptions from
+ the handler is DOM implementation dependent.
+Parameters:
+operation
+- Specifies the type of operation that is being
+   performed on the node.
+key
+- Specifies the key for which this handler is being called.
+data
+- Specifies the data for which this handler is being called.
+src
+- Specifies the node being cloned, adopted, imported, or
+   renamed. This is
+null
+when the node is being deleted.
+dst
+- Specifies the node newly created if any, or
+null
+.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

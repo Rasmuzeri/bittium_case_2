@@ -1,0 +1,254 @@
+PrimitiveIterator.OfInt (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.util
+Interface PrimitiveIterator.OfInt
+All Superinterfaces:
+Iterator
+<
+Integer
+>
+,
+PrimitiveIterator
+<
+Integer
+,
+IntConsumer
+>
+Enclosing interface:
+PrimitiveIterator
+<
+T
+,
+T_CONS
+>
+public static interface
+PrimitiveIterator.OfInt
+extends
+PrimitiveIterator
+<
+Integer
+,
+IntConsumer
+>
+An Iterator specialized for
+int
+values.
+Since:
+1.8
+Nested Class Summary
+Nested classes/interfaces declared in interface java.util.
+PrimitiveIterator
+PrimitiveIterator.OfDouble
+,
+PrimitiveIterator.OfInt
+,
+PrimitiveIterator.OfLong
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+default void
+forEachRemaining
+(
+Consumer
+<? super
+Integer
+> action)
+Performs the given action for each remaining element until all elements
+ have been processed or the action throws an exception.
+default void
+forEachRemaining
+(
+IntConsumer
+action)
+Performs the given action for each remaining element until all elements
+ have been processed or the action throws an exception.
+default
+Integer
+next
+()
+Returns the next element in the iteration.
+int
+nextInt
+()
+Returns the next
+int
+element in the iteration.
+Methods declared in interface java.util.
+Iterator
+hasNext
+,
+remove
+Method Details
+nextInt
+int
+nextInt
+()
+Returns the next
+int
+element in the iteration.
+Returns:
+the next
+int
+element in the iteration
+Throws:
+NoSuchElementException
+- if the iteration has no more elements
+forEachRemaining
+default
+void
+forEachRemaining
+(
+IntConsumer
+action)
+Performs the given action for each remaining element until all elements
+ have been processed or the action throws an exception.  Actions are
+ performed in the order of iteration, if that order is specified.
+ Exceptions thrown by the action are relayed to the caller.
+The behavior of an iterator is unspecified if the action modifies the
+ source of elements in any way (even by calling the
+remove
+method or other mutator methods of
+Iterator
+subtypes),
+ unless an overriding class has specified a concurrent modification policy.
+Subsequent behavior of an iterator is unspecified if the action throws an
+ exception.
+Specified by:
+forEachRemaining
+in interface
+PrimitiveIterator
+<
+Integer
+,
+IntConsumer
+>
+Implementation Requirements:
+The default implementation behaves as if:
+while (hasNext())
+         action.accept(nextInt());
+Parameters:
+action
+- The action to be performed for each element
+next
+default
+Integer
+next
+()
+Returns the next element in the iteration.
+Specified by:
+next
+in interface
+Iterator
+<
+Integer
+>
+Implementation Requirements:
+The default implementation boxes the result of calling
+nextInt()
+, and returns that boxed result.
+Returns:
+the next element in the iteration
+forEachRemaining
+default
+void
+forEachRemaining
+(
+Consumer
+<? super
+Integer
+> action)
+Performs the given action for each remaining element until all elements
+ have been processed or the action throws an exception.  Actions are
+ performed in the order of iteration, if that order is specified.
+ Exceptions thrown by the action are relayed to the caller.
+The behavior of an iterator is unspecified if the action modifies the
+ collection in any way (even by calling the
+remove
+method
+ or other mutator methods of
+Iterator
+subtypes),
+ unless an overriding class has specified a concurrent modification policy.
+Subsequent behavior of an iterator is unspecified if the action throws an
+ exception.
+Specified by:
+forEachRemaining
+in interface
+Iterator
+<
+Integer
+>
+Implementation Requirements:
+If the action is an instance of
+IntConsumer
+then it is cast
+ to
+IntConsumer
+and passed to
+forEachRemaining(java.util.function.IntConsumer)
+;
+ otherwise the action is adapted to an instance of
+IntConsumer
+, by boxing the argument of
+IntConsumer
+,
+ and then passed to
+forEachRemaining(java.util.function.IntConsumer)
+.
+Parameters:
+action
+- The action to be performed for each element
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

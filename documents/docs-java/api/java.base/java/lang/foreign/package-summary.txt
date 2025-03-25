@@ -1,0 +1,392 @@
+java.lang.foreign (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages
+|
+Classes and Interfaces
+SEARCH
+Module
+java.base
+Package java.lang.foreign
+package
+java.lang.foreign
+Provides low-level access to memory and functions outside the Java runtime.
+Foreign memory access
+The main abstraction introduced to support foreign memory access is
+MemorySegment
+PREVIEW
+, which
+ models a contiguous region of memory, residing either inside or outside the Java heap. Memory segments are
+ typically allocated using an
+Arena
+PREVIEW
+, which controls the lifetime of the regions of memory
+ backing the segments it allocates. The contents of a memory segment can be described using a
+memory layout
+PREVIEW
+, which provides basic operations to query sizes, offsets and
+ alignment constraints. Memory layouts also provide an alternate, more abstract way, to
+access memory segments
+using
+var handles
+PREVIEW
+,
+ which can be computed using
+layout paths
+.
+
+ For example, to allocate an off-heap region of memory big enough to hold 10 values of the primitive type
+int
+,
+ and fill it with values ranging from
+0
+to
+9
+, we can use the following code:
+Copy
+try (Arena arena = Arena.ofConfined()) {
+    MemorySegment segment = arena.allocate(10 * 4);
+    for (int i = 0 ; i < 10 ; i++) {
+        segment.setAtIndex(ValueLayout.JAVA_INT, i, i);
+    }
+}
+This code creates a
+native
+memory segment, that is, a memory segment backed by
+ off-heap memory; the size of the segment is 40 bytes, enough to store 10 values of the primitive type
+int
+.
+ The native segment is allocated using a
+confined arena
+PREVIEW
+.
+ As such, access to the native segment is restricted to the current thread (the thread that created the arena).
+ Moreover, when the arena is closed, the native segment is invalidated, and its backing region of memory is
+ deallocated. Note the use of the
+try-with-resources
+construct: this idiom ensures that the off-heap region
+ of memory backing the native segment will be released at the end of the block, according to the semantics described
+ in Section
+14.20.3
+of
+The Java Language Specification
+.
+Memory segments provide strong safety guarantees when it comes to memory access. First, when accessing a memory segment,
+ the access coordinates are validated (upon access), to make sure that access does not occur at any address which resides
+outside
+the boundaries of the memory segment used by the access operation. We call this guarantee
+spatial safety
+;
+ in other words, access to memory segments is bounds-checked, in the same way as array access is, as described in
+ Section
+15.10.4
+of
+The Java Language Specification
+.
+Additionally, to prevent a region of memory from being accessed
+after
+it has been deallocated
+ (i.e.
+use-after-free
+), a segment is also validated (upon access) to make sure that the arena from which it
+ has been obtained has not been closed. We call this guarantee
+temporal safety
+.
+Together, spatial and temporal safety ensure that each memory access operation either succeeds - and accesses a valid
+ location within the region of memory backing the memory segment - or fails.
+Foreign function access
+The key abstractions introduced to support foreign function access are
+SymbolLookup
+PREVIEW
+,
+FunctionDescriptor
+PREVIEW
+and
+Linker
+PREVIEW
+. The first is used to look up symbols
+ inside libraries; the second is used to model the signature of foreign functions, while the third is used
+ to link foreign functions as
+MethodHandle
+instances,
+ so that clients can perform foreign function calls directly in Java, without the need for intermediate layers of C/C++
+ code (as is the case with the
+Java Native Interface (JNI)
+).
+For example, to compute the length of a string using the C standard library function
+strlen
+on a Linux/x64 platform,
+ we can use the following code:
+Copy
+Linker linker = Linker.nativeLinker();
+ SymbolLookup stdlib = linker.defaultLookup();
+ MethodHandle strlen = linker.downcallHandle(
+     stdlib.find("strlen").orElseThrow(),
+     FunctionDescriptor.of(ValueLayout.JAVA_LONG, ValueLayout.ADDRESS)
+ );
+
+ try (Arena arena = Arena.ofConfined()) {
+     MemorySegment cString = arena.allocateUtf8String("Hello");
+     long len = (long)strlen.invokeExact(cString); // 5
+ }
+Here, we obtain a
+native linker
+PREVIEW
+and we use it
+ to
+look up
+PREVIEW
+the
+strlen
+function in the
+ standard C library; a
+downcall method handle
+targeting said function is subsequently
+obtained
+PREVIEW
+.
+ To complete the linking successfully, we must provide a
+FunctionDescriptor
+PREVIEW
+instance,
+ describing the signature of the
+strlen
+function.
+ From this information, the linker will uniquely determine the sequence of steps which will turn
+ the method handle invocation (here performed using
+MethodHandle.invokeExact(java.lang.Object...)
+)
+ into a foreign function call, according to the rules specified by the ABI of the underlying platform.
+ The
+Arena
+PREVIEW
+class also provides many useful methods for
+ interacting with foreign code, such as
+converting
+PREVIEW
+Java strings into
+ zero-terminated, UTF-8 strings, as demonstrated in the above example.
+Restricted methods
+Some methods in this package are considered
+restricted
+. Restricted methods are typically used to bind native
+ foreign data and/or functions to first-class Java API elements which can then be used directly by clients. For instance
+ the restricted method
+MemorySegment.reinterpret(long)
+PREVIEW
+can be used to create a fresh segment with the same address and temporal bounds,
+ but with the provided size. This can be useful to resize memory segments obtained when interacting with native functions.
+Binding foreign data and/or functions is generally unsafe and, if done incorrectly, can result in VM crashes,
+ or memory corruption when the bound Java API element is accessed. For instance, incorrectly resizing a native
+ memory sgement using
+MemorySegment.reinterpret(long)
+PREVIEW
+can lead to a JVM crash, or, worse,
+ lead to silent memory corruption when attempting to access the resized segment. For these reasons, it is crucial for
+ code that calls a restricted method to never pass arguments that might cause incorrect binding of foreign data and/or
+ functions to a Java API.
+Given the potential danger of restricted methods, the Java runtime issues a warning on the standard error stream
+ every time a restricted method is invoked. Such warnings can be disabled by granting access to restricted methods
+ to selected modules. This can be done either via implementation-specific command line options, or programmatically, e.g. by calling
+ModuleLayer.Controller.enableNativeAccess(java.lang.Module)
+PREVIEW
+.
+For every class in this package, unless specified otherwise, any method arguments of reference
+ type must not be null, and any null argument will elicit a
+NullPointerException
+.  This fact is not individually
+ documented for methods of this API.
+API Note:
+Usual memory model guarantees, for example stated in
+6.6
+and
+10.4
+, do not apply
+ when accessing native memory segments as these segments are backed by off-heap regions of memory.
+Implementation Note:
+In the reference implementation, access to restricted methods can be granted to specific modules using the command line option
+--enable-native-access=M1,M2, ... Mn
+, where
+M1
+,
+M2
+,
+... Mn
+are module names
+ (for the unnamed module, the special value
+ALL-UNNAMED
+can be used). If this option is specified, access to
+ restricted methods is only granted to the modules listed by that option. If this option is not specified,
+ access to restricted methods is enabled for all modules, but access to restricted methods will result in runtime warnings.
+External Specifications
+Java Native Interface Specification
+Related Packages
+Package
+Description
+java.lang
+Provides classes that are fundamental to the design of the Java
+ programming language.
+Interfaces
+Class
+Description
+AddressLayout
+PREVIEW
+Preview.
+A value layout used to model the address of some region of memory.
+Arena
+PREVIEW
+Preview.
+An arena controls the lifecycle of native memory segments, providing both flexible allocation and timely deallocation.
+FunctionDescriptor
+PREVIEW
+Preview.
+A function descriptor models the signature of a foreign function.
+GroupLayout
+PREVIEW
+Preview.
+A compound layout that is an aggregation of multiple, heterogeneous
+member layouts
+.
+Linker
+PREVIEW
+Preview.
+A linker provides access to foreign functions from Java code, and access to Java code from foreign functions.
+Linker.Option
+PREVIEW
+Preview.
+A linker option is used to provide additional parameters to a linkage request.
+MemoryLayout
+PREVIEW
+Preview.
+A memory layout describes the contents of a memory segment.
+MemoryLayout.PathElement
+PREVIEW
+Preview.
+An element in a
+layout path
+.
+MemorySegment
+PREVIEW
+Preview.
+A memory segment provides access to a contiguous region of memory.
+MemorySegment.Scope
+PREVIEW
+Preview.
+A scope models the
+lifetime
+of all the memory segments associated with it.
+PaddingLayout
+PREVIEW
+Preview.
+A padding layout.
+SegmentAllocator
+PREVIEW
+Preview.
+An object that may be used to allocate
+memory segments
+PREVIEW
+.
+SequenceLayout
+PREVIEW
+Preview.
+A compound layout that denotes a homogeneous repetition of a given
+element layout
+.
+StructLayout
+PREVIEW
+Preview.
+A group layout whose member layouts are laid out one after the other.
+SymbolLookup
+PREVIEW
+Preview.
+A
+symbol lookup
+retrieves the address of a symbol in one or more libraries.
+UnionLayout
+PREVIEW
+Preview.
+A group layout whose member layouts are laid out at the same starting offset.
+ValueLayout
+PREVIEW
+Preview.
+A layout that models values of basic data types.
+ValueLayout.OfBoolean
+PREVIEW
+Preview.
+A value layout whose carrier is
+boolean.class
+.
+ValueLayout.OfByte
+PREVIEW
+Preview.
+A value layout whose carrier is
+byte.class
+.
+ValueLayout.OfChar
+PREVIEW
+Preview.
+A value layout whose carrier is
+char.class
+.
+ValueLayout.OfDouble
+PREVIEW
+Preview.
+A value layout whose carrier is
+double.class
+.
+ValueLayout.OfFloat
+PREVIEW
+Preview.
+A value layout whose carrier is
+float.class
+.
+ValueLayout.OfInt
+PREVIEW
+Preview.
+A value layout whose carrier is
+int.class
+.
+ValueLayout.OfLong
+PREVIEW
+Preview.
+A value layout whose carrier is
+long.class
+.
+ValueLayout.OfShort
+PREVIEW
+Preview.
+A value layout whose carrier is
+short.class
+.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

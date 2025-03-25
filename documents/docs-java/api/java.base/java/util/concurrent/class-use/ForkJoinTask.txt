@@ -1,0 +1,380 @@
+Uses of Class java.util.concurrent.ForkJoinTask (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Class
+java.util.concurrent.ForkJoinTask
+Packages that use
+ForkJoinTask
+Package
+Description
+java.util.concurrent
+Utility classes commonly useful in concurrent programming.
+Uses of
+ForkJoinTask
+in
+java.util.concurrent
+Subclasses of
+ForkJoinTask
+in
+java.util.concurrent
+Modifier and Type
+Class
+Description
+class
+CountedCompleter
+<T>
+A
+ForkJoinTask
+with a completion action performed when
+ triggered and there are no remaining pending actions.
+class
+RecursiveAction
+A recursive resultless
+ForkJoinTask
+.
+class
+RecursiveTask
+<V>
+A recursive result-bearing
+ForkJoinTask
+.
+Methods in
+java.util.concurrent
+with type parameters of type
+ForkJoinTask
+Modifier and Type
+Method
+Description
+static <T extends
+ForkJoinTask
+<?>>
+Collection
+<T>
+ForkJoinTask.
+invokeAll
+(
+Collection
+<T> tasks)
+Forks all tasks in the specified collection, returning when
+isDone
+holds for each task or an (unchecked) exception
+ is encountered, in which case the exception is rethrown.
+Methods in
+java.util.concurrent
+that return
+ForkJoinTask
+Modifier and Type
+Method
+Description
+static
+ForkJoinTask
+<?>
+ForkJoinTask.
+adapt
+(
+Runnable
+runnable)
+Returns a new
+ForkJoinTask
+that performs the
+run
+method of the given
+Runnable
+as its action, and returns
+ a null result upon
+join()
+.
+static <T>
+ForkJoinTask
+<T>
+ForkJoinTask.
+adapt
+(
+Runnable
+runnable,
+ T result)
+Returns a new
+ForkJoinTask
+that performs the
+run
+method of the given
+Runnable
+as its action, and returns
+ the given result upon
+join()
+.
+static <T>
+ForkJoinTask
+<T>
+ForkJoinTask.
+adapt
+(
+Callable
+<? extends T> callable)
+Returns a new
+ForkJoinTask
+that performs the
+call
+method of the given
+Callable
+as its action, and returns
+ its result upon
+join()
+, translating any checked exceptions
+ encountered into
+RuntimeException
+.
+static <T>
+ForkJoinTask
+<T>
+ForkJoinTask.
+adaptInterruptible
+(
+Callable
+<? extends T> callable)
+Returns a new
+ForkJoinTask
+that performs the
+call
+method of the given
+Callable
+as its action, and returns
+ its result upon
+join()
+, translating any checked exceptions
+ encountered into
+RuntimeException
+.
+<T>
+ForkJoinTask
+<T>
+ForkJoinPool.
+externalSubmit
+(
+ForkJoinTask
+<T> task)
+Submits the given task as if submitted from a non-
+ForkJoinTask
+client.
+final
+ForkJoinTask
+<
+V
+>
+ForkJoinTask.
+fork
+()
+Arranges to asynchronously execute this task in the pool the
+ current task is running in, if applicable, or using the
+ForkJoinPool.commonPool()
+if not
+inForkJoinPool()
+.
+<T>
+ForkJoinTask
+<T>
+ForkJoinPool.
+lazySubmit
+(
+ForkJoinTask
+<T> task)
+Submits the given task without guaranteeing that it will
+ eventually execute in the absence of available active threads.
+protected static
+ForkJoinTask
+<?>
+ForkJoinTask.
+peekNextLocalTask
+()
+Returns, but does not unschedule or execute, a task queued by
+ the current thread but not yet executed, if one is immediately
+ available.
+protected static
+ForkJoinTask
+<?>
+ForkJoinTask.
+pollNextLocalTask
+()
+Unschedules and returns, without executing, the next task
+ queued by the current thread but not yet executed, if the
+ current thread is operating in a ForkJoinPool.
+protected
+ForkJoinTask
+<?>
+ForkJoinPool.
+pollSubmission
+()
+Removes and returns the next unexecuted submission if one is
+ available.
+protected static
+ForkJoinTask
+<?>
+ForkJoinTask.
+pollSubmission
+()
+If the current thread is operating in a ForkJoinPool,
+ unschedules and returns, without executing, a task externally
+ submitted to the pool, if one is available.
+protected static
+ForkJoinTask
+<?>
+ForkJoinTask.
+pollTask
+()
+If the current thread is operating in a ForkJoinPool,
+ unschedules and returns, without executing, the next task
+ queued by the current thread but not yet executed, if one is
+ available, or if not available, a task that was forked by some
+ other thread, if available.
+ForkJoinTask
+<?>
+ForkJoinPool.
+submit
+(
+Runnable
+task)
+<T>
+ForkJoinTask
+<T>
+ForkJoinPool.
+submit
+(
+Runnable
+task,
+ T result)
+<T>
+ForkJoinTask
+<T>
+ForkJoinPool.
+submit
+(
+Callable
+<T> task)
+<T>
+ForkJoinTask
+<T>
+ForkJoinPool.
+submit
+(
+ForkJoinTask
+<T> task)
+Submits a ForkJoinTask for execution.
+Methods in
+java.util.concurrent
+with parameters of type
+ForkJoinTask
+Modifier and Type
+Method
+Description
+void
+ForkJoinPool.
+execute
+(
+ForkJoinTask
+<?> task)
+Arranges for (asynchronous) execution of the given task.
+<T>
+ForkJoinTask
+<T>
+ForkJoinPool.
+externalSubmit
+(
+ForkJoinTask
+<T> task)
+Submits the given task as if submitted from a non-
+ForkJoinTask
+client.
+<T> T
+ForkJoinPool.
+invoke
+(
+ForkJoinTask
+<T> task)
+Performs the given task, returning its result upon completion.
+static void
+ForkJoinTask.
+invokeAll
+(
+ForkJoinTask
+<?>... tasks)
+Forks the given tasks, returning when
+isDone
+holds for
+ each task or an (unchecked) exception is encountered, in which
+ case the exception is rethrown.
+static void
+ForkJoinTask.
+invokeAll
+(
+ForkJoinTask
+<?> t1,
+ForkJoinTask
+<?> t2)
+Forks the given tasks, returning when
+isDone
+holds for
+ each task or an (unchecked) exception is encountered, in which
+ case the exception is rethrown.
+<T>
+ForkJoinTask
+<T>
+ForkJoinPool.
+lazySubmit
+(
+ForkJoinTask
+<T> task)
+Submits the given task without guaranteeing that it will
+ eventually execute in the absence of available active threads.
+<T>
+ForkJoinTask
+<T>
+ForkJoinPool.
+submit
+(
+ForkJoinTask
+<T> task)
+Submits a ForkJoinTask for execution.
+Method parameters in
+java.util.concurrent
+with type arguments of type
+ForkJoinTask
+Modifier and Type
+Method
+Description
+protected int
+ForkJoinPool.
+drainTasksTo
+(
+Collection
+<? super
+ForkJoinTask
+<?>> c)
+Removes all available unexecuted submitted and forked tasks
+ from scheduling queues and adds them to the given collection,
+ without altering their execution status.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

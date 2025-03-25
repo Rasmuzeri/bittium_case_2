@@ -1,0 +1,257 @@
+java.nio.file.attribute (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages
+|
+Classes and Interfaces
+SEARCH
+Module
+java.base
+Package java.nio.file.attribute
+package
+java.nio.file.attribute
+Interfaces and classes providing access to file and file system attributes.
+Attribute views
+Attribute views
+Description
+AttributeView
+Can read or update non-opaque values associated with objects in a file system
+FileAttributeView
+Can read or update file attributes
+BasicFileAttributeView
+Can read or update a basic set of file attributes
+PosixFileAttributeView
+Can read or update POSIX defined file attributes
+DosFileAttributeView
+Can read or update FAT file attributes
+FileOwnerAttributeView
+Can read or update the owner of a file
+AclFileAttributeView
+Can read or update Access Control Lists
+UserDefinedFileAttributeView
+Can read or update user-defined file attributes
+FileStoreAttributeView
+Can read or update file system attributes
+An attribute view provides a read-only or updatable view of the non-opaque
+ values, or
+metadata
+, associated with objects in a file system.
+ The
+FileAttributeView
+interface is
+ extended by several other interfaces that provide views to specific sets of file
+ attributes.
+FileAttributeViews
+are selected by invoking the
+Files.getFileAttributeView(java.nio.file.Path, java.lang.Class<V>, java.nio.file.LinkOption...)
+method with a
+type-token
+to identify the required view. Views can also be identified
+ by name. The
+FileStoreAttributeView
+interface
+ provides access to file store attributes. A
+FileStoreAttributeView
+of
+ a given type is obtained by invoking the
+FileStore.getFileStoreAttributeView(java.lang.Class<V>)
+method.
+The
+BasicFileAttributeView
+class defines methods to read and update a
+basic
+set of file
+ attributes that are common to many file systems.
+The
+PosixFileAttributeView
+interface extends
+BasicFileAttributeView
+by defining methods
+ to access the file attributes commonly used by file systems and operating systems
+ that implement the Portable Operating System Interface (POSIX) family of
+ standards.
+The
+DosFileAttributeView
+class extends
+BasicFileAttributeView
+by defining methods to
+ access the legacy "DOS" file attributes supported on file systems such as File
+ Allocation Table (FAT), commonly used in consumer devices.
+The
+AclFileAttributeView
+class defines methods to read and write the Access Control List (ACL)
+ file attribute. The ACL model used by this file attribute view is based
+ on the model defined by
+RFC 3530: Network File System (NFS) version 4 Protocol
+.
+In addition to attribute views, this package also defines classes and
+ interfaces that are used when accessing attributes:
+The
+UserPrincipal
+and
+GroupPrincipal
+interfaces represent an
+   identity or group identity.
+The
+UserPrincipalLookupService
+interface defines methods to lookup user or group principals.
+The
+FileAttribute
+interface
+   represents the value of an attribute for cases where the attribute value is
+   required to be set atomically when creating an object in the file system.
+Unless otherwise noted, passing a
+null
+argument to a constructor
+ or method in any class or interface in this package will cause a
+NullPointerException
+to be thrown.
+Since:
+1.7
+External Specifications
+RFC 3530: Network File System (NFS) version 4 Protocol
+Related Packages
+Package
+Description
+java.nio.file
+Defines interfaces and classes for the Java virtual machine to access files,
+ file attributes, and file systems.
+java.nio.file.spi
+Service-provider classes for the
+java.nio.file
+package.
+All Classes and Interfaces
+Interfaces
+Classes
+Enum Classes
+Exception Classes
+Class
+Description
+AclEntry
+An entry in an access control list (ACL).
+AclEntry.Builder
+A builder of
+AclEntry
+objects.
+AclEntryFlag
+Defines the flags for used by the flags component of an ACL
+entry
+.
+AclEntryPermission
+Defines the permissions for use with the permissions component of an ACL
+entry
+.
+AclEntryType
+A typesafe enumeration of the access control entry types.
+AclFileAttributeView
+A file attribute view that supports reading or updating a file's Access
+ Control Lists (ACL) or file owner attributes.
+AttributeView
+An object that provides a read-only or updatable
+view
+of non-opaque
+ values associated with an object in a filesystem.
+BasicFileAttributes
+Basic attributes associated with a file in a file system.
+BasicFileAttributeView
+A file attribute view that provides a view of a
+basic set
+of file
+ attributes common to many file systems.
+DosFileAttributes
+File attributes associated with a file in a file system that supports
+ legacy "DOS" attributes.
+DosFileAttributeView
+A file attribute view that provides a view of the legacy "DOS" file attributes.
+FileAttribute
+<T>
+An object that encapsulates the value of a file attribute that can be set
+ atomically when creating a new file or directory by invoking the
+createFile
+or
+createDirectory
+methods.
+FileAttributeView
+An attribute view that is a read-only or updatable view of non-opaque
+ values associated with a file in a filesystem.
+FileOwnerAttributeView
+A file attribute view that supports reading or updating the owner of a file.
+FileStoreAttributeView
+An attribute view that is a read-only or updatable view of the attributes of
+ a
+FileStore
+.
+FileTime
+Represents the value of a file's time stamp attribute.
+GroupPrincipal
+A
+UserPrincipal
+representing a
+group identity
+, used to
+ determine access rights to objects in a file system.
+PosixFileAttributes
+File attributes associated with files on file systems used by operating systems
+ that implement the Portable Operating System Interface (POSIX) family of
+ standards.
+PosixFileAttributeView
+A file attribute view that provides a view of the file attributes commonly
+ associated with files on file systems used by operating systems that implement
+ the Portable Operating System Interface (POSIX) family of standards.
+PosixFilePermission
+Defines the bits for use with the
+permissions
+attribute.
+PosixFilePermissions
+This class consists exclusively of static methods that operate on sets of
+PosixFilePermission
+objects.
+UserDefinedFileAttributeView
+A file attribute view that provides a view of a file's user-defined
+ attributes, sometimes known as
+extended attributes
+.
+UserPrincipal
+A
+Principal
+representing an identity used to determine access rights
+ to objects in a file system.
+UserPrincipalLookupService
+An object to lookup user and group principals by name.
+UserPrincipalNotFoundException
+Checked exception thrown when a lookup of
+UserPrincipal
+fails because
+ the principal does not exist.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

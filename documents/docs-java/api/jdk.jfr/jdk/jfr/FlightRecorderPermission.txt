@@ -1,0 +1,171 @@
+FlightRecorderPermission (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.jfr
+Package
+jdk.jfr
+Class FlightRecorderPermission
+java.lang.Object
+java.security.Permission
+java.security.BasicPermission
+jdk.jfr.FlightRecorderPermission
+All Implemented Interfaces:
+Serializable
+,
+Guard
+public final class
+FlightRecorderPermission
+extends
+BasicPermission
+Permission for controlling access to Flight Recorder.
+The following table provides a summary of what the permission
+ allows, and the risks of granting code the permission.
+Table shows permission target name,
+      what the permission allows, and associated risks
+Permission Target Name
+What the Permission Allows
+Risks of Allowing this Permission
+accessFlightRecorder
+Ability to create a Flight Recorder instance, register callbacks to
+ monitor the Flight Recorder life cycle, and control an existing instance
+ of Flight Recorder, which can record and dump runtime information, such as
+ stack traces, class names, and data in user defined events.
+A malicious user may be able to extract sensitive information that is stored in
+ events and interrupt Flight Recorder by installing listeners or hooks that
+ never finish.
+registerEvent
+Ability to register events, write data to the Flight Recorder buffers,
+ and execute code in a callback function for periodic events.
+A malicious user may be able to write sensitive information to Flight
+ Recorder buffers.
+Typically, programmers do not create
+FlightRecorderPermission
+objects
+ directly. Instead the objects are created by the security policy code that is based on
+ reading the security policy file.
+Since:
+9
+See Also:
+BasicPermission
+Permission
+Permissions
+PermissionCollection
+SecurityManager
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+FlightRecorderPermission
+(
+String
+name)
+Constructs a
+FlightRecorderPermission
+with the specified name.
+Method Summary
+Methods declared in class java.security.
+BasicPermission
+equals
+,
+getActions
+,
+hashCode
+,
+implies
+,
+newPermissionCollection
+Methods declared in class java.security.
+Permission
+checkGuard
+,
+getName
+,
+toString
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+FlightRecorderPermission
+public
+FlightRecorderPermission
+(
+String
+name)
+Constructs a
+FlightRecorderPermission
+with the specified name.
+Parameters:
+name
+- the permission name, must be either
+"accessFlightRecorder"
+or
+"registerEvent"
+, not
+null
+Throws:
+IllegalArgumentException
+- if
+name
+is empty or not valid
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

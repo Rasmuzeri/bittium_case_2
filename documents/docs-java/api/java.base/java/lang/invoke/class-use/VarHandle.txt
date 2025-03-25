@@ -1,0 +1,497 @@
+Uses of Class java.lang.invoke.VarHandle (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Class
+java.lang.invoke.VarHandle
+Packages that use
+VarHandle
+Package
+Description
+java.lang.foreign
+Provides low-level access to memory and functions outside the Java runtime.
+java.lang.invoke
+The
+java.lang.invoke
+package provides low-level primitives for interacting
+ with the Java Virtual Machine.
+Uses of
+VarHandle
+in
+java.lang.foreign
+Methods in
+java.lang.foreign
+that return
+VarHandle
+Modifier and Type
+Method
+Description
+VarHandle
+ValueLayout.
+arrayElementVarHandle
+(int... shape)
+Creates a
+strided
+var handle that can be used to access a memory segment as multi-dimensional
+ array.
+default
+VarHandle
+MemoryLayout.
+varHandle
+(
+MemoryLayout.PathElement
+PREVIEW
+... elements)
+Creates a var handle that accesses a memory segment at the offset selected by the given layout path,
+ where the initial layout in the path is this layout.
+Uses of
+VarHandle
+in
+java.lang.invoke
+Methods in
+java.lang.invoke
+that return
+VarHandle
+Modifier and Type
+Method
+Description
+static
+VarHandle
+MethodHandles.
+arrayElementVarHandle
+(
+Class
+<?> arrayClass)
+Produces a VarHandle giving access to elements of an array of type
+arrayClass
+.
+static
+VarHandle
+ConstantBootstraps.
+arrayVarHandle
+(
+MethodHandles.Lookup
+lookup,
+String
+name,
+Class
+<
+VarHandle
+> type,
+Class
+<?> arrayClass)
+Finds a
+VarHandle
+for an array type.
+static
+VarHandle
+MethodHandles.
+byteArrayViewVarHandle
+(
+Class
+<?> viewArrayClass,
+ByteOrder
+byteOrder)
+Produces a VarHandle giving access to elements of a
+byte[]
+array
+ viewed as if it were a different primitive array type, such as
+int[]
+or
+long[]
+.
+static
+VarHandle
+MethodHandles.
+byteBufferViewVarHandle
+(
+Class
+<?> viewArrayClass,
+ByteOrder
+byteOrder)
+Produces a VarHandle giving access to elements of a
+ByteBuffer
+viewed as if it were an array of elements of a different primitive
+ component type to that of
+byte
+, such as
+int[]
+or
+long[]
+.
+static
+VarHandle
+MethodHandles.
+collectCoordinates
+(
+VarHandle
+target,
+ int pos,
+MethodHandle
+filter)
+Preview.
+Adapts a target var handle by pre-processing
+ a sub-sequence of its coordinate values with a filter (a method handle).
+static
+VarHandle
+MethodHandles.
+dropCoordinates
+(
+VarHandle
+target,
+ int pos,
+Class
+<?>... valueTypes)
+Preview.
+Returns a var handle which will discard some dummy coordinates before delegating to the
+ target var handle.
+static
+VarHandle
+ConstantBootstraps.
+fieldVarHandle
+(
+MethodHandles.Lookup
+lookup,
+String
+name,
+Class
+<
+VarHandle
+> type,
+Class
+<?> declaringClass,
+Class
+<?> fieldType)
+Finds a
+VarHandle
+for an instance field.
+static
+VarHandle
+MethodHandles.
+filterCoordinates
+(
+VarHandle
+target,
+ int pos,
+MethodHandle
+... filters)
+Preview.
+Adapts a target var handle by pre-processing incoming coordinate values using unary filter functions.
+static
+VarHandle
+MethodHandles.
+filterValue
+(
+VarHandle
+target,
+MethodHandle
+filterToTarget,
+MethodHandle
+filterFromTarget)
+Preview.
+Adapts a target var handle by pre-processing incoming and outgoing values using a pair of filter functions.
+VarHandle
+MethodHandles.Lookup.
+findStaticVarHandle
+(
+Class
+<?> decl,
+String
+name,
+Class
+<?> type)
+Produces a VarHandle giving access to a static field
+name
+of
+ type
+type
+declared in a class of type
+decl
+.
+VarHandle
+MethodHandles.Lookup.
+findVarHandle
+(
+Class
+<?> recv,
+String
+name,
+Class
+<?> type)
+Produces a VarHandle giving access to a non-static field
+name
+of type
+type
+declared in a class of type
+recv
+.
+static
+VarHandle
+MethodHandles.
+insertCoordinates
+(
+VarHandle
+target,
+ int pos,
+Object
+... values)
+Preview.
+Provides a target var handle with one or more
+bound coordinates
+in advance of the var handle's invocation.
+static
+VarHandle
+MethodHandles.
+memorySegmentViewVarHandle
+(
+ValueLayout
+PREVIEW
+layout)
+Preview.
+Creates a var handle object, which can be used to dereference a
+memory segment
+PREVIEW
+at a given byte offset, using the provided value layout.
+static
+VarHandle
+MethodHandles.
+permuteCoordinates
+(
+VarHandle
+target,
+List
+<
+Class
+<?>> newCoordinates,
+ int... reorder)
+Preview.
+Provides a var handle which adapts the coordinate values of the target var handle, by re-arranging them
+ so that the new coordinates match the provided ones.
+static
+VarHandle
+ConstantBootstraps.
+staticFieldVarHandle
+(
+MethodHandles.Lookup
+lookup,
+String
+name,
+Class
+<
+VarHandle
+> type,
+Class
+<?> declaringClass,
+Class
+<?> fieldType)
+Finds a
+VarHandle
+for a static field.
+VarHandle
+MethodHandles.Lookup.
+unreflectVarHandle
+(
+Field
+f)
+Produces a VarHandle giving access to a reflected field
+f
+of type
+T
+declared in a class of type
+R
+.
+abstract
+VarHandle
+VarHandle.
+withInvokeBehavior
+()
+Returns a VarHandle, with access to the same variable(s) as this VarHandle, but whose
+ invocation behavior of access mode methods is adjusted to
+invoke behavior
+.
+abstract
+VarHandle
+VarHandle.
+withInvokeExactBehavior
+()
+Returns a VarHandle, with access to the same variable(s) as this VarHandle, but whose
+ invocation behavior of access mode methods is adjusted to
+invoke-exact behavior
+.
+Methods in
+java.lang.invoke
+with parameters of type
+VarHandle
+Modifier and Type
+Method
+Description
+static
+VarHandle
+MethodHandles.
+collectCoordinates
+(
+VarHandle
+target,
+ int pos,
+MethodHandle
+filter)
+Preview.
+Adapts a target var handle by pre-processing
+ a sub-sequence of its coordinate values with a filter (a method handle).
+static
+VarHandle
+MethodHandles.
+dropCoordinates
+(
+VarHandle
+target,
+ int pos,
+Class
+<?>... valueTypes)
+Preview.
+Returns a var handle which will discard some dummy coordinates before delegating to the
+ target var handle.
+static
+VarHandle
+MethodHandles.
+filterCoordinates
+(
+VarHandle
+target,
+ int pos,
+MethodHandle
+... filters)
+Preview.
+Adapts a target var handle by pre-processing incoming coordinate values using unary filter functions.
+static
+VarHandle
+MethodHandles.
+filterValue
+(
+VarHandle
+target,
+MethodHandle
+filterToTarget,
+MethodHandle
+filterFromTarget)
+Preview.
+Adapts a target var handle by pre-processing incoming and outgoing values using a pair of filter functions.
+static
+VarHandle
+MethodHandles.
+insertCoordinates
+(
+VarHandle
+target,
+ int pos,
+Object
+... values)
+Preview.
+Provides a target var handle with one or more
+bound coordinates
+in advance of the var handle's invocation.
+static
+VarHandle
+MethodHandles.
+permuteCoordinates
+(
+VarHandle
+target,
+List
+<
+Class
+<?>> newCoordinates,
+ int... reorder)
+Preview.
+Provides a var handle which adapts the coordinate values of the target var handle, by re-arranging them
+ so that the new coordinates match the provided ones.
+Method parameters in
+java.lang.invoke
+with type arguments of type
+VarHandle
+Modifier and Type
+Method
+Description
+static
+VarHandle
+ConstantBootstraps.
+arrayVarHandle
+(
+MethodHandles.Lookup
+lookup,
+String
+name,
+Class
+<
+VarHandle
+> type,
+Class
+<?> arrayClass)
+Finds a
+VarHandle
+for an array type.
+static
+VarHandle
+ConstantBootstraps.
+fieldVarHandle
+(
+MethodHandles.Lookup
+lookup,
+String
+name,
+Class
+<
+VarHandle
+> type,
+Class
+<?> declaringClass,
+Class
+<?> fieldType)
+Finds a
+VarHandle
+for an instance field.
+static
+VarHandle
+ConstantBootstraps.
+staticFieldVarHandle
+(
+MethodHandles.Lookup
+lookup,
+String
+name,
+Class
+<
+VarHandle
+> type,
+Class
+<?> declaringClass,
+Class
+<?> fieldType)
+Finds a
+VarHandle
+for a static field.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

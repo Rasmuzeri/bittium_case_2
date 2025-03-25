@@ -1,0 +1,254 @@
+DocumentationTool (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.tools
+Interface DocumentationTool
+All Superinterfaces:
+OptionChecker
+,
+Tool
+public interface
+DocumentationTool
+extends
+Tool
+,
+OptionChecker
+Interface to invoke Java programming language documentation tools from
+ programs.
+Since:
+1.8
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Interface
+Description
+static interface
+DocumentationTool.DocumentationTask
+Interface representing a future for a documentation task.
+static enum
+DocumentationTool.Location
+Locations specific to
+DocumentationTool
+.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+StandardJavaFileManager
+getStandardFileManager
+(
+DiagnosticListener
+<? super
+JavaFileObject
+> diagnosticListener,
+Locale
+locale,
+Charset
+charset)
+Returns a new instance of the standard file manager implementation
+ for this tool.
+DocumentationTool.DocumentationTask
+getTask
+(
+Writer
+out,
+JavaFileManager
+fileManager,
+DiagnosticListener
+<? super
+JavaFileObject
+> diagnosticListener,
+Class
+<?> docletClass,
+Iterable
+<
+String
+> options,
+Iterable
+<? extends
+JavaFileObject
+> compilationUnits)
+Creates a future for a documentation task with the given
+ components and arguments.
+Methods declared in interface javax.tools.
+OptionChecker
+isSupportedOption
+Methods declared in interface javax.tools.
+Tool
+getSourceVersions
+,
+name
+,
+run
+Method Details
+getTask
+DocumentationTool.DocumentationTask
+getTask
+(
+Writer
+out,
+JavaFileManager
+fileManager,
+DiagnosticListener
+<? super
+JavaFileObject
+> diagnosticListener,
+Class
+<?> docletClass,
+Iterable
+<
+String
+> options,
+Iterable
+<? extends
+JavaFileObject
+> compilationUnits)
+Creates a future for a documentation task with the given
+ components and arguments.  The task might not have
+ completed as described in the DocumentationTask interface.
+If a file manager is provided, it must be able to handle all
+ locations defined in
+DocumentationTool.Location
+,
+ as well as
+StandardLocation.SOURCE_PATH
+,
+StandardLocation.CLASS_PATH
+, and
+StandardLocation.PLATFORM_CLASS_PATH
+.
+Parameters:
+out
+- a Writer for additional output from the tool;
+ use
+System.err
+if
+null
+fileManager
+- a file manager; if
+null
+use the
+ tool's standard file manager
+diagnosticListener
+- a diagnostic listener; if
+null
+use the tool's default method for reporting diagnostics
+docletClass
+- a class providing the necessary methods required
+ of a doclet; a value of
+null
+means to use the standard doclet.
+options
+- documentation tool options and doclet options,
+null
+means no options
+compilationUnits
+- the compilation units to compile,
+null
+means no compilation units
+Returns:
+an object representing the compilation
+Throws:
+RuntimeException
+- if an unrecoverable error
+ occurred in a user supplied component.  The
+cause
+will be the error in
+ user code.
+IllegalArgumentException
+- if any of the given
+ compilation units are of other kind than
+source
+getStandardFileManager
+StandardJavaFileManager
+getStandardFileManager
+(
+DiagnosticListener
+<? super
+JavaFileObject
+> diagnosticListener,
+Locale
+locale,
+Charset
+charset)
+Returns a new instance of the standard file manager implementation
+ for this tool.  The file manager will use the given diagnostic
+ listener for producing any non-fatal diagnostics.  Fatal errors
+ will be signaled with the appropriate exceptions.
+The standard file manager will be automatically reopened if
+ it is accessed after calls to
+flush
+or
+close
+.
+ The standard file manager must be usable with other tools.
+Parameters:
+diagnosticListener
+- a diagnostic listener for non-fatal
+ diagnostics; if
+null
+use the compiler's default method
+ for reporting diagnostics
+locale
+- the locale to apply when formatting diagnostics;
+null
+means the
+default locale
+.
+charset
+- the character set used for decoding bytes; if
+null
+use the platform default
+Returns:
+the standard file manager
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

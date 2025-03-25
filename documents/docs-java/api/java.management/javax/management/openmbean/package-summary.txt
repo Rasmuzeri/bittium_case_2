@@ -1,0 +1,391 @@
+javax.management.openmbean (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages
+|
+Classes and Interfaces
+SEARCH
+Module
+java.management
+Package javax.management.openmbean
+package
+javax.management.openmbean
+Provides the open data types and Open MBean descriptor classes.
+      An
+Open MBean
+is an MBean where the types of attributes
+      and of operation parameters and return values are built using a
+      small set of predefined Java classes.  Open MBeans facilitate
+      operation with remote management programs that do not necessarily
+      have access to application-specific types, including non-Java
+      programs.
+Every MBean has an
+MBeanInfo
+with information about the MBean itself, and its
+      attributes, operations, constructors, and notifications.  In an
+      Open MBean, this
+MBeanInfo
+implements the
+OpenMBeanInfo
+interface, usually by being an instance of
+OpenMBeanInfoSupport
+.
+The attribute information returned by
+MBeanInfo.getAttributes
+for an Open MBean is an array of
+      objects implementing
+OpenMBeanAttributeInfo
+, usually instances of
+OpenMBeanAttributeInfoSupport
+.  In addition to the usual
+      information about attributes, an
+OpenMBeanAttributeInfo
+specifies the
+OpenType
+of the attribute.
+      The possible
+OpenType
+values are predefined, which
+      is what ensures that remote managers will understand them.
+Similar remarks apply to the parameter types of operations and
+      constructors, and to the return types of operations.
+There is a distinction between an attribute's Java language
+      type, as returned by
+getType()
+, and
+      its
+OpenType
+, as returned by
+getOpenType()
+.  For example, if the Java language type is
+java.lang.String
+, the
+OpenType
+will be
+SimpleType.String
+.  If the Java language type is
+CompositeData
+, the
+OpenType
+will be a
+CompositeType
+that
+      describes the items in the
+CompositeData
+instances
+      for the attribute.
+Default values and constraints
+In Open MBeans, attributes and parameters can have default values
+      and/or constraints associated with them in the
+OpenMBeanAttributeInfo
+or
+OpenMBeanParameterInfo
+.
+      There are two ways to specify these constraints.  Either the
+      values are directly specified as parameters to one of the
+      constructors of
+OpenMBeanAttributeInfoSupport
+or
+OpenMBeanParameterInfoSupport
+, for example
+OpenMBeanParameterInfoSupport(String, String, OpenType, Object, Object[])
+; or the values are
+      specified in a
+Descriptor
+given
+      as a parameter to one of the constructors.
+When a
+Descriptor
+is used, the fields of interest are
+      these:
+defaultValue
+defines the value returned by
+getDefaultValue()
+;
+minValue
+defines the value returned by
+getMinValue()
+;
+maxValue
+defines the value returned by
+getMaxValue()
+;
+legalValues
+defines the values returned by
+getLegalValues()
+.
+For
+defaultValue
+,
+minValue
+, and
+maxValue
+, the associated value must either be of the Java type
+      corresponding to
+openType
+, or be a string that can be
+      converted into that type.  The conversion uses the static method
+valueOf(String)
+if it finds one; otherwise a constructor
+      with a single
+String
+parameter if it finds one; otherwise
+      it fails.
+For
+legalValues
+, the associated value must be either
+      an array or a
+Set
+, and the elements of the array or set
+      must be convertible as described for
+defaultValue
+etc.
+The following conditions must be met for these fields:
+the values must be of the appropriate type, or be strings
+        that can be converted to the appropriate type as explained
+        above;
+if
+legalValues
+is present then neither
+minValue
+nor
+maxValue
+must be present;
+if
+defaultValue
+is present then it must satisfy the
+        constraints defined by
+legalValues
+,
+minValue
+, or
+maxValue
+when any of these is also present;
+if
+minValue
+and
+maxValue
+are both present
+        then
+minValue
+must not be greater than
+maxValue
+.
+Since:
+1.5
+See Also:
+JMX Specification, version 1.4
+Related Packages
+Package
+Description
+javax.management
+Provides the core classes for the Java Management Extensions.
+All Classes and Interfaces
+Interfaces
+Classes
+Exception Classes
+Class
+Description
+ArrayType
+<T>
+The
+ArrayType
+class is the
+open type
+class whose instances describe
+ all
+open data
+values which are n-dimensional arrays of
+open data
+values.
+CompositeData
+The
+CompositeData
+interface specifies
+ the behavior of a specific type of complex
+open data
+objects
+ which represent
+composite data
+structures.
+CompositeDataInvocationHandler
+An
+InvocationHandler
+that forwards getter methods to a
+CompositeData
+.
+CompositeDataSupport
+The
+CompositeDataSupport
+class is the
+open data
+class which
+ implements the
+CompositeData
+interface.
+CompositeDataView
+A Java class can implement this interface to indicate how it is
+ to be converted into a
+CompositeData
+by the MXBean framework.
+CompositeType
+The
+CompositeType
+class is the
+open type
+class
+ whose instances describe the types of
+CompositeData
+values.
+InvalidKeyException
+This runtime exception is thrown to indicate that a method parameter which was expected to be
+ an item name of a
+composite data
+or a row index of a
+tabular data
+is not valid.
+InvalidOpenTypeException
+This runtime exception is thrown to indicate that the
+open type
+of an
+open data
+value
+ is not the one expected.
+KeyAlreadyExistsException
+This runtime exception is thrown to indicate that the index of a row to be added to a
+tabular data
+instance
+ is already used to refer to another row in this
+tabular data
+instance.
+OpenDataException
+This checked exception is thrown when an
+open type
+, an
+open data
+or an
+open MBean metadata info
+instance
+ could not be constructed because one or more validity constraints were not met.
+OpenMBeanAttributeInfo
+Describes an attribute of an open MBean.
+OpenMBeanAttributeInfoSupport
+Describes an attribute of an open MBean.
+OpenMBeanConstructorInfo
+Describes a constructor of an Open MBean.
+OpenMBeanConstructorInfoSupport
+Describes a constructor of an Open MBean.
+OpenMBeanInfo
+Describes an Open MBean: an Open MBean is recognized as such if
+ its
+getMBeanInfo()
+method returns an instance of a class which
+ implements the
+OpenMBeanInfo
+interface, typically
+OpenMBeanInfoSupport
+.
+OpenMBeanInfoSupport
+The
+OpenMBeanInfoSupport
+class describes the management
+ information of an
+open MBean
+: it is a subclass of
+MBeanInfo
+, and it implements the
+OpenMBeanInfo
+interface.
+OpenMBeanOperationInfo
+Describes an operation of an Open MBean.
+OpenMBeanOperationInfoSupport
+Describes an operation of an Open MBean.
+OpenMBeanParameterInfo
+Describes a parameter used in one or more operations or
+ constructors of an open MBean.
+OpenMBeanParameterInfoSupport
+Describes a parameter used in one or more operations or
+ constructors of an open MBean.
+OpenType
+<T>
+The
+OpenType
+class is the parent abstract class of all classes which describe the actual
+open type
+of open data values.
+SimpleType
+<T>
+The
+SimpleType
+class is the
+open type
+class whose instances describe
+ all
+open data
+values which are neither arrays,
+ nor
+CompositeData
+values,
+ nor
+TabularData
+values.
+TabularData
+The
+TabularData
+interface specifies the behavior of a specific type of complex
+open data
+objects
+ which represent
+tabular data
+structures.
+TabularDataSupport
+The
+TabularDataSupport
+class is the
+open data
+class which implements the
+TabularData
+and the
+Map
+interfaces, and which is internally based on a hash map data structure.
+TabularType
+The
+TabularType
+class is the
+open type
+class
+ whose instances describe the types of
+TabularData
+values.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

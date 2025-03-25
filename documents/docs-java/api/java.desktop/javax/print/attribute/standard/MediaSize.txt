@@ -1,0 +1,585 @@
+MediaSize (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.print.attribute.standard
+Class MediaSize
+java.lang.Object
+javax.print.attribute.Size2DSyntax
+javax.print.attribute.standard.MediaSize
+All Implemented Interfaces:
+Serializable
+,
+Cloneable
+,
+Attribute
+public class
+MediaSize
+extends
+Size2DSyntax
+implements
+Attribute
+Class
+MediaSize
+is a two-dimensional size valued printing attribute
+ class that indicates the dimensions of the medium in a portrait orientation,
+ with the
+X
+dimension running along the bottom edge and the
+Y
+dimension running along the left edge. Thus, the
+Y
+dimension must be
+ greater than or equal to the
+X
+dimension. Class
+MediaSize
+declares many standard media size values, organized into nested classes for
+ ISO, JIS, North American, engineering, and other media.
+MediaSize
+is not yet used to specify media. Its current role is as a
+ mapping for named media (see
+MediaSizeName
+). Clients
+ can use the mapping method
+MediaSize.getMediaSizeForName(MediaSizeName)
+to find the physical
+ dimensions of the
+MediaSizeName
+instances enumerated in this API.
+ This is useful for clients which need this information to format &
+ paginate printing.
+See Also:
+Serialized Form
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+static final class
+MediaSize.Engineering
+Class
+MediaSize.Engineering
+includes
+MediaSize
+values for engineering media.
+static final class
+MediaSize.ISO
+Class
+MediaSize.ISO
+includes
+MediaSize
+values
+ for ISO media.
+static final class
+MediaSize.JIS
+Class
+MediaSize.JIS
+includes
+MediaSize
+values
+ for JIS (Japanese) media.
+static final class
+MediaSize.NA
+Class
+MediaSize.NA
+includes
+MediaSize
+values
+ for North American media.
+static final class
+MediaSize.Other
+Class
+MediaSize.Other
+includes
+MediaSize
+values
+ for miscellaneous media.
+Field Summary
+Fields declared in class javax.print.attribute.
+Size2DSyntax
+INCH
+,
+MM
+Constructor Summary
+Constructors
+Constructor
+Description
+MediaSize
+(float x,
+ float y,
+ int units)
+Construct a new media size attribute from the given floating-point
+ values.
+MediaSize
+(float x,
+ float y,
+ int units,
+MediaSizeName
+media)
+Construct a new media size attribute from the given floating-point
+ values.
+MediaSize
+(int x,
+ int y,
+ int units)
+Construct a new media size attribute from the given integer values.
+MediaSize
+(int x,
+ int y,
+ int units,
+MediaSizeName
+media)
+Construct a new media size attribute from the given integer values.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+equals
+(
+Object
+object)
+Returns whether this media size attribute is equivalent to the passed in
+ object.
+static
+MediaSizeName
+findMedia
+(float x,
+ float y,
+ int units)
+The specified dimensions are used to locate a matching
+MediaSize
+instance from amongst all the standard
+MediaSize
+instances.
+final
+Class
+<? extends
+Attribute
+>
+getCategory
+()
+Get the printing attribute class which is to be used as the "category"
+ for this printing attribute value.
+static
+MediaSize
+getMediaSizeForName
+(
+MediaSizeName
+media)
+Get the
+MediaSize
+for the specified named media.
+MediaSizeName
+getMediaSizeName
+()
+Get the media name, if any, for this size.
+final
+String
+getName
+()
+Get the name of the category of which this attribute value is an
+ instance.
+Methods declared in class javax.print.attribute.
+Size2DSyntax
+getSize
+,
+getX
+,
+getXMicrometers
+,
+getY
+,
+getYMicrometers
+,
+hashCode
+,
+toString
+,
+toString
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+MediaSize
+public
+MediaSize
+(float x,
+ float y,
+ int units)
+Construct a new media size attribute from the given floating-point
+ values.
+Parameters:
+x
+-
+X
+dimension
+y
+-
+Y
+dimension
+units
+- unit conversion factor, e.g.
+Size2DSyntax.INCH
+or
+Size2DSyntax.MM
+Throws:
+IllegalArgumentException
+- if
+x < 0
+or
+y < 0
+or
+units < 1
+or
+x > y
+MediaSize
+public
+MediaSize
+(int x,
+ int y,
+ int units)
+Construct a new media size attribute from the given integer values.
+Parameters:
+x
+-
+X
+dimension
+y
+-
+Y
+dimension
+units
+- unit conversion factor, e.g.
+Size2DSyntax.INCH
+or
+Size2DSyntax.MM
+Throws:
+IllegalArgumentException
+- if
+x < 0
+or
+y < 0
+or
+units < 1
+or
+x > y
+MediaSize
+public
+MediaSize
+(float x,
+ float y,
+ int units,
+MediaSizeName
+media)
+Construct a new media size attribute from the given floating-point
+ values.
+Parameters:
+x
+-
+X
+dimension
+y
+-
+Y
+dimension
+units
+- unit conversion factor, e.g.
+Size2DSyntax.INCH
+or
+Size2DSyntax.MM
+media
+- a media name to associate with this
+MediaSize
+Throws:
+IllegalArgumentException
+- if
+x < 0
+or
+y < 0
+or
+units < 1
+or
+x > y
+MediaSize
+public
+MediaSize
+(int x,
+ int y,
+ int units,
+MediaSizeName
+media)
+Construct a new media size attribute from the given integer values.
+Parameters:
+x
+-
+X
+dimension
+y
+-
+Y
+dimension
+units
+- unit conversion factor, e.g.
+Size2DSyntax.INCH
+or
+Size2DSyntax.MM
+media
+- a media name to associate with this
+MediaSize
+Throws:
+IllegalArgumentException
+- if
+x < 0
+or
+y < 0
+or
+units < 1
+or
+x > y
+Method Details
+getMediaSizeName
+public
+MediaSizeName
+getMediaSizeName
+()
+Get the media name, if any, for this size.
+Returns:
+the name for this media size, or
+null
+if no name was
+         associated with this size (an anonymous size)
+getMediaSizeForName
+public static
+MediaSize
+getMediaSizeForName
+(
+MediaSizeName
+media)
+Get the
+MediaSize
+for the specified named media.
+Parameters:
+media
+- the name of the media for which the size is sought
+Returns:
+size of the media, or
+null
+if this media is not
+         associated with any size
+findMedia
+public static
+MediaSizeName
+findMedia
+(float x,
+ float y,
+ int units)
+The specified dimensions are used to locate a matching
+MediaSize
+instance from amongst all the standard
+MediaSize
+instances. If
+ there is no exact match, the closest match is used.
+The
+MediaSize
+is in turn used to locate the
+MediaSizeName
+object. This method may return
+null
+if the closest matching
+MediaSize
+has no corresponding
+Media
+instance.
+This method is useful for clients which have only dimensions and want to
+ find a
+Media
+which corresponds to the dimensions.
+Parameters:
+x
+-
+X
+dimension
+y
+-
+Y
+dimension
+units
+- unit conversion factor, e.g.
+Size2DSyntax.INCH
+or
+Size2DSyntax.MM
+Returns:
+MediaSizeName
+matching these dimensions, or
+null
+Throws:
+IllegalArgumentException
+- if
+x <= 0
+,
+y <= 0
+, or
+units < 1
+equals
+public
+boolean
+equals
+(
+Object
+object)
+Returns whether this media size attribute is equivalent to the passed in
+ object. To be equivalent, all of the following conditions must be true:
+object
+is not
+null
+.
+object
+is an instance of class
+MediaSize
+.
+This media size attribute's
+X
+dimension is equal to
+object
+'s
+X
+dimension.
+This media size attribute's
+Y
+dimension is equal to
+object
+'s
+Y
+dimension.
+Overrides:
+equals
+in class
+Size2DSyntax
+Parameters:
+object
+-
+Object
+to compare to
+Returns:
+true
+if
+object
+is equivalent to this media size
+         attribute,
+false
+otherwise
+See Also:
+Object.hashCode()
+HashMap
+getCategory
+public final
+Class
+<? extends
+Attribute
+>
+getCategory
+()
+Get the printing attribute class which is to be used as the "category"
+ for this printing attribute value.
+For class
+MediaSize
+and any vendor-defined subclasses, the
+ category is class
+MediaSize
+itself.
+Specified by:
+getCategory
+in interface
+Attribute
+Returns:
+printing attribute class (category), an instance of class
+java.lang.Class
+getName
+public final
+String
+getName
+()
+Get the name of the category of which this attribute value is an
+ instance.
+For class
+MediaSize
+and any vendor-defined subclasses, the
+ category name is
+"media-size"
+.
+Specified by:
+getName
+in interface
+Attribute
+Returns:
+attribute category name
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

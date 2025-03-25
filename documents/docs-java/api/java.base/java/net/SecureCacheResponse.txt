@@ -1,0 +1,291 @@
+SecureCacheResponse (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.net
+Class SecureCacheResponse
+java.lang.Object
+java.net.CacheResponse
+java.net.SecureCacheResponse
+public abstract class
+SecureCacheResponse
+extends
+CacheResponse
+Represents a cache response originally retrieved through secure
+ means, such as TLS.
+Since:
+1.5
+Constructor Summary
+Constructors
+Constructor
+Description
+SecureCacheResponse
+()
+Constructor for subclasses to call.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+abstract
+String
+getCipherSuite
+()
+Returns the cipher suite in use on the original connection that
+ retrieved the network resource.
+abstract
+List
+<
+Certificate
+>
+getLocalCertificateChain
+()
+Returns the certificate chain that were sent to the server during
+ handshaking of the original connection that retrieved the
+ network resource.
+abstract
+Principal
+getLocalPrincipal
+()
+Returns the principal that was sent to the server during
+ handshaking in the original connection that retrieved the
+ network resource.
+abstract
+Principal
+getPeerPrincipal
+()
+Returns the server's principal which was established as part of
+ defining the session during the original connection that
+ retrieved the network resource.
+abstract
+List
+<
+Certificate
+>
+getServerCertificateChain
+()
+Returns the server's certificate chain, which was established as
+ part of defining the session in the original connection that
+ retrieved the network resource, from cache.
+Optional
+<
+SSLSession
+>
+getSSLSession
+()
+Returns an
+Optional
+containing the
+SSLSession
+in
+ use on the original connection that retrieved the network resource.
+Methods declared in class java.net.
+CacheResponse
+getBody
+,
+getHeaders
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+SecureCacheResponse
+public
+SecureCacheResponse
+()
+Constructor for subclasses to call.
+Method Details
+getCipherSuite
+public abstract
+String
+getCipherSuite
+()
+Returns the cipher suite in use on the original connection that
+ retrieved the network resource.
+Returns:
+a string representing the cipher suite
+getLocalCertificateChain
+public abstract
+List
+<
+Certificate
+>
+getLocalCertificateChain
+()
+Returns the certificate chain that were sent to the server during
+ handshaking of the original connection that retrieved the
+ network resource.  Note: This method is useful only
+ when using certificate-based cipher suites.
+Returns:
+an immutable List of Certificate representing the
+           certificate chain that was sent to the server. If no
+           certificate chain was sent, null will be returned.
+See Also:
+getLocalPrincipal()
+getServerCertificateChain
+public abstract
+List
+<
+Certificate
+>
+getServerCertificateChain
+()
+                                                     throws
+SSLPeerUnverifiedException
+Returns the server's certificate chain, which was established as
+ part of defining the session in the original connection that
+ retrieved the network resource, from cache.  Note: This method
+ can be used only when using certificate-based cipher suites;
+ using it with non-certificate-based cipher suites, such as
+ Kerberos, will throw an SSLPeerUnverifiedException.
+Returns:
+an immutable List of Certificate representing the server's
+         certificate chain.
+Throws:
+SSLPeerUnverifiedException
+- if the peer is not verified.
+See Also:
+getPeerPrincipal()
+getPeerPrincipal
+public abstract
+Principal
+getPeerPrincipal
+()
+                                    throws
+SSLPeerUnverifiedException
+Returns the server's principal which was established as part of
+ defining the session during the original connection that
+ retrieved the network resource.
+Returns:
+the server's principal. Returns an X500Principal of the
+ end-entity certificate for X509-based cipher suites, and
+ KerberosPrincipal for Kerberos cipher suites.
+Throws:
+SSLPeerUnverifiedException
+- if the peer was not verified.
+See Also:
+getServerCertificateChain()
+getLocalPrincipal()
+getLocalPrincipal
+public abstract
+Principal
+getLocalPrincipal
+()
+Returns the principal that was sent to the server during
+ handshaking in the original connection that retrieved the
+ network resource.
+Returns:
+the principal sent to the server. Returns an X500Principal
+ of the end-entity certificate for X509-based cipher suites, and
+ KerberosPrincipal for Kerberos cipher suites. If no principal was
+ sent, then null is returned.
+See Also:
+getLocalCertificateChain()
+getPeerPrincipal()
+getSSLSession
+public
+Optional
+<
+SSLSession
+>
+getSSLSession
+()
+Returns an
+Optional
+containing the
+SSLSession
+in
+ use on the original connection that retrieved the network resource.
+ Returns an empty
+Optional
+if the underlying implementation
+ does not support this method.
+Implementation Requirements:
+For compatibility, the default implementation of this
+           method returns an empty
+Optional
+.  Subclasses
+           should override this method with an appropriate
+           implementation since an application may need to access
+           additional parameters associated with the SSL session.
+Returns:
+an
+Optional
+containing the
+SSLSession
+in
+           use on the original connection
+Since:
+12
+See Also:
+SSLSession
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

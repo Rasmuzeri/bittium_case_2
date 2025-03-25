@@ -1,0 +1,235 @@
+DropTargetContext.TransferableProxy (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt.dnd
+Class DropTargetContext.TransferableProxy
+java.lang.Object
+java.awt.dnd.DropTargetContext.TransferableProxy
+All Implemented Interfaces:
+Transferable
+Enclosing class:
+DropTargetContext
+protected class
+DropTargetContext.TransferableProxy
+extends
+Object
+implements
+Transferable
+TransferableProxy
+is a helper inner class that implements
+Transferable
+interface and serves as a proxy for another
+Transferable
+object which represents data transfer for
+ a particular drag-n-drop operation.
+The proxy forwards all requests to the encapsulated transferable
+ and automatically performs additional conversion on the data
+ returned by the encapsulated transferable in case of local transfer.
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected boolean
+isLocal
+A
+boolean
+indicating if the encapsulated
+Transferable
+object represents the result
+ of local drag-n-drop operation (within the same JVM).
+protected
+Transferable
+transferable
+The encapsulated
+Transferable
+object.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Object
+getTransferData
+(
+DataFlavor
+df)
+Returns an object which represents the data provided by
+ the encapsulated transferable for the requested data flavor.
+DataFlavor
+[]
+getTransferDataFlavors
+()
+Returns an array of DataFlavor objects indicating the flavors
+ the data can be provided in by the encapsulated transferable.
+boolean
+isDataFlavorSupported
+(
+DataFlavor
+flavor)
+Returns whether or not the specified data flavor is supported by
+ the encapsulated transferable.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+transferable
+protected
+Transferable
+transferable
+The encapsulated
+Transferable
+object.
+isLocal
+protected
+boolean
+isLocal
+A
+boolean
+indicating if the encapsulated
+Transferable
+object represents the result
+ of local drag-n-drop operation (within the same JVM).
+Method Details
+getTransferDataFlavors
+public
+DataFlavor
+[]
+getTransferDataFlavors
+()
+Returns an array of DataFlavor objects indicating the flavors
+ the data can be provided in by the encapsulated transferable.
+Specified by:
+getTransferDataFlavors
+in interface
+Transferable
+Returns:
+an array of data flavors in which the data can be
+         provided by the encapsulated transferable
+isDataFlavorSupported
+public
+boolean
+isDataFlavorSupported
+(
+DataFlavor
+flavor)
+Returns whether or not the specified data flavor is supported by
+ the encapsulated transferable.
+Specified by:
+isDataFlavorSupported
+in interface
+Transferable
+Parameters:
+flavor
+- the requested flavor for the data
+Returns:
+true
+if the data flavor is supported,
+false
+otherwise
+getTransferData
+public
+Object
+getTransferData
+(
+DataFlavor
+df)
+throws
+UnsupportedFlavorException
+,
+IOException
+Returns an object which represents the data provided by
+ the encapsulated transferable for the requested data flavor.
+In case of local transfer a serialized copy of the object
+ returned by the encapsulated transferable is provided when
+ the data is requested in application/x-java-serialized-object
+ data flavor.
+Specified by:
+getTransferData
+in interface
+Transferable
+Parameters:
+df
+- the requested flavor for the data
+Returns:
+an object which represents the data to be transferred
+Throws:
+IOException
+- if the data is no longer available
+              in the requested flavor.
+UnsupportedFlavorException
+- if the requested data flavor is
+              not supported.
+See Also:
+DataFlavor.getRepresentationClass()
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

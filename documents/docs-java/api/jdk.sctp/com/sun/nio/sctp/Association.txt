@@ -1,0 +1,205 @@
+Association (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.sctp
+Package
+com.sun.nio.sctp
+Class Association
+java.lang.Object
+com.sun.nio.sctp.Association
+public class
+Association
+extends
+Object
+A class that represents an SCTP association.
+An association exists between two SCTP endpoints. Each endpoint is
+ represented by a list of transport addresses through which that endpoint can
+ be reached and from which it will originate SCTP messages. The association
+ spans over all of the possible source/destination combinations which may be
+ generated from each endpoint's lists of addresses.
+Associations are identified by their Association ID.
+ Association ID's are guaranteed to be unique for the lifetime of the
+ association. An association ID may be reused after the association has been
+ shutdown. An association ID is not unique across multiple SCTP channels.
+ An Association's local and remote addresses may change if the SCTP
+ implementation supports
+Dynamic Address Reconfiguration
+as defined by
+RFC5061
+, see the
+bindAddress
+and
+unbindAddress
+methods of
+SctpChannel
+,
+SctpServerChannel
+, and
+SctpMultiChannel
+.
+An
+Association
+is returned from an
+SctpChannel
+or an
+SctpMultiChannel
+, as well
+ as being given as a parameter to
+NotificationHandler
+methods.
+Since:
+1.7
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+Association
+(int associationID,
+ int maxInStreams,
+ int maxOutStreams)
+Initializes a new instance of this class.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+final int
+associationID
+()
+Returns the associationID.
+final int
+maxInboundStreams
+()
+Returns the maximum number of inbound streams that this association
+ supports.
+final int
+maxOutboundStreams
+()
+Returns the maximum number of outbound streams that this association
+ supports.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+Association
+protected
+Association
+(int associationID,
+ int maxInStreams,
+ int maxOutStreams)
+Initializes a new instance of this class.
+Parameters:
+associationID
+- The association ID
+maxInStreams
+- The maximum number of inbound streams
+maxOutStreams
+- The maximum number of outbound streams
+Method Details
+associationID
+public final
+int
+associationID
+()
+Returns the associationID.
+Returns:
+The association ID
+maxInboundStreams
+public final
+int
+maxInboundStreams
+()
+Returns the maximum number of inbound streams that this association
+ supports.
+Data received on this association will be on stream number
+s
+, where
+0 <= s < maxInboundStreams()
+.
+Returns:
+The maximum number of inbound streams
+maxOutboundStreams
+public final
+int
+maxOutboundStreams
+()
+Returns the maximum number of outbound streams that this association
+ supports.
+Data sent on this association must be on stream number
+s
+, where
+0 <= s < maxOutboundStreams()
+.
+Returns:
+The maximum number of outbound streams
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

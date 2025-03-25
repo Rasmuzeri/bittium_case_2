@@ -1,0 +1,1494 @@
+TIFFField (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.imageio.plugins.tiff
+Class TIFFField
+java.lang.Object
+javax.imageio.plugins.tiff.TIFFField
+All Implemented Interfaces:
+Cloneable
+public final class
+TIFFField
+extends
+Object
+implements
+Cloneable
+A class representing a field in a TIFF 6.0 Image File Directory.
+A field in a TIFF Image File Directory (IFD) is defined as a
+ tag number accompanied by a sequence of values of identical data type.
+ TIFF 6.0 defines 12 data types; a 13th type
+IFD
+is
+ defined in TIFF Tech Note 1 of TIFF Specification Supplement 1. These
+ TIFF data types are referred to by Java constants and mapped internally
+ onto Java language data types and type names as follows:
+TIFF Data Type to Java Data Type Mapping
+TIFF Data Type
+Java Constant
+Java Data Type
+Java Type Name
+BYTE
+TIFFTag.TIFF_BYTE
+byte
+"Byte"
+ASCII
+TIFFTag.TIFF_ASCII
+String
+"Ascii"
+SHORT
+TIFFTag.TIFF_SHORT
+char
+"Short"
+LONG
+TIFFTag.TIFF_LONG
+long
+"Long"
+RATIONAL
+TIFFTag.TIFF_RATIONAL
+long[2]
+{numerator, denominator}
+"Rational"
+SBYTE
+TIFFTag.TIFF_SBYTE
+byte
+"SByte"
+UNDEFINED
+TIFFTag.TIFF_UNDEFINED
+byte
+"Undefined"
+SSHORT
+TIFFTag.TIFF_SSHORT
+short
+"SShort"
+SLONG
+TIFFTag.TIFF_SLONG
+int
+"SLong"
+SRATIONAL
+TIFFTag.TIFF_SRATIONAL
+int[2]
+{numerator, denominator}
+"SRational"
+FLOAT
+TIFFTag.TIFF_FLOAT
+float
+"Float"
+DOUBLE
+TIFFTag.TIFF_DOUBLE
+double
+"Double"
+IFD
+TIFFTag.TIFF_IFD_POINTER
+long
+"IFDPointer"
+Since:
+9
+See Also:
+TIFFDirectory
+TIFFTag
+Constructor Summary
+Constructors
+Constructor
+Description
+TIFFField
+(
+TIFFTag
+tag,
+ int type,
+ int count)
+Constructs a data array using
+createArrayForType()
+and invokes
+TIFFField(TIFFTag,int,int,Object)
+with the supplied
+ parameters and the created array.
+TIFFField
+(
+TIFFTag
+tag,
+ int type,
+ int count,
+Object
+data)
+Constructs a
+TIFFField
+with arbitrary data.
+TIFFField
+(
+TIFFTag
+tag,
+ int type,
+ long offset,
+TIFFDirectory
+dir)
+Constructs a
+TIFFField
+with an IFD offset and contents.
+TIFFField
+(
+TIFFTag
+tag,
+ long value)
+Constructs a
+TIFFField
+with a single non-negative integral
+ value.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+TIFFField
+clone
+()
+Clones the field and all the information contained therein.
+static
+Object
+createArrayForType
+(int dataType,
+ int count)
+Creates an array appropriate for the indicated data type.
+static
+TIFFField
+createFromMetadataNode
+(
+TIFFTagSet
+tagSet,
+Node
+node)
+Creates a
+TIFFField
+from a TIFF native image
+ metadata node.
+byte[]
+getAsBytes
+()
+Returns the data as an uninterpreted array of
+byte
+s.
+char[]
+getAsChars
+()
+Returns
+TIFFTag.TIFF_SHORT
+data as an array of
+char
+s (unsigned 16-bit integers).
+double
+getAsDouble
+(int index)
+Returns data in any format as a
+double
+.
+double[]
+getAsDoubles
+()
+Returns
+TIFFTag.TIFF_DOUBLE
+data as an array of
+double
+s (64-bit floating-point values).
+float
+getAsFloat
+(int index)
+Returns data in any format as a
+float
+.
+float[]
+getAsFloats
+()
+Returns
+TIFFTag.TIFF_FLOAT
+data as an array of
+float
+s (32-bit floating-point values).
+int
+getAsInt
+(int index)
+Returns data in any format as an
+int
+.
+int[]
+getAsInts
+()
+Returns
+TIFFTag.TIFF_SLONG
+data as an array of
+int
+s (signed 32-bit integers).
+long
+getAsLong
+(int index)
+Returns data in any format as a
+long
+.
+long[]
+getAsLongs
+()
+Returns
+TIFFTag.TIFF_LONG
+or
+TIFF_IFD_POINTER
+data as an array of
+long
+s (signed 64-bit integers).
+Node
+getAsNativeNode
+()
+Returns the
+TIFFField
+as a node named either
+"TIFFField"
+or
+"TIFFIFD"
+as described in the
+ TIFF native image metadata specification.
+long[]
+getAsRational
+(int index)
+Returns a TIFFTag.TIFF_RATIONAL data item as a two-element array
+ of ints.
+long[][]
+getAsRationals
+()
+Returns
+TIFFTag.TIFF_RATIONAL
+data as an array of
+ 2-element arrays of
+long
+s.
+short[]
+getAsShorts
+()
+Returns
+TIFFTag.TIFF_SSHORT
+data as an array of
+short
+s (signed 16-bit integers).
+int[]
+getAsSRational
+(int index)
+Returns a
+TIFFTag.TIFF_SRATIONAL
+data item as a
+ two-element array of
+int
+s.
+int[][]
+getAsSRationals
+()
+Returns
+TIFFTag.TIFF_SRATIONAL
+data as an array of
+ 2-element arrays of
+int
+s.
+String
+getAsString
+(int index)
+Returns a
+TIFFTag.TIFF_ASCII
+value as a
+String
+.
+int
+getCount
+()
+Returns the number of data items present in the field.
+Object
+getData
+()
+Returns a reference to the data object associated with the field.
+TIFFDirectory
+getDirectory
+()
+Returns the associated
+TIFFDirectory
+, if available.
+TIFFTag
+getTag
+()
+Retrieves the tag associated with this field.
+int
+getTagNumber
+()
+Retrieves the tag number in the range
+[0,65535]
+.
+int
+getType
+()
+Returns the type of the data stored in the field.
+static int
+getTypeByName
+(
+String
+typeName)
+Returns the data type constant corresponding to the supplied data
+ type name.
+static
+String
+getTypeName
+(int dataType)
+Returns the name of the supplied data type constant.
+String
+getValueAsString
+(int index)
+Returns a
+String
+containing a human-readable
+ version of the data item.
+boolean
+hasDirectory
+()
+Returns whether the field has a
+TIFFDirectory
+.
+boolean
+isIntegral
+()
+Indicates whether the value associated with the field is of
+ integral data type.
+Methods declared in class java.lang.
+Object
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+TIFFField
+public
+TIFFField
+(
+TIFFTag
+tag,
+ int type,
+ int count,
+Object
+data)
+Constructs a
+TIFFField
+with arbitrary data. The
+type
+parameter must be a value for which
+tag.isDataTypeOK()
+returns
+true
+. The
+data
+parameter must
+ be an array of a Java type appropriate for the type of the TIFF
+ field.
+Note that the value (data) of the
+TIFFField
+will always be the actual field value regardless of the number of
+ bytes required for that value. This is the case despite the fact
+ that the TIFF
+IFD Entry
+corresponding to the field may
+ actually contain the offset to the value of the field rather than
+ the value itself (the latter occurring if and only if the
+ value fits into 4 bytes). In other words, the value of the
+ field will already have been read from the TIFF stream. (An exception
+ to this case may occur when the field represents the contents of a
+ non-baseline IFD. In that case the data will be a
+long[]
+containing the offset to the IFD and the
+TIFFDirectory
+returned by
+getDirectory()
+will be its contents.)
+Parameters:
+tag
+- The tag to associated with this field.
+type
+- One of the
+TIFFTag.TIFF_*
+constants
+ indicating the data type of the field as written to the TIFF stream.
+count
+- The number of data values.
+data
+- The actual data content of the field.
+Throws:
+NullPointerException
+- if
+tag == null
+.
+IllegalArgumentException
+- if
+type
+is not
+ one of the
+TIFFTag.TIFF_*
+data type constants.
+IllegalArgumentException
+- if
+type
+is an unacceptable
+ data type for the supplied
+TIFFTag
+.
+IllegalArgumentException
+- if
+count < 0
+.
+IllegalArgumentException
+- if
+count < 1
+and
+type
+is
+TIFF_RATIONAL
+or
+TIFF_SRATIONAL
+.
+IllegalArgumentException
+- if
+count != 1
+and
+type
+is
+TIFF_IFD_POINTER
+.
+NullPointerException
+- if
+data == null
+.
+IllegalArgumentException
+- if
+data
+is an instance of
+ a class incompatible with the specified type.
+IllegalArgumentException
+- if the size of the data array is wrong.
+IllegalArgumentException
+- if the type of the data array is
+TIFF_LONG
+,
+TIFF_RATIONAL
+, or
+TIFF_IFD_POINTER
+and any of the elements is negative or greater than
+0xffffffff
+.
+TIFFField
+public
+TIFFField
+(
+TIFFTag
+tag,
+ int type,
+ int count)
+Constructs a data array using
+createArrayForType()
+and invokes
+TIFFField(TIFFTag,int,int,Object)
+with the supplied
+ parameters and the created array.
+Parameters:
+tag
+- The tag to associated with this field.
+type
+- One of the
+TIFFTag.TIFF_*
+constants
+ indicating the data type of the field as written to the TIFF stream.
+count
+- The number of data values.
+Throws:
+NullPointerException
+- if
+tag == null
+.
+IllegalArgumentException
+- if
+type
+is not
+ one of the
+TIFFTag.TIFF_*
+data type constants.
+IllegalArgumentException
+- if
+type
+is an unacceptable
+ data type for the supplied
+TIFFTag
+.
+IllegalArgumentException
+- if
+count < 0
+.
+IllegalArgumentException
+- if
+count < 1
+and
+type
+is
+TIFF_RATIONAL
+or
+TIFF_SRATIONAL
+.
+IllegalArgumentException
+- if
+count != 1
+and
+type
+is
+TIFF_IFD_POINTER
+.
+See Also:
+TIFFField(TIFFTag,int,int,Object)
+TIFFField
+public
+TIFFField
+(
+TIFFTag
+tag,
+ long value)
+Constructs a
+TIFFField
+with a single non-negative integral
+ value. The field will have type
+TIFF_SHORT
+if
+value
+is in
+[0,0xffff]
+, and type
+TIFF_LONG
+if
+value
+is in
+[0x10000,0xffffffff]
+. The count of the field will be unity.
+Parameters:
+tag
+- The tag to associate with this field.
+value
+- The value to associate with this field.
+Throws:
+NullPointerException
+- if
+tag == null
+.
+IllegalArgumentException
+- if
+value
+is not in
+[0,0xffffffff]
+.
+IllegalArgumentException
+- if
+value
+is in
+[0,0xffff]
+and
+TIFF_SHORT
+is an unacceptable type
+ for the
+TIFFTag
+, or if
+value
+is in
+[0x10000,0xffffffff]
+and
+TIFF_LONG
+is an unacceptable
+ type for the
+TIFFTag
+.
+TIFFField
+public
+TIFFField
+(
+TIFFTag
+tag,
+ int type,
+ long offset,
+TIFFDirectory
+dir)
+Constructs a
+TIFFField
+with an IFD offset and contents.
+ The offset will be stored as the data of this field as
+long[] {offset}
+. The directory will not be cloned. The count
+ of the field will be unity.
+Parameters:
+tag
+- The tag to associated with this field.
+type
+- One of the constants
+TIFFTag.TIFF_LONG
+or
+TIFFTag.TIFF_IFD_POINTER
+.
+offset
+- The IFD offset.
+dir
+- The directory.
+Throws:
+NullPointerException
+- if
+tag == null
+.
+IllegalArgumentException
+- if
+type
+is an unacceptable
+ data type for the supplied
+TIFFTag
+.
+IllegalArgumentException
+- if
+type
+is neither
+TIFFTag.TIFF_LONG
+nor
+TIFFTag.TIFF_IFD_POINTER
+.
+IllegalArgumentException
+- if
+offset <= 0
+.
+NullPointerException
+- if
+dir == null
+.
+See Also:
+TIFFField(TIFFTag,int,int,Object)
+Method Details
+createFromMetadataNode
+public static
+TIFFField
+createFromMetadataNode
+(
+TIFFTagSet
+tagSet,
+Node
+node)
+Creates a
+TIFFField
+from a TIFF native image
+ metadata node. If the value of the
+"number"
+attribute
+ of the node is not found in
+tagSet
+then a new
+TIFFTag
+with name
+TIFFTag.UNKNOWN_TAG_NAME
+will be created and assigned to the field.
+Parameters:
+tagSet
+- The
+TIFFTagSet
+to which the
+TIFFTag
+of the field belongs.
+node
+- A native TIFF image metadata
+TIFFField
+node.
+Returns:
+A new
+TIFFField
+.
+Throws:
+IllegalArgumentException
+- If the
+Node
+parameter content
+ does not adhere to the
+TIFFField
+element structure defined by
+ the
+TIFF native image metadata format specification
+, or if the
+ combination of node attributes and data is not legal per the
+TIFFField(TIFFTag,int,int,Object)
+constructor specification.
+ Note that a cause might be set on such an exception.
+getTag
+public
+TIFFTag
+getTag
+()
+Retrieves the tag associated with this field.
+Returns:
+The associated
+TIFFTag
+.
+getTagNumber
+public
+int
+getTagNumber
+()
+Retrieves the tag number in the range
+[0,65535]
+.
+Returns:
+The tag number.
+getType
+public
+int
+getType
+()
+Returns the type of the data stored in the field.  For a TIFF 6.0
+ stream, the value will equal one of the
+TIFFTag.TIFF_*
+constants. For future revisions of TIFF, higher values are possible.
+Returns:
+The data type of the field value.
+getTypeName
+public static
+String
+getTypeName
+(int dataType)
+Returns the name of the supplied data type constant.
+Parameters:
+dataType
+- One of the
+TIFFTag.TIFF_*
+constants
+ indicating the data type of the field as written to the TIFF stream.
+Returns:
+The type name corresponding to the supplied type constant.
+Throws:
+IllegalArgumentException
+- if
+dataType
+is not
+ one of the
+TIFFTag.TIFF_*
+data type constants.
+getTypeByName
+public static
+int
+getTypeByName
+(
+String
+typeName)
+Returns the data type constant corresponding to the supplied data
+ type name. If the name is unknown
+-1
+will be returned.
+Parameters:
+typeName
+- The type name.
+Returns:
+One of the
+TIFFTag.TIFF_*
+constants or
+-1
+if the name is not recognized.
+createArrayForType
+public static
+Object
+createArrayForType
+(int dataType,
+ int count)
+Creates an array appropriate for the indicated data type.
+Parameters:
+dataType
+- One of the
+TIFFTag.TIFF_*
+data type
+ constants.
+count
+- The number of values in the array.
+Returns:
+An array appropriate for the specified data type.
+Throws:
+IllegalArgumentException
+- if
+dataType
+is not
+ one of the
+TIFFTag.TIFF_*
+data type constants.
+IllegalArgumentException
+- if
+count < 0
+.
+IllegalArgumentException
+- if
+count < 1
+and
+type
+is
+TIFF_RATIONAL
+or
+TIFF_SRATIONAL
+.
+IllegalArgumentException
+- if
+count != 1
+and
+type
+is
+TIFF_IFD_POINTER
+.
+getAsNativeNode
+public
+Node
+getAsNativeNode
+()
+Returns the
+TIFFField
+as a node named either
+"TIFFField"
+or
+"TIFFIFD"
+as described in the
+ TIFF native image metadata specification. The node will be named
+"TIFFIFD"
+if and only if
+hasDirectory()
+returns
+true
+and the field's type is either
+TIFFTag.TIFF_LONG
+or
+TIFFTag.TIFF_IFD_POINTER
+.
+Returns:
+a
+Node
+named
+"TIFFField"
+or
+"TIFFIFD"
+.
+isIntegral
+public
+boolean
+isIntegral
+()
+Indicates whether the value associated with the field is of
+ integral data type.
+Returns:
+Whether the field type is integral.
+getCount
+public
+int
+getCount
+()
+Returns the number of data items present in the field.  For
+TIFFTag.TIFF_ASCII
+fields, the value returned is the
+ number of
+String
+s, not the total length of the
+ data as in the file representation.
+Returns:
+The number of data items present in the field.
+getData
+public
+Object
+getData
+()
+Returns a reference to the data object associated with the field.
+Returns:
+The data object of the field.
+getAsBytes
+public
+byte[]
+getAsBytes
+()
+Returns the data as an uninterpreted array of
+byte
+s.  The type of the field must be one of
+TIFFTag.TIFF_BYTE
+,
+TIFF_SBYTE
+, or
+TIFF_UNDEFINED
+.
+For data in
+TIFFTag.TIFF_BYTE
+format, the application
+ must take care when promoting the data to longer integral types
+ to avoid sign extension.
+Returns:
+The data as an uninterpreted array of bytes.
+Throws:
+ClassCastException
+- if the field is not of type
+TIFF_BYTE
+,
+TIFF_SBYTE
+, or
+TIFF_UNDEFINED
+.
+getAsChars
+public
+char[]
+getAsChars
+()
+Returns
+TIFFTag.TIFF_SHORT
+data as an array of
+char
+s (unsigned 16-bit integers).
+Returns:
+The data as an array of
+char
+s.
+Throws:
+ClassCastException
+- if the field is not of type
+TIFF_SHORT
+.
+getAsShorts
+public
+short[]
+getAsShorts
+()
+Returns
+TIFFTag.TIFF_SSHORT
+data as an array of
+short
+s (signed 16-bit integers).
+Returns:
+The data as an array of
+short
+s.
+Throws:
+ClassCastException
+- if the field is not of type
+TIFF_SSHORT
+.
+getAsInts
+public
+int[]
+getAsInts
+()
+Returns
+TIFFTag.TIFF_SLONG
+data as an array of
+int
+s (signed 32-bit integers).
+Returns:
+The data as an array of
+int
+s.
+Throws:
+ClassCastException
+- if the field is not of type
+TIFF_SHORT
+,
+TIFF_SSHORT
+, or
+TIFF_SLONG
+.
+getAsLongs
+public
+long[]
+getAsLongs
+()
+Returns
+TIFFTag.TIFF_LONG
+or
+TIFF_IFD_POINTER
+data as an array of
+long
+s (signed 64-bit integers).
+Returns:
+The data as an array of
+long
+s.
+Throws:
+ClassCastException
+- if the field is not of type
+TIFF_LONG
+or
+TIFF_IFD_POINTER
+.
+getAsFloats
+public
+float[]
+getAsFloats
+()
+Returns
+TIFFTag.TIFF_FLOAT
+data as an array of
+float
+s (32-bit floating-point values).
+Returns:
+The data as an array of
+float
+s.
+Throws:
+ClassCastException
+- if the field is not of type
+TIFF_FLOAT
+.
+getAsDoubles
+public
+double[]
+getAsDoubles
+()
+Returns
+TIFFTag.TIFF_DOUBLE
+data as an array of
+double
+s (64-bit floating-point values).
+Returns:
+The data as an array of
+double
+s.
+Throws:
+ClassCastException
+- if the field is not of type
+TIFF_DOUBLE
+.
+getAsSRationals
+public
+int[][]
+getAsSRationals
+()
+Returns
+TIFFTag.TIFF_SRATIONAL
+data as an array of
+ 2-element arrays of
+int
+s.
+Returns:
+The data as an array of signed rationals.
+Throws:
+ClassCastException
+- if the field is not of type
+TIFF_SRATIONAL
+.
+getAsRationals
+public
+long[][]
+getAsRationals
+()
+Returns
+TIFFTag.TIFF_RATIONAL
+data as an array of
+ 2-element arrays of
+long
+s.
+Returns:
+The data as an array of unsigned rationals.
+Throws:
+ClassCastException
+- if the field is not of type
+TIFF_RATIONAL
+.
+getAsInt
+public
+int
+getAsInt
+(int index)
+Returns data in any format as an
+int
+.
+TIFFTag.TIFF_BYTE
+values are treated as unsigned; that
+ is, no sign extension will take place and the returned value
+ will be in the range [0, 255].
+TIFF_SBYTE
+data
+ will be returned in the range [-128, 127].
+A
+TIFF_UNDEFINED
+value is treated as though
+ it were a
+TIFF_BYTE
+.
+Data in
+TIFF_SLONG
+,
+TIFF_LONG
+,
+TIFF_FLOAT
+,
+TIFF_DOUBLE
+or
+TIFF_IFD_POINTER
+format are simply cast to
+int
+and may suffer from truncation.
+Data in
+TIFF_SRATIONAL
+or
+TIFF_RATIONAL
+format are evaluated by dividing the
+ numerator into the denominator using double-precision
+ arithmetic and then casting to
+int
+.  Loss of
+ precision and truncation may occur.
+Data in
+TIFF_ASCII
+format will be parsed as by
+ the
+Double.parseDouble
+method, with the result
+ case to
+int
+.
+Parameters:
+index
+- The index of the data.
+Returns:
+The data at the given index as an
+int
+.
+getAsLong
+public
+long
+getAsLong
+(int index)
+Returns data in any format as a
+long
+.
+TIFFTag.TIFF_BYTE
+and
+TIFF_UNDEFINED
+data
+ are treated as unsigned; that is, no sign extension will take
+ place and the returned value will be in the range [0, 255].
+TIFF_SBYTE
+data will be returned in the range
+ [-128, 127].
+Data in
+TIFF_FLOAT
+and
+TIFF_DOUBLE
+are
+ simply cast to
+long
+and may suffer from truncation.
+Data in
+TIFF_SRATIONAL
+or
+TIFF_RATIONAL
+format are evaluated by dividing the
+ numerator into the denominator using double-precision
+ arithmetic and then casting to
+long
+.  Loss of
+ precision and truncation may occur.
+Data in
+TIFF_ASCII
+format will be parsed as by
+ the
+Double.parseDouble
+method, with the result
+ cast to
+long
+.
+Parameters:
+index
+- The index of the data.
+Returns:
+The data at the given index as a
+long
+.
+getAsFloat
+public
+float
+getAsFloat
+(int index)
+Returns data in any format as a
+float
+.
+TIFFTag.TIFF_BYTE
+and
+TIFF_UNDEFINED
+data
+ are treated as unsigned; that is, no sign extension will take
+ place and the returned value will be in the range [0, 255].
+TIFF_SBYTE
+data will be returned in the range
+ [-128, 127].
+Data in
+TIFF_SLONG
+,
+TIFF_LONG
+,
+TIFF_DOUBLE
+, or
+TIFF_IFD_POINTER
+format are
+ simply cast to
+float
+and may suffer from
+ truncation.
+Data in
+TIFF_SRATIONAL
+or
+TIFF_RATIONAL
+format are evaluated by dividing the
+ numerator into the denominator using double-precision
+ arithmetic and then casting to
+float
+.
+Data in
+TIFF_ASCII
+format will be parsed as by
+ the
+Double.parseDouble
+method, with the result
+ cast to
+float
+.
+Parameters:
+index
+- The index of the data.
+Returns:
+The data at the given index as a
+float
+.
+getAsDouble
+public
+double
+getAsDouble
+(int index)
+Returns data in any format as a
+double
+.
+TIFFTag.TIFF_BYTE
+and
+TIFF_UNDEFINED
+data
+ are treated as unsigned; that is, no sign extension will take
+ place and the returned value will be in the range [0, 255].
+TIFF_SBYTE
+data will be returned in the range
+ [-128, 127].
+Data in
+TIFF_SRATIONAL
+or
+TIFF_RATIONAL
+format are evaluated by dividing the
+ numerator into the denominator using double-precision
+ arithmetic.
+Data in
+TIFF_ASCII
+format will be parsed as by
+ the
+Double.parseDouble
+method.
+Parameters:
+index
+- The index of the data.
+Returns:
+The data at the given index as a
+double
+.
+getAsString
+public
+String
+getAsString
+(int index)
+Returns a
+TIFFTag.TIFF_ASCII
+value as a
+String
+.
+Parameters:
+index
+- The index of the data.
+Returns:
+The data at the given index as a
+String
+.
+Throws:
+ClassCastException
+- if the field is not of type
+TIFF_ASCII
+.
+getAsSRational
+public
+int[]
+getAsSRational
+(int index)
+Returns a
+TIFFTag.TIFF_SRATIONAL
+data item as a
+ two-element array of
+int
+s.
+Parameters:
+index
+- The index of the data.
+Returns:
+The data at the given index as a signed rational.
+Throws:
+ClassCastException
+- if the field is not of type
+TIFF_SRATIONAL
+.
+getAsRational
+public
+long[]
+getAsRational
+(int index)
+Returns a TIFFTag.TIFF_RATIONAL data item as a two-element array
+ of ints.
+Parameters:
+index
+- The index of the data.
+Returns:
+The data at the given index as an unsigned rational.
+Throws:
+ClassCastException
+- if the field is not of type
+TIFF_RATIONAL
+.
+getValueAsString
+public
+String
+getValueAsString
+(int index)
+Returns a
+String
+containing a human-readable
+ version of the data item.  Data of type
+TIFFTag.TIFF_RATIONAL
+or
+TIFF_SRATIONAL
+are
+ represented as a pair of integers separated by a
+'/'
+character.  If the numerator of a
+TIFFTag.TIFF_RATIONAL
+or
+TIFF_SRATIONAL
+is an integral
+ multiple of the denominator, then the value is represented as
+"q/1"
+where
+q
+is the quotient of the numerator and
+ denominator.
+Parameters:
+index
+- The index of the data.
+Returns:
+The data at the given index as a
+String
+.
+Throws:
+ClassCastException
+- if the field is not of one of the
+ legal field types.
+hasDirectory
+public
+boolean
+hasDirectory
+()
+Returns whether the field has a
+TIFFDirectory
+.
+Returns:
+true if and only if getDirectory() returns non-null.
+getDirectory
+public
+TIFFDirectory
+getDirectory
+()
+Returns the associated
+TIFFDirectory
+, if available. If no
+ directory is set, then
+null
+will be returned.
+Returns:
+the TIFFDirectory instance or null.
+clone
+public
+TIFFField
+clone
+()
+                throws
+CloneNotSupportedException
+Clones the field and all the information contained therein.
+Overrides:
+clone
+in class
+Object
+Returns:
+A clone of this
+TIFFField
+.
+Throws:
+CloneNotSupportedException
+- if the instance cannot be cloned.
+See Also:
+Cloneable
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

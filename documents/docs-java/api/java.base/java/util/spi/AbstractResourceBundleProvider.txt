@@ -1,0 +1,356 @@
+AbstractResourceBundleProvider (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.util.spi
+Class AbstractResourceBundleProvider
+java.lang.Object
+java.util.spi.AbstractResourceBundleProvider
+All Implemented Interfaces:
+ResourceBundleProvider
+public abstract class
+AbstractResourceBundleProvider
+extends
+Object
+implements
+ResourceBundleProvider
+AbstractResourceBundleProvider
+is an abstract class that provides
+ the basic support for a provider implementation class for
+ResourceBundleProvider
+.
+Resource bundles can be packaged in one or more
+ named modules,
+service provider modules
+.  The
+consumer
+of the
+ resource bundle is the one calling
+ResourceBundle.getBundle(String)
+.
+ In order for the consumer module to load a resource bundle
+ "
+com.example.app.MyResources
+" provided by another module,
+ it will use the
+service loader
+mechanism.  A service interface named "
+com.example.app.spi.MyResourcesProvider
+"
+ must be defined and a
+service provider module
+will provide an
+ implementation class of "
+com.example.app.spi.MyResourcesProvider
+"
+ as follows:
+import com.example.app.spi.MyResourcesProvider;
+ class MyResourcesProviderImpl extends AbstractResourceBundleProvider
+     implements MyResourcesProvider
+ {
+     public MyResourcesProviderImpl() {
+         super("java.properties");
+     }
+     // this provider maps the resource bundle to per-language package
+     protected String toBundleName(String baseName, Locale locale) {
+         return "p." + locale.getLanguage() + "." + baseName;
+     }
+
+     public ResourceBundle getBundle(String baseName, Locale locale) {
+         // this module only provides bundles in French
+         if (locale.equals(Locale.FRENCH)) {
+              return super.getBundle(baseName, locale);
+         }
+         // otherwise return null
+         return null;
+     }
+ }
+Refer to
+ResourceBundleProvider
+for details.
+Since:
+9
+See Also:
+Resource Bundles and Named Modules
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+AbstractResourceBundleProvider
+()
+Constructs an
+AbstractResourceBundleProvider
+with the
+ "java.properties" format.
+protected
+AbstractResourceBundleProvider
+(
+String
+... formats)
+Constructs an
+AbstractResourceBundleProvider
+with the specified
+formats
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+ResourceBundle
+getBundle
+(
+String
+baseName,
+Locale
+locale)
+Returns a
+ResourceBundle
+for the given
+baseName
+and
+locale
+.
+protected
+String
+toBundleName
+(
+String
+baseName,
+Locale
+locale)
+Returns the bundle name for the given
+baseName
+and
+locale
+that this provider provides.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+AbstractResourceBundleProvider
+protected
+AbstractResourceBundleProvider
+()
+Constructs an
+AbstractResourceBundleProvider
+with the
+ "java.properties" format. This constructor is equivalent to
+AbstractResourceBundleProvider("java.properties")
+.
+AbstractResourceBundleProvider
+protected
+AbstractResourceBundleProvider
+(
+String
+... formats)
+Constructs an
+AbstractResourceBundleProvider
+with the specified
+formats
+. The
+getBundle(String, Locale)
+method looks up
+ resource bundles for the given
+formats
+.
+formats
+must
+ be "java.class" or "java.properties".
+Parameters:
+formats
+- the formats to be used for loading resource bundles
+Throws:
+NullPointerException
+- if the given
+formats
+is null
+IllegalArgumentException
+- if the given
+formats
+is not
+         "java.class" or "java.properties".
+Method Details
+toBundleName
+protected
+String
+toBundleName
+(
+String
+baseName,
+Locale
+locale)
+Returns the bundle name for the given
+baseName
+and
+locale
+that this provider provides.
+API Note:
+A resource bundle provider may package its resource bundles in the
+ same package as the base name of the resource bundle if the package
+ is not split among other named modules.  If there are more than one
+ bundle providers providing the resource bundle of a given base name,
+ the resource bundles can be packaged with per-language grouping
+ or per-region grouping to eliminate the split packages.
+For example, if
+baseName
+is
+"p.resources.Bundle"
+then
+ the resource bundle name of
+"p.resources.Bundle"
+of
+Locale("ja", "", "XX")
+and
+Locale("en")
+could be
+"p.resources.ja.Bundle_ja_ _XX"
+and
+"p.resources.Bundle_en"
+respectively.
+This method is called from the default implementation of the
+getBundle(String, Locale)
+method.
+Implementation Note:
+The default implementation of this method is the same as the
+ implementation of
+ResourceBundle.Control.toBundleName(String, Locale)
+.
+Parameters:
+baseName
+- the base name of the resource bundle, a fully qualified
+                 class name
+locale
+- the locale for which a resource bundle should be loaded
+Returns:
+the bundle name for the resource bundle
+getBundle
+public
+ResourceBundle
+getBundle
+(
+String
+baseName,
+Locale
+locale)
+Returns a
+ResourceBundle
+for the given
+baseName
+and
+locale
+.
+Specified by:
+getBundle
+in interface
+ResourceBundleProvider
+Implementation Note:
+The default implementation of this method calls the
+toBundleName
+method to get the
+ bundle name for the
+baseName
+and
+locale
+and finds the
+ resource bundle of the bundle name local in the module of this provider.
+ It will only search the formats specified when this provider was
+ constructed.
+Parameters:
+baseName
+- the base bundle name of the resource bundle, a fully
+                 qualified class name.
+locale
+- the locale for which the resource bundle should be instantiated
+Returns:
+ResourceBundle
+of the given
+baseName
+and
+locale
+, or
+null
+if no resource bundle is found
+Throws:
+NullPointerException
+- if
+baseName
+or
+locale
+is
+null
+UncheckedIOException
+- if any IO exception occurred during resource
+         bundle loading
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

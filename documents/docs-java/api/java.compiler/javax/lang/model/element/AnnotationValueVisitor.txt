@@ -1,0 +1,604 @@
+AnnotationValueVisitor (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.lang.model.element
+Interface AnnotationValueVisitor<R,
+P>
+Type Parameters:
+R
+- the return type of this visitor's methods
+P
+- the type of the additional parameter to this visitor's methods.
+All Known Implementing Classes:
+AbstractAnnotationValueVisitor14
+,
+AbstractAnnotationValueVisitor6
+,
+AbstractAnnotationValueVisitor7
+,
+AbstractAnnotationValueVisitor8
+,
+AbstractAnnotationValueVisitor9
+,
+SimpleAnnotationValueVisitor14
+,
+SimpleAnnotationValueVisitor6
+,
+SimpleAnnotationValueVisitor7
+,
+SimpleAnnotationValueVisitor8
+,
+SimpleAnnotationValueVisitor9
+public interface
+AnnotationValueVisitor<R,
+P>
+A visitor of the values of annotation interface elements, using a
+ variant of the visitor design pattern.  Unlike a standard visitor
+ which dispatches based on the concrete type of a member of a type
+ hierarchy, this visitor dispatches based on the type of data
+ stored; there are no distinct subclasses for storing, for example,
+boolean
+values versus
+int
+values.  Classes
+ implementing this interface are used to operate on a value when the
+ type of that value is unknown at compile time.  When a visitor is
+ passed to a value's
+accept
+method,
+ the
+visit
+Xyz
+method applicable to that value is
+ invoked.
+Classes implementing this interface may or may not throw a
+NullPointerException
+if the additional parameter
+p
+is
+null
+; see documentation of the implementing class for
+ details.
+API Note:
+WARNING:
+It is possible that methods will be added
+ to this interface to accommodate new, currently unknown, language
+ structures added to future versions of the Java programming
+ language.
+
+ Such additions have already occurred in another visitor interface in
+ this package to support language features added after this API was
+ introduced.
+
+ Visitor classes directly implementing this interface may be source
+ incompatible with future versions of the platform.  To avoid this
+ source incompatibility, visitor implementations are encouraged to
+ instead extend the appropriate abstract visitor class that
+ implements this interface.  However, an API should generally use
+ this visitor interface as the type for parameters, return type,
+ etc. rather than one of the abstract classes.
+Methods to accommodate new language constructs are expected to
+ be added as default methods to provide strong source compatibility,
+ as done for
+visitModule
+in
+ElementVisitor
+. The implementations of the default methods
+ in this interface will in turn call
+visitUnknown
+, behavior that will be overridden in concrete
+ visitors supporting the source version with the new language
+ construct.
+There are several families of classes implementing this visitor
+ interface in the
+util
+ package
+. The families follow a naming pattern along the lines of
+FooVisitor
+N
+where
+N
+indicates the
+source version
+the
+ visitor is appropriate for.
+
+ In particular, a
+FooVisitor
+N
+is expected to handle
+ all language constructs present in source version
+N
+. If
+ there are no new language constructs added in version
+N
++ 1 (or subsequent releases),
+FooVisitor
+N
+may also handle that later source version; in
+ that case, the
+SupportedSourceVersion
+annotation on the
+FooVisitor
+N
+class will indicate a later version.
+
+ When visiting an annotation value representing a language construct
+ introduced
+after
+source version
+N
+, a
+FooVisitor
+N
+will throw an
+UnknownAnnotationValueException
+unless that behavior is overridden.
+When choosing which member of a visitor family to subclass,
+ subclassing the most recent one increases the range of source
+ versions covered. When choosing which visitor family to subclass,
+ consider their built-in capabilities:
+AbstractAnnotationValueVisitor
+s: Skeletal visitor implementations.
+SimpleAnnotationValueVisitor
+s: Support default actions and a
+ default return value.
+Since:
+1.6
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+default
+R
+visit
+(
+AnnotationValue
+av)
+A convenience method equivalent to
+visit(av, null)
+.
+R
+visit
+(
+AnnotationValue
+av,
+P
+p)
+Visits an annotation value.
+R
+visitAnnotation
+(
+AnnotationMirror
+a,
+P
+p)
+Visits an annotation value in an annotation.
+R
+visitArray
+(
+List
+<? extends
+AnnotationValue
+> vals,
+P
+p)
+Visits an array value in an annotation.
+R
+visitBoolean
+(boolean b,
+P
+p)
+Visits a
+boolean
+value in an annotation.
+R
+visitByte
+(byte b,
+P
+p)
+Visits a
+byte
+value in an annotation.
+R
+visitChar
+(char c,
+P
+p)
+Visits a
+char
+value in an annotation.
+R
+visitDouble
+(double d,
+P
+p)
+Visits a
+double
+value in an annotation.
+R
+visitEnumConstant
+(
+VariableElement
+c,
+P
+p)
+Visits an
+enum
+value in an annotation.
+R
+visitFloat
+(float f,
+P
+p)
+Visits a
+float
+value in an annotation.
+R
+visitInt
+(int i,
+P
+p)
+Visits an
+int
+value in an annotation.
+R
+visitLong
+(long i,
+P
+p)
+Visits a
+long
+value in an annotation.
+R
+visitShort
+(short s,
+P
+p)
+Visits a
+short
+value in an annotation.
+R
+visitString
+(
+String
+s,
+P
+p)
+Visits a string value in an annotation.
+R
+visitType
+(
+TypeMirror
+t,
+P
+p)
+Visits a type value in an annotation.
+R
+visitUnknown
+(
+AnnotationValue
+av,
+P
+p)
+Visits an unknown kind of annotation value.
+Method Details
+visit
+R
+visit
+(
+AnnotationValue
+av,
+P
+p)
+Visits an annotation value.
+Parameters:
+av
+- the value to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+visit
+default
+R
+visit
+(
+AnnotationValue
+av)
+A convenience method equivalent to
+visit(av, null)
+.
+Implementation Requirements:
+The default implementation is
+visit(av, null)
+.
+Parameters:
+av
+- the value to visit
+Returns:
+a visitor-specified result
+visitBoolean
+R
+visitBoolean
+(boolean b,
+P
+p)
+Visits a
+boolean
+value in an annotation.
+Parameters:
+b
+- the value being visited
+p
+- a visitor-specified parameter
+Returns:
+the result of the visit
+visitByte
+R
+visitByte
+(byte b,
+P
+p)
+Visits a
+byte
+value in an annotation.
+Parameters:
+b
+- the value being visited
+p
+- a visitor-specified parameter
+Returns:
+the result of the visit
+visitChar
+R
+visitChar
+(char c,
+P
+p)
+Visits a
+char
+value in an annotation.
+Parameters:
+c
+- the value being visited
+p
+- a visitor-specified parameter
+Returns:
+the result of the visit
+visitDouble
+R
+visitDouble
+(double d,
+P
+p)
+Visits a
+double
+value in an annotation.
+Parameters:
+d
+- the value being visited
+p
+- a visitor-specified parameter
+Returns:
+the result of the visit
+visitFloat
+R
+visitFloat
+(float f,
+P
+p)
+Visits a
+float
+value in an annotation.
+Parameters:
+f
+- the value being visited
+p
+- a visitor-specified parameter
+Returns:
+the result of the visit
+visitInt
+R
+visitInt
+(int i,
+P
+p)
+Visits an
+int
+value in an annotation.
+Parameters:
+i
+- the value being visited
+p
+- a visitor-specified parameter
+Returns:
+the result of the visit
+visitLong
+R
+visitLong
+(long i,
+P
+p)
+Visits a
+long
+value in an annotation.
+Parameters:
+i
+- the value being visited
+p
+- a visitor-specified parameter
+Returns:
+the result of the visit
+visitShort
+R
+visitShort
+(short s,
+P
+p)
+Visits a
+short
+value in an annotation.
+Parameters:
+s
+- the value being visited
+p
+- a visitor-specified parameter
+Returns:
+the result of the visit
+visitString
+R
+visitString
+(
+String
+s,
+P
+p)
+Visits a string value in an annotation.
+Parameters:
+s
+- the value being visited
+p
+- a visitor-specified parameter
+Returns:
+the result of the visit
+visitType
+R
+visitType
+(
+TypeMirror
+t,
+P
+p)
+Visits a type value in an annotation.
+Parameters:
+t
+- the value being visited
+p
+- a visitor-specified parameter
+Returns:
+the result of the visit
+visitEnumConstant
+R
+visitEnumConstant
+(
+VariableElement
+c,
+P
+p)
+Visits an
+enum
+value in an annotation.
+Parameters:
+c
+- the value being visited
+p
+- a visitor-specified parameter
+Returns:
+the result of the visit
+visitAnnotation
+R
+visitAnnotation
+(
+AnnotationMirror
+a,
+P
+p)
+Visits an annotation value in an annotation.
+Parameters:
+a
+- the value being visited
+p
+- a visitor-specified parameter
+Returns:
+the result of the visit
+visitArray
+R
+visitArray
+(
+List
+<? extends
+AnnotationValue
+> vals,
+P
+p)
+Visits an array value in an annotation.
+Parameters:
+vals
+- the value being visited
+p
+- a visitor-specified parameter
+Returns:
+the result of the visit
+visitUnknown
+R
+visitUnknown
+(
+AnnotationValue
+av,
+P
+p)
+Visits an unknown kind of annotation value.
+ This can occur if the language evolves and new kinds
+ of value can be stored in an annotation.
+Parameters:
+av
+- the unknown value being visited
+p
+- a visitor-specified parameter
+Returns:
+the result of the visit
+Throws:
+UnknownAnnotationValueException
+- a visitor implementation may optionally throw this exception
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

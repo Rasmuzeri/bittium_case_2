@@ -1,0 +1,231 @@
+java.util.concurrent.atomic (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages
+|
+Classes and Interfaces
+SEARCH
+Module
+java.base
+Package java.util.concurrent.atomic
+package
+java.util.concurrent.atomic
+A small toolkit of classes that support lock-free thread-safe
+ programming on single variables.  Instances of Atomic classes
+ maintain values that are accessed and updated using methods
+ otherwise available for fields using associated atomic
+VarHandle
+operations.
+Instances of classes
+AtomicBoolean
+,
+AtomicInteger
+,
+AtomicLong
+, and
+AtomicReference
+each provide access and updates to a single variable of the
+ corresponding type.  Each class also provides appropriate utility
+ methods for that type.  For example, classes
+AtomicLong
+and
+AtomicInteger
+provide atomic increment methods.  One
+ application is to generate sequence numbers, as in:
+class Sequencer {
+   private final AtomicLong sequenceNumber
+     = new AtomicLong(17);
+   public long next() {
+     return sequenceNumber.getAndIncrement();
+   }
+ }
+Arbitrary transformations of the contained value are provided both
+ by low-level read-modify-write operations such as
+compareAndSet
+and by higher-level methods such as
+getAndUpdate
+.
+These classes are not general purpose replacements for
+java.lang.Integer
+and related classes.  They do
+not
+define methods such as
+equals
+,
+hashCode
+and
+compareTo
+.  Because atomic variables are expected to be mutated,
+ they are poor choices for hash table keys.
+The
+AtomicIntegerArray
+,
+AtomicLongArray
+, and
+AtomicReferenceArray
+classes
+ further extend atomic operation support to arrays of these types.
+ These classes are also notable in providing
+volatile
+access
+ semantics for their array elements.
+In addition to classes representing single values and arrays,
+ this package contains
+Updater
+classes that can be used to
+ obtain
+compareAndSet
+and related operations on any selected
+volatile
+field of any selected class. These classes
+ predate the introduction of
+VarHandle
+, and are of more limited use.
+AtomicReferenceFieldUpdater
+,
+AtomicIntegerFieldUpdater
+, and
+AtomicLongFieldUpdater
+are
+ reflection-based utilities that provide access to the associated
+ field types.  These are mainly of use in atomic data structures in
+ which several
+volatile
+fields of the same node (for
+ example, the links of a tree node) are independently subject to
+ atomic updates.  These classes enable greater flexibility in how
+ and when to use atomic updates, at the expense of more awkward
+ reflection-based setup, less convenient usage, and weaker
+ guarantees.
+The
+AtomicMarkableReference
+class associates a single boolean with a reference.  For example, this
+ bit might be used inside a data structure to mean that the object
+ being referenced has logically been deleted.
+
+ The
+AtomicStampedReference
+class associates an integer value with a reference.  This may be
+ used for example, to represent version numbers corresponding to
+ series of updates.
+Since:
+1.5
+Related Packages
+Package
+Description
+java.util.concurrent
+Utility classes commonly useful in concurrent programming.
+java.util.concurrent.locks
+Interfaces and classes providing a framework for locking and waiting
+ for conditions that is distinct from built-in synchronization and
+ monitors.
+Classes
+Class
+Description
+AtomicBoolean
+A
+boolean
+value that may be updated atomically.
+AtomicInteger
+An
+int
+value that may be updated atomically.
+AtomicIntegerArray
+An
+int
+array in which elements may be updated atomically.
+AtomicIntegerFieldUpdater
+<T>
+A reflection-based utility that enables atomic updates to
+ designated
+volatile int
+fields of designated classes.
+AtomicLong
+A
+long
+value that may be updated atomically.
+AtomicLongArray
+A
+long
+array in which elements may be updated atomically.
+AtomicLongFieldUpdater
+<T>
+A reflection-based utility that enables atomic updates to
+ designated
+volatile long
+fields of designated classes.
+AtomicMarkableReference
+<V>
+An
+AtomicMarkableReference
+maintains an object reference
+ along with a mark bit, that can be updated atomically.
+AtomicReference
+<V>
+An object reference that may be updated atomically.
+AtomicReferenceArray
+<E>
+An array of object references in which elements may be updated
+ atomically.
+AtomicReferenceFieldUpdater
+<T,
+V>
+A reflection-based utility that enables atomic updates to
+ designated
+volatile
+reference fields of designated
+ classes.
+AtomicStampedReference
+<V>
+An
+AtomicStampedReference
+maintains an object reference
+ along with an integer "stamp", that can be updated atomically.
+DoubleAccumulator
+One or more variables that together maintain a running
+double
+value updated using a supplied function.
+DoubleAdder
+One or more variables that together maintain an initially zero
+double
+sum.
+LongAccumulator
+One or more variables that together maintain a running
+long
+value updated using a supplied function.
+LongAdder
+One or more variables that together maintain an initially zero
+long
+sum.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,444 @@
+URLPermission (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.net
+Class URLPermission
+java.lang.Object
+java.security.Permission
+java.net.URLPermission
+All Implemented Interfaces:
+Serializable
+,
+Guard
+public final class
+URLPermission
+extends
+Permission
+Represents permission to access a resource or set of resources defined by a
+ given url, and for a given set of user-settable request methods
+ and request headers. The
+name
+of the permission is the url string.
+ The
+actions
+string is a concatenation of the request methods and headers.
+ The range of method and header names is not restricted by this class.
+The url
+The url string has the following expected structure.
+scheme : // authority [ / path ] [ ignored-query-or-fragment ]
+scheme
+will typically be http or https, but is not restricted by this
+ class.
+authority
+is specified as:
+authority = [ userinfo @ ] hostrange [ : portrange ]
+     portrange = portnumber | -portnumber | portnumber-[portnumber] | *
+     hostrange = ([*.] dnsname) | IPv4address | IPv6address
+dnsname
+is a standard DNS host or domain name, i.e. one or more labels
+ separated by ".".
+IPv4address
+is a standard literal IPv4 address and
+IPv6address
+is as defined in
+RFC 2732
+. Literal IPv6 addresses must however, be enclosed in '[]' characters.
+ The
+dnsname
+specification can be preceded by "*." which means
+ the name will match any hostname whose right-most domain labels are the same as
+ this name. For example, "*.example.com" matches "foo.bar.example.com"
+portrange
+is used to specify a port number, or a bounded or unbounded range of ports
+ that this permission applies to. If portrange is absent or invalid, then a default
+ port number is assumed if the scheme is
+http
+(default 80) or
+https
+(default 443). No default is assumed for other schemes. A wildcard may be specified
+ which means all ports.
+userinfo
+is optional. A userinfo component if present, is ignored when
+ creating a URLPermission, and has no effect on any other methods defined by this class.
+The
+path
+component comprises a sequence of path segments,
+ separated by '/' characters.
+path
+may also be empty. The path is specified
+ in a similar way to the path in
+FilePermission
+. There are
+ three different ways as the following examples show:
+URL Examples
+Example url
+Description
+http://www.example.com/a/b/c.html
+A url which identifies a specific (single) resource
+http://www.example.com/a/b/*
+The '*' character refers to all resources in the same "directory" - in
+       other words all resources with the same number of path components, and
+       which only differ in the final path component, represented by the '*'.
+http://www.example.com/a/b/-
+The '-' character refers to all resources recursively below the
+       preceding path (e.g. http://www.example.com/a/b/c/d/e.html matches this
+       example).
+The '*' and '-' may only be specified in the final segment of a path and must be
+ the only character in that segment. Any query or fragment components of the
+ url are ignored when constructing URLPermissions.
+As a special case, urls of the form, "scheme:*" are accepted to
+ mean any url of the given scheme.
+The
+scheme
+and
+authority
+components of the url string are handled
+ without regard to case. This means
+equals(Object)
+,
+hashCode()
+and
+implies(Permission)
+are case insensitive with respect
+ to these components. If the
+authority
+contains a literal IP address,
+ then the address is normalized for comparison. The path component is case sensitive.
+ignored-query-or-fragment
+refers to any query or fragment which appears after the
+ path component, and which is ignored by the constructors of this class. It is defined as:
+ignored-query-or-fragment = [ ? query ] [ # fragment ]
+where
+query
+and
+fragment
+are as defined in
+RFC2396
+.
+getName()
+therefore returns
+ only the
+scheme
+,
+authority
+and
+path
+components of the url string that
+ the permission was created with.
+The actions string
+The actions string of a URLPermission is a concatenation of the
+method list
+and the
+request headers list
+. These are lists of the permitted request
+ methods and permitted request headers of the permission (respectively). The two lists
+ are separated by a colon ':' character and elements of each list are comma separated.
+ Some examples are:
+"POST,GET,DELETE"
+"GET:X-Foo-Request,X-Bar-Request"
+"POST,GET:Header1,Header2"
+The first example specifies the methods: POST, GET and DELETE, but no request headers.
+ The second example specifies one request method and two headers. The third
+ example specifies two request methods, and two headers.
+The colon separator need not be present if the request headers list is empty.
+ No white-space is permitted in the actions string. The action strings supplied to
+ the URLPermission constructors are case-insensitive and are normalized by converting
+ method names to upper-case and header names to the form defines in RFC2616 (lower case
+ with initial letter of each word capitalized). Either list can contain a wild-card '*'
+ character which signifies all request methods or headers respectively.
+Note. Depending on the context of use, some request methods and headers may be permitted
+ at all times, and others may not be permitted at any time. For example, the
+ HTTP protocol handler might disallow certain headers such as Content-Length
+ from being set by application code, regardless of whether the security policy
+ in force, permits it.
+Since:
+1.8
+External Specifications
+RFC 2296: HTTP Remote Variant Selection Algorithm -- RVSA/1.0
+RFC 2732: Format for Literal IPv6 Addresses in URL's
+See Also:
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+URLPermission
+(
+String
+url)
+Creates a URLPermission with the given url string and unrestricted
+ methods and request headers by invoking the two argument
+ constructor as follows: URLPermission(url, "*:*")
+URLPermission
+(
+String
+url,
+String
+actions)
+Creates a new URLPermission from a url string and which permits the given
+ request methods and user-settable request headers.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+equals
+(
+Object
+p)
+Returns true if, this.getActions().equals(p.getActions())
+ and p's url equals this's url.
+String
+getActions
+()
+Returns the normalized method list and request
+ header list, in the form:
+int
+hashCode
+()
+Returns a hashcode calculated from the hashcode of the
+ actions String and the url string.
+boolean
+implies
+(
+Permission
+p)
+Checks if this URLPermission implies the given permission.
+Methods declared in class java.security.
+Permission
+checkGuard
+,
+getName
+,
+newPermissionCollection
+,
+toString
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+URLPermission
+public
+URLPermission
+(
+String
+url,
+String
+actions)
+Creates a new URLPermission from a url string and which permits the given
+ request methods and user-settable request headers.
+ The name of the permission is the url string it was created with. Only the scheme,
+ authority and path components of the url are used internally. Any fragment or query
+ components are ignored. The permissions action string is as specified above.
+Parameters:
+url
+- the url string
+actions
+- the actions string
+Throws:
+IllegalArgumentException
+- if url is invalid or if actions contains white-space.
+URLPermission
+public
+URLPermission
+(
+String
+url)
+Creates a URLPermission with the given url string and unrestricted
+ methods and request headers by invoking the two argument
+ constructor as follows: URLPermission(url, "*:*")
+Parameters:
+url
+- the url string
+Throws:
+IllegalArgumentException
+- if url does not result in a valid
+URI
+Method Details
+getActions
+public
+String
+getActions
+()
+Returns the normalized method list and request
+ header list, in the form:
+"method-names : header-names"
+where method-names is the list of methods separated by commas
+ and header-names is the list of permitted headers separated by commas.
+ There is no white space in the returned String. If header-names is empty
+ then the colon separator may not be present.
+Specified by:
+getActions
+in class
+Permission
+Returns:
+the actions of this
+Permission
+.
+implies
+public
+boolean
+implies
+(
+Permission
+p)
+Checks if this URLPermission implies the given permission.
+ Specifically, the following checks are done as if in the
+ following sequence:
+if 'p' is not an instance of URLPermission return false
+if any of p's methods are not in this's method list, and if
+     this's method list is not equal to "*", then return false.
+if any of p's headers are not in this's request header list, and if
+     this's request header list is not equal to "*", then return false.
+if this's url scheme is not equal to p's url scheme return false
+if the scheme specific part of this's url is '*' return true
+if the set of hosts defined by p's url hostrange is not a subset of
+     this's url hostrange then return false. For example, "*.foo.example.com"
+     is a subset of "*.example.com". "foo.bar.example.com" is not
+     a subset of "*.foo.example.com"
+if the portrange defined by p's url is not a subset of the
+     portrange defined by this's url then return false.
+if the path or paths specified by p's url are contained in the
+     set of paths specified by this's url, then return true
+otherwise, return false
+Some examples of how paths are matched are shown below:
+Examples of Path Matching
+this's path
+p's path
+match
+/a/b
+/a/b
+yes
+/a/b/*
+/a/b/c
+yes
+/a/b/c/d
+no
+/a/b/c/-
+no
+/a/b/-
+/a/b/c/d
+yes
+/a/b/c/d/e
+yes
+/a/b/c/*
+yes
+Specified by:
+implies
+in class
+Permission
+Parameters:
+p
+- the permission to check against.
+Returns:
+true
+if the specified permission is implied by this
+ object,
+false
+if not.
+equals
+public
+boolean
+equals
+(
+Object
+p)
+Returns true if, this.getActions().equals(p.getActions())
+ and p's url equals this's url.  Returns false otherwise.
+Specified by:
+equals
+in class
+Permission
+Parameters:
+p
+- the object we are testing for equality with this object.
+Returns:
+true
+if both
+Permission
+objects are equivalent.
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+public
+int
+hashCode
+()
+Returns a hashcode calculated from the hashcode of the
+ actions String and the url string.
+Specified by:
+hashCode
+in class
+Permission
+Returns:
+a hash code value for this object.
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

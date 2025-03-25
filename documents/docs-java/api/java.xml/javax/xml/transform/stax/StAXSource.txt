@@ -1,0 +1,438 @@
+StAXSource (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.xml
+Package
+javax.xml.transform.stax
+Class StAXSource
+java.lang.Object
+javax.xml.transform.stax.StAXSource
+All Implemented Interfaces:
+Source
+public class
+StAXSource
+extends
+Object
+implements
+Source
+Acts as a holder for an XML
+Source
+in the
+ form of a StAX reader,i.e.
+XMLStreamReader
+or
+XMLEventReader
+.
+StAXSource
+can be used in all cases that accept
+ a
+Source
+, e.g.
+Transformer
+,
+Validator
+which accept
+Source
+as input.
+StAXSource
+s are consumed during processing
+ and are not reusable.
+Since:
+1.6
+See Also:
+JSR 173: Streaming API for XML
+XMLStreamReader
+XMLEventReader
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+String
+FEATURE
+If
+TransformerFactory.getFeature(String name)
+returns true when passed this value as an argument,
+ the Transformer supports Source input of this type.
+Constructor Summary
+Constructors
+Constructor
+Description
+StAXSource
+(
+XMLEventReader
+xmlEventReader)
+Creates a new instance of a
+StAXSource
+by supplying an
+XMLEventReader
+.
+StAXSource
+(
+XMLStreamReader
+xmlStreamReader)
+Creates a new instance of a
+StAXSource
+by supplying an
+XMLStreamReader
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+String
+getSystemId
+()
+Get the system identifier used by this
+StAXSource
+.
+XMLEventReader
+getXMLEventReader
+()
+Get the
+XMLEventReader
+used by this
+StAXSource
+.
+XMLStreamReader
+getXMLStreamReader
+()
+Get the
+XMLStreamReader
+used by this
+StAXSource
+.
+boolean
+isEmpty
+()
+Indicates whether the
+StAXSource
+object is empty.
+void
+setSystemId
+(
+String
+systemId)
+In the context of a
+StAXSource
+, it is not appropriate
+ to explicitly set the system identifier.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+FEATURE
+public static final
+String
+FEATURE
+If
+TransformerFactory.getFeature(String name)
+returns true when passed this value as an argument,
+ the Transformer supports Source input of this type.
+See Also:
+Constant Field Values
+Constructor Details
+StAXSource
+public
+StAXSource
+(
+XMLEventReader
+xmlEventReader)
+throws
+XMLStreamException
+Creates a new instance of a
+StAXSource
+by supplying an
+XMLEventReader
+.
+XMLEventReader
+must be a
+ non-
+null
+reference.
+XMLEventReader
+must be in
+XMLStreamConstants.START_DOCUMENT
+or
+XMLStreamConstants.START_ELEMENT
+state.
+Parameters:
+xmlEventReader
+-
+XMLEventReader
+used to create
+   this
+StAXSource
+.
+Throws:
+XMLStreamException
+- If
+xmlEventReader
+access
+   throws an
+Exception
+.
+IllegalArgumentException
+- If
+xmlEventReader
+==
+null
+.
+IllegalStateException
+- If
+xmlEventReader
+is not in
+XMLStreamConstants.START_DOCUMENT
+or
+XMLStreamConstants.START_ELEMENT
+state.
+StAXSource
+public
+StAXSource
+(
+XMLStreamReader
+xmlStreamReader)
+Creates a new instance of a
+StAXSource
+by supplying an
+XMLStreamReader
+.
+XMLStreamReader
+must be a
+ non-
+null
+reference.
+XMLStreamReader
+must be in
+XMLStreamConstants.START_DOCUMENT
+or
+XMLStreamConstants.START_ELEMENT
+state.
+Parameters:
+xmlStreamReader
+-
+XMLStreamReader
+used to create
+   this
+StAXSource
+.
+Throws:
+IllegalArgumentException
+- If
+xmlStreamReader
+==
+null
+.
+IllegalStateException
+- If
+xmlStreamReader
+is not in
+XMLStreamConstants.START_DOCUMENT
+or
+XMLStreamConstants.START_ELEMENT
+state.
+Method Details
+getXMLEventReader
+public
+XMLEventReader
+getXMLEventReader
+()
+Get the
+XMLEventReader
+used by this
+StAXSource
+.
+XMLEventReader
+will be
+null
+.
+ if this
+StAXSource
+was created with a
+XMLStreamReader
+.
+Returns:
+XMLEventReader
+used by this
+StAXSource
+.
+getXMLStreamReader
+public
+XMLStreamReader
+getXMLStreamReader
+()
+Get the
+XMLStreamReader
+used by this
+StAXSource
+.
+XMLStreamReader
+will be
+null
+if this
+StAXSource
+was created with a
+XMLEventReader
+.
+Returns:
+XMLStreamReader
+used by this
+StAXSource
+.
+setSystemId
+public
+void
+setSystemId
+(
+String
+systemId)
+In the context of a
+StAXSource
+, it is not appropriate
+ to explicitly set the system identifier.
+ The
+XMLStreamReader
+or
+XMLEventReader
+used to construct this
+StAXSource
+determines the
+ system identifier of the XML source.
+An
+UnsupportedOperationException
+is
+always
+thrown by this method.
+Specified by:
+setSystemId
+in interface
+Source
+Parameters:
+systemId
+- Ignored.
+Throws:
+UnsupportedOperationException
+- Is
+always
+thrown by this method.
+getSystemId
+public
+String
+getSystemId
+()
+Get the system identifier used by this
+StAXSource
+.
+The
+XMLStreamReader
+or
+XMLEventReader
+used to construct this
+StAXSource
+is queried to determine
+ the system identifier of the XML source.
+The system identifier may be
+null
+or
+ an empty
+""
+String
+.
+Specified by:
+getSystemId
+in interface
+Source
+Returns:
+System identifier used by this
+StAXSource
+.
+isEmpty
+public
+boolean
+isEmpty
+()
+Indicates whether the
+StAXSource
+object is empty. Since a
+StAXSource
+object can never be empty, this method always returns
+ false.
+Specified by:
+isEmpty
+in interface
+Source
+Returns:
+unconditionally false
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

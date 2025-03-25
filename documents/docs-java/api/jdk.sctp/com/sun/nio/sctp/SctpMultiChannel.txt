@@ -1,0 +1,1063 @@
+SctpMultiChannel (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.sctp
+Package
+com.sun.nio.sctp
+Class SctpMultiChannel
+java.lang.Object
+java.nio.channels.spi.AbstractInterruptibleChannel
+java.nio.channels.SelectableChannel
+java.nio.channels.spi.AbstractSelectableChannel
+com.sun.nio.sctp.SctpMultiChannel
+All Implemented Interfaces:
+Closeable
+,
+AutoCloseable
+,
+Channel
+,
+InterruptibleChannel
+public abstract class
+SctpMultiChannel
+extends
+AbstractSelectableChannel
+A selectable channel for message-oriented SCTP sockets.
+An SCTP multi channel supports many associations on a single socket.
+ An
+SctpMultiChannel
+is created by invoking the
+open
+method of this class. A newly-created channel is open but
+ not yet bound. An attempt to invoke the
+receive
+method of an
+ unbound channel will cause the
+NotYetBoundException
+to be thrown. An attempt to invoke the
+send
+method of an
+ unbound channel will cause it to first invoke the
+bind
+method.
+ The address(es) that the channel's socket is bound to can be retrieved by
+ calling
+getAllLocalAddresses
+.
+Messages may be sent and received without explicitly setting up an
+ association with the remote peer. The channel will implicitly setup
+ a new association whenever it sends or receives a message from a remote
+ peer if there is not already an association with that peer. Upon successful
+ association setup, an
+association changed
+notification will be put to the SCTP stack with its
+event
+parameter set to
+COMM_UP
+. This notification can be received by invoking
+receive
+.
+Socket options are configured using the
+setOption
+method. An
+SctpMultiChannel
+supports the following options:
+Socket options
+Option Name
+Description
+SCTP_DISABLE_FRAGMENTS
+Enables or disables message fragmentation
+SCTP_EXPLICIT_COMPLETE
+Enables or disables explicit message completion
+SCTP_FRAGMENT_INTERLEAVE
+Controls how the presentation of messages occur for the message
+          receiver
+SCTP_INIT_MAXSTREAMS
+The maximum number of streams requested by the local endpoint during
+          association initialization
+SCTP_NODELAY
+Enables or disable a Nagle-like algorithm
+SCTP_PRIMARY_ADDR
+Requests that the local SCTP stack use the given peer address as the
+          association primary
+SCTP_SET_PEER_PRIMARY_ADDR
+Requests that the peer mark the enclosed address as the association
+          primary
+SO_SNDBUF
+The size of the socket send buffer
+SO_RCVBUF
+The size of the socket receive buffer
+SO_LINGER
+Linger on close if data is present (when configured in blocking mode
+          only)
+Additional (implementation specific) options may also be supported. The list
+ of options supported is obtained by invoking the
+supportedOptions
+method.
+SCTP multi channels are safe for use by multiple concurrent threads.
+ They support concurrent sending and receiving, though at most one thread may be
+ sending and at most one thread may be receiving at any given time.
+Since:
+1.7
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+SctpMultiChannel
+(
+SelectorProvider
+provider)
+Initializes a new instance of this class.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+abstract
+Set
+<
+Association
+>
+associations
+()
+Returns the open associations on this channel's socket.
+final
+SctpMultiChannel
+bind
+(
+SocketAddress
+local)
+Binds the channel's socket to a local address and configures the socket
+ to listen for connections.
+abstract
+SctpMultiChannel
+bind
+(
+SocketAddress
+local,
+ int backlog)
+Binds the channel's socket to a local address and configures the socket
+ to listen for connections.
+abstract
+SctpMultiChannel
+bindAddress
+(
+InetAddress
+address)
+Adds the given address to the bound addresses for the channel's
+ socket.
+abstract
+SctpChannel
+branch
+(
+Association
+association)
+Branches off an association.
+abstract
+Set
+<
+SocketAddress
+>
+getAllLocalAddresses
+()
+Returns all of the socket addresses to which this channel's socket is
+ bound.
+abstract <T> T
+getOption
+(
+SctpSocketOption
+<T> name,
+Association
+association)
+Returns the value of a socket option.
+abstract
+Set
+<
+SocketAddress
+>
+getRemoteAddresses
+(
+Association
+association)
+Returns all of the remote addresses to which the given association on
+ this channel's socket is connected.
+static
+SctpMultiChannel
+open
+()
+Opens an SCTP multi channel.
+abstract <T>
+MessageInfo
+receive
+(
+ByteBuffer
+buffer,
+ T attachment,
+NotificationHandler
+<T> handler)
+Receives a message and/or handles a notification via this channel.
+abstract int
+send
+(
+ByteBuffer
+buffer,
+MessageInfo
+messageInfo)
+Sends a message via this channel.
+abstract <T>
+SctpMultiChannel
+setOption
+(
+SctpSocketOption
+<T> name,
+ T value,
+Association
+association)
+Sets the value of a socket option.
+abstract
+SctpMultiChannel
+shutdown
+(
+Association
+association)
+Shutdown an association without closing the channel.
+abstract
+Set
+<
+SctpSocketOption
+<?>>
+supportedOptions
+()
+Returns a set of the socket options supported by this channel.
+abstract
+SctpMultiChannel
+unbindAddress
+(
+InetAddress
+address)
+Removes the given address from the bound addresses for the channel's
+ socket.
+final int
+validOps
+()
+Returns an operation set identifying this channel's supported operations.
+Methods declared in class java.nio.channels.spi.
+AbstractSelectableChannel
+blockingLock
+,
+configureBlocking
+,
+implCloseChannel
+,
+implCloseSelectableChannel
+,
+implConfigureBlocking
+,
+isBlocking
+,
+isRegistered
+,
+keyFor
+,
+provider
+,
+register
+Methods declared in class java.nio.channels.
+SelectableChannel
+register
+Methods declared in class java.nio.channels.spi.
+AbstractInterruptibleChannel
+begin
+,
+close
+,
+end
+,
+isOpen
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface java.nio.channels.
+Channel
+isOpen
+Constructor Details
+SctpMultiChannel
+protected
+SctpMultiChannel
+(
+SelectorProvider
+provider)
+Initializes a new instance of this class.
+Parameters:
+provider
+- The selector provider for this channel
+Method Details
+open
+public static
+SctpMultiChannel
+open
+()
+                             throws
+IOException
+Opens an SCTP multi channel.
+The new channel is unbound.
+Returns:
+A new SCTP multi channel
+Throws:
+UnsupportedOperationException
+- If the SCTP protocol is not supported
+IOException
+- If an I/O error occurs
+associations
+public abstract
+Set
+<
+Association
+>
+associations
+()
+                                       throws
+IOException
+Returns the open associations on this channel's socket.
+Only associations whose
+COMM_UP
+association change event has been received are included
+ in the returned set of associations. Associations for which a
+COMM_LOST
+or
+SHUTDOWN
+association change
+ event have been receive are removed from the set of associations.
+The returned set of associations is a snapshot of the open
+ associations at the time that this method is invoked.
+Returns:
+A
+Set
+containing the open associations, or an empty
+Set
+if there are none.
+Throws:
+ClosedChannelException
+- If this channel is closed
+IOException
+- If some other I/O error occurs
+bind
+public abstract
+SctpMultiChannel
+bind
+(
+SocketAddress
+local,
+ int backlog)
+throws
+IOException
+Binds the channel's socket to a local address and configures the socket
+ to listen for connections.
+This method is used to establish a relationship between the socket
+ and the local address. Once a relationship is established then
+ the socket remains bound until the channel is closed. This relationship
+ may not necesssarily be with the address
+local
+as it may be removed
+ by
+unbindAddress
+, but there will always be at least one local
+ address bound to the channel's socket once an invocation of this method
+ successfully completes.
+Once the channel's socket has been successfully bound to a specific
+ address, that is not automatically assigned, more addresses
+ may be bound to it using
+bindAddress
+, or removed
+ using
+unbindAddress
+.
+The backlog parameter is the maximum number of pending connections on
+ the socket. Its exact semantics are implementation specific. An implementation
+ may impose an implementation specific maximum length or may choose to ignore
+ the parameter. If the backlog parameter has the value
+0
+, or a negative
+ value, then an implementation specific default is used.
+Parameters:
+local
+- The local address to bind the socket, or
+null
+to
+         bind the socket to an automatically assigned socket address
+backlog
+- The maximum number of pending connections
+Returns:
+This channel
+Throws:
+ClosedChannelException
+- If this channel is closed
+AlreadyBoundException
+- If this channel is already bound
+UnsupportedAddressTypeException
+- If the type of the given address is not supported
+SecurityException
+- If a security manager has been installed and its
+checkListen
+method
+          denies the operation
+IOException
+- If some other I/O error occurs
+bind
+public final
+SctpMultiChannel
+bind
+(
+SocketAddress
+local)
+throws
+IOException
+Binds the channel's socket to a local address and configures the socket
+ to listen for connections.
+This method works as if invoking it were equivalent to evaluating the
+ expression:
+bind(local, 0);
+Parameters:
+local
+- The local address to bind the socket, or
+null
+to
+         bind the socket to an automatically assigned socket address
+Returns:
+This channel
+Throws:
+ClosedChannelException
+- If this channel is closed
+AlreadyBoundException
+- If this channel is already bound
+UnsupportedAddressTypeException
+- If the type of the given address is not supported
+SecurityException
+- If a security manager has been installed and its
+checkListen
+method
+          denies the operation
+IOException
+- If some other I/O error occurs
+bindAddress
+public abstract
+SctpMultiChannel
+bindAddress
+(
+InetAddress
+address)
+throws
+IOException
+Adds the given address to the bound addresses for the channel's
+ socket.
+The given address must not be the
+wildcard
+address.
+ The channel must be first bound using
+bind
+before
+ invoking this method, otherwise
+NotYetBoundException
+is thrown.
+ The
+bind
+method takes a
+SocketAddress
+as its
+ argument which typically contains a port number as well as an address.
+ Addresses subquently bound using this method are simply addresses as the
+ SCTP port number remains the same for the lifetime of the channel.
+New associations setup after this method successfully completes
+ will be associated with the given address. Adding addresses to existing
+ associations is optional functionality. If the endpoint supports
+ dynamic address reconfiguration then it may send the appropriate message
+ to the peer to change the peers address lists.
+Parameters:
+address
+- The address to add to the bound addresses for the socket
+Returns:
+This channel
+Throws:
+ClosedChannelException
+- If this channel is closed
+NotYetBoundException
+- If this channel is not yet bound
+AlreadyBoundException
+- If this channel is already bound to the given address
+IllegalArgumentException
+- If address is
+null
+or the
+wildcard
+address
+IOException
+- If some other I/O error occurs
+unbindAddress
+public abstract
+SctpMultiChannel
+unbindAddress
+(
+InetAddress
+address)
+throws
+IOException
+Removes the given address from the bound addresses for the channel's
+ socket.
+The given address must not be the
+wildcard
+address.
+ The channel must be first bound using
+bind
+before
+ invoking this method, otherwise
+NotYetBoundException
+is thrown.
+If this method is invoked on a channel that does
+ not have
+address
+as one of its bound addresses, or that has only
+ one local address bound to it, then this method throws
+IllegalUnbindException
+.
+The initial address that the channel's socket is bound to using
+bind
+may be removed from the bound addresses for the
+ channel's socket.
+New associations setup after this method successfully completes
+ will not be associated with the given address. Removing addresses from
+ existing associations is optional functionality. If the endpoint supports
+ dynamic address reconfiguration then it may send the appropriate message
+ to the peer to change the peers address lists.
+Parameters:
+address
+- The address to remove from the bound addresses for the socket
+Returns:
+This channel
+Throws:
+ClosedChannelException
+- If this channel is closed
+NotYetBoundException
+- If this channel is not yet bound
+IllegalUnbindException
+-
+address
+is not bound to the channel's socket, or the
+          channel has only one address  bound to it
+IllegalArgumentException
+- If address is
+null
+or the
+wildcard
+address
+IOException
+- If some other I/O error occurs
+getAllLocalAddresses
+public abstract
+Set
+<
+SocketAddress
+>
+getAllLocalAddresses
+()
+                                                 throws
+IOException
+Returns all of the socket addresses to which this channel's socket is
+ bound.
+Returns:
+All the socket addresses that this channel's socket is
+          bound to, or an empty
+Set
+if the channel's socket is not
+          bound
+Throws:
+ClosedChannelException
+- If the channel is closed
+IOException
+- If an I/O error occurs
+getRemoteAddresses
+public abstract
+Set
+<
+SocketAddress
+>
+getRemoteAddresses
+(
+Association
+association)
+throws
+IOException
+Returns all of the remote addresses to which the given association on
+ this channel's socket is connected.
+Parameters:
+association
+- The association
+Returns:
+All of the remote addresses for the given association, or
+          an empty
+Set
+if the association has been shutdown
+Throws:
+ClosedChannelException
+- If the channel is closed
+IOException
+- If an I/O error occurs
+shutdown
+public abstract
+SctpMultiChannel
+shutdown
+(
+Association
+association)
+throws
+IOException
+Shutdown an association without closing the channel.
+Parameters:
+association
+- The association to shutdown
+Returns:
+This channel
+Throws:
+ClosedChannelException
+- If this channel is closed
+IOException
+- If some other I/O error occurs
+getOption
+public abstract
+<T>
+T
+getOption
+(
+SctpSocketOption
+<T> name,
+Association
+association)
+throws
+IOException
+Returns the value of a socket option.
+Note that some options are retrieved on the channel's socket,
+ therefore the
+association
+parameter is not applicable and will be
+ ignored if given. However, if the option is association specific then the
+ association must be given.
+Type Parameters:
+T
+- The type of the socket option value
+Parameters:
+name
+- The socket option
+association
+- The association whose option should be retrieved, or
+null
+if this option should be retrieved at the channel's socket level.
+Returns:
+The value of the socket option. A value of
+null
+may be
+          a valid value for some socket options.
+Throws:
+UnsupportedOperationException
+- If the socket option is not supported by this channel
+ClosedChannelException
+- If this channel is closed
+IOException
+- If an I/O error occurs
+See Also:
+SctpStandardSocketOptions
+setOption
+public abstract
+<T>
+SctpMultiChannel
+setOption
+(
+SctpSocketOption
+<T> name,
+ T value,
+Association
+association)
+throws
+IOException
+Sets the value of a socket option.
+Note that some options are retrieved on the channel's socket,
+ therefore the
+association
+parameter is not applicable and will be
+ ignored if given. However, if the option is association specific then the
+ association must be given.
+Type Parameters:
+T
+- The type of the socket option value
+Parameters:
+name
+- The socket option
+value
+- The value of the socket option. A value of
+null
+may be
+          a valid value for some socket options.
+association
+- The association whose option should be set, or
+null
+if this option should be set at the channel's socket level.
+Returns:
+This channel
+Throws:
+UnsupportedOperationException
+- If the socket option is not supported by this channel
+IllegalArgumentException
+- If the value is not a valid value for this socket option
+ClosedChannelException
+- If this channel is closed
+IOException
+- If an I/O error occurs
+See Also:
+SctpStandardSocketOptions
+supportedOptions
+public abstract
+Set
+<
+SctpSocketOption
+<?>>
+supportedOptions
+()
+Returns a set of the socket options supported by this channel.
+This method will continue to return the set of options even after the
+ channel has been closed.
+Returns:
+A set of the socket options supported by this channel
+validOps
+public final
+int
+validOps
+()
+Returns an operation set identifying this channel's supported operations.
+SCTP multi channels support reading, and writing, so this
+ method returns
+(
+SelectionKey.OP_READ
+|
+SelectionKey.OP_WRITE
+)
+.
+Specified by:
+validOps
+in class
+SelectableChannel
+Returns:
+The valid-operation set
+receive
+public abstract
+<T>
+MessageInfo
+receive
+(
+ByteBuffer
+buffer,
+ T attachment,
+NotificationHandler
+<T> handler)
+throws
+IOException
+Receives a message and/or handles a notification via this channel.
+If a message or notification is immediately available, or if this
+ channel is in blocking mode and one eventually becomes available, then
+ the message or notification is returned or handled, respectively. If this
+ channel is in non-blocking mode and a message or notification is not
+ immediately available then this method immediately returns
+null
+.
+If this method receives a message it is copied into the given byte
+ buffer and an
+MessageInfo
+is returned.
+ The message is transferred into the given byte buffer starting at its
+ current position and the buffers position is incremented by the number of
+ bytes read. If there are fewer bytes remaining in the buffer than are
+ required to hold the message, or the underlying input buffer does not
+ contain the complete message, then an invocation of
+isComplete
+on the returned
+MessageInfo
+will return
+false
+, and more invocations of this
+ method will be necessary to completely consume the messgae. Only
+ one message at a time will be partially delivered in any stream. The
+ socket option
+SCTP_FRAGMENT_INTERLEAVE
+controls various aspects of what interlacing of
+ messages occurs.
+If this method receives a notification then the appropriate method of
+ the given handler, if there is one, is invoked. If the handler returns
+CONTINUE
+then this method will try to receive another
+ message/notification, otherwise, if
+RETURN
+is returned
+ this method will return
+null
+. If an uncaught exception is thrown by the
+ handler it will be propagated up the stack through this method.
+If a security manager has been installed then for each new association
+ setup this method verifies that the associations source address and port
+ number are permitted by the security manager's
+checkAccept
+method.
+This method may be invoked at any time. If another thread has
+ already initiated a receive operation upon this channel, then an
+ invocation of this method will block until the first operation is
+ complete. The given handler is invoked without holding any locks used
+ to enforce the above synchronization policy, that way handlers
+ will not stall other threads from receiving. A handler should not invoke
+ the
+receive
+method of this channel, if it does an
+IllegalReceiveException
+will be thrown.
+Type Parameters:
+T
+- The type of the attachment
+Parameters:
+buffer
+- The buffer into which bytes are to be transferred
+attachment
+- The object to attach to the receive operation; can be
+null
+handler
+- A handler to handle notifications from the SCTP stack, or
+null
+to ignore any notifications.
+Returns:
+The
+MessageInfo
+,
+null
+if this channel is in
+          non-blocking mode and no messages are immediately available or
+          the notification handler returns
+RETURN
+after handling
+          a notification
+Throws:
+ClosedChannelException
+- If this channel is closed
+AsynchronousCloseException
+- If another thread closes this channel
+          while the read operation is in progress
+ClosedByInterruptException
+- If another thread interrupts the current thread
+          while the read operation is in progress, thereby
+          closing the channel and setting the current thread's
+          interrupt status
+NotYetBoundException
+- If this channel is not yet bound
+IllegalReceiveException
+- If the given handler invokes the
+receive
+method of this
+          channel
+SecurityException
+- If a security manager has been installed and it does not permit
+          new associations to be accepted from the message's sender
+IOException
+- If some other I/O error occurs
+send
+public abstract
+int
+send
+(
+ByteBuffer
+buffer,
+MessageInfo
+messageInfo)
+throws
+IOException
+Sends a message via this channel.
+If this channel is unbound then this method will invoke
+bind(null, 0)
+before sending any data.
+If there is no association existing between this channel's socket
+ and the intended receiver, identified by the address in the given messageInfo, then one
+ will be automatically setup to the intended receiver. This is considered
+ to be Implicit Association Setup. Upon successful association setup, an
+association changed
+notification will be put to the SCTP stack with its
+event
+parameter set
+ to
+COMM_UP
+. This notification can be received by invoking
+receive
+.
+If this channel is in blocking mode, there is sufficient room in the
+ underlying output buffer, then the remaining bytes in the given byte
+ buffer are transmitted as a single message. Sending a message
+ is atomic unless explicit message completion
+SCTP_EXPLICIT_COMPLETE
+socket option is enabled on this channel's socket.
+If this channel is in non-blocking mode, there is sufficient room
+ in the underlying output buffer, and an implicit association setup is
+ required, then the remaining bytes in the given byte buffer are
+ transmitted as a single message, subject to
+SCTP_EXPLICIT_COMPLETE
+.
+ If for any reason the message cannot
+ be delivered an
+association
+ changed
+notification is put on the SCTP stack with its
+event
+parameter set
+ to
+CANT_START
+.
+The message is transferred from the byte buffer as if by a regular
+write
+operation.
+If a security manager has been installed then for each new association
+ setup this method verifies that the given remote peers address and port
+ number are permitted by the security manager's
+checkConnect
+method.
+This method may be invoked at any time. If another thread has already
+ initiated a send operation upon this channel, then an invocation of
+ this method will block until the first operation is complete.
+Parameters:
+buffer
+- The buffer containing the message to be sent
+messageInfo
+- Ancillary data about the message to be sent
+Returns:
+The number of bytes sent, which will be either the number of
+          bytes that were remaining in the messages buffer when this method
+          was invoked or, if this channel is non-blocking, may be zero if
+          there was insufficient room for the message in the underlying
+          output buffer
+Throws:
+InvalidStreamException
+- If
+streamNumber
+is negative, or if an association already
+          exists and
+streamNumber
+is greater than the maximum number
+          of outgoing streams
+ClosedChannelException
+- If this channel is closed
+AsynchronousCloseException
+- If another thread closes this channel
+          while the read operation is in progress
+ClosedByInterruptException
+- If another thread interrupts the current thread
+          while the read operation is in progress, thereby
+          closing the channel and setting the current thread's
+          interrupt status
+SecurityException
+- If a security manager has been installed and it does not permit
+          new associations to be setup with the messages's address
+IOException
+- If some other I/O error occurs
+branch
+public abstract
+SctpChannel
+branch
+(
+Association
+association)
+throws
+IOException
+Branches off an association.
+An application can invoke this method to branch off an association
+ into a separate channel. The new bound and connected
+SctpChannel
+will be created for the association. The branched off association will no
+ longer be part of this channel.
+This is particularly useful when, for instance, the application
+ wishes to have a number of sporadic message senders/receivers remain
+ under the original SCTP multi channel but branch off those
+ associations carrying high volume data traffic into their own
+ separate SCTP channels.
+Parameters:
+association
+- The association to branch off
+Returns:
+The
+SctpChannel
+Throws:
+ClosedChannelException
+- If this channel is closed
+IOException
+- If some other I/O error occurs
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

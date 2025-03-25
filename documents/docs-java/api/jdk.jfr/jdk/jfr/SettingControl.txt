@@ -1,0 +1,333 @@
+SettingControl (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.jfr
+Package
+jdk.jfr
+Class SettingControl
+java.lang.Object
+jdk.jfr.SettingControl
+public abstract class
+SettingControl
+extends
+Object
+Base class to extend to create setting controls.
+The following example shows a naive implementation of a setting control for
+ regular expressions:
+Copy
+final class RegExpControl extends SettingControl {
+    private Pattern pattern = Pattern.compile(".*");
+
+    @Override
+    public void setValue(String value) {
+        this.pattern = Pattern.compile(value);
+    }
+
+    @Override
+    public String combine(Set<String> values) {
+        return String.join("|", values);
+    }
+
+    @Override
+    public String getValue() {
+        return pattern.toString();
+    }
+
+    public boolean matches(String s) {
+        return pattern.matcher(s).find();
+    }
+}
+The
+setValue(String)
+,
+getValue()
+and
+combine(Set<String>)
+methods are invoked when a setting value
+ changes, which typically happens when a recording is started or stopped. The
+combine(Set<String>)
+method is invoked to resolve what value to use
+ when multiple recordings are running at the same time.
+The setting control must have a default constructor that can be invoked when
+ the event is registered.
+To use a setting control with an event, add a method that returns a
+boolean
+value and takes the setting control as a parameter. Annotate
+ the method with the
+@SettingDefinition
+annotation. By default, the
+ method name is used as the setting name, but the name can be set explicitly
+ by using the
+@Name
+annotation. If the method returns
+true
+,
+ the event will be committed.
+It is recommended that the
+setValue(String)
+method updates an
+ efficient data structure that can be quickly checked when the event is
+ committed.
+The following example shows how to create an event that uses the
+ regular expression filter defined above.
+Copy
+abstract class HTTPRequest extends Event {
+    @Label("Request URI")
+    protected String uri;
+
+    @Label("Servlet URI Filter")
+    @SettingDefinition
+    protected boolean uriFilter(RegExpControl regExp) {
+        return regExp.matches(uri);
+    }
+}
+
+@Label("HTTP Get Request")
+class HTTPGetRequest extends HTTPRequest {
+}
+
+@Label("HTTP Post Request")
+class HTTPPostRequest extends HTTPRequest {
+}
+
+class ExampleServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+        HTTPGetRequest request = new HTTPGetRequest();
+        request.begin();
+        request.uri = req.getRequestURI();
+        ...
+        request.commit();
+    }
+
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+        HTTPPostRequest request = new HTTPPostRequest();
+        request.begin();
+        request.uri = req.getRequestURI();
+        ...
+        request.commit();
+    }
+}
+The following example shows how an event can be filtered by assigning the
+"uriFilter"
+setting with the specified regular expressions.
+Copy
+Recording r = new Recording();
+r.enable("HTTPGetRequest").with("uriFilter", "https://www.example.com/list/.*");
+r.enable("HTTPPostRequest").with("uriFilter", "https://www.example.com/login/.*");
+r.start();
+Since:
+9
+See Also:
+SettingDefinition
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+SettingControl
+()
+Constructor for invocation by subclass constructors.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+abstract
+String
+combine
+(
+Set
+<
+String
+> settingValues)
+Combines the setting values for all running recordings into one value when
+ multiple recordings are running at the same time,
+abstract
+String
+getValue
+()
+Returns the currently used value for this setting, not
+null
+.
+abstract void
+setValue
+(
+String
+settingValue)
+Sets the value for this setting.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+SettingControl
+protected
+SettingControl
+()
+Constructor for invocation by subclass constructors.
+Method Details
+combine
+public abstract
+String
+combine
+(
+Set
+<
+String
+> settingValues)
+Combines the setting values for all running recordings into one value when
+ multiple recordings are running at the same time,
+The semantics of how setting values are combined depends on the setting
+ control that is implemented, but all recordings should get at least all the
+ events they request.
+This method should have no side effects, because the caller might cache values.
+ This method should never return
+null
+or throw an exception. If a
+ value is not valid for this setting control, the value should be ignored.
+Examples:
+if the setting control represents a threshold and three recordings are
+ running at the same time with the setting values
+"10 ms"
+,
+"8 s"
+, and
+"1 ms"
+, this method returns
+"1 ms"
+because it means that all recordings get at least all the requested data.
+If the setting control represents a set of names and two recordings are
+ running at the same time with the setting values
+"Smith, Jones"
+and
+"Jones,
+ Williams"
+the returned value is
+"Smith, Jones, Williams"
+because all names would be accepted.
+If the setting control represents a boolean condition and four recordings are
+ running at the same time with the following values
+"true"
+,
+"false"
+,
+"false"
+, and
+"incorrect"
+, this method returns
+"true"
+, because all
+ recordings get at least all the requested data.
+Parameters:
+settingValues
+- the set of values, not
+null
+Returns:
+the value to use, not
+null
+setValue
+public abstract
+void
+setValue
+(
+String
+settingValue)
+Sets the value for this setting.
+If the setting value is not valid for this setting, this method
+ does not throw an exception. Instead, the value is ignored.
+Parameters:
+settingValue
+- the string value, not
+null
+getValue
+public abstract
+String
+getValue
+()
+Returns the currently used value for this setting, not
+null
+.
+The value returned by this method is valid as an argument to both
+ the
+setValue(String)
+method and
+combine(Set)
+method.
+This method is invoked when an event is registered to obtain the
+ default value. It is therefore important that a valid value can be
+ returned immediately after an instance of this class is created. It is
+ not valid to return
+null
+.
+Returns:
+the setting value, not
+null
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

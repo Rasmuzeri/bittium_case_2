@@ -1,0 +1,452 @@
+Filter (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.httpserver
+Package
+com.sun.net.httpserver
+Class Filter
+java.lang.Object
+com.sun.net.httpserver.Filter
+public abstract class
+Filter
+extends
+Object
+A filter used to pre- and post-process incoming requests. Pre-processing occurs
+ before the application's exchange handler is invoked, and post-processing
+ occurs after the exchange handler returns. Filters are organised in chains,
+ and are associated with
+HttpContext
+instances.
+Each
+Filter
+in the chain, invokes the next filter within its own
+doFilter(HttpExchange, Chain)
+implementation. The final
+Filter
+in the chain invokes the applications exchange handler.
+Since:
+1.6
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+static class
+Filter.Chain
+A chain of filters associated with a
+HttpServer
+.
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+Filter
+()
+Constructor for subclasses to call.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+Filter
+adaptRequest
+(
+String
+description,
+UnaryOperator
+<
+Request
+> requestOperator)
+Returns a
+pre-processing Filter
+that inspects and possibly adapts the request state.
+static
+Filter
+afterHandler
+(
+String
+description,
+Consumer
+<
+HttpExchange
+> operation)
+Returns a post-processing
+Filter
+with the given description and
+ operation.
+static
+Filter
+beforeHandler
+(
+String
+description,
+Consumer
+<
+HttpExchange
+> operation)
+Returns a pre-processing
+Filter
+with the given description and
+ operation.
+abstract
+String
+description
+()
+Returns a short description of this
+Filter
+.
+abstract void
+doFilter
+(
+HttpExchange
+exchange,
+Filter.Chain
+chain)
+Asks this filter to pre/post-process the given exchange.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+Filter
+protected
+Filter
+()
+Constructor for subclasses to call.
+Method Details
+doFilter
+public abstract
+void
+doFilter
+(
+HttpExchange
+exchange,
+Filter.Chain
+chain)
+throws
+IOException
+Asks this filter to pre/post-process the given exchange. The filter
+ can:
+Examine or modify the request headers.
+Filter the request body or the response body, by creating suitable
+     filter streams and calling
+HttpExchange.setStreams(InputStream, OutputStream)
+.
+Set attribute objects in the exchange, which other filters or
+     the exchange handler can access.
+Decide to either:
+Invoke the next filter in the chain, by calling
+Filter.Chain.doFilter(HttpExchange)
+.
+Terminate the chain of invocation, by
+not
+calling
+Filter.Chain.doFilter(HttpExchange)
+.
+If option 1. above is taken, then when doFilter() returns all subsequent
+     filters in the Chain have been called, and the response headers can be
+     examined or modified.
+If option 2. above is taken, then this Filter must use the HttpExchange
+     to send back an appropriate response.
+Parameters:
+exchange
+- the
+HttpExchange
+to be filtered
+chain
+- the
+Chain
+which allows the next filter to be invoked
+Throws:
+IOException
+- may be thrown by any filter module, and if caught,
+ must be rethrown again
+NullPointerException
+- if either exchange or chain are
+null
+description
+public abstract
+String
+description
+()
+Returns a short description of this
+Filter
+.
+Returns:
+a
+String
+describing the
+Filter
+beforeHandler
+public static
+Filter
+beforeHandler
+(
+String
+description,
+Consumer
+<
+HttpExchange
+> operation)
+Returns a pre-processing
+Filter
+with the given description and
+ operation.
+The
+operation
+is the effective implementation of the
+ filter. It is executed for each
+HttpExchange
+before invoking
+ either the next filter in the chain or the exchange handler (if this is
+ the final filter in the chain). Exceptions thrown by the
+operation
+are not handled by the filter.
+API Note:
+A beforeHandler filter is typically used to examine or modify the
+ exchange state before it is handled. The filter
+operation
+is
+ executed before
+Filter.Chain.doFilter(HttpExchange)
+is invoked,
+ so before any subsequent filters in the chain and the exchange handler
+ are executed. The filter
+operation
+is not expected to handle the
+ request or
+send response headers
+,
+ since this is commonly done by the exchange handler.
+Example of adding the
+"Foo"
+response header to all responses:
+var filter = Filter.beforeHandler("Add response header Foo",
+                 e -> e.getResponseHeaders().set("Foo", "Bar"));
+     httpContext.getFilters().add(filter);
+Parameters:
+description
+- the string to be returned from
+description()
+operation
+- the operation of the returned filter
+Returns:
+a filter whose operation is invoked before the exchange is handled
+Throws:
+NullPointerException
+- if any argument is null
+Since:
+17
+afterHandler
+public static
+Filter
+afterHandler
+(
+String
+description,
+Consumer
+<
+HttpExchange
+> operation)
+Returns a post-processing
+Filter
+with the given description and
+ operation.
+The
+operation
+is the effective implementation of the
+ filter. It is executed for each
+HttpExchange
+after invoking
+ either the next filter in the chain or the exchange handler (if this
+ filter is the final filter in the chain). Exceptions thrown by the
+operation
+are not handled by the filter.
+API Note:
+An afterHandler filter is typically used to examine the exchange state
+ rather than modifying it. The filter
+operation
+is executed after
+Filter.Chain.doFilter(HttpExchange)
+is invoked, this means any
+ subsequent filters in the chain and the exchange handler have been
+ executed. The filter
+operation
+is not expected to handle the
+ exchange or
+send the response headers
+.
+ Doing so is likely to fail, since the exchange has commonly been handled
+ before the
+operation
+is invoked. More specifically, the response
+ may be sent before the filter
+operation
+is executed.
+Example of adding a filter that logs the response code of all exchanges:
+var filter = Filter.afterHandler("Log response code", e -> log(e.getResponseCode());
+     httpContext.getFilters().add(filter);
+Example of adding a sequence of afterHandler filters to a context:
+The order in which the filter operations are invoked is reverse to the
+ order in which the filters are added to the context's filter-list.
+var a1Set = Filter.afterHandler("Set a1", e -> e.setAttribute("a1", "some value"));
+     var a1Get = Filter.afterHandler("Get a1", e -> doSomething(e.getAttribute("a1")));
+     httpContext.getFilters().addAll(List.of(a1Get, a1Set));
+The operation of
+a1Get
+will be invoked after the operation of
+a1Set
+because
+a1Get
+was added before
+a1Set
+.
+Parameters:
+description
+- the string to be returned from
+description()
+operation
+- the operation of the returned filter
+Returns:
+a filter whose operation is invoked after the exchange is handled
+Throws:
+NullPointerException
+- if any argument is null
+Since:
+17
+adaptRequest
+public static
+Filter
+adaptRequest
+(
+String
+description,
+UnaryOperator
+<
+Request
+> requestOperator)
+Returns a
+pre-processing Filter
+that inspects and possibly adapts the request state.
+
+ The
+Request
+returned by the
+requestOperator
+will be the effective request state of the exchange. It is executed for
+ each
+HttpExchange
+before invoking either the next filter in the
+ chain or the exchange handler (if this is the final filter in the chain).
+ Exceptions thrown by the
+requestOperator
+are not handled by the
+ filter.
+API Note:
+When the returned filter is invoked, it first invokes the
+requestOperator
+with the given exchange,
+ex
+, in order to
+ retrieve the
+adapted request state
+. It then invokes the next
+ filter in the chain or the exchange handler, passing an exchange
+ equivalent to
+ex
+with the
+adapted request state
+set as the
+ effective request state.
+Example of adding the
+"Foo"
+request header to all requests:
+var filter = Filter.adaptRequest("Add Foo header", r -> r.with("Foo", List.of("Bar")));
+     httpContext.getFilters().add(filter);
+Parameters:
+description
+- the string to be returned from
+description()
+requestOperator
+- the request operator
+Returns:
+a filter that adapts the request state before the exchange is handled
+Throws:
+NullPointerException
+- if any argument is null
+Since:
+18
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

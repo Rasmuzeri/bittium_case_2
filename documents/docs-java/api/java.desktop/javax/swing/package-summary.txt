@@ -1,0 +1,921 @@
+javax.swing (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages
+|
+Classes and Interfaces
+SEARCH
+Module
+java.desktop
+Package javax.swing
+package
+javax.swing
+Provides a set of "lightweight" (all-Java language) components
+ that, to the maximum degree possible, work the same on all platforms. For a
+ programmer's guide to using these components, see
+Creating a GUI with JFC/Swing
+, a trail in
+The Java Tutorial
+. For other resources, see
+Related Documentation
+.
+Swing's Threading Policy
+In general Swing is not thread safe. All Swing components and related
+ classes, unless otherwise documented, must be accessed on the event
+ dispatching thread.
+Typical Swing applications do processing in response to an event generated
+ from a user gesture. For example, clicking on a
+JButton
+notifies all
+ActionListeners
+added to the
+JButton
+. As all events generated
+ from a user gesture are dispatched on the event dispatching thread, most
+ developers are not impacted by the restriction.
+Where the impact lies, however, is in constructing and showing a Swing
+ application. Calls to an application's
+main
+method, or methods in
+Applet
+, are not invoked on the event dispatching thread. As such,
+ care must be taken to transfer control to the event dispatching thread when
+ constructing and showing an application or applet. The preferred way to
+ transfer control and begin working with Swing is to use
+invokeLater
+.
+ The
+invokeLater
+method schedules a
+Runnable
+to be processed
+ on the event dispatching thread. The following two examples work equally well
+ for transferring control and starting up a Swing application:
+import javax.swing.SwingUtilities;
+
+ public class MyApp implements Runnable {
+     public void run() {
+         // Invoked on the event dispatching thread.
+         // Construct and show GUI.
+     }
+
+     public static void main(String[] args) {
+         SwingUtilities.invokeLater(new MyApp());
+     }
+ }
+Or:
+import javax.swing.SwingUtilities;
+
+ public class MyApp {
+     MyApp(String[] args) {
+         // Invoked on the event dispatching thread.
+         // Do any initialization here.
+     }
+
+     public void show() {
+         // Show the UI.
+     }
+
+     public static void main(final String[] args) {
+         // Schedule a job for the event-dispatching thread:
+         // creating and showing this application's GUI.
+         SwingUtilities.invokeLater(new Runnable() {
+             public void run() {
+                 new MyApp(args).show();
+             }
+         });
+     }
+ }
+This restriction also applies to models attached to Swing components. For
+ example, if a
+TableModel
+is attached to a
+JTable
+, the
+TableModel
+should only be modified on the event dispatching thread.
+ If you modify the model on a separate thread you run the risk of exceptions
+ and possible display corruption.
+Although it is generally safe to make updates to the UI immediately,
+ when executing on the event dispatch thread, there is an exception :
+ if a model listener tries to further change the UI before the UI has been
+ updated to reflect a pending change then the UI may render incorrectly.
+
+ This can happen if an application installed listener needs to update the UI
+ in response to an event which will cause a change in the model structure.
+ It is important to first allow component installed listeners to process this
+ change, since there is no guarantee of the order in which listeners may be
+ called.
+
+ The solution is for the application listener to make the change using
+SwingUtilities.invokeLater(Runnable)
+so that any changes
+ to  UI rendering will be done post processing all the model listeners
+ installed by the component.
+As all events are delivered on the event dispatching thread, care must be
+ taken in event processing. In particular, a long running task, such as
+ network io or computational intensive processing, executed on the event
+ dispatching thread blocks the event dispatching thread from dispatching any
+ other events. While the event dispatching thread is blocked the application
+ is completely unresponsive to user input. Refer to
+SwingWorker
+for the preferred way to do such processing
+ when working with Swing.
+More information on this topic can be found in the
+Swing tutorial
+,
+ in particular the section on
+Concurrency in Swing
+.
+Swing's Serialization policy
+Warning:
+Serialized objects of any Swing class will not be compatible with
+ future Swing releases. The current serialization support is
+ appropriate for short term storage or RMI between applications running
+ the same version of Swing.  As of 1.4, support for long term storage
+ of all JavaBeans has been added to the
+java.beans
+package.
+Related Documentation
+For overviews, tutorials, examples, guides, and other documentation,
+ please see:
+A Swing Architecture Overview
+The Java Tutorial
+Java SE Training and Certification
+Related Packages
+Package
+Description
+javax.swing.border
+Provides classes and interface for drawing specialized borders around a Swing
+ component.
+javax.swing.colorchooser
+Contains classes and interfaces used by the
+JColorChooser
+component.
+javax.swing.event
+Provides for events fired by Swing components.
+javax.swing.filechooser
+Contains classes and interfaces used by the
+JFileChooser
+component.
+javax.swing.plaf
+Provides one interface and many abstract classes that Swing uses to provide
+ its pluggable look-and-feel capabilities.
+javax.swing.table
+Provides classes and interfaces for dealing with
+javax.swing.JTable
+.
+javax.swing.text
+Provides classes and interfaces that deal with editable and noneditable text
+ components.
+javax.swing.tree
+Provides classes and interfaces for dealing with
+javax.swing.JTree
+.
+javax.swing.undo
+Allows developers to provide support for undo/redo in applications such as
+ text editors.
+All Classes and Interfaces
+Interfaces
+Classes
+Enum Classes
+Exception Classes
+Annotation Interfaces
+Class
+Description
+AbstractAction
+This class provides default implementations for the JFC
+Action
+interface.
+AbstractButton
+Defines common behaviors for buttons and menu items.
+AbstractCellEditor
+A base class for
+CellEditors
+, providing default
+ implementations for the methods in the
+CellEditor
+interface except
+getCellEditorValue()
+.
+AbstractListModel
+<E>
+The abstract definition for the data model that provides
+ a
+List
+with its contents.
+AbstractSpinnerModel
+This class provides the ChangeListener part of the
+ SpinnerModel interface that should be suitable for most concrete SpinnerModel
+ implementations.
+Action
+The
+Action
+interface provides a useful extension to the
+ActionListener
+interface in cases where the same functionality may be accessed by
+ several controls.
+ActionMap
+ActionMap
+provides mappings from
+Object
+s
+ (called
+keys
+or
+Action
+names
+)
+ to
+Action
+s.
+BorderFactory
+Factory class for vending standard
+Border
+objects.
+BoundedRangeModel
+Defines the data model used by components like
+Slider
+s
+ and
+ProgressBar
+s.
+Box
+A lightweight container
+ that uses a BoxLayout object as its layout manager.
+Box.Filler
+An implementation of a lightweight component that participates in
+ layout but has no view.
+BoxLayout
+A layout manager that allows multiple components to be laid out either
+ vertically or horizontally.
+ButtonGroup
+This class is used to create a multiple-exclusion scope for
+ a set of buttons.
+ButtonModel
+State model for buttons.
+CellEditor
+This interface defines the methods any general editor should be able
+ to implement.
+CellRendererPane
+This class is inserted in between cell renderers and the components that
+ use them.
+ComboBoxEditor
+The editor component used for JComboBox components.
+ComboBoxModel
+<E>
+A data model for a combo box.
+ComponentInputMap
+A
+ComponentInputMap
+is an
+InputMap
+associated with a particular
+JComponent
+.
+DebugGraphics
+Graphics subclass supporting graphics debugging.
+DefaultBoundedRangeModel
+A generic implementation of BoundedRangeModel.
+DefaultButtonModel
+The default implementation of a
+Button
+component's data model.
+DefaultCellEditor
+The default editor for table and tree cells.
+DefaultComboBoxModel
+<E>
+The default model for combo boxes.
+DefaultDesktopManager
+This is an implementation of the
+DesktopManager
+.
+DefaultFocusManager
+This class has been obsoleted by the 1.4 focus APIs.
+DefaultListCellRenderer
+Renders an item in a list.
+DefaultListCellRenderer.UIResource
+A subclass of DefaultListCellRenderer that implements UIResource.
+DefaultListModel
+<E>
+This class loosely implements the
+java.util.Vector
+API, in that it implements the 1.1.x version of
+java.util.Vector
+, has no collection class support,
+ and notifies the
+ListDataListener
+s when changes occur.
+DefaultListSelectionModel
+Default data model for list selections.
+DefaultRowSorter
+<M,
+I>
+An implementation of
+RowSorter
+that provides sorting and
+ filtering around a grid-based data model.
+DefaultRowSorter.ModelWrapper
+<M,
+I>
+DefaultRowSorter.ModelWrapper
+is responsible for providing
+ the data that gets sorted by
+DefaultRowSorter
+.
+DefaultSingleSelectionModel
+A generic implementation of SingleSelectionModel.
+DesktopManager
+DesktopManager objects are owned by a JDesktopPane object.
+DropMode
+Drop modes, used to determine the method by which a component
+ tracks and indicates a drop location during drag and drop.
+FocusManager
+This class has been obsoleted by the 1.4 focus APIs.
+GrayFilter
+An image filter that "disables" an image by turning
+ it into a grayscale image, and brightening the pixels
+ in the image.
+GroupLayout
+GroupLayout
+is a
+LayoutManager
+that hierarchically
+ groups components in order to position them in a
+Container
+.
+GroupLayout.Alignment
+Enumeration of the possible ways
+ParallelGroup
+can align
+ its children.
+Icon
+A small fixed size picture, typically used to decorate components.
+ImageIcon
+An implementation of the Icon interface that paints Icons
+ from Images.
+InputMap
+InputMap
+provides a binding between an input event (currently only
+KeyStroke
+s are used) and an
+Object
+.
+InputVerifier
+This class provides the validation mechanism for Swing components.
+InternalFrameFocusTraversalPolicy
+A FocusTraversalPolicy which can optionally provide an algorithm for
+ determining a JInternalFrame's initial Component.
+JApplet
+Deprecated, for removal: This API element is subject to removal in a future version.
+The Applet API is deprecated, no replacement.
+JButton
+An implementation of a "push" button.
+JCheckBox
+An implementation of a check box -- an item that can be selected or
+ deselected, and which displays its state to the user.
+JCheckBoxMenuItem
+A menu item that can be selected or deselected.
+JColorChooser
+JColorChooser
+provides a pane of controls designed to allow
+ a user to manipulate and select a color.
+JComboBox
+<E>
+A component that combines a button or editable field and a drop-down list.
+JComboBox.KeySelectionManager
+The interface that defines a
+KeySelectionManager
+.
+JComponent
+The base class for all Swing components except top-level containers.
+JDesktopPane
+A container used to create a multiple-document interface or a virtual desktop.
+JDialog
+The main class for creating a dialog window.
+JEditorPane
+A text component to edit various kinds of content.
+JFileChooser
+JFileChooser
+provides a simple mechanism for the user to
+ choose a file.
+JFormattedTextField
+JFormattedTextField
+extends
+JTextField
+adding
+ support for formatting arbitrary values, as well as retrieving a particular
+ object once the user has edited the text.
+JFormattedTextField.AbstractFormatter
+Instances of
+AbstractFormatter
+are used by
+JFormattedTextField
+to handle the conversion both
+ from an Object to a String, and back from a String to an Object.
+JFormattedTextField.AbstractFormatterFactory
+Instances of
+AbstractFormatterFactory
+are used by
+JFormattedTextField
+to obtain instances of
+AbstractFormatter
+which in turn are used to format values.
+JFrame
+An extended version of
+java.awt.Frame
+that adds support for
+ the JFC/Swing component architecture.
+JInternalFrame
+A lightweight object that provides many of the features of
+ a native frame, including dragging, closing, becoming an icon,
+ resizing, title display, and support for a menu bar.
+JInternalFrame.JDesktopIcon
+This component represents an iconified version of a
+JInternalFrame
+.
+JLabel
+A display area for a short text string or an image,
+ or both.
+JLayer
+<V extends
+Component
+>
+JLayer
+is a universal decorator for Swing components
+ which enables you to implement various advanced painting effects as well as
+ receive notifications of all
+AWTEvent
+s generated within its borders.
+JLayeredPane
+JLayeredPane
+adds depth to a JFC/Swing container,
+ allowing components to overlap each other when needed.
+JList
+<E>
+A component that displays a list of objects and allows the user to select
+ one or more items.
+JList.DropLocation
+A subclass of
+TransferHandler.DropLocation
+representing
+ a drop location for a
+JList
+.
+JMenu
+An implementation of a menu -- a popup window containing
+JMenuItem
+s that
+ is displayed when the user selects an item on the
+JMenuBar
+.
+JMenuBar
+An implementation of a menu bar.
+JMenuItem
+An implementation of an item in a menu.
+JOptionPane
+JOptionPane
+makes it easy to pop up a standard dialog box that
+ prompts users for a value or informs them of something.
+JPanel
+JPanel
+is a generic lightweight container.
+JPasswordField
+JPasswordField
+is a lightweight component that allows
+ the editing of a single line of text where the view indicates
+ something was typed, but does not show the original characters.
+JPopupMenu
+An implementation of a popup menu -- a small window that pops up
+ and displays a series of choices.
+JPopupMenu.Separator
+A popup menu-specific separator.
+JProgressBar
+A component that visually displays the progress of some task.
+JRadioButton
+An implementation of a radio button -- an item that can be selected or
+ deselected, and which displays its state to the user.
+JRadioButtonMenuItem
+An implementation of a radio button menu item.
+JRootPane
+A lightweight container used behind the scenes by
+JFrame
+,
+JDialog
+,
+JWindow
+,
+JApplet
+, and
+JInternalFrame
+.
+JScrollBar
+An implementation of a scrollbar.
+JScrollPane
+Provides a scrollable view of a lightweight component.
+JSeparator
+JSeparator
+provides a general purpose component for
+ implementing divider lines - most commonly used as a divider
+ between menu items that breaks them up into logical groupings.
+JSlider
+A component that lets the user graphically select a value by sliding
+ a knob within a bounded interval.
+JSpinner
+A single line input field that lets the user select a
+ number or an object value from an ordered sequence.
+JSpinner.DateEditor
+An editor for a
+JSpinner
+whose model is a
+SpinnerDateModel
+.
+JSpinner.DefaultEditor
+A simple base class for more specialized editors
+ that displays a read-only view of the model's current
+ value with a
+JFormattedTextField
+.
+JSpinner.ListEditor
+An editor for a
+JSpinner
+whose model is a
+SpinnerListModel
+.
+JSpinner.NumberEditor
+An editor for a
+JSpinner
+whose model is a
+SpinnerNumberModel
+.
+JSplitPane
+JSplitPane
+is used to divide two (and only two)
+Component
+s.
+JTabbedPane
+A component that lets the user switch between a group of components by
+ clicking on a tab with a given title and/or icon.
+JTable
+The
+JTable
+is used to display and edit regular two-dimensional tables
+ of cells.
+JTable.DropLocation
+A subclass of
+TransferHandler.DropLocation
+representing
+ a drop location for a
+JTable
+.
+JTable.PrintMode
+Printing modes, used in printing
+JTable
+s.
+JTextArea
+A
+JTextArea
+is a multi-line area that displays plain text.
+JTextField
+JTextField
+is a lightweight component that allows the editing
+ of a single line of text.
+JTextPane
+A text component that can be marked up with attributes that are
+ represented graphically.
+JToggleButton
+An implementation of a two-state button.
+JToggleButton.ToggleButtonModel
+The ToggleButton model
+JToolBar
+JToolBar
+provides a component that is useful for
+ displaying commonly used
+Action
+s or controls.
+JToolBar.Separator
+A toolbar-specific separator.
+JToolTip
+Used to display a "Tip" for a Component.
+JTree
+A control that displays a set of hierarchical data as an outline.
+JTree.DropLocation
+A subclass of
+TransferHandler.DropLocation
+representing
+ a drop location for a
+JTree
+.
+JTree.DynamicUtilTreeNode
+DynamicUtilTreeNode
+can wrap
+ vectors/hashtables/arrays/strings and
+ create the appropriate children tree nodes as necessary.
+JTree.EmptySelectionModel
+EmptySelectionModel
+is a
+TreeSelectionModel
+that does not allow anything to be selected.
+JViewport
+The "viewport" or "porthole" through which you see the underlying
+ information.
+JWindow
+A
+JWindow
+is a container that can be displayed anywhere on the
+ user's desktop.
+KeyStroke
+A KeyStroke represents a key action on the keyboard, or equivalent input
+ device.
+LayoutFocusTraversalPolicy
+A SortingFocusTraversalPolicy which sorts Components based on their size,
+ position, and orientation.
+LayoutStyle
+LayoutStyle
+provides information about how to position
+ components.
+LayoutStyle.ComponentPlacement
+ComponentPlacement
+is an enumeration of the
+ possible ways two components can be placed relative to each
+ other.
+ListCellRenderer
+<E>
+Identifies components that can be used as "rubber stamps" to paint
+ the cells in a JList.
+ListModel
+<E>
+This interface defines the methods components like JList use
+ to get the value of each cell in a list and the length of the list.
+ListSelectionModel
+This interface represents the current state of the
+ selection for any of the components that display a
+ list of values with stable indices.
+LookAndFeel
+LookAndFeel
+, as the name implies, encapsulates a look and
+ feel.
+MenuElement
+Any component that can be placed into a menu should implement this interface.
+MenuSelectionManager
+A MenuSelectionManager owns the selection in menu hierarchy.
+MutableComboBoxModel
+<E>
+A mutable version of
+ComboBoxModel
+.
+OverlayLayout
+A layout manager to arrange components over the top
+ of each other.
+Painter
+<T>
+A painting delegate.
+Popup
+Popups are used to display a
+Component
+to the user, typically
+ on top of all the other
+Component
+s in a particular containment
+ hierarchy.
+PopupFactory
+PopupFactory
+, as the name implies, is used to obtain
+ instances of
+Popup
+s.
+ProgressMonitor
+A class to monitor the progress of some operation.
+ProgressMonitorInputStream
+Monitors the progress of reading from some InputStream.
+Renderer
+Defines the requirements for an object responsible for
+ "rendering" (displaying) a value.
+RepaintManager
+This class manages repaint requests, allowing the number
+ of repaints to be minimized, for example by collapsing multiple
+ requests into a single repaint for members of a component tree.
+RootPaneContainer
+This interface is implemented by components that have a single
+ JRootPane child: JDialog, JFrame, JWindow, JApplet, JInternalFrame.
+RowFilter
+<M,
+I>
+RowFilter
+is used to filter out entries from the
+ model so that they are not shown in the view.
+RowFilter.ComparisonType
+Enumeration of the possible comparison values supported by
+ some of the default
+RowFilter
+s.
+RowFilter.Entry
+<M,
+I>
+An
+Entry
+object is passed to instances of
+RowFilter
+, allowing the filter to get the value of the
+ entry's data, and thus to determine whether the entry should be shown.
+RowSorter
+<M>
+RowSorter
+provides the basis for sorting and filtering.
+RowSorter.SortKey
+SortKey describes the sort order for a particular column.
+Scrollable
+An interface that provides information to a scrolling container
+ like JScrollPane.
+ScrollPaneConstants
+Constants used with the JScrollPane component.
+ScrollPaneLayout
+The layout manager used by
+JScrollPane
+.
+ScrollPaneLayout.UIResource
+The UI resource version of
+ScrollPaneLayout
+.
+SingleSelectionModel
+A model that supports at most one indexed selection.
+SizeRequirements
+For the convenience of layout managers,
+ calculates information about the size and position of components.
+SizeSequence
+A
+SizeSequence
+object
+ efficiently maintains an ordered list
+ of sizes and corresponding positions.
+SortingFocusTraversalPolicy
+A FocusTraversalPolicy that determines traversal order by sorting the
+ Components of a focus traversal cycle based on a given Comparator.
+SortOrder
+SortOrder is an enumeration of the possible sort orderings.
+SpinnerDateModel
+A
+SpinnerModel
+for sequences of
+Date
+s.
+SpinnerListModel
+A simple implementation of
+SpinnerModel
+whose
+ values are defined by an array or a
+List
+.
+SpinnerModel
+A model for a potentially unbounded sequence of object values.
+SpinnerNumberModel
+A
+SpinnerModel
+for sequences of numbers.
+Spring
+An instance of the
+Spring
+class holds three properties that
+  characterize its behavior: the
+minimum
+,
+preferred
+, and
+maximum
+values.
+SpringLayout
+A
+SpringLayout
+lays out the children of its associated container
+ according to a set of constraints.
+SpringLayout.Constraints
+A
+Constraints
+object holds the
+ constraints that govern the way a component's size and position
+ change in a container controlled by a
+SpringLayout
+.
+SwingConstants
+A collection of constants generally used for positioning and orienting
+ components on the screen.
+SwingContainer
+An annotation used to specify some swing-related information
+ for the automatically generated
+BeanInfo
+classes.
+SwingUtilities
+A collection of utility methods for Swing.
+SwingWorker
+<T,
+V>
+An abstract class to perform lengthy GUI-interaction tasks in a
+ background thread.
+SwingWorker.StateValue
+Values for the
+state
+bound property.
+Timer
+Fires one or more
+ActionEvent
+s at specified
+ intervals.
+ToolTipManager
+Manages all the
+ToolTips
+in the system.
+TransferHandler
+This class is used to handle the transfer of a
+Transferable
+to and from Swing components.
+TransferHandler.DropLocation
+Represents a location where dropped data should be inserted.
+TransferHandler.TransferSupport
+This class encapsulates all relevant details of a clipboard
+ or drag and drop transfer, and also allows for customizing
+ aspects of the drag and drop experience.
+UIClientPropertyKey
+This interface is used only for tagging keys for client properties for
+JComponent
+set by UI which needs to be cleared on L&F
+ change and serialization.
+UIDefaults
+A table of defaults for Swing components.
+UIDefaults.ActiveValue
+This class enables one to store an entry in the defaults
+ table that's constructed each time it's looked up with one of
+ the
+getXXX(key)
+methods.
+UIDefaults.LazyInputMap
+LazyInputMap
+will create a
+InputMap
+in its
+createValue
+method.
+UIDefaults.LazyValue
+This class enables one to store an entry in the defaults
+ table that isn't constructed until the first time it's
+ looked up with one of the
+getXXX(key)
+methods.
+UIDefaults.ProxyLazyValue
+This class provides an implementation of
+LazyValue
+which can be
+ used to delay loading of the Class for the instance to be created.
+UIManager
+UIManager
+manages the current look and feel, the set of
+ available look and feels,
+PropertyChangeListeners
+that
+ are notified when the look and feel changes, look and feel defaults, and
+ convenience methods for obtaining various default values.
+UIManager.LookAndFeelInfo
+Provides a little information about an installed
+LookAndFeel
+for the sake of configuring a menu or
+ for initial application set up.
+UnsupportedLookAndFeelException
+An exception that indicates the requested look & feel
+ management classes are not present on the user's system.
+ViewportLayout
+The default layout manager for
+JViewport
+.
+WindowConstants
+Constants used to control the window-closing operation.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,319 @@
+HttpResponse (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.net.http
+Package
+java.net.http
+Interface HttpResponse<T>
+Type Parameters:
+T
+- the response body type
+public interface
+HttpResponse<T>
+An HTTP response.
+An
+HttpResponse
+is not created directly, but rather returned as
+ a result of sending an
+HttpRequest
+. An
+HttpResponse
+is
+ made available when the response status code and headers have been received,
+ and typically after the response body has also been completely received.
+ Whether or not the
+HttpResponse
+is made available before the response
+ body has been completely received depends on the
+BodyHandler
+provided when sending the
+HttpRequest
+.
+This class provides methods for accessing the response status code,
+ headers, the response body, and the
+HttpRequest
+corresponding
+ to this response.
+The following is an example of retrieving a response as a String:
+Copy
+HttpResponse<String> response = client
+  .send(request, BodyHandlers.ofString());
+The class
+BodyHandlers
+provides implementations
+ of many common response handlers. Alternatively, a custom
+BodyHandler
+implementation can be used.
+Since:
+11
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Interface
+Description
+static interface
+HttpResponse.BodyHandler
+<
+T
+>
+A handler for response bodies.
+static class
+HttpResponse.BodyHandlers
+Implementations of
+BodyHandler
+that implement various
+ useful handlers, such as handling the response body as a String, or
+ streaming the response body to a file.
+static interface
+HttpResponse.BodySubscriber
+<
+T
+>
+A
+BodySubscriber
+consumes response body bytes and converts them
+ into a higher-level Java type.
+static class
+HttpResponse.BodySubscribers
+Implementations of
+BodySubscriber
+that implement
+ various useful subscribers, such as converting the response body bytes
+ into a String, or streaming the bytes to a file.
+static interface
+HttpResponse.PushPromiseHandler
+<
+T
+>
+A handler for push promises.
+static interface
+HttpResponse.ResponseInfo
+Initial response information supplied to a
+BodyHandler
+when a response is initially received and before the body is processed.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+T
+body
+()
+Returns the body.
+HttpHeaders
+headers
+()
+Returns the received response headers.
+Optional
+<
+HttpResponse
+<
+T
+>>
+previousResponse
+()
+Returns an
+Optional
+containing the previous intermediate response
+ if one was received.
+HttpRequest
+request
+()
+Returns the
+HttpRequest
+corresponding to this response.
+Optional
+<
+SSLSession
+>
+sslSession
+()
+Returns an
+Optional
+containing the
+SSLSession
+in effect
+ for this response.
+int
+statusCode
+()
+Returns the status code for this response.
+URI
+uri
+()
+Returns the
+URI
+that the response was received from.
+HttpClient.Version
+version
+()
+Returns the HTTP protocol version that was used for this response.
+Method Details
+statusCode
+int
+statusCode
+()
+Returns the status code for this response.
+Returns:
+the response code
+request
+HttpRequest
+request
+()
+Returns the
+HttpRequest
+corresponding to this response.
+The returned
+HttpRequest
+may not be the initiating request
+ provided when
+sending
+. For example, if the initiating request was redirected, then the
+ request returned by this method will have the redirected URI, which will
+ be different from the initiating request URI.
+Returns:
+the request
+See Also:
+previousResponse()
+previousResponse
+Optional
+<
+HttpResponse
+<
+T
+>>
+previousResponse
+()
+Returns an
+Optional
+containing the previous intermediate response
+ if one was received. An intermediate response is one that is received
+ as a result of redirection or authentication. If no previous response
+ was received then an empty
+Optional
+is returned.
+Returns:
+an Optional containing the HttpResponse, if any.
+headers
+HttpHeaders
+headers
+()
+Returns the received response headers.
+Returns:
+the response headers
+body
+T
+body
+()
+Returns the body. Depending on the type of
+T
+, the returned body
+ may represent the body after it was read (such as
+byte[]
+, or
+String
+, or
+Path
+) or it may represent an object with
+ which the body is read, such as an
+InputStream
+.
+If this
+HttpResponse
+was returned from an invocation of
+previousResponse()
+then this method returns
+null
+Returns:
+the body
+sslSession
+Optional
+<
+SSLSession
+>
+sslSession
+()
+Returns an
+Optional
+containing the
+SSLSession
+in effect
+ for this response. Returns an empty
+Optional
+if this is not a
+HTTPS
+response.
+Returns:
+an
+Optional
+containing the
+SSLSession
+associated
+         with the response
+uri
+URI
+uri
+()
+Returns the
+URI
+that the response was received from. This may be
+ different from the request
+URI
+if redirection occurred.
+Returns:
+the URI of the response
+version
+HttpClient.Version
+version
+()
+Returns the HTTP protocol version that was used for this response.
+Returns:
+HTTP protocol version
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

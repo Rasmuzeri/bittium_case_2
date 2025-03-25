@@ -1,0 +1,1649 @@
+Uses of Interface java.util.concurrent.CompletionStage (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Interface
+java.util.concurrent.CompletionStage
+Packages that use
+CompletionStage
+Package
+Description
+java.net.http
+HTTP Client and WebSocket APIs
+java.util.concurrent
+Utility classes commonly useful in concurrent programming.
+Uses of
+CompletionStage
+in
+java.net.http
+Methods in
+java.net.http
+that return
+CompletionStage
+Modifier and Type
+Method
+Description
+CompletionStage
+<
+T
+>
+HttpResponse.BodySubscriber.
+getBody
+()
+Returns a
+CompletionStage
+which when completed will return
+ the response body object.
+default
+CompletionStage
+<?>
+WebSocket.Listener.
+onBinary
+(
+WebSocket
+webSocket,
+ByteBuffer
+data,
+ boolean last)
+A binary data has been received.
+default
+CompletionStage
+<?>
+WebSocket.Listener.
+onClose
+(
+WebSocket
+webSocket,
+ int statusCode,
+String
+reason)
+Receives a Close message indicating the WebSocket's input has been
+ closed.
+default
+CompletionStage
+<?>
+WebSocket.Listener.
+onPing
+(
+WebSocket
+webSocket,
+ByteBuffer
+message)
+A Ping message has been received.
+default
+CompletionStage
+<?>
+WebSocket.Listener.
+onPong
+(
+WebSocket
+webSocket,
+ByteBuffer
+message)
+A Pong message has been received.
+default
+CompletionStage
+<?>
+WebSocket.Listener.
+onText
+(
+WebSocket
+webSocket,
+CharSequence
+data,
+ boolean last)
+A textual data has been received.
+Uses of
+CompletionStage
+in
+java.util.concurrent
+Classes in
+java.util.concurrent
+that implement
+CompletionStage
+Modifier and Type
+Class
+Description
+class
+CompletableFuture
+<T>
+A
+Future
+that may be explicitly completed (setting its
+ value and status), and may be used as a
+CompletionStage
+,
+ supporting dependent functions and actions that trigger upon its
+ completion.
+Methods in
+java.util.concurrent
+that return
+CompletionStage
+Modifier and Type
+Method
+Description
+CompletionStage
+<
+Void
+>
+CompletionStage.
+acceptEither
+(
+CompletionStage
+<? extends
+T
+> other,
+Consumer
+<? super
+T
+> action)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, is executed with the
+ corresponding result as argument to the supplied action.
+CompletionStage
+<
+Void
+>
+CompletionStage.
+acceptEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Consumer
+<? super
+T
+> action)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, is executed using this
+ stage's default asynchronous execution facility, with the
+ corresponding result as argument to the supplied action.
+CompletionStage
+<
+Void
+>
+CompletionStage.
+acceptEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Consumer
+<? super
+T
+> action,
+Executor
+executor)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, is executed using the
+ supplied executor, with the corresponding result as argument to
+ the supplied action.
+<U>
+CompletionStage
+<U>
+CompletionStage.
+applyToEither
+(
+CompletionStage
+<? extends
+T
+> other,
+Function
+<? super
+T
+,
+U> fn)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, is executed with the
+ corresponding result as argument to the supplied function.
+<U>
+CompletionStage
+<U>
+CompletionStage.
+applyToEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Function
+<? super
+T
+,
+U> fn)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, is executed using this
+ stage's default asynchronous execution facility, with the
+ corresponding result as argument to the supplied function.
+<U>
+CompletionStage
+<U>
+CompletionStage.
+applyToEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Function
+<? super
+T
+,
+U> fn,
+Executor
+executor)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, is executed using the
+ supplied executor, with the corresponding result as argument to
+ the supplied function.
+static <U>
+CompletionStage
+<U>
+CompletableFuture.
+completedStage
+(U value)
+Returns a new CompletionStage that is already completed with
+ the given value and supports only those methods in
+ interface
+CompletionStage
+.
+CompletionStage
+<
+T
+>
+CompletionStage.
+exceptionally
+(
+Function
+<
+Throwable
+,
+? extends
+T
+> fn)
+Returns a new CompletionStage that, when this stage completes
+ exceptionally, is executed with this stage's exception as the
+ argument to the supplied function.
+default
+CompletionStage
+<
+T
+>
+CompletionStage.
+exceptionallyAsync
+(
+Function
+<
+Throwable
+,
+? extends
+T
+> fn)
+Returns a new CompletionStage that, when this stage completes
+ exceptionally, is executed with this stage's exception as the
+ argument to the supplied function, using this stage's default
+ asynchronous execution facility.
+default
+CompletionStage
+<
+T
+>
+CompletionStage.
+exceptionallyAsync
+(
+Function
+<
+Throwable
+,
+? extends
+T
+> fn,
+Executor
+executor)
+Returns a new CompletionStage that, when this stage completes
+ exceptionally, is executed with this stage's exception as the
+ argument to the supplied function, using the supplied Executor.
+default
+CompletionStage
+<
+T
+>
+CompletionStage.
+exceptionallyCompose
+(
+Function
+<
+Throwable
+,
+? extends
+CompletionStage
+<
+T
+>> fn)
+Returns a new CompletionStage that, when this stage completes
+ exceptionally, is composed using the results of the supplied
+ function applied to this stage's exception.
+default
+CompletionStage
+<
+T
+>
+CompletionStage.
+exceptionallyComposeAsync
+(
+Function
+<
+Throwable
+,
+? extends
+CompletionStage
+<
+T
+>> fn)
+Returns a new CompletionStage that, when this stage completes
+ exceptionally, is composed using the results of the supplied
+ function applied to this stage's exception, using this stage's
+ default asynchronous execution facility.
+default
+CompletionStage
+<
+T
+>
+CompletionStage.
+exceptionallyComposeAsync
+(
+Function
+<
+Throwable
+,
+? extends
+CompletionStage
+<
+T
+>> fn,
+Executor
+executor)
+Returns a new CompletionStage that, when this stage completes
+ exceptionally, is composed using the results of the supplied
+ function applied to this stage's exception, using the
+ supplied Executor.
+static <U>
+CompletionStage
+<U>
+CompletableFuture.
+failedStage
+(
+Throwable
+ex)
+Returns a new CompletionStage that is already completed
+ exceptionally with the given exception and supports only those
+ methods in interface
+CompletionStage
+.
+<U>
+CompletionStage
+<U>
+CompletionStage.
+handle
+(
+BiFunction
+<? super
+T
+,
+Throwable
+,
+? extends U> fn)
+Returns a new CompletionStage that, when this stage completes
+ either normally or exceptionally, is executed with this stage's
+ result and exception as arguments to the supplied function.
+<U>
+CompletionStage
+<U>
+CompletionStage.
+handleAsync
+(
+BiFunction
+<? super
+T
+,
+Throwable
+,
+? extends U> fn)
+Returns a new CompletionStage that, when this stage completes
+ either normally or exceptionally, is executed using this stage's
+ default asynchronous execution facility, with this stage's
+ result and exception as arguments to the supplied function.
+<U>
+CompletionStage
+<U>
+CompletionStage.
+handleAsync
+(
+BiFunction
+<? super
+T
+,
+Throwable
+,
+? extends U> fn,
+Executor
+executor)
+Returns a new CompletionStage that, when this stage completes
+ either normally or exceptionally, is executed using the
+ supplied executor, with this stage's result and exception as
+ arguments to the supplied function.
+CompletionStage
+<
+T
+>
+CompletableFuture.
+minimalCompletionStage
+()
+Returns a new CompletionStage that is completed normally with
+ the same value as this CompletableFuture when it completes
+ normally, and cannot be independently completed or otherwise
+ used in ways not defined by the methods of interface
+CompletionStage
+.
+CompletionStage
+<
+Void
+>
+CompletionStage.
+runAfterBoth
+(
+CompletionStage
+<?> other,
+Runnable
+action)
+Returns a new CompletionStage that, when this and the other
+ given stage both complete normally, executes the given action.
+CompletionStage
+<
+Void
+>
+CompletionStage.
+runAfterBothAsync
+(
+CompletionStage
+<?> other,
+Runnable
+action)
+Returns a new CompletionStage that, when this and the other
+ given stage both complete normally, executes the given action
+ using this stage's default asynchronous execution facility.
+CompletionStage
+<
+Void
+>
+CompletionStage.
+runAfterBothAsync
+(
+CompletionStage
+<?> other,
+Runnable
+action,
+Executor
+executor)
+Returns a new CompletionStage that, when this and the other
+ given stage both complete normally, executes the given action
+ using the supplied executor.
+CompletionStage
+<
+Void
+>
+CompletionStage.
+runAfterEither
+(
+CompletionStage
+<?> other,
+Runnable
+action)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, executes the given action.
+CompletionStage
+<
+Void
+>
+CompletionStage.
+runAfterEitherAsync
+(
+CompletionStage
+<?> other,
+Runnable
+action)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, executes the given action
+ using this stage's default asynchronous execution facility.
+CompletionStage
+<
+Void
+>
+CompletionStage.
+runAfterEitherAsync
+(
+CompletionStage
+<?> other,
+Runnable
+action,
+Executor
+executor)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, executes the given action
+ using the supplied executor.
+CompletionStage
+<
+Void
+>
+CompletionStage.
+thenAccept
+(
+Consumer
+<? super
+T
+> action)
+Returns a new CompletionStage that, when this stage completes
+ normally, is executed with this stage's result as the argument
+ to the supplied action.
+CompletionStage
+<
+Void
+>
+CompletionStage.
+thenAcceptAsync
+(
+Consumer
+<? super
+T
+> action)
+Returns a new CompletionStage that, when this stage completes
+ normally, is executed using this stage's default asynchronous
+ execution facility, with this stage's result as the argument to
+ the supplied action.
+CompletionStage
+<
+Void
+>
+CompletionStage.
+thenAcceptAsync
+(
+Consumer
+<? super
+T
+> action,
+Executor
+executor)
+Returns a new CompletionStage that, when this stage completes
+ normally, is executed using the supplied Executor, with this
+ stage's result as the argument to the supplied action.
+<U>
+CompletionStage
+<
+Void
+>
+CompletionStage.
+thenAcceptBoth
+(
+CompletionStage
+<? extends U> other,
+BiConsumer
+<? super
+T
+,
+? super U> action)
+Returns a new CompletionStage that, when this and the other
+ given stage both complete normally, is executed with the two
+ results as arguments to the supplied action.
+<U>
+CompletionStage
+<
+Void
+>
+CompletionStage.
+thenAcceptBothAsync
+(
+CompletionStage
+<? extends U> other,
+BiConsumer
+<? super
+T
+,
+? super U> action)
+Returns a new CompletionStage that, when this and the other
+ given stage both complete normally, is executed using this
+ stage's default asynchronous execution facility, with the two
+ results as arguments to the supplied action.
+<U>
+CompletionStage
+<
+Void
+>
+CompletionStage.
+thenAcceptBothAsync
+(
+CompletionStage
+<? extends U> other,
+BiConsumer
+<? super
+T
+,
+? super U> action,
+Executor
+executor)
+Returns a new CompletionStage that, when this and the other
+ given stage both complete normally, is executed using the
+ supplied executor, with the two results as arguments to the
+ supplied action.
+<U>
+CompletionStage
+<U>
+CompletionStage.
+thenApply
+(
+Function
+<? super
+T
+,
+? extends U> fn)
+Returns a new CompletionStage that, when this stage completes
+ normally, is executed with this stage's result as the argument
+ to the supplied function.
+<U>
+CompletionStage
+<U>
+CompletionStage.
+thenApplyAsync
+(
+Function
+<? super
+T
+,
+? extends U> fn)
+Returns a new CompletionStage that, when this stage completes
+ normally, is executed using this stage's default asynchronous
+ execution facility, with this stage's result as the argument to
+ the supplied function.
+<U>
+CompletionStage
+<U>
+CompletionStage.
+thenApplyAsync
+(
+Function
+<? super
+T
+,
+? extends U> fn,
+Executor
+executor)
+Returns a new CompletionStage that, when this stage completes
+ normally, is executed using the supplied Executor, with this
+ stage's result as the argument to the supplied function.
+<U,
+V>
+CompletionStage
+<V>
+CompletionStage.
+thenCombine
+(
+CompletionStage
+<? extends U> other,
+BiFunction
+<? super
+T
+,
+? super U,
+? extends V> fn)
+Returns a new CompletionStage that, when this and the other
+ given stage both complete normally, is executed with the two
+ results as arguments to the supplied function.
+<U,
+V>
+CompletionStage
+<V>
+CompletionStage.
+thenCombineAsync
+(
+CompletionStage
+<? extends U> other,
+BiFunction
+<? super
+T
+,
+? super U,
+? extends V> fn)
+Returns a new CompletionStage that, when this and the other
+ given stage both complete normally, is executed using this
+ stage's default asynchronous execution facility, with the two
+ results as arguments to the supplied function.
+<U,
+V>
+CompletionStage
+<V>
+CompletionStage.
+thenCombineAsync
+(
+CompletionStage
+<? extends U> other,
+BiFunction
+<? super
+T
+,
+? super U,
+? extends V> fn,
+Executor
+executor)
+Returns a new CompletionStage that, when this and the other
+ given stage both complete normally, is executed using the
+ supplied executor, with the two results as arguments to the
+ supplied function.
+<U>
+CompletionStage
+<U>
+CompletionStage.
+thenCompose
+(
+Function
+<? super
+T
+,
+? extends
+CompletionStage
+<U>> fn)
+Returns a new CompletionStage that is completed with the same
+ value as the CompletionStage returned by the given function.
+<U>
+CompletionStage
+<U>
+CompletionStage.
+thenComposeAsync
+(
+Function
+<? super
+T
+,
+? extends
+CompletionStage
+<U>> fn)
+Returns a new CompletionStage that is completed with the same
+ value as the CompletionStage returned by the given function,
+ executed using this stage's default asynchronous execution
+ facility.
+<U>
+CompletionStage
+<U>
+CompletionStage.
+thenComposeAsync
+(
+Function
+<? super
+T
+,
+? extends
+CompletionStage
+<U>> fn,
+Executor
+executor)
+Returns a new CompletionStage that is completed with the same
+ value as the CompletionStage returned by the given function,
+ executed using the supplied Executor.
+CompletionStage
+<
+Void
+>
+CompletionStage.
+thenRun
+(
+Runnable
+action)
+Returns a new CompletionStage that, when this stage completes
+ normally, executes the given action.
+CompletionStage
+<
+Void
+>
+CompletionStage.
+thenRunAsync
+(
+Runnable
+action)
+Returns a new CompletionStage that, when this stage completes
+ normally, executes the given action using this stage's default
+ asynchronous execution facility.
+CompletionStage
+<
+Void
+>
+CompletionStage.
+thenRunAsync
+(
+Runnable
+action,
+Executor
+executor)
+Returns a new CompletionStage that, when this stage completes
+ normally, executes the given action using the supplied Executor.
+CompletionStage
+<
+T
+>
+CompletionStage.
+whenComplete
+(
+BiConsumer
+<? super
+T
+,
+? super
+Throwable
+> action)
+Returns a new CompletionStage with the same result or exception as
+ this stage, that executes the given action when this stage completes.
+CompletionStage
+<
+T
+>
+CompletionStage.
+whenCompleteAsync
+(
+BiConsumer
+<? super
+T
+,
+? super
+Throwable
+> action)
+Returns a new CompletionStage with the same result or exception as
+ this stage, that executes the given action using this stage's
+ default asynchronous execution facility when this stage completes.
+CompletionStage
+<
+T
+>
+CompletionStage.
+whenCompleteAsync
+(
+BiConsumer
+<? super
+T
+,
+? super
+Throwable
+> action,
+Executor
+executor)
+Returns a new CompletionStage with the same result or exception as
+ this stage, that executes the given action using the supplied
+ Executor when this stage completes.
+Methods in
+java.util.concurrent
+with parameters of type
+CompletionStage
+Modifier and Type
+Method
+Description
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+acceptEither
+(
+CompletionStage
+<? extends
+T
+> other,
+Consumer
+<? super
+T
+> action)
+CompletionStage
+<
+Void
+>
+CompletionStage.
+acceptEither
+(
+CompletionStage
+<? extends
+T
+> other,
+Consumer
+<? super
+T
+> action)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, is executed with the
+ corresponding result as argument to the supplied action.
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+acceptEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Consumer
+<? super
+T
+> action)
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+acceptEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Consumer
+<? super
+T
+> action,
+Executor
+executor)
+CompletionStage
+<
+Void
+>
+CompletionStage.
+acceptEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Consumer
+<? super
+T
+> action)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, is executed using this
+ stage's default asynchronous execution facility, with the
+ corresponding result as argument to the supplied action.
+CompletionStage
+<
+Void
+>
+CompletionStage.
+acceptEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Consumer
+<? super
+T
+> action,
+Executor
+executor)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, is executed using the
+ supplied executor, with the corresponding result as argument to
+ the supplied action.
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+applyToEither
+(
+CompletionStage
+<? extends
+T
+> other,
+Function
+<? super
+T
+,
+U> fn)
+<U>
+CompletionStage
+<U>
+CompletionStage.
+applyToEither
+(
+CompletionStage
+<? extends
+T
+> other,
+Function
+<? super
+T
+,
+U> fn)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, is executed with the
+ corresponding result as argument to the supplied function.
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+applyToEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Function
+<? super
+T
+,
+U> fn)
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+applyToEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Function
+<? super
+T
+,
+U> fn,
+Executor
+executor)
+<U>
+CompletionStage
+<U>
+CompletionStage.
+applyToEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Function
+<? super
+T
+,
+U> fn)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, is executed using this
+ stage's default asynchronous execution facility, with the
+ corresponding result as argument to the supplied function.
+<U>
+CompletionStage
+<U>
+CompletionStage.
+applyToEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Function
+<? super
+T
+,
+U> fn,
+Executor
+executor)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, is executed using the
+ supplied executor, with the corresponding result as argument to
+ the supplied function.
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+runAfterBoth
+(
+CompletionStage
+<?> other,
+Runnable
+action)
+CompletionStage
+<
+Void
+>
+CompletionStage.
+runAfterBoth
+(
+CompletionStage
+<?> other,
+Runnable
+action)
+Returns a new CompletionStage that, when this and the other
+ given stage both complete normally, executes the given action.
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+runAfterBothAsync
+(
+CompletionStage
+<?> other,
+Runnable
+action)
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+runAfterBothAsync
+(
+CompletionStage
+<?> other,
+Runnable
+action,
+Executor
+executor)
+CompletionStage
+<
+Void
+>
+CompletionStage.
+runAfterBothAsync
+(
+CompletionStage
+<?> other,
+Runnable
+action)
+Returns a new CompletionStage that, when this and the other
+ given stage both complete normally, executes the given action
+ using this stage's default asynchronous execution facility.
+CompletionStage
+<
+Void
+>
+CompletionStage.
+runAfterBothAsync
+(
+CompletionStage
+<?> other,
+Runnable
+action,
+Executor
+executor)
+Returns a new CompletionStage that, when this and the other
+ given stage both complete normally, executes the given action
+ using the supplied executor.
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+runAfterEither
+(
+CompletionStage
+<?> other,
+Runnable
+action)
+CompletionStage
+<
+Void
+>
+CompletionStage.
+runAfterEither
+(
+CompletionStage
+<?> other,
+Runnable
+action)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, executes the given action.
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+runAfterEitherAsync
+(
+CompletionStage
+<?> other,
+Runnable
+action)
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+runAfterEitherAsync
+(
+CompletionStage
+<?> other,
+Runnable
+action,
+Executor
+executor)
+CompletionStage
+<
+Void
+>
+CompletionStage.
+runAfterEitherAsync
+(
+CompletionStage
+<?> other,
+Runnable
+action)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, executes the given action
+ using this stage's default asynchronous execution facility.
+CompletionStage
+<
+Void
+>
+CompletionStage.
+runAfterEitherAsync
+(
+CompletionStage
+<?> other,
+Runnable
+action,
+Executor
+executor)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, executes the given action
+ using the supplied executor.
+<U>
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+thenAcceptBoth
+(
+CompletionStage
+<? extends U> other,
+BiConsumer
+<? super
+T
+,
+? super U> action)
+<U>
+CompletionStage
+<
+Void
+>
+CompletionStage.
+thenAcceptBoth
+(
+CompletionStage
+<? extends U> other,
+BiConsumer
+<? super
+T
+,
+? super U> action)
+Returns a new CompletionStage that, when this and the other
+ given stage both complete normally, is executed with the two
+ results as arguments to the supplied action.
+<U>
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+thenAcceptBothAsync
+(
+CompletionStage
+<? extends U> other,
+BiConsumer
+<? super
+T
+,
+? super U> action)
+<U>
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+thenAcceptBothAsync
+(
+CompletionStage
+<? extends U> other,
+BiConsumer
+<? super
+T
+,
+? super U> action,
+Executor
+executor)
+<U>
+CompletionStage
+<
+Void
+>
+CompletionStage.
+thenAcceptBothAsync
+(
+CompletionStage
+<? extends U> other,
+BiConsumer
+<? super
+T
+,
+? super U> action)
+Returns a new CompletionStage that, when this and the other
+ given stage both complete normally, is executed using this
+ stage's default asynchronous execution facility, with the two
+ results as arguments to the supplied action.
+<U>
+CompletionStage
+<
+Void
+>
+CompletionStage.
+thenAcceptBothAsync
+(
+CompletionStage
+<? extends U> other,
+BiConsumer
+<? super
+T
+,
+? super U> action,
+Executor
+executor)
+Returns a new CompletionStage that, when this and the other
+ given stage both complete normally, is executed using the
+ supplied executor, with the two results as arguments to the
+ supplied action.
+<U,
+V>
+CompletableFuture
+<V>
+CompletableFuture.
+thenCombine
+(
+CompletionStage
+<? extends U> other,
+BiFunction
+<? super
+T
+,
+? super U,
+? extends V> fn)
+<U,
+V>
+CompletionStage
+<V>
+CompletionStage.
+thenCombine
+(
+CompletionStage
+<? extends U> other,
+BiFunction
+<? super
+T
+,
+? super U,
+? extends V> fn)
+Returns a new CompletionStage that, when this and the other
+ given stage both complete normally, is executed with the two
+ results as arguments to the supplied function.
+<U,
+V>
+CompletableFuture
+<V>
+CompletableFuture.
+thenCombineAsync
+(
+CompletionStage
+<? extends U> other,
+BiFunction
+<? super
+T
+,
+? super U,
+? extends V> fn)
+<U,
+V>
+CompletableFuture
+<V>
+CompletableFuture.
+thenCombineAsync
+(
+CompletionStage
+<? extends U> other,
+BiFunction
+<? super
+T
+,
+? super U,
+? extends V> fn,
+Executor
+executor)
+<U,
+V>
+CompletionStage
+<V>
+CompletionStage.
+thenCombineAsync
+(
+CompletionStage
+<? extends U> other,
+BiFunction
+<? super
+T
+,
+? super U,
+? extends V> fn)
+Returns a new CompletionStage that, when this and the other
+ given stage both complete normally, is executed using this
+ stage's default asynchronous execution facility, with the two
+ results as arguments to the supplied function.
+<U,
+V>
+CompletionStage
+<V>
+CompletionStage.
+thenCombineAsync
+(
+CompletionStage
+<? extends U> other,
+BiFunction
+<? super
+T
+,
+? super U,
+? extends V> fn,
+Executor
+executor)
+Returns a new CompletionStage that, when this and the other
+ given stage both complete normally, is executed using the
+ supplied executor, with the two results as arguments to the
+ supplied function.
+Method parameters in
+java.util.concurrent
+with type arguments of type
+CompletionStage
+Modifier and Type
+Method
+Description
+default
+CompletionStage
+<
+T
+>
+CompletionStage.
+exceptionallyCompose
+(
+Function
+<
+Throwable
+,
+? extends
+CompletionStage
+<
+T
+>> fn)
+Returns a new CompletionStage that, when this stage completes
+ exceptionally, is composed using the results of the supplied
+ function applied to this stage's exception.
+default
+CompletionStage
+<
+T
+>
+CompletionStage.
+exceptionallyComposeAsync
+(
+Function
+<
+Throwable
+,
+? extends
+CompletionStage
+<
+T
+>> fn)
+Returns a new CompletionStage that, when this stage completes
+ exceptionally, is composed using the results of the supplied
+ function applied to this stage's exception, using this stage's
+ default asynchronous execution facility.
+default
+CompletionStage
+<
+T
+>
+CompletionStage.
+exceptionallyComposeAsync
+(
+Function
+<
+Throwable
+,
+? extends
+CompletionStage
+<
+T
+>> fn,
+Executor
+executor)
+Returns a new CompletionStage that, when this stage completes
+ exceptionally, is composed using the results of the supplied
+ function applied to this stage's exception, using the
+ supplied Executor.
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+thenCompose
+(
+Function
+<? super
+T
+,
+? extends
+CompletionStage
+<U>> fn)
+<U>
+CompletionStage
+<U>
+CompletionStage.
+thenCompose
+(
+Function
+<? super
+T
+,
+? extends
+CompletionStage
+<U>> fn)
+Returns a new CompletionStage that is completed with the same
+ value as the CompletionStage returned by the given function.
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+thenComposeAsync
+(
+Function
+<? super
+T
+,
+? extends
+CompletionStage
+<U>> fn)
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+thenComposeAsync
+(
+Function
+<? super
+T
+,
+? extends
+CompletionStage
+<U>> fn,
+Executor
+executor)
+<U>
+CompletionStage
+<U>
+CompletionStage.
+thenComposeAsync
+(
+Function
+<? super
+T
+,
+? extends
+CompletionStage
+<U>> fn)
+Returns a new CompletionStage that is completed with the same
+ value as the CompletionStage returned by the given function,
+ executed using this stage's default asynchronous execution
+ facility.
+<U>
+CompletionStage
+<U>
+CompletionStage.
+thenComposeAsync
+(
+Function
+<? super
+T
+,
+? extends
+CompletionStage
+<U>> fn,
+Executor
+executor)
+Returns a new CompletionStage that is completed with the same
+ value as the CompletionStage returned by the given function,
+ executed using the supplied Executor.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

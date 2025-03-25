@@ -1,0 +1,942 @@
+ModuleLayer (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang
+Class ModuleLayer
+java.lang.Object
+java.lang.ModuleLayer
+public final class
+ModuleLayer
+extends
+Object
+A layer of modules in the Java virtual machine.
+A layer is created from a graph of modules in a
+Configuration
+and a function that maps each module to a
+ClassLoader
+.
+ Creating a layer informs the Java virtual machine about the classes that
+ may be loaded from the modules so that the Java virtual machine knows which
+ module that each class is a member of.
+Creating a layer creates a
+Module
+object for each
+ResolvedModule
+in the configuration. For each resolved module that is
+read
+, the
+Module
+reads
+the corresponding run-time
+Module
+, which may
+ be in the same layer or a
+parent
+layer.
+The
+defineModulesWithOneLoader
+and
+defineModulesWithManyLoaders
+methods
+ provide convenient ways to create a module layer where all modules are
+ mapped to a single class loader or where each module is mapped to its own
+ class loader. The
+defineModules
+method is for more
+ advanced cases where modules are mapped to custom class loaders by means of
+ a function specified to the method. Each of these methods has an instance
+ and static variant. The instance methods create a layer with the receiver
+ as the parent layer. The static methods are for more advanced cases where
+ there can be more than one parent layer or where a
+Controller
+is needed to control modules in the layer
+A Java virtual machine has at least one non-empty layer, the
+boot
+layer, that is created when the Java virtual machine is
+ started. The boot layer contains module
+java.base
+and is the only
+ layer in the Java virtual machine with a module named "
+java.base
+".
+ The modules in the boot layer are mapped to the bootstrap class loader and
+ other class loaders that are
+built-in
+into the Java virtual machine. The boot layer will often be
+ the
+parent
+when creating additional layers.
+Each
+Module
+in a layer is created so that it
+exports
+and
+opens
+the packages described by its
+ModuleDescriptor
+. Qualified exports
+ (where a package is exported to a set of target modules rather than all
+ modules) are reified when creating the layer as follows:
+If module
+X
+exports a package to
+Y
+, and if the
+     runtime
+Module
+X
+reads
+Module
+Y
+, then
+     the package is exported to
+Module
+Y
+(which may be in
+     the same layer as
+X
+or a parent layer).
+If module
+X
+exports a package to
+Y
+, and if the
+     runtime
+Module
+X
+does not read
+Y
+then target
+Y
+is located as if by invoking
+findModule
+to find the module in the layer or its parent layers. If
+Y
+is found then the package is exported to the instance of
+Y
+that was found. If
+Y
+is not found then the qualified
+     export is ignored.
+Qualified opens are handled in same way as qualified exports.
+As when creating a
+Configuration
+,
+automatic
+modules receive special
+ treatment when creating a layer. An automatic module is created in the
+ Java virtual machine as a
+Module
+that reads every unnamed
+Module
+in the Java virtual machine.
+Unless otherwise specified, passing a
+null
+argument to a method
+ in this class causes a
+NullPointerException
+to
+ be thrown.
+Example
+This example creates a configuration by resolving a module named
+ "
+myapp
+" with the configuration for the boot layer as the parent. It
+ then creates a new layer with the modules in this configuration. All modules
+ are defined to the same class loader.
+Copy
+ModuleFinder finder = ModuleFinder.of(dir1, dir2, dir3);
+    ModuleLayer parent = ModuleLayer.boot();
+    Configuration cf = parent.configuration()
+                             .resolve(finder, ModuleFinder.of(), Set.of("myapp"));
+    ClassLoader scl = ClassLoader.getSystemClassLoader();
+    ModuleLayer layer = parent.defineModulesWithOneLoader(cf, scl);
+    Class<?> c = layer.findLoader("myapp").loadClass("app.Main");
+Since:
+9
+See Also:
+Module.getLayer()
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+static final class
+ModuleLayer.Controller
+Controls a module layer.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+ModuleLayer
+boot
+()
+Returns the boot layer.
+Configuration
+configuration
+()
+Returns the configuration for this layer.
+ModuleLayer
+defineModules
+(
+Configuration
+cf,
+Function
+<
+String
+,
+ClassLoader
+> clf)
+Creates a new module layer, with this layer as its parent, by defining the
+ modules in the given
+Configuration
+to the Java virtual machine.
+static
+ModuleLayer.Controller
+defineModules
+(
+Configuration
+cf,
+List
+<
+ModuleLayer
+> parentLayers,
+Function
+<
+String
+,
+ClassLoader
+> clf)
+Creates a new module layer by defining the modules in the given
+Configuration
+to the Java virtual machine.
+ModuleLayer
+defineModulesWithManyLoaders
+(
+Configuration
+cf,
+ClassLoader
+parentLoader)
+Creates a new module layer, with this layer as its parent, by defining the
+ modules in the given
+Configuration
+to the Java virtual machine.
+static
+ModuleLayer.Controller
+defineModulesWithManyLoaders
+(
+Configuration
+cf,
+List
+<
+ModuleLayer
+> parentLayers,
+ClassLoader
+parentLoader)
+Creates a new module layer by defining the modules in the given
+Configuration
+to the Java virtual machine.
+ModuleLayer
+defineModulesWithOneLoader
+(
+Configuration
+cf,
+ClassLoader
+parentLoader)
+Creates a new module layer, with this layer as its parent, by defining the
+ modules in the given
+Configuration
+to the Java virtual machine.
+static
+ModuleLayer.Controller
+defineModulesWithOneLoader
+(
+Configuration
+cf,
+List
+<
+ModuleLayer
+> parentLayers,
+ClassLoader
+parentLoader)
+Creates a new module layer by defining the modules in the given
+Configuration
+to the Java virtual machine.
+static
+ModuleLayer
+empty
+()
+Returns the
+empty
+layer.
+ClassLoader
+findLoader
+(
+String
+name)
+Returns the
+ClassLoader
+for the module with the given name.
+Optional
+<
+Module
+>
+findModule
+(
+String
+name)
+Returns the module with the given name in this layer, or if not in this
+ layer, the
+parent
+layers.
+Set
+<
+Module
+>
+modules
+()
+Returns an unmodifiable set of the modules in this layer.
+List
+<
+ModuleLayer
+>
+parents
+()
+Returns an unmodifiable list of this layer's parents, in search
+ order.
+String
+toString
+()
+Returns a string describing this module layer.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Method Details
+defineModulesWithOneLoader
+public
+ModuleLayer
+defineModulesWithOneLoader
+(
+Configuration
+cf,
+ClassLoader
+parentLoader)
+Creates a new module layer, with this layer as its parent, by defining the
+ modules in the given
+Configuration
+to the Java virtual machine.
+ This method creates one class loader and defines all modules to that
+ class loader. The
+parent
+of each class
+ loader is the given parent class loader. This method works exactly as
+ specified by the static
+defineModulesWithOneLoader
+method when invoked with this layer as the
+ parent. In other words, if this layer is
+thisLayer
+then this
+ method is equivalent to invoking:
+ModuleLayer.defineModulesWithOneLoader(cf, List.of(thisLayer), parentLoader).layer();
+Parameters:
+cf
+- The configuration for the layer
+parentLoader
+- The parent class loader for the class loader created by this
+         method; may be
+null
+for the bootstrap class loader
+Returns:
+The newly created layer
+Throws:
+IllegalArgumentException
+- If the given configuration has more than one parent or the parent
+         of the configuration is not the configuration for this layer
+LayerInstantiationException
+- If the layer cannot be created for any of the reasons specified
+         by the static
+defineModulesWithOneLoader
+method
+SecurityException
+- If
+RuntimePermission("createClassLoader")
+or
+RuntimePermission("getClassLoader")
+is denied by
+         the security manager
+See Also:
+findLoader(java.lang.String)
+defineModulesWithManyLoaders
+public
+ModuleLayer
+defineModulesWithManyLoaders
+(
+Configuration
+cf,
+ClassLoader
+parentLoader)
+Creates a new module layer, with this layer as its parent, by defining the
+ modules in the given
+Configuration
+to the Java virtual machine.
+ Each module is defined to its own
+ClassLoader
+created by this
+ method. The
+parent
+of each class loader
+ is the given parent class loader. This method works exactly as specified
+ by the static
+defineModulesWithManyLoaders
+method when invoked with this layer as the
+ parent. In other words, if this layer is
+thisLayer
+then this
+ method is equivalent to invoking:
+ModuleLayer.defineModulesWithManyLoaders(cf, List.of(thisLayer), parentLoader).layer();
+Parameters:
+cf
+- The configuration for the layer
+parentLoader
+- The parent class loader for each of the class loaders created by
+         this method; may be
+null
+for the bootstrap class loader
+Returns:
+The newly created layer
+Throws:
+IllegalArgumentException
+- If the given configuration has more than one parent or the parent
+         of the configuration is not the configuration for this layer
+LayerInstantiationException
+- If the layer cannot be created for any of the reasons specified
+         by the static
+defineModulesWithManyLoaders
+method
+SecurityException
+- If
+RuntimePermission("createClassLoader")
+or
+RuntimePermission("getClassLoader")
+is denied by
+         the security manager
+See Also:
+findLoader(java.lang.String)
+defineModules
+public
+ModuleLayer
+defineModules
+(
+Configuration
+cf,
+Function
+<
+String
+,
+ClassLoader
+> clf)
+Creates a new module layer, with this layer as its parent, by defining the
+ modules in the given
+Configuration
+to the Java virtual machine.
+ Each module is mapped, by name, to its class loader by means of the
+ given function. This method works exactly as specified by the static
+defineModules
+method when invoked with this layer as the parent. In other words, if
+ this layer is
+thisLayer
+then this method is equivalent to
+ invoking:
+ModuleLayer.defineModules(cf, List.of(thisLayer), clf).layer();
+Parameters:
+cf
+- The configuration for the layer
+clf
+- The function to map a module name to a class loader
+Returns:
+The newly created layer
+Throws:
+IllegalArgumentException
+- If the given configuration has more than one parent or the parent
+         of the configuration is not the configuration for this layer
+LayerInstantiationException
+- If the layer cannot be created for any of the reasons specified
+         by the static
+defineModules
+method
+SecurityException
+- If
+RuntimePermission("getClassLoader")
+is denied by
+         the security manager
+defineModulesWithOneLoader
+public static
+ModuleLayer.Controller
+defineModulesWithOneLoader
+(
+Configuration
+cf,
+List
+<
+ModuleLayer
+> parentLayers,
+ClassLoader
+parentLoader)
+Creates a new module layer by defining the modules in the given
+Configuration
+to the Java virtual machine. This method creates one
+ class loader and defines all modules to that class loader.
+The class loader created by this method implements
+direct
+ delegation
+when loading classes from modules. If the
+loadClass
+method is invoked to
+ load a class then it uses the package name of the class to map it to a
+ module. This may be a module in this layer and hence defined to the same
+ class loader. It may be a package in a module in a parent layer that is
+ exported to one or more of the modules in this layer. The class
+ loader delegates to the class loader of the module, throwing
+ClassNotFoundException
+if not found by that class loader.
+ When
+loadClass
+is invoked to load classes that do not map to a
+ module then it delegates to the parent class loader.
+The class loader created by this method locates resources
+ (
+getResource
+,
+getResources
+, and other resource
+ methods) in all modules in the layer before searching the parent class
+ loader.
+Attempting to create a layer with all modules defined to the same
+ class loader can fail for the following reasons:
+Overlapping packages
+: Two or more modules in the
+     configuration have the same package.
+Split delegation
+: The resulting class loader would
+     need to delegate to more than one class loader in order to load
+     classes in a specific package.
+In addition, a layer cannot be created if the configuration contains
+ a module named "
+java.base
+", or a module contains a package named
+ "
+java
+" or a package with a name starting with "
+java.
+".
+If there is a security manager then the class loader created by
+ this method will load classes and resources with privileges that are
+ restricted by the calling context of this method.
+Parameters:
+cf
+- The configuration for the layer
+parentLayers
+- The list of parent layers in search order
+parentLoader
+- The parent class loader for the class loader created by this
+         method; may be
+null
+for the bootstrap class loader
+Returns:
+A controller that controls the newly created layer
+Throws:
+IllegalArgumentException
+- If the parent(s) of the given configuration do not match the
+         configuration of the parent layers, including order
+LayerInstantiationException
+- If all modules cannot be defined to the same class loader for any
+         of the reasons listed above
+SecurityException
+- If
+RuntimePermission("createClassLoader")
+or
+RuntimePermission("getClassLoader")
+is denied by
+         the security manager
+See Also:
+findLoader(java.lang.String)
+defineModulesWithManyLoaders
+public static
+ModuleLayer.Controller
+defineModulesWithManyLoaders
+(
+Configuration
+cf,
+List
+<
+ModuleLayer
+> parentLayers,
+ClassLoader
+parentLoader)
+Creates a new module layer by defining the modules in the given
+Configuration
+to the Java virtual machine. Each module is defined to
+ its own
+ClassLoader
+created by this method. The
+parent
+of each class loader is the given parent
+ class loader.
+The class loaders created by this method implement
+direct
+ delegation
+when loading classes from modules. If the
+loadClass
+method is invoked to
+ load a class then it uses the package name of the class to map it to a
+ module. The package may be in the module defined to the class loader.
+ The package may be exported by another module in this layer to the
+ module defined to the class loader. It may be in a package exported by a
+ module in a parent layer. The class loader delegates to the class loader
+ of the module, throwing
+ClassNotFoundException
+if not found by
+ that class loader. When
+loadClass
+is invoked to load a class
+ that does not map to a module then it delegates to the parent class
+ loader.
+The class loaders created by this method locate resources
+ (
+getResource
+,
+getResources
+, and other resource
+ methods) in the module defined to the class loader before searching
+ the parent class loader.
+If there is a security manager then the class loaders created by
+ this method will load classes and resources with privileges that are
+ restricted by the calling context of this method.
+Parameters:
+cf
+- The configuration for the layer
+parentLayers
+- The list of parent layers in search order
+parentLoader
+- The parent class loader for each of the class loaders created by
+         this method; may be
+null
+for the bootstrap class loader
+Returns:
+A controller that controls the newly created layer
+Throws:
+IllegalArgumentException
+- If the parent(s) of the given configuration do not match the
+         configuration of the parent layers, including order
+LayerInstantiationException
+- If the layer cannot be created because the configuration contains
+         a module named "
+java.base
+" or a module contains a package
+         named "
+java
+" or a package with a name starting with
+         "
+java.
+"
+SecurityException
+- If
+RuntimePermission("createClassLoader")
+or
+RuntimePermission("getClassLoader")
+is denied by
+         the security manager
+See Also:
+findLoader(java.lang.String)
+defineModules
+public static
+ModuleLayer.Controller
+defineModules
+(
+Configuration
+cf,
+List
+<
+ModuleLayer
+> parentLayers,
+Function
+<
+String
+,
+ClassLoader
+> clf)
+Creates a new module layer by defining the modules in the given
+Configuration
+to the Java virtual machine. The given function maps each
+ module in the configuration, by name, to a class loader. Creating the
+ layer informs the Java virtual machine about the classes that may be
+ loaded so that the Java virtual machine knows which module that each
+ class is a member of.
+The class loader delegation implemented by the class loaders must
+ respect module readability. The class loaders should be
+parallel-capable
+so as to
+ avoid deadlocks during class loading. In addition, the entity creating
+ a new layer with this method should arrange that the class loaders be
+ ready to load from these modules before there are any attempts to load
+ classes or resources.
+Creating a layer can fail for the following reasons:
+Two or more modules with the same package are mapped to the
+     same class loader.
+A module is mapped to a class loader that already has a
+     module of the same name defined to it.
+A module is mapped to a class loader that has already
+     defined types in any of the packages in the module.
+In addition, a layer cannot be created if the configuration contains
+ a module named "
+java.base
+", a configuration contains a module
+ with a package named "
+java
+" or a package name starting with
+ "
+java.
+", or the function to map a module name to a class loader
+ returns
+null
+or the
+platform class loader
+.
+If the function to map a module name to class loader throws an error
+ or runtime exception then it is propagated to the caller of this method.
+API Note:
+It is implementation specific as to whether creating a layer
+ with this method is an atomic operation or not. Consequently it is
+ possible for this method to fail with some modules, but not all, defined
+ to the Java virtual machine.
+Parameters:
+cf
+- The configuration for the layer
+parentLayers
+- The list of parent layers in search order
+clf
+- The function to map a module name to a class loader
+Returns:
+A controller that controls the newly created layer
+Throws:
+IllegalArgumentException
+- If the parent(s) of the given configuration do not match the
+         configuration of the parent layers, including order
+LayerInstantiationException
+- If creating the layer fails for any of the reasons listed above
+SecurityException
+- If
+RuntimePermission("getClassLoader")
+is denied by
+         the security manager
+configuration
+public
+Configuration
+configuration
+()
+Returns the configuration for this layer.
+Returns:
+The configuration for this layer
+parents
+public
+List
+<
+ModuleLayer
+>
+parents
+()
+Returns an unmodifiable list of this layer's parents, in search
+ order. If this is the
+empty layer
+then an
+ empty list is returned.
+Returns:
+A possibly-empty unmodifiable list of this layer's parents
+modules
+public
+Set
+<
+Module
+>
+modules
+()
+Returns an unmodifiable set of the modules in this layer.
+Returns:
+A possibly-empty unmodifiable set of the modules in this layer
+findModule
+public
+Optional
+<
+Module
+>
+findModule
+(
+String
+name)
+Returns the module with the given name in this layer, or if not in this
+ layer, the
+parent
+layers. Finding a module in
+ parent layers is equivalent to invoking
+findModule
+on each
+ parent, in search order, until the module is found or all parents have
+ been searched. In a
+tree of layers
+then this is equivalent to
+ a depth-first search.
+Parameters:
+name
+- The name of the module to find
+Returns:
+The module with the given name or an empty
+Optional
+if there isn't a module with this name in this layer or any
+         parent layer
+findLoader
+public
+ClassLoader
+findLoader
+(
+String
+name)
+Returns the
+ClassLoader
+for the module with the given name. If
+ a module of the given name is not in this layer then the
+parent
+layers are searched in the manner specified by
+findModule
+.
+If there is a security manager then its
+checkPermission
+method is called with a
+RuntimePermission("getClassLoader")
+permission to check that the caller is allowed to get access to the
+ class loader.
+API Note:
+This method does not return an
+Optional<ClassLoader>
+because `null` must be used to represent the bootstrap class loader.
+Parameters:
+name
+- The name of the module to find
+Returns:
+The ClassLoader that the module is defined to
+Throws:
+IllegalArgumentException
+- if a module of the given name is not
+         defined in this layer or any parent of this layer
+SecurityException
+- if denied by the security manager
+toString
+public
+String
+toString
+()
+Returns a string describing this module layer.
+Overrides:
+toString
+in class
+Object
+Returns:
+A possibly empty string describing this module layer
+empty
+public static
+ModuleLayer
+empty
+()
+Returns the
+empty
+layer. There are no modules in the empty
+ layer. It has no parents.
+Returns:
+The empty layer
+boot
+public static
+ModuleLayer
+boot
+()
+Returns the boot layer. The boot layer contains at least one module,
+java.base
+. Its parent is the
+empty
+layer.
+API Note:
+This method returns
+null
+during startup and before
+          the boot layer is fully initialized.
+Returns:
+The boot layer
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

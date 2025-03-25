@@ -1,0 +1,347 @@
+SSLEngineResult (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+javax.net.ssl
+Class SSLEngineResult
+java.lang.Object
+javax.net.ssl.SSLEngineResult
+public class
+SSLEngineResult
+extends
+Object
+An encapsulation of the result state produced by
+SSLEngine
+I/O calls.
+A
+SSLEngine
+provides a means for establishing
+ secure communication sessions between two peers.
+SSLEngine
+operations typically consume bytes from an input buffer and produce
+ bytes in an output buffer.  This class provides operational result
+ values describing the state of the
+SSLEngine
+, including
+ indications of what operations are needed to finish an
+ ongoing handshake.  Lastly, it reports the number of bytes consumed
+ and produced as a result of this operation.
+Since:
+1.5
+See Also:
+SSLEngine
+SSLEngine.wrap(ByteBuffer, ByteBuffer)
+SSLEngine.unwrap(ByteBuffer, ByteBuffer)
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+static enum
+SSLEngineResult.HandshakeStatus
+An
+SSLEngineResult
+enum describing the current
+ handshaking state of this
+SSLEngine
+.
+static enum
+SSLEngineResult.Status
+An
+SSLEngineResult
+enum describing the overall result
+ of the
+SSLEngine
+operation.
+Constructor Summary
+Constructors
+Constructor
+Description
+SSLEngineResult
+(
+SSLEngineResult.Status
+status,
+SSLEngineResult.HandshakeStatus
+handshakeStatus,
+ int bytesConsumed,
+ int bytesProduced)
+Initializes a new instance of this class.
+SSLEngineResult
+(
+SSLEngineResult.Status
+status,
+SSLEngineResult.HandshakeStatus
+handshakeStatus,
+ int bytesConsumed,
+ int bytesProduced,
+ long sequenceNumber)
+Initializes a new instance of this class.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+final int
+bytesConsumed
+()
+Returns the number of bytes consumed from the input buffer.
+final int
+bytesProduced
+()
+Returns the number of bytes written to the output buffer.
+final
+SSLEngineResult.HandshakeStatus
+getHandshakeStatus
+()
+Gets the handshake status of this
+SSLEngine
+operation.
+final
+SSLEngineResult.Status
+getStatus
+()
+Gets the return value of this
+SSLEngine
+operation.
+final long
+sequenceNumber
+()
+Returns the sequence number of the produced or consumed SSL/TLS/DTLS
+ record (optional operation).
+String
+toString
+()
+Returns a String representation of this object.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+SSLEngineResult
+public
+SSLEngineResult
+(
+SSLEngineResult.Status
+status,
+SSLEngineResult.HandshakeStatus
+handshakeStatus,
+ int bytesConsumed,
+ int bytesProduced)
+Initializes a new instance of this class.
+Parameters:
+status
+- the return value of the operation.
+handshakeStatus
+- the current handshaking status.
+bytesConsumed
+- the number of bytes consumed from the source ByteBuffer
+bytesProduced
+- the number of bytes placed into the destination ByteBuffer
+Throws:
+IllegalArgumentException
+- if the
+status
+or
+handshakeStatus
+arguments are null, or if
+bytesConsumed
+or
+bytesProduced
+is negative.
+SSLEngineResult
+public
+SSLEngineResult
+(
+SSLEngineResult.Status
+status,
+SSLEngineResult.HandshakeStatus
+handshakeStatus,
+ int bytesConsumed,
+ int bytesProduced,
+ long sequenceNumber)
+Initializes a new instance of this class.
+Parameters:
+status
+- the return value of the operation.
+handshakeStatus
+- the current handshaking status.
+bytesConsumed
+- the number of bytes consumed from the source ByteBuffer
+bytesProduced
+- the number of bytes placed into the destination ByteBuffer
+sequenceNumber
+- the sequence number (unsigned long) of the produced or
+          consumed SSL/TLS/DTLS record, or
+-1L
+if no record
+          produced or consumed
+Throws:
+IllegalArgumentException
+- if the
+status
+or
+handshakeStatus
+arguments are null, or if
+bytesConsumed
+or
+bytesProduced
+is negative
+Since:
+9
+Method Details
+getStatus
+public final
+SSLEngineResult.Status
+getStatus
+()
+Gets the return value of this
+SSLEngine
+operation.
+Returns:
+the return value
+getHandshakeStatus
+public final
+SSLEngineResult.HandshakeStatus
+getHandshakeStatus
+()
+Gets the handshake status of this
+SSLEngine
+operation.
+Returns:
+the handshake status
+bytesConsumed
+public final
+int
+bytesConsumed
+()
+Returns the number of bytes consumed from the input buffer.
+Returns:
+the number of bytes consumed.
+bytesProduced
+public final
+int
+bytesProduced
+()
+Returns the number of bytes written to the output buffer.
+Returns:
+the number of bytes produced
+sequenceNumber
+public final
+long
+sequenceNumber
+()
+Returns the sequence number of the produced or consumed SSL/TLS/DTLS
+ record (optional operation).
+API Note:
+Note that sequence number is an unsigned long and cannot
+           exceed
+-1L
+.  It is desired to use the unsigned
+           long comparing mode for comparison of unsigned long values
+           (see also
+Long.compareUnsigned()
+).
+For DTLS protocols, the first 16 bits of the sequence
+           number is a counter value (epoch) that is incremented on
+           every cipher state change.  The remaining 48 bits on the
+           right side of the sequence number represents the sequence
+           of the record, which is maintained separately for each epoch.
+Implementation Note:
+It is recommended that providers should never allow the
+           sequence number incremented to
+-1L
+.  If the sequence
+           number is close to wrapping, renegotiate should be requested,
+           otherwise the connection should be closed immediately.
+           This should be carried on automatically by the underlying
+           implementation.
+Returns:
+the sequence number of the produced or consumed SSL/TLS/DTLS
+          record; or
+-1L
+if no record is produced or consumed,
+          or this operation is not supported by the underlying provider
+Since:
+9
+See Also:
+Long.compareUnsigned(long, long)
+toString
+public
+String
+toString
+()
+Returns a String representation of this object.
+Overrides:
+toString
+in class
+Object
+Returns:
+a string representation of the object.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

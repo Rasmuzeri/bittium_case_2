@@ -1,0 +1,121 @@
+Flow.Subscription (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.util.concurrent
+Interface Flow.Subscription
+Enclosing class:
+Flow
+public static interface
+Flow.Subscription
+Message control linking a
+Flow.Publisher
+and
+Flow.Subscriber
+.  Subscribers receive items only when requested,
+ and may cancel at any time. The methods in this interface are
+ intended to be invoked only by their Subscribers; usages in
+ other contexts have undefined effects.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+void
+cancel
+()
+Causes the Subscriber to (eventually) stop receiving
+ messages.
+void
+request
+(long n)
+Adds the given number
+n
+of items to the current
+ unfulfilled demand for this subscription.
+Method Details
+request
+void
+request
+(long n)
+Adds the given number
+n
+of items to the current
+ unfulfilled demand for this subscription.  If
+n
+is
+ less than or equal to zero, the Subscriber will receive an
+onError
+signal with an
+IllegalArgumentException
+argument.  Otherwise, the
+ Subscriber will receive up to
+n
+additional
+onNext
+invocations (or fewer if terminated).
+Parameters:
+n
+- the increment of demand; a value of
+Long.MAX_VALUE
+may be considered as effectively unbounded
+cancel
+void
+cancel
+()
+Causes the Subscriber to (eventually) stop receiving
+ messages.  Implementation is best-effort -- additional
+ messages may be received after invoking this method.
+ A cancelled subscription need not ever receive an
+onComplete
+or
+onError
+signal.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

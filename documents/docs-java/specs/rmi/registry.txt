@@ -1,0 +1,167 @@
+Java Remote Method Invocation: 6 - Registry Interfaces
+6 Registry Interfaces
+The
+Registry
+Interface
+The
+LocateRegistry
+Class
+The
+RegistryHandler
+Interface
+The RMI system uses the
+java.rmi.registry.Registry
+interface and the
+java.rmi.registry.LocateRegistry
+class to
+provide a well-known bootstrap service for retrieving and registering
+objects by simple names.
+A
+registry
+is a remote object that maps names to remote
+objects. Any server process can support its own registry or a single
+registry can be used for a host.
+The methods of
+LocateRegistry
+are used to get a registry
+operating on a particular host or host and port. The methods of the
+java.rmi.Naming
+class makes calls to a remote object that
+implements the Registry interface using the appropriate
+LocateRegistry.getRegistry method.
+6.1 The
+Registry
+Interface
+See the
+Registry
+API documentation.
+6.2 The
+LocateRegistry
+Class
+The class
+java.rmi.registry.LocateRegistry
+is used to
+obtain a reference (construct a stub) to a bootstrap remote object
+registry on a particular host (including the local host), or to create a
+remote object registry that accepts calls on a specific port.
+The registry implements a simple flat naming syntax that associates
+the name of a remote object (a string) with a remote object reference.
+The name and remote object bindings are not remembered across server
+restarts.
+Note that a
+getRegistry
+call does not actually make a
+connection to the remote host. It simply creates a local reference to
+the remote registry and will succeed even if no registry is running on
+the remote host. Therefore, a subsequent method invocation to a remote
+registry returned as a result of this method may fail.
+package java.rmi.registry;
+
+public final class LocateRegistry {
+
+        public static Registry getRegistry()
+                throws java.rmi.RemoteException {...}
+        public static Registry getRegistry(int port)
+                throws java.rmi.RemoteException {...}
+        public static Registry getRegistry(String host)
+                throws java.rmi.RemoteException {...}
+        public static Registry getRegistry(String host, int port)
+                throws java.rmi.RemoteException {...}
+        public static Registry getRegistry(String host, int port,
+                                           RMIClientSocketFactory csf)
+                throws RemoteException {...}
+        public static Registry createRegistry(int port)
+                throws java.rmi.RemoteException {...}
+        public static Registry createRegistry(int port,
+                                              RMIClientSocketFactory csf,
+                                              RMIServerSocketFactory ssf)
+                throws RemoteException {...}
+}
+The first four
+getRegistry
+methods return a reference to
+a registry on the current host, current host at a specified
+port
+, a specified
+host,
+or at a particular
+port
+on a specified
+host
+. What is returned is the
+remote stub for the registry with the specified host and port
+information.
+The fifth
+getRegistry
+method (that takes an
+RMIClientSocketFactory
+as one of its arguments), returns a
+locally created remote stub to the remote object
+Registry
+on the specified
+host
+and
+port
+. Communication with the
+remote registry whose stub is constructed with this method will use the
+supplied
+RMIClientSocketFactory
+,
+csf
+, to create
+Socket
+connections to the registry on the remote host and
+port.
+Note:
+A registry returned from the
+getRegistry
+method is a specially constructed stub that
+contains a well-known object identifier. Passing a registry stub from
+one JVM to another is not supported (it may or may not work depending on
+the implementation). Use the
+LocateRegistry.getRegistry
+methods to obtain the appropriate registry for a host.
+The
+createRegistry
+method creates and exports a registry
+on the local host on the specified
+port
+.
+The second
+createRegistry
+method allows more flexibility
+in communicating with the registry. This call creates and exports a
+Registry
+on the local host that uses custom socket
+factories for communication with that registry. The registry that is
+created listens for incoming requests on the given
+port
+using a
+ServerSocket
+created from the supplied
+RMIServerSocketFactory
+. A client that receives a reference
+to this registry will use a
+Socket
+created from the
+supplied
+RMIClientSocketFactory
+.
+Note:
+Starting a registry with the
+createRegistry
+method does not keep the server process
+alive.
+6.3 The
+RegistryHandler
+Interface
+See the
+RegistryHandler
+API documentation.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

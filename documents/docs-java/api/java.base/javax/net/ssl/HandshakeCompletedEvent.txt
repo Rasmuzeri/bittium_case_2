@@ -1,0 +1,354 @@
+HandshakeCompletedEvent (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+javax.net.ssl
+Class HandshakeCompletedEvent
+java.lang.Object
+java.util.EventObject
+javax.net.ssl.HandshakeCompletedEvent
+All Implemented Interfaces:
+Serializable
+public class
+HandshakeCompletedEvent
+extends
+EventObject
+This event indicates that an SSL handshake completed on a given
+ SSL connection.  All the core information about that handshake's
+ result is captured through an "SSLSession" object.  As a convenience,
+ this event class provides direct access to some important session
+ attributes.
+The source of this event is the SSLSocket on which handshaking
+ just completed.
+Since:
+1.4
+See Also:
+SSLSocket
+HandshakeCompletedListener
+SSLSession
+Serialized Form
+Field Summary
+Fields declared in class java.util.
+EventObject
+source
+Constructor Summary
+Constructors
+Constructor
+Description
+HandshakeCompletedEvent
+(
+SSLSocket
+sock,
+SSLSession
+s)
+Constructs a new HandshakeCompletedEvent.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+String
+getCipherSuite
+()
+Returns the cipher suite in use by the session which was produced
+ by the handshake.
+Certificate
+[]
+getLocalCertificates
+()
+Returns the certificate(s) that were sent to the peer during
+ handshaking.
+Principal
+getLocalPrincipal
+()
+Returns the principal that was sent to the peer during handshaking.
+X509Certificate
+[]
+getPeerCertificateChain
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+The
+getPeerCertificates()
+method that returns an
+               array of
+java.security.cert.Certificate
+should
+               be used instead.
+Certificate
+[]
+getPeerCertificates
+()
+Returns the identity of the peer which was established as part
+ of defining the session.
+Principal
+getPeerPrincipal
+()
+Returns the identity of the peer which was established as part of
+ defining the session.
+SSLSession
+getSession
+()
+Returns the session that triggered this event.
+SSLSocket
+getSocket
+()
+Returns the socket which is the source of this event.
+Methods declared in class java.util.
+EventObject
+getSource
+,
+toString
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+HandshakeCompletedEvent
+public
+HandshakeCompletedEvent
+(
+SSLSocket
+sock,
+SSLSession
+s)
+Constructs a new HandshakeCompletedEvent.
+Parameters:
+sock
+- the SSLSocket acting as the source of the event
+s
+- the SSLSession this event is associated with
+Method Details
+getSession
+public
+SSLSession
+getSession
+()
+Returns the session that triggered this event.
+Returns:
+the
+SSLSession
+for this handshake
+getCipherSuite
+public
+String
+getCipherSuite
+()
+Returns the cipher suite in use by the session which was produced
+ by the handshake.  (This is a convenience method for
+ getting the ciphersuite from the SSLsession.)
+Returns:
+the name of the cipher suite negotiated during this session.
+getLocalCertificates
+public
+Certificate
+[]
+getLocalCertificates
+()
+Returns the certificate(s) that were sent to the peer during
+ handshaking.
+ Note: This method is useful only when using certificate-based
+ cipher suites.
+
+ When multiple certificates are available for use in a
+ handshake, the implementation chooses what it considers the
+ "best" certificate chain available, and transmits that to
+ the other side.  This method allows the caller to know
+ which certificate chain was actually used.
+Returns:
+an ordered array of certificates, with the local
+          certificate first followed by any
+          certificate authorities.  If no certificates were sent,
+          then null is returned.
+See Also:
+getLocalPrincipal()
+getPeerCertificates
+public
+Certificate
+[]
+getPeerCertificates
+()
+                                  throws
+SSLPeerUnverifiedException
+Returns the identity of the peer which was established as part
+ of defining the session.
+ Note: This method can be used only when using certificate-based
+ cipher suites; using it with non-certificate-based cipher suites,
+ such as Kerberos, will throw an SSLPeerUnverifiedException.
+Note: The returned value may not be a valid certificate chain
+ and should not be relied on for trust decisions.
+Returns:
+an ordered array of the peer certificates,
+          with the peer's own certificate first followed by
+          any certificate authorities.
+Throws:
+SSLPeerUnverifiedException
+- if the peer is not verified.
+See Also:
+getPeerPrincipal()
+getPeerCertificateChain
+@Deprecated
+(
+since
+="9",
+forRemoval
+=true)
+public
+X509Certificate
+[]
+getPeerCertificateChain
+()
+                                          throws
+SSLPeerUnverifiedException
+Deprecated, for removal: This API element is subject to removal in a future version.
+The
+getPeerCertificates()
+method that returns an
+               array of
+java.security.cert.Certificate
+should
+               be used instead.
+Returns the identity of the peer which was identified as part
+ of defining the session.
+ Note: This method can be used only when using certificate-based
+ cipher suites; using it with non-certificate-based cipher suites,
+ such as Kerberos, will throw an SSLPeerUnverifiedException.
+Note: The returned value may not be a valid certificate chain
+ and should not be relied on for trust decisions.
+Note: this method exists for compatibility with previous
+ releases. New applications should use
+getPeerCertificates()
+instead.
+Returns:
+an ordered array of peer X.509 certificates,
+          with the peer's own certificate first followed by any
+          certificate authorities.  (The certificates are in
+          the original JSSE
+X509Certificate
+format).
+Throws:
+SSLPeerUnverifiedException
+- if the peer is not verified.
+UnsupportedOperationException
+- if the underlying provider
+         does not implement the
+SSLSession.getPeerCertificateChain()
+operation.
+See Also:
+getPeerPrincipal()
+getPeerPrincipal
+public
+Principal
+getPeerPrincipal
+()
+                           throws
+SSLPeerUnverifiedException
+Returns the identity of the peer which was established as part of
+ defining the session.
+Returns:
+the peer's principal. Returns an X500Principal of the
+ end-entity certificate for X509-based cipher suites, and
+ KerberosPrincipal for Kerberos cipher suites.
+Throws:
+SSLPeerUnverifiedException
+- if the peer's identity has not
+          been verified
+Since:
+1.5
+See Also:
+getPeerCertificates()
+getLocalPrincipal()
+getLocalPrincipal
+public
+Principal
+getLocalPrincipal
+()
+Returns the principal that was sent to the peer during handshaking.
+Returns:
+the principal sent to the peer. Returns an X500Principal
+ of the end-entity certificate for X509-based cipher suites, and
+ KerberosPrincipal for Kerberos cipher suites. If no principal was
+ sent, then null is returned.
+Since:
+1.5
+See Also:
+getLocalCertificates()
+getPeerPrincipal()
+getSocket
+public
+SSLSocket
+getSocket
+()
+Returns the socket which is the source of this event.
+ (This is a convenience function, to let applications
+ write code without type casts.)
+Returns:
+the socket on which the connection was made.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,913 @@
+ConcurrentHashMap.KeySetView (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.util.concurrent
+Class ConcurrentHashMap.KeySetView<K,
+V>
+java.lang.Object
+java.util.concurrent.ConcurrentHashMap.KeySetView<K,
+V>
+Type Parameters:
+K
+- the type of keys
+V
+- the type of values in the backing map
+All Implemented Interfaces:
+Serializable
+,
+Iterable
+<K>
+,
+Collection
+<K>
+,
+Set
+<K>
+Enclosing class:
+ConcurrentHashMap
+<
+K
+,
+V
+>
+public static final class
+ConcurrentHashMap.KeySetView<K,
+V>
+extends
+Object
+implements
+Set
+<K>,
+Serializable
+A view of a ConcurrentHashMap as a
+Set
+of keys, in
+ which additions may optionally be enabled by mapping to a
+ common value.  This class cannot be directly instantiated.
+ See
+keySet()
+,
+keySet(V)
+,
+newKeySet()
+,
+newKeySet(int)
+.
+Since:
+1.8
+See Also:
+Serialized Form
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+add
+(
+K
+e)
+Adds the specified key to this set view by mapping the key to
+ the default mapped value in the backing map, if defined.
+boolean
+addAll
+(
+Collection
+<? extends
+K
+> c)
+Adds all of the elements in the specified collection to this set,
+ as if by calling
+add(K)
+on each one.
+final void
+clear
+()
+Removes all of the elements from this view, by removing all
+ the mappings from the map backing this view.
+boolean
+contains
+(
+Object
+o)
+Returns
+true
+if this collection contains the specified element.
+final boolean
+containsAll
+(
+Collection
+<?> c)
+Returns
+true
+if this collection contains all of the elements
+ in the specified collection.
+boolean
+equals
+(
+Object
+o)
+Indicates whether some other object is "equal to" this one.
+ConcurrentHashMap
+<
+K
+,
+V
+>
+getMap
+()
+Returns the map backing this view.
+V
+getMappedValue
+()
+Returns the default mapped value for additions,
+ or
+null
+if additions are not supported.
+int
+hashCode
+()
+Returns a hash code value for the object.
+final boolean
+isEmpty
+()
+Returns
+true
+if this collection contains no elements.
+Iterator
+<
+K
+>
+iterator
+()
+Returns an iterator over the elements in this collection.
+boolean
+remove
+(
+Object
+o)
+Removes the key from this map view, by removing the key (and its
+ corresponding value) from the backing map.
+boolean
+removeAll
+(
+Collection
+<?> c)
+Removes all of this collection's elements that are also contained in the
+ specified collection (optional operation).
+final boolean
+retainAll
+(
+Collection
+<?> c)
+Retains only the elements in this collection that are contained in the
+ specified collection (optional operation).
+final int
+size
+()
+Returns the number of elements in this collection.
+final
+Object
+[]
+toArray
+()
+Returns an array containing all of the elements in this collection.
+final <T> T[]
+toArray
+(T[] a)
+Returns an array containing all of the elements in this collection;
+ the runtime type of the returned array is that of the specified array.
+final
+String
+toString
+()
+Returns a string representation of this collection.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface java.util.
+Collection
+parallelStream
+,
+removeIf
+,
+stream
+,
+toArray
+Methods declared in interface java.lang.
+Iterable
+forEach
+Methods declared in interface java.util.
+Set
+clear
+,
+containsAll
+,
+isEmpty
+,
+removeAll
+,
+retainAll
+,
+size
+,
+spliterator
+,
+toArray
+,
+toArray
+Method Details
+getMappedValue
+public
+V
+getMappedValue
+()
+Returns the default mapped value for additions,
+ or
+null
+if additions are not supported.
+Returns:
+the default mapped value for additions, or
+null
+if not supported
+contains
+public
+boolean
+contains
+(
+Object
+o)
+Returns
+true
+if this collection contains the specified element.
+ More formally, returns
+true
+if and only if this collection
+ contains at least one element
+e
+such that
+Objects.equals(o, e)
+.
+Specified by:
+contains
+in interface
+Collection
+<
+K
+>
+Specified by:
+contains
+in interface
+Set
+<
+K
+>
+Parameters:
+o
+- element whose presence in this collection is to be tested
+Returns:
+true
+if this collection contains the specified
+         element
+Throws:
+NullPointerException
+- if the specified key is null
+remove
+public
+boolean
+remove
+(
+Object
+o)
+Removes the key from this map view, by removing the key (and its
+ corresponding value) from the backing map.  This method does
+ nothing if the key is not in the map.
+Specified by:
+remove
+in interface
+Collection
+<
+K
+>
+Specified by:
+remove
+in interface
+Set
+<
+K
+>
+Parameters:
+o
+- the key to be removed from the backing map
+Returns:
+true
+if the backing map contained the specified key
+Throws:
+NullPointerException
+- if the specified key is null
+iterator
+public
+Iterator
+<
+K
+>
+iterator
+()
+Returns an iterator over the elements in this collection.
+The returned iterator is
+weakly consistent
+.
+Specified by:
+iterator
+in interface
+Collection
+<
+K
+>
+Specified by:
+iterator
+in interface
+Iterable
+<
+K
+>
+Specified by:
+iterator
+in interface
+Set
+<
+K
+>
+Returns:
+an iterator over the keys of the backing map
+add
+public
+boolean
+add
+(
+K
+e)
+Adds the specified key to this set view by mapping the key to
+ the default mapped value in the backing map, if defined.
+Specified by:
+add
+in interface
+Collection
+<
+K
+>
+Specified by:
+add
+in interface
+Set
+<
+K
+>
+Parameters:
+e
+- key to be added
+Returns:
+true
+if this set changed as a result of the call
+Throws:
+NullPointerException
+- if the specified key is null
+UnsupportedOperationException
+- if no default mapped value
+ for additions was provided
+addAll
+public
+boolean
+addAll
+(
+Collection
+<? extends
+K
+> c)
+Adds all of the elements in the specified collection to this set,
+ as if by calling
+add(K)
+on each one.
+Specified by:
+addAll
+in interface
+Collection
+<
+K
+>
+Specified by:
+addAll
+in interface
+Set
+<
+K
+>
+Parameters:
+c
+- the elements to be inserted into this set
+Returns:
+true
+if this set changed as a result of the call
+Throws:
+NullPointerException
+- if the collection or any of its
+ elements are
+null
+UnsupportedOperationException
+- if no default mapped value
+ for additions was provided
+See Also:
+Set.add(Object)
+hashCode
+public
+int
+hashCode
+()
+Description copied from class:
+Object
+Returns a hash code value for the object. This method is
+ supported for the benefit of hash tables such as those provided by
+HashMap
+.
+The general contract of
+hashCode
+is:
+Whenever it is invoked on the same object more than once during
+     an execution of a Java application, the
+hashCode
+method
+     must consistently return the same integer, provided no information
+     used in
+equals
+comparisons on the object is modified.
+     This integer need not remain consistent from one execution of an
+     application to another execution of the same application.
+If two objects are equal according to the
+equals
+method, then calling the
+hashCode
+method on each of the two objects must produce the
+     same integer result.
+It is
+not
+required that if two objects are unequal
+     according to the
+equals
+method, then
+     calling the
+hashCode
+method on each of the two objects
+     must produce distinct integer results.  However, the programmer
+     should be aware that producing distinct integer results for
+     unequal objects may improve the performance of hash tables.
+Specified by:
+hashCode
+in interface
+Collection
+<
+K
+>
+Specified by:
+hashCode
+in interface
+Set
+<
+K
+>
+Overrides:
+hashCode
+in class
+Object
+Returns:
+a hash code value for this object.
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+equals
+public
+boolean
+equals
+(
+Object
+o)
+Description copied from class:
+Object
+Indicates whether some other object is "equal to" this one.
+The
+equals
+method implements an equivalence relation
+ on non-null object references:
+It is
+reflexive
+: for any non-null reference value
+x
+,
+x.equals(x)
+should return
+true
+.
+It is
+symmetric
+: for any non-null reference values
+x
+and
+y
+,
+x.equals(y)
+should return
+true
+if and only if
+y.equals(x)
+returns
+true
+.
+It is
+transitive
+: for any non-null reference values
+x
+,
+y
+, and
+z
+, if
+x.equals(y)
+returns
+true
+and
+y.equals(z)
+returns
+true
+, then
+x.equals(z)
+should return
+true
+.
+It is
+consistent
+: for any non-null reference values
+x
+and
+y
+, multiple invocations of
+x.equals(y)
+consistently return
+true
+or consistently return
+false
+, provided no
+     information used in
+equals
+comparisons on the
+     objects is modified.
+For any non-null reference value
+x
+,
+x.equals(null)
+should return
+false
+.
+An equivalence relation partitions the elements it operates on
+ into
+equivalence classes
+; all the members of an
+ equivalence class are equal to each other. Members of an
+ equivalence class are substitutable for each other, at least
+ for some purposes.
+Specified by:
+equals
+in interface
+Collection
+<
+K
+>
+Specified by:
+equals
+in interface
+Set
+<
+K
+>
+Overrides:
+equals
+in class
+Object
+Parameters:
+o
+- the reference object with which to compare.
+Returns:
+true
+if this object is the same as the obj
+          argument;
+false
+otherwise.
+See Also:
+Object.hashCode()
+HashMap
+getMap
+public
+ConcurrentHashMap
+<
+K
+,
+V
+>
+getMap
+()
+Returns the map backing this view.
+Returns:
+the map backing this view
+clear
+public final
+void
+clear
+()
+Removes all of the elements from this view, by removing all
+ the mappings from the map backing this view.
+Specified by:
+clear
+in interface
+Collection
+<K>
+size
+public final
+int
+size
+()
+Description copied from interface:
+Collection
+Returns the number of elements in this collection.  If this collection
+ contains more than
+Integer.MAX_VALUE
+elements, returns
+Integer.MAX_VALUE
+.
+Specified by:
+size
+in interface
+Collection
+<K>
+Returns:
+the number of elements in this collection
+isEmpty
+public final
+boolean
+isEmpty
+()
+Description copied from interface:
+Collection
+Returns
+true
+if this collection contains no elements.
+Specified by:
+isEmpty
+in interface
+Collection
+<K>
+Returns:
+true
+if this collection contains no elements
+toArray
+public final
+Object
+[]
+toArray
+()
+Description copied from interface:
+Collection
+Returns an array containing all of the elements in this collection.
+ If this collection makes any guarantees as to what order its elements
+ are returned by its iterator, this method must return the elements in
+ the same order. The returned array's
+runtime component type
+is
+Object
+.
+The returned array will be "safe" in that no references to it are
+ maintained by this collection.  (In other words, this method must
+ allocate a new array even if this collection is backed by an array).
+ The caller is thus free to modify the returned array.
+Specified by:
+toArray
+in interface
+Collection
+<K>
+Returns:
+an array, whose
+runtime component
+ type
+is
+Object
+, containing all of the elements in this collection
+toArray
+public final
+<T>
+T[]
+toArray
+(T[] a)
+Description copied from interface:
+Collection
+Returns an array containing all of the elements in this collection;
+ the runtime type of the returned array is that of the specified array.
+ If the collection fits in the specified array, it is returned therein.
+ Otherwise, a new array is allocated with the runtime type of the
+ specified array and the size of this collection.
+If this collection fits in the specified array with room to spare
+ (i.e., the array has more elements than this collection), the element
+ in the array immediately following the end of the collection is set to
+null
+.  (This is useful in determining the length of this
+ collection
+only
+if the caller knows that this collection does
+ not contain any
+null
+elements.)
+If this collection makes any guarantees as to what order its elements
+ are returned by its iterator, this method must return the elements in
+ the same order.
+Specified by:
+toArray
+in interface
+Collection
+<K>
+Type Parameters:
+T
+- the component type of the array to contain the collection
+Parameters:
+a
+- the array into which the elements of this collection are to be
+        stored, if it is big enough; otherwise, a new array of the same
+        runtime type is allocated for this purpose.
+Returns:
+an array containing all of the elements in this collection
+toString
+public final
+String
+toString
+()
+Returns a string representation of this collection.
+ The string representation consists of the string representations
+ of the collection's elements in the order they are returned by
+ its iterator, enclosed in square brackets (
+"[]"
+).
+ Adjacent elements are separated by the characters
+", "
+(comma and space).  Elements are converted to strings as by
+String.valueOf(Object)
+.
+Overrides:
+toString
+in class
+Object
+Returns:
+a string representation of this collection
+containsAll
+public final
+boolean
+containsAll
+(
+Collection
+<?> c)
+Description copied from interface:
+Collection
+Returns
+true
+if this collection contains all of the elements
+ in the specified collection.
+Specified by:
+containsAll
+in interface
+Collection
+<K>
+Parameters:
+c
+- collection to be checked for containment in this collection
+Returns:
+true
+if this collection contains all of the elements
+         in the specified collection
+See Also:
+Collection.contains(Object)
+removeAll
+public
+boolean
+removeAll
+(
+Collection
+<?> c)
+Description copied from interface:
+Collection
+Removes all of this collection's elements that are also contained in the
+ specified collection (optional operation).  After this call returns,
+ this collection will contain no elements in common with the specified
+ collection.
+Specified by:
+removeAll
+in interface
+Collection
+<K>
+Parameters:
+c
+- collection containing elements to be removed from this collection
+Returns:
+true
+if this collection changed as a result of the
+         call
+See Also:
+Collection.remove(Object)
+Collection.contains(Object)
+retainAll
+public final
+boolean
+retainAll
+(
+Collection
+<?> c)
+Description copied from interface:
+Collection
+Retains only the elements in this collection that are contained in the
+ specified collection (optional operation).  In other words, removes from
+ this collection all of its elements that are not contained in the
+ specified collection.
+Specified by:
+retainAll
+in interface
+Collection
+<K>
+Parameters:
+c
+- collection containing elements to be retained in this collection
+Returns:
+true
+if this collection changed as a result of the call
+See Also:
+Collection.remove(Object)
+Collection.contains(Object)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,339 @@
+java.lang.reflect (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages
+|
+Classes and Interfaces
+SEARCH
+Module
+java.base
+Package java.lang.reflect
+package
+java.lang.reflect
+Provides classes and interfaces for obtaining reflective information about
+ classes and objects.  Reflection allows programmatic access to information
+ about the fields, methods, and constructors of loaded classes, and the use
+ of reflected fields, methods, and constructors to operate on their underlying
+ counterparts, within encapsulation and security restrictions.
+Classes in this package, along with
+java.lang.Class
+accommodate applications such as debuggers, interpreters, object
+ inspectors, class browsers, and services such as Object
+ Serialization and JavaBeans that need access to either the public
+ members of a target object (based on its runtime class) or the
+ members declared by a given class.
+AccessibleObject
+allows suppression of access checks if
+ the necessary
+ReflectPermission
+is available.
+Array
+provides static methods to dynamically create and
+ access arrays.
+Java programming language and JVM modeling in core reflection
+The components of core reflection, which include types in this
+ package as well as
+Class
+,
+Package
+, and
+Module
+,
+ fundamentally present a JVM model of the entities in question
+ rather than a Java programming language model.  A Java compiler,
+ such as
+javac
+, translates Java source code into executable
+ output that can be run on a JVM, primarily
+class
+files. Compilers for source languages other than Java can and do
+ target the JVM as well.
+The translation process, including from Java language sources,
+ to executable output for the JVM is not a one-to-one
+ mapping. Structures present in the source language may have no
+ representation in the output and structures
+not
+present in
+ the source language may be present in the output. The latter are
+ called
+synthetic
+structures. Synthetic structures can
+ include
+methods
+,
+fields
+,
+parameters
+,
+classes and
+ interfaces
+. One particular kind of synthetic method is a
+bridge method
+. It is possible a
+ synthetic structure may not be marked as such. In particular, not
+ all
+class
+file versions support marking a parameter as
+ synthetic. A source language compiler generally has multiple ways
+ to translate a source program into a
+class
+file
+ representation. The translation may also depend on the version of
+ the
+class
+file format being targeted as different
+class
+file versions have different capabilities and features. In
+ some cases the modifiers present in the
+class
+file
+ representation may differ from the modifiers on the originating
+ element in the source language, including
+final
+on a
+parameter
+and
+protected
+,
+private
+, and
+static
+on
+classes and interfaces
+.
+Besides differences in structural representation between the
+ source language and the JVM representation, core reflection also
+ exposes runtime specific information. For example, the
+class loaders
+and
+protection domains
+of a
+Class
+are runtime concepts without a direct analogue in
+ source code.
+See
+Java Language Specification
+:
+13.1 The Form of a Binary
+See
+Java Virtual Machine Specification
+:
+1.2 The Java Virtual Machine
+4.7.8 The Synthetic Attribute
+5.3.1 Loading Using the Bootstrap Class Loader
+5.3.2 Loading Using a User-defined Class Loader
+Since:
+1.1
+Related Packages
+Package
+Description
+java.lang
+Provides classes that are fundamental to the design of the Java
+ programming language.
+All Classes and Interfaces
+Interfaces
+Classes
+Enum Classes
+Exception Classes
+Class
+Description
+AccessFlag
+Represents a JVM access or module-related flag on a runtime member,
+ such as a
+class
+,
+field
+, or
+method
+.
+AccessFlag.Location
+A location within a class file where flags can be applied.
+AccessibleObject
+The
+AccessibleObject
+class is the base class for
+Field
+,
+Method
+, and
+Constructor
+objects (known as
+reflected
+ objects
+).
+AnnotatedArrayType
+AnnotatedArrayType
+represents the potentially annotated use of an
+ array type, whose component type may itself represent the annotated use of a
+ type.
+AnnotatedElement
+Represents an annotated construct of the program currently running
+ in this VM.
+AnnotatedParameterizedType
+AnnotatedParameterizedType
+represents the potentially annotated use
+ of a parameterized type, whose type arguments may themselves represent
+ annotated uses of types.
+AnnotatedType
+AnnotatedType
+represents the potentially annotated use of a type in
+ the program currently running in this VM.
+AnnotatedTypeVariable
+AnnotatedTypeVariable
+represents the potentially annotated use of a
+ type variable, whose declaration may have bounds which themselves represent
+ annotated uses of types.
+AnnotatedWildcardType
+AnnotatedWildcardType
+represents the potentially annotated use of a
+ wildcard type argument, whose upper or lower bounds may themselves represent
+ annotated uses of types.
+Array
+The
+Array
+class provides static methods to dynamically create and
+ access Java arrays.
+ClassFileFormatVersion
+Class file format versions of the Java virtual machine.
+Constructor
+<T>
+Constructor
+provides information about, and access to, a single
+ constructor for a class.
+Executable
+A shared superclass for the common functionality of
+Method
+and
+Constructor
+.
+Field
+A
+Field
+provides information about, and dynamic access to, a
+ single field of a class or an interface.
+GenericArrayType
+GenericArrayType
+represents an array type whose component
+ type is either a parameterized type or a type variable.
+GenericDeclaration
+A common interface for all entities that declare type variables.
+GenericSignatureFormatError
+Thrown when a syntactically malformed signature attribute is
+ encountered by a reflective method that needs to interpret the generic
+ signature information for a class or interface, method or constructor.
+InaccessibleObjectException
+Thrown when Java language access checks cannot be suppressed.
+InvocationHandler
+InvocationHandler
+is the interface implemented by
+ the
+invocation handler
+of a proxy instance.
+InvocationTargetException
+InvocationTargetException is a checked exception that wraps
+ an exception thrown by an invoked method or constructor.
+MalformedParameterizedTypeException
+Thrown when a semantically malformed parameterized type is
+ encountered by a reflective method that needs to instantiate it.
+MalformedParametersException
+Thrown when
+the
+ java.lang.reflect package
+attempts to read method parameters from
+ a class file and determines that one or more parameters are
+ malformed.
+Member
+Member is an interface that reflects identifying information about
+ a single member (a field or a method) or a constructor.
+Method
+A
+Method
+provides information about, and access to, a single method
+ on a class or interface.
+Modifier
+The Modifier class provides
+static
+methods and
+ constants to decode class and member access modifiers.
+Parameter
+Information about method parameters.
+ParameterizedType
+ParameterizedType represents a parameterized type such as
+Collection<String>
+.
+Proxy
+Proxy
+provides static methods for creating objects that act like instances
+ of interfaces but allow for customized method invocation.
+RecordComponent
+A
+RecordComponent
+provides information about, and dynamic access to, a
+ component of a record class.
+ReflectPermission
+The Permission class for reflective operations.
+Type
+Type is the common superinterface for all types in the Java
+ programming language.
+TypeVariable
+<D extends
+GenericDeclaration
+>
+TypeVariable is the common superinterface for type variables of kinds.
+UndeclaredThrowableException
+Thrown by a method invocation on a proxy instance if its invocation
+ handler's
+invoke
+method throws a
+ checked exception (a
+Throwable
+that is not assignable
+ to
+RuntimeException
+or
+Error
+) that
+ is not assignable to any of the exception types declared in the
+throws
+clause of the method that was invoked on the
+ proxy instance and dispatched to the invocation handler.
+WildcardType
+WildcardType represents a wildcard type expression, such as
+?
+,
+? extends Number
+, or
+? super Integer
+.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

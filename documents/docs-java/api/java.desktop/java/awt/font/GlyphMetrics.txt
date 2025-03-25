@@ -1,0 +1,499 @@
+GlyphMetrics (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt.font
+Class GlyphMetrics
+java.lang.Object
+java.awt.font.GlyphMetrics
+public final class
+GlyphMetrics
+extends
+Object
+The
+GlyphMetrics
+class represents information for a
+ single glyph.   A glyph is the visual representation of one or more
+ characters.  Many different glyphs can be used to represent a single
+ character or combination of characters.
+GlyphMetrics
+instances are produced by
+Font
+and are applicable
+ to a specific glyph in a particular
+Font
+.
+Glyphs are either STANDARD, LIGATURE, COMBINING, or COMPONENT.
+STANDARD glyphs are commonly used to represent single characters.
+LIGATURE glyphs are used to represent sequences of characters.
+COMPONENT glyphs in a
+GlyphVector
+do not correspond to a
+ particular character in a text model. Instead, COMPONENT glyphs are
+ added for typographical reasons, such as Arabic justification.
+COMBINING glyphs embellish STANDARD or LIGATURE glyphs, such
+ as accent marks.  Carets do not appear before COMBINING glyphs.
+Other metrics available through
+GlyphMetrics
+are the
+ components of the advance, the visual bounds, and the left and right
+ side bearings.
+Glyphs for a rotated font, or obtained from a
+GlyphVector
+which has applied a rotation to the glyph, can have advances that
+ contain both X and Y components.  Usually the advance only has one
+ component.
+The advance of a glyph is the distance from the glyph's origin to the
+ origin of the next glyph along the baseline, which is either vertical
+ or horizontal.  Note that, in a
+GlyphVector
+,
+ the distance from a glyph to its following glyph might not be the
+ glyph's advance, because of kerning or other positioning adjustments.
+The bounds is the smallest rectangle that completely contains the
+ outline of the glyph.  The bounds rectangle is relative to the
+ glyph's origin.  The left-side bearing is the distance from the glyph
+ origin to the left of its bounds rectangle. If the left-side bearing is
+ negative, part of the glyph is drawn to the left of its origin.  The
+ right-side bearing is the distance from the right side of the bounds
+ rectangle to the next glyph origin (the origin plus the advance).  If
+ negative, part of the glyph is drawn to the right of the next glyph's
+ origin.  Note that the bounds does not necessarily enclose all the pixels
+ affected when rendering the glyph, because of rasterization and pixel
+ adjustment effects.
+Although instances of
+GlyphMetrics
+can be directly
+ constructed, they are almost always obtained from a
+GlyphVector
+.  Once constructed,
+GlyphMetrics
+objects are immutable.
+Example
+:
+Querying a
+Font
+for glyph information
+Font font = ...;
+ int glyphIndex = ...;
+ GlyphMetrics metrics = GlyphVector.getGlyphMetrics(glyphIndex);
+ int isStandard = metrics.isStandard();
+ float glyphAdvance = metrics.getAdvance();
+See Also:
+Font
+GlyphVector
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final byte
+COMBINING
+Indicates a glyph that represents a combining character,
+ such as an umlaut.
+static final byte
+COMPONENT
+Indicates a glyph with no corresponding character in the
+ backing store.
+static final byte
+LIGATURE
+Indicates a glyph that represents multiple characters
+ as a ligature, for example 'fi' or 'ffi'.
+static final byte
+STANDARD
+Indicates a glyph that represents a single standard
+ character.
+static final byte
+WHITESPACE
+Indicates a glyph with no visual representation.
+Constructor Summary
+Constructors
+Constructor
+Description
+GlyphMetrics
+(boolean horizontal,
+ float advanceX,
+ float advanceY,
+Rectangle2D
+bounds,
+ byte glyphType)
+Constructs a
+GlyphMetrics
+object.
+GlyphMetrics
+(float advance,
+Rectangle2D
+bounds,
+ byte glyphType)
+Constructs a
+GlyphMetrics
+object.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+float
+getAdvance
+()
+Returns the advance of the glyph along the baseline (either
+ horizontal or vertical).
+float
+getAdvanceX
+()
+Returns the x-component of the advance of the glyph.
+float
+getAdvanceY
+()
+Returns the y-component of the advance of the glyph.
+Rectangle2D
+getBounds2D
+()
+Returns the bounds of the glyph.
+float
+getLSB
+()
+Returns the left (top) side bearing of the glyph.
+float
+getRSB
+()
+Returns the right (bottom) side bearing of the glyph.
+int
+getType
+()
+Returns the raw glyph type code.
+boolean
+isCombining
+()
+Returns
+true
+if this is a combining glyph.
+boolean
+isComponent
+()
+Returns
+true
+if this is a component glyph.
+boolean
+isLigature
+()
+Returns
+true
+if this is a ligature glyph.
+boolean
+isStandard
+()
+Returns
+true
+if this is a standard glyph.
+boolean
+isWhitespace
+()
+Returns
+true
+if this is a whitespace glyph.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+STANDARD
+public static final
+byte
+STANDARD
+Indicates a glyph that represents a single standard
+ character.
+See Also:
+Constant Field Values
+LIGATURE
+public static final
+byte
+LIGATURE
+Indicates a glyph that represents multiple characters
+ as a ligature, for example 'fi' or 'ffi'.  It is followed by
+ filler glyphs for the remaining characters. Filler and combining
+ glyphs can be intermixed to control positioning of accent marks
+ on the logically preceding ligature.
+See Also:
+Constant Field Values
+COMBINING
+public static final
+byte
+COMBINING
+Indicates a glyph that represents a combining character,
+ such as an umlaut.  There is no caret position between this glyph
+ and the preceding glyph.
+See Also:
+Constant Field Values
+COMPONENT
+public static final
+byte
+COMPONENT
+Indicates a glyph with no corresponding character in the
+ backing store.  The glyph is associated with the character
+ represented by the logically preceding non-component glyph.  This
+ is used for kashida justification or other visual modifications to
+ existing glyphs.  There is no caret position between this glyph
+ and the preceding glyph.
+See Also:
+Constant Field Values
+WHITESPACE
+public static final
+byte
+WHITESPACE
+Indicates a glyph with no visual representation. It can
+ be added to the other code values to indicate an invisible glyph.
+See Also:
+Constant Field Values
+Constructor Details
+GlyphMetrics
+public
+GlyphMetrics
+(float advance,
+Rectangle2D
+bounds,
+ byte glyphType)
+Constructs a
+GlyphMetrics
+object.
+Parameters:
+advance
+- the advance width of the glyph
+bounds
+- the black box bounds of the glyph
+glyphType
+- the type of the glyph
+GlyphMetrics
+public
+GlyphMetrics
+(boolean horizontal,
+ float advanceX,
+ float advanceY,
+Rectangle2D
+bounds,
+ byte glyphType)
+Constructs a
+GlyphMetrics
+object.
+Parameters:
+horizontal
+- if true, metrics are for a horizontal baseline,
+   otherwise they are for a vertical baseline
+advanceX
+- the X-component of the glyph's advance
+advanceY
+- the Y-component of the glyph's advance
+bounds
+- the visual bounds of the glyph
+glyphType
+- the type of the glyph
+Since:
+1.4
+Method Details
+getAdvance
+public
+float
+getAdvance
+()
+Returns the advance of the glyph along the baseline (either
+ horizontal or vertical).
+Returns:
+the advance of the glyph
+getAdvanceX
+public
+float
+getAdvanceX
+()
+Returns the x-component of the advance of the glyph.
+Returns:
+the x-component of the advance of the glyph
+Since:
+1.4
+getAdvanceY
+public
+float
+getAdvanceY
+()
+Returns the y-component of the advance of the glyph.
+Returns:
+the y-component of the advance of the glyph
+Since:
+1.4
+getBounds2D
+public
+Rectangle2D
+getBounds2D
+()
+Returns the bounds of the glyph. This is the bounding box of the glyph outline.
+ Because of rasterization and pixel alignment effects, it does not necessarily
+ enclose the pixels that are affected when rendering the glyph.
+Returns:
+a
+Rectangle2D
+that is the bounds of the glyph.
+getLSB
+public
+float
+getLSB
+()
+Returns the left (top) side bearing of the glyph.
+This is the distance from 0, 0 to the left (top) of the glyph
+ bounds.  If the bounds of the glyph is to the left of (above) the
+ origin, the LSB is negative.
+Returns:
+the left side bearing of the glyph.
+getRSB
+public
+float
+getRSB
+()
+Returns the right (bottom) side bearing of the glyph.
+This is the distance from the right (bottom) of the glyph bounds to
+ the advance. If the bounds of the glyph is to the right of (below)
+ the advance, the RSB is negative.
+Returns:
+the right side bearing of the glyph.
+getType
+public
+int
+getType
+()
+Returns the raw glyph type code.
+Returns:
+the raw glyph type code.
+isStandard
+public
+boolean
+isStandard
+()
+Returns
+true
+if this is a standard glyph.
+Returns:
+true
+if this is a standard glyph;
+false
+otherwise.
+isLigature
+public
+boolean
+isLigature
+()
+Returns
+true
+if this is a ligature glyph.
+Returns:
+true
+if this is a ligature glyph;
+false
+otherwise.
+isCombining
+public
+boolean
+isCombining
+()
+Returns
+true
+if this is a combining glyph.
+Returns:
+true
+if this is a combining glyph;
+false
+otherwise.
+isComponent
+public
+boolean
+isComponent
+()
+Returns
+true
+if this is a component glyph.
+Returns:
+true
+if this is a component glyph;
+false
+otherwise.
+isWhitespace
+public
+boolean
+isWhitespace
+()
+Returns
+true
+if this is a whitespace glyph.
+Returns:
+true
+if this is a whitespace glyph;
+false
+otherwise.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

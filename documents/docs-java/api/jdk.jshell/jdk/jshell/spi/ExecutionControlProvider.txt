@@ -1,0 +1,168 @@
+ExecutionControlProvider (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.jshell
+Package
+jdk.jshell.spi
+Interface ExecutionControlProvider
+All Known Implementing Classes:
+FailOverExecutionControlProvider
+,
+JdiExecutionControlProvider
+,
+LocalExecutionControlProvider
+public interface
+ExecutionControlProvider
+The provider used by JShell to generate the execution engine needed to
+ evaluate Snippets.  Alternate execution engines can be created by
+ implementing this interface, then configuring JShell with the provider or
+ the providers name and parameter specifier.
+Since:
+9
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+default
+Map
+<
+String
+,
+String
+>
+defaultParameters
+()
+Create and return the default parameter map for this
+ExecutionControlProvider
+.
+ExecutionControl
+generate
+(
+ExecutionEnv
+env,
+Map
+<
+String
+,
+String
+> parameters)
+Create and return the
+ExecutionControl
+instance.
+String
+name
+()
+The unique name of this
+ExecutionControlProvider
+.
+Method Details
+name
+String
+name
+()
+The unique name of this
+ExecutionControlProvider
+.  The name must
+ be a sequence of characters from the Basic Multilingual Plane which are
+Character.isJavaIdentifierPart(char)
+.
+Returns:
+the ExecutionControlProvider's name
+defaultParameters
+default
+Map
+<
+String
+,
+String
+>
+defaultParameters
+()
+Create and return the default parameter map for this
+ExecutionControlProvider
+. The map can optionally be modified;
+ Modified or unmodified it can be passed to
+generate(jdk.jshell.spi.ExecutionEnv, java.util.Map)
+.
+Returns:
+the default parameter map
+generate
+ExecutionControl
+generate
+(
+ExecutionEnv
+env,
+Map
+<
+String
+,
+String
+> parameters)
+throws
+Throwable
+Create and return the
+ExecutionControl
+instance.
+Parameters:
+env
+- the execution environment, provided by JShell
+parameters
+- the
+default
+or
+ modified parameter map.
+Returns:
+the execution engine
+Throws:
+Throwable
+- an exception that occurred attempting to create the
+ execution engine.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

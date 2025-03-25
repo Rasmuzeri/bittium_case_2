@@ -1,0 +1,186 @@
+EdDSAParameterSpec (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.security.spec
+Class EdDSAParameterSpec
+java.lang.Object
+java.security.spec.EdDSAParameterSpec
+All Implemented Interfaces:
+AlgorithmParameterSpec
+public class
+EdDSAParameterSpec
+extends
+Object
+implements
+AlgorithmParameterSpec
+A class used to specify EdDSA signature and verification parameters. All
+ algorithm modes in
+RFC 8032:
+ Edwards-Curve Digital Signature Algorithm (EdDSA)
+can be specified using
+ combinations of the settings in this class.
+If prehash is true, then the mode is Ed25519ph or Ed448ph
+Otherwise, if a context is present, the mode is Ed25519ctx or Ed448
+Otherwise, the mode is Ed25519 or Ed448
+Since:
+15
+Constructor Summary
+Constructors
+Constructor
+Description
+EdDSAParameterSpec
+(boolean prehash)
+Construct an
+EdDSAParameterSpec
+by specifying whether the prehash mode
+ is used.
+EdDSAParameterSpec
+(boolean prehash,
+ byte[] context)
+Construct an
+EdDSAParameterSpec
+by specifying a context and whether the
+ prehash mode is used.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Optional
+<byte[]>
+getContext
+()
+Get the context that the signature will use.
+boolean
+isPrehash
+()
+Get whether the prehash mode is specified.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+EdDSAParameterSpec
+public
+EdDSAParameterSpec
+(boolean prehash)
+Construct an
+EdDSAParameterSpec
+by specifying whether the prehash mode
+ is used. No context is provided so this constructor specifies a mode
+ in which the context is null. Note that this mode may be different
+ from the mode in which an empty array is used as the context.
+Parameters:
+prehash
+- whether the prehash mode is specified.
+EdDSAParameterSpec
+public
+EdDSAParameterSpec
+(boolean prehash,
+ byte[] context)
+Construct an
+EdDSAParameterSpec
+by specifying a context and whether the
+ prehash mode is used. The context may not be null, but it may be an
+ empty array. The mode used when the context is an empty array may not be
+ the same as the mode used when the context is absent.
+Parameters:
+prehash
+- whether the prehash mode is specified.
+context
+- the context is copied and bound to the signature.
+Throws:
+NullPointerException
+- if context is null.
+InvalidParameterException
+- if context length is greater than 255.
+Method Details
+isPrehash
+public
+boolean
+isPrehash
+()
+Get whether the prehash mode is specified.
+Returns:
+whether the prehash mode is specified.
+getContext
+public
+Optional
+<byte[]>
+getContext
+()
+Get the context that the signature will use.
+Returns:
+Optional
+contains a copy of the context or empty
+ if context is null.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

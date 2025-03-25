@@ -1,0 +1,428 @@
+JavacTask (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.compiler
+Package
+com.sun.source.util
+Class JavacTask
+java.lang.Object
+com.sun.source.util.JavacTask
+All Implemented Interfaces:
+Callable
+<
+Boolean
+>
+,
+JavaCompiler.CompilationTask
+public abstract class
+JavacTask
+extends
+Object
+implements
+JavaCompiler.CompilationTask
+Provides access to functionality specific to the JDK Java Compiler, javac.
+Since:
+1.6
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+JavacTask
+()
+Constructor for subclasses to call.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+abstract void
+addTaskListener
+(
+TaskListener
+taskListener)
+Adds a specified listener so that it receives notification of events
+ describing the progress of this compilation task.
+abstract
+Iterable
+<? extends
+Element
+>
+analyze
+()
+Completes all analysis.
+abstract
+Iterable
+<? extends
+JavaFileObject
+>
+generate
+()
+Generates code.
+abstract
+Elements
+getElements
+()
+Returns a utility object for dealing with program elements.
+abstract
+TypeMirror
+getTypeMirror
+(
+Iterable
+<? extends
+Tree
+> path)
+Returns a type mirror of the tree node determined by the specified path.
+abstract
+Types
+getTypes
+()
+Returns a utility object for dealing with type mirrors.
+static
+JavacTask
+instance
+(
+ProcessingEnvironment
+processingEnvironment)
+Returns the
+JavacTask
+for a
+ProcessingEnvironment
+.
+abstract
+Iterable
+<? extends
+CompilationUnitTree
+>
+parse
+()
+Parses the specified files returning a list of abstract syntax trees.
+abstract void
+removeTaskListener
+(
+TaskListener
+taskListener)
+Removes the specified listener so that it no longer receives
+ notification of events describing the progress of this
+ compilation task.
+void
+setParameterNameProvider
+(
+ParameterNameProvider
+provider)
+Sets the specified
+ParameterNameProvider
+.
+abstract void
+setTaskListener
+(
+TaskListener
+taskListener)
+Sets a specified listener to receive notification of events
+ describing the progress of this compilation task.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface javax.tools.
+JavaCompiler.CompilationTask
+addModules
+,
+call
+,
+setLocale
+,
+setProcessors
+Constructor Details
+JavacTask
+protected
+JavacTask
+()
+Constructor for subclasses to call.
+Method Details
+instance
+public static
+JavacTask
+instance
+(
+ProcessingEnvironment
+processingEnvironment)
+Returns the
+JavacTask
+for a
+ProcessingEnvironment
+.
+ If the compiler is being invoked using a
+CompilationTask
+,
+ then that task will be returned.
+Parameters:
+processingEnvironment
+- the processing environment
+Returns:
+the
+JavacTask
+for a
+ProcessingEnvironment
+Since:
+1.8
+parse
+public abstract
+Iterable
+<? extends
+CompilationUnitTree
+>
+parse
+()
+                                                       throws
+IOException
+Parses the specified files returning a list of abstract syntax trees.
+Returns:
+a list of abstract syntax trees
+Throws:
+IOException
+- if an unhandled I/O error occurred in the compiler.
+IllegalStateException
+- if the operation cannot be performed at this time.
+analyze
+public abstract
+Iterable
+<? extends
+Element
+>
+analyze
+()
+                                             throws
+IOException
+Completes all analysis.
+Returns:
+a list of elements that were analyzed
+Throws:
+IOException
+- if an unhandled I/O error occurred in the compiler.
+IllegalStateException
+- if the operation cannot be performed at this time.
+generate
+public abstract
+Iterable
+<? extends
+JavaFileObject
+>
+generate
+()
+                                                     throws
+IOException
+Generates code.
+Returns:
+a list of files that were generated
+Throws:
+IOException
+- if an unhandled I/O error occurred in the compiler.
+IllegalStateException
+- if the operation cannot be performed at this time.
+setTaskListener
+public abstract
+void
+setTaskListener
+(
+TaskListener
+taskListener)
+Sets a specified listener to receive notification of events
+ describing the progress of this compilation task.
+
+ If another listener is receiving notifications as a result of a prior
+ call of this method, then that listener will no longer receive notifications.
+
+ Informally, this method is equivalent to calling
+removeTaskListener
+for
+ any listener that has been previously set, followed by
+addTaskListener
+for the new listener.
+Parameters:
+taskListener
+- the task listener
+Throws:
+IllegalStateException
+- if the specified listener has already been added.
+addTaskListener
+public abstract
+void
+addTaskListener
+(
+TaskListener
+taskListener)
+Adds a specified listener so that it receives notification of events
+ describing the progress of this compilation task.
+
+ This method may be called at any time before or during the compilation.
+Parameters:
+taskListener
+- the task listener
+Throws:
+IllegalStateException
+- if the specified listener has already been added.
+Since:
+1.8
+removeTaskListener
+public abstract
+void
+removeTaskListener
+(
+TaskListener
+taskListener)
+Removes the specified listener so that it no longer receives
+ notification of events describing the progress of this
+ compilation task.
+
+ This method may be called at any time before or during the compilation.
+Parameters:
+taskListener
+- the task listener
+Since:
+1.8
+setParameterNameProvider
+public
+void
+setParameterNameProvider
+(
+ParameterNameProvider
+provider)
+Sets the specified
+ParameterNameProvider
+. It may be used when
+VariableElement.getSimpleName()
+is called for a method parameter
+ for which an authoritative name is not found. The given
+ParameterNameProvider
+may infer a user-friendly name
+ for the method parameter.
+
+ Setting a new
+ParameterNameProvider
+will clear any previously set
+ParameterNameProvider
+, which won't be queried any more.
+
+ When no
+ParameterNameProvider
+is set, or when it returns null from
+ParameterNameProvider.getParameterName(javax.lang.model.element.VariableElement)
+,
+ an automatically synthesized name is returned from
+VariableElement.getSimpleName()
+.
+Implementation Requirements:
+The default implementation of this method does nothing.
+Parameters:
+provider
+- the provider
+Since:
+13
+getTypeMirror
+public abstract
+TypeMirror
+getTypeMirror
+(
+Iterable
+<? extends
+Tree
+> path)
+Returns a type mirror of the tree node determined by the specified path.
+ This method has been superseded by methods on
+Trees
+.
+Parameters:
+path
+- the path
+Returns:
+the type mirror
+See Also:
+Trees.getTypeMirror(com.sun.source.util.TreePath)
+getElements
+public abstract
+Elements
+getElements
+()
+Returns a utility object for dealing with program elements.
+Returns:
+a utility object for dealing with program elements
+getTypes
+public abstract
+Types
+getTypes
+()
+Returns a utility object for dealing with type mirrors.
+Returns:
+the utility object for dealing with type mirrors
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

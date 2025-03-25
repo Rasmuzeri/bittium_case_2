@@ -1,0 +1,150 @@
+Channels.SelectableChannelCloser (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.net
+Package
+jdk.nio
+Interface Channels.SelectableChannelCloser
+Enclosing class:
+Channels
+public static interface
+Channels.SelectableChannelCloser
+An object used to coordinate the closing of a selectable channel created
+ by
+readWriteSelectableChannel
+.
+Since:
+11
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+void
+implCloseChannel
+(
+SelectableChannel
+sc)
+Closes a selectable channel.
+void
+implReleaseChannel
+(
+SelectableChannel
+sc)
+Release the file descriptor and any resources for a selectable
+ channel that closed while registered with one or more
+Selector
+s.
+Method Details
+implCloseChannel
+void
+implCloseChannel
+(
+SelectableChannel
+sc)
+throws
+IOException
+Closes a selectable channel.
+This method is invoked by the channel's close method in order to
+ perform the actual work of closing the channel. This method is only
+ invoked if the channel has not yet been closed, and it is never
+ invoked more than once by the channel's close implementation.
+An implementation of this method must arrange for any other
+ thread that is blocked in an I/O operation upon the channel to return
+ immediately, either by throwing an exception or by returning normally.
+ If the channel is
+registered
+with one or more
+Selector
+s then
+ the file descriptor should not be released until the
+implReleaseChannel
+method is invoked.
+Parameters:
+sc
+- The selectable channel
+Throws:
+IOException
+- If an I/O error occurs while closing the file descriptor
+See Also:
+AbstractInterruptibleChannel.implCloseChannel()
+implReleaseChannel
+void
+implReleaseChannel
+(
+SelectableChannel
+sc)
+throws
+IOException
+Release the file descriptor and any resources for a selectable
+ channel that closed while registered with one or more
+Selector
+s.
+This method is for cases where a channel is closed when
+registered
+with one or more
+Selector
+s. A channel may remain registered
+ for some time after it is closed. This method is invoked when the
+ channel is eventually deregistered from the last
+Selector
+that it was registered with. It is invoked at most once.
+API Note:
+This method is invoked while synchronized on the selector
+ and its selected-key set. Great care must be taken to avoid deadlocks
+ with other threads that also synchronize on these objects.
+Parameters:
+sc
+- The closed selectable channel
+Throws:
+IOException
+- If an I/O error occurs
+See Also:
+AbstractSelector.deregister(java.nio.channels.spi.AbstractSelectionKey)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

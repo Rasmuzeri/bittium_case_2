@@ -1,0 +1,456 @@
+InetSocketAddress (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.net
+Class InetSocketAddress
+java.lang.Object
+java.net.SocketAddress
+java.net.InetSocketAddress
+All Implemented Interfaces:
+Serializable
+public class
+InetSocketAddress
+extends
+SocketAddress
+This class implements an IP Socket Address (IP address + port number)
+ It can also be a pair (hostname + port number), in which case an attempt
+ will be made to resolve the hostname. If resolution fails then the address
+ is said to be
+unresolved
+but can still be used on some circumstances
+ like connecting through a proxy.
+It provides an immutable object used by sockets for binding, connecting, or
+ as returned values.
+The
+wildcard
+is a special local IP address. It usually means "any"
+ and can only be used for
+bind
+operations.
+Since:
+1.4
+See Also:
+Socket
+ServerSocket
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+InetSocketAddress
+(int port)
+Creates a socket address where the IP address is the wildcard address
+ and the port number a specified value.
+InetSocketAddress
+(
+String
+hostname,
+ int port)
+Creates a socket address from a hostname and a port number.
+InetSocketAddress
+(
+InetAddress
+addr,
+ int port)
+Creates a socket address from an IP address and a port number.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+InetSocketAddress
+createUnresolved
+(
+String
+host,
+ int port)
+Creates an unresolved socket address from a hostname and a port number.
+final boolean
+equals
+(
+Object
+obj)
+Compares this object against the specified object.
+final
+InetAddress
+getAddress
+()
+Gets the
+InetAddress
+.
+final
+String
+getHostName
+()
+Gets the
+hostname
+.
+final
+String
+getHostString
+()
+Returns the hostname, or the String form of the address if it
+ doesn't have a hostname (it was created using a literal).
+final int
+getPort
+()
+Gets the port number.
+final int
+hashCode
+()
+Returns a hashcode for this socket address.
+final boolean
+isUnresolved
+()
+Checks whether the address has been resolved or not.
+String
+toString
+()
+Constructs a string representation of this InetSocketAddress.
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+InetSocketAddress
+public
+InetSocketAddress
+(int port)
+Creates a socket address where the IP address is the wildcard address
+ and the port number a specified value.
+A valid port value is between 0 and 65535.
+ A port number of
+zero
+will let the system pick up an
+ ephemeral port in a
+bind
+operation.
+Parameters:
+port
+- The port number
+Throws:
+IllegalArgumentException
+- if the port parameter is outside the specified
+ range of valid port values.
+InetSocketAddress
+public
+InetSocketAddress
+(
+InetAddress
+addr,
+ int port)
+Creates a socket address from an IP address and a port number.
+A valid port value is between 0 and 65535.
+ A port number of
+zero
+will let the system pick up an
+ ephemeral port in a
+bind
+operation.
+A
+null
+address will assign the
+wildcard
+address.
+Parameters:
+addr
+- The IP address
+port
+- The port number
+Throws:
+IllegalArgumentException
+- if the port parameter is outside the specified
+ range of valid port values.
+InetSocketAddress
+public
+InetSocketAddress
+(
+String
+hostname,
+ int port)
+Creates a socket address from a hostname and a port number.
+An attempt will be made to resolve the hostname into an InetAddress.
+ If that attempt fails, the address will be flagged as
+unresolved
+.
+If there is a security manager, its
+checkConnect
+method
+ is called with the host name as its argument to check the permission
+ to resolve it. This could result in a SecurityException.
+A valid port value is between 0 and 65535.
+ A port number of
+zero
+will let the system pick up an
+ ephemeral port in a
+bind
+operation.
+Parameters:
+hostname
+- the Host name
+port
+- The port number
+Throws:
+IllegalArgumentException
+- if the port parameter is outside the range
+ of valid port values, or if the hostname parameter is
+null
+.
+SecurityException
+- if a security manager is present and
+                           permission to resolve the host name is
+                           denied.
+See Also:
+isUnresolved()
+Method Details
+createUnresolved
+public static
+InetSocketAddress
+createUnresolved
+(
+String
+host,
+ int port)
+Creates an unresolved socket address from a hostname and a port number.
+No attempt will be made to resolve the hostname into an InetAddress.
+ The address will be flagged as
+unresolved
+.
+A valid port value is between 0 and 65535.
+ A port number of
+zero
+will let the system pick up an
+ ephemeral port in a
+bind
+operation.
+Parameters:
+host
+- the Host name
+port
+- The port number
+Returns:
+an
+InetSocketAddress
+representing the unresolved
+          socket address
+Throws:
+IllegalArgumentException
+- if the port parameter is outside
+                  the range of valid port values, or if the hostname
+                  parameter is
+null
+.
+Since:
+1.5
+See Also:
+isUnresolved()
+getPort
+public final
+int
+getPort
+()
+Gets the port number.
+Returns:
+the port number.
+getAddress
+public final
+InetAddress
+getAddress
+()
+Gets the
+InetAddress
+.
+Returns:
+the InetAddress or
+null
+if it is unresolved.
+getHostName
+public final
+String
+getHostName
+()
+Gets the
+hostname
+.
+ Note: This method may trigger a name service reverse lookup if the
+ address was created with a literal IP address.
+Returns:
+the hostname part of the address.
+getHostString
+public final
+String
+getHostString
+()
+Returns the hostname, or the String form of the address if it
+ doesn't have a hostname (it was created using a literal).
+ This has the benefit of
+not
+attempting a reverse lookup.
+Returns:
+the hostname, or String representation of the address.
+Since:
+1.7
+isUnresolved
+public final
+boolean
+isUnresolved
+()
+Checks whether the address has been resolved or not.
+Returns:
+true
+if the hostname couldn't be resolved into
+          an
+InetAddress
+.
+toString
+public
+String
+toString
+()
+Constructs a string representation of this InetSocketAddress.
+ This string is constructed by calling
+InetAddress.toString()
+on the InetAddress and concatenating the port number (with a colon).
+If the address is an IPv6 address, the IPv6 literal is enclosed in
+ square brackets, for example:
+"localhost/[0:0:0:0:0:0:0:1]:80"
+.
+ If the address is
+unresolved
+,
+<unresolved>
+is displayed in place of the address literal, for
+ example
+"foo/<unresolved>:80"
+.
+To retrieve a string representation of the hostname or the address, use
+getHostString()
+, rather than parsing the string returned by this
+toString()
+method.
+Overrides:
+toString
+in class
+Object
+Returns:
+a string representation of this object.
+equals
+public final
+boolean
+equals
+(
+Object
+obj)
+Compares this object against the specified object.
+ The result is
+true
+if and only if the argument is
+ not
+null
+and it represents the same address as
+ this object.
+Two instances of
+InetSocketAddress
+represent the same
+ address if both the InetAddresses (or hostnames if it is unresolved) and port
+ numbers are equal.
+ If both addresses are unresolved, then the hostname and the port number
+ are compared.
+
+ Note: Hostnames are case insensitive. e.g. "FooBar" and "foobar" are
+ considered equal.
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- the object to compare against.
+Returns:
+true
+if the objects are the same;
+false
+otherwise.
+See Also:
+InetAddress.equals(java.lang.Object)
+hashCode
+public final
+int
+hashCode
+()
+Returns a hashcode for this socket address.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+a hash code value for this socket address.
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

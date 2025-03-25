@@ -1,0 +1,522 @@
+Arena (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang.foreign
+Interface Arena
+All Superinterfaces:
+AutoCloseable
+,
+SegmentAllocator
+PREVIEW
+public interface
+Arena
+extends
+SegmentAllocator
+PREVIEW
+,
+AutoCloseable
+Arena
+is a preview API of the Java platform.
+Programs can only use
+Arena
+when preview features are enabled.
+Preview features may be removed in a future release, or upgraded to permanent features of the Java platform.
+An arena controls the lifecycle of native memory segments, providing both flexible allocation and timely deallocation.
+An arena has a
+scope
+PREVIEW
+- the
+arena scope
+. All the segments allocated
+ by the arena are associated with the arena scope. As such, the arena determines the temporal bounds
+ of all the memory segments allocated by it.
+Moreover, an arena also determines whether access to memory segments allocated by it should be
+restricted
+PREVIEW
+to specific threads.
+ An arena is a
+SegmentAllocator
+PREVIEW
+and features several allocation methods that can be used by clients
+ to obtain native segments.
+The simplest arena is the
+global arena
+. The global arena
+ features an
+unbounded lifetime
+. As such, native segments allocated with the global arena are always
+ accessible and their backing regions of memory are never deallocated. Moreover, memory segments allocated with the
+ global arena can be
+accessed
+PREVIEW
+from any thread.
+Copy
+MemorySegment segment = Arena.
+global
+().allocate(100, 1);
+ ...
+ // segment is never deallocated!
+Alternatively, clients can obtain an
+automatic arena
+, that is an arena
+ which features a
+bounded lifetime
+that is managed, automatically, by the garbage collector. As such, the regions
+ of memory backing memory segments allocated with the automatic arena are deallocated at some unspecified time
+after
+the automatic arena (and all the segments allocated by it) becomes
+unreachable
+, as shown below:
+Copy
+MemorySegment segment = Arena.
+ofAuto
+().allocate(100, 1);
+ ...
+ segment = null; // the segment region becomes available for deallocation after this point
+Memory segments allocated with an automatic arena can also be
+accessed
+PREVIEW
+from any thread.
+Rather than leaving deallocation in the hands of the Java runtime, clients will often wish to exercise control over
+ the timing of deallocation for regions of memory that back memory segments. Two kinds of arenas support this,
+ namely
+confined
+and
+shared
+arenas. They both feature
+ bounded lifetimes that are managed manually. For instance, the lifetime of a confined arena starts when the confined
+ arena is created, and ends when the confined arena is
+closed
+. As a result, the regions of memory
+ backing memory segments allocated with a confined arena are deallocated when the confined arena is closed.
+ When this happens, all the segments allocated with the confined arena are invalidated, and subsequent access
+ operations on these segments will fail
+IllegalStateException
+:
+Copy
+MemorySegment segment = null;
+ try (Arena arena = Arena.
+ofConfined
+()) {
+     segment = arena.allocate(100);
+     ...
+ } // segment region deallocated here
+ segment.get(ValueLayout.JAVA_BYTE, 0); // throws IllegalStateException
+Memory segments allocated with a
+confined arena
+can only be accessed (and closed) by the
+ thread that created the arena. If access to a memory segment from multiple threads is required, clients can allocate
+ segments in a
+shared arena
+instead.
+The characteristics of the various arenas are summarized in the following table:
+Arenas characteristics
+Kind
+Bounded lifetime
+Explicitly closeable
+Accessible from multiple threads
+Global
+No
+No
+Yes
+Automatic
+Yes
+No
+Yes
+Confined
+Yes
+Yes
+No
+Shared
+Yes
+Yes
+Yes
+Safety and thread-confinement
+Arenas provide strong temporal safety guarantees: a memory segment allocated by an arena cannot be accessed
+after
+the arena has been closed. The cost of providing this guarantee varies based on the
+ number of threads that have access to the memory segments allocated by the arena. For instance, if an arena
+ is always created and closed by one thread, and the memory segments allocated by the arena are always
+ accessed by that same thread, then ensuring correctness is trivial.
+Conversely, if an arena allocates segments that can be accessed by multiple threads, or if the arena can be closed
+ by a thread other than the accessing thread, then ensuring correctness is much more complex. For example, a segment
+ allocated with the arena might be accessed
+while
+another thread attempts, concurrently, to close the arena.
+ To provide the strong temporal safety guarantee without forcing every client, even simple ones, to incur a performance
+ impact, arenas are divided into
+thread-confined
+arenas, and
+shared
+arenas.
+Confined arenas, support strong thread-confinement guarantees. Upon creation, they are assigned an
+owner thread
+, typically the thread which initiated the creation operation.
+ The segments created by a confined arena can only be
+accessed
+PREVIEW
+by the owner thread. Moreover, any attempt to close the confined arena from a thread other than the owner thread will
+ fail with
+WrongThreadException
+.
+Shared arenas, on the other hand, have no owner thread. The segments created by a shared arena
+ can be
+accessed
+PREVIEW
+by any thread. This might be useful when
+ multiple threads need to access the same memory segment concurrently (e.g. in the case of parallel processing).
+ Moreover, a shared arena can be closed by any thread.
+Custom arenas
+Clients can define custom arenas to implement more efficient allocation strategies, or to have better control over
+ when (and by whom) an arena can be closed. As an example, the following code defines a
+slicing arena
+that behaves
+ like a confined arena (i.e., single-threaded access), but internally uses a
+slicing allocator
+PREVIEW
+to respond to allocation requests.
+ When the slicing arena is closed, the underlying confined arena is also closed; this will invalidate all segments
+ allocated with the slicing arena (since the scope of the slicing arena is the same as that of the underlying
+ confined arena):
+Copy
+class SlicingArena implements Arena {
+    final Arena arena = Arena.ofConfined();
+    final SegmentAllocator slicingAllocator;
+
+    SlicingArena(long size) {
+        slicingAllocator = SegmentAllocator.slicingAllocator(arena.allocate(size));
+    }
+
+    public MemorySegment allocate(long byteSize, long byteAlignment) {
+        return slicingAllocator.allocate(byteSize, byteAlignment);
+    }
+
+    public MemorySegment.Scope scope() {
+        return arena.scope();
+    }
+
+    public void close() {
+        arena.close();
+    }
+
+}
+In other words, a slicing arena provides a vastly more efficient and scalable allocation strategy, while still retaining
+ the timely deallocation guarantee provided by the underlying confined arena:
+Copy
+try (Arena slicingArena = new SlicingArena(1000)) {
+    for (int i = 0; i < 10; i++) {
+        MemorySegment s = slicingArena.allocateArray(JAVA_INT, 1, 2, 3, 4, 5);
+        ...
+    }
+} // all memory allocated is released here
+Implementation Requirements:
+Implementations of this interface are thread-safe.
+Since:
+20
+See Also:
+MemorySegment
+PREVIEW
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+default
+MemorySegment
+PREVIEW
+allocate
+(long byteSize,
+ long byteAlignment)
+Returns a native memory segment with the given size (in bytes) and alignment constraint (in bytes).
+void
+close
+()
+Closes this arena.
+static
+Arena
+PREVIEW
+global
+()
+Obtains the global arena.
+static
+Arena
+PREVIEW
+ofAuto
+()
+Creates a new arena that is managed, automatically, by the garbage collector.
+static
+Arena
+PREVIEW
+ofConfined
+()
+Returns a new confined arena.
+static
+Arena
+PREVIEW
+ofShared
+()
+Returns a new shared arena.
+MemorySegment.Scope
+PREVIEW
+scope
+()
+Returns the arena scope.
+Methods declared in interface java.lang.foreign.
+SegmentAllocator
+PREVIEW
+allocate
+,
+allocate
+,
+allocate
+,
+allocate
+,
+allocate
+,
+allocate
+,
+allocate
+,
+allocate
+,
+allocate
+,
+allocate
+,
+allocateArray
+,
+allocateArray
+,
+allocateArray
+,
+allocateArray
+,
+allocateArray
+,
+allocateArray
+,
+allocateArray
+,
+allocateArray
+,
+allocateUtf8String
+Method Details
+ofAuto
+static
+Arena
+PREVIEW
+ofAuto
+()
+Creates a new arena that is managed, automatically, by the garbage collector.
+ Segments allocated with the returned arena can be
+accessed
+PREVIEW
+by any thread.
+ Calling
+close()
+on the returned arena will result in an
+UnsupportedOperationException
+.
+Returns:
+a new arena that is managed, automatically, by the garbage collector.
+global
+static
+Arena
+PREVIEW
+global
+()
+Obtains the global arena. Segments allocated with the global arena can be
+accessed
+PREVIEW
+by any thread.
+ Calling
+close()
+on the returned arena will result in an
+UnsupportedOperationException
+.
+Returns:
+the global arena.
+ofConfined
+static
+Arena
+PREVIEW
+ofConfined
+()
+Returns a new confined arena. Segments allocated with the confined arena can be
+accessed
+PREVIEW
+by the thread that created the arena,
+ the arena's
+owner thread
+.
+Returns:
+a new confined arena
+ofShared
+static
+Arena
+PREVIEW
+ofShared
+()
+Returns a new shared arena. Segments allocated with the global arena can be
+accessed
+PREVIEW
+by any thread.
+Returns:
+a new shared arena
+allocate
+default
+MemorySegment
+PREVIEW
+allocate
+(long byteSize,
+ long byteAlignment)
+Returns a native memory segment with the given size (in bytes) and alignment constraint (in bytes).
+ The returned segment is associated with this
+arena scope
+.
+ The segment's
+address
+PREVIEW
+is the starting address of the
+ allocated off-heap region of memory backing the segment, and the address is
+ aligned according the provided alignment constraint.
+Specified by:
+allocate
+in interface
+SegmentAllocator
+PREVIEW
+Implementation Requirements:
+Implementations of this method must return a native segment featuring the requested size,
+ and that is compatible with the provided alignment constraint. Furthermore, for any two segments
+S1, S2
+returned by this method, the following invariant must hold:
+Copy
+S1.asOverlappingSlice(S2).isEmpty() == true
+Parameters:
+byteSize
+- the size (in bytes) of the off-heap region of memory backing the native memory segment.
+byteAlignment
+- the alignment constraint (in bytes) of the off-heap region of memory backing the native memory segment.
+Returns:
+a new native memory segment.
+Throws:
+IllegalArgumentException
+- if
+bytesSize < 0
+,
+byteAlignment <= 0
+, or if
+byteAlignment
+is not a power of 2.
+IllegalStateException
+- if this arena has already been
+closed
+.
+WrongThreadException
+- if this arena is confined, and this method is called from a thread
+ other than the arena's owner thread.
+scope
+MemorySegment.Scope
+PREVIEW
+scope
+()
+Returns the arena scope.
+Returns:
+the arena scope
+close
+void
+close
+()
+Closes this arena. If this method completes normally, the arena scope is no longer
+alive
+PREVIEW
+,
+ and all the memory segments associated with it can no longer be accessed. Furthermore, any off-heap region of memory backing the
+ segments obtained from this arena are also released.
+Specified by:
+close
+in interface
+AutoCloseable
+API Note:
+This operation is not idempotent; that is, closing an already closed arena
+always
+results in an
+ exception being thrown. This reflects a deliberate design choice: failure to close an arena might reveal a bug
+ in the underlying application logic.
+Implementation Requirements:
+If this method completes normally, then
+this.scope().isAlive() == false
+.
+ Implementations are allowed to throw
+UnsupportedOperationException
+if an explicit close operation is
+ not supported.
+Throws:
+IllegalStateException
+- if the arena has already been closed.
+IllegalStateException
+- if a segment associated with this arena is being accessed concurrently, e.g.
+ by a
+downcall method handle
+PREVIEW
+.
+WrongThreadException
+- if this arena is confined, and this method is called from a thread
+ other than the arena's owner thread.
+UnsupportedOperationException
+- if this arena cannot be closed explicitly.
+See Also:
+MemorySegment.Scope.isAlive()
+PREVIEW
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

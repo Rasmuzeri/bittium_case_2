@@ -1,0 +1,567 @@
+PNG Metadata Format Specification (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+PNG Metadata Format Specification
+The PNG native format encodes the complete contents of a PNG file
+chunk by chunk, except for the IDAT chunks that contain the actual
+image data.  Chunks that are not defined in the PNG 1.2 specification
+are stored under the
+UnknownChunks
+element.  Note that it
+is the responsibility of application software to implement the rules
+for PNG readers, writers, and editors (
+e.g.
+, the rules
+concerning unsafe-to-copy chunks) described in the PNG specification.
+The Image I/O library is not, in and of itself, a PNG reader, writer,
+or editor in the sense of the specification.  Rather, it is a tool
+that may be used to build PNG readers, writers, and editors.
+The image's actual width, height, bit depth, and color type will
+override any values passed to the writer via metadata, with one
+exception.  If the image has an
+IndexColorModel
+, the
+color table entries will be checked to determine if they form a
+uniform grayscale ramp. If so, the image will normally be encoded
+using as grayscale instead of palette color.  However, if the color
+type set in the metadata is "Palette", palette color will be used.
+If no metadata is supplied when encoding an image, the header is
+initialized from the image being encoded, and no optional chunks are
+included.
+The semantics of the standard chunks are described in the
+PNG specification
+.
+Note that there are some restrictions on which chunks may appear
+for each color type. In particular,
+A
+PLTE
+chunk may not appear in a
+Gray
+or
+GrayAlpha
+image
+hIST
+and
+tRNS
+chunks require a prior
+PLTE
+chunk
+A
+tRNS
+chunk may not appear in
+GrayAlpha
+and
+RGBA
+images
+The child nodes of the
+bKGD
+,
+sBIT
+, and
+tRNS
+chunks must match the image's color type.
+Certain chunks may meaningfully appear multiple times in a PNG file,
+in particular the text-related chunks.  In order to simplify the
+metadata format, multiple instances of these chunks are consolidated
+under a single parent node (
+e.g.
+, the
+tEXt
+node),
+which may have zero or more children (
+e.g.
+,
+tEXtEntry
+nodes).  If no children are present, no chunk
+will be written.  Similarly, unknown chunks are stored as children of
+a single
+UnknownChunks
+node.
+It is not possible to control the ordering of the chunks as they are
+written, or to determine the order of the chunks in a file being read.
+<!DOCTYPE "javax_imageio_png_1.0" [
+
+  <!ELEMENT "javax_imageio_png_1.0" (IHDR?, PLTE?, bKGD?, cHRM?,
+    gAMA?, hIST?, iCCP?, iTXt?, pHYS?, sBIT?, sPLT?, sRGB?, tEXt?,
+    tIME?, tRNS?, zTXt?, UnknownChunks?)>
+
+    <!ELEMENT "IHDR" EMPTY>
+      <!-- The IHDR chunk, containing the header -->
+      <!ATTLIST "IHDR" "width" #CDATA #REQUIRED>
+        <!-- The width of the image in pixels -->
+        <!-- Data type: Integer -->
+        <!-- Min value: 1 (inclusive) -->
+        <!-- Max value: 2147483647 (inclusive) -->
+      <!ATTLIST "IHDR" "height" #CDATA #REQUIRED>
+        <!-- The height of the image in pixels -->
+        <!-- Data type: Integer -->
+        <!-- Min value: 1 (inclusive) -->
+        <!-- Max value: 2147483647 (inclusive) -->
+      <!ATTLIST "IHDR" "bitDepth" ("1" | "2" | "4" | "8" | "16")
+         #REQUIRED>
+        <!-- The bit depth of the image samples -->
+      <!ATTLIST "IHDR" "colorType" ("Grayscale" | "RGB" | "Palette" |
+        "GrayAlpha" | "RGBAlpha") #REQUIRED>
+        <!-- The color type of the image -->
+      <!ATTLIST "IHDR" "compressionMethod" ("deflate") #REQUIRED>
+        <!-- The compression used for image data, always "deflate" -->
+      <!ATTLIST "IHDR" "filterMethod" ("adaptive") #REQUIRED>
+        <!-- The filtering method used for compression, always "adaptive" -->
+      <!ATTLIST "IHDR" "interlaceMethod" ("none" | "adam7") #REQUIRED>
+        <!-- The interlacing method, "none" or "adam7" -->
+
+    <!ELEMENT "PLTE" (PLTEEntry)*>
+      <!-- The PLTE chunk, containing the palette -->
+      <!-- Min children: 1 -->
+      <!-- Max children: 256 -->
+
+      <!ELEMENT "PLTEEntry" EMPTY>
+        <!-- A palette entry -->
+        <!ATTLIST "PLTEEntry" "index" #CDATA #REQUIRED>
+          <!-- The index of a palette entry -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+        <!ATTLIST "PLTEEntry" "red" #CDATA #REQUIRED>
+          <!-- The red value of a palette entry -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+        <!ATTLIST "PLTEEntry" "green" #CDATA #REQUIRED>
+          <!-- The green value of a palette entry -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+        <!ATTLIST "PLTEEntry" "blue" #CDATA #REQUIRED>
+          <!-- The blue value of a palette entry -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+
+    <!ELEMENT "bKGD" (bKGD_Grayscale | bKGD_RGB | bKGD_Palette)>
+      <!-- The bKGD chunk, containing the background color -->
+
+      <!ELEMENT "bKGD_Grayscale" EMPTY>
+        <!-- A grayscale background color, for Gray and GrayAlpha images -->
+        <!ATTLIST "bKGD_Grayscale" "gray" #CDATA #REQUIRED>
+          <!-- A gray value to be used as a background -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 65535 (inclusive) -->
+
+      <!ELEMENT "bKGD_RGB" EMPTY>
+        <!-- An RGB background color, for RGB and RGBAlpha images -->
+        <!ATTLIST "bKGD_RGB" "red" #CDATA #REQUIRED>
+          <!-- A red value to be used as a background -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 65535 (inclusive) -->
+        <!ATTLIST "bKGD_RGB" "green" #CDATA #REQUIRED>
+          <!-- A green value to be used as a background -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 65535 (inclusive) -->
+        <!ATTLIST "bKGD_RGB" "blue" #CDATA #REQUIRED>
+          <!-- A blue value to be used as a background -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 65535 (inclusive) -->
+
+      <!ELEMENT "bKGD_Palette" EMPTY>
+        <!-- A background palette index -->
+        <!ATTLIST "bKGD_Palette" "index" #CDATA #REQUIRED>
+          <!-- A palette index to be used as a background -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+
+    <!ELEMENT "cHRM" EMPTY>
+      <!-- The cHRM chunk, containing color calibration -->
+      <!ATTLIST "cHRM" "whitePointX" #CDATA #REQUIRED>
+        <!-- The CIE x coordinate of the white point, multiplied by 1e5 -->
+        <!-- Data type: Integer -->
+        <!-- Min value: 0 (inclusive) -->
+        <!-- Max value: 65535 (inclusive) -->
+      <!ATTLIST "cHRM" "whitePointY" #CDATA #REQUIRED>
+        <!-- The CIE y coordinate of the white point, multiplied by 1e5 -->
+        <!-- Data type: Integer -->
+        <!-- Min value: 0 (inclusive) -->
+        <!-- Max value: 65535 (inclusive) -->
+      <!ATTLIST "cHRM" "redX" #CDATA #REQUIRED>
+        <!-- The CIE x coordinate of the red primary, multiplied by 1e5 -->
+        <!-- Data type: Integer -->
+        <!-- Min value: 0 (inclusive) -->
+        <!-- Max value: 65535 (inclusive) -->
+      <!ATTLIST "cHRM" "redY" #CDATA #REQUIRED>
+        <!-- The CIE y coordinate of the red primary, multiplied by 1e5 -->
+        <!-- Data type: Integer -->
+        <!-- Min value: 0 (inclusive) -->
+        <!-- Max value: 65535 (inclusive) -->
+      <!ATTLIST "cHRM" "greenX" #CDATA #REQUIRED>
+        <!-- The CIE x coordinate of the green primary, multiplied by 1e5 -->
+        <!-- Data type: Integer -->
+        <!-- Min value: 0 (inclusive) -->
+        <!-- Max value: 65535 (inclusive) -->
+      <!ATTLIST "cHRM" "greenY" #CDATA #REQUIRED>
+        <!-- The CIE y coordinate of the green primary, multiplied by 1e5 -->
+        <!-- Data type: Integer -->
+        <!-- Min value: 0 (inclusive) -->
+        <!-- Max value: 65535 (inclusive) -->
+      <!ATTLIST "cHRM" "blueX" #CDATA #REQUIRED>
+        <!-- The CIE x coordinate of the blue primary, multiplied by 1e5 -->
+        <!-- Data type: Integer -->
+        <!-- Min value: 0 (inclusive) -->
+        <!-- Max value: 65535 (inclusive) -->
+      <!ATTLIST "cHRM" "blueY" #CDATA #REQUIRED>
+        <!-- The CIE y coordinate of the blue primary, multiplied by 1e5 -->
+        <!-- Data type: Integer -->
+        <!-- Min value: 0 (inclusive) -->
+        <!-- Max value: 65535 (inclusive) -->
+
+    <!ELEMENT "gAMA" EMPTY>
+      <!-- The gAMA chunk, containing the image gamma -->
+      <!ATTLIST "gAMA" "value" #CDATA #REQUIRED>
+        <!-- The image gamma, multiplied by 1e5 -->
+        <!-- Data type: Integer -->
+        <!-- Min value: 0 (inclusive) -->
+        <!-- Max value: 2147483647 (inclusive) -->
+
+    <!ELEMENT "hIST" (hISTEntry)*>
+      <!-- The hIST chunk, containing histogram information  -->
+      <!-- Min children: 1 -->
+      <!-- Max children: 256 -->
+
+      <!ELEMENT "hISTEntry" EMPTY>
+        <!-- A histogram entry -->
+        <!ATTLIST "hISTEntry" "index" #CDATA #REQUIRED>
+          <!-- The palette index of this histogram entry -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+        <!ATTLIST "hISTEntry" "value" #CDATA #REQUIRED>
+          <!-- The frequency of this histogram entry -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 65535 (inclusive) -->
+
+    <!ELEMENT "iCCP" EMPTY>
+      <!-- The iCCP chunk, containing an ICC color profile -->
+      <!-- User object: array of byte -->
+      <!-- Min length: 0 -->
+      <!-- Max length: 2147483647 -->
+      <!ATTLIST "iCCP" "profileName" #CDATA #REQUIRED>
+        <!-- The name of this ICC profile -->
+        <!-- Data type: String -->
+      <!ATTLIST "iCCP" "compressionMethod" ("deflate") #REQUIRED>
+        <!-- The compression method used to store this ICC profile -->
+
+    <!ELEMENT "iTXt" (iTXtEntry)*>
+      <!-- The iTXt chunk, containing internationalized text -->
+      <!-- Min children: 1 -->
+      <!-- Max children: 2147483647 -->
+
+      <!ELEMENT "iTXtEntry" EMPTY>
+        <!-- A localized text entry -->
+        <!ATTLIST "iTXtEntry" "keyword" #CDATA #REQUIRED>
+          <!-- The keyword -->
+          <!-- Data type: String -->
+        <!ATTLIST "iTXtEntry" "compressionFlag" ("TRUE" | "FALSE")
+           #REQUIRED>
+        <!ATTLIST "iTXtEntry" "compressionMethod" #CDATA #REQUIRED>
+          <!-- The compression method used to store this iTXt entry -->
+          <!-- Data type: String -->
+        <!ATTLIST "iTXtEntry" "languageTag" #CDATA #REQUIRED>
+          <!-- The ISO tag describing the language this iTXt entry -->
+          <!-- Data type: String -->
+        <!ATTLIST "iTXtEntry" "translatedKeyword" #CDATA #REQUIRED>
+          <!-- The translated keyword for iTXt entry -->
+          <!-- Data type: String -->
+        <!ATTLIST "iTXtEntry" "text" #CDATA #REQUIRED>
+          <!-- The localized text -->
+          <!-- Data type: String -->
+
+    <!ELEMENT "pHYS" EMPTY>
+      <!-- The pHYS chunk, containing the pixel size and aspect ratio -->
+      <!ATTLIST "pHYS" "pixelsPerUnitXAxis" #CDATA #REQUIRED>
+        <!-- The number of horizontal pixels per unit, multiplied by 1e5 -->
+        <!-- Data type: Integer -->
+        <!-- Min value: 0 (inclusive) -->
+        <!-- Max value: 2147483647 (inclusive) -->
+      <!ATTLIST "pHYS" "pixelsPerUnitYAxis" #CDATA #REQUIRED>
+        <!-- The number of vertical pixels per unit, multiplied by 1e5 -->
+        <!-- Data type: Integer -->
+        <!-- Min value: 0 (inclusive) -->
+        <!-- Max value: 2147483647 (inclusive) -->
+      <!ATTLIST "pHYS" "unitSpecifier" ("unknown" | "meter") #REQUIRED>
+        <!-- The unit specifier for this chunk (i.e., meters) -->
+
+    <!ELEMENT "sBIT" (sBIT_Grayscale | sBIT_GrayAlpha | sBIT_RGB |
+      sBIT_RGBAlpha | sBIT_Palette)>
+      <!-- The sBIT chunk, containing significant bit information -->
+
+      <!ELEMENT "sBIT_Grayscale" EMPTY>
+        <!-- Significant bit information for gray samples -->
+        <!ATTLIST "sBIT_Grayscale" "gray" #CDATA #REQUIRED>
+          <!-- The number of significant bits of the gray samples -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+
+      <!ELEMENT "sBIT_GrayAlpha" EMPTY>
+        <!-- Significant bit information for gray and alpha samples -->
+        <!ATTLIST "sBIT_GrayAlpha" "gray" #CDATA #REQUIRED>
+          <!-- The number of significant bits of the gray samples -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+        <!ATTLIST "sBIT_GrayAlpha" "alpha" #CDATA #REQUIRED>
+          <!-- The number of significant bits of the alpha samples -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+
+      <!ELEMENT "sBIT_RGB" EMPTY>
+        <!-- Significant bit information for RGB samples -->
+        <!ATTLIST "sBIT_RGB" "red" #CDATA #REQUIRED>
+          <!-- The number of significant bits of the red samples -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+        <!ATTLIST "sBIT_RGB" "green" #CDATA #REQUIRED>
+          <!-- The number of significant bits of the green samples -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+        <!ATTLIST "sBIT_RGB" "blue" #CDATA #REQUIRED>
+          <!-- The number of significant bits of the blue samples -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+
+      <!ELEMENT "sBIT_RGBAlpha" EMPTY>
+        <!-- Significant bit information for RGBA samples -->
+        <!ATTLIST "sBIT_RGBAlpha" "red" #CDATA #REQUIRED>
+          <!-- The number of significant bits of the red samples -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+        <!ATTLIST "sBIT_RGBAlpha" "green" #CDATA #REQUIRED>
+          <!-- The number of significant bits of the green samples -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+        <!ATTLIST "sBIT_RGBAlpha" "blue" #CDATA #REQUIRED>
+          <!-- The number of significant bits of the blue samples -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+        <!ATTLIST "sBIT_RGBAlpha" "alpha" #CDATA #REQUIRED>
+          <!-- The number of significant bits of the alpha samples -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+
+      <!ELEMENT "sBIT_Palette" EMPTY>
+        <!-- Significant bit information for RGB palette entries -->
+        <!ATTLIST "sBIT_Palette" "red" #CDATA #REQUIRED>
+          <!-- The number of significant bits of the red palette entries -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+        <!ATTLIST "sBIT_Palette" "green" #CDATA #REQUIRED>
+          <!-- The number of significant bits of the green palette entries -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+        <!ATTLIST "sBIT_Palette" "blue" #CDATA #REQUIRED>
+          <!-- The number of significant bits of the blue palette entries -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+
+    <!ELEMENT "sPLT" (sPLTEntry)*>
+      <!-- The sPLT chunk, containing a suggested palette -->
+      <!-- Min children: 1 -->
+      <!-- Max children: 256 -->
+
+      <!ELEMENT "sPLTEntry" EMPTY>
+        <!-- A suggested palette entry -->
+        <!ATTLIST "sPLTEntry" "index" #CDATA #REQUIRED>
+          <!-- The index of a suggested palette entry -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+        <!ATTLIST "sPLTEntry" "red" #CDATA #REQUIRED>
+          <!-- The red value of a suggested palette entry -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+        <!ATTLIST "sPLTEntry" "green" #CDATA #REQUIRED>
+          <!-- The green value of a suggested palette entry -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+        <!ATTLIST "sPLTEntry" "blue" #CDATA #REQUIRED>
+          <!-- The blue value of a suggested palette entry -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+        <!ATTLIST "sPLTEntry" "alpha" #CDATA #REQUIRED>
+          <!-- The blue value of a suggested palette entry -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+
+    <!ELEMENT "sRGB" EMPTY>
+      <!-- The sRGB chunk, containing rendering intent information -->
+      <!ATTLIST "sRGB" "renderingIntent" ("Perceptual" |
+        "Relative colorimetric" | "Saturation" |
+        "Absolute colorimetric") #REQUIRED>
+        <!-- The rendering intent -->
+
+    <!ELEMENT "tEXt" (tEXtEntry)*>
+      <!-- The tEXt chunk, containing text -->
+      <!-- Min children: 1 -->
+      <!-- Max children: 2147483647 -->
+
+      <!ELEMENT "tEXtEntry" EMPTY>
+        <!-- A text entry -->
+        <!ATTLIST "tEXtEntry" "keyword" #CDATA #REQUIRED>
+          <!-- The keyword -->
+          <!-- Data type: String -->
+        <!ATTLIST "tEXtEntry" "value" #CDATA #REQUIRED>
+          <!-- The text -->
+          <!-- Data type: String -->
+
+    <!ELEMENT "tIME" EMPTY>
+      <!-- The tIME chunk, containing the image modification time -->
+      <!ATTLIST "tIME" "year" #CDATA #REQUIRED>
+        <!-- The year when the image was last modified -->
+        <!-- Data type: Integer -->
+        <!-- Min value: 0 (inclusive) -->
+        <!-- Max value: 65535 (inclusive) -->
+      <!ATTLIST "tIME" "month" #CDATA #REQUIRED>
+        <!-- The month when the image was last modified, 1 = January -->
+        <!-- Data type: Integer -->
+        <!-- Min value: 1 (inclusive) -->
+        <!-- Max value: 12 (inclusive) -->
+      <!ATTLIST "tIME" "day" #CDATA #REQUIRED>
+        <!-- The day of the month when the image was last modified -->
+        <!-- Data type: Integer -->
+        <!-- Min value: 1 (inclusive) -->
+        <!-- Max value: 31 (inclusive) -->
+      <!ATTLIST "tIME" "hour" #CDATA #REQUIRED>
+        <!-- The hour when the image was last modified -->
+        <!-- Data type: Integer -->
+        <!-- Min value: 0 (inclusive) -->
+        <!-- Max value: 23 (inclusive) -->
+      <!ATTLIST "tIME" "minute" #CDATA #REQUIRED>
+        <!-- The minute when the image was last modified -->
+        <!-- Data type: Integer -->
+        <!-- Min value: 0 (inclusive) -->
+        <!-- Max value: 59 (inclusive) -->
+      <!ATTLIST "tIME" "second" #CDATA #REQUIRED>
+        <!-- The second when the image was last modified, 60 = leap second -->
+        <!-- Data type: Integer -->
+        <!-- Min value: 0 (inclusive) -->
+        <!-- Max value: 60 (inclusive) -->
+
+    <!ELEMENT "tRNS" (tRNS_Grayscale | tRNS_RGB | tRNS_Palette)>
+      <!-- The tRNS chunk, containing transparency information -->
+
+      <!ELEMENT "tRNS_Grayscale" EMPTY>
+        <!-- A grayscale value that should be considered transparent -->
+        <!ATTLIST "tRNS_Grayscale" "gray" #CDATA #REQUIRED>
+          <!-- The gray value to be considered transparent -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 65535 (inclusive) -->
+
+      <!ELEMENT "tRNS_RGB" EMPTY>
+        <!-- An RGB value that should be considered transparent -->
+        <!ATTLIST "tRNS_RGB" "red" #CDATA #REQUIRED>
+          <!-- The red value to be considered transparent -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 65535 (inclusive) -->
+        <!ATTLIST "tRNS_RGB" "green" #CDATA #REQUIRED>
+          <!-- The green value to be considered transparent -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 65535 (inclusive) -->
+        <!ATTLIST "tRNS_RGB" "blue" #CDATA #REQUIRED>
+          <!-- The blure value to be considered transparent -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 65535 (inclusive) -->
+
+      <!ELEMENT "tRNS_Palette" EMPTY>
+        <!-- A palette index that should be considered transparent -->
+        <!ATTLIST "tRNS_Palette" "index" #CDATA #REQUIRED>
+          <!-- A palette index to be considered transparent -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+        <!ATTLIST "tRNS_Palette" "alpha" #CDATA #REQUIRED>
+          <!-- The transparency associated with the palette entry -->
+          <!-- Data type: Integer -->
+          <!-- Min value: 0 (inclusive) -->
+          <!-- Max value: 255 (inclusive) -->
+
+    <!ELEMENT "zTXt" (zTXtEntry)*>
+      <!-- The zTXt chunk, containing compressed text -->
+      <!-- Min children: 1 -->
+      <!-- Max children: 2147483647 -->
+
+      <!ELEMENT "zTXtEntry" EMPTY>
+        <!-- A compressed text entry -->
+        <!-- User object: array of byte -->
+        <!-- Min length: 0 -->
+        <!-- Max length: 2147483647 -->
+        <!ATTLIST "zTXtEntry" "keyword" #CDATA #REQUIRED>
+          <!-- The keyword -->
+          <!-- Data type: String -->
+        <!ATTLIST "zTXtEntry" "compressionMethod" ("deflate")
+           #REQUIRED>
+          <!-- The compressed text -->
+
+    <!ELEMENT "UnknownChunks" (UnknownChunk)*>
+      <!-- A set of unknown chunks -->
+      <!-- Min children: 1 -->
+      <!-- Max children: 2147483647 -->
+
+      <!ELEMENT "UnknownChunk" EMPTY>
+        <!-- Unknown chunk data stored as a byte array -->
+        <!-- User object: array of byte -->
+        <!-- Min length: 0 -->
+        <!-- Max length: 2147483647 -->
+        <!ATTLIST "UnknownChunk" "type" #CDATA #REQUIRED>
+          <!-- The 4-character type of the unknown chunk -->
+          <!-- Data type: String -->
+]>
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

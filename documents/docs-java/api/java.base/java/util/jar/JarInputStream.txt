@@ -1,0 +1,929 @@
+JarInputStream (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.util.jar
+Class JarInputStream
+java.lang.Object
+java.io.InputStream
+java.io.FilterInputStream
+java.util.zip.InflaterInputStream
+java.util.zip.ZipInputStream
+java.util.jar.JarInputStream
+All Implemented Interfaces:
+Closeable
+,
+AutoCloseable
+public class
+JarInputStream
+extends
+ZipInputStream
+The
+JarInputStream
+class, which extends
+ZipInputStream
+,
+ is used to read the contents of a JAR file from an input stream.
+ It provides support for reading an optional
+Manifest
+entry. The
+Manifest
+can be used to store
+ meta-information about the JAR file and its entries.
+Accessing the Manifest
+The
+getManifest
+method is used to return the
+Manifest
+from the entry
+META-INF/MANIFEST.MF
+when it is the first entry
+ in the stream (or the second entry if the first entry in the stream is
+META-INF/
+and the second entry is
+META-INF/MANIFEST.MF
+).
+The
+getNextJarEntry()
+and
+getNextEntry()
+methods are
+ used to read JAR file entries from the stream. These methods skip over the
+ Manifest (
+META-INF/MANIFEST.MF
+) when it is at the beginning of the
+ stream. In other words, these methods do not return an entry for the Manifest
+ when the Manifest is the first entry in the stream. If the first entry is
+META-INF/
+and the second entry is the Manifest then both are skipped
+ over by these methods. Whether these methods skip over the Manifest when it
+ appears later in the stream is not specified.
+Signed JAR Files
+A
+JarInputStream
+verifies the signatures of entries in a
+Signed JAR file
+when:
+The
+Manifest
+is the first entry in the stream (or the second
+         entry if the first entry in the stream is
+META-INF/
+and the
+         second entry is
+META-INF/MANIFEST.MF
+).
+All signature-related entries immediately follow the
+Manifest
+Once the
+JarEntry
+has been completely verified, which is done by
+  reading until the end of the entry's input stream,
+JarEntry.getCertificates()
+may be called to obtain the certificates
+  for this entry and
+JarEntry.getCodeSigners()
+may be called to obtain
+  the signers.
+It is important to note that the verification process does not include validating
+  the signer's certificate. A caller should inspect the return value of
+JarEntry.getCodeSigners()
+to further determine if the signature
+  can be trusted.
+API Note:
+If a
+JarEntry
+is modified after the JAR file is signed,
+ a
+SecurityException
+will be thrown when the entry is read.
+Since:
+1.2
+See Also:
+Manifest
+ZipInputStream
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final int
+CENATT
+Central directory (CEN) header internal file attributes field offset.
+static final int
+CENATX
+Central directory (CEN) header external file attributes field offset.
+static final int
+CENCOM
+Central directory (CEN) header comment length field offset.
+static final int
+CENCRC
+Central directory (CEN) header uncompressed file crc-32 value field offset.
+static final int
+CENDSK
+Central directory (CEN) header disk number start field offset.
+static final int
+CENEXT
+Central directory (CEN) header extra field length field offset.
+static final int
+CENFLG
+Central directory (CEN) header encrypt, decrypt flags field offset.
+static final int
+CENHDR
+Central directory (CEN) header size in bytes (including signature).
+static final int
+CENHOW
+Central directory (CEN) header compression method field offset.
+static final int
+CENLEN
+Central directory (CEN) header uncompressed size field offset.
+static final int
+CENNAM
+Central directory (CEN) header filename length field offset.
+static final int
+CENOFF
+Central directory (CEN) header LOC header offset field offset.
+static final long
+CENSIG
+Central directory (CEN) header signature.
+static final int
+CENSIZ
+Central directory (CEN) header compressed size field offset.
+static final int
+CENTIM
+Central directory (CEN) header modification time field offset.
+static final int
+CENVEM
+Central directory (CEN) header version made by field offset.
+static final int
+CENVER
+Central directory (CEN) header version needed to extract field offset.
+static final int
+ENDCOM
+End of central directory (END) header zip file comment length field offset.
+static final int
+ENDHDR
+End of central directory (END) header size in bytes (including signature).
+static final int
+ENDOFF
+End of central directory (END) header offset for the first CEN header field offset.
+static final long
+ENDSIG
+End of central directory (END) header signature.
+static final int
+ENDSIZ
+End of central directory (END) header central directory size in bytes field offset.
+static final int
+ENDSUB
+End of central directory (END) header number of entries on this disk field offset.
+static final int
+ENDTOT
+End of central directory (END) header total number of entries field offset.
+static final int
+EXTCRC
+Extra local (EXT) header uncompressed file crc-32 value field offset.
+static final int
+EXTHDR
+Extra local (EXT) header size in bytes (including signature).
+static final int
+EXTLEN
+Extra local (EXT) header uncompressed size field offset.
+static final long
+EXTSIG
+Extra local (EXT) header signature.
+static final int
+EXTSIZ
+Extra local (EXT) header compressed size field offset.
+static final int
+LOCCRC
+Local file (LOC) header uncompressed file crc-32 value field offset.
+static final int
+LOCEXT
+Local file (LOC) header extra field length field offset.
+static final int
+LOCFLG
+Local file (LOC) header general purpose bit flag field offset.
+static final int
+LOCHDR
+Local file (LOC) header size in bytes (including signature).
+static final int
+LOCHOW
+Local file (LOC) header compression method field offset.
+static final int
+LOCLEN
+Local file (LOC) header uncompressed size field offset.
+static final int
+LOCNAM
+Local file (LOC) header filename length field offset.
+static final long
+LOCSIG
+Local file (LOC) header signature.
+static final int
+LOCSIZ
+Local file (LOC) header compressed size field offset.
+static final int
+LOCTIM
+Local file (LOC) header modification time field offset.
+static final int
+LOCVER
+Local file (LOC) header version needed to extract field offset.
+Fields declared in class java.util.zip.
+InflaterInputStream
+buf
+,
+inf
+,
+len
+Fields declared in class java.io.
+FilterInputStream
+in
+Constructor Summary
+Constructors
+Constructor
+Description
+JarInputStream
+(
+InputStream
+in)
+Creates a new
+JarInputStream
+and reads the optional
+ manifest.
+JarInputStream
+(
+InputStream
+in,
+ boolean verify)
+Creates a new
+JarInputStream
+and reads the optional
+ manifest.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+protected
+ZipEntry
+createZipEntry
+(
+String
+name)
+Creates a new
+JarEntry
+(
+ZipEntry
+) for the
+ specified JAR file entry name.
+Manifest
+getManifest
+()
+Returns the
+Manifest
+for this JAR file when it is the first entry
+ in the stream (or the second entry if the first entry in the stream is
+META-INF/
+and the second entry is
+META-INF/MANIFEST.MF
+), or
+null
+otherwise.
+ZipEntry
+getNextEntry
+()
+Reads the next ZIP file entry and positions the stream at the
+ beginning of the entry data.
+JarEntry
+getNextJarEntry
+()
+Reads the next JAR file entry and positions the stream at the
+ beginning of the entry data.
+int
+read
+(byte[] b,
+ int off,
+ int len)
+Reads from the current JAR entry into an array of bytes, returning the number of
+ inflated bytes.
+Methods declared in class java.util.zip.
+ZipInputStream
+available
+,
+close
+,
+closeEntry
+,
+read
+,
+readAllBytes
+,
+readNBytes
+,
+readNBytes
+,
+skip
+,
+skipNBytes
+,
+transferTo
+Methods declared in class java.util.zip.
+InflaterInputStream
+fill
+,
+mark
+,
+markSupported
+,
+reset
+Methods declared in class java.io.
+FilterInputStream
+read
+Methods declared in class java.io.
+InputStream
+nullInputStream
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+LOCSIG
+static final
+long
+LOCSIG
+Local file (LOC) header signature.
+See Also:
+Constant Field Values
+EXTSIG
+static final
+long
+EXTSIG
+Extra local (EXT) header signature.
+See Also:
+Constant Field Values
+CENSIG
+static final
+long
+CENSIG
+Central directory (CEN) header signature.
+See Also:
+Constant Field Values
+ENDSIG
+static final
+long
+ENDSIG
+End of central directory (END) header signature.
+See Also:
+Constant Field Values
+LOCHDR
+static final
+int
+LOCHDR
+Local file (LOC) header size in bytes (including signature).
+See Also:
+Constant Field Values
+EXTHDR
+static final
+int
+EXTHDR
+Extra local (EXT) header size in bytes (including signature).
+See Also:
+Constant Field Values
+CENHDR
+static final
+int
+CENHDR
+Central directory (CEN) header size in bytes (including signature).
+See Also:
+Constant Field Values
+ENDHDR
+static final
+int
+ENDHDR
+End of central directory (END) header size in bytes (including signature).
+See Also:
+Constant Field Values
+LOCVER
+static final
+int
+LOCVER
+Local file (LOC) header version needed to extract field offset.
+See Also:
+Constant Field Values
+LOCFLG
+static final
+int
+LOCFLG
+Local file (LOC) header general purpose bit flag field offset.
+See Also:
+Constant Field Values
+LOCHOW
+static final
+int
+LOCHOW
+Local file (LOC) header compression method field offset.
+See Also:
+Constant Field Values
+LOCTIM
+static final
+int
+LOCTIM
+Local file (LOC) header modification time field offset.
+See Also:
+Constant Field Values
+LOCCRC
+static final
+int
+LOCCRC
+Local file (LOC) header uncompressed file crc-32 value field offset.
+See Also:
+Constant Field Values
+LOCSIZ
+static final
+int
+LOCSIZ
+Local file (LOC) header compressed size field offset.
+See Also:
+Constant Field Values
+LOCLEN
+static final
+int
+LOCLEN
+Local file (LOC) header uncompressed size field offset.
+See Also:
+Constant Field Values
+LOCNAM
+static final
+int
+LOCNAM
+Local file (LOC) header filename length field offset.
+See Also:
+Constant Field Values
+LOCEXT
+static final
+int
+LOCEXT
+Local file (LOC) header extra field length field offset.
+See Also:
+Constant Field Values
+EXTCRC
+static final
+int
+EXTCRC
+Extra local (EXT) header uncompressed file crc-32 value field offset.
+See Also:
+Constant Field Values
+EXTSIZ
+static final
+int
+EXTSIZ
+Extra local (EXT) header compressed size field offset.
+See Also:
+Constant Field Values
+EXTLEN
+static final
+int
+EXTLEN
+Extra local (EXT) header uncompressed size field offset.
+See Also:
+Constant Field Values
+CENVEM
+static final
+int
+CENVEM
+Central directory (CEN) header version made by field offset.
+See Also:
+Constant Field Values
+CENVER
+static final
+int
+CENVER
+Central directory (CEN) header version needed to extract field offset.
+See Also:
+Constant Field Values
+CENFLG
+static final
+int
+CENFLG
+Central directory (CEN) header encrypt, decrypt flags field offset.
+See Also:
+Constant Field Values
+CENHOW
+static final
+int
+CENHOW
+Central directory (CEN) header compression method field offset.
+See Also:
+Constant Field Values
+CENTIM
+static final
+int
+CENTIM
+Central directory (CEN) header modification time field offset.
+See Also:
+Constant Field Values
+CENCRC
+static final
+int
+CENCRC
+Central directory (CEN) header uncompressed file crc-32 value field offset.
+See Also:
+Constant Field Values
+CENSIZ
+static final
+int
+CENSIZ
+Central directory (CEN) header compressed size field offset.
+See Also:
+Constant Field Values
+CENLEN
+static final
+int
+CENLEN
+Central directory (CEN) header uncompressed size field offset.
+See Also:
+Constant Field Values
+CENNAM
+static final
+int
+CENNAM
+Central directory (CEN) header filename length field offset.
+See Also:
+Constant Field Values
+CENEXT
+static final
+int
+CENEXT
+Central directory (CEN) header extra field length field offset.
+See Also:
+Constant Field Values
+CENCOM
+static final
+int
+CENCOM
+Central directory (CEN) header comment length field offset.
+See Also:
+Constant Field Values
+CENDSK
+static final
+int
+CENDSK
+Central directory (CEN) header disk number start field offset.
+See Also:
+Constant Field Values
+CENATT
+static final
+int
+CENATT
+Central directory (CEN) header internal file attributes field offset.
+See Also:
+Constant Field Values
+CENATX
+static final
+int
+CENATX
+Central directory (CEN) header external file attributes field offset.
+See Also:
+Constant Field Values
+CENOFF
+static final
+int
+CENOFF
+Central directory (CEN) header LOC header offset field offset.
+See Also:
+Constant Field Values
+ENDSUB
+static final
+int
+ENDSUB
+End of central directory (END) header number of entries on this disk field offset.
+See Also:
+Constant Field Values
+ENDTOT
+static final
+int
+ENDTOT
+End of central directory (END) header total number of entries field offset.
+See Also:
+Constant Field Values
+ENDSIZ
+static final
+int
+ENDSIZ
+End of central directory (END) header central directory size in bytes field offset.
+See Also:
+Constant Field Values
+ENDOFF
+static final
+int
+ENDOFF
+End of central directory (END) header offset for the first CEN header field offset.
+See Also:
+Constant Field Values
+ENDCOM
+static final
+int
+ENDCOM
+End of central directory (END) header zip file comment length field offset.
+See Also:
+Constant Field Values
+Constructor Details
+JarInputStream
+public
+JarInputStream
+(
+InputStream
+in)
+throws
+IOException
+Creates a new
+JarInputStream
+and reads the optional
+ manifest. If a manifest is present, also attempts to verify
+ the signatures if the JarInputStream is signed.
+Parameters:
+in
+- the actual input stream
+Throws:
+IOException
+- if an I/O error has occurred
+JarInputStream
+public
+JarInputStream
+(
+InputStream
+in,
+ boolean verify)
+throws
+IOException
+Creates a new
+JarInputStream
+and reads the optional
+ manifest. If a manifest is present and verify is true, also attempts
+ to verify the signatures if the JarInputStream is signed.
+Parameters:
+in
+- the actual input stream
+verify
+- whether or not to verify the JarInputStream if
+ it is signed.
+Throws:
+IOException
+- if an I/O error has occurred
+Method Details
+getManifest
+public
+Manifest
+getManifest
+()
+Returns the
+Manifest
+for this JAR file when it is the first entry
+ in the stream (or the second entry if the first entry in the stream is
+META-INF/
+and the second entry is
+META-INF/MANIFEST.MF
+), or
+null
+otherwise.
+Returns:
+the
+Manifest
+for this JAR file, or
+null
+otherwise.
+getNextEntry
+public
+ZipEntry
+getNextEntry
+()
+                      throws
+IOException
+Reads the next ZIP file entry and positions the stream at the
+ beginning of the entry data. If verification has been enabled,
+ any invalid signature detected while positioning the stream for
+ the next entry will result in an exception.
+Overrides:
+getNextEntry
+in class
+ZipInputStream
+Returns:
+the next ZIP file entry, or null if there are no more entries
+Throws:
+ZipException
+- if a ZIP file error has occurred
+IOException
+- if an I/O error has occurred
+SecurityException
+- if any of the jar file entries
+         are incorrectly signed.
+getNextJarEntry
+public
+JarEntry
+getNextJarEntry
+()
+                         throws
+IOException
+Reads the next JAR file entry and positions the stream at the
+ beginning of the entry data. If verification has been enabled,
+ any invalid signature detected while positioning the stream for
+ the next entry will result in an exception.
+Returns:
+the next JAR file entry, or null if there are no more entries
+Throws:
+ZipException
+- if a ZIP file error has occurred
+IOException
+- if an I/O error has occurred
+SecurityException
+- if any of the jar file entries
+         are incorrectly signed.
+read
+public
+int
+read
+(byte[] b,
+ int off,
+ int len)
+throws
+IOException
+Reads from the current JAR entry into an array of bytes, returning the number of
+ inflated bytes. If
+len
+is not zero, the method blocks until some input is
+ available; otherwise, no bytes are read and
+0
+is returned.
+If the current entry is compressed and this method returns a nonzero
+ integer
+n
+then
+buf[off]
+through
+buf[off+
+n
+-1]
+contain the uncompressed
+ data.  The content of elements
+buf[off+
+n
+]
+through
+buf[off+
+len
+-1]
+is undefined, contrary to the
+ specification of the
+InputStream
+superclass,
+ so an implementation is free to modify these elements during the inflate
+ operation. If this method returns
+-1
+or throws an exception then
+ the content of
+buf[off]
+through
+buf[off+
+len
+-1]
+is undefined.
+If verification has been enabled, any invalid signature
+ on the current entry will be reported at some point before the
+ end of the entry is reached.
+Overrides:
+read
+in class
+ZipInputStream
+Parameters:
+b
+- the buffer into which the data is read
+off
+- the start offset in the destination array
+b
+len
+- the maximum number of bytes to read
+Returns:
+the actual number of bytes read, or -1 if the end of the
+         entry is reached
+Throws:
+NullPointerException
+- If
+b
+is
+null
+.
+IndexOutOfBoundsException
+- If
+off
+is negative,
+len
+is negative, or
+len
+is greater than
+b.length - off
+ZipException
+- if a ZIP file error has occurred
+IOException
+- if an I/O error has occurred
+SecurityException
+- if any of the jar file entries
+         are incorrectly signed.
+See Also:
+FilterInputStream.in
+createZipEntry
+protected
+ZipEntry
+createZipEntry
+(
+String
+name)
+Creates a new
+JarEntry
+(
+ZipEntry
+) for the
+ specified JAR file entry name. The manifest attributes of
+ the specified JAR file entry name will be copied to the new
+JarEntry
+.
+Overrides:
+createZipEntry
+in class
+ZipInputStream
+Parameters:
+name
+- the name of the JAR/ZIP file entry
+Returns:
+the
+JarEntry
+object just created
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

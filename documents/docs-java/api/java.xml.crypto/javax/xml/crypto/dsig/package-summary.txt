@@ -1,0 +1,427 @@
+javax.xml.crypto.dsig (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages
+|
+Classes and Interfaces
+SEARCH
+Module
+java.xml.crypto
+Package javax.xml.crypto.dsig
+package
+javax.xml.crypto.dsig
+Classes for generating and validating XML digital
+ signatures. This package includes classes that represent the core elements
+ defined in the W3C XML digital signature specification:
+XMLSignature
+,
+SignedInfo
+,
+CanonicalizationMethod
+,
+SignatureMethod
+,
+Reference
+,
+DigestMethod
+,
+XMLObject
+,
+Manifest
+,
+SignatureProperties
+, and
+SignatureProperty
+.
+KeyInfo
+types are defined in the
+javax.xml.crypto.dsig.keyinfo
+subpackage.
+XMLSignatureFactory
+is an abstract factory that creates
+XMLSignature
+objects from scratch
+ or from a pre-existing XML representation, such as a DOM node.
+TransformService
+is a service provider
+ interface for creating and plugging in implementations of
+ transform and canonicalization algorithms.
+Of primary significance in this package is the
+XMLSignature
+class,
+ which allows you to sign and validate an XML digital signature.
+Service Providers
+A service provider is a concrete implementation of the abstract
+XMLSignatureFactory
+and
+KeyInfoFactory
+classes
+ and is responsible for creating objects and algorithms that parse, generate
+ and validate XML Signatures and KeyInfo structures. A concrete implementation
+ of
+XMLSignatureFactory
+MUST provide support for each of the REQUIRED
+ algorithms as specified by the W3C recommendation for XML Signatures. It MAY
+ support other algorithms as defined by the W3C recommendation or other
+ specifications.
+The API leverages the JCA provider model (see
+the Provider class
+) for registering and
+ loading
+XMLSignatureFactory
+and
+KeyInfoFactory
+implementations.
+Each concrete
+XMLSignatureFactory
+or
+KeyInfoFactory
+implementation supports a specific XML mechanism type that identifies the XML
+ processing mechanism that an implementation uses internally to parse and
+ generate XML signature and KeyInfo structures.
+A service provider implementation SHOULD use underlying JCA engine
+ classes, such as
+Signature
+and
+MessageDigest
+to perform cryptographic operations.
+In addition to the
+XMLSignatureFactory
+and
+KeyInfoFactory
+classes, the API supports a service provider interface for transform and
+ canonicalization algorithms. The
+TransformService
+class allows you to
+ develop and plug in an implementation of a specific transform or
+ canonicalization algorithm for a particular XML mechanism type. The
+TransformService
+class uses the standard JCA provider model for registering
+ and loading implementations. Each service provider implementation SHOULD use
+ the
+TransformService
+class to find a provider that supports transform
+ and canonicalization algorithms in XML Signatures that it is generating or
+ validating.
+DOM Mechanism Requirements
+The following requirements MUST be abided by when implementing a DOM-based
+XMLSignatureFactory
+,
+KeyInfoFactory
+or
+TransformService
+in order to minimize interoperability problems:
+The
+unmarshalXMLSignature
+method of
+XMLSignatureFactory
+MUST support
+DOMValidateContext
+types. If the type is
+DOMValidateContext
+, it SHOULD contain an
+Element
+of type
+ Signature. Additionally, the
+unmarshalXMLSignature
+method MAY
+ populate the Id/Element mappings of the passed-in
+DOMValidateContext
+.
+The
+sign
+method of
+XMLSignature
+s produced by
+XMLSignatureFactory
+MUST support
+DOMSignContext
+types and the
+validate
+method MUST support
+DOMValidateContext
+types. This
+ requirement also applies to the
+validate
+method of
+SignatureValue
+and the
+validate
+method of
+Reference
+.
+The implementation MUST support
+DOMStructure
+s as the mechanism
+ for the application to specify extensible content (any elements or mixed
+ content).
+If the
+dereference
+method of user-specified
+URIDereferencer
+s returns
+NodeSetData
+objects, the
+iterator
+method MUST return an iteration over objects of type
+org.w3c.dom.Node
+.
+URIReference
+objects passed to the
+dereference
+method of
+ user-specified
+URIDereferencer
+s MUST be of type
+DOMURIReference
+and
+XMLCryptoContext
+objects MUST implement
+DOMCryptoContext
+.
+The previous 2 requirements also apply to
+URIDereferencer
+s
+ returned by the
+getURIDereferencer
+method of
+XMLSignatureFactory
+and
+KeyInfoFactory
+.
+The
+unmarshalKeyInfo
+method of
+KeyInfoFactory
+MUST
+ support
+DOMStructure
+types. If the type is
+DOMStructure
+, it
+ SHOULD contain an
+Element
+of type
+KeyInfo
+.
+The
+transform
+method of
+Transform
+MUST support
+DOMCryptoContext
+context parameter types.
+The
+newtransform
+and
+newCanonicalizationMethod
+methods of
+XMLSignatureFactory
+MUST support
+DOMStructure
+parameter
+ types.
+The
+init
+, and
+marshalParams
+methods of
+TransformService
+MUST support
+DOMStructure
+and
+DOMCryptoContext
+types.
+The
+unmarshalXMLSignature
+method of
+XMLSignatureFactory
+MUST support
+DOMStructure
+types. If the type is
+DOMStructure
+,
+ it SHOULD contain an
+Element
+of type
+Signature
+.
+The
+marshal
+method of
+KeyInfo
+MUST support
+DOMStructure
+and
+DOMCryptoContext
+parameter types.
+Note that a DOM implementation MAY internally use other XML parsing APIs
+ other than DOM as long as it doesn't affect interoperability. For example, a
+ DOM implementation of
+XMLSignatureFactory
+might use a SAX parser
+ internally to canonicalize data.
+Package Specification
+XML-Signature Syntax and Processing: W3C Recommendation
+RFC 3275: XML-Signature Syntax and Processing
+Since:
+1.6
+Related Packages
+Package
+Description
+javax.xml.crypto
+Common classes for XML cryptography.
+javax.xml.crypto.dsig.dom
+DOM-specific classes for the
+javax.xml.crypto.dsig
+package.
+javax.xml.crypto.dsig.keyinfo
+Classes for parsing and processing
+KeyInfo
+elements and structures.
+javax.xml.crypto.dsig.spec
+Parameter classes for XML digital signatures.
+javax.xml.crypto.dom
+DOM-specific classes for the
+javax.xml.crypto
+package.
+All Classes and Interfaces
+Interfaces
+Classes
+Exception Classes
+Class
+Description
+CanonicalizationMethod
+A representation of the XML
+CanonicalizationMethod
+element as defined in the
+W3C Recommendation for XML-Signature Syntax and Processing
+.
+DigestMethod
+A representation of the XML
+DigestMethod
+element as
+ defined in the
+W3C Recommendation for XML-Signature Syntax and Processing
+.
+Manifest
+A representation of the XML
+Manifest
+element as defined in
+ the
+W3C Recommendation for XML-Signature Syntax and Processing
+.
+Reference
+A representation of the
+Reference
+element as defined in the
+W3C Recommendation for XML-Signature Syntax and Processing
+.
+SignatureMethod
+A representation of the XML
+SignatureMethod
+element
+ as defined in the
+W3C Recommendation for XML-Signature Syntax and Processing
+.
+SignatureProperties
+A representation of the XML
+SignatureProperties
+element as
+ defined in the
+W3C Recommendation for XML-Signature Syntax and Processing
+.
+SignatureProperty
+A representation of the XML
+SignatureProperty
+element as
+ defined in the
+W3C Recommendation for XML-Signature Syntax and Processing
+.
+SignedInfo
+An representation of the XML
+SignedInfo
+element as
+ defined in the
+W3C Recommendation for XML-Signature Syntax and Processing
+.
+Transform
+A representation of the XML
+Transform
+element as
+ defined in the
+W3C Recommendation for XML-Signature Syntax and Processing
+.
+TransformException
+Indicates an exceptional condition that occurred while executing a
+ transform algorithm.
+TransformService
+A Service Provider Interface for transform and canonicalization algorithms.
+XMLObject
+A representation of the XML
+Object
+element as defined in
+ the
+W3C Recommendation for XML-Signature Syntax and Processing
+.
+XMLSignature
+A representation of the XML
+Signature
+element as
+ defined in the
+W3C Recommendation for XML-Signature Syntax and Processing
+.
+XMLSignature.SignatureValue
+A representation of the XML
+SignatureValue
+element as
+ defined in the
+W3C Recommendation for XML-Signature Syntax and Processing
+.
+XMLSignatureException
+Indicates an exceptional condition that occurred during the XML
+ signature generation or validation process.
+XMLSignatureFactory
+A factory for creating
+XMLSignature
+objects from scratch or
+ for unmarshalling an
+XMLSignature
+object from a corresponding
+ XML representation.
+XMLSignContext
+Contains context information for generating XML Signatures.
+XMLValidateContext
+Contains context information for validating XML Signatures.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

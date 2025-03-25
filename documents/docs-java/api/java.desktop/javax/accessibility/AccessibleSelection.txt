@@ -1,0 +1,241 @@
+AccessibleSelection (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.accessibility
+Interface AccessibleSelection
+All Known Implementing Classes:
+CheckboxMenuItem.AccessibleAWTCheckboxMenuItem
+,
+JComboBox.AccessibleJComboBox
+,
+JList.AccessibleJList
+,
+JMenu.AccessibleJMenu
+,
+JMenuBar.AccessibleJMenuBar
+,
+JTabbedPane.AccessibleJTabbedPane
+,
+JTable.AccessibleJTable
+,
+JTree.AccessibleJTree
+,
+JTree.AccessibleJTree.AccessibleJTreeNode
+,
+List.AccessibleAWTList
+,
+Menu.AccessibleAWTMenu
+,
+MenuBar.AccessibleAWTMenuBar
+,
+MenuComponent.AccessibleAWTMenuComponent
+,
+MenuItem.AccessibleAWTMenuItem
+,
+PopupMenu.AccessibleAWTPopupMenu
+public interface
+AccessibleSelection
+This
+AccessibleSelection
+interface provides the standard mechanism
+ for an assistive technology to determine what the current selected children
+ are, as well as modify the selection set. Any object that has children that
+ can be selected should support the
+AccessibleSelection
+interface.
+ Applications can determine if an object supports the
+AccessibleSelection
+interface by first obtaining its
+AccessibleContext
+(see
+Accessible
+) and then calling the
+AccessibleContext.getAccessibleSelection()
+method. If the return value
+ is not
+null
+, the object supports this interface.
+See Also:
+Accessible
+Accessible.getAccessibleContext()
+AccessibleContext
+AccessibleContext.getAccessibleSelection()
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+void
+addAccessibleSelection
+(int i)
+Adds the specified
+Accessible
+child of the object to the object's
+ selection.
+void
+clearAccessibleSelection
+()
+Clears the selection in the object, so that no children in the object are
+ selected.
+Accessible
+getAccessibleSelection
+(int i)
+Returns an
+Accessible
+representing the specified selected child
+ of the object.
+int
+getAccessibleSelectionCount
+()
+Returns the number of
+Accessible
+children currently selected.
+boolean
+isAccessibleChildSelected
+(int i)
+Determines if the current child of this object is selected.
+void
+removeAccessibleSelection
+(int i)
+Removes the specified child of the object from the object's selection.
+void
+selectAllAccessibleSelection
+()
+Causes every child of the object to be selected if the object supports
+ multiple selections.
+Method Details
+getAccessibleSelectionCount
+int
+getAccessibleSelectionCount
+()
+Returns the number of
+Accessible
+children currently selected. If
+ no children are selected, the return value will be 0.
+Returns:
+the number of items currently selected
+getAccessibleSelection
+Accessible
+getAccessibleSelection
+(int i)
+Returns an
+Accessible
+representing the specified selected child
+ of the object. If there isn't a selection, or there are fewer children
+ selected than the integer passed in, the return value will be
+null
+.
+Note that the index represents the i-th selected child, which is
+ different from the i-th child.
+Parameters:
+i
+- the zero-based index of selected children
+Returns:
+the i-th selected child
+See Also:
+getAccessibleSelectionCount()
+isAccessibleChildSelected
+boolean
+isAccessibleChildSelected
+(int i)
+Determines if the current child of this object is selected.
+Parameters:
+i
+- the zero-based index of the child in this
+Accessible
+object
+Returns:
+true
+if the current child of this object is selected;
+         else
+false
+See Also:
+AccessibleContext.getAccessibleChild(int)
+addAccessibleSelection
+void
+addAccessibleSelection
+(int i)
+Adds the specified
+Accessible
+child of the object to the object's
+ selection. If the object supports multiple selections, the specified
+ child is added to any existing selection, otherwise it replaces any
+ existing selection in the object. If the specified child is already
+ selected, this method has no effect.
+Parameters:
+i
+- the zero-based index of the child
+See Also:
+AccessibleContext.getAccessibleChild(int)
+removeAccessibleSelection
+void
+removeAccessibleSelection
+(int i)
+Removes the specified child of the object from the object's selection. If
+ the specified item isn't currently selected, this method has no effect.
+Parameters:
+i
+- the zero-based index of the child
+See Also:
+AccessibleContext.getAccessibleChild(int)
+clearAccessibleSelection
+void
+clearAccessibleSelection
+()
+Clears the selection in the object, so that no children in the object are
+ selected.
+selectAllAccessibleSelection
+void
+selectAllAccessibleSelection
+()
+Causes every child of the object to be selected if the object supports
+ multiple selections.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

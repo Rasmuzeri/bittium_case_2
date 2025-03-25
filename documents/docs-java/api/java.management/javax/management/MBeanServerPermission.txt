@@ -1,0 +1,299 @@
+MBeanServerPermission (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.management
+Package
+javax.management
+Class MBeanServerPermission
+java.lang.Object
+java.security.Permission
+java.security.BasicPermission
+javax.management.MBeanServerPermission
+All Implemented Interfaces:
+Serializable
+,
+Guard
+public class
+MBeanServerPermission
+extends
+BasicPermission
+A Permission to perform actions related to MBeanServers.
+    The
+name
+of the permission specifies the operation requested
+    or granted by the permission.  For a granted permission, it can be
+*
+to allow all of the MBeanServer operations specified below.
+    Otherwise, for a granted or requested permission, it must be one of the
+    following:
+createMBeanServer
+Create a new MBeanServer object using the method
+MBeanServerFactory.createMBeanServer()
+or
+MBeanServerFactory.createMBeanServer(java.lang.String)
+.
+findMBeanServer
+Find an MBeanServer with a given name, or all MBeanServers in this
+    JVM, using the method
+MBeanServerFactory.findMBeanServer(java.lang.String)
+.
+newMBeanServer
+Create a new MBeanServer object without keeping a reference to it,
+    using the method
+MBeanServerFactory.newMBeanServer()
+or
+MBeanServerFactory.newMBeanServer(java.lang.String)
+.
+releaseMBeanServer
+Remove the MBeanServerFactory's reference to an MBeanServer,
+    using the method
+MBeanServerFactory.releaseMBeanServer(javax.management.MBeanServer)
+.
+The
+name
+of the permission can also denote a list of one or more
+    comma-separated operations.  Spaces are allowed at the beginning and
+    end of the
+name
+and before and after commas.
+MBeanServerPermission("createMBeanServer")
+implies
+MBeanServerPermission("newMBeanServer")
+.
+Since:
+1.5
+See Also:
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+MBeanServerPermission
+(
+String
+name)
+Create a new MBeanServerPermission with the given name.
+MBeanServerPermission
+(
+String
+name,
+String
+actions)
+Create a new MBeanServerPermission with the given name.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+equals
+(
+Object
+obj)
+Checks two MBeanServerPermission objects for equality.
+boolean
+implies
+(
+Permission
+p)
+Checks if this MBeanServerPermission object "implies" the specified
+ permission.
+Methods declared in class java.security.
+BasicPermission
+getActions
+,
+hashCode
+,
+newPermissionCollection
+Methods declared in class java.security.
+Permission
+checkGuard
+,
+getName
+,
+toString
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+MBeanServerPermission
+public
+MBeanServerPermission
+(
+String
+name)
+Create a new MBeanServerPermission with the given name.
+This constructor is equivalent to
+MBeanServerPermission(name,null)
+.
+Parameters:
+name
+- the name of the granted permission.  It must
+        respect the constraints spelt out in the description of the
+MBeanServerPermission
+class.
+Throws:
+NullPointerException
+- if the name is null.
+IllegalArgumentException
+- if the name is not
+*
+or one of the allowed names or a comma-separated
+        list of the allowed names.
+MBeanServerPermission
+public
+MBeanServerPermission
+(
+String
+name,
+String
+actions)
+Create a new MBeanServerPermission with the given name.
+Parameters:
+name
+- the name of the granted permission.  It must
+        respect the constraints spelt out in the description of the
+MBeanServerPermission
+class.
+actions
+- the associated actions.  This parameter is not
+        currently used and must be null or the empty string.
+Throws:
+NullPointerException
+- if the name is null.
+IllegalArgumentException
+- if the name is not
+*
+or one of the allowed names or a comma-separated
+        list of the allowed names, or if
+actions
+is a non-null
+        non-empty string.
+NullPointerException
+- if
+name
+is
+null
+.
+IllegalArgumentException
+- if
+name
+is empty or
+ if arguments are invalid.
+Method Details
+implies
+public
+boolean
+implies
+(
+Permission
+p)
+Checks if this MBeanServerPermission object "implies" the specified
+ permission.
+More specifically, this method returns true if:
+p
+is an instance of MBeanServerPermission,
+p
+'s target names are a subset of this object's target
+ names
+The
+createMBeanServer
+permission implies the
+newMBeanServer
+permission.
+Overrides:
+implies
+in class
+BasicPermission
+Parameters:
+p
+- the permission to check against.
+Returns:
+true if the specified permission is implied by this object,
+ false if not.
+equals
+public
+boolean
+equals
+(
+Object
+obj)
+Checks two MBeanServerPermission objects for equality. Checks that
+obj
+is an MBeanServerPermission, and represents the same
+ list of allowable actions as this object.
+Overrides:
+equals
+in class
+BasicPermission
+Parameters:
+obj
+- the object we are testing for equality with this object.
+Returns:
+true if the objects are equal.
+See Also:
+Object.hashCode()
+HashMap
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,793 @@
+ParserAdapter (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.xml
+Package
+org.xml.sax.helpers
+Class ParserAdapter
+java.lang.Object
+org.xml.sax.helpers.ParserAdapter
+All Implemented Interfaces:
+DocumentHandler
+,
+XMLReader
+public class
+ParserAdapter
+extends
+Object
+implements
+XMLReader
+,
+DocumentHandler
+Adapt a SAX1 Parser as a SAX2 XMLReader.
+This class wraps a SAX1
+Parser
+and makes it act as a SAX2
+XMLReader
+,
+ with feature, property, and Namespace support.  Note
+ that it is not possible to report
+skippedEntity
+events, since SAX1 does not make that information available.
+This adapter does not test for duplicate Namespace-qualified
+ attribute names.
+Since:
+1.4, SAX 2.0
+See Also:
+XMLReaderAdapter
+XMLReader
+Parser
+Constructor Summary
+Constructors
+Constructor
+Description
+ParserAdapter
+()
+Construct a new parser adapter.
+ParserAdapter
+(
+Parser
+parser)
+Construct a new parser adapter.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+characters
+(char[] ch,
+ int start,
+ int length)
+Adapter implementation method; do not call.
+void
+endDocument
+()
+Adapter implementation method; do not call.
+void
+endElement
+(
+String
+qName)
+Adapter implementation method; do not call.
+ContentHandler
+getContentHandler
+()
+Return the current content handler.
+DTDHandler
+getDTDHandler
+()
+Return the current DTD handler.
+EntityResolver
+getEntityResolver
+()
+Return the current entity resolver.
+ErrorHandler
+getErrorHandler
+()
+Return the current error handler.
+boolean
+getFeature
+(
+String
+name)
+Check a parser feature flag.
+Object
+getProperty
+(
+String
+name)
+Get a parser property.
+void
+ignorableWhitespace
+(char[] ch,
+ int start,
+ int length)
+Adapter implementation method; do not call.
+void
+parse
+(
+String
+systemId)
+Parse an XML document.
+void
+parse
+(
+InputSource
+input)
+Parse an XML document.
+void
+processingInstruction
+(
+String
+target,
+String
+data)
+Adapter implementation method; do not call.
+void
+setContentHandler
+(
+ContentHandler
+handler)
+Set the content handler.
+void
+setDocumentLocator
+(
+Locator
+locator)
+Adapter implementation method; do not call.
+void
+setDTDHandler
+(
+DTDHandler
+handler)
+Set the DTD handler.
+void
+setEntityResolver
+(
+EntityResolver
+resolver)
+Set the entity resolver.
+void
+setErrorHandler
+(
+ErrorHandler
+handler)
+Set the error handler.
+void
+setFeature
+(
+String
+name,
+ boolean value)
+Set a feature flag for the parser.
+void
+setProperty
+(
+String
+name,
+Object
+value)
+Set a parser property.
+void
+startDocument
+()
+Adapter implementation method; do not call.
+void
+startElement
+(
+String
+qName,
+AttributeList
+qAtts)
+Adapter implementation method; do not call.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+ParserAdapter
+public
+ParserAdapter
+()
+              throws
+SAXException
+Construct a new parser adapter.
+Use the "org.xml.sax.parser" property to locate the
+ embedded SAX1 driver.
+Throws:
+SAXException
+- If the embedded driver
+            cannot be instantiated or if the
+            org.xml.sax.parser property is not specified.
+ParserAdapter
+public
+ParserAdapter
+(
+Parser
+parser)
+Construct a new parser adapter.
+Note that the embedded parser cannot be changed once the
+ adapter is created; to embed a different parser, allocate
+ a new ParserAdapter.
+Parameters:
+parser
+- The SAX1 parser to embed.
+Throws:
+NullPointerException
+- If the parser parameter
+            is null.
+Method Details
+setFeature
+public
+void
+setFeature
+(
+String
+name,
+ boolean value)
+throws
+SAXNotRecognizedException
+,
+SAXNotSupportedException
+Set a feature flag for the parser.
+The only features recognized are namespaces and
+ namespace-prefixes.
+Specified by:
+setFeature
+in interface
+XMLReader
+Parameters:
+name
+- The feature name, as a complete URI.
+value
+- The requested feature value.
+Throws:
+SAXNotRecognizedException
+- If the feature
+            can't be assigned or retrieved.
+SAXNotSupportedException
+- If the feature
+            can't be assigned that value.
+See Also:
+XMLReader.setFeature(java.lang.String, boolean)
+getFeature
+public
+boolean
+getFeature
+(
+String
+name)
+throws
+SAXNotRecognizedException
+,
+SAXNotSupportedException
+Check a parser feature flag.
+The only features recognized are namespaces and
+ namespace-prefixes.
+Specified by:
+getFeature
+in interface
+XMLReader
+Parameters:
+name
+- The feature name, as a complete URI.
+Returns:
+The current feature value.
+Throws:
+SAXNotRecognizedException
+- If the feature
+            value can't be assigned or retrieved.
+SAXNotSupportedException
+- If the
+            feature is not currently readable.
+See Also:
+XMLReader.setFeature(java.lang.String, boolean)
+setProperty
+public
+void
+setProperty
+(
+String
+name,
+Object
+value)
+throws
+SAXNotRecognizedException
+,
+SAXNotSupportedException
+Set a parser property.
+No properties are currently recognized.
+Specified by:
+setProperty
+in interface
+XMLReader
+Parameters:
+name
+- The property name.
+value
+- The property value.
+Throws:
+SAXNotRecognizedException
+- If the property
+            value can't be assigned or retrieved.
+SAXNotSupportedException
+- If the property
+            can't be assigned that value.
+See Also:
+XMLReader.setProperty(java.lang.String, java.lang.Object)
+getProperty
+public
+Object
+getProperty
+(
+String
+name)
+throws
+SAXNotRecognizedException
+,
+SAXNotSupportedException
+Get a parser property.
+No properties are currently recognized.
+Specified by:
+getProperty
+in interface
+XMLReader
+Parameters:
+name
+- The property name.
+Returns:
+The property value.
+Throws:
+SAXNotRecognizedException
+- If the property
+            value can't be assigned or retrieved.
+SAXNotSupportedException
+- If the property
+            value is not currently readable.
+See Also:
+XMLReader.getProperty(java.lang.String)
+setEntityResolver
+public
+void
+setEntityResolver
+(
+EntityResolver
+resolver)
+Set the entity resolver.
+Specified by:
+setEntityResolver
+in interface
+XMLReader
+Parameters:
+resolver
+- The new entity resolver.
+See Also:
+XMLReader.setEntityResolver(org.xml.sax.EntityResolver)
+getEntityResolver
+public
+EntityResolver
+getEntityResolver
+()
+Return the current entity resolver.
+Specified by:
+getEntityResolver
+in interface
+XMLReader
+Returns:
+The current entity resolver, or null if none was supplied.
+See Also:
+XMLReader.getEntityResolver()
+setDTDHandler
+public
+void
+setDTDHandler
+(
+DTDHandler
+handler)
+Set the DTD handler.
+Specified by:
+setDTDHandler
+in interface
+XMLReader
+Parameters:
+handler
+- the new DTD handler
+See Also:
+XMLReader.setEntityResolver(org.xml.sax.EntityResolver)
+getDTDHandler
+public
+DTDHandler
+getDTDHandler
+()
+Return the current DTD handler.
+Specified by:
+getDTDHandler
+in interface
+XMLReader
+Returns:
+the current DTD handler, or null if none was supplied
+See Also:
+XMLReader.getEntityResolver()
+setContentHandler
+public
+void
+setContentHandler
+(
+ContentHandler
+handler)
+Set the content handler.
+Specified by:
+setContentHandler
+in interface
+XMLReader
+Parameters:
+handler
+- the new content handler
+See Also:
+XMLReader.setEntityResolver(org.xml.sax.EntityResolver)
+getContentHandler
+public
+ContentHandler
+getContentHandler
+()
+Return the current content handler.
+Specified by:
+getContentHandler
+in interface
+XMLReader
+Returns:
+The current content handler, or null if none was supplied.
+See Also:
+XMLReader.getEntityResolver()
+setErrorHandler
+public
+void
+setErrorHandler
+(
+ErrorHandler
+handler)
+Set the error handler.
+Specified by:
+setErrorHandler
+in interface
+XMLReader
+Parameters:
+handler
+- The new error handler.
+See Also:
+XMLReader.setEntityResolver(org.xml.sax.EntityResolver)
+getErrorHandler
+public
+ErrorHandler
+getErrorHandler
+()
+Return the current error handler.
+Specified by:
+getErrorHandler
+in interface
+XMLReader
+Returns:
+The current error handler, or null if none was supplied.
+See Also:
+XMLReader.getEntityResolver()
+parse
+public
+void
+parse
+(
+String
+systemId)
+throws
+IOException
+,
+SAXException
+Parse an XML document.
+Specified by:
+parse
+in interface
+XMLReader
+Parameters:
+systemId
+- The absolute URL of the document.
+Throws:
+IOException
+- If there is a problem reading
+            the raw content of the document.
+SAXException
+- If there is a problem
+            processing the document.
+See Also:
+parse(org.xml.sax.InputSource)
+Parser.parse(java.lang.String)
+parse
+public
+void
+parse
+(
+InputSource
+input)
+throws
+IOException
+,
+SAXException
+Parse an XML document.
+Specified by:
+parse
+in interface
+XMLReader
+Parameters:
+input
+- An input source for the document.
+Throws:
+IOException
+- If there is a problem reading
+            the raw content of the document.
+SAXException
+- If there is a problem
+            processing the document.
+See Also:
+parse(java.lang.String)
+Parser.parse(org.xml.sax.InputSource)
+setDocumentLocator
+public
+void
+setDocumentLocator
+(
+Locator
+locator)
+Adapter implementation method; do not call.
+ Adapt a SAX1 document locator event.
+Specified by:
+setDocumentLocator
+in interface
+DocumentHandler
+Parameters:
+locator
+- A document locator.
+See Also:
+ContentHandler.setDocumentLocator(org.xml.sax.Locator)
+startDocument
+public
+void
+startDocument
+()
+                   throws
+SAXException
+Adapter implementation method; do not call.
+ Adapt a SAX1 start document event.
+Specified by:
+startDocument
+in interface
+DocumentHandler
+Throws:
+SAXException
+- The client may raise a
+            processing exception.
+See Also:
+DocumentHandler.startDocument()
+endDocument
+public
+void
+endDocument
+()
+                 throws
+SAXException
+Adapter implementation method; do not call.
+ Adapt a SAX1 end document event.
+Specified by:
+endDocument
+in interface
+DocumentHandler
+Throws:
+SAXException
+- The client may raise a
+            processing exception.
+See Also:
+DocumentHandler.endDocument()
+startElement
+public
+void
+startElement
+(
+String
+qName,
+AttributeList
+qAtts)
+throws
+SAXException
+Adapter implementation method; do not call.
+ Adapt a SAX1 startElement event.
+If necessary, perform Namespace processing.
+Specified by:
+startElement
+in interface
+DocumentHandler
+Parameters:
+qName
+- The qualified (prefixed) name.
+qAtts
+- The XML attribute list (with qnames).
+Throws:
+SAXException
+- The client may raise a
+            processing exception.
+See Also:
+DocumentHandler.endElement(java.lang.String)
+AttributeList
+endElement
+public
+void
+endElement
+(
+String
+qName)
+throws
+SAXException
+Adapter implementation method; do not call.
+ Adapt a SAX1 end element event.
+Specified by:
+endElement
+in interface
+DocumentHandler
+Parameters:
+qName
+- The qualified (prefixed) name.
+Throws:
+SAXException
+- The client may raise a
+            processing exception.
+See Also:
+DocumentHandler.endElement(java.lang.String)
+characters
+public
+void
+characters
+(char[] ch,
+ int start,
+ int length)
+throws
+SAXException
+Adapter implementation method; do not call.
+ Adapt a SAX1 characters event.
+Specified by:
+characters
+in interface
+DocumentHandler
+Parameters:
+ch
+- An array of characters.
+start
+- The starting position in the array.
+length
+- The number of characters to use.
+Throws:
+SAXException
+- The client may raise a
+            processing exception.
+See Also:
+DocumentHandler.characters(char[], int, int)
+ignorableWhitespace
+public
+void
+ignorableWhitespace
+(char[] ch,
+ int start,
+ int length)
+throws
+SAXException
+Adapter implementation method; do not call.
+ Adapt a SAX1 ignorable whitespace event.
+Specified by:
+ignorableWhitespace
+in interface
+DocumentHandler
+Parameters:
+ch
+- An array of characters.
+start
+- The starting position in the array.
+length
+- The number of characters to use.
+Throws:
+SAXException
+- The client may raise a
+            processing exception.
+See Also:
+DocumentHandler.ignorableWhitespace(char[], int, int)
+processingInstruction
+public
+void
+processingInstruction
+(
+String
+target,
+String
+data)
+throws
+SAXException
+Adapter implementation method; do not call.
+ Adapt a SAX1 processing instruction event.
+Specified by:
+processingInstruction
+in interface
+DocumentHandler
+Parameters:
+target
+- The processing instruction target.
+data
+- The remainder of the processing instruction
+Throws:
+SAXException
+- The client may raise a
+            processing exception.
+See Also:
+DocumentHandler.processingInstruction(java.lang.String, java.lang.String)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

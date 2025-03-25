@@ -1,0 +1,199 @@
+JDIPermission (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.jdi
+Package
+com.sun.jdi
+Class JDIPermission
+java.lang.Object
+java.security.Permission
+java.security.BasicPermission
+com.sun.jdi.JDIPermission
+All Implemented Interfaces:
+Serializable
+,
+Guard
+public final class
+JDIPermission
+extends
+BasicPermission
+The
+JDIPermission
+class represents access rights to
+ the
+VirtualMachineManager
+.  This is the permission
+ which the SecurityManager will check when code that is running with
+ a SecurityManager requests access to the VirtualMachineManager, as
+ defined in the Java Debug Interface (JDI) for the Java platform.
+A
+JDIPermission
+object contains a name (also referred
+ to as a "target name") but no actions list; you either have the
+ named permission or you don't.
+The following table provides a summary description of what the
+ permission allows, and discusses the risks of granting code the
+ permission.
+Table shows permission target name, what the
+ permission allows, and associated risks
+Permission Target Name
+What the Permission Allows
+Risks of Allowing this Permission
+virtualMachineManager
+Ability to inspect and modify the JDI objects in the
+VirtualMachineManager
+This allows an attacker to control the
+VirtualMachineManager
+and cause the system to
+   misbehave.
+Programmers do not normally create JDIPermission objects directly.
+ Instead they are created by the security policy code based on reading
+ the security policy file.
+Since:
+1.5
+See Also:
+Bootstrap
+BasicPermission
+Permission
+Permissions
+PermissionCollection
+SecurityManager
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+JDIPermission
+(
+String
+name)
+The
+JDIPermission
+class represents access rights to the
+VirtualMachineManager
+JDIPermission
+(
+String
+name,
+String
+actions)
+Constructs a new JDIPermission object.
+Method Summary
+Methods declared in class java.security.
+BasicPermission
+equals
+,
+getActions
+,
+hashCode
+,
+implies
+,
+newPermissionCollection
+Methods declared in class java.security.
+Permission
+checkGuard
+,
+getName
+,
+toString
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+JDIPermission
+public
+JDIPermission
+(
+String
+name)
+The
+JDIPermission
+class represents access rights to the
+VirtualMachineManager
+Parameters:
+name
+- Permission name. Must be "virtualMachineManager".
+Throws:
+IllegalArgumentException
+- if the name argument is invalid.
+JDIPermission
+public
+JDIPermission
+(
+String
+name,
+String
+actions)
+throws
+IllegalArgumentException
+Constructs a new JDIPermission object.
+Parameters:
+name
+- Permission name. Must be "virtualMachineManager".
+actions
+- Must be either null or the empty string.
+Throws:
+IllegalArgumentException
+- if arguments are invalid.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

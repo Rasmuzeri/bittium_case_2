@@ -1,0 +1,1515 @@
+CompactNumberFormat (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.text
+Class CompactNumberFormat
+java.lang.Object
+java.text.Format
+java.text.NumberFormat
+java.text.CompactNumberFormat
+All Implemented Interfaces:
+Serializable
+,
+Cloneable
+public final class
+CompactNumberFormat
+extends
+NumberFormat
+CompactNumberFormat
+is a concrete subclass of
+NumberFormat
+that formats a decimal number in its compact form.
+
+ The compact number formatting is designed for the environment where the space
+ is limited, and the formatted string can be displayed in that limited space.
+ It is defined by LDML's specification for
+Compact Number Formats
+. A compact number formatting refers
+ to the representation of a number in a shorter form, based on the patterns
+ provided for a given locale.
+For example:
+In the
+US locale
+,
+1000
+can be formatted
+ as
+"1K"
+, and
+1000000
+as
+"1M"
+, depending upon the
+style
+used.
+In the
+"hi_IN"
+locale,
+1000
+can be formatted as
+ "1 हज़ार", and
+50000000
+as "5 क.",
+ depending upon the
+style
+used.
+To obtain a
+CompactNumberFormat
+for a locale, use one
+ of the factory methods given by
+NumberFormat
+for compact number
+ formatting. For example,
+NumberFormat.getCompactNumberInstance(Locale, Style)
+.
+Copy
+NumberFormat fmt = NumberFormat.getCompactNumberInstance(
+                            Locale.forLanguageTag("hi-IN"), NumberFormat.Style.SHORT);
+String result = fmt.format(1000);
+Style
+A number can be formatted in the compact forms with two different
+ styles,
+SHORT
+and
+LONG
+. Use
+NumberFormat.getCompactNumberInstance(Locale, Style)
+for formatting and
+ parsing a number in
+SHORT
+or
+LONG
+compact form,
+ where the given
+Style
+parameter requests the desired
+ format. A
+SHORT
+style
+ compact number instance in the
+US locale
+formats
+10000
+as
+"10K"
+. However, a
+LONG
+style instance in same locale
+ formats
+10000
+as
+"10 thousand"
+.
+Compact Number Patterns
+The compact number patterns are represented in a series of patterns where each
+ pattern is used to format a range of numbers. An example of
+SHORT
+styled compact number patterns
+ for the
+US locale
+is
+{"", "", "", "0K",
+ "00K", "000K", "0M", "00M", "000M", "0B", "00B", "000B", "0T", "00T", "000T"}
+,
+ ranging from
+10
+0
+to
+10
+14
+.
+ There can be any number of patterns and they are
+ strictly index based starting from the range
+10
+0
+.
+ For example, in the above patterns, pattern at index 3
+ (
+"0K"
+) is used for formatting
+number >= 1000 and number < 10000
+,
+ pattern at index 4 (
+"00K"
+) is used for formatting
+number >= 10000 and number < 100000
+and so on. In most of the locales,
+ patterns with the range
+10
+0
+-
+10
+2
+are empty
+ strings, which implicitly means a special pattern
+"0"
+.
+ A special pattern
+"0"
+is used for any range which does not contain
+ a compact pattern. This special pattern can appear explicitly for any specific
+ range, or considered as a default pattern for an empty string.
+A compact pattern contains a positive and negative subpattern
+ separated by a subpattern boundary character
+';' (U+003B)
+,
+ for example,
+"0K;-0K"
+. Each subpattern has a prefix,
+ minimum integer digits, and suffix. The negative subpattern
+ is optional, if absent, then the positive subpattern prefixed with the
+ minus sign (
+'-' U+002D HYPHEN-MINUS
+) is used as the negative
+ subpattern. That is,
+"0K"
+alone is equivalent to
+"0K;-0K"
+.
+ If there is an explicit negative subpattern, it serves only to specify
+ the negative prefix and suffix. The number of minimum integer digits,
+ and other characteristics are all the same as the positive pattern.
+ That means that
+"0K;-00K"
+produces precisely the same behavior
+ as
+"0K;-0K"
+.
+Many characters in a compact pattern are taken literally, they are matched
+ during parsing and output unchanged during formatting.
+Special characters
+,
+ on the other hand, stand for other characters, strings, or classes of
+ characters. They must be quoted, using single quote
+' (U+0027)
+unless noted otherwise, if they are to appear in the prefix or suffix
+ as literals. For example, 0क'.'.
+Plurals
+In case some localization requires compact number patterns to be different for
+ plurals, each singular and plural pattern can be enumerated within a pair of
+ curly brackets
+'{' (U+007B)
+and
+'}' (U+007D)
+, separated
+ by a space
+' ' (U+0020)
+. If this format is used, each pattern needs to be
+ prepended by its
+count
+, followed by a single colon
+':' (U+003A)
+.
+ If the pattern includes spaces literally, they must be quoted.
+For example, the compact number pattern representing millions in German locale can be
+ specified as
+"{one:0' 'Million other:0' 'Millionen}"
+. The
+count
+follows LDML's
+Language Plural Rules
+.
+A compact pattern has the following syntax:
+Pattern:
+SimplePattern
+'{'
+PluralPattern
+[' ' PluralPattern]
+optional
+'}'
+SimplePattern:
+PositivePattern
+PositivePattern
+[; NegativePattern]
+optional
+PluralPattern:
+Count
+:
+SimplePattern
+Count:
+"zero" / "one" / "two" / "few" / "many" / "other"
+PositivePattern:
+Prefix
+optional
+MinimumInteger
+Suffix
+optional
+NegativePattern:
+Prefix
+optional
+MinimumInteger
+Suffix
+optional
+Prefix:
+Any Unicode characters except
+U+FFFE
+,
+U+FFFF
+, and
+special characters
+.
+Suffix:
+Any Unicode characters except
+U+FFFE
+,
+U+FFFF
+, and
+special characters
+.
+MinimumInteger:
+0
+      0
+MinimumInteger
+Formatting
+The default formatting behavior returns a formatted string with no fractional
+ digits, however users can use the
+setMinimumFractionDigits(int)
+method to include the fractional part.
+ The number
+1000.0
+or
+1000
+is formatted as
+"1K"
+not
+"1.00K"
+(in the
+US locale
+). For this
+ reason, the patterns provided for formatting contain only the minimum
+ integer digits, prefix and/or suffix, but no fractional part.
+ For example, patterns used are
+{"", "", "", 0K, 00K, ...}
+. If the pattern
+ selected for formatting a number is
+"0"
+(special pattern),
+ either explicit or defaulted, then the general number formatting provided by
+DecimalFormat
+for the specified locale is used.
+Parsing
+The default parsing behavior does not allow a grouping separator until
+ grouping used is set to
+true
+by using
+setGroupingUsed(boolean)
+. The parsing of the fractional part
+ depends on the
+isParseIntegerOnly()
+. For example, if the
+ parse integer only is set to true, then the fractional part is skipped.
+Rounding
+CompactNumberFormat
+provides rounding modes defined in
+RoundingMode
+for formatting.  By default, it uses
+RoundingMode.HALF_EVEN
+.
+Since:
+12
+External Specifications
+Unicode Locale Data Markup Language (LDML)
+See Also:
+NumberFormat.Style
+NumberFormat
+DecimalFormat
+Serialized Form
+Nested Class Summary
+Nested classes/interfaces declared in class java.text.
+NumberFormat
+NumberFormat.Field
+,
+NumberFormat.Style
+Field Summary
+Fields declared in class java.text.
+NumberFormat
+FRACTION_FIELD
+,
+INTEGER_FIELD
+Constructor Summary
+Constructors
+Constructor
+Description
+CompactNumberFormat
+(
+String
+decimalPattern,
+DecimalFormatSymbols
+symbols,
+String
+[] compactPatterns)
+Creates a
+CompactNumberFormat
+using the given decimal pattern,
+ decimal format symbols and compact patterns.
+CompactNumberFormat
+(
+String
+decimalPattern,
+DecimalFormatSymbols
+symbols,
+String
+[] compactPatterns,
+String
+pluralRules)
+Creates a
+CompactNumberFormat
+using the given decimal pattern,
+ decimal format symbols, compact patterns, and plural rules.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+CompactNumberFormat
+clone
+()
+Creates and returns a copy of this
+CompactNumberFormat
+instance.
+boolean
+equals
+(
+Object
+obj)
+Checks if this
+CompactNumberFormat
+is equal to the
+ specified
+obj
+.
+StringBuffer
+format
+(double number,
+StringBuffer
+result,
+FieldPosition
+fieldPosition)
+Formats a double to produce a string representing its compact form.
+StringBuffer
+format
+(long number,
+StringBuffer
+result,
+FieldPosition
+fieldPosition)
+Formats a long to produce a string representing its compact form.
+final
+StringBuffer
+format
+(
+Object
+number,
+StringBuffer
+toAppendTo,
+FieldPosition
+fieldPosition)
+Formats a number to produce a string representing its compact form.
+AttributedCharacterIterator
+formatToCharacterIterator
+(
+Object
+obj)
+Formats an Object producing an
+AttributedCharacterIterator
+.
+int
+getGroupingSize
+()
+Returns the grouping size.
+RoundingMode
+getRoundingMode
+()
+Gets the
+RoundingMode
+used in this
+CompactNumberFormat
+.
+int
+hashCode
+()
+Returns the hash code for this
+CompactNumberFormat
+instance.
+boolean
+isGroupingUsed
+()
+Returns true if grouping is used in this format.
+boolean
+isParseBigDecimal
+()
+Returns whether the
+parse(String, ParsePosition)
+method returns
+BigDecimal
+.
+boolean
+isParseIntegerOnly
+()
+Returns true if this format parses only an integer from the number
+ component of a compact number.
+Number
+parse
+(
+String
+text,
+ParsePosition
+pos)
+Parses a compact number from a string to produce a
+Number
+.
+void
+setGroupingSize
+(int newValue)
+Sets the grouping size.
+void
+setGroupingUsed
+(boolean newValue)
+Sets whether or not grouping will be used in this format.
+void
+setMaximumFractionDigits
+(int newValue)
+Sets the maximum number of digits allowed in the fraction portion of a
+ number.
+void
+setMaximumIntegerDigits
+(int newValue)
+Sets the maximum number of digits allowed in the integer portion of a
+ number.
+void
+setMinimumFractionDigits
+(int newValue)
+Sets the minimum number of digits allowed in the fraction portion of a
+ number.
+void
+setMinimumIntegerDigits
+(int newValue)
+Sets the minimum number of digits allowed in the integer portion of a
+ number.
+void
+setParseBigDecimal
+(boolean newValue)
+Sets whether the
+parse(String, ParsePosition)
+method returns
+BigDecimal
+.
+void
+setParseIntegerOnly
+(boolean value)
+Sets whether or not this format parses only an integer from the number
+ component of a compact number.
+void
+setRoundingMode
+(
+RoundingMode
+roundingMode)
+Sets the
+RoundingMode
+used in this
+CompactNumberFormat
+.
+Methods declared in class java.text.
+NumberFormat
+format
+,
+format
+,
+getAvailableLocales
+,
+getCompactNumberInstance
+,
+getCompactNumberInstance
+,
+getCurrency
+,
+getCurrencyInstance
+,
+getCurrencyInstance
+,
+getInstance
+,
+getInstance
+,
+getIntegerInstance
+,
+getIntegerInstance
+,
+getMaximumFractionDigits
+,
+getMaximumIntegerDigits
+,
+getMinimumFractionDigits
+,
+getMinimumIntegerDigits
+,
+getNumberInstance
+,
+getNumberInstance
+,
+getPercentInstance
+,
+getPercentInstance
+,
+parse
+,
+parseObject
+,
+setCurrency
+Methods declared in class java.text.
+Format
+format
+,
+parseObject
+Methods declared in class java.lang.
+Object
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+CompactNumberFormat
+public
+CompactNumberFormat
+(
+String
+decimalPattern,
+DecimalFormatSymbols
+symbols,
+String
+[] compactPatterns)
+Creates a
+CompactNumberFormat
+using the given decimal pattern,
+ decimal format symbols and compact patterns.
+ To obtain the instance of
+CompactNumberFormat
+with the standard
+ compact patterns for a
+Locale
+and
+Style
+,
+ it is recommended to use the factory methods given by
+NumberFormat
+for compact number formatting. For example,
+NumberFormat.getCompactNumberInstance(Locale, Style)
+.
+Parameters:
+decimalPattern
+- a decimal pattern for general number formatting
+symbols
+- the set of symbols to be used
+compactPatterns
+- an array of
+compact number patterns
+Throws:
+NullPointerException
+- if any of the given arguments is
+null
+IllegalArgumentException
+- if the given
+decimalPattern
+or the
+compactPatterns
+array contains an invalid pattern
+       or if a
+null
+appears in the array of compact
+       patterns
+See Also:
+DecimalFormat(java.lang.String, DecimalFormatSymbols)
+DecimalFormatSymbols
+CompactNumberFormat
+public
+CompactNumberFormat
+(
+String
+decimalPattern,
+DecimalFormatSymbols
+symbols,
+String
+[] compactPatterns,
+String
+pluralRules)
+Creates a
+CompactNumberFormat
+using the given decimal pattern,
+ decimal format symbols, compact patterns, and plural rules.
+ To obtain the instance of
+CompactNumberFormat
+with the standard
+ compact patterns for a
+Locale
+,
+Style
+, and
+pluralRules
+,
+ it is recommended to use the factory methods given by
+NumberFormat
+for compact number formatting. For example,
+NumberFormat.getCompactNumberInstance(Locale, Style)
+.
+Parameters:
+decimalPattern
+- a decimal pattern for general number formatting
+symbols
+- the set of symbols to be used
+compactPatterns
+- an array of
+compact number patterns
+pluralRules
+- a String designating plural rules which associate
+        the
+Count
+keyword, such as "
+one
+", and the
+        actual integer number. Its syntax is defined in Unicode Consortium's
+Plural rules syntax
+Throws:
+NullPointerException
+- if any of the given arguments is
+null
+IllegalArgumentException
+- if the given
+decimalPattern
+,
+        the
+compactPatterns
+array contains an invalid pattern,
+        a
+null
+appears in the array of compact patterns,
+        or if the given
+pluralRules
+contains an invalid syntax
+Since:
+14
+External Specifications
+Unicode Locale Data Markup Language (LDML)
+See Also:
+DecimalFormat(java.lang.String, DecimalFormatSymbols)
+DecimalFormatSymbols
+Method Details
+format
+public final
+StringBuffer
+format
+(
+Object
+number,
+StringBuffer
+toAppendTo,
+FieldPosition
+fieldPosition)
+Formats a number to produce a string representing its compact form.
+ The number can be of any subclass of
+Number
+.
+Overrides:
+format
+in class
+NumberFormat
+Parameters:
+number
+- the number to format
+toAppendTo
+- the
+StringBuffer
+to which the formatted
+                   text is to be appended
+fieldPosition
+- keeps track on the position of the field within
+                         the returned string. For example, for formatting
+                         a number
+123456789
+in the
+US locale
+,
+                         if the given
+fieldPosition
+is
+NumberFormat.INTEGER_FIELD
+, the begin
+                         index and end index of
+fieldPosition
+will be set to 0 and 3, respectively for the
+                         output string
+123M
+. Similarly, positions
+                         of the prefix and the suffix fields can be
+                         obtained using
+NumberFormat.Field.PREFIX
+and
+NumberFormat.Field.SUFFIX
+respectively.
+Returns:
+the
+StringBuffer
+passed in as
+toAppendTo
+Throws:
+IllegalArgumentException
+- if
+number
+is
+null
+or not an instance of
+Number
+NullPointerException
+- if
+toAppendTo
+or
+fieldPosition
+is
+null
+ArithmeticException
+- if rounding is needed with rounding
+                   mode being set to
+RoundingMode.UNNECESSARY
+See Also:
+FieldPosition
+format
+public
+StringBuffer
+format
+(double number,
+StringBuffer
+result,
+FieldPosition
+fieldPosition)
+Formats a double to produce a string representing its compact form.
+Specified by:
+format
+in class
+NumberFormat
+Parameters:
+number
+- the double number to format
+result
+- where the text is to be appended
+fieldPosition
+- keeps track on the position of the field within
+                         the returned string. For example, to format
+                         a number
+1234567.89
+in the
+US locale
+if the given
+fieldPosition
+is
+NumberFormat.INTEGER_FIELD
+, the begin
+                         index and end index of
+fieldPosition
+will be set to 0 and 1, respectively for the
+                         output string
+1M
+. Similarly, positions
+                         of the prefix and the suffix fields can be
+                         obtained using
+NumberFormat.Field.PREFIX
+and
+NumberFormat.Field.SUFFIX
+respectively.
+Returns:
+the
+StringBuffer
+passed in as
+result
+Throws:
+NullPointerException
+- if
+result
+or
+fieldPosition
+is
+null
+ArithmeticException
+- if rounding is needed with rounding
+            mode being set to
+RoundingMode.UNNECESSARY
+See Also:
+FieldPosition
+format
+public
+StringBuffer
+format
+(long number,
+StringBuffer
+result,
+FieldPosition
+fieldPosition)
+Formats a long to produce a string representing its compact form.
+Specified by:
+format
+in class
+NumberFormat
+Parameters:
+number
+- the long number to format
+result
+- where the text is to be appended
+fieldPosition
+- keeps track on the position of the field within
+                         the returned string. For example, to format
+                         a number
+123456789
+in the
+US locale
+,
+                         if the given
+fieldPosition
+is
+NumberFormat.INTEGER_FIELD
+, the begin
+                         index and end index of
+fieldPosition
+will be set to 0 and 3, respectively for the
+                         output string
+123M
+. Similarly, positions
+                         of the prefix and the suffix fields can be
+                         obtained using
+NumberFormat.Field.PREFIX
+and
+NumberFormat.Field.SUFFIX
+respectively.
+Returns:
+the
+StringBuffer
+passed in as
+result
+Throws:
+NullPointerException
+- if
+result
+or
+fieldPosition
+is
+null
+ArithmeticException
+- if rounding is needed with rounding
+               mode being set to
+RoundingMode.UNNECESSARY
+See Also:
+FieldPosition
+formatToCharacterIterator
+public
+AttributedCharacterIterator
+formatToCharacterIterator
+(
+Object
+obj)
+Formats an Object producing an
+AttributedCharacterIterator
+.
+ The returned
+AttributedCharacterIterator
+can be used
+ to build the resulting string, as well as to determine information
+ about the resulting string.
+Each attribute key of the
+AttributedCharacterIterator
+will
+ be of type
+NumberFormat.Field
+, with the attribute value
+ being the same as the attribute key. The prefix and the suffix
+ parts of the returned iterator (if present) are represented by
+ the attributes
+NumberFormat.Field.PREFIX
+and
+NumberFormat.Field.SUFFIX
+respectively.
+Overrides:
+formatToCharacterIterator
+in class
+Format
+Parameters:
+obj
+- The object to format
+Returns:
+an
+AttributedCharacterIterator
+describing the
+         formatted value
+Throws:
+NullPointerException
+- if obj is null
+IllegalArgumentException
+- when the Format cannot format the
+         given object
+ArithmeticException
+- if rounding is needed with rounding
+         mode being set to
+RoundingMode.UNNECESSARY
+parse
+public
+Number
+parse
+(
+String
+text,
+ParsePosition
+pos)
+Parses a compact number from a string to produce a
+Number
+.
+The method attempts to parse text starting at the index given by
+pos
+.
+ If parsing succeeds, then the index of
+pos
+is updated
+ to the index after the last character used (parsing does not necessarily
+ use all characters up to the end of the string), and the parsed
+ number is returned. The updated
+pos
+can be used to
+ indicate the starting point for the next call to this method.
+ If an error occurs, then the index of
+pos
+is not
+ changed, the error index of
+pos
+is set to the index of
+ the character where the error occurred, and
+null
+is returned.
+The value is the numeric part in the given text multiplied
+ by the numeric equivalent of the affix attached
+ (For example, "K" = 1000 in
+US locale
+).
+ The subclass returned depends on the value of
+isParseBigDecimal()
+.
+If
+isParseBigDecimal()
+is false (the default),
+     most integer values are returned as
+Long
+objects, no matter how they are written:
+"17K"
+and
+"17.000K"
+both parse to
+Long.valueOf(17000)
+.
+     If the value cannot fit into
+Long
+, then the result is
+     returned as
+Double
+. This includes values with a
+     fractional part, infinite values,
+NaN
+,
+     and the value -0.0.
+Callers may use the
+Number
+methods
+doubleValue
+,
+longValue
+, etc., to obtain the type they want.
+If
+isParseBigDecimal()
+is true, values are returned
+     as
+BigDecimal
+objects. The special cases negative
+     and positive infinity and NaN are returned as
+Double
+instances holding the values of the corresponding
+Double
+constants.
+CompactNumberFormat
+parses all Unicode characters that represent
+ decimal digits, as defined by
+Character.digit()
+. In
+ addition,
+CompactNumberFormat
+also recognizes as digits the ten
+ consecutive characters starting with the localized zero digit defined in
+ the
+DecimalFormatSymbols
+object.
+CompactNumberFormat
+parse does not allow parsing scientific
+ notations. For example, parsing a string
+"1.05E4K"
+in
+US locale
+breaks at character 'E'
+ and returns 1.05.
+Specified by:
+parse
+in class
+NumberFormat
+Parameters:
+text
+- the string to be parsed
+pos
+- a
+ParsePosition
+object with index and error
+             index information as described above
+Returns:
+the parsed value, or
+null
+if the parse fails
+Throws:
+NullPointerException
+- if
+text
+or
+pos
+is null
+See Also:
+NumberFormat.isParseIntegerOnly()
+Format.parseObject(java.lang.String, java.text.ParsePosition)
+setMaximumIntegerDigits
+public
+void
+setMaximumIntegerDigits
+(int newValue)
+Sets the maximum number of digits allowed in the integer portion of a
+ number.
+ The maximum allowed integer range is 309, if the
+newValue
+> 309,
+ then the maximum integer digits count is set to 309. Negative input
+ values are replaced with 0.
+Overrides:
+setMaximumIntegerDigits
+in class
+NumberFormat
+Parameters:
+newValue
+- the maximum number of integer digits to be shown
+See Also:
+NumberFormat.getMaximumIntegerDigits()
+setMinimumIntegerDigits
+public
+void
+setMinimumIntegerDigits
+(int newValue)
+Sets the minimum number of digits allowed in the integer portion of a
+ number.
+ The maximum allowed integer range is 309, if the
+newValue
+> 309,
+ then the minimum integer digits count is set to 309. Negative input
+ values are replaced with 0.
+Overrides:
+setMinimumIntegerDigits
+in class
+NumberFormat
+Parameters:
+newValue
+- the minimum number of integer digits to be shown
+See Also:
+NumberFormat.getMinimumIntegerDigits()
+setMinimumFractionDigits
+public
+void
+setMinimumFractionDigits
+(int newValue)
+Sets the minimum number of digits allowed in the fraction portion of a
+ number.
+ The maximum allowed fraction range is 340, if the
+newValue
+> 340,
+ then the minimum fraction digits count is set to 340. Negative input
+ values are replaced with 0.
+Overrides:
+setMinimumFractionDigits
+in class
+NumberFormat
+Parameters:
+newValue
+- the minimum number of fraction digits to be shown
+See Also:
+NumberFormat.getMinimumFractionDigits()
+setMaximumFractionDigits
+public
+void
+setMaximumFractionDigits
+(int newValue)
+Sets the maximum number of digits allowed in the fraction portion of a
+ number.
+ The maximum allowed fraction range is 340, if the
+newValue
+> 340,
+ then the maximum fraction digits count is set to 340. Negative input
+ values are replaced with 0.
+Overrides:
+setMaximumFractionDigits
+in class
+NumberFormat
+Parameters:
+newValue
+- the maximum number of fraction digits to be shown
+See Also:
+NumberFormat.getMaximumFractionDigits()
+getRoundingMode
+public
+RoundingMode
+getRoundingMode
+()
+Gets the
+RoundingMode
+used in this
+CompactNumberFormat
+.
+Overrides:
+getRoundingMode
+in class
+NumberFormat
+Returns:
+the
+RoundingMode
+used for this
+CompactNumberFormat
+See Also:
+setRoundingMode(RoundingMode)
+setRoundingMode
+public
+void
+setRoundingMode
+(
+RoundingMode
+roundingMode)
+Sets the
+RoundingMode
+used in this
+CompactNumberFormat
+.
+Overrides:
+setRoundingMode
+in class
+NumberFormat
+Parameters:
+roundingMode
+- the
+RoundingMode
+to be used
+Throws:
+NullPointerException
+- if
+roundingMode
+is
+null
+See Also:
+getRoundingMode()
+getGroupingSize
+public
+int
+getGroupingSize
+()
+Returns the grouping size. Grouping size is the number of digits between
+ grouping separators in the integer portion of a number. For example,
+ in the compact number
+"12,347 trillion"
+for the
+US locale
+, the grouping size is 3.
+Returns:
+the grouping size
+See Also:
+setGroupingSize(int)
+NumberFormat.isGroupingUsed()
+DecimalFormatSymbols.getGroupingSeparator()
+setGroupingSize
+public
+void
+setGroupingSize
+(int newValue)
+Sets the grouping size. Grouping size is the number of digits between
+ grouping separators in the integer portion of a number. For example,
+ in the compact number
+"12,347 trillion"
+for the
+US locale
+, the grouping size is 3. The grouping
+ size must be greater than or equal to zero and less than or equal to 127.
+Parameters:
+newValue
+- the new grouping size
+Throws:
+IllegalArgumentException
+- if
+newValue
+is negative or
+ larger than 127
+See Also:
+getGroupingSize()
+NumberFormat.setGroupingUsed(boolean)
+DecimalFormatSymbols.setGroupingSeparator(char)
+isGroupingUsed
+public
+boolean
+isGroupingUsed
+()
+Returns true if grouping is used in this format. For example, with
+ grouping on and grouping size set to 3, the number
+12346567890987654
+can be formatted as
+"12,347 trillion"
+in the
+US locale
+.
+ The grouping separator is locale dependent.
+Overrides:
+isGroupingUsed
+in class
+NumberFormat
+Returns:
+true
+if grouping is used;
+false
+otherwise
+See Also:
+setGroupingUsed(boolean)
+setGroupingUsed
+public
+void
+setGroupingUsed
+(boolean newValue)
+Sets whether or not grouping will be used in this format.
+Overrides:
+setGroupingUsed
+in class
+NumberFormat
+Parameters:
+newValue
+-
+true
+if grouping is used;
+false
+otherwise
+See Also:
+isGroupingUsed()
+isParseIntegerOnly
+public
+boolean
+isParseIntegerOnly
+()
+Returns true if this format parses only an integer from the number
+ component of a compact number.
+ Parsing an integer means that only an integer is considered from the
+ number component, prefix/suffix is still considered to compute the
+ resulting output.
+ For example, in the
+US locale
+, if this method
+ returns
+true
+, the string
+"1234.78 thousand"
+would be
+ parsed as the value
+1234000
+(1234 (integer part) * 1000
+ (thousand)) and the fractional part would be skipped.
+ The exact format accepted by the parse operation is locale dependent.
+Overrides:
+isParseIntegerOnly
+in class
+NumberFormat
+Returns:
+true
+if compact numbers should be parsed as integers
+         only;
+false
+otherwise
+setParseIntegerOnly
+public
+void
+setParseIntegerOnly
+(boolean value)
+Sets whether or not this format parses only an integer from the number
+ component of a compact number.
+Overrides:
+setParseIntegerOnly
+in class
+NumberFormat
+Parameters:
+value
+-
+true
+if compact numbers should be parsed as
+              integers only;
+false
+otherwise
+See Also:
+isParseIntegerOnly()
+isParseBigDecimal
+public
+boolean
+isParseBigDecimal
+()
+Returns whether the
+parse(String, ParsePosition)
+method returns
+BigDecimal
+. The default value is false.
+Returns:
+true
+if the parse method returns BigDecimal;
+false
+otherwise
+See Also:
+setParseBigDecimal(boolean)
+setParseBigDecimal
+public
+void
+setParseBigDecimal
+(boolean newValue)
+Sets whether the
+parse(String, ParsePosition)
+method returns
+BigDecimal
+.
+Parameters:
+newValue
+-
+true
+if the parse method returns BigDecimal;
+false
+otherwise
+See Also:
+isParseBigDecimal()
+equals
+public
+boolean
+equals
+(
+Object
+obj)
+Checks if this
+CompactNumberFormat
+is equal to the
+ specified
+obj
+. The objects of type
+CompactNumberFormat
+are compared, other types return false; obeys the general contract of
+Object.equals
+.
+Overrides:
+equals
+in class
+NumberFormat
+Parameters:
+obj
+- the object to compare with
+Returns:
+true if this is equal to the other
+CompactNumberFormat
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+public
+int
+hashCode
+()
+Returns the hash code for this
+CompactNumberFormat
+instance.
+Overrides:
+hashCode
+in class
+NumberFormat
+Returns:
+hash code for this
+CompactNumberFormat
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+clone
+public
+CompactNumberFormat
+clone
+()
+Creates and returns a copy of this
+CompactNumberFormat
+instance.
+Overrides:
+clone
+in class
+NumberFormat
+Returns:
+a clone of this instance
+See Also:
+Cloneable
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

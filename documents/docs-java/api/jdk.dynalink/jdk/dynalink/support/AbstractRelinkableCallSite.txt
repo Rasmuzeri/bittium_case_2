@@ -1,0 +1,222 @@
+AbstractRelinkableCallSite (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.dynalink
+Package
+jdk.dynalink.support
+Class AbstractRelinkableCallSite
+java.lang.Object
+java.lang.invoke.CallSite
+java.lang.invoke.MutableCallSite
+jdk.dynalink.support.AbstractRelinkableCallSite
+All Implemented Interfaces:
+RelinkableCallSite
+Direct Known Subclasses:
+ChainedCallSite
+,
+SimpleRelinkableCallSite
+public abstract class
+AbstractRelinkableCallSite
+extends
+MutableCallSite
+implements
+RelinkableCallSite
+A basic implementation of the
+RelinkableCallSite
+as a
+MutableCallSite
+. It carries a
+CallSiteDescriptor
+passed in
+ the constructor and provides the correct implementation of the
+initialize(MethodHandle)
+method. Subclasses must provide
+RelinkableCallSite.relink(GuardedInvocation, MethodHandle)
+and
+RelinkableCallSite.resetAndRelink(GuardedInvocation, MethodHandle)
+methods.
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+AbstractRelinkableCallSite
+(
+CallSiteDescriptor
+descriptor)
+Creates a new abstract relinkable call site.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+CallSiteDescriptor
+getDescriptor
+()
+Returns the descriptor for this call site.
+void
+initialize
+(
+MethodHandle
+relinkAndInvoke)
+Invoked by dynamic linker to initialize the relinkable call site by
+ setting a relink-and-invoke method handle.
+Methods declared in class java.lang.invoke.
+MutableCallSite
+dynamicInvoker
+,
+getTarget
+,
+setTarget
+,
+syncAll
+Methods declared in class java.lang.invoke.
+CallSite
+type
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface jdk.dynalink.
+RelinkableCallSite
+relink
+,
+resetAndRelink
+Constructor Details
+AbstractRelinkableCallSite
+protected
+AbstractRelinkableCallSite
+(
+CallSiteDescriptor
+descriptor)
+Creates a new abstract relinkable call site.
+Parameters:
+descriptor
+- the descriptor for this call site that will be returned
+ from
+getDescriptor()
+. The call site's
+CallSite.type()
+will be equal to descriptor's
+CallSiteDescriptor.getMethodType()
+.
+Throws:
+NullPointerException
+- if
+descriptor
+is null.
+Method Details
+getDescriptor
+public
+CallSiteDescriptor
+getDescriptor
+()
+Description copied from interface:
+RelinkableCallSite
+Returns the descriptor for this call site.
+Specified by:
+getDescriptor
+in interface
+RelinkableCallSite
+Returns:
+the descriptor for this call site.
+initialize
+public
+void
+initialize
+(
+MethodHandle
+relinkAndInvoke)
+Description copied from interface:
+RelinkableCallSite
+Invoked by dynamic linker to initialize the relinkable call site by
+ setting a relink-and-invoke method handle. The call site implementation
+ is supposed to set this method handle as its target using
+CallSite.setTarget(MethodHandle)
+. Relink-and-invoke is the
+ initial method handle set by
+DynamicLinker.link(RelinkableCallSite)
+that will cause the call
+ site to be relinked to an appropriate target on its first invocation
+ based on its arguments, and that linked target will then be invoked
+ (hence the name). This linking protocol effectively delays linking until
+ the call site is invoked with actual arguments and thus ensures that
+ linkers can make nuanced linking decisions based on those arguments and
+ not just on the static method type of the call site.
+Specified by:
+initialize
+in interface
+RelinkableCallSite
+Parameters:
+relinkAndInvoke
+- a relink-and-invoke method handle supplied by
+ Dynalink.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

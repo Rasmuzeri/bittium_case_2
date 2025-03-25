@@ -1,0 +1,128 @@
+Thread.UncaughtExceptionHandler (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang
+Interface Thread.UncaughtExceptionHandler
+All Known Implementing Classes:
+ThreadGroup
+Enclosing class:
+Thread
+Functional Interface:
+This is a functional interface and can therefore be used as the assignment target for a lambda expression or method reference.
+@FunctionalInterface
+public static interface
+Thread.UncaughtExceptionHandler
+Interface for handlers invoked when a
+Thread
+abruptly
+ terminates due to an uncaught exception.
+When a thread is about to terminate due to an uncaught exception
+ the Java Virtual Machine will query the thread for its
+UncaughtExceptionHandler
+using
+Thread.getUncaughtExceptionHandler()
+and will invoke the handler's
+uncaughtException
+method, passing the thread and the
+ exception as arguments.
+ If a thread has not had its
+UncaughtExceptionHandler
+explicitly set, then its
+ThreadGroup
+object acts as its
+UncaughtExceptionHandler
+. If the
+ThreadGroup
+object
+ has no
+ special requirements for dealing with the exception, it can forward
+ the invocation to the
+default uncaught exception handler
+.
+Since:
+1.5
+See Also:
+Thread.setDefaultUncaughtExceptionHandler(java.lang.Thread.UncaughtExceptionHandler)
+Thread.setUncaughtExceptionHandler(java.lang.Thread.UncaughtExceptionHandler)
+ThreadGroup.uncaughtException(java.lang.Thread, java.lang.Throwable)
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+void
+uncaughtException
+(
+Thread
+t,
+Throwable
+e)
+Method invoked when the given thread terminates due to the
+ given uncaught exception.
+Method Details
+uncaughtException
+void
+uncaughtException
+(
+Thread
+t,
+Throwable
+e)
+Method invoked when the given thread terminates due to the
+ given uncaught exception.
+Any exception thrown by this method will be ignored by the
+ Java Virtual Machine.
+Parameters:
+t
+- the thread
+e
+- the exception
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

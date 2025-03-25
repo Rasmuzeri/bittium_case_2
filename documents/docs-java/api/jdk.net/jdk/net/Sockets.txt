@@ -1,0 +1,537 @@
+Sockets (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.net
+Package
+jdk.net
+Class Sockets
+java.lang.Object
+jdk.net.Sockets
+@Deprecated
+(
+since
+="16")
+public class
+Sockets
+extends
+Object
+Deprecated.
+Java SE 9 added standard methods to set/get socket options, and retrieve the per-Socket
+ supported options effectively rendering this API redundant. Please refer to the corresponding
+ socket's class for the equivalent method to set/get a socket option or retrieve available socket options.
+Defines static methods to set and get socket options defined by the
+SocketOption
+interface. All of the standard options defined
+ by
+Socket
+,
+ServerSocket
+, and
+DatagramSocket
+can be set this way, as well as additional
+ or platform specific options supported by each socket type.
+The
+supportedOptions(Class)
+method can be called to determine
+ the complete set of options available (per socket type) on the
+ current system.
+When a security manager is installed, some non-standard socket options
+ may require a security permission before being set or get.
+ The details are specified in
+ExtendedSocketOptions
+. No permission
+ is required for
+StandardSocketOptions
+.
+See Also:
+NetworkChannel
+Method Summary
+All Methods
+Static Methods
+Concrete Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+static <T> T
+getOption
+(
+DatagramSocket
+s,
+SocketOption
+<T> name)
+Deprecated.
+use
+DatagramSocket.getOption(SocketOption)
+instead.
+static <T> T
+getOption
+(
+ServerSocket
+s,
+SocketOption
+<T> name)
+Deprecated.
+use
+ServerSocket.getOption(SocketOption)
+instead.
+static <T> T
+getOption
+(
+Socket
+s,
+SocketOption
+<T> name)
+Deprecated.
+use
+Socket.getOption(SocketOption)
+instead.
+static <T> void
+setOption
+(
+DatagramSocket
+s,
+SocketOption
+<T> name,
+ T value)
+Deprecated.
+use
+DatagramSocket.setOption(SocketOption, Object)
+instead.
+static <T> void
+setOption
+(
+ServerSocket
+s,
+SocketOption
+<T> name,
+ T value)
+Deprecated.
+use
+ServerSocket.setOption(SocketOption, Object)
+instead.
+static <T> void
+setOption
+(
+Socket
+s,
+SocketOption
+<T> name,
+ T value)
+Deprecated.
+use
+Socket.setOption(SocketOption, Object)
+instead.
+static
+Set
+<
+SocketOption
+<?>>
+supportedOptions
+(
+Class
+<?> socketType)
+Deprecated, for removal: This API element is subject to removal in a future version.
+use
+Socket.supportedOptions()
+,
+ServerSocket.supportedOptions()
+,
+             or
+DatagramSocket.supportedOptions()
+instead.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Method Details
+setOption
+@Deprecated
+(
+since
+="16")
+public static
+<T>
+void
+setOption
+(
+Socket
+s,
+SocketOption
+<T> name,
+ T value)
+throws
+IOException
+Deprecated.
+use
+Socket.setOption(SocketOption, Object)
+instead.
+Sets the value of a socket option on a
+Socket
+Type Parameters:
+T
+- The type of the socket option
+Parameters:
+s
+- the socket
+name
+- The socket option
+value
+- The value of the socket option. May be null for some
+              options.
+Throws:
+UnsupportedOperationException
+- if the socket does not support
+         the option.
+IllegalArgumentException
+- if the value is not valid for
+         the option.
+IOException
+- if an I/O error occurs, or socket is closed.
+SecurityException
+- if a security manager is set and the
+         caller does not have any required permission.
+NullPointerException
+- if name is null
+See Also:
+StandardSocketOptions
+getOption
+@Deprecated
+(
+since
+="16")
+public static
+<T>
+T
+getOption
+(
+Socket
+s,
+SocketOption
+<T> name)
+throws
+IOException
+Deprecated.
+use
+Socket.getOption(SocketOption)
+instead.
+Returns the value of a socket option from a
+Socket
+Type Parameters:
+T
+- The type of the socket option
+Parameters:
+s
+- the socket
+name
+- The socket option
+Returns:
+The value of the socket option.
+Throws:
+UnsupportedOperationException
+- if the socket does not support
+         the option.
+IOException
+- if an I/O error occurs
+SecurityException
+- if a security manager is set and the
+         caller does not have any required permission.
+NullPointerException
+- if name is null
+See Also:
+StandardSocketOptions
+setOption
+@Deprecated
+(
+since
+="16")
+public static
+<T>
+void
+setOption
+(
+ServerSocket
+s,
+SocketOption
+<T> name,
+ T value)
+throws
+IOException
+Deprecated.
+use
+ServerSocket.setOption(SocketOption, Object)
+instead.
+Sets the value of a socket option on a
+ServerSocket
+Type Parameters:
+T
+- The type of the socket option
+Parameters:
+s
+- the socket
+name
+- The socket option
+value
+- The value of the socket option
+Throws:
+UnsupportedOperationException
+- if the socket does not support
+         the option.
+IllegalArgumentException
+- if the value is not valid for
+         the option.
+IOException
+- if an I/O error occurs
+NullPointerException
+- if name is null
+SecurityException
+- if a security manager is set and the
+         caller does not have any required permission.
+See Also:
+StandardSocketOptions
+getOption
+@Deprecated
+(
+since
+="16")
+public static
+<T>
+T
+getOption
+(
+ServerSocket
+s,
+SocketOption
+<T> name)
+throws
+IOException
+Deprecated.
+use
+ServerSocket.getOption(SocketOption)
+instead.
+Returns the value of a socket option from a
+ServerSocket
+Type Parameters:
+T
+- The type of the socket option
+Parameters:
+s
+- the socket
+name
+- The socket option
+Returns:
+The value of the socket option.
+Throws:
+UnsupportedOperationException
+- if the socket does not support
+         the option.
+IOException
+- if an I/O error occurs
+NullPointerException
+- if name is null
+SecurityException
+- if a security manager is set and the
+         caller does not have any required permission.
+See Also:
+StandardSocketOptions
+setOption
+@Deprecated
+(
+since
+="16")
+public static
+<T>
+void
+setOption
+(
+DatagramSocket
+s,
+SocketOption
+<T> name,
+ T value)
+throws
+IOException
+Deprecated.
+use
+DatagramSocket.setOption(SocketOption, Object)
+instead.
+Sets the value of a socket option on a
+DatagramSocket
+or
+MulticastSocket
+Type Parameters:
+T
+- The type of the socket option
+Parameters:
+s
+- the socket
+name
+- The socket option
+value
+- The value of the socket option
+Throws:
+UnsupportedOperationException
+- if the socket does not support
+         the option.
+IllegalArgumentException
+- if the value is not valid for
+         the option.
+IOException
+- if an I/O error occurs
+NullPointerException
+- if name is null
+SecurityException
+- if a security manager is set and the
+         caller does not have any required permission.
+See Also:
+StandardSocketOptions
+getOption
+@Deprecated
+(
+since
+="16")
+public static
+<T>
+T
+getOption
+(
+DatagramSocket
+s,
+SocketOption
+<T> name)
+throws
+IOException
+Deprecated.
+use
+DatagramSocket.getOption(SocketOption)
+instead.
+Returns the value of a socket option from a
+DatagramSocket
+or
+MulticastSocket
+Type Parameters:
+T
+- The type of the socket option
+Parameters:
+s
+- the socket
+name
+- The socket option
+Returns:
+The value of the socket option.
+Throws:
+UnsupportedOperationException
+- if the socket does not support
+         the option.
+IOException
+- if an I/O error occurs
+NullPointerException
+- if name is null
+SecurityException
+- if a security manager is set and the
+         caller does not have any required permission.
+See Also:
+StandardSocketOptions
+supportedOptions
+@Deprecated
+(
+since
+="16",
+forRemoval
+=true)
+public static
+Set
+<
+SocketOption
+<?>>
+supportedOptions
+(
+Class
+<?> socketType)
+Deprecated, for removal: This API element is subject to removal in a future version.
+use
+Socket.supportedOptions()
+,
+ServerSocket.supportedOptions()
+,
+             or
+DatagramSocket.supportedOptions()
+instead.
+Returns a set of
+SocketOption
+s supported by the
+ given socket type. This set may include standard options and also
+ non standard extended options.
+Parameters:
+socketType
+- the type of java.net socket
+Returns:
+A set of socket options
+Throws:
+IllegalArgumentException
+- if socketType is not a valid
+         socket type from the java.net package.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

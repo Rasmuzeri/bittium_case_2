@@ -1,0 +1,655 @@
+TextUI (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.plaf
+Class TextUI
+java.lang.Object
+javax.swing.plaf.ComponentUI
+javax.swing.plaf.TextUI
+Direct Known Subclasses:
+BasicTextUI
+,
+MultiTextUI
+public abstract class
+TextUI
+extends
+ComponentUI
+Text editor user interface
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+TextUI
+()
+Constructor for subclasses to call.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+abstract void
+damageRange
+(
+JTextComponent
+t,
+ int p0,
+ int p1)
+Causes the portion of the view responsible for the
+ given part of the model to be repainted.
+abstract void
+damageRange
+(
+JTextComponent
+t,
+ int p0,
+ int p1,
+Position.Bias
+firstBias,
+Position.Bias
+secondBias)
+Causes the portion of the view responsible for the
+ given part of the model to be repainted.
+abstract
+EditorKit
+getEditorKit
+(
+JTextComponent
+t)
+Fetches the binding of services that set a policy
+ for the type of document being edited.
+abstract int
+getNextVisualPositionFrom
+(
+JTextComponent
+t,
+ int pos,
+Position.Bias
+b,
+ int direction,
+Position.Bias
+[] biasRet)
+Provides a way to determine the next visually represented model
+ location that one might place a caret.
+abstract
+View
+getRootView
+(
+JTextComponent
+t)
+Fetches a View with the allocation of the associated
+ text component (i.e. the root of the hierarchy) that
+ can be traversed to determine how the model is being
+ represented spatially.
+String
+getToolTipText
+(
+JTextComponent
+t,
+Point
+pt)
+Deprecated.
+replaced by
+getToolTipText2D(JTextComponent, Point2D)
+String
+getToolTipText2D
+(
+JTextComponent
+t,
+Point2D
+pt)
+Returns the string to be used as the tooltip at the passed in location.
+abstract
+Rectangle
+modelToView
+(
+JTextComponent
+t,
+ int pos)
+Deprecated.
+replaced by
+modelToView2D(JTextComponent, int, Position.Bias)
+abstract
+Rectangle
+modelToView
+(
+JTextComponent
+t,
+ int pos,
+Position.Bias
+bias)
+Deprecated.
+replaced by
+modelToView2D(JTextComponent, int, Position.Bias)
+Rectangle2D
+modelToView2D
+(
+JTextComponent
+t,
+ int pos,
+Position.Bias
+bias)
+Converts the given location in the model to a place in
+ the view coordinate system.
+abstract int
+viewToModel
+(
+JTextComponent
+t,
+Point
+pt)
+Deprecated.
+replaced by
+viewToModel2D(JTextComponent, Point2D, Position.Bias[])
+abstract int
+viewToModel
+(
+JTextComponent
+t,
+Point
+pt,
+Position.Bias
+[] biasReturn)
+Deprecated.
+replaced by
+viewToModel2D(JTextComponent, Point2D, Position.Bias[])
+int
+viewToModel2D
+(
+JTextComponent
+t,
+Point2D
+pt,
+Position.Bias
+[] biasReturn)
+Provides a mapping from the view coordinate space to the logical
+ coordinate space of the model.
+Methods declared in class javax.swing.plaf.
+ComponentUI
+contains
+,
+createUI
+,
+getAccessibleChild
+,
+getAccessibleChildrenCount
+,
+getBaseline
+,
+getBaselineResizeBehavior
+,
+getMaximumSize
+,
+getMinimumSize
+,
+getPreferredSize
+,
+installUI
+,
+paint
+,
+uninstallUI
+,
+update
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+TextUI
+protected
+TextUI
+()
+Constructor for subclasses to call.
+Method Details
+modelToView
+@Deprecated
+(
+since
+="9")
+public abstract
+Rectangle
+modelToView
+(
+JTextComponent
+t,
+ int pos)
+throws
+BadLocationException
+Deprecated.
+replaced by
+modelToView2D(JTextComponent, int, Position.Bias)
+Converts the given location in the model to a place in
+ the view coordinate system.
+Parameters:
+t
+- the text component for which this UI is installed
+pos
+- the local location in the model to translate >= 0
+Returns:
+the coordinates as a
+Rectangle
+Throws:
+BadLocationException
+- if the given position does not
+   represent a valid location in the associated document
+modelToView
+@Deprecated
+(
+since
+="9")
+public abstract
+Rectangle
+modelToView
+(
+JTextComponent
+t,
+ int pos,
+Position.Bias
+bias)
+throws
+BadLocationException
+Deprecated.
+replaced by
+modelToView2D(JTextComponent, int, Position.Bias)
+Converts the given location in the model to a place in
+ the view coordinate system.
+Parameters:
+t
+- the text component for which this UI is installed
+pos
+- the local location in the model to translate >= 0
+bias
+- the bias for the position
+Returns:
+the coordinates as a
+Rectangle
+Throws:
+BadLocationException
+- if the given position does not
+   represent a valid location in the associated document
+modelToView2D
+public
+Rectangle2D
+modelToView2D
+(
+JTextComponent
+t,
+ int pos,
+Position.Bias
+bias)
+throws
+BadLocationException
+Converts the given location in the model to a place in
+ the view coordinate system.
+Implementation Requirements:
+This implementation calls
+modelToView(t, pos, bias)
+.
+Parameters:
+t
+- the text component for which this UI is installed
+pos
+- the local location in the model to translate
+>= 0
+bias
+- the bias for the position
+Returns:
+the coordinates as a
+Rectangle2D
+Throws:
+BadLocationException
+- if the given position does not
+            represent a valid location in the associated document
+Since:
+9
+viewToModel
+@Deprecated
+(
+since
+="9")
+public abstract
+int
+viewToModel
+(
+JTextComponent
+t,
+Point
+pt)
+Deprecated.
+replaced by
+viewToModel2D(JTextComponent, Point2D, Position.Bias[])
+Converts the given place in the view coordinate system
+ to the nearest representative location in the model.
+Parameters:
+t
+- the text component for which this UI is installed
+pt
+- the location in the view to translate.  This
+   should be in the same coordinate system as the mouse
+   events.
+Returns:
+the offset from the start of the document >= 0
+viewToModel
+@Deprecated
+(
+since
+="9")
+public abstract
+int
+viewToModel
+(
+JTextComponent
+t,
+Point
+pt,
+Position.Bias
+[] biasReturn)
+Deprecated.
+replaced by
+viewToModel2D(JTextComponent, Point2D, Position.Bias[])
+Provides a mapping from the view coordinate space to the logical
+ coordinate space of the model.
+Parameters:
+t
+- the text component for which this UI is installed
+pt
+- the location in the view to translate.
+           This should be in the same coordinate system
+           as the mouse events.
+biasReturn
+- filled in by this method to indicate whether
+           the point given is closer to the previous or the next
+           character in the model
+Returns:
+the location within the model that best represents the
+         given point in the view >= 0
+viewToModel2D
+public
+int
+viewToModel2D
+(
+JTextComponent
+t,
+Point2D
+pt,
+Position.Bias
+[] biasReturn)
+Provides a mapping from the view coordinate space to the logical
+ coordinate space of the model.
+Implementation Requirements:
+This implementation calls
+viewToModel(t, new Point((int) pt.getX(), (int) pt.getY()),
+             biasReturn)
+.
+Parameters:
+t
+- the text component for which this UI is installed
+pt
+- the location in the view to translate.
+biasReturn
+- filled in by this method to indicate whether
+           the point given is closer to the previous or the next
+           character in the model
+Returns:
+the location within the model that best represents the
+         given point in the view
+>= 0
+Since:
+9
+getNextVisualPositionFrom
+public abstract
+int
+getNextVisualPositionFrom
+(
+JTextComponent
+t,
+ int pos,
+Position.Bias
+b,
+ int direction,
+Position.Bias
+[] biasRet)
+throws
+BadLocationException
+Provides a way to determine the next visually represented model
+ location that one might place a caret.  Some views may not be visible,
+ they might not be in the same order found in the model, or they just
+ might not allow access to some of the locations in the model.
+Parameters:
+t
+- the text component for which this UI is installed
+pos
+- the position to convert >= 0
+b
+- the bias for the position
+direction
+- the direction from the current position that can
+  be thought of as the arrow keys typically found on a keyboard.
+  This may be SwingConstants.WEST, SwingConstants.EAST,
+  SwingConstants.NORTH, or SwingConstants.SOUTH
+biasRet
+- an array to contain the bias for the returned position
+Returns:
+the location within the model that best represents the next
+  location visual position
+Throws:
+BadLocationException
+- for a bad location within a document model
+IllegalArgumentException
+- for an invalid direction
+damageRange
+public abstract
+void
+damageRange
+(
+JTextComponent
+t,
+ int p0,
+ int p1)
+Causes the portion of the view responsible for the
+ given part of the model to be repainted.
+Parameters:
+t
+- the text component for which this UI is installed
+p0
+- the beginning of the range >= 0
+p1
+- the end of the range >= p0
+damageRange
+public abstract
+void
+damageRange
+(
+JTextComponent
+t,
+ int p0,
+ int p1,
+Position.Bias
+firstBias,
+Position.Bias
+secondBias)
+Causes the portion of the view responsible for the
+ given part of the model to be repainted.
+Parameters:
+t
+- the text component for which this UI is installed
+p0
+- the beginning of the range >= 0
+p1
+- the end of the range >= p0
+firstBias
+- the bias of the first character position, toward the
+        previous character or the next character
+secondBias
+- the bias of the second character position, toward the
+        previous character or the next character
+getEditorKit
+public abstract
+EditorKit
+getEditorKit
+(
+JTextComponent
+t)
+Fetches the binding of services that set a policy
+ for the type of document being edited.  This contains
+ things like the commands available, stream readers and
+ writers, etc.
+Parameters:
+t
+- the text component for which this UI is installed
+Returns:
+the editor kit binding
+getRootView
+public abstract
+View
+getRootView
+(
+JTextComponent
+t)
+Fetches a View with the allocation of the associated
+ text component (i.e. the root of the hierarchy) that
+ can be traversed to determine how the model is being
+ represented spatially.
+Parameters:
+t
+- the text component for which this UI is installed
+Returns:
+a
+View
+with the allocation of the associated
+         text component
+getToolTipText
+@Deprecated
+(
+since
+="9")
+public
+String
+getToolTipText
+(
+JTextComponent
+t,
+Point
+pt)
+Deprecated.
+replaced by
+getToolTipText2D(JTextComponent, Point2D)
+Returns the string to be used as the tooltip at the passed in location.
+Parameters:
+t
+- the text component for which this UI is installed
+pt
+- a
+Point
+specifying location for which to get a tooltip
+Returns:
+a
+String
+containing the tooltip
+Since:
+1.4
+See Also:
+JTextComponent.getToolTipText(java.awt.event.MouseEvent)
+getToolTipText2D
+public
+String
+getToolTipText2D
+(
+JTextComponent
+t,
+Point2D
+pt)
+Returns the string to be used as the tooltip at the passed in location.
+Implementation Requirements:
+This implementation calls
+getToolTipText(t, new Point((int) pt.getX(), (int) pt.getY())))
+.
+Parameters:
+t
+- the text component for which this UI is installed
+pt
+- a
+Point
+specifying location for which to get a tooltip
+Returns:
+a
+String
+containing the tooltip
+Since:
+9
+See Also:
+JTextComponent.getToolTipText(java.awt.event.MouseEvent)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

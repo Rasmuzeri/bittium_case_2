@@ -1,0 +1,866 @@
+javax.print.attribute.standard (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages
+|
+Classes and Interfaces
+SEARCH
+Module
+java.desktop
+Package javax.print.attribute.standard
+package
+javax.print.attribute.standard
+Package
+javax.print.attribute.standard
+contains classes for specific
+ printing attributes. The parent package,
+javax.print.attribute
+, provides classes and interfaces that describe the
+ types of Java Print Service attributes and how they can be collected into
+ attribute sets.
+An attribute represents a printing feature that a print service can provide.
+ For each attribute, a print service either does or does not support the
+ attribute. For each possible value of a supported attribute, a print service
+ either does or does not support the value.
+The API requires every print service to support certain attributes; other
+ attributes are optional and the service can choose whether or not to support
+ them. Each attribute has a set of values that it accepts. The API requires
+ every print service to support certain values for certain attributes; other
+ attribute values are optional and the service can choose whether or not to
+ support them. These support requirements are recorded in the documentation
+ for each attribute class.
+Package
+javax.print.attribute.standard
+contains standard printing
+ attributes and standard printing attribute values that are widely used in the
+ printing domain. A print service vendor can provide new vendor-specific
+ printing attributes in addition to the standard ones. A vendor can also
+ provide vendor-specific extensions (subclasses) of the standard printing
+ attributes -- for example, to provide additional vendor-specific values for
+ an existing standard attribute. Of course, if a vendor wants clients to be
+ able to use any added or extended attributes, the vendor must publish the new
+ attribute classes.
+Many of the standard attribute classes extend one of the abstract syntax
+ classes of the
+javax.print.attribute
+package. These abstract syntax
+ classes each represent a different type. The
+EnumSyntax
+class, for example, represents a type-safe enumeration. The
+ abstract syntax class provides a wrapper for the attribute value.
+If an attribute class extends
+EnumSyntax
+, and the value of the
+ attribute is an IPP-compatible value, the attribute's
+toString
+method
+ returns the IPP string representation of the attribute value, such as
+ "processing-stopped" for the
+JobState
+attribute.
+ However, because the
+EnumSyntax
+class is extensible, vendors can
+ define their own attribute values. If an attribute uses the
+EnumSyntax
+class and is set to one of these vendor-defined values
+ then the
+toString
+method will not return the IPP string
+ representation of the value.
+A printing client application will typically not need to use all the printing
+ attribute classes in package javax.print.attribute.standard, just the ones
+ that pertain to the application.
+The attribute classes in package
+javax.print.attribute.standard
+are
+ based on the Internet Printing Protocol (IPP) attributes as defined in the
+ Internet RFC document,
+RFC 2911 Internet Printing Protocol/1.1: Model and
+ Semantics
+dated September 2000. See
+RFC 2911
+for more
+ information. The descriptive text for each attribute class was taken largely
+ from the above documents. The above authors' contribution to the API is
+ gratefully acknowledged.
+Attribute Organization
+There are five kinds of printing attributes: doc attributes, print request
+ attributes, print job attributes, print service attributes, and
+ supported-values attributes.
+Doc Attributes
+Doc attributes specify the characteristics of an individual doc and the print
+ job settings to be applied to an individual doc. A doc attribute class
+ implements interface
+DocAttribute
+. A doc
+ attribute can appear in a
+DocAttributeSet
+.
+Print Request Attributes
+Print request attributes specify the settings to be applied to a whole print
+ job and to all the docs in the print job. A print request attribute class
+ implements interface
+PrintRequestAttribute
+. A print request attribute can appear in a
+PrintRequestAttributeSet
+.
+Some attributes are doc attributes but not print request attributes and may
+ only be specified at the doc level. Some attributes are print request
+ attributes but not doc attributes and may only be specified at the Print
+ Request level. Some attributes are both doc attributes and print request
+ attributes and may be specified either at the doc level or at the Print
+ Request level.
+When specified at the doc level, an attribute applies just to that one doc.
+ When specified at the Print Request level, an attribute applies to the whole
+ job, including all the docs in the job. However, an attribute specified at
+ the doc level overrides an attribute in the same category specified at the
+ Print Request level.
+Print Job Attributes
+Print job attributes report the status of a Print Job. A print job attribute
+ class implements interface
+PrintJobAttribute
+. A print job attribute can appear in a
+PrintJobAttributeSet
+.
+Some attributes are both print request attributes and print job attributes; a
+ client may include such attributes in a Print Request to specify
+ characteristics for the ensuing Print Job, and those attributes then also
+ appear in the Print Job's attribute set. Some attributes are print job
+ attributes but not print request attributes; the print service itself adds
+ these attributes to the Print Job's attribute set.
+Print Service Attributes
+Print service attributes report the status of a print service. A print
+ service attribute class implements interface
+PrintServiceAttribute
+. A print
+ service attribute can appear in a
+PrintServiceAttributeSet
+.
+Supported-Values Attributes
+A supported-value attribute indicates the legal values for another attribute
+ that a print service supports. A supported-values attribute class implements
+ interface
+SupportedValuesAttribute
+. However, supported-values attributes never
+ appear in attribute sets, so there is no restricted
+AttributeSet
+subinterface for them.
+Attribute Table
+The table below lists all the printing attributes. The table shows the
+ tagging interfaces each attribute class implements in addition to interface
+Attribute
+, thus indicating how each
+ attribute is used in the API. For each doc attribute and print request
+ attribute, the column marked "SupportedValuesAttribute" lists the
+ supported-values attribute class, if any, with which a print service
+ indicates the supported values for that attribute category.
+Lists all printing attributes as described above
+Attribute Class
+Doc
+Attribute
+Print
+Request
+Attribute
+Print
+Job
+Attribute
+Print
+Service
+Attribute
+SupportedValuesAttribute
+Compression
+X
+DocumentName
+X
+Chromaticity
+X
+X
+X
+Copies
+X
+X
+CopiesSupported
+Finishings
+X
+X
+X
+JobHoldUntil
+X
+X
+JobImpressions
+X
+X
+JobImpressionsSupported
+JobKOctets
+X
+X
+JobKOctetsSupported
+JobMediaSheets
+X
+X
+JobMediaSheetsSupported
+JobName
+X
+X
+JobPriority
+X
+X
+JobPrioritySupported
+JobSheets
+X
+X
+Media
+X
+X
+X
+MediaSize
+MultipleDocumentHandling
+X
+X
+NumberUp
+X
+X
+X
+NumberUpSupported
+OrientationRequested
+X
+X
+X
+PageRanges
+X
+X
+X
+PresentationDirection
+X
+X
+X
+PrinterResolution
+X
+X
+X
+PrintQuality
+X
+X
+X
+RequestingUserName
+X
+X
+SheetCollate
+X
+X
+X
+Sides
+X
+X
+X
+DateTimeAtCompleted
+X
+DateTimeAtCreation
+X
+DateTimeAtProcessing
+X
+JobImpressionsCompleted
+X
+JobKOctetsProcessed
+X
+JobMediaSheetsCompleted
+X
+JobMessageFromOperator
+X
+JobOriginatingUserName
+X
+JobState
+X
+JobStateReasons
+Contains zero or more --
+X
+--
+JobStateReason
+NumberOfDocuments
+X
+NumberOfInterveningJobs
+X
+OutputDeviceAssigned
+X
+ColorSupported
+X
+PagesPerMinute
+X
+PagesPerMinuteColor
+X
+PDLOverrideSupported
+X
+PrinterIsAcceptingJobs
+X
+PrinterInfo
+X
+PrinterLocation
+X
+PrinterMessageFromOperator
+X
+PrinterMakeAndModel
+X
+PrinterMoreInfo
+X
+PrinterMoreInfoManufacturer
+X
+PrinterName
+X
+PrinterState
+X
+PrinterStateReasons
+Contains zero or more --
+X
+--
+PrinterStateReason
+--
+Severity
+QueuedJobCount
+X
+ReferenceUriSchemesSupported
+Please note: In the
+javax.print
+APIs, a
+null
+reference
+ parameter to methods is incorrect unless explicitly documented on the method
+ as having a meaningful interpretation. Usage to the contrary is incorrect
+ coding and may result in a run time exception either immediately or at some
+ later time.
+IllegalArgumentException
+and
+NullPointerException
+are examples of typical and acceptable run time exceptions for such cases.
+Since:
+1.4
+Related Packages
+Package
+Description
+javax.print.attribute
+Provides classes and interfaces that describe the types of Java Print
+ Service attributes and how they can be collected into attribute sets.
+Classes
+Class
+Description
+Chromaticity
+Class
+Chromaticity
+is a printing attribute class, an enumeration,
+ that specifies monochrome or color printing.
+ColorSupported
+Class
+ColorSupported
+is a printing attribute class, an enumeration,
+ that identifies whether the device is capable of any type of color printing
+ at all, including highlight color as well as full process color.
+Compression
+Class
+Compression
+is a printing attribute class, an enumeration, that
+ specifies how print data is compressed.
+Copies
+Class
+Copies
+is an integer valued printing attribute class that
+ specifies the number of copies to be printed.
+CopiesSupported
+Class
+CopiesSupported
+is a printing attribute class, a set of
+ integers, that gives the supported values for a
+Copies
+attribute.
+DateTimeAtCompleted
+Class
+DateTimeAtCompleted
+is a printing attribute class, a date-time
+ attribute, that indicates the date and time at which the Print Job completed
+ (or was canceled or aborted).
+DateTimeAtCreation
+Class
+DateTimeAtCreation
+is a printing attribute class, a date-time
+ attribute, that indicates the date and time at which the Print Job was
+ created.
+DateTimeAtProcessing
+Class
+DateTimeAtProcessing
+is a printing attribute class, a date-time
+ attribute, that indicates the date and time at which the Print Job first
+ began processing.
+Destination
+Class
+Destination
+is a printing attribute class, a
+URI
+, that
+ is used to indicate an alternate destination for the spooled printer
+ formatted data.
+DialogOwner
+An attribute class used to support requesting a print or page setup dialog
+ be kept displayed on top of all windows or some specific window.
+DialogTypeSelection
+Class
+DialogTypeSelection
+is a printing attribute class, an
+ enumeration, that indicates the user dialog type to be used for specifying
+ printing options.
+DocumentName
+Class
+DocumentName
+is a printing attribute class, a text attribute,
+ that specifies the name of a document.
+Fidelity
+Class
+Fidelity
+is a printing attribute class, an enumeration, that
+ indicates whether total fidelity to client supplied print request attributes
+ is required.
+Finishings
+Class
+Finishings
+is a printing attribute class, an enumeration, that
+ identifies whether the printer applies a finishing operation of some kind of
+ binding to each copy of each printed document in the job.
+JobHoldUntil
+Class
+JobHoldUntil
+is a printing attribute class, a date-time
+ attribute, that specifies the exact date and time at which the job must
+ become a candidate for printing.
+JobImpressions
+Class
+JobImpressions
+is an integer valued printing attribute class
+ that specifies the total size in number of impressions of the document(s)
+ being submitted.
+JobImpressionsCompleted
+Class
+JobImpressionsCompleted
+is an integer valued printing attribute
+ class that specifies the number of impressions completed for the job so far.
+JobImpressionsSupported
+Class
+JobImpressionsSupported
+is a printing attribute class, a set of
+ integers, that gives the supported values for a
+JobImpressions
+attribute.
+JobKOctets
+Class
+JobKOctets
+is an integer valued printing attribute class that
+ specifies the total size of the document(s) in K octets, i.e., in units of
+ 1024 octets requested to be processed in the job.
+JobKOctetsProcessed
+Class
+JobKOctetsProcessed
+is an integer valued printing attribute
+ class that specifies the total number of print data octets processed so far
+ in K octets, i.e., in units of 1024 octets.
+JobKOctetsSupported
+Class
+JobKOctetsSupported
+is a printing attribute class, a set of
+ integers, that gives the supported values for a
+JobKOctets
+attribute.
+JobMediaSheets
+Class
+JobMediaSheets
+is an integer valued printing attribute class
+ that specifies the total number of media sheets to be produced for this job.
+JobMediaSheetsCompleted
+Class
+JobMediaSheetsCompleted
+is an integer valued printing attribute
+ class that specifies the number of media sheets which have completed marking
+ and stacking for the entire job so far, whether those sheets have been
+ processed on one side or on both.
+JobMediaSheetsSupported
+Class
+JobMediaSheetsSupported
+is a printing attribute class, a set of
+ integers, that gives the supported values for a
+JobMediaSheets
+attribute.
+JobMessageFromOperator
+Class
+JobMessageFromOperator
+is a printing attribute class, a text
+ attribute, that provides a message from an operator, system administrator, or
+ "intelligent" process to indicate to the end user the reasons for
+ modification or other management action taken on a job.
+JobName
+Class
+JobName
+is a printing attribute class, a text attribute, that
+ specifies the name of a print job.
+JobOriginatingUserName
+Class
+JobOriginatingUserName
+is a printing attribute class, a text
+ attribute, that contains the name of the end user that submitted the print
+ job.
+JobPriority
+Class
+JobPriority
+is an integer valued printing attribute class that
+ specifies a print job's priority.
+JobPrioritySupported
+Class
+JobPrioritySupported
+is an integer valued printing attribute
+ class that specifies whether a Print Service instance supports the
+JobPriority
+attribute and the number of different job
+ priority levels supported.
+JobSheets
+Class
+JobSheets
+is a printing attribute class, an enumeration, that
+ determines which job start and end sheets, if any, must be printed with a
+ job.
+JobState
+JobState
+is a printing attribute class, an enumeration, that
+ identifies the current state of a print job.
+JobStateReason
+Class
+JobStateReason
+is a printing attribute class, an enumeration,
+ that provides additional information about the job's current state, i.e.,
+ information that augments the value of the job's
+JobState
+attribute.
+JobStateReasons
+Class
+JobStateReasons
+is a printing attribute class, a set of
+ enumeration values, that provides additional information about the job's
+ current state, i.e., information that augments the value of the job's
+JobState
+attribute.
+Media
+Class
+Media
+is a printing attribute class that specifies the medium
+ on which to print.
+MediaName
+Class
+MediaName
+is a subclass of
+Media
+, a printing attribute
+ class (an enumeration) that specifies the media for a print job as a name.
+MediaPrintableArea
+Class
+MediaPrintableArea
+is a printing attribute used to distinguish
+ the printable and non-printable areas of media.
+MediaSize
+Class
+MediaSize
+is a two-dimensional size valued printing attribute
+ class that indicates the dimensions of the medium in a portrait orientation,
+ with the
+X
+dimension running along the bottom edge and the
+Y
+dimension running along the left edge.
+MediaSize.Engineering
+Class
+MediaSize.Engineering
+includes
+MediaSize
+values for engineering media.
+MediaSize.ISO
+Class
+MediaSize.ISO
+includes
+MediaSize
+values
+ for ISO media.
+MediaSize.JIS
+Class
+MediaSize.JIS
+includes
+MediaSize
+values
+ for JIS (Japanese) media.
+MediaSize.NA
+Class
+MediaSize.NA
+includes
+MediaSize
+values
+ for North American media.
+MediaSize.Other
+Class
+MediaSize.Other
+includes
+MediaSize
+values
+ for miscellaneous media.
+MediaSizeName
+Class
+MediaSizeName
+is a subclass of
+Media
+.
+MediaTray
+Class
+MediaTray
+is a subclass of
+Media
+.
+MultipleDocumentHandling
+Class
+MultipleDocumentHandling
+is a printing attribute class, an
+ enumeration, that controls finishing operations and the placement of one or
+ more print-stream pages into impressions and onto media sheets.
+NumberOfDocuments
+Class
+NumberOfDocuments
+is an integer valued printing attribute that
+ indicates the number of individual docs the printer has accepted for this
+ job, regardless of whether the docs' print data has reached the printer or
+ not.
+NumberOfInterveningJobs
+Class
+NumberOfInterveningJobs
+is an integer valued printing attribute
+ that indicates the number of jobs that are ahead of this job in the relative
+ chronological order of expected time to complete (i.e., the current scheduled
+ order).
+NumberUp
+Class
+NumberUp
+is an integer valued printing attribute class that
+ specifies the number of print-stream pages to impose upon a single side of an
+ instance of a selected medium.
+NumberUpSupported
+Class
+NumberUpSupported
+is a printing attribute class, a set of
+ integers, that gives the supported values for a
+NumberUp
+attribute.
+OrientationRequested
+Class
+OrientationRequested
+is a printing attribute class, an
+ enumeration, that indicates the desired orientation for printed print-stream
+ pages; it does not describe the orientation of the client-supplied
+ print-stream pages.
+OutputDeviceAssigned
+Class
+OutputDeviceAssigned
+is a printing attribute class, a text
+ attribute, that identifies the output device to which the service has
+ assigned this job.
+PageRanges
+Class
+PageRanges
+is a printing attribute class, a set of integers,
+ that identifies the range(s) of print-stream pages that the Printer object
+ uses for each copy of each document which are to be printed.
+PagesPerMinute
+Class
+PagesPerMinute
+is an integer valued printing attribute that
+ indicates the nominal number of pages per minute to the nearest whole number
+ which may be generated by this printer (e.g., simplex, black-and-white).
+PagesPerMinuteColor
+Class
+PagesPerMinuteColor
+is an integer valued printing attribute
+ that indicates the nominal number of pages per minute to the nearest whole
+ number which may be generated by this printer when printing color (e.g.,
+ simplex, color).
+PDLOverrideSupported
+Class
+PDLOverrideSupported
+is a printing attribute class, an
+ enumeration, that expresses the printer's ability to attempt to override
+ processing instructions embedded in documents' print data with processing
+ instructions specified as attributes outside the print data.
+PresentationDirection
+Class
+PresentationDirection
+is a printing attribute class, an
+ enumeration, that is used in conjunction with the
+NumberUp
+attribute to indicate the layout of multiple print-stream pages to impose
+ upon a single side of an instance of a selected medium.
+PrinterInfo
+Class
+PrinterInfo
+is a printing attribute class, a text attribute,
+ that provides descriptive information about a printer.
+PrinterIsAcceptingJobs
+Class
+PrinterIsAcceptingJobs
+is a printing attribute class, an
+ enumeration, that indicates whether the printer is currently able to accept
+ jobs.
+PrinterLocation
+Class
+PrinterLocation
+is a printing attribute class, a text
+ attribute, that identifies the location of the device.
+PrinterMakeAndModel
+Class
+PrinterMakeAndModel
+is a printing attribute class, a text
+ attribute, that the make and model of the printer.
+PrinterMessageFromOperator
+Class
+PrinterMessageFromOperator
+is a printing attribute class, a
+ text attribute, that provides a message from an operator, system
+ administrator, or "intelligent" process to indicate to the end user
+ information about or status of the printer, such as why it is unavailable or
+ when it is expected to be available.
+PrinterMoreInfo
+Class
+PrinterMoreInfo
+is a printing attribute class, a
+URI
+,
+ that is used to obtain more information about this specific printer.
+PrinterMoreInfoManufacturer
+Class
+PrinterMoreInfoManufacturer
+is a printing attribute class, a
+URI
+, that is used to obtain more information about this type of
+ device.
+PrinterName
+Class
+PrinterName
+is a printing attribute class, a text attribute,
+ that specifies the name of a printer.
+PrinterResolution
+Class
+PrinterResolution
+is a printing attribute class that specifies
+ an exact resolution supported by a printer or to be used for a print job.
+PrinterState
+Class
+PrinterState
+is a printing attribute class, an enumeration,
+ that identifies the current state of a printer.
+PrinterStateReason
+Class
+PrinterStateReason
+is a printing attribute class, an
+ enumeration, that provides additional information about the printer's current
+ state, i.e., information that augments the value of the printer's
+PrinterState
+attribute.
+PrinterStateReasons
+Class
+PrinterStateReasons
+is a printing attribute class, a set of
+ enumeration values, that provides additional information about the printer's
+ current state, i.e., information that augments the value of the printer's
+PrinterState
+attribute.
+PrinterURI
+Class
+PrinterURI
+is a printing attribute class, a
+URI
+, that
+ specifies the globally unique name of a printer.
+PrintQuality
+Class
+PrintQuality
+is a printing attribute class, an enumeration,
+ that specifies the print quality that the printer uses for the job.
+QueuedJobCount
+Class
+QueuedJobCount
+is an integer valued printing attribute that
+ indicates the number of jobs in the printer whose
+JobState
+is either
+PENDING
+,
+PENDING_HELD
+,
+PROCESSING
+, or
+PROCESSING_STOPPED
+.
+ReferenceUriSchemesSupported
+Class
+ReferenceUriSchemesSupported
+is a printing attribute class an
+ enumeration, that indicates a "URI scheme," such as "http:" or "ftp:", that a
+ printer can use to retrieve print data stored at a
+URI
+location.
+RequestingUserName
+Class
+RequestingUserName
+is a printing attribute class, a text
+ attribute, that specifies the name of the end user that submitted the print
+ job.
+Severity
+Class
+Severity
+is a printing attribute class, an enumeration, that
+ denotes the severity of a
+PrinterStateReason
+attribute.
+SheetCollate
+Class
+SheetCollate
+is a printing attribute class, an enumeration,
+ that specifies whether or not the media sheets of each copy of each printed
+ document in a job are to be in sequence, when multiple copies of the document
+ are specified by the
+Copies
+attribute.
+Sides
+Class
+Sides
+is a printing attribute class, an enumeration, that
+ specifies how print-stream pages are to be imposed upon the sides of an
+ instance of a selected medium, i.e., an impression.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

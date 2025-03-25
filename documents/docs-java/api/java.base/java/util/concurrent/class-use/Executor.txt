@@ -1,0 +1,841 @@
+Uses of Interface java.util.concurrent.Executor (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Interface
+java.util.concurrent.Executor
+Packages that use
+Executor
+Package
+Description
+com.sun.net.httpserver
+Provides a simple high-level Http server API, which can be used to build
+   embedded HTTP servers.
+java.net.http
+HTTP Client and WebSocket APIs
+java.sql
+Provides the API for accessing and processing data stored in a
+ data source (usually a relational database) using the
+ Java programming language.
+java.util.concurrent
+Utility classes commonly useful in concurrent programming.
+javax.management
+Provides the core classes for the Java Management Extensions.
+Uses of
+Executor
+in
+com.sun.net.httpserver
+Methods in
+com.sun.net.httpserver
+that return
+Executor
+Modifier and Type
+Method
+Description
+abstract
+Executor
+HttpServer.
+getExecutor
+()
+Returns this server's
+Executor
+object if one was specified with
+HttpServer.setExecutor(Executor)
+, or
+null
+if none was specified.
+Methods in
+com.sun.net.httpserver
+with parameters of type
+Executor
+Modifier and Type
+Method
+Description
+abstract void
+HttpServer.
+setExecutor
+(
+Executor
+executor)
+Sets this server's
+Executor
+object.
+Uses of
+Executor
+in
+java.net.http
+Methods in
+java.net.http
+that return types with arguments of type
+Executor
+Modifier and Type
+Method
+Description
+abstract
+Optional
+<
+Executor
+>
+HttpClient.
+executor
+()
+Returns an
+Optional
+containing this client's
+Executor
+.
+Methods in
+java.net.http
+with parameters of type
+Executor
+Modifier and Type
+Method
+Description
+HttpClient.Builder
+HttpClient.Builder.
+executor
+(
+Executor
+executor)
+Sets the executor to be used for asynchronous and dependent tasks.
+Uses of
+Executor
+in
+java.sql
+Methods in
+java.sql
+with parameters of type
+Executor
+Modifier and Type
+Method
+Description
+void
+Connection.
+abort
+(
+Executor
+executor)
+Terminates an open connection.
+void
+Connection.
+setNetworkTimeout
+(
+Executor
+executor,
+ int milliseconds)
+Sets the maximum period a
+Connection
+or
+ objects created from the
+Connection
+will wait for the database to reply to any one request.
+Uses of
+Executor
+in
+java.util.concurrent
+Subinterfaces of
+Executor
+in
+java.util.concurrent
+Modifier and Type
+Interface
+Description
+interface
+ExecutorService
+An
+Executor
+that provides methods to manage termination and
+ methods that can produce a
+Future
+for tracking progress of
+ one or more asynchronous tasks.
+interface
+ScheduledExecutorService
+An
+ExecutorService
+that can schedule commands to run after a given
+ delay, or to execute periodically.
+Classes in
+java.util.concurrent
+that implement
+Executor
+Modifier and Type
+Class
+Description
+class
+AbstractExecutorService
+Provides default implementations of
+ExecutorService
+execution methods.
+class
+ForkJoinPool
+An
+ExecutorService
+for running
+ForkJoinTask
+s.
+class
+ScheduledThreadPoolExecutor
+A
+ThreadPoolExecutor
+that can additionally schedule
+ commands to run after a given delay, or to execute periodically.
+class
+ThreadPoolExecutor
+An
+ExecutorService
+that executes each submitted task using
+ one of possibly several pooled threads, normally configured
+ using
+Executors
+factory methods.
+Methods in
+java.util.concurrent
+that return
+Executor
+Modifier and Type
+Method
+Description
+Executor
+CompletableFuture.
+defaultExecutor
+()
+Returns the default Executor used for async methods that do not
+ specify an Executor.
+static
+Executor
+CompletableFuture.
+delayedExecutor
+(long delay,
+TimeUnit
+unit)
+Returns a new Executor that submits a task to the default
+ executor after the given delay (or no delay if non-positive).
+static
+Executor
+CompletableFuture.
+delayedExecutor
+(long delay,
+TimeUnit
+unit,
+Executor
+executor)
+Returns a new Executor that submits a task to the given base
+ executor after the given delay (or no delay if non-positive).
+Executor
+SubmissionPublisher.
+getExecutor
+()
+Returns the Executor used for asynchronous delivery.
+Methods in
+java.util.concurrent
+with parameters of type
+Executor
+Modifier and Type
+Method
+Description
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+acceptEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Consumer
+<? super
+T
+> action,
+Executor
+executor)
+CompletionStage
+<
+Void
+>
+CompletionStage.
+acceptEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Consumer
+<? super
+T
+> action,
+Executor
+executor)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, is executed using the
+ supplied executor, with the corresponding result as argument to
+ the supplied action.
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+applyToEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Function
+<? super
+T
+,
+U> fn,
+Executor
+executor)
+<U>
+CompletionStage
+<U>
+CompletionStage.
+applyToEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Function
+<? super
+T
+,
+U> fn,
+Executor
+executor)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, is executed using the
+ supplied executor, with the corresponding result as argument to
+ the supplied function.
+CompletableFuture
+<
+T
+>
+CompletableFuture.
+completeAsync
+(
+Supplier
+<? extends
+T
+> supplier,
+Executor
+executor)
+Completes this CompletableFuture with the result of
+ the given Supplier function invoked from an asynchronous
+ task using the given executor.
+static
+Executor
+CompletableFuture.
+delayedExecutor
+(long delay,
+TimeUnit
+unit,
+Executor
+executor)
+Returns a new Executor that submits a task to the given base
+ executor after the given delay (or no delay if non-positive).
+default
+CompletionStage
+<
+T
+>
+CompletionStage.
+exceptionallyAsync
+(
+Function
+<
+Throwable
+,
+? extends
+T
+> fn,
+Executor
+executor)
+Returns a new CompletionStage that, when this stage completes
+ exceptionally, is executed with this stage's exception as the
+ argument to the supplied function, using the supplied Executor.
+default
+CompletionStage
+<
+T
+>
+CompletionStage.
+exceptionallyComposeAsync
+(
+Function
+<
+Throwable
+,
+? extends
+CompletionStage
+<
+T
+>> fn,
+Executor
+executor)
+Returns a new CompletionStage that, when this stage completes
+ exceptionally, is composed using the results of the supplied
+ function applied to this stage's exception, using the
+ supplied Executor.
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+handleAsync
+(
+BiFunction
+<? super
+T
+,
+Throwable
+,
+? extends U> fn,
+Executor
+executor)
+<U>
+CompletionStage
+<U>
+CompletionStage.
+handleAsync
+(
+BiFunction
+<? super
+T
+,
+Throwable
+,
+? extends U> fn,
+Executor
+executor)
+Returns a new CompletionStage that, when this stage completes
+ either normally or exceptionally, is executed using the
+ supplied executor, with this stage's result and exception as
+ arguments to the supplied function.
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+runAfterBothAsync
+(
+CompletionStage
+<?> other,
+Runnable
+action,
+Executor
+executor)
+CompletionStage
+<
+Void
+>
+CompletionStage.
+runAfterBothAsync
+(
+CompletionStage
+<?> other,
+Runnable
+action,
+Executor
+executor)
+Returns a new CompletionStage that, when this and the other
+ given stage both complete normally, executes the given action
+ using the supplied executor.
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+runAfterEitherAsync
+(
+CompletionStage
+<?> other,
+Runnable
+action,
+Executor
+executor)
+CompletionStage
+<
+Void
+>
+CompletionStage.
+runAfterEitherAsync
+(
+CompletionStage
+<?> other,
+Runnable
+action,
+Executor
+executor)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, executes the given action
+ using the supplied executor.
+static
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+runAsync
+(
+Runnable
+runnable,
+Executor
+executor)
+Returns a new CompletableFuture that is asynchronously completed
+ by a task running in the given executor after it runs the given
+ action.
+static <U>
+CompletableFuture
+<U>
+CompletableFuture.
+supplyAsync
+(
+Supplier
+<U> supplier,
+Executor
+executor)
+Returns a new CompletableFuture that is asynchronously completed
+ by a task running in the given executor with the value obtained
+ by calling the given Supplier.
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+thenAcceptAsync
+(
+Consumer
+<? super
+T
+> action,
+Executor
+executor)
+CompletionStage
+<
+Void
+>
+CompletionStage.
+thenAcceptAsync
+(
+Consumer
+<? super
+T
+> action,
+Executor
+executor)
+Returns a new CompletionStage that, when this stage completes
+ normally, is executed using the supplied Executor, with this
+ stage's result as the argument to the supplied action.
+<U>
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+thenAcceptBothAsync
+(
+CompletionStage
+<? extends U> other,
+BiConsumer
+<? super
+T
+,
+? super U> action,
+Executor
+executor)
+<U>
+CompletionStage
+<
+Void
+>
+CompletionStage.
+thenAcceptBothAsync
+(
+CompletionStage
+<? extends U> other,
+BiConsumer
+<? super
+T
+,
+? super U> action,
+Executor
+executor)
+Returns a new CompletionStage that, when this and the other
+ given stage both complete normally, is executed using the
+ supplied executor, with the two results as arguments to the
+ supplied action.
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+thenApplyAsync
+(
+Function
+<? super
+T
+,
+? extends U> fn,
+Executor
+executor)
+<U>
+CompletionStage
+<U>
+CompletionStage.
+thenApplyAsync
+(
+Function
+<? super
+T
+,
+? extends U> fn,
+Executor
+executor)
+Returns a new CompletionStage that, when this stage completes
+ normally, is executed using the supplied Executor, with this
+ stage's result as the argument to the supplied function.
+<U,
+V>
+CompletableFuture
+<V>
+CompletableFuture.
+thenCombineAsync
+(
+CompletionStage
+<? extends U> other,
+BiFunction
+<? super
+T
+,
+? super U,
+? extends V> fn,
+Executor
+executor)
+<U,
+V>
+CompletionStage
+<V>
+CompletionStage.
+thenCombineAsync
+(
+CompletionStage
+<? extends U> other,
+BiFunction
+<? super
+T
+,
+? super U,
+? extends V> fn,
+Executor
+executor)
+Returns a new CompletionStage that, when this and the other
+ given stage both complete normally, is executed using the
+ supplied executor, with the two results as arguments to the
+ supplied function.
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+thenComposeAsync
+(
+Function
+<? super
+T
+,
+? extends
+CompletionStage
+<U>> fn,
+Executor
+executor)
+<U>
+CompletionStage
+<U>
+CompletionStage.
+thenComposeAsync
+(
+Function
+<? super
+T
+,
+? extends
+CompletionStage
+<U>> fn,
+Executor
+executor)
+Returns a new CompletionStage that is completed with the same
+ value as the CompletionStage returned by the given function,
+ executed using the supplied Executor.
+CompletableFuture
+<
+Void
+>
+CompletableFuture.
+thenRunAsync
+(
+Runnable
+action,
+Executor
+executor)
+CompletionStage
+<
+Void
+>
+CompletionStage.
+thenRunAsync
+(
+Runnable
+action,
+Executor
+executor)
+Returns a new CompletionStage that, when this stage completes
+ normally, executes the given action using the supplied Executor.
+CompletableFuture
+<
+T
+>
+CompletableFuture.
+whenCompleteAsync
+(
+BiConsumer
+<? super
+T
+,
+? super
+Throwable
+> action,
+Executor
+executor)
+CompletionStage
+<
+T
+>
+CompletionStage.
+whenCompleteAsync
+(
+BiConsumer
+<? super
+T
+,
+? super
+Throwable
+> action,
+Executor
+executor)
+Returns a new CompletionStage with the same result or exception as
+ this stage, that executes the given action using the supplied
+ Executor when this stage completes.
+Constructors in
+java.util.concurrent
+with parameters of type
+Executor
+Modifier
+Constructor
+Description
+ExecutorCompletionService
+(
+Executor
+executor)
+Creates an ExecutorCompletionService using the supplied
+ executor for base task execution and a
+LinkedBlockingQueue
+as a completion queue.
+ExecutorCompletionService
+(
+Executor
+executor,
+BlockingQueue
+<
+Future
+<
+V
+>> completionQueue)
+Creates an ExecutorCompletionService using the supplied
+ executor for base task execution and the supplied queue as its
+ completion queue.
+SubmissionPublisher
+(
+Executor
+executor,
+ int maxBufferCapacity)
+Creates a new SubmissionPublisher using the given Executor for
+ async delivery to subscribers, with the given maximum buffer size
+ for each subscriber, and no handler for Subscriber exceptions in
+ method
+onNext
+.
+SubmissionPublisher
+(
+Executor
+executor,
+ int maxBufferCapacity,
+BiConsumer
+<? super
+Flow.Subscriber
+<? super
+T
+>,
+? super
+Throwable
+> handler)
+Creates a new SubmissionPublisher using the given Executor for
+ async delivery to subscribers, with the given maximum buffer size
+ for each subscriber, and, if non-null, the given handler invoked
+ when any Subscriber throws an exception in method
+onNext
+.
+Uses of
+Executor
+in
+javax.management
+Constructors in
+javax.management
+with parameters of type
+Executor
+Modifier
+Constructor
+Description
+NotificationBroadcasterSupport
+(
+Executor
+executor)
+Constructs a NotificationBroadcasterSupport where each listener is invoked using
+ the given
+Executor
+.
+NotificationBroadcasterSupport
+(
+Executor
+executor,
+MBeanNotificationInfo
+... info)
+Constructs a NotificationBroadcasterSupport with information about the notifications that may be sent,
+ and where each listener is invoked using the given
+Executor
+.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

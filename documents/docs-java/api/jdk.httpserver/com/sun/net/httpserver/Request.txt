@@ -1,0 +1,223 @@
+Request (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.httpserver
+Package
+com.sun.net.httpserver
+Interface Request
+All Known Implementing Classes:
+HttpExchange
+,
+HttpsExchange
+public interface
+Request
+A view of the immutable request state of an HTTP exchange.
+Since:
+18
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+Headers
+getRequestHeaders
+()
+Returns an immutable
+Headers
+containing the HTTP headers that
+ were included with this request.
+String
+getRequestMethod
+()
+Returns the request method.
+URI
+getRequestURI
+()
+Returns the request
+URI
+.
+default
+Request
+with
+(
+String
+headerName,
+List
+<
+String
+> headerValues)
+Returns an identical
+Request
+with an additional header.
+Method Details
+getRequestURI
+URI
+getRequestURI
+()
+Returns the request
+URI
+.
+Returns:
+the request
+URI
+getRequestMethod
+String
+getRequestMethod
+()
+Returns the request method.
+Returns:
+the request method string
+getRequestHeaders
+Headers
+getRequestHeaders
+()
+Returns an immutable
+Headers
+containing the HTTP headers that
+ were included with this request.
+The keys in this
+Headers
+are the header names, while the
+ values are a
+List
+of
+Strings
+containing each value that was
+ included in the request, in the order they were included. Header fields
+ appearing multiple times are represented as multiple string values.
+The keys in
+Headers
+are case-insensitive.
+Returns:
+a read-only
+Headers
+which can be used to access request
+         headers.
+with
+default
+Request
+with
+(
+String
+headerName,
+List
+<
+String
+> headerValues)
+Returns an identical
+Request
+with an additional header.
+The returned
+Request
+has the same set of
+headers
+as
+this
+request, but with
+ the addition of the given header. All other request state remains
+ unchanged.
+If
+this
+request already contains a header with the same name
+ as the given
+headerName
+, then its value is not replaced.
+Implementation Requirements:
+The default implementation first creates a new
+Headers
+,
+h
+,
+ then adds all the request headers from
+this
+request to
+h
+,
+ then adds the given name-values mapping if
+headerName
+is
+ not present in
+h
+. Then an unmodifiable view,
+h'
+, of
+h
+and a new
+Request
+,
+r
+, are created.
+ The
+getRequestMethod
+and
+getRequestURI
+methods of
+r
+simply invoke the equivalently named method of
+this
+request. The
+getRequestHeaders
+method returns
+h'
+. Lastly,
+r
+is returned.
+Parameters:
+headerName
+- the header name
+headerValues
+- the list of header values
+Returns:
+a request
+Throws:
+NullPointerException
+- if any argument is null, or if any element
+                              of headerValues is null.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,244 @@
+EventSettings (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.jfr
+Package
+jdk.jfr
+Class EventSettings
+java.lang.Object
+jdk.jfr.EventSettings
+public abstract class
+EventSettings
+extends
+Object
+Convenience class for applying event settings to a recording.
+An
+EventSettings
+object for a recording can be obtained by invoking
+ the
+Recording.enable(String)
+method which is configured using method
+ chaining.
+The following example shows how to use the
+EventSettings
+class.
+Copy
+try (Recording r = new Recording()) {
+    r.enable("jdk.CPULoad")
+     .withPeriod(Duration.ofSeconds(1));
+    r.enable("jdk.FileWrite")
+     .withoutStackTrace()
+     .withThreshold(Duration.ofNanos(10));
+    r.start();
+    Thread.sleep(10_000);
+    r.stop();
+    r.dump(Files.createTempFile("recording", ".jfr"));
+}
+Since:
+9
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+abstract
+EventSettings
+with
+(
+String
+name,
+String
+value)
+Sets a setting value for the event that is associated with this event setting.
+final
+EventSettings
+withoutStackTrace
+()
+Disables stack traces for the event that is associated with this event setting.
+final
+EventSettings
+withoutThreshold
+()
+Specifies that a threshold is not used.
+final
+EventSettings
+withPeriod
+(
+Duration
+duration)
+Sets the interval for the event that is associated with this event setting.
+final
+EventSettings
+withStackTrace
+()
+Enables stack traces for the event that is associated with this event setting.
+final
+EventSettings
+withThreshold
+(
+Duration
+duration)
+Sets the threshold for the event that is associated with this event setting.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Method Details
+withStackTrace
+public final
+EventSettings
+withStackTrace
+()
+Enables stack traces for the event that is associated with this event setting.
+Equivalent to invoking the
+with("stackTrace", "true")
+method.
+Returns:
+event settings object for further configuration, not
+null
+withoutStackTrace
+public final
+EventSettings
+withoutStackTrace
+()
+Disables stack traces for the event that is associated with this event setting.
+Equivalent to invoking the
+with("stackTrace", "false")
+method.
+Returns:
+event settings object for further configuration, not
+null
+withoutThreshold
+public final
+EventSettings
+withoutThreshold
+()
+Specifies that a threshold is not used.
+This is a convenience method, equivalent to invoking the
+with("threshold", "0 s")
+method.
+Returns:
+event settings object for further configuration, not
+null
+withPeriod
+public final
+EventSettings
+withPeriod
+(
+Duration
+duration)
+Sets the interval for the event that is associated with this event setting.
+Parameters:
+duration
+- the duration, not
+null
+Returns:
+event settings object for further configuration, not
+null
+withThreshold
+public final
+EventSettings
+withThreshold
+(
+Duration
+duration)
+Sets the threshold for the event that is associated with this event setting.
+Parameters:
+duration
+- the duration, or
+null
+if no duration is used
+Returns:
+event settings object for further configuration, not
+null
+with
+public abstract
+EventSettings
+with
+(
+String
+name,
+String
+value)
+Sets a setting value for the event that is associated with this event setting.
+Parameters:
+name
+- the name of the setting (for example,
+"threshold"
+)
+value
+- the value to set (for example
+"20 ms"
+not
+null
+)
+Returns:
+event settings object for further configuration, not
+null
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

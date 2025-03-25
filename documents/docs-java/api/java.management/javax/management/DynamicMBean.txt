@@ -1,0 +1,255 @@
+DynamicMBean (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.management
+Package
+javax.management
+Interface DynamicMBean
+All Known Subinterfaces:
+DiagnosticCommandMBean
+,
+ModelMBean
+All Known Implementing Classes:
+RequiredModelMBean
+,
+StandardEmitterMBean
+,
+StandardMBean
+public interface
+DynamicMBean
+Defines the methods that should be implemented by
+ a Dynamic MBean (MBean that exposes a dynamic management interface).
+Since:
+1.5
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+Object
+getAttribute
+(
+String
+attribute)
+Obtain the value of a specific attribute of the Dynamic MBean.
+AttributeList
+getAttributes
+(
+String
+[] attributes)
+Get the values of several attributes of the Dynamic MBean.
+MBeanInfo
+getMBeanInfo
+()
+Provides the exposed attributes and actions of the Dynamic MBean using an MBeanInfo object.
+Object
+invoke
+(
+String
+actionName,
+Object
+[] params,
+String
+[] signature)
+Allows an action to be invoked on the Dynamic MBean.
+void
+setAttribute
+(
+Attribute
+attribute)
+Set the value of a specific attribute of the Dynamic MBean.
+AttributeList
+setAttributes
+(
+AttributeList
+attributes)
+Sets the values of several attributes of the Dynamic MBean.
+Method Details
+getAttribute
+Object
+getAttribute
+(
+String
+attribute)
+throws
+AttributeNotFoundException
+,
+MBeanException
+,
+ReflectionException
+Obtain the value of a specific attribute of the Dynamic MBean.
+Parameters:
+attribute
+- The name of the attribute to be retrieved
+Returns:
+The value of the attribute retrieved.
+Throws:
+AttributeNotFoundException
+- if specified attribute does not exist or cannot be retrieved
+MBeanException
+- Wraps a
+java.lang.Exception
+thrown by the MBean's getter.
+ReflectionException
+- Wraps a
+java.lang.Exception
+thrown while trying to invoke the getter.
+See Also:
+setAttribute(javax.management.Attribute)
+setAttribute
+void
+setAttribute
+(
+Attribute
+attribute)
+throws
+AttributeNotFoundException
+,
+InvalidAttributeValueException
+,
+MBeanException
+,
+ReflectionException
+Set the value of a specific attribute of the Dynamic MBean.
+Parameters:
+attribute
+- The identification of the attribute to
+ be set and  the value it is to be set to.
+Throws:
+AttributeNotFoundException
+- if specified attribute does not exist or cannot be retrieved
+InvalidAttributeValueException
+- if value specified is not valid for the attribute
+MBeanException
+- Wraps a
+java.lang.Exception
+thrown by the MBean's setter.
+ReflectionException
+- Wraps a
+java.lang.Exception
+thrown while trying to invoke the MBean's setter.
+See Also:
+getAttribute(java.lang.String)
+getAttributes
+AttributeList
+getAttributes
+(
+String
+[] attributes)
+Get the values of several attributes of the Dynamic MBean.
+Parameters:
+attributes
+- A list of the attributes to be retrieved.
+Returns:
+The list of attributes retrieved.
+See Also:
+setAttributes(javax.management.AttributeList)
+setAttributes
+AttributeList
+setAttributes
+(
+AttributeList
+attributes)
+Sets the values of several attributes of the Dynamic MBean.
+Parameters:
+attributes
+- A list of attributes: The identification of the
+ attributes to be set and  the values they are to be set to.
+Returns:
+The list of attributes that were set, with their new values.
+See Also:
+getAttributes(java.lang.String[])
+invoke
+Object
+invoke
+(
+String
+actionName,
+Object
+[] params,
+String
+[] signature)
+throws
+MBeanException
+,
+ReflectionException
+Allows an action to be invoked on the Dynamic MBean.
+Parameters:
+actionName
+- The name of the action to be invoked.
+params
+- An array containing the parameters to be set when the action is
+ invoked.
+signature
+- An array containing the signature of the action. The class objects will
+ be loaded through the same class loader as the one used for loading the
+ MBean on which the action is invoked.
+Returns:
+The object returned by the action, which represents the result of
+ invoking the action on the MBean specified.
+Throws:
+MBeanException
+- Wraps a
+java.lang.Exception
+thrown by the MBean's invoked method.
+ReflectionException
+- Wraps a
+java.lang.Exception
+thrown while trying to invoke the method
+getMBeanInfo
+MBeanInfo
+getMBeanInfo
+()
+Provides the exposed attributes and actions of the Dynamic MBean using an MBeanInfo object.
+Returns:
+An instance of
+MBeanInfo
+allowing all attributes and actions
+ exposed by this Dynamic MBean to be retrieved.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

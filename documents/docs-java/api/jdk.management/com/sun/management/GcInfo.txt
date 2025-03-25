@@ -1,0 +1,750 @@
+GcInfo (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.management
+Package
+com.sun.management
+Class GcInfo
+java.lang.Object
+com.sun.management.GcInfo
+All Implemented Interfaces:
+CompositeData
+,
+CompositeDataView
+public class
+GcInfo
+extends
+Object
+implements
+CompositeData
+,
+CompositeDataView
+Garbage collection information.  It contains the following
+ information for one garbage collection as well as GC-specific
+ attributes:
+Start time
+End time
+Duration
+Memory usage before the collection starts
+Memory usage after the collection ends
+GcInfo
+is a
+CompositeData
+The GC-specific attributes can be obtained via the CompositeData
+ interface.  This is a historical relic, and other classes should
+ not copy this pattern.  Use
+CompositeDataView
+instead.
+MXBean Mapping
+GcInfo
+is mapped to a
+CompositeData
+with attributes as specified in the
+from
+method.
+Since:
+1.5
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+containsKey
+(
+String
+key)
+Returns
+true
+if and only if this
+CompositeData
+instance contains
+ an item whose name is
+key
+.
+boolean
+containsValue
+(
+Object
+value)
+Returns
+true
+if and only if this
+CompositeData
+instance contains an item
+ whose value is
+value
+.
+boolean
+equals
+(
+Object
+obj)
+Indicates whether some other object is "equal to" this one.
+static
+GcInfo
+from
+(
+CompositeData
+cd)
+Returns a
+GcInfo
+object represented by the
+ given
+CompositeData
+.
+Object
+get
+(
+String
+key)
+Returns the value of the item whose name is
+key
+.
+Object
+[]
+getAll
+(
+String
+[] keys)
+Returns an array of the values of the items whose names
+ are specified by
+keys
+, in the same order as
+keys
+.
+CompositeType
+getCompositeType
+()
+Returns the
+composite type
+of this
+composite data
+instance.
+long
+getDuration
+()
+Returns the elapsed time of this GC in milliseconds.
+long
+getEndTime
+()
+Returns the end time of this GC in milliseconds
+ since the Java virtual machine was started.
+long
+getId
+()
+Returns the identifier of this garbage collection which is
+ the number of collections that this collector has done.
+Map
+<
+String
+,
+MemoryUsage
+>
+getMemoryUsageAfterGc
+()
+Returns the memory usage of all memory pools
+ at the end of this GC.
+Map
+<
+String
+,
+MemoryUsage
+>
+getMemoryUsageBeforeGc
+()
+Returns the memory usage of all memory pools
+ at the beginning of this GC.
+long
+getStartTime
+()
+Returns the start time of this GC in milliseconds
+ since the Java virtual machine was started.
+int
+hashCode
+()
+Returns a hash code value for the object.
+CompositeData
+toCompositeData
+(
+CompositeType
+ct)
+Return the
+CompositeData
+representation of this
+GcInfo
+, including any GC-specific attributes.
+String
+toString
+()
+Returns a string representation of the object.
+Collection
+<?>
+values
+()
+Returns an unmodifiable Collection view of the item values
+ contained in this
+CompositeData
+instance.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Method Details
+getId
+public
+long
+getId
+()
+Returns the identifier of this garbage collection which is
+ the number of collections that this collector has done.
+Returns:
+the identifier of this garbage collection which is
+ the number of collections that this collector has done.
+getStartTime
+public
+long
+getStartTime
+()
+Returns the start time of this GC in milliseconds
+ since the Java virtual machine was started.
+Returns:
+the start time of this GC.
+getEndTime
+public
+long
+getEndTime
+()
+Returns the end time of this GC in milliseconds
+ since the Java virtual machine was started.
+Returns:
+the end time of this GC.
+getDuration
+public
+long
+getDuration
+()
+Returns the elapsed time of this GC in milliseconds.
+Returns:
+the elapsed time of this GC in milliseconds.
+getMemoryUsageBeforeGc
+public
+Map
+<
+String
+,
+MemoryUsage
+>
+getMemoryUsageBeforeGc
+()
+Returns the memory usage of all memory pools
+ at the beginning of this GC.
+ This method returns
+ a
+Map
+of the name of a memory pool
+ to the memory usage of the corresponding
+ memory pool before GC starts.
+Returns:
+a
+Map
+of memory pool names to the memory
+ usage of a memory pool before GC starts.
+getMemoryUsageAfterGc
+public
+Map
+<
+String
+,
+MemoryUsage
+>
+getMemoryUsageAfterGc
+()
+Returns the memory usage of all memory pools
+ at the end of this GC.
+ This method returns
+ a
+Map
+of the name of a memory pool
+ to the memory usage of the corresponding
+ memory pool when GC finishes.
+Returns:
+a
+Map
+of memory pool names to the memory
+ usage of a memory pool when GC finishes.
+from
+public static
+GcInfo
+from
+(
+CompositeData
+cd)
+Returns a
+GcInfo
+object represented by the
+ given
+CompositeData
+. The given
+CompositeData
+must contain
+ all the following attributes:
+description
+Attribute Name
+Type
+index
+java.lang.Long
+startTime
+java.lang.Long
+endTime
+java.lang.Long
+memoryUsageBeforeGc
+javax.management.openmbean.TabularData
+memoryUsageAfterGc
+javax.management.openmbean.TabularData
+Returns:
+a
+GcInfo
+object represented by
+cd
+if
+cd
+is not
+null
+;
+null
+otherwise.
+Throws:
+IllegalArgumentException
+- if
+cd
+does not
+   represent a
+GcInfo
+object with the attributes
+   described above.
+containsKey
+public
+boolean
+containsKey
+(
+String
+key)
+Description copied from interface:
+CompositeData
+Returns
+true
+if and only if this
+CompositeData
+instance contains
+ an item whose name is
+key
+.
+ If
+key
+is a null or empty String, this method simply returns false.
+Specified by:
+containsKey
+in interface
+CompositeData
+Parameters:
+key
+- the key to be tested.
+Returns:
+true if this
+CompositeData
+contains the key.
+containsValue
+public
+boolean
+containsValue
+(
+Object
+value)
+Description copied from interface:
+CompositeData
+Returns
+true
+if and only if this
+CompositeData
+instance contains an item
+ whose value is
+value
+.
+Specified by:
+containsValue
+in interface
+CompositeData
+Parameters:
+value
+- the value to be tested.
+Returns:
+true if this
+CompositeData
+contains the value.
+equals
+public
+boolean
+equals
+(
+Object
+obj)
+Description copied from class:
+Object
+Indicates whether some other object is "equal to" this one.
+The
+equals
+method implements an equivalence relation
+ on non-null object references:
+It is
+reflexive
+: for any non-null reference value
+x
+,
+x.equals(x)
+should return
+true
+.
+It is
+symmetric
+: for any non-null reference values
+x
+and
+y
+,
+x.equals(y)
+should return
+true
+if and only if
+y.equals(x)
+returns
+true
+.
+It is
+transitive
+: for any non-null reference values
+x
+,
+y
+, and
+z
+, if
+x.equals(y)
+returns
+true
+and
+y.equals(z)
+returns
+true
+, then
+x.equals(z)
+should return
+true
+.
+It is
+consistent
+: for any non-null reference values
+x
+and
+y
+, multiple invocations of
+x.equals(y)
+consistently return
+true
+or consistently return
+false
+, provided no
+     information used in
+equals
+comparisons on the
+     objects is modified.
+For any non-null reference value
+x
+,
+x.equals(null)
+should return
+false
+.
+An equivalence relation partitions the elements it operates on
+ into
+equivalence classes
+; all the members of an
+ equivalence class are equal to each other. Members of an
+ equivalence class are substitutable for each other, at least
+ for some purposes.
+Specified by:
+equals
+in interface
+CompositeData
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- the reference object with which to compare.
+Returns:
+true
+if this object is the same as the obj
+          argument;
+false
+otherwise.
+See Also:
+Object.hashCode()
+HashMap
+get
+public
+Object
+get
+(
+String
+key)
+Description copied from interface:
+CompositeData
+Returns the value of the item whose name is
+key
+.
+Specified by:
+get
+in interface
+CompositeData
+Parameters:
+key
+- the name of the item.
+Returns:
+the value associated with this key.
+getAll
+public
+Object
+[]
+getAll
+(
+String
+[] keys)
+Description copied from interface:
+CompositeData
+Returns an array of the values of the items whose names
+ are specified by
+keys
+, in the same order as
+keys
+.
+Specified by:
+getAll
+in interface
+CompositeData
+Parameters:
+keys
+- the names of the items.
+Returns:
+the values corresponding to the keys.
+getCompositeType
+public
+CompositeType
+getCompositeType
+()
+Description copied from interface:
+CompositeData
+Returns the
+composite type
+of this
+composite data
+instance.
+Specified by:
+getCompositeType
+in interface
+CompositeData
+Returns:
+the type of this CompositeData.
+hashCode
+public
+int
+hashCode
+()
+Description copied from class:
+Object
+Returns a hash code value for the object. This method is
+ supported for the benefit of hash tables such as those provided by
+HashMap
+.
+The general contract of
+hashCode
+is:
+Whenever it is invoked on the same object more than once during
+     an execution of a Java application, the
+hashCode
+method
+     must consistently return the same integer, provided no information
+     used in
+equals
+comparisons on the object is modified.
+     This integer need not remain consistent from one execution of an
+     application to another execution of the same application.
+If two objects are equal according to the
+equals
+method, then calling the
+hashCode
+method on each of the two objects must produce the
+     same integer result.
+It is
+not
+required that if two objects are unequal
+     according to the
+equals
+method, then
+     calling the
+hashCode
+method on each of the two objects
+     must produce distinct integer results.  However, the programmer
+     should be aware that producing distinct integer results for
+     unequal objects may improve the performance of hash tables.
+Specified by:
+hashCode
+in interface
+CompositeData
+Overrides:
+hashCode
+in class
+Object
+Returns:
+a hash code value for this object.
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+toString
+public
+String
+toString
+()
+Description copied from class:
+Object
+Returns a string representation of the object.
+Specified by:
+toString
+in interface
+CompositeData
+Overrides:
+toString
+in class
+Object
+Returns:
+a string representation of the object.
+values
+public
+Collection
+<?>
+values
+()
+Description copied from interface:
+CompositeData
+Returns an unmodifiable Collection view of the item values
+ contained in this
+CompositeData
+instance.
+ The returned collection's iterator will return the values
+ in the ascending lexicographic order of the corresponding
+ item names.
+Specified by:
+values
+in interface
+CompositeData
+Returns:
+the values.
+toCompositeData
+public
+CompositeData
+toCompositeData
+(
+CompositeType
+ct)
+Return the
+CompositeData
+representation of this
+GcInfo
+, including any GC-specific attributes.  The
+ returned value will have at least all the attributes described
+ in the
+from
+method, plus optionally
+ other attributes.
+Specified by:
+toCompositeData
+in interface
+CompositeDataView
+Parameters:
+ct
+- the
+CompositeType
+that the caller expects.
+ This parameter is ignored and can be null.
+Returns:
+the
+CompositeData
+representation.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

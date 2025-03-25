@@ -1,0 +1,266 @@
+JarSigner (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.jartool
+Package
+jdk.security.jarsigner
+Class JarSigner
+java.lang.Object
+jdk.security.jarsigner.JarSigner
+public final class
+JarSigner
+extends
+Object
+An immutable utility class to sign a jar file.
+A caller creates a
+JarSigner.Builder
+object, (optionally) sets
+ some parameters, and calls
+build
+to create
+ a
+JarSigner
+object. This
+JarSigner
+object can then
+ be used to sign a jar file.
+Unless otherwise stated, calling a method of
+JarSigner
+or
+JarSigner.Builder
+with a null argument will throw
+ a
+NullPointerException
+.
+Example:
+Copy
+JarSigner signer = new JarSigner.Builder(key, certPath)
+            .digestAlgorithm("SHA-256")
+            .signatureAlgorithm("SHA256withRSA")
+            .build();
+    try (ZipFile  in = new ZipFile(inputFile);
+            FileOutputStream out = new FileOutputStream(outputFile)) {
+        signer.sign(in, out);
+    }
+Since:
+9
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+static class
+JarSigner.Builder
+A mutable builder class that can create an immutable
+JarSigner
+from various signing-related parameters.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+String
+getDigestAlgorithm
+()
+Returns the digest algorithm for this
+JarSigner
+.
+String
+getProperty
+(
+String
+key)
+Returns the value of an additional implementation-specific property
+ indicated by the specified key.
+String
+getSignatureAlgorithm
+()
+Returns the signature algorithm for this
+JarSigner
+.
+String
+getSignerName
+()
+Returns the signer name of this
+JarSigner
+.
+URI
+getTsa
+()
+Returns the URI of the Time Stamping Authority (TSA).
+void
+sign
+(
+ZipFile
+file,
+OutputStream
+os)
+Signs a file into an
+OutputStream
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Method Details
+sign
+public
+void
+sign
+(
+ZipFile
+file,
+OutputStream
+os)
+Signs a file into an
+OutputStream
+. This method will not close
+file
+or
+os
+.
+If an I/O error or signing error occurs during the signing, then it may
+ do so after some bytes have been written. Consequently, the output
+ stream may be in an inconsistent state. It is strongly recommended that
+ it be promptly closed in this case.
+Parameters:
+file
+- the file to sign.
+os
+- the output stream.
+Throws:
+JarSignerException
+- if the signing fails.
+getDigestAlgorithm
+public
+String
+getDigestAlgorithm
+()
+Returns the digest algorithm for this
+JarSigner
+.
+The return value is never null.
+Returns:
+the digest algorithm.
+getSignatureAlgorithm
+public
+String
+getSignatureAlgorithm
+()
+Returns the signature algorithm for this
+JarSigner
+.
+The return value is never null.
+Returns:
+the signature algorithm.
+getTsa
+public
+URI
+getTsa
+()
+Returns the URI of the Time Stamping Authority (TSA).
+Returns:
+the URI of the TSA.
+getSignerName
+public
+String
+getSignerName
+()
+Returns the signer name of this
+JarSigner
+.
+The return value is never null.
+Returns:
+the signer name.
+getProperty
+public
+String
+getProperty
+(
+String
+key)
+Returns the value of an additional implementation-specific property
+ indicated by the specified key. If a property is not set but has a
+ default value, the default value will be returned.
+Implementation Note:
+See
+JarSigner.Builder.setProperty(java.lang.String, java.lang.String)
+for a list of
+ properties this implementation supports. All property names are
+ case-insensitive.
+Parameters:
+key
+- the name of the property.
+Returns:
+the value for the property.
+Throws:
+UnsupportedOperationException
+- if the key is not supported
+      by this implementation.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

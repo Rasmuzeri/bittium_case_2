@@ -1,0 +1,867 @@
+ModelMBeanInfoSupport (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.management
+Package
+javax.management.modelmbean
+Class ModelMBeanInfoSupport
+java.lang.Object
+javax.management.MBeanInfo
+javax.management.modelmbean.ModelMBeanInfoSupport
+All Implemented Interfaces:
+Serializable
+,
+Cloneable
+,
+DescriptorRead
+,
+ModelMBeanInfo
+public class
+ModelMBeanInfoSupport
+extends
+MBeanInfo
+implements
+ModelMBeanInfo
+This class represents the meta data for ModelMBeans.  Descriptors have been
+ added on the meta data objects.
+Java resources wishing to be manageable instantiate the ModelMBean using the
+ MBeanServer's createMBean method.  The resource then sets the ModelMBeanInfo
+ and Descriptors for the ModelMBean instance. The attributes and operations
+ exposed via the ModelMBeanInfo for the ModelMBean are accessible
+ from MBeans, connectors/adaptors like other MBeans. Through the Descriptors,
+ values and methods in the managed application can be defined and mapped to
+ attributes and operations of the ModelMBean.
+ This mapping can be defined during development in a file or dynamically and
+ programmatically at runtime.
+Every ModelMBean which is instantiated in the MBeanServer becomes manageable:
+ its attributes and operations
+ become remotely accessible through the connectors/adaptors connected to that
+ MBeanServer.
+ A Java object cannot be registered in the MBeanServer unless it is a JMX
+ compliant MBean.
+ By instantiating a ModelMBean, resources are guaranteed that the MBean is
+ valid.
+
+ MBeanException and RuntimeOperationsException must be thrown on every public
+ method.  This allows for wrapping exceptions from distributed
+ communications (RMI, EJB, etc.)
+The
+serialVersionUID
+of this class is
+-1935722590756516193L
+.
+Since:
+1.5
+See Also:
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+ModelMBeanInfoSupport
+(
+String
+className,
+String
+description,
+ModelMBeanAttributeInfo
+[] attributes,
+ModelMBeanConstructorInfo
+[] constructors,
+ModelMBeanOperationInfo
+[] operations,
+ModelMBeanNotificationInfo
+[] notifications)
+Creates a ModelMBeanInfoSupport with the provided information,
+ but the descriptor is a default.
+ModelMBeanInfoSupport
+(
+String
+className,
+String
+description,
+ModelMBeanAttributeInfo
+[] attributes,
+ModelMBeanConstructorInfo
+[] constructors,
+ModelMBeanOperationInfo
+[] operations,
+ModelMBeanNotificationInfo
+[] notifications,
+Descriptor
+mbeandescriptor)
+Creates a ModelMBeanInfoSupport with the provided information
+ and the descriptor given in parameter.
+ModelMBeanInfoSupport
+(
+ModelMBeanInfo
+mbi)
+Constructs a ModelMBeanInfoSupport which is a duplicate of the given
+ ModelMBeanInfo.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Object
+clone
+()
+Returns a shallow clone of this instance.
+ModelMBeanAttributeInfo
+getAttribute
+(
+String
+inName)
+Returns a ModelMBeanAttributeInfo requested by name.
+ModelMBeanConstructorInfo
+getConstructor
+(
+String
+inName)
+Returns the ModelMBeanConstructorInfo requested by name.
+Descriptor
+getDescriptor
+()
+Get the descriptor of this MBeanInfo.
+Descriptor
+getDescriptor
+(
+String
+inDescriptorName)
+Returns a Descriptor requested by name.
+Descriptor
+getDescriptor
+(
+String
+inDescriptorName,
+String
+inDescriptorType)
+Returns a Descriptor requested by name and descriptorType.
+Descriptor
+[]
+getDescriptors
+(
+String
+inDescriptorType)
+Returns a Descriptor array consisting of all
+ Descriptors for the ModelMBeanInfo of type inDescriptorType.
+Descriptor
+getMBeanDescriptor
+()
+Returns the ModelMBean's descriptor which contains MBean wide
+ policies.
+ModelMBeanNotificationInfo
+getNotification
+(
+String
+inName)
+Returns a ModelMBeanNotificationInfo requested by name.
+ModelMBeanOperationInfo
+getOperation
+(
+String
+inName)
+Returns a ModelMBeanOperationInfo requested by name.
+void
+setDescriptor
+(
+Descriptor
+inDescriptor,
+String
+inDescriptorType)
+Sets descriptors in the info array of type inDescriptorType
+ for the ModelMBean.
+void
+setDescriptors
+(
+Descriptor
+[] inDescriptors)
+Adds or replaces descriptors in the ModelMBeanInfo.
+void
+setMBeanDescriptor
+(
+Descriptor
+inMBeanDescriptor)
+Sets the ModelMBean's descriptor.
+Methods declared in class javax.management.
+MBeanInfo
+equals
+,
+getAttributes
+,
+getClassName
+,
+getConstructors
+,
+getDescription
+,
+getNotifications
+,
+getOperations
+Methods declared in class java.lang.
+Object
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface javax.management.modelmbean.
+ModelMBeanInfo
+getAttributes
+,
+getClassName
+,
+getConstructors
+,
+getDescription
+,
+getNotifications
+,
+getOperations
+Constructor Details
+ModelMBeanInfoSupport
+public
+ModelMBeanInfoSupport
+(
+ModelMBeanInfo
+mbi)
+Constructs a ModelMBeanInfoSupport which is a duplicate of the given
+ ModelMBeanInfo.  The returned object is a shallow copy of the given
+ object.  Neither the Descriptor nor the contained arrays
+ (
+ModelMBeanAttributeInfo[]
+etc) are cloned.  This method is
+ chiefly of interest to modify the Descriptor of the returned instance
+ via
+setDescriptor
+without affecting the
+ Descriptor of the original object.
+Parameters:
+mbi
+- the ModelMBeanInfo instance from which the ModelMBeanInfo
+ being created is initialized.
+ModelMBeanInfoSupport
+public
+ModelMBeanInfoSupport
+(
+String
+className,
+String
+description,
+ModelMBeanAttributeInfo
+[] attributes,
+ModelMBeanConstructorInfo
+[] constructors,
+ModelMBeanOperationInfo
+[] operations,
+ModelMBeanNotificationInfo
+[] notifications)
+Creates a ModelMBeanInfoSupport with the provided information,
+ but the descriptor is a default.
+ The default descriptor is: name=className, descriptorType="mbean",
+ displayName=className, persistPolicy="never", log="F", visibility="1"
+Parameters:
+className
+- classname of the MBean
+description
+- human readable description of the
+ ModelMBean
+attributes
+- array of ModelMBeanAttributeInfo objects
+ which have descriptors
+constructors
+- array of ModelMBeanConstructorInfo
+ objects which have descriptors
+operations
+- array of ModelMBeanOperationInfo objects
+ which have descriptors
+notifications
+- array of ModelMBeanNotificationInfo
+ objects which have descriptors
+ModelMBeanInfoSupport
+public
+ModelMBeanInfoSupport
+(
+String
+className,
+String
+description,
+ModelMBeanAttributeInfo
+[] attributes,
+ModelMBeanConstructorInfo
+[] constructors,
+ModelMBeanOperationInfo
+[] operations,
+ModelMBeanNotificationInfo
+[] notifications,
+Descriptor
+mbeandescriptor)
+Creates a ModelMBeanInfoSupport with the provided information
+ and the descriptor given in parameter.
+Parameters:
+className
+- classname of the MBean
+description
+- human readable description of the
+ ModelMBean
+attributes
+- array of ModelMBeanAttributeInfo objects
+ which have descriptors
+constructors
+- array of ModelMBeanConstructorInfo
+ objects which have descriptor
+operations
+- array of ModelMBeanOperationInfo objects
+ which have descriptor
+notifications
+- array of ModelMBeanNotificationInfo
+ objects which have descriptor
+mbeandescriptor
+- descriptor to be used as the
+ MBeanDescriptor containing MBean wide policy. If the
+ descriptor is null, a default descriptor will be constructed.
+ The default descriptor is:
+ name=className, descriptorType="mbean", displayName=className,
+ persistPolicy="never", log="F", visibility="1".  If the descriptor
+ does not contain all of these fields, the missing ones are
+ added with these default values.
+Throws:
+RuntimeOperationsException
+- Wraps an
+ IllegalArgumentException for invalid descriptor passed in
+ parameter.  (see
+getMBeanDescriptor
+for the definition of a valid MBean
+ descriptor.)
+Method Details
+clone
+public
+Object
+clone
+()
+Returns a shallow clone of this instance.  Neither the Descriptor nor
+ the contained arrays (
+ModelMBeanAttributeInfo[]
+etc) are
+ cloned.  This method is chiefly of interest to modify the Descriptor
+ of the clone via
+setDescriptor
+without affecting
+ the Descriptor of the original object.
+Specified by:
+clone
+in interface
+ModelMBeanInfo
+Overrides:
+clone
+in class
+MBeanInfo
+Returns:
+a shallow clone of this instance.
+See Also:
+Cloneable
+getDescriptors
+public
+Descriptor
+[]
+getDescriptors
+(
+String
+inDescriptorType)
+throws
+MBeanException
+,
+RuntimeOperationsException
+Description copied from interface:
+ModelMBeanInfo
+Returns a Descriptor array consisting of all
+ Descriptors for the ModelMBeanInfo of type inDescriptorType.
+Specified by:
+getDescriptors
+in interface
+ModelMBeanInfo
+Parameters:
+inDescriptorType
+- value of descriptorType field that must be set for the descriptor
+ to be returned.  Must be "mbean", "attribute", "operation", "constructor" or "notification".
+ If it is null or empty then all types will be returned.
+Returns:
+Descriptor array containing all descriptors for the ModelMBean if type inDescriptorType.
+Throws:
+MBeanException
+- Wraps a distributed communication Exception.
+RuntimeOperationsException
+- Wraps an IllegalArgumentException when the descriptorType in parameter is
+ not one of: "mbean", "attribute", "operation", "constructor", "notification", empty or null.
+See Also:
+ModelMBeanInfo.setDescriptors(javax.management.Descriptor[])
+setDescriptors
+public
+void
+setDescriptors
+(
+Descriptor
+[] inDescriptors)
+throws
+MBeanException
+,
+RuntimeOperationsException
+Description copied from interface:
+ModelMBeanInfo
+Adds or replaces descriptors in the ModelMBeanInfo.
+Specified by:
+setDescriptors
+in interface
+ModelMBeanInfo
+Parameters:
+inDescriptors
+- The descriptors to be set in the ModelMBeanInfo. Null
+ elements of the list will be ignored.  All descriptors must have name and descriptorType fields.
+Throws:
+MBeanException
+- Wraps a distributed communication Exception.
+RuntimeOperationsException
+- Wraps an IllegalArgumentException for a null or invalid descriptor.
+See Also:
+ModelMBeanInfo.getDescriptors(java.lang.String)
+getDescriptor
+public
+Descriptor
+getDescriptor
+(
+String
+inDescriptorName)
+throws
+MBeanException
+,
+RuntimeOperationsException
+Returns a Descriptor requested by name.
+Parameters:
+inDescriptorName
+- The name of the descriptor.
+Returns:
+Descriptor containing a descriptor for the ModelMBean with the
+         same name. If no descriptor is found, null is returned.
+Throws:
+MBeanException
+- Wraps a distributed communication Exception.
+RuntimeOperationsException
+- Wraps an IllegalArgumentException
+            for null name.
+See Also:
+setDescriptor(javax.management.Descriptor, java.lang.String)
+getDescriptor
+public
+Descriptor
+getDescriptor
+(
+String
+inDescriptorName,
+String
+inDescriptorType)
+throws
+MBeanException
+,
+RuntimeOperationsException
+Description copied from interface:
+ModelMBeanInfo
+Returns a Descriptor requested by name and descriptorType.
+Specified by:
+getDescriptor
+in interface
+ModelMBeanInfo
+Parameters:
+inDescriptorName
+- The name of the descriptor.
+inDescriptorType
+- The type of the descriptor being
+ requested.  If this is null or empty then all types are
+ searched. Valid types are 'mbean', 'attribute', 'constructor'
+ 'operation', and 'notification'. This value will be equal to
+ the 'descriptorType' field in the descriptor that is returned.
+Returns:
+Descriptor containing the descriptor for the ModelMBean
+ with the same name and descriptorType.  If no descriptor is
+ found, null is returned.
+Throws:
+MBeanException
+- Wraps a distributed communication Exception.
+RuntimeOperationsException
+- Wraps an IllegalArgumentException for a null descriptor name or null or invalid type.
+ The type must be "mbean","attribute", "constructor", "operation", or "notification".
+See Also:
+ModelMBeanInfo.setDescriptor(javax.management.Descriptor, java.lang.String)
+setDescriptor
+public
+void
+setDescriptor
+(
+Descriptor
+inDescriptor,
+String
+inDescriptorType)
+throws
+MBeanException
+,
+RuntimeOperationsException
+Description copied from interface:
+ModelMBeanInfo
+Sets descriptors in the info array of type inDescriptorType
+ for the ModelMBean.  The setDescriptor method of the
+ corresponding ModelMBean*Info will be called to set the
+ specified descriptor.
+Specified by:
+setDescriptor
+in interface
+ModelMBeanInfo
+Parameters:
+inDescriptor
+- The descriptor to be set in the
+ ModelMBean. It must NOT be null.  All descriptors must have
+ name and descriptorType fields.
+inDescriptorType
+- The type of the descriptor being
+ set. If this is null then the descriptorType field in the
+ descriptor is used. If specified this value must be set in
+ the descriptorType field in the descriptor. Must be
+ "mbean","attribute", "constructor", "operation", or
+ "notification".
+Throws:
+MBeanException
+- Wraps a distributed communication
+ Exception.
+RuntimeOperationsException
+- Wraps an
+ IllegalArgumentException for illegal or null arguments or
+ if the name field of the descriptor is not found in the
+ corresponding MBeanAttributeInfo or MBeanConstructorInfo or
+ MBeanNotificationInfo or MBeanOperationInfo.
+See Also:
+ModelMBeanInfo.getDescriptor(java.lang.String, java.lang.String)
+getAttribute
+public
+ModelMBeanAttributeInfo
+getAttribute
+(
+String
+inName)
+throws
+MBeanException
+,
+RuntimeOperationsException
+Description copied from interface:
+ModelMBeanInfo
+Returns a ModelMBeanAttributeInfo requested by name.
+Specified by:
+getAttribute
+in interface
+ModelMBeanInfo
+Parameters:
+inName
+- The name of the ModelMBeanAttributeInfo to get.
+ If no ModelMBeanAttributeInfo exists for this name null is returned.
+Returns:
+the attribute info for the named attribute, or null
+ if there is none.
+Throws:
+MBeanException
+- Wraps a distributed communication
+ Exception.
+RuntimeOperationsException
+- Wraps an
+ IllegalArgumentException for a null attribute name.
+getOperation
+public
+ModelMBeanOperationInfo
+getOperation
+(
+String
+inName)
+throws
+MBeanException
+,
+RuntimeOperationsException
+Description copied from interface:
+ModelMBeanInfo
+Returns a ModelMBeanOperationInfo requested by name.
+Specified by:
+getOperation
+in interface
+ModelMBeanInfo
+Parameters:
+inName
+- The name of the ModelMBeanOperationInfo to get.
+ If no ModelMBeanOperationInfo exists for this name null is returned.
+Returns:
+the operation info for the named operation, or null
+ if there is none.
+Throws:
+MBeanException
+- Wraps a distributed communication Exception.
+RuntimeOperationsException
+- Wraps an IllegalArgumentException for a null operation name.
+getConstructor
+public
+ModelMBeanConstructorInfo
+getConstructor
+(
+String
+inName)
+throws
+MBeanException
+,
+RuntimeOperationsException
+Returns the ModelMBeanConstructorInfo requested by name.
+ If no ModelMBeanConstructorInfo exists for this name null is returned.
+Parameters:
+inName
+- the name of the constructor.
+Returns:
+the constructor info for the named constructor, or null
+ if there is none.
+Throws:
+MBeanException
+- Wraps a distributed communication Exception.
+RuntimeOperationsException
+- Wraps an IllegalArgumentException
+            for a null constructor name.
+getNotification
+public
+ModelMBeanNotificationInfo
+getNotification
+(
+String
+inName)
+throws
+MBeanException
+,
+RuntimeOperationsException
+Description copied from interface:
+ModelMBeanInfo
+Returns a ModelMBeanNotificationInfo requested by name.
+Specified by:
+getNotification
+in interface
+ModelMBeanInfo
+Parameters:
+inName
+- The name of the ModelMBeanNotificationInfo to get.
+ If no ModelMBeanNotificationInfo exists for this name null is returned.
+Returns:
+the info for the named notification, or null if there
+ is none.
+Throws:
+MBeanException
+- Wraps a distributed communication Exception.
+RuntimeOperationsException
+- Wraps an IllegalArgumentException for a null notification name.
+getDescriptor
+public
+Descriptor
+getDescriptor
+()
+Description copied from class:
+MBeanInfo
+Get the descriptor of this MBeanInfo.  Changing the returned value
+ will have no affect on the original descriptor.
+Specified by:
+getDescriptor
+in interface
+DescriptorRead
+Overrides:
+getDescriptor
+in class
+MBeanInfo
+Returns:
+a descriptor that is either immutable or a copy of the original.
+Since:
+1.6
+getMBeanDescriptor
+public
+Descriptor
+getMBeanDescriptor
+()
+                              throws
+MBeanException
+Description copied from interface:
+ModelMBeanInfo
+Returns the ModelMBean's descriptor which contains MBean wide
+ policies.  This descriptor contains metadata about the MBean and default
+ policies for persistence and caching.
+The fields in the descriptor are defined, but not limited to, the
+ following.  Note that when the Type in this table is Number, a String
+ that is the decimal representation of a Long can also be used.
+ModelMBean Fields
+Name
+Type
+Meaning
+name
+String
+MBean name.
+descriptorType
+String
+Must be "mbean".
+displayName
+String
+Name of MBean to be used in displays.
+persistPolicy
+String
+One of: OnUpdate|OnTimer|NoMoreOftenThan|OnUnregister|Always|Never.
+         See the section "MBean Descriptor Fields" in the JMX specification
+         document.
+persistLocation
+String
+The fully qualified directory name where the MBean should be
+         persisted (if appropriate).
+persistFile
+String
+File name into which the MBean should be persisted.
+persistPeriod
+Number
+Frequency of persist cycle in seconds, for OnTime and
+         NoMoreOftenThan PersistPolicy
+currencyTimeLimit
+Number
+How long cached value is valid: <0 never, =0 always,
+         >0 seconds.
+log
+String
+t: log all notifications, f: log no notifications.
+logfile
+String
+Fully qualified filename to log events to.
+visibility
+Number
+1-4 where 1: always visible 4: rarely visible.
+export
+String
+Name to be used to export/expose this MBean so that it is
+         findable by other JMX Agents.
+presentationString
+String
+XML formatted string to allow presentation of data to be
+         associated with the MBean.
+The default descriptor is: name=className,descriptorType="mbean", displayName=className,
+  persistPolicy="never",log="F",visibility="1"
+ If the descriptor does not contain all these fields, they will be added with these default values.
+Note:
+because of inconsistencies in previous versions of
+ this specification, it is recommended not to use negative or zero
+ values for
+currencyTimeLimit
+.  To indicate that a
+ cached value is never valid, omit the
+currencyTimeLimit
+field.  To indicate that it is
+ always valid, use a very large number for this field.
+Specified by:
+getMBeanDescriptor
+in interface
+ModelMBeanInfo
+Returns:
+the MBean descriptor.
+Throws:
+MBeanException
+- Wraps a distributed communication
+ Exception.
+See Also:
+ModelMBeanInfo.setMBeanDescriptor(javax.management.Descriptor)
+setMBeanDescriptor
+public
+void
+setMBeanDescriptor
+(
+Descriptor
+inMBeanDescriptor)
+throws
+MBeanException
+,
+RuntimeOperationsException
+Description copied from interface:
+ModelMBeanInfo
+Sets the ModelMBean's descriptor.  This descriptor contains default, MBean wide
+ metadata about the MBean and default policies for persistence and caching. This operation
+ does a complete replacement of the descriptor, no merging is done. If the descriptor to
+ set to is null then the default descriptor will be created.
+ The default descriptor is: name=className,descriptorType="mbean", displayName=className,
+  persistPolicy="never",log="F",visibility="1"
+ If the descriptor does not contain all these fields, they will be added with these default values.
+
+ See
+getMBeanDescriptor
+method javadoc for description of valid field names.
+Specified by:
+setMBeanDescriptor
+in interface
+ModelMBeanInfo
+Parameters:
+inMBeanDescriptor
+- the descriptor to set.
+Throws:
+MBeanException
+- Wraps a distributed communication Exception.
+RuntimeOperationsException
+- Wraps an IllegalArgumentException  for invalid descriptor.
+See Also:
+ModelMBeanInfo.getMBeanDescriptor()
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

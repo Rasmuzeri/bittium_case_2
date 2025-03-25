@@ -1,0 +1,249 @@
+InetAddressResolverProvider (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.net.spi
+Class InetAddressResolverProvider
+java.lang.Object
+java.net.spi.InetAddressResolverProvider
+public abstract class
+InetAddressResolverProvider
+extends
+Object
+Service-provider class for
+InetAddress resolvers
+.
+A resolver provider is a factory for custom implementations of
+InetAddress resolvers
+. A resolver defines operations for
+ looking up (resolving) host names and IP addresses.
+A resolver provider is a concrete subclass of this class that has a
+ zero-argument constructor and implements the abstract methods specified below.
+A given invocation of the Java virtual machine maintains a single
+ system-wide resolver instance, which is used by
+InetAddress
+. It is set after the VM is fully initialized and when an
+ invocation of a method in
+InetAddress
+class triggers the first lookup
+ operation.
+A resolver provider is located and loaded by
+InetAddress
+to create the system-wide resolver as follows:
+The
+ServiceLoader
+mechanism is used to locate an
+InetAddressResolverProvider
+using the
+      system class loader. The order in which providers are located is
+implementation specific
+.
+      The first provider found will be used to instantiate the
+InetAddressResolver
+by invoking the
+get(InetAddressResolverProvider.Configuration)
+method. The returned
+InetAddressResolver
+will be set as the
+      system-wide resolver.
+If the previous step fails to find any resolver provider the
+built-in resolver
+will be set as the system-wide resolver.
+If instantiating a custom resolver from a provider discovered in
+ step 1 throws an error or exception, the system-wide resolver will not be
+ set and the error or exception will be propagated to the caller of the method
+ that triggered the lookup operation.
+ Otherwise, any lookup operation will be performed using the
+system-wide resolver
+.
+Implementation Note:
+InetAddress
+will use the
+built-in resolver
+for any lookup operation
+ that might occur before the VM is fully booted.
+Since:
+18
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+static interface
+InetAddressResolverProvider.Configuration
+A
+Configuration
+object is supplied to the
+get(Configuration)
+method when
+ setting the system-wide resolver.
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+InetAddressResolverProvider
+()
+Creates a new instance of
+InetAddressResolverProvider
+.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+abstract
+InetAddressResolver
+get
+(
+InetAddressResolverProvider.Configuration
+configuration)
+Initialize and return an
+InetAddressResolver
+provided by
+ this provider.
+abstract
+String
+name
+()
+Returns the name of this provider, or
+null
+if unnamed.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+InetAddressResolverProvider
+protected
+InetAddressResolverProvider
+()
+Creates a new instance of
+InetAddressResolverProvider
+.
+Implementation Note:
+It is recommended that an
+InetAddressResolverProvider
+service
+ implementation initialization should be as simple as possible, in order to avoid
+ possible risks of deadlock or class loading cycles during the instantiation of the
+ service provider.
+Throws:
+SecurityException
+- if a security manager is present and its
+checkPermission
+method doesn't allow the
+RuntimePermission("inetAddressResolverProvider")
+.
+Method Details
+get
+public abstract
+InetAddressResolver
+get
+(
+InetAddressResolverProvider.Configuration
+configuration)
+Initialize and return an
+InetAddressResolver
+provided by
+ this provider. This method is called by
+InetAddress
+when
+installing
+the system-wide resolver implementation.
+Any error or exception thrown by this method is considered as
+ a failure of
+InetAddressResolver
+instantiation and will be propagated to
+ the caller of the method that triggered the lookup operation.
+Parameters:
+configuration
+- a
+InetAddressResolverProvider.Configuration
+instance containing platform built-in address
+                     resolution configuration.
+Returns:
+the resolver provided by this provider
+name
+public abstract
+String
+name
+()
+Returns the name of this provider, or
+null
+if unnamed.
+Returns:
+the name of this provider, or
+null
+if unnamed
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

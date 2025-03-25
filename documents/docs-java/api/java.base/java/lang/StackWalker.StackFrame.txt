@@ -1,0 +1,340 @@
+StackWalker.StackFrame (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang
+Interface StackWalker.StackFrame
+Enclosing class:
+StackWalker
+public static interface
+StackWalker.StackFrame
+A
+StackFrame
+object represents a method invocation returned by
+StackWalker
+.
+The
+getDeclaringClass()
+method may be unsupported as determined
+ by the
+stack walking options
+of a
+stack walker
+.
+See
+Java Virtual Machine Specification
+:
+2.6
+Since:
+9
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+int
+getByteCodeIndex
+()
+Returns the index to the code array of the
+Code
+attribute
+ containing the execution point represented by this stack frame.
+String
+getClassName
+()
+Gets the
+binary name
+of the declaring class of the method represented by this stack frame.
+Class
+<?>
+getDeclaringClass
+()
+Gets the declaring
+Class
+for the method represented by
+ this stack frame.
+default
+String
+getDescriptor
+()
+Returns the
+descriptor
+of the method represented by
+ this stack frame as defined by
+The Java Virtual Machine Specification
+.
+String
+getFileName
+()
+Returns the name of the source file containing the execution point
+ represented by this stack frame.
+int
+getLineNumber
+()
+Returns the line number of the source line containing the execution
+ point represented by this stack frame.
+String
+getMethodName
+()
+Gets the name of the method represented by this stack frame.
+default
+MethodType
+getMethodType
+()
+Returns the
+MethodType
+representing the parameter types and
+ the return type for the method represented by this stack frame.
+boolean
+isNativeMethod
+()
+Returns
+true
+if the method containing the execution point
+ represented by this stack frame is a native method.
+StackTraceElement
+toStackTraceElement
+()
+Gets a
+StackTraceElement
+for this stack frame.
+Method Details
+getClassName
+String
+getClassName
+()
+Gets the
+binary name
+of the declaring class of the method represented by this stack frame.
+Returns:
+the binary name of the declaring class of the method
+         represented by this stack frame
+See
+Java Language Specification
+:
+13.1 The Form of a Binary
+getMethodName
+String
+getMethodName
+()
+Gets the name of the method represented by this stack frame.
+Returns:
+the name of the method represented by this stack frame
+getDeclaringClass
+Class
+<?>
+getDeclaringClass
+()
+Gets the declaring
+Class
+for the method represented by
+ this stack frame.
+Returns:
+the declaring
+Class
+of the method represented by
+ this stack frame
+Throws:
+UnsupportedOperationException
+- if this
+StackWalker
+is not configured with
+Option.RETAIN_CLASS_REFERENCE
+.
+getMethodType
+default
+MethodType
+getMethodType
+()
+Returns the
+MethodType
+representing the parameter types and
+ the return type for the method represented by this stack frame.
+Implementation Requirements:
+The default implementation throws
+UnsupportedOperationException
+.
+Returns:
+the
+MethodType
+for this stack frame
+Throws:
+UnsupportedOperationException
+- if this
+StackWalker
+is not configured with
+Option.RETAIN_CLASS_REFERENCE
+.
+Since:
+10
+getDescriptor
+default
+String
+getDescriptor
+()
+Returns the
+descriptor
+of the method represented by
+ this stack frame as defined by
+The Java Virtual Machine Specification
+.
+Implementation Requirements:
+The default implementation throws
+UnsupportedOperationException
+.
+Returns:
+the descriptor of the method represented by
+         this stack frame
+See
+Java Virtual Machine Specification
+:
+4.3.3 Method Descriptor
+Since:
+10
+See Also:
+MethodType.fromMethodDescriptorString(String, ClassLoader)
+MethodType.toMethodDescriptorString()
+getByteCodeIndex
+int
+getByteCodeIndex
+()
+Returns the index to the code array of the
+Code
+attribute
+ containing the execution point represented by this stack frame.
+ The code array gives the actual bytes of Java Virtual Machine code
+ that implement the method.
+Returns:
+the index to the code array of the
+Code
+attribute
+         containing the execution point represented by this stack frame,
+         or a negative number if the method is native.
+See
+Java Virtual Machine Specification
+:
+4.7.3 The
+Code
+Attribute
+getFileName
+String
+getFileName
+()
+Returns the name of the source file containing the execution point
+ represented by this stack frame.  Generally, this corresponds
+ to the
+SourceFile
+attribute of the relevant
+class
+file as defined by
+The Java Virtual Machine Specification
+.
+ In some systems, the name may refer to some source code unit
+ other than a file, such as an entry in a source repository.
+Returns:
+the name of the file containing the execution point
+         represented by this stack frame, or
+null
+if
+         this information is unavailable.
+See
+Java Virtual Machine Specification
+:
+4.7.10 The
+SourceFile
+Attribute
+getLineNumber
+int
+getLineNumber
+()
+Returns the line number of the source line containing the execution
+ point represented by this stack frame.  Generally, this is
+ derived from the
+LineNumberTable
+attribute of the relevant
+class
+file as defined by
+The Java Virtual Machine
+ Specification
+.
+Returns:
+the line number of the source line containing the execution
+         point represented by this stack frame, or a negative number if
+         this information is unavailable.
+See
+Java Virtual Machine Specification
+:
+4.7.12 The
+LineNumberTable
+Attribute
+isNativeMethod
+boolean
+isNativeMethod
+()
+Returns
+true
+if the method containing the execution point
+ represented by this stack frame is a native method.
+Returns:
+true
+if the method containing the execution point
+         represented by this stack frame is a native method.
+toStackTraceElement
+StackTraceElement
+toStackTraceElement
+()
+Gets a
+StackTraceElement
+for this stack frame.
+Returns:
+StackTraceElement
+for this stack frame.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

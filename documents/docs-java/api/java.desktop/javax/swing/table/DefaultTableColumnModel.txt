@@ -1,0 +1,1092 @@
+DefaultTableColumnModel (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.table
+Class DefaultTableColumnModel
+java.lang.Object
+javax.swing.table.DefaultTableColumnModel
+All Implemented Interfaces:
+PropertyChangeListener
+,
+Serializable
+,
+EventListener
+,
+ListSelectionListener
+,
+TableColumnModel
+public class
+DefaultTableColumnModel
+extends
+Object
+implements
+TableColumnModel
+,
+PropertyChangeListener
+,
+ListSelectionListener
+,
+Serializable
+The standard column-handler for a
+JTable
+.
+Warning:
+Serialized objects of this class will not be compatible with
+ future Swing releases. The current serialization support is
+ appropriate for short term storage or RMI between applications running
+ the same version of Swing.  As of 1.4, support for long term storage
+ of all JavaBeans
+ has been added to the
+java.beans
+package.
+ Please see
+XMLEncoder
+.
+See Also:
+JTable
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected
+ChangeEvent
+changeEvent
+Change event (only one needed)
+protected int
+columnMargin
+Width margin between each column
+protected boolean
+columnSelectionAllowed
+Column selection allowed in this column model
+protected
+EventListenerList
+listenerList
+List of TableColumnModelListener
+protected
+ListSelectionModel
+selectionModel
+Model for keeping track of column selections
+protected
+Vector
+<
+TableColumn
+>
+tableColumns
+Array of TableColumn objects in this model
+protected int
+totalColumnWidth
+A local cache of the combined width of all columns
+Constructor Summary
+Constructors
+Constructor
+Description
+DefaultTableColumnModel
+()
+Creates a default table column model.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+addColumn
+(
+TableColumn
+aColumn)
+Appends
+aColumn
+to the end of the
+tableColumns
+array.
+void
+addColumnModelListener
+(
+TableColumnModelListener
+x)
+Adds a listener for table column model events.
+protected
+ListSelectionModel
+createSelectionModel
+()
+Creates a new default list selection model.
+protected void
+fireColumnAdded
+(
+TableColumnModelEvent
+e)
+Notifies all listeners that have registered interest for
+ notification on this event type.
+protected void
+fireColumnMarginChanged
+()
+Notifies all listeners that have registered interest for
+ notification on this event type.
+protected void
+fireColumnMoved
+(
+TableColumnModelEvent
+e)
+Notifies all listeners that have registered interest for
+ notification on this event type.
+protected void
+fireColumnRemoved
+(
+TableColumnModelEvent
+e)
+Notifies all listeners that have registered interest for
+ notification on this event type.
+protected void
+fireColumnSelectionChanged
+(
+ListSelectionEvent
+e)
+Notifies all listeners that have registered interest for
+ notification on this event type.
+TableColumn
+getColumn
+(int columnIndex)
+Returns the
+TableColumn
+object for the column
+ at
+columnIndex
+.
+int
+getColumnCount
+()
+Returns the number of columns in the
+tableColumns
+array.
+int
+getColumnIndex
+(
+Object
+identifier)
+Returns the index of the first column in the
+tableColumns
+array whose identifier is equal to
+identifier
+,
+ when compared using
+equals
+.
+int
+getColumnIndexAtX
+(int x)
+Returns the index of the column that lies at position
+x
+,
+ or -1 if no column covers this point.
+int
+getColumnMargin
+()
+Returns the width margin for
+TableColumn
+.
+TableColumnModelListener
+[]
+getColumnModelListeners
+()
+Returns an array of all the column model listeners
+ registered on this model.
+Enumeration
+<
+TableColumn
+>
+getColumns
+()
+Returns an
+Enumeration
+of all the columns in the model.
+boolean
+getColumnSelectionAllowed
+()
+Returns true if column selection is allowed, otherwise false.
+<T extends
+EventListener
+>
+T[]
+getListeners
+(
+Class
+<T> listenerType)
+Returns an array of all the objects currently registered
+ as
+Foo
+Listener
+s
+ upon this model.
+int
+getSelectedColumnCount
+()
+Returns the number of columns selected.
+int[]
+getSelectedColumns
+()
+Returns an array of selected columns.
+ListSelectionModel
+getSelectionModel
+()
+Returns the
+ListSelectionModel
+that is used to
+ maintain column selection state.
+int
+getTotalColumnWidth
+()
+Returns the total combined width of all columns.
+void
+moveColumn
+(int columnIndex,
+ int newIndex)
+Moves the column and heading at
+columnIndex
+to
+newIndex
+.
+void
+propertyChange
+(
+PropertyChangeEvent
+evt)
+Property Change Listener change method.
+protected void
+recalcWidthCache
+()
+Recalculates the total combined width of all columns.
+void
+removeColumn
+(
+TableColumn
+column)
+Deletes the
+column
+from the
+tableColumns
+array.
+void
+removeColumnModelListener
+(
+TableColumnModelListener
+x)
+Removes a listener for table column model events.
+void
+setColumnMargin
+(int newMargin)
+Sets the column margin to
+newMargin
+.
+void
+setColumnSelectionAllowed
+(boolean flag)
+Sets whether column selection is allowed.
+void
+setSelectionModel
+(
+ListSelectionModel
+newModel)
+Sets the selection model for this
+TableColumnModel
+to
+newModel
+and registers for listener notifications from the new selection
+  model.
+void
+valueChanged
+(
+ListSelectionEvent
+e)
+A
+ListSelectionListener
+that forwards
+ListSelectionEvents
+when there is a column
+ selection change.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+tableColumns
+protected
+Vector
+<
+TableColumn
+>
+tableColumns
+Array of TableColumn objects in this model
+selectionModel
+protected
+ListSelectionModel
+selectionModel
+Model for keeping track of column selections
+columnMargin
+protected
+int
+columnMargin
+Width margin between each column
+listenerList
+protected
+EventListenerList
+listenerList
+List of TableColumnModelListener
+changeEvent
+protected transient
+ChangeEvent
+changeEvent
+Change event (only one needed)
+columnSelectionAllowed
+protected
+boolean
+columnSelectionAllowed
+Column selection allowed in this column model
+totalColumnWidth
+protected
+int
+totalColumnWidth
+A local cache of the combined width of all columns
+Constructor Details
+DefaultTableColumnModel
+public
+DefaultTableColumnModel
+()
+Creates a default table column model.
+Method Details
+addColumn
+public
+void
+addColumn
+(
+TableColumn
+aColumn)
+Appends
+aColumn
+to the end of the
+tableColumns
+array.
+  This method also posts the
+columnAdded
+event to its listeners.
+Specified by:
+addColumn
+in interface
+TableColumnModel
+Parameters:
+aColumn
+- the
+TableColumn
+to be added
+Throws:
+IllegalArgumentException
+- if
+aColumn
+is
+null
+See Also:
+removeColumn(javax.swing.table.TableColumn)
+removeColumn
+public
+void
+removeColumn
+(
+TableColumn
+column)
+Deletes the
+column
+from the
+tableColumns
+array.  This method will do nothing if
+column
+is not in the table's columns list.
+tile
+is called
+  to resize both the header and table views.
+  This method also posts a
+columnRemoved
+event to its listeners.
+Specified by:
+removeColumn
+in interface
+TableColumnModel
+Parameters:
+column
+- the
+TableColumn
+to be removed
+See Also:
+addColumn(javax.swing.table.TableColumn)
+moveColumn
+public
+void
+moveColumn
+(int columnIndex,
+ int newIndex)
+Moves the column and heading at
+columnIndex
+to
+newIndex
+.  The old column at
+columnIndex
+will now be found at
+newIndex
+.  The column
+ that used to be at
+newIndex
+is shifted
+ left or right to make room.  This will not move any columns if
+columnIndex
+equals
+newIndex
+.  This method
+ also posts a
+columnMoved
+event to its listeners.
+Specified by:
+moveColumn
+in interface
+TableColumnModel
+Parameters:
+columnIndex
+- the index of column to be moved
+newIndex
+- new index to move the column
+Throws:
+IllegalArgumentException
+- if
+column
+or
+newIndex
+are not in the valid range
+setColumnMargin
+public
+void
+setColumnMargin
+(int newMargin)
+Sets the column margin to
+newMargin
+.  This method
+ also posts a
+columnMarginChanged
+event to its
+ listeners.
+Specified by:
+setColumnMargin
+in interface
+TableColumnModel
+Parameters:
+newMargin
+- the new margin width, in pixels
+See Also:
+getColumnMargin()
+getTotalColumnWidth()
+getColumnCount
+public
+int
+getColumnCount
+()
+Returns the number of columns in the
+tableColumns
+array.
+Specified by:
+getColumnCount
+in interface
+TableColumnModel
+Returns:
+the number of columns in the
+tableColumns
+array
+See Also:
+getColumns()
+getColumns
+public
+Enumeration
+<
+TableColumn
+>
+getColumns
+()
+Returns an
+Enumeration
+of all the columns in the model.
+Specified by:
+getColumns
+in interface
+TableColumnModel
+Returns:
+an
+Enumeration
+of the columns in the model
+getColumnIndex
+public
+int
+getColumnIndex
+(
+Object
+identifier)
+Returns the index of the first column in the
+tableColumns
+array whose identifier is equal to
+identifier
+,
+ when compared using
+equals
+.
+Specified by:
+getColumnIndex
+in interface
+TableColumnModel
+Parameters:
+identifier
+- the identifier object
+Returns:
+the index of the first column in the
+tableColumns
+array whose identifier
+                  is equal to
+identifier
+Throws:
+IllegalArgumentException
+- if
+identifier
+is
+null
+, or if no
+TableColumn
+has this
+identifier
+See Also:
+getColumn(int)
+getColumn
+public
+TableColumn
+getColumn
+(int columnIndex)
+Returns the
+TableColumn
+object for the column
+ at
+columnIndex
+.
+Specified by:
+getColumn
+in interface
+TableColumnModel
+Parameters:
+columnIndex
+- the index of the column desired
+Returns:
+the
+TableColumn
+object for the column
+                          at
+columnIndex
+Throws:
+ArrayIndexOutOfBoundsException
+- if
+columnIndex
+is out of range:
+             (
+columnIndex < 0 || columnIndex >= getColumnCount()
+)
+getColumnMargin
+public
+int
+getColumnMargin
+()
+Returns the width margin for
+TableColumn
+.
+ The default
+columnMargin
+is 1.
+Specified by:
+getColumnMargin
+in interface
+TableColumnModel
+Returns:
+the maximum width for the
+TableColumn
+See Also:
+setColumnMargin(int)
+getColumnIndexAtX
+public
+int
+getColumnIndexAtX
+(int x)
+Returns the index of the column that lies at position
+x
+,
+ or -1 if no column covers this point.
+
+ In keeping with Swing's separable model architecture, a
+ TableColumnModel does not know how the table columns actually appear on
+ screen.  The visual presentation of the columns is the responsibility
+ of the view/controller object using this model (typically JTable).  The
+ view/controller need not display the columns sequentially from left to
+ right.  For example, columns could be displayed from right to left to
+ accommodate a locale preference or some columns might be hidden at the
+ request of the user.  Because the model does not know how the columns
+ are laid out on screen, the given
+xPosition
+should not be
+ considered to be a coordinate in 2D graphics space.  Instead, it should
+ be considered to be a width from the start of the first column in the
+ model.  If the column index for a given X coordinate in 2D space is
+ required,
+JTable.columnAtPoint
+can be used instead.
+Specified by:
+getColumnIndexAtX
+in interface
+TableColumnModel
+Parameters:
+x
+- the horizontal location of interest
+Returns:
+the index of the column or -1 if no column is found
+See Also:
+JTable.columnAtPoint(java.awt.Point)
+getTotalColumnWidth
+public
+int
+getTotalColumnWidth
+()
+Returns the total combined width of all columns.
+Specified by:
+getTotalColumnWidth
+in interface
+TableColumnModel
+Returns:
+the
+totalColumnWidth
+property
+setSelectionModel
+public
+void
+setSelectionModel
+(
+ListSelectionModel
+newModel)
+Sets the selection model for this
+TableColumnModel
+to
+newModel
+and registers for listener notifications from the new selection
+  model.  If
+newModel
+is
+null
+,
+  an exception is thrown.
+Specified by:
+setSelectionModel
+in interface
+TableColumnModel
+Parameters:
+newModel
+- the new selection model
+Throws:
+IllegalArgumentException
+- if
+newModel
+is
+null
+See Also:
+getSelectionModel()
+getSelectionModel
+public
+ListSelectionModel
+getSelectionModel
+()
+Returns the
+ListSelectionModel
+that is used to
+ maintain column selection state.
+Specified by:
+getSelectionModel
+in interface
+TableColumnModel
+Returns:
+the object that provides column selection state.  Or
+null
+if row selection is not allowed.
+See Also:
+setSelectionModel(javax.swing.ListSelectionModel)
+setColumnSelectionAllowed
+public
+void
+setColumnSelectionAllowed
+(boolean flag)
+Sets whether column selection is allowed.  The default is false.
+Specified by:
+setColumnSelectionAllowed
+in interface
+TableColumnModel
+Parameters:
+flag
+- true if column selection will be allowed, false otherwise
+See Also:
+TableColumnModel.getColumnSelectionAllowed()
+getColumnSelectionAllowed
+public
+boolean
+getColumnSelectionAllowed
+()
+Returns true if column selection is allowed, otherwise false.
+ The default is false.
+Specified by:
+getColumnSelectionAllowed
+in interface
+TableColumnModel
+Returns:
+the
+columnSelectionAllowed
+property
+See Also:
+TableColumnModel.setColumnSelectionAllowed(boolean)
+getSelectedColumns
+public
+int[]
+getSelectedColumns
+()
+Returns an array of selected columns.  If
+selectionModel
+is
+null
+, returns an empty array.
+Specified by:
+getSelectedColumns
+in interface
+TableColumnModel
+Returns:
+an array of selected columns or an empty array if nothing
+                  is selected or the
+selectionModel
+is
+null
+getSelectedColumnCount
+public
+int
+getSelectedColumnCount
+()
+Returns the number of columns selected.
+Specified by:
+getSelectedColumnCount
+in interface
+TableColumnModel
+Returns:
+the number of columns selected
+addColumnModelListener
+public
+void
+addColumnModelListener
+(
+TableColumnModelListener
+x)
+Adds a listener for table column model events.
+Specified by:
+addColumnModelListener
+in interface
+TableColumnModel
+Parameters:
+x
+- a
+TableColumnModelListener
+object
+removeColumnModelListener
+public
+void
+removeColumnModelListener
+(
+TableColumnModelListener
+x)
+Removes a listener for table column model events.
+Specified by:
+removeColumnModelListener
+in interface
+TableColumnModel
+Parameters:
+x
+- a
+TableColumnModelListener
+object
+getColumnModelListeners
+public
+TableColumnModelListener
+[]
+getColumnModelListeners
+()
+Returns an array of all the column model listeners
+ registered on this model.
+Returns:
+all of this default table column model's
+ColumnModelListener
+s
+         or an empty
+         array if no column model listeners are currently registered
+Since:
+1.4
+See Also:
+addColumnModelListener(javax.swing.event.TableColumnModelListener)
+removeColumnModelListener(javax.swing.event.TableColumnModelListener)
+fireColumnAdded
+protected
+void
+fireColumnAdded
+(
+TableColumnModelEvent
+e)
+Notifies all listeners that have registered interest for
+ notification on this event type.  The event instance
+ is lazily created using the parameters passed into
+ the fire method.
+Parameters:
+e
+- the event received
+See Also:
+EventListenerList
+fireColumnRemoved
+protected
+void
+fireColumnRemoved
+(
+TableColumnModelEvent
+e)
+Notifies all listeners that have registered interest for
+ notification on this event type.  The event instance
+ is lazily created using the parameters passed into
+ the fire method.
+Parameters:
+e
+- the event received
+See Also:
+EventListenerList
+fireColumnMoved
+protected
+void
+fireColumnMoved
+(
+TableColumnModelEvent
+e)
+Notifies all listeners that have registered interest for
+ notification on this event type.  The event instance
+ is lazily created using the parameters passed into
+ the fire method.
+Parameters:
+e
+- the event received
+See Also:
+EventListenerList
+fireColumnSelectionChanged
+protected
+void
+fireColumnSelectionChanged
+(
+ListSelectionEvent
+e)
+Notifies all listeners that have registered interest for
+ notification on this event type.  The event instance
+ is lazily created using the parameters passed into
+ the fire method.
+Parameters:
+e
+- the event received
+See Also:
+EventListenerList
+fireColumnMarginChanged
+protected
+void
+fireColumnMarginChanged
+()
+Notifies all listeners that have registered interest for
+ notification on this event type.  The event instance
+ is lazily created using the parameters passed into
+ the fire method.
+See Also:
+EventListenerList
+getListeners
+public
+<T extends
+EventListener
+>
+T[]
+getListeners
+(
+Class
+<T> listenerType)
+Returns an array of all the objects currently registered
+ as
+Foo
+Listener
+s
+ upon this model.
+Foo
+Listener
+s are registered using the
+add
+Foo
+Listener
+method.
+You can specify the
+listenerType
+argument
+ with a class literal,
+ such as
+Foo
+Listener.class
+.
+ For example, you can query a
+DefaultTableColumnModel
+m
+for its column model listeners with the following code:
+ColumnModelListener[] cmls = (ColumnModelListener[])(m.getListeners(ColumnModelListener.class));
+If no such listeners exist, this method returns an empty array.
+Type Parameters:
+T
+- the listener type
+Parameters:
+listenerType
+- the type of listeners requested
+Returns:
+an array of all objects registered as
+Foo
+Listener
+s on this model,
+          or an empty array if no such
+          listeners have been added
+Throws:
+ClassCastException
+- if
+listenerType
+doesn't specify a class or interface that implements
+java.util.EventListener
+Since:
+1.3
+See Also:
+getColumnModelListeners()
+propertyChange
+public
+void
+propertyChange
+(
+PropertyChangeEvent
+evt)
+Property Change Listener change method.  Used to track changes
+ to the column width or preferred column width.
+Specified by:
+propertyChange
+in interface
+PropertyChangeListener
+Parameters:
+evt
+-
+PropertyChangeEvent
+valueChanged
+public
+void
+valueChanged
+(
+ListSelectionEvent
+e)
+A
+ListSelectionListener
+that forwards
+ListSelectionEvents
+when there is a column
+ selection change.
+Specified by:
+valueChanged
+in interface
+ListSelectionListener
+Parameters:
+e
+- the change event
+createSelectionModel
+protected
+ListSelectionModel
+createSelectionModel
+()
+Creates a new default list selection model.
+Returns:
+a newly created default list selection model.
+recalcWidthCache
+protected
+void
+recalcWidthCache
+()
+Recalculates the total combined width of all columns.  Updates the
+totalColumnWidth
+property.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

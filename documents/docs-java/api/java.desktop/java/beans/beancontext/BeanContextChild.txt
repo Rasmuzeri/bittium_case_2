@@ -1,0 +1,319 @@
+BeanContextChild (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.beans.beancontext
+Interface BeanContextChild
+All Known Subinterfaces:
+BeanContext
+,
+BeanContextServices
+All Known Implementing Classes:
+BeanContextChildSupport
+,
+BeanContextServicesSupport
+,
+BeanContextSupport
+public interface
+BeanContextChild
+JavaBeans wishing to be nested within, and obtain a reference to their
+ execution environment, or context, as defined by the BeanContext
+ sub-interface shall implement this interface.
+Conformant BeanContexts shall as a side effect of adding a BeanContextChild
+ object shall pass a reference to itself via the setBeanContext() method of
+ this interface.
+Note that a BeanContextChild may refuse a change in state by throwing
+ PropertyVetoedException in response.
+In order for persistence mechanisms to function properly on BeanContextChild
+ instances across a broad variety of scenarios, implementing classes of this
+ interface are required to define as transient, any or all fields, or
+ instance variables, that may contain, or represent, references to the
+ nesting BeanContext instance or other resources obtained
+ from the BeanContext via any unspecified mechanisms.
+Since:
+1.2
+See Also:
+BeanContext
+PropertyChangeEvent
+PropertyChangeListener
+PropertyVetoException
+VetoableChangeListener
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+void
+addPropertyChangeListener
+(
+String
+name,
+PropertyChangeListener
+pcl)
+Adds a
+PropertyChangeListener
+to this
+BeanContextChild
+in order to receive a
+PropertyChangeEvent
+whenever the specified property has changed.
+void
+addVetoableChangeListener
+(
+String
+name,
+VetoableChangeListener
+vcl)
+Adds a
+VetoableChangeListener
+to
+ this
+BeanContextChild
+to receive events whenever the specified property changes.
+BeanContext
+getBeanContext
+()
+Gets the
+BeanContext
+associated
+ with this
+BeanContextChild
+.
+void
+removePropertyChangeListener
+(
+String
+name,
+PropertyChangeListener
+pcl)
+Removes a
+PropertyChangeListener
+from this
+BeanContextChild
+so that it no longer
+ receives
+PropertyChangeEvents
+when the
+ specified property is changed.
+void
+removeVetoableChangeListener
+(
+String
+name,
+VetoableChangeListener
+vcl)
+Removes a
+VetoableChangeListener
+from this
+BeanContextChild
+so that it no longer receives
+ events when the specified property changes.
+void
+setBeanContext
+(
+BeanContext
+bc)
+Objects that implement this interface,
+ shall fire a java.beans.PropertyChangeEvent, with parameters:
+
+ propertyName "beanContext", oldValue (the previous nesting
+BeanContext
+instance, or
+null
+),
+ newValue (the current nesting
+BeanContext
+instance, or
+null
+).
+Method Details
+setBeanContext
+void
+setBeanContext
+(
+BeanContext
+bc)
+throws
+PropertyVetoException
+Objects that implement this interface,
+ shall fire a java.beans.PropertyChangeEvent, with parameters:
+
+ propertyName "beanContext", oldValue (the previous nesting
+BeanContext
+instance, or
+null
+),
+ newValue (the current nesting
+BeanContext
+instance, or
+null
+).
+A change in the value of the nesting BeanContext property of this
+ BeanContextChild may be vetoed by throwing the appropriate exception.
+Parameters:
+bc
+- The
+BeanContext
+with which
+ to associate this
+BeanContextChild
+.
+Throws:
+PropertyVetoException
+- if the
+ addition of the specified
+BeanContext
+is refused.
+getBeanContext
+BeanContext
+getBeanContext
+()
+Gets the
+BeanContext
+associated
+ with this
+BeanContextChild
+.
+Returns:
+the
+BeanContext
+associated
+ with this
+BeanContextChild
+.
+addPropertyChangeListener
+void
+addPropertyChangeListener
+(
+String
+name,
+PropertyChangeListener
+pcl)
+Adds a
+PropertyChangeListener
+to this
+BeanContextChild
+in order to receive a
+PropertyChangeEvent
+whenever the specified property has changed.
+Parameters:
+name
+- the name of the property to listen on
+pcl
+- the
+PropertyChangeListener
+to add
+removePropertyChangeListener
+void
+removePropertyChangeListener
+(
+String
+name,
+PropertyChangeListener
+pcl)
+Removes a
+PropertyChangeListener
+from this
+BeanContextChild
+so that it no longer
+ receives
+PropertyChangeEvents
+when the
+ specified property is changed.
+Parameters:
+name
+- the name of the property that was listened on
+pcl
+- the
+PropertyChangeListener
+to remove
+addVetoableChangeListener
+void
+addVetoableChangeListener
+(
+String
+name,
+VetoableChangeListener
+vcl)
+Adds a
+VetoableChangeListener
+to
+ this
+BeanContextChild
+to receive events whenever the specified property changes.
+Parameters:
+name
+- the name of the property to listen on
+vcl
+- the
+VetoableChangeListener
+to add
+removeVetoableChangeListener
+void
+removeVetoableChangeListener
+(
+String
+name,
+VetoableChangeListener
+vcl)
+Removes a
+VetoableChangeListener
+from this
+BeanContextChild
+so that it no longer receives
+ events when the specified property changes.
+Parameters:
+name
+- the name of the property that was listened on.
+vcl
+- the
+VetoableChangeListener
+to remove.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,1594 @@
+VirtualMachine (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+jdk.jdi
+Package
+com.sun.jdi
+Interface VirtualMachine
+All Superinterfaces:
+Mirror
+All Known Subinterfaces:
+PathSearchingVirtualMachine
+public interface
+VirtualMachine
+extends
+Mirror
+A virtual machine targeted for debugging.
+ More precisely, a
+mirror
+representing the
+ composite state of the target VM.
+ All other mirrors are associated with an instance of this
+ interface.  Access to all other mirrors is achieved
+ directly or indirectly through an instance of this
+ interface.
+ Access to global VM properties and control of VM execution
+ are supported directly by this interface.
+Instances of this interface are created by instances of
+Connector
+. For example,
+ an
+AttachingConnector
+attaches to a target VM and returns its virtual machine mirror.
+ A Connector will typically create a VirtualMachine by invoking
+ the VirtualMachineManager's
+VirtualMachineManager.createVirtualMachine(Connection)
+createVirtualMachine(Connection) method.
+Note that a target VM launched by a launching connector is not
+ guaranteed to be stable until after the
+VMStartEvent
+has been
+ received.
+Any method on
+VirtualMachine
+which
+ takes
+VirtualMachine
+as an parameter may throw
+VMDisconnectedException
+if the target VM is
+ disconnected and the
+VMDisconnectEvent
+has been or is
+ available to be read from the
+EventQueue
+.
+Any method on
+VirtualMachine
+which
+ takes
+VirtualMachine
+as an parameter may throw
+VMOutOfMemoryException
+if the target VM has run out of memory.
+Since:
+1.3
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final int
+TRACE_ALL
+All tracing is enabled.
+static final int
+TRACE_EVENTS
+Tracing enabled for internal event handling.
+static final int
+TRACE_NONE
+All tracing is disabled.
+static final int
+TRACE_OBJREFS
+Tracing enabled for internal management of object references.
+static final int
+TRACE_RECEIVES
+Tracing enabled for JDWP packets received from target VM.
+static final int
+TRACE_REFTYPES
+Tracing enabled for internal management of reference types.
+static final int
+TRACE_SENDS
+Tracing enabled for JDWP packets sent to target VM.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+List
+<
+ReferenceType
+>
+allClasses
+()
+Returns all
+loaded types
+in the target VM.
+default
+List
+<
+ModuleReference
+>
+allModules
+()
+Returns all modules.
+List
+<
+ThreadReference
+>
+allThreads
+()
+Returns a list of the live threads in the target VM.
+boolean
+canAddMethod
+()
+Deprecated.
+A JVM TI based JDWP back-end will never set this capability to true.
+boolean
+canBeModified
+()
+Determines if the target VM is a read-only VM.
+boolean
+canForceEarlyReturn
+()
+Determines if the target VM supports the forcing of a method to
+ return early.
+boolean
+canGetBytecodes
+()
+Determines if the target VM supports the retrieval
+ of a method's bytecodes.
+boolean
+canGetClassFileVersion
+()
+Determines if the target VM supports reading class file
+ major and minor versions.
+boolean
+canGetConstantPool
+()
+Determines if the target VM supports getting constant pool
+ information of a class.
+boolean
+canGetCurrentContendedMonitor
+()
+Determines if the target VM supports the retrieval
+ of the monitor for which a thread is currently waiting.
+boolean
+canGetInstanceInfo
+()
+Determines if the target VM supports the accessing of class instances,
+ instance counts, and referring objects.
+boolean
+canGetMethodReturnValues
+()
+Determines if the target VM supports the inclusion of return values
+ in
+MethodExitEvent
+s.
+default boolean
+canGetModuleInfo
+()
+Determines if the target VM supports getting information about modules.
+boolean
+canGetMonitorFrameInfo
+()
+Determines if the target VM supports getting which
+ frame has acquired a monitor.
+boolean
+canGetMonitorInfo
+()
+Determines if the target VM supports the retrieval
+ of the monitor information for an object.
+boolean
+canGetOwnedMonitorInfo
+()
+Determines if the target VM supports the retrieval
+ of the monitors owned by a thread.
+boolean
+canGetSourceDebugExtension
+()
+Determines if the target VM supports getting
+ the source debug extension.
+boolean
+canGetSyntheticAttribute
+()
+Determines if the target VM supports the query
+ of the synthetic attribute of a method or field.
+boolean
+canPopFrames
+()
+Determines if the target VM supports popping
+ frames of a threads stack.
+boolean
+canRedefineClasses
+()
+Determines if the target VM supports any level
+ of class redefinition.
+boolean
+canRequestMonitorEvents
+()
+Determines if the target VM supports the creation of
+MonitorContendedEnterRequest
+s.
+boolean
+canRequestVMDeathEvent
+()
+Determines if the target VM supports the creation of
+VMDeathRequest
+s.
+boolean
+canUnrestrictedlyRedefineClasses
+()
+Deprecated.
+A JVM TI based JDWP back-end will never set this capability to true.
+boolean
+canUseInstanceFilters
+()
+Determines if the target VM supports filtering
+ events by specific instance object.
+boolean
+canUseSourceNameFilters
+()
+Determines if the target VM supports the filtering of
+ class prepare events by source name.
+boolean
+canWatchFieldAccess
+()
+Determines if the target VM supports watchpoints
+ for field access.
+boolean
+canWatchFieldModification
+()
+Determines if the target VM supports watchpoints
+ for field modification.
+List
+<
+ReferenceType
+>
+classesByName
+(
+String
+className)
+Returns the loaded reference types that
+ match a given name.
+String
+description
+()
+Returns text information on the target VM and the
+ debugger support that mirrors it.
+void
+dispose
+()
+Invalidates this virtual machine mirror.
+EventQueue
+eventQueue
+()
+Returns the event queue for this virtual machine.
+EventRequestManager
+eventRequestManager
+()
+Returns the event request manager for this virtual machine.
+void
+exit
+(int exitCode)
+Causes the mirrored VM to terminate with the given error code.
+String
+getDefaultStratum
+()
+Return this VM's default stratum.
+long[]
+instanceCounts
+(
+List
+<? extends
+ReferenceType
+> refTypes)
+Returns the number of instances of each ReferenceType in the 'refTypes'
+ list.
+BooleanValue
+mirrorOf
+(boolean value)
+Creates a
+BooleanValue
+for the given value.
+ByteValue
+mirrorOf
+(byte value)
+Creates a
+ByteValue
+for the given value.
+CharValue
+mirrorOf
+(char value)
+Creates a
+CharValue
+for the given value.
+DoubleValue
+mirrorOf
+(double value)
+Creates a
+DoubleValue
+for the given value.
+FloatValue
+mirrorOf
+(float value)
+Creates a
+FloatValue
+for the given value.
+IntegerValue
+mirrorOf
+(int value)
+Creates an
+IntegerValue
+for the given value.
+LongValue
+mirrorOf
+(long value)
+Creates a
+LongValue
+for the given value.
+ShortValue
+mirrorOf
+(short value)
+Creates a
+ShortValue
+for the given value.
+StringReference
+mirrorOf
+(
+String
+value)
+Creates a string in this virtual machine.
+VoidValue
+mirrorOfVoid
+()
+Creates a
+VoidValue
+.
+String
+name
+()
+Returns the name of the target VM as reported by the
+ property
+java.vm.name
+.
+Process
+process
+()
+Returns the
+Process
+object for this
+ virtual machine if launched by a
+LaunchingConnector
+void
+redefineClasses
+(
+Map
+<? extends
+ReferenceType
+,
+byte[]> classToBytes)
+All classes given are redefined according to the
+ definitions supplied.
+void
+resume
+()
+Continues the execution of the application running in this
+ virtual machine.
+void
+setDebugTraceMode
+(int traceFlags)
+Traces the activities performed by the com.sun.jdi implementation.
+void
+setDefaultStratum
+(
+String
+stratum)
+Set this VM's default stratum (see
+Location
+for a
+ discussion of strata).
+void
+suspend
+()
+Suspends the execution of the application running in this
+ virtual machine.
+List
+<
+ThreadGroupReference
+>
+topLevelThreadGroups
+()
+Returns each thread group which does not have a parent.
+String
+version
+()
+Returns the version of the Java Runtime Environment in the target
+ VM as reported by the property
+java.version
+.
+Methods declared in interface com.sun.jdi.
+Mirror
+toString
+,
+virtualMachine
+Field Details
+TRACE_NONE
+static final
+int
+TRACE_NONE
+All tracing is disabled.
+See Also:
+Constant Field Values
+TRACE_SENDS
+static final
+int
+TRACE_SENDS
+Tracing enabled for JDWP packets sent to target VM.
+See Also:
+Constant Field Values
+TRACE_RECEIVES
+static final
+int
+TRACE_RECEIVES
+Tracing enabled for JDWP packets received from target VM.
+See Also:
+Constant Field Values
+TRACE_EVENTS
+static final
+int
+TRACE_EVENTS
+Tracing enabled for internal event handling.
+See Also:
+Constant Field Values
+TRACE_REFTYPES
+static final
+int
+TRACE_REFTYPES
+Tracing enabled for internal management of reference types.
+See Also:
+Constant Field Values
+TRACE_OBJREFS
+static final
+int
+TRACE_OBJREFS
+Tracing enabled for internal management of object references.
+See Also:
+Constant Field Values
+TRACE_ALL
+static final
+int
+TRACE_ALL
+All tracing is enabled.
+See Also:
+Constant Field Values
+Method Details
+allModules
+default
+List
+<
+ModuleReference
+>
+allModules
+()
+Returns all modules. For each module in the target
+ VM a
+ModuleReference
+will be placed in the returned list.
+Not all target virtual machines support this operation.
+ Use
+canGetModuleInfo()
+to determine if the operation is supported.
+Implementation Requirements:
+The default implementation throws
+UnsupportedOperationException
+.
+Returns:
+a list of
+ModuleReference
+objects, each mirroring
+ a module in the target VM.
+Throws:
+UnsupportedOperationException
+- if
+ the target virtual machine does not support this
+ operation.
+Since:
+9
+classesByName
+List
+<
+ReferenceType
+>
+classesByName
+(
+String
+className)
+Returns the loaded reference types that
+ match a given name. The name must be fully qualified
+ (for example, java.lang.String). The returned list
+ will contain a
+ReferenceType
+for each class
+ or interface found with the given name. The search
+ is confined to loaded classes only; no attempt is made
+ to load a class of the given name.
+The returned list will include reference types
+ loaded at least to the point of preparation and
+ types (like array) for which preparation is
+ not defined.
+Parameters:
+className
+- the class/interface name to search for
+Returns:
+a list of
+ReferenceType
+objects, each
+ mirroring a type in the target VM with the given name.
+allClasses
+List
+<
+ReferenceType
+>
+allClasses
+()
+Returns all
+loaded types
+in the target VM.
+The returned list includes all reference types, including
+hidden classes or interfaces
+, loaded
+ at least to the point of preparation and types (like array)
+ for which preparation is not defined.
+Returns:
+a list of
+ReferenceType
+objects, each mirroring
+ a loaded type in the target VM.
+See Also:
+JVM TI GetLoadedClasses
+regarding how class and interface creation can be triggered
+redefineClasses
+void
+redefineClasses
+(
+Map
+<? extends
+ReferenceType
+,
+byte[]> classToBytes)
+All classes given are redefined according to the
+ definitions supplied.  A method in a redefined class
+ is called 'equivalent' (to the old version of the
+ method) if
+their bytecodes are the same except for indices into
+   the constant pool, and
+the referenced constants are equal.
+Otherwise, the new method is called 'non-equivalent'.
+ If a redefined method has active stack frames, those active
+ frames continue to run the bytecodes of the previous version of the
+ method.  If the new version of such a method is non-equivalent,
+ then a method from one of these active frames is called 'obsolete' and
+Method.isObsolete()
+will return true when called on one of these methods.
+ If resetting such a frame is desired, use
+ThreadReference.popFrames(StackFrame)
+to pop the old obsolete method execution from the stack.
+ New invocations of redefined methods will always invoke the new versions.
+This function does not cause any initialization except
+ that which would occur under the customary JVM semantics.
+ In other words, redefining a class does not cause
+ its initializers to be run. The values of preexisting
+ static variables will remain as they were prior to the
+ call. However, completely uninitialized (new) static
+ variables will be assigned their default value.
+If a redefined class has instances then all those
+ instances will have the fields defined by the redefined
+ class at the completion of the call. Preexisting fields
+ will retain their previous values. Any new fields will
+ have their default values; no instance initializers or
+ constructors are run.
+Threads need not be suspended.
+No events are generated by this function.
+All breakpoints in the redefined classes are deleted.
+Not all target virtual machines support this operation.
+ Use
+canRedefineClasses()
+to determine if the operation is supported.
+ Use
+canAddMethod()
+to determine if the redefinition can add methods.
+ Use
+canUnrestrictedlyRedefineClasses()
+to determine if the redefinition can change the schema,
+ delete methods, change the class hierarchy, etc.
+Parameters:
+classToBytes
+- A map from
+ReferenceType
+to array of byte.
+ The bytes represent the new class definition and
+ are in Java Virtual Machine class file format.
+Throws:
+UnsupportedOperationException
+- if
+ the target virtual machine does not support this
+ operation.
+If
+canRedefineClasses()
+is false any call of this method will throw this exception.
+If
+canAddMethod()
+is false
+ attempting to add a method will throw this exception.
+If
+canUnrestrictedlyRedefineClasses()
+is false attempting any of the unsupported class file changes described
+ in
+JVM TI RedefineClasses
+will throw this exception.
+NoClassDefFoundError
+- if the bytes
+ don't correspond to the reference type (the names
+ don't match).
+VerifyError
+- if a "verifier" detects
+ that a class, though well formed, contains an internal
+ inconsistency or security problem.
+ClassFormatError
+- if the bytes
+ do not represent a valid class.
+ClassCircularityError
+- if a
+ circularity has been detected while initializing a class.
+UnsupportedClassVersionError
+- if the
+ major and minor version numbers in bytes
+ are not supported by the VM.
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only - see
+canBeModified()
+.
+Since:
+1.4
+See Also:
+Method.isObsolete()
+ThreadReference.popFrames(com.sun.jdi.StackFrame)
+canRedefineClasses()
+canAddMethod()
+canUnrestrictedlyRedefineClasses()
+allThreads
+List
+<
+ThreadReference
+>
+allThreads
+()
+Returns a list of the live threads in the target VM. Threads that have not yet
+ started or threads that have terminated are not included in the list.
+The returned list contains a
+ThreadReference
+for each live
+platform
+ thread
+in the target VM. This includes platform threads created with the
+java.lang.Thread
+API and all native threads attached to the target VM
+ with
+JNI code
+.
+It is implementation dependent if the list contains elements for live
+virtual threads
+in the target VM. The target VM may not return any references to virtual threads,
+ or it may be configured to return a reference to some or all virtual threads.
+ Tools that want to track all virtual threads may enable
+ThreadStartRequest
+and
+ThreadDeathRequest
+to get notifications when virtual threads start
+ and terminate.
+Returns:
+a list of
+ThreadReference
+objects for the threads in the target VM
+suspend
+void
+suspend
+()
+Suspends the execution of the application running in this
+ virtual machine. All threads currently running will be suspended.
+Suspends of both the virtual machine and individual threads are
+ counted. Before a thread will run again, it must be resumed
+ (through
+resume()
+or
+ThreadReference.resume()
+)
+ the same number of times it has been suspended.
+Throws:
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only
+See Also:
+canBeModified()
+resume
+void
+resume
+()
+Continues the execution of the application running in this
+ virtual machine. All threads are resumed as documented in
+ThreadReference.resume()
+.
+Throws:
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only
+See Also:
+suspend()
+canBeModified()
+topLevelThreadGroups
+List
+<
+ThreadGroupReference
+>
+topLevelThreadGroups
+()
+Returns each thread group which does not have a parent. For each
+ top level thread group a
+ThreadGroupReference
+is placed in the
+ returned list.
+This command may be used as the first step in building a tree
+ (or trees) of the existing thread groups.
+Returns:
+a list of
+ThreadGroupReference
+objects, one for each
+ top level thread group.
+eventQueue
+EventQueue
+eventQueue
+()
+Returns the event queue for this virtual machine.
+ A virtual machine has only one
+EventQueue
+object, this
+ method will return the same instance each time it
+ is invoked.
+Returns:
+the
+EventQueue
+for this virtual machine.
+Throws:
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only - see
+canBeModified()
+.
+eventRequestManager
+EventRequestManager
+eventRequestManager
+()
+Returns the event request manager for this virtual machine.
+ The
+EventRequestManager
+controls user settable events
+ such as breakpoints.
+ A virtual machine has only one
+EventRequestManager
+object,
+ this method will return the same instance each time it
+ is invoked.
+Returns:
+the
+EventRequestManager
+for this virtual machine.
+Throws:
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only - see
+canBeModified()
+.
+mirrorOf
+BooleanValue
+mirrorOf
+(boolean value)
+Creates a
+BooleanValue
+for the given value. This value
+ can be used for setting and comparing against a value retrieved
+ from a variable or field in this virtual machine.
+Parameters:
+value
+- a boolean for which to create the value
+Returns:
+the
+BooleanValue
+for the given boolean.
+mirrorOf
+ByteValue
+mirrorOf
+(byte value)
+Creates a
+ByteValue
+for the given value. This value
+ can be used for setting and comparing against a value retrieved
+ from a variable or field in this virtual machine.
+Parameters:
+value
+- a byte for which to create the value
+Returns:
+the
+ByteValue
+for the given byte.
+mirrorOf
+CharValue
+mirrorOf
+(char value)
+Creates a
+CharValue
+for the given value. This value
+ can be used for setting and comparing against a value retrieved
+ from a variable or field in this virtual machine.
+Parameters:
+value
+- a char for which to create the value
+Returns:
+the
+CharValue
+for the given char.
+mirrorOf
+ShortValue
+mirrorOf
+(short value)
+Creates a
+ShortValue
+for the given value. This value
+ can be used for setting and comparing against a value retrieved
+ from a variable or field in this virtual machine.
+Parameters:
+value
+- a short for which to create the value
+Returns:
+the
+ShortValue
+for the given short.
+mirrorOf
+IntegerValue
+mirrorOf
+(int value)
+Creates an
+IntegerValue
+for the given value. This value
+ can be used for setting and comparing against a value retrieved
+ from a variable or field in this virtual machine.
+Parameters:
+value
+- an int for which to create the value
+Returns:
+the
+IntegerValue
+for the given int.
+mirrorOf
+LongValue
+mirrorOf
+(long value)
+Creates a
+LongValue
+for the given value. This value
+ can be used for setting and comparing against a value retrieved
+ from a variable or field in this virtual machine.
+Parameters:
+value
+- a long for which to create the value
+Returns:
+the
+LongValue
+for the given long.
+mirrorOf
+FloatValue
+mirrorOf
+(float value)
+Creates a
+FloatValue
+for the given value. This value
+ can be used for setting and comparing against a value retrieved
+ from a variable or field in this virtual machine.
+Parameters:
+value
+- a float for which to create the value
+Returns:
+the
+FloatValue
+for the given float.
+mirrorOf
+DoubleValue
+mirrorOf
+(double value)
+Creates a
+DoubleValue
+for the given value. This value
+ can be used for setting and comparing against a value retrieved
+ from a variable or field in this virtual machine.
+Parameters:
+value
+- a double for which to create the value
+Returns:
+the
+DoubleValue
+for the given double.
+mirrorOf
+StringReference
+mirrorOf
+(
+String
+value)
+Creates a string in this virtual machine.
+ The created string can be used for setting and comparing against
+ a string value retrieved from a variable or field in this
+ virtual machine.
+Parameters:
+value
+- the string to be created
+Returns:
+a
+StringReference
+that mirrors the newly created
+ string in the target VM.
+Throws:
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only
+ -see
+canBeModified()
+.
+mirrorOfVoid
+VoidValue
+mirrorOfVoid
+()
+Creates a
+VoidValue
+.  This value
+ can be passed to
+ThreadReference.forceEarlyReturn(com.sun.jdi.Value)
+when a void method is to be exited.
+Returns:
+the
+VoidValue
+.
+process
+Process
+process
+()
+Returns the
+Process
+object for this
+ virtual machine if launched by a
+LaunchingConnector
+Returns:
+the
+Process
+object for this virtual
+ machine, or null if it was not launched by a
+LaunchingConnector
+.
+Throws:
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only
+ -see
+canBeModified()
+.
+dispose
+void
+dispose
+()
+Invalidates this virtual machine mirror.
+ The communication channel to the target VM is closed, and
+ the target VM prepares to accept another subsequent connection
+ from this debugger or another debugger, including the
+ following tasks:
+All event requests are cancelled.
+All threads suspended by
+suspend()
+or by
+ThreadReference.suspend()
+are resumed as many
+ times as necessary for them to run.
+Garbage collection is re-enabled in all cases where it was
+ disabled through
+ObjectReference.disableCollection()
+.
+Any current method invocations executing in the target VM
+ are continued after the disconnection. Upon completion of any such
+ method invocation, the invoking thread continues from the
+ location where it was originally stopped.
+Resources originating in
+ this VirtualMachine (ObjectReferences, ReferenceTypes, etc.)
+ will become invalid.
+exit
+void
+exit
+(int exitCode)
+Causes the mirrored VM to terminate with the given error code.
+ All resources associated with this VirtualMachine are freed.
+ If the mirrored VM is remote, the communication channel
+ to it will be closed. Resources originating in
+ this VirtualMachine (ObjectReferences, ReferenceTypes, etc.)
+ will become invalid.
+Threads running in the mirrored VM are abruptly terminated.
+ A thread death exception is not thrown and
+ finally blocks are not run.
+Parameters:
+exitCode
+- the exit code for the target VM.  On some platforms,
+ the exit code might be truncated, for example, to the lower order 8 bits.
+Throws:
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only - see
+canBeModified()
+.
+canWatchFieldModification
+boolean
+canWatchFieldModification
+()
+Determines if the target VM supports watchpoints
+ for field modification.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+canWatchFieldAccess
+boolean
+canWatchFieldAccess
+()
+Determines if the target VM supports watchpoints
+ for field access.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+canGetBytecodes
+boolean
+canGetBytecodes
+()
+Determines if the target VM supports the retrieval
+ of a method's bytecodes.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+canGetSyntheticAttribute
+boolean
+canGetSyntheticAttribute
+()
+Determines if the target VM supports the query
+ of the synthetic attribute of a method or field.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+canGetOwnedMonitorInfo
+boolean
+canGetOwnedMonitorInfo
+()
+Determines if the target VM supports the retrieval
+ of the monitors owned by a thread.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+canGetCurrentContendedMonitor
+boolean
+canGetCurrentContendedMonitor
+()
+Determines if the target VM supports the retrieval
+ of the monitor for which a thread is currently waiting.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+canGetMonitorInfo
+boolean
+canGetMonitorInfo
+()
+Determines if the target VM supports the retrieval
+ of the monitor information for an object.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+canUseInstanceFilters
+boolean
+canUseInstanceFilters
+()
+Determines if the target VM supports filtering
+ events by specific instance object.  For example,
+ see
+BreakpointRequest.addInstanceFilter(com.sun.jdi.ObjectReference)
+.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+canRedefineClasses
+boolean
+canRedefineClasses
+()
+Determines if the target VM supports any level
+ of class redefinition.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+Since:
+1.4
+See Also:
+redefineClasses(java.util.Map<? extends com.sun.jdi.ReferenceType, byte[]>)
+canAddMethod
+@Deprecated
+(
+since
+="15")
+boolean
+canAddMethod
+()
+Deprecated.
+A JVM TI based JDWP back-end will never set this capability to true.
+Determines if the target VM supports the addition
+ of methods when performing class redefinition.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+Since:
+1.4
+See Also:
+redefineClasses(java.util.Map<? extends com.sun.jdi.ReferenceType, byte[]>)
+canUnrestrictedlyRedefineClasses
+@Deprecated
+(
+since
+="15")
+boolean
+canUnrestrictedlyRedefineClasses
+()
+Deprecated.
+A JVM TI based JDWP back-end will never set this capability to true.
+Determines if the target VM supports
+ changes when performing class redefinition that are
+ otherwise restricted by
+redefineClasses(java.util.Map<? extends com.sun.jdi.ReferenceType, byte[]>)
+.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+Since:
+1.4
+See Also:
+redefineClasses(java.util.Map<? extends com.sun.jdi.ReferenceType, byte[]>)
+canPopFrames
+boolean
+canPopFrames
+()
+Determines if the target VM supports popping
+ frames of a threads stack.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+Since:
+1.4
+See Also:
+ThreadReference.popFrames(com.sun.jdi.StackFrame)
+canGetSourceDebugExtension
+boolean
+canGetSourceDebugExtension
+()
+Determines if the target VM supports getting
+ the source debug extension.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+Since:
+1.4
+See Also:
+ReferenceType.sourceDebugExtension()
+canRequestVMDeathEvent
+boolean
+canRequestVMDeathEvent
+()
+Determines if the target VM supports the creation of
+VMDeathRequest
+s.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+Since:
+1.4
+See Also:
+EventRequestManager.createVMDeathRequest()
+canGetMethodReturnValues
+boolean
+canGetMethodReturnValues
+()
+Determines if the target VM supports the inclusion of return values
+ in
+MethodExitEvent
+s.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+Since:
+1.6
+See Also:
+EventRequestManager.createMethodExitRequest()
+canGetInstanceInfo
+boolean
+canGetInstanceInfo
+()
+Determines if the target VM supports the accessing of class instances,
+ instance counts, and referring objects.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+Since:
+1.6
+See Also:
+instanceCounts(java.util.List<? extends com.sun.jdi.ReferenceType>)
+ReferenceType.instances(long)
+ObjectReference.referringObjects(long)
+canUseSourceNameFilters
+boolean
+canUseSourceNameFilters
+()
+Determines if the target VM supports the filtering of
+ class prepare events by source name.
+
+ see
+ClassPrepareRequest.addSourceNameFilter(java.lang.String)
+.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+Since:
+1.6
+canForceEarlyReturn
+boolean
+canForceEarlyReturn
+()
+Determines if the target VM supports the forcing of a method to
+ return early.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+Since:
+1.6
+See Also:
+ThreadReference.forceEarlyReturn(Value)
+canBeModified
+boolean
+canBeModified
+()
+Determines if the target VM is a read-only VM.  If a method which
+ would modify the state of the VM is called on a read-only VM,
+ then
+VMCannotBeModifiedException
+is thrown.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+Since:
+1.5
+canRequestMonitorEvents
+boolean
+canRequestMonitorEvents
+()
+Determines if the target VM supports the creation of
+MonitorContendedEnterRequest
+s.
+MonitorContendedEnteredRequest
+s.
+MonitorWaitRequest
+s.
+MonitorWaitedRequest
+s.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+Since:
+1.6
+See Also:
+EventRequestManager.createMonitorContendedEnterRequest()
+EventRequestManager.createMonitorContendedEnteredRequest()
+EventRequestManager.createMonitorWaitRequest()
+EventRequestManager.createMonitorWaitedRequest()
+canGetMonitorFrameInfo
+boolean
+canGetMonitorFrameInfo
+()
+Determines if the target VM supports getting which
+ frame has acquired a monitor.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+Since:
+1.6
+See Also:
+ThreadReference.ownedMonitorsAndFrames()
+canGetClassFileVersion
+boolean
+canGetClassFileVersion
+()
+Determines if the target VM supports reading class file
+ major and minor versions.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+Since:
+1.6
+See Also:
+ReferenceType.majorVersion()
+ReferenceType.minorVersion()
+canGetConstantPool
+boolean
+canGetConstantPool
+()
+Determines if the target VM supports getting constant pool
+ information of a class.
+Returns:
+true
+if the feature is supported,
+false
+otherwise.
+Since:
+1.6
+See Also:
+ReferenceType.constantPoolCount()
+ReferenceType.constantPool()
+canGetModuleInfo
+default
+boolean
+canGetModuleInfo
+()
+Determines if the target VM supports getting information about modules.
+Implementation Requirements:
+The default implementation returns
+false
+.
+Returns:
+true
+if the feature is supported,
+false
+otherwise
+Since:
+9
+See Also:
+allModules()
+ReferenceType.module()
+ModuleReference
+setDefaultStratum
+void
+setDefaultStratum
+(
+String
+stratum)
+Set this VM's default stratum (see
+Location
+for a
+ discussion of strata).  Overrides the per-class default set
+ in the class file.
+Affects location queries (such as,
+Location.sourceName()
+)
+ and the line boundaries used in
+ single stepping.
+Parameters:
+stratum
+- the stratum to set as VM default,
+ or null to use per-class defaults.
+Throws:
+UnsupportedOperationException
+- if the
+ target virtual machine does not support this operation.
+Since:
+1.4
+getDefaultStratum
+String
+getDefaultStratum
+()
+Return this VM's default stratum.
+Returns:
+null
+(meaning that the per-class
+ default -
+ReferenceType.defaultStratum()
+-
+ should be used) unless the default stratum has been
+ set with
+setDefaultStratum(String)
+.
+Since:
+1.4
+See Also:
+setDefaultStratum(String)
+ReferenceType.defaultStratum()
+instanceCounts
+long[]
+instanceCounts
+(
+List
+<? extends
+ReferenceType
+> refTypes)
+Returns the number of instances of each ReferenceType in the 'refTypes'
+ list.
+ Only instances that are reachable for the purposes of garbage collection
+ are counted.
+Not all target virtual machines support this operation.
+ Use
+canGetInstanceInfo()
+to determine if the operation is supported.
+Parameters:
+refTypes
+- the list of
+ReferenceType
+objects for which counts
+        are to be obtained.
+Returns:
+an array of
+long
+containing one element for each
+         element in the 'refTypes' list.  Element i of the array contains
+         the number of instances in the target VM of the ReferenceType at
+         position i in the 'refTypes' list.
+         If the 'refTypes' list is empty, a zero-length array is returned.
+         If a ReferenceType in refTypes has been garbage collected, zero
+         is returned for its instance count.
+Throws:
+UnsupportedOperationException
+- if
+ the target virtual machine does not support this
+ operation - see
+canGetInstanceInfo()
+NullPointerException
+- if the 'refTypes' list is null.
+Since:
+1.6
+See Also:
+ReferenceType.instances(long)
+ObjectReference.referringObjects(long)
+description
+String
+description
+()
+Returns text information on the target VM and the
+ debugger support that mirrors it. No specific format
+ for this information is guaranteed.
+ Typically, this string contains version information for the
+ target VM and debugger interfaces.
+ More precise information
+ on VM and JDI versions is available through
+version()
+,
+VirtualMachineManager.majorInterfaceVersion()
+,
+ and
+VirtualMachineManager.minorInterfaceVersion()
+Returns:
+the description.
+version
+String
+version
+()
+Returns the version of the Java Runtime Environment in the target
+ VM as reported by the property
+java.version
+.
+ For obtaining the JDI interface version, use
+VirtualMachineManager.majorInterfaceVersion()
+and
+VirtualMachineManager.minorInterfaceVersion()
+Returns:
+the target VM version.
+name
+String
+name
+()
+Returns the name of the target VM as reported by the
+ property
+java.vm.name
+.
+Returns:
+the target VM name.
+setDebugTraceMode
+void
+setDebugTraceMode
+(int traceFlags)
+Traces the activities performed by the com.sun.jdi implementation.
+ All trace information is output to System.err. The given trace
+ flags are used to limit the output to only the information
+ desired. The given flags are in effect and the corresponding
+ trace will continue until the next call to
+ this method.
+Output is implementation dependent and trace mode may be ignored.
+Parameters:
+traceFlags
+- identifies which kinds of tracing to enable.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

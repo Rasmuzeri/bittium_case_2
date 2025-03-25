@@ -1,0 +1,977 @@
+DefaultTreeCellEditor (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.tree
+Class DefaultTreeCellEditor
+java.lang.Object
+javax.swing.tree.DefaultTreeCellEditor
+All Implemented Interfaces:
+ActionListener
+,
+EventListener
+,
+CellEditor
+,
+TreeSelectionListener
+,
+TreeCellEditor
+public class
+DefaultTreeCellEditor
+extends
+Object
+implements
+ActionListener
+,
+TreeCellEditor
+,
+TreeSelectionListener
+A
+TreeCellEditor
+. You need to supply an
+ instance of
+DefaultTreeCellRenderer
+so that the icons can be obtained. You can optionally supply
+ a
+TreeCellEditor
+that will be laid out according
+ to the icon in the
+DefaultTreeCellRenderer
+.
+ If you do not supply a
+TreeCellEditor
+,
+ a
+TextField
+will be used. Editing is started
+ on a triple mouse click, or after a click, pause, click and
+ a delay of 1200 milliseconds.
+Warning:
+Serialized objects of this class will not be compatible with
+ future Swing releases. The current serialization support is
+ appropriate for short term storage or RMI between applications running
+ the same version of Swing.  As of 1.4, support for long term storage
+ of all JavaBeans
+ has been added to the
+java.beans
+package.
+ Please see
+XMLEncoder
+.
+See Also:
+JTree
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+class
+DefaultTreeCellEditor.DefaultTextField
+TextField
+used when no editor is supplied.
+class
+DefaultTreeCellEditor.EditorContainer
+Container responsible for placing the
+editingComponent
+.
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected
+Color
+borderSelectionColor
+True if the border selection color should be drawn.
+protected boolean
+canEdit
+As of Java 2 platform v1.4 this field should no longer be used.
+protected
+Component
+editingComponent
+Component used in editing, obtained from the
+editingContainer
+.
+protected
+Container
+editingContainer
+Editing container, will contain the
+editorComponent
+.
+protected
+Icon
+editingIcon
+Icon to use when editing.
+protected
+Font
+font
+Font to paint with,
+null
+indicates
+ font of renderer is to be used.
+protected
+TreePath
+lastPath
+Last path that was selected.
+protected int
+lastRow
+Row that was last passed into
+getTreeCellEditorComponent
+.
+protected int
+offset
+Used in editing.
+protected
+TreeCellEditor
+realEditor
+Editor handling the editing.
+protected
+DefaultTreeCellRenderer
+renderer
+Renderer, used to get border and offsets from.
+protected
+Timer
+timer
+Used before starting the editing session.
+protected
+JTree
+tree
+JTree
+instance listening too.
+Constructor Summary
+Constructors
+Constructor
+Description
+DefaultTreeCellEditor
+(
+JTree
+tree,
+DefaultTreeCellRenderer
+renderer)
+Constructs a
+DefaultTreeCellEditor
+object for a JTree using the specified renderer and
+ a default editor.
+DefaultTreeCellEditor
+(
+JTree
+tree,
+DefaultTreeCellRenderer
+renderer,
+TreeCellEditor
+editor)
+Constructs a
+DefaultTreeCellEditor
+object for a
+JTree
+using the
+ specified renderer and the specified editor.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+actionPerformed
+(
+ActionEvent
+e)
+Messaged when the timer fires, this will start the editing
+ session.
+void
+addCellEditorListener
+(
+CellEditorListener
+l)
+Adds the
+CellEditorListener
+.
+void
+cancelCellEditing
+()
+Messages
+cancelCellEditing
+to the
+realEditor
+and removes it from this instance.
+protected boolean
+canEditImmediately
+(
+EventObject
+event)
+Returns true if
+event
+is
+null
+,
+ or it is a
+MouseEvent
+with a click count > 2
+ and
+inHitRegion
+returns true.
+protected
+Container
+createContainer
+()
+Creates the container to manage placement of
+editingComponent
+.
+protected
+TreeCellEditor
+createTreeCellEditor
+()
+This is invoked if a
+TreeCellEditor
+is not supplied in the constructor.
+protected void
+determineOffset
+(
+JTree
+tree,
+Object
+value,
+ boolean isSelected,
+ boolean expanded,
+ boolean leaf,
+ int row)
+Determine the offset.
+Color
+getBorderSelectionColor
+()
+Returns the color the border is drawn.
+CellEditorListener
+[]
+getCellEditorListeners
+()
+Returns an array of all the
+CellEditorListener
+s added
+ to this DefaultTreeCellEditor with addCellEditorListener().
+Object
+getCellEditorValue
+()
+Returns the value currently being edited.
+Font
+getFont
+()
+Gets the font used for editing.
+Component
+getTreeCellEditorComponent
+(
+JTree
+tree,
+Object
+value,
+ boolean isSelected,
+ boolean expanded,
+ boolean leaf,
+ int row)
+Configures the editor.
+protected boolean
+inHitRegion
+(int x,
+ int y)
+Returns true if the passed in location is a valid mouse location
+ to start editing from.
+boolean
+isCellEditable
+(
+EventObject
+event)
+If the
+realEditor
+returns true to this
+ message,
+prepareForEditing
+is messaged and true is returned.
+protected void
+prepareForEditing
+()
+Invoked just before editing is to start.
+void
+removeCellEditorListener
+(
+CellEditorListener
+l)
+Removes the previously added
+CellEditorListener
+.
+void
+setBorderSelectionColor
+(
+Color
+newColor)
+Sets the color to use for the border.
+void
+setFont
+(
+Font
+font)
+Sets the font to edit with.
+protected void
+setTree
+(
+JTree
+newTree)
+Sets the tree currently editing for.
+boolean
+shouldSelectCell
+(
+EventObject
+event)
+Messages the
+realEditor
+for the return value.
+protected boolean
+shouldStartEditingTimer
+(
+EventObject
+event)
+Returns true if
+event
+is a
+MouseEvent
+and the click count is 1.
+protected void
+startEditingTimer
+()
+Starts the editing timer.
+boolean
+stopCellEditing
+()
+If the
+realEditor
+will allow editing to stop,
+ the
+realEditor
+is removed and true is returned,
+ otherwise false is returned.
+void
+valueChanged
+(
+TreeSelectionEvent
+e)
+Resets
+lastPath
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+realEditor
+protected
+TreeCellEditor
+realEditor
+Editor handling the editing.
+renderer
+protected
+DefaultTreeCellRenderer
+renderer
+Renderer, used to get border and offsets from.
+editingContainer
+protected
+Container
+editingContainer
+Editing container, will contain the
+editorComponent
+.
+editingComponent
+protected transient
+Component
+editingComponent
+Component used in editing, obtained from the
+editingContainer
+.
+canEdit
+protected
+boolean
+canEdit
+As of Java 2 platform v1.4 this field should no longer be used. If
+ you wish to provide similar behavior you should directly override
+isCellEditable
+.
+offset
+protected transient
+int
+offset
+Used in editing. Indicates x position to place
+editingComponent
+.
+tree
+protected transient
+JTree
+tree
+JTree
+instance listening too.
+lastPath
+protected transient
+TreePath
+lastPath
+Last path that was selected.
+timer
+protected transient
+Timer
+timer
+Used before starting the editing session.
+lastRow
+protected transient
+int
+lastRow
+Row that was last passed into
+getTreeCellEditorComponent
+.
+borderSelectionColor
+protected
+Color
+borderSelectionColor
+True if the border selection color should be drawn.
+editingIcon
+protected transient
+Icon
+editingIcon
+Icon to use when editing.
+font
+protected
+Font
+font
+Font to paint with,
+null
+indicates
+ font of renderer is to be used.
+Constructor Details
+DefaultTreeCellEditor
+public
+DefaultTreeCellEditor
+(
+JTree
+tree,
+DefaultTreeCellRenderer
+renderer)
+Constructs a
+DefaultTreeCellEditor
+object for a JTree using the specified renderer and
+ a default editor. (Use this constructor for normal editing.)
+Parameters:
+tree
+- a
+JTree
+object
+renderer
+- a
+DefaultTreeCellRenderer
+object
+DefaultTreeCellEditor
+public
+DefaultTreeCellEditor
+(
+JTree
+tree,
+DefaultTreeCellRenderer
+renderer,
+TreeCellEditor
+editor)
+Constructs a
+DefaultTreeCellEditor
+object for a
+JTree
+using the
+ specified renderer and the specified editor. (Use this constructor
+ for specialized editing.)
+Parameters:
+tree
+- a
+JTree
+object
+renderer
+- a
+DefaultTreeCellRenderer
+object
+editor
+- a
+TreeCellEditor
+object
+Method Details
+setBorderSelectionColor
+public
+void
+setBorderSelectionColor
+(
+Color
+newColor)
+Sets the color to use for the border.
+Parameters:
+newColor
+- the new border color
+getBorderSelectionColor
+public
+Color
+getBorderSelectionColor
+()
+Returns the color the border is drawn.
+Returns:
+the border selection color
+setFont
+public
+void
+setFont
+(
+Font
+font)
+Sets the font to edit with.
+null
+indicates
+ the renderers font should be used. This will NOT
+ override any font you have set in the editor
+ the receiver was instantiated with. If
+null
+for an editor was passed in a default editor will be
+ created that will pick up this font.
+Parameters:
+font
+- the editing
+Font
+See Also:
+getFont()
+getFont
+public
+Font
+getFont
+()
+Gets the font used for editing.
+Returns:
+the editing
+Font
+See Also:
+setFont(java.awt.Font)
+getTreeCellEditorComponent
+public
+Component
+getTreeCellEditorComponent
+(
+JTree
+tree,
+Object
+value,
+ boolean isSelected,
+ boolean expanded,
+ boolean leaf,
+ int row)
+Configures the editor.  Passed onto the
+realEditor
+.
+Specified by:
+getTreeCellEditorComponent
+in interface
+TreeCellEditor
+Parameters:
+tree
+- the JTree that is asking the editor to edit;
+                          this parameter can be null
+value
+- the value of the cell to be edited
+isSelected
+- true if the cell is to be rendered with
+                          selection highlighting
+expanded
+- true if the node is expanded
+leaf
+- true if the node is a leaf node
+row
+- the row index of the node being edited
+Returns:
+the component for editing
+getCellEditorValue
+public
+Object
+getCellEditorValue
+()
+Returns the value currently being edited.
+Specified by:
+getCellEditorValue
+in interface
+CellEditor
+Returns:
+the value currently being edited
+isCellEditable
+public
+boolean
+isCellEditable
+(
+EventObject
+event)
+If the
+realEditor
+returns true to this
+ message,
+prepareForEditing
+is messaged and true is returned.
+Specified by:
+isCellEditable
+in interface
+CellEditor
+Parameters:
+event
+- the event the editor should use to consider
+                          whether to begin editing or not
+Returns:
+true if editing can be started
+See Also:
+CellEditor.shouldSelectCell(java.util.EventObject)
+shouldSelectCell
+public
+boolean
+shouldSelectCell
+(
+EventObject
+event)
+Messages the
+realEditor
+for the return value.
+Specified by:
+shouldSelectCell
+in interface
+CellEditor
+Parameters:
+event
+- the event the editor should use to start
+                          editing
+Returns:
+true if the editor would like the editing cell to be selected;
+    otherwise returns false
+See Also:
+CellEditor.isCellEditable(java.util.EventObject)
+stopCellEditing
+public
+boolean
+stopCellEditing
+()
+If the
+realEditor
+will allow editing to stop,
+ the
+realEditor
+is removed and true is returned,
+ otherwise false is returned.
+Specified by:
+stopCellEditing
+in interface
+CellEditor
+Returns:
+true if editing was stopped; false otherwise
+cancelCellEditing
+public
+void
+cancelCellEditing
+()
+Messages
+cancelCellEditing
+to the
+realEditor
+and removes it from this instance.
+Specified by:
+cancelCellEditing
+in interface
+CellEditor
+addCellEditorListener
+public
+void
+addCellEditorListener
+(
+CellEditorListener
+l)
+Adds the
+CellEditorListener
+.
+Specified by:
+addCellEditorListener
+in interface
+CellEditor
+Parameters:
+l
+- the listener to be added
+removeCellEditorListener
+public
+void
+removeCellEditorListener
+(
+CellEditorListener
+l)
+Removes the previously added
+CellEditorListener
+.
+Specified by:
+removeCellEditorListener
+in interface
+CellEditor
+Parameters:
+l
+- the listener to be removed
+getCellEditorListeners
+public
+CellEditorListener
+[]
+getCellEditorListeners
+()
+Returns an array of all the
+CellEditorListener
+s added
+ to this DefaultTreeCellEditor with addCellEditorListener().
+Returns:
+all of the
+CellEditorListener
+s added or an empty
+         array if no listeners have been added
+Since:
+1.4
+valueChanged
+public
+void
+valueChanged
+(
+TreeSelectionEvent
+e)
+Resets
+lastPath
+.
+Specified by:
+valueChanged
+in interface
+TreeSelectionListener
+Parameters:
+e
+- the event that characterizes the change.
+actionPerformed
+public
+void
+actionPerformed
+(
+ActionEvent
+e)
+Messaged when the timer fires, this will start the editing
+ session.
+Specified by:
+actionPerformed
+in interface
+ActionListener
+Parameters:
+e
+- the event to be processed
+setTree
+protected
+void
+setTree
+(
+JTree
+newTree)
+Sets the tree currently editing for. This is needed to add
+ a selection listener.
+Parameters:
+newTree
+- the new tree to be edited
+shouldStartEditingTimer
+protected
+boolean
+shouldStartEditingTimer
+(
+EventObject
+event)
+Returns true if
+event
+is a
+MouseEvent
+and the click count is 1.
+Parameters:
+event
+- the event being studied
+Returns:
+whether
+event
+should starts the editing timer
+startEditingTimer
+protected
+void
+startEditingTimer
+()
+Starts the editing timer.
+canEditImmediately
+protected
+boolean
+canEditImmediately
+(
+EventObject
+event)
+Returns true if
+event
+is
+null
+,
+ or it is a
+MouseEvent
+with a click count > 2
+ and
+inHitRegion
+returns true.
+Parameters:
+event
+- the event being studied
+Returns:
+whether editing can be started for the given
+event
+inHitRegion
+protected
+boolean
+inHitRegion
+(int x,
+ int y)
+Returns true if the passed in location is a valid mouse location
+ to start editing from. This is implemented to return false if
+x
+is <= the width of the icon and icon gap displayed
+ by the renderer. In other words this returns true if the user
+ clicks over the text part displayed by the renderer, and false
+ otherwise.
+Parameters:
+x
+- the x-coordinate of the point
+y
+- the y-coordinate of the point
+Returns:
+true if the passed in location is a valid mouse location
+determineOffset
+protected
+void
+determineOffset
+(
+JTree
+tree,
+Object
+value,
+ boolean isSelected,
+ boolean expanded,
+ boolean leaf,
+ int row)
+Determine the offset.
+Parameters:
+tree
+- a
+JTree
+object
+value
+- a value
+isSelected
+- selection status
+expanded
+- expansion status
+leaf
+- leaf status
+row
+- current row
+prepareForEditing
+protected
+void
+prepareForEditing
+()
+Invoked just before editing is to start. Will add the
+editingComponent
+to the
+editingContainer
+.
+createContainer
+protected
+Container
+createContainer
+()
+Creates the container to manage placement of
+editingComponent
+.
+Returns:
+new Container object
+createTreeCellEditor
+protected
+TreeCellEditor
+createTreeCellEditor
+()
+This is invoked if a
+TreeCellEditor
+is not supplied in the constructor.
+ It returns a
+TextField
+editor.
+Returns:
+a new
+TextField
+editor
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

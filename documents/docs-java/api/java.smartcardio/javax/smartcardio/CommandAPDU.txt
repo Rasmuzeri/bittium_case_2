@@ -1,0 +1,630 @@
+CommandAPDU (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.smartcardio
+Package
+javax.smartcardio
+Class CommandAPDU
+java.lang.Object
+javax.smartcardio.CommandAPDU
+All Implemented Interfaces:
+Serializable
+public final class
+CommandAPDU
+extends
+Object
+implements
+Serializable
+A command APDU following the structure defined in ISO/IEC 7816-4.
+ It consists of a four byte header and a conditional body of variable length.
+ This class does not attempt to verify that the APDU encodes a semantically
+ valid command.
+Note that when the expected length of the response APDU is specified
+ in the
+constructors
+,
+ the actual length (Ne) must be specified, not its
+ encoded form (Le). Similarly,
+getNe()
+returns the actual
+ value Ne. In other words, a value of 0 means "no data in the response APDU"
+ rather than "maximum length."
+This class supports both the short and extended forms of length
+ encoding for Ne and Nc. However, note that not all terminals and Smart Cards
+ are capable of accepting APDUs that use the extended form.
+For the header bytes CLA, INS, P1, and P2 the Java type
+int
+is used to represent the 8 bit unsigned values. In the constructors, only
+ the 8 lowest bits of the
+int
+value specified by the application
+ are significant. The accessor methods always return the byte as an unsigned
+ value between 0 and 255.
+Instances of this class are immutable. Where data is passed in or out
+ via byte arrays, defensive cloning is performed.
+Since:
+1.6
+See Also:
+ResponseAPDU
+CardChannel.transmit
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+CommandAPDU
+(byte[] apdu)
+Constructs a CommandAPDU from a byte array containing the complete
+ APDU contents (header and body).
+CommandAPDU
+(byte[] apdu,
+ int apduOffset,
+ int apduLength)
+Constructs a CommandAPDU from a byte array containing the complete
+ APDU contents (header and body).
+CommandAPDU
+(int cla,
+ int ins,
+ int p1,
+ int p2)
+Constructs a CommandAPDU from the four header bytes.
+CommandAPDU
+(int cla,
+ int ins,
+ int p1,
+ int p2,
+ byte[] data)
+Constructs a CommandAPDU from the four header bytes and command data.
+CommandAPDU
+(int cla,
+ int ins,
+ int p1,
+ int p2,
+ byte[] data,
+ int ne)
+Constructs a CommandAPDU from the four header bytes, command data,
+ and expected response data length.
+CommandAPDU
+(int cla,
+ int ins,
+ int p1,
+ int p2,
+ byte[] data,
+ int dataOffset,
+ int dataLength)
+Constructs a CommandAPDU from the four header bytes and command data.
+CommandAPDU
+(int cla,
+ int ins,
+ int p1,
+ int p2,
+ byte[] data,
+ int dataOffset,
+ int dataLength,
+ int ne)
+Constructs a CommandAPDU from the four header bytes, command data,
+ and expected response data length.
+CommandAPDU
+(int cla,
+ int ins,
+ int p1,
+ int p2,
+ int ne)
+Constructs a CommandAPDU from the four header bytes and the expected
+ response data length.
+CommandAPDU
+(
+ByteBuffer
+apdu)
+Creates a CommandAPDU from the ByteBuffer containing the complete APDU
+ contents (header and body).
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+equals
+(
+Object
+obj)
+Compares the specified object with this command APDU for equality.
+byte[]
+getBytes
+()
+Returns a copy of the bytes in this APDU.
+int
+getCLA
+()
+Returns the value of the class byte CLA.
+byte[]
+getData
+()
+Returns a copy of the data bytes in the command body.
+int
+getINS
+()
+Returns the value of the instruction byte INS.
+int
+getNc
+()
+Returns the number of data bytes in the command body (Nc) or 0 if this
+ APDU has no body.
+int
+getNe
+()
+Returns the maximum number of expected data bytes in a response
+ APDU (Ne).
+int
+getP1
+()
+Returns the value of the parameter byte P1.
+int
+getP2
+()
+Returns the value of the parameter byte P2.
+int
+hashCode
+()
+Returns the hash code value for this command APDU.
+String
+toString
+()
+Returns a string representation of this command APDU.
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+CommandAPDU
+public
+CommandAPDU
+(byte[] apdu)
+Constructs a CommandAPDU from a byte array containing the complete
+ APDU contents (header and body).
+Note that the apdu bytes are copied to protect against
+ subsequent modification.
+Parameters:
+apdu
+- the complete command APDU
+Throws:
+NullPointerException
+- if apdu is null
+IllegalArgumentException
+- if apdu does not contain a valid
+   command APDU
+CommandAPDU
+public
+CommandAPDU
+(byte[] apdu,
+ int apduOffset,
+ int apduLength)
+Constructs a CommandAPDU from a byte array containing the complete
+ APDU contents (header and body). The APDU starts at the index
+apduOffset
+in the byte array and is
+apduLength
+bytes long.
+Note that the apdu bytes are copied to protect against
+ subsequent modification.
+Parameters:
+apdu
+- the complete command APDU
+apduOffset
+- the offset in the byte array at which the apdu
+   data begins
+apduLength
+- the length of the APDU
+Throws:
+NullPointerException
+- if apdu is null
+IllegalArgumentException
+- if apduOffset or apduLength are
+   negative or if apduOffset + apduLength are greater than apdu.length,
+   or if the specified bytes are not a valid APDU
+CommandAPDU
+public
+CommandAPDU
+(
+ByteBuffer
+apdu)
+Creates a CommandAPDU from the ByteBuffer containing the complete APDU
+ contents (header and body).
+ The buffer's
+position
+must be set to the start of the APDU,
+ its
+limit
+to the end of the APDU. Upon return, the buffer's
+position
+is equal to its limit; its limit remains unchanged.
+Note that the data in the ByteBuffer is copied to protect against
+ subsequent modification.
+Parameters:
+apdu
+- the ByteBuffer containing the complete APDU
+Throws:
+NullPointerException
+- if apdu is null
+IllegalArgumentException
+- if apdu does not contain a valid
+   command APDU
+CommandAPDU
+public
+CommandAPDU
+(int cla,
+ int ins,
+ int p1,
+ int p2)
+Constructs a CommandAPDU from the four header bytes. This is case 1
+ in ISO 7816, no command body.
+Parameters:
+cla
+- the class byte CLA
+ins
+- the instruction byte INS
+p1
+- the parameter byte P1
+p2
+- the parameter byte P2
+CommandAPDU
+public
+CommandAPDU
+(int cla,
+ int ins,
+ int p1,
+ int p2,
+ int ne)
+Constructs a CommandAPDU from the four header bytes and the expected
+ response data length. This is case 2 in ISO 7816, empty command data
+ field with Ne specified. If Ne is 0, the APDU is encoded as ISO 7816
+ case 1.
+Parameters:
+cla
+- the class byte CLA
+ins
+- the instruction byte INS
+p1
+- the parameter byte P1
+p2
+- the parameter byte P2
+ne
+- the maximum number of expected data bytes in a response APDU
+Throws:
+IllegalArgumentException
+- if ne is negative or greater than
+   65536
+CommandAPDU
+public
+CommandAPDU
+(int cla,
+ int ins,
+ int p1,
+ int p2,
+ byte[] data)
+Constructs a CommandAPDU from the four header bytes and command data.
+ This is case 3 in ISO 7816, command data present and Ne absent. The
+ value Nc is taken as data.length. If
+data
+is null or
+ its length is 0, the APDU is encoded as ISO 7816 case 1.
+Note that the data bytes are copied to protect against
+ subsequent modification.
+Parameters:
+cla
+- the class byte CLA
+ins
+- the instruction byte INS
+p1
+- the parameter byte P1
+p2
+- the parameter byte P2
+data
+- the byte array containing the data bytes of the command body
+Throws:
+IllegalArgumentException
+- if data.length is greater than 65535
+CommandAPDU
+public
+CommandAPDU
+(int cla,
+ int ins,
+ int p1,
+ int p2,
+ byte[] data,
+ int dataOffset,
+ int dataLength)
+Constructs a CommandAPDU from the four header bytes and command data.
+ This is case 3 in ISO 7816, command data present and Ne absent. The
+ value Nc is taken as dataLength. If
+dataLength
+is 0, the APDU is encoded as ISO 7816 case 1.
+Note that the data bytes are copied to protect against
+ subsequent modification.
+Parameters:
+cla
+- the class byte CLA
+ins
+- the instruction byte INS
+p1
+- the parameter byte P1
+p2
+- the parameter byte P2
+data
+- the byte array containing the data bytes of the command body
+dataOffset
+- the offset in the byte array at which the data
+   bytes of the command body begin
+dataLength
+- the number of the data bytes in the command body
+Throws:
+NullPointerException
+- if data is null and dataLength is not 0
+IllegalArgumentException
+- if dataOffset or dataLength are
+   negative or if dataOffset + dataLength are greater than data.length
+   or if dataLength is greater than 65535
+CommandAPDU
+public
+CommandAPDU
+(int cla,
+ int ins,
+ int p1,
+ int p2,
+ byte[] data,
+ int ne)
+Constructs a CommandAPDU from the four header bytes, command data,
+ and expected response data length. This is case 4 in ISO 7816,
+ command data and Ne present. The value Nc is taken as data.length
+ if
+data
+is non-null and as 0 otherwise. If Ne or Nc
+ are zero, the APDU is encoded as case 1, 2, or 3 per ISO 7816.
+Note that the data bytes are copied to protect against
+ subsequent modification.
+Parameters:
+cla
+- the class byte CLA
+ins
+- the instruction byte INS
+p1
+- the parameter byte P1
+p2
+- the parameter byte P2
+data
+- the byte array containing the data bytes of the command body
+ne
+- the maximum number of expected data bytes in a response APDU
+Throws:
+IllegalArgumentException
+- if data.length is greater than 65535
+   or if ne is negative or greater than 65536
+CommandAPDU
+public
+CommandAPDU
+(int cla,
+ int ins,
+ int p1,
+ int p2,
+ byte[] data,
+ int dataOffset,
+ int dataLength,
+ int ne)
+Constructs a CommandAPDU from the four header bytes, command data,
+ and expected response data length. This is case 4 in ISO 7816,
+ command data and Le present. The value Nc is taken as
+dataLength
+.
+ If Ne or Nc
+ are zero, the APDU is encoded as case 1, 2, or 3 per ISO 7816.
+Note that the data bytes are copied to protect against
+ subsequent modification.
+Parameters:
+cla
+- the class byte CLA
+ins
+- the instruction byte INS
+p1
+- the parameter byte P1
+p2
+- the parameter byte P2
+data
+- the byte array containing the data bytes of the command body
+dataOffset
+- the offset in the byte array at which the data
+   bytes of the command body begin
+dataLength
+- the number of the data bytes in the command body
+ne
+- the maximum number of expected data bytes in a response APDU
+Throws:
+NullPointerException
+- if data is null and dataLength is not 0
+IllegalArgumentException
+- if dataOffset or dataLength are
+   negative or if dataOffset + dataLength are greater than data.length,
+   or if ne is negative or greater than 65536,
+   or if dataLength is greater than 65535
+Method Details
+getCLA
+public
+int
+getCLA
+()
+Returns the value of the class byte CLA.
+Returns:
+the value of the class byte CLA.
+getINS
+public
+int
+getINS
+()
+Returns the value of the instruction byte INS.
+Returns:
+the value of the instruction byte INS.
+getP1
+public
+int
+getP1
+()
+Returns the value of the parameter byte P1.
+Returns:
+the value of the parameter byte P1.
+getP2
+public
+int
+getP2
+()
+Returns the value of the parameter byte P2.
+Returns:
+the value of the parameter byte P2.
+getNc
+public
+int
+getNc
+()
+Returns the number of data bytes in the command body (Nc) or 0 if this
+ APDU has no body. This call is equivalent to
+getData().length
+.
+Returns:
+the number of data bytes in the command body or 0 if this APDU
+ has no body.
+getData
+public
+byte[]
+getData
+()
+Returns a copy of the data bytes in the command body. If this APDU as
+ no body, this method returns a byte array with length zero.
+Returns:
+a copy of the data bytes in the command body or the empty
+    byte array if this APDU has no body.
+getNe
+public
+int
+getNe
+()
+Returns the maximum number of expected data bytes in a response
+ APDU (Ne).
+Returns:
+the maximum number of expected data bytes in a response APDU.
+getBytes
+public
+byte[]
+getBytes
+()
+Returns a copy of the bytes in this APDU.
+Returns:
+a copy of the bytes in this APDU.
+toString
+public
+String
+toString
+()
+Returns a string representation of this command APDU.
+Overrides:
+toString
+in class
+Object
+Returns:
+a String representation of this command APDU.
+equals
+public
+boolean
+equals
+(
+Object
+obj)
+Compares the specified object with this command APDU for equality.
+ Returns true if the given object is also a CommandAPDU and its bytes are
+ identical to the bytes in this CommandAPDU.
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- the object to be compared for equality with this command APDU
+Returns:
+true if the specified object is equal to this command APDU
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+public
+int
+hashCode
+()
+Returns the hash code value for this command APDU.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+the hash code value for this command APDU.
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

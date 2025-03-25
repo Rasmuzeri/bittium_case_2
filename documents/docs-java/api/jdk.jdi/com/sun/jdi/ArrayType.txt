@@ -1,0 +1,281 @@
+ArrayType (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.jdi
+Package
+com.sun.jdi
+Interface ArrayType
+All Superinterfaces:
+Accessible
+,
+Comparable
+<
+ReferenceType
+>
+,
+Mirror
+,
+ReferenceType
+,
+Type
+public interface
+ArrayType
+extends
+ReferenceType
+Provides access to the class of an array and the type of
+ its components in the target VM.
+Since:
+1.3
+See Also:
+ArrayReference
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+String
+componentSignature
+()
+Gets the JNI signature of the components of this
+ array class.
+Type
+componentType
+()
+Returns the component type of this array,
+ as specified in the array declaration.
+String
+componentTypeName
+()
+Returns a text representation of the component
+ type of this array.
+ArrayReference
+newInstance
+(int length)
+Creates a new instance of this array class in the target VM.
+Methods declared in interface com.sun.jdi.
+Accessible
+isPackagePrivate
+,
+isPrivate
+,
+isProtected
+,
+isPublic
+,
+modifiers
+Methods declared in interface java.lang.
+Comparable
+compareTo
+Methods declared in interface com.sun.jdi.
+Mirror
+toString
+,
+virtualMachine
+Methods declared in interface com.sun.jdi.
+ReferenceType
+allFields
+,
+allLineLocations
+,
+allLineLocations
+,
+allMethods
+,
+availableStrata
+,
+classLoader
+,
+classObject
+,
+constantPool
+,
+constantPoolCount
+,
+defaultStratum
+,
+equals
+,
+failedToInitialize
+,
+fieldByName
+,
+fields
+,
+genericSignature
+,
+getValue
+,
+getValues
+,
+hashCode
+,
+instances
+,
+isAbstract
+,
+isFinal
+,
+isInitialized
+,
+isPrepared
+,
+isStatic
+,
+isVerified
+,
+locationsOfLine
+,
+locationsOfLine
+,
+majorVersion
+,
+methods
+,
+methodsByName
+,
+methodsByName
+,
+minorVersion
+,
+module
+,
+name
+,
+nestedTypes
+,
+sourceDebugExtension
+,
+sourceName
+,
+sourceNames
+,
+sourcePaths
+,
+visibleFields
+,
+visibleMethods
+Methods declared in interface com.sun.jdi.
+Type
+signature
+Method Details
+newInstance
+ArrayReference
+newInstance
+(int length)
+Creates a new instance of this array class in the target VM.
+ The array is created with the given length and each component
+ is initialized to is standard default value.
+Parameters:
+length
+- the number of components in the new array
+Returns:
+the newly created
+ArrayReference
+mirroring
+ the new object in the target VM.
+Throws:
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only - see
+VirtualMachine.canBeModified()
+.
+componentSignature
+String
+componentSignature
+()
+Gets the JNI signature of the components of this
+ array class. The signature
+ describes the declared type of the components. If the components
+ are objects, their actual type in a particular run-time context
+ may be a subclass of the declared class.
+Returns:
+a string containing the JNI signature of array components.
+componentTypeName
+String
+componentTypeName
+()
+Returns a text representation of the component
+ type of this array.
+Returns:
+a text representation of the component type.
+componentType
+Type
+componentType
+()
+            throws
+ClassNotLoadedException
+Returns the component type of this array,
+ as specified in the array declaration.
+Note: The component type of a array will always be
+ created or loaded before the array - see
+The Java Virtual Machine Specification
+,
+ section 5.3.3 - Creating Array Classes.
+ However, although the component type will be loaded it may
+ not yet be prepared, in which case the type will be returned
+ but attempts to perform some operations on the returned type
+ (e.g.
+fields()
+) will throw
+ a
+ClassNotPreparedException
+.
+ Use
+ReferenceType.isPrepared()
+to determine if
+ a reference type is prepared.
+Returns:
+the
+Type
+of this array's components.
+Throws:
+ClassNotLoadedException
+See Also:
+Type
+Field.type() - for usage examples
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

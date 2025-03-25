@@ -1,0 +1,429 @@
+SpinnerListModel (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing
+Class SpinnerListModel
+java.lang.Object
+javax.swing.AbstractSpinnerModel
+javax.swing.SpinnerListModel
+All Implemented Interfaces:
+Serializable
+,
+SpinnerModel
+public class
+SpinnerListModel
+extends
+AbstractSpinnerModel
+implements
+Serializable
+A simple implementation of
+SpinnerModel
+whose
+ values are defined by an array or a
+List
+.
+ For example to create a model defined by
+ an array of the names of the days of the week:
+String[] days = new DateFormatSymbols().getWeekdays();
+ SpinnerModel model = new SpinnerListModel(Arrays.asList(days).subList(1, 8));
+This class only stores a reference to the array or
+List
+so if an element of the underlying sequence changes, it's up
+ to the application to notify the
+ChangeListeners
+by calling
+fireStateChanged
+.
+This model inherits a
+ChangeListener
+.
+ The
+ChangeListener
+s are notified whenever the
+ model's
+value
+or
+list
+properties changes.
+Since:
+1.4
+See Also:
+JSpinner
+SpinnerModel
+AbstractSpinnerModel
+SpinnerNumberModel
+SpinnerDateModel
+Field Summary
+Fields declared in class javax.swing.
+AbstractSpinnerModel
+listenerList
+Constructor Summary
+Constructors
+Constructor
+Description
+SpinnerListModel
+()
+Constructs an effectively empty
+SpinnerListModel
+.
+SpinnerListModel
+(
+Object
+[] values)
+Constructs a
+SpinnerModel
+whose sequence of values
+ is defined by the specified array.
+SpinnerListModel
+(
+List
+<?> values)
+Constructs a
+SpinnerModel
+whose sequence of
+ values is defined by the specified
+List
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+List
+<?>
+getList
+()
+Returns the
+List
+that defines the sequence for this model.
+Object
+getNextValue
+()
+Returns the next legal value of the underlying sequence or
+null
+if value is already the last element.
+Object
+getPreviousValue
+()
+Returns the previous element of the underlying sequence or
+null
+if value is already the first element.
+Object
+getValue
+()
+Returns the current element of the sequence.
+void
+setList
+(
+List
+<?> list)
+Changes the list that defines this sequence and resets the index
+ of the models
+value
+to zero.
+void
+setValue
+(
+Object
+elt)
+Changes the current element of the sequence and notifies
+ChangeListeners
+.
+Methods declared in class javax.swing.
+AbstractSpinnerModel
+addChangeListener
+,
+fireStateChanged
+,
+getChangeListeners
+,
+getListeners
+,
+removeChangeListener
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+SpinnerListModel
+public
+SpinnerListModel
+(
+List
+<?> values)
+Constructs a
+SpinnerModel
+whose sequence of
+ values is defined by the specified
+List
+.
+ The initial value (
+current element
+)
+ of the model will be
+values.get(0)
+.
+ If
+values
+is
+null
+or has zero
+ size, an
+IllegalArugmentException
+is thrown.
+Parameters:
+values
+- the sequence this model represents
+Throws:
+IllegalArgumentException
+- if
+values
+is
+null
+or zero size
+SpinnerListModel
+public
+SpinnerListModel
+(
+Object
+[] values)
+Constructs a
+SpinnerModel
+whose sequence of values
+ is defined by the specified array.  The initial value of the model
+ will be
+values[0]
+.  If
+values
+is
+null
+or has zero length, an
+IllegalArgumentException
+is thrown.
+Parameters:
+values
+- the sequence this model represents
+Throws:
+IllegalArgumentException
+- if
+values
+is
+null
+or zero length
+SpinnerListModel
+public
+SpinnerListModel
+()
+Constructs an effectively empty
+SpinnerListModel
+.
+ The model's list will contain a single
+"empty"
+string element.
+Method Details
+getList
+public
+List
+<?>
+getList
+()
+Returns the
+List
+that defines the sequence for this model.
+Returns:
+the value of the
+list
+property
+See Also:
+setList(java.util.List<?>)
+setList
+public
+void
+setList
+(
+List
+<?> list)
+Changes the list that defines this sequence and resets the index
+ of the models
+value
+to zero.  Note that
+list
+is not copied, the model just stores a reference to it.
+This method fires a
+ChangeEvent
+if
+list
+is
+ not equal to the current list.
+Parameters:
+list
+- the sequence that this model represents
+Throws:
+IllegalArgumentException
+- if
+list
+is
+null
+or zero length
+See Also:
+getList()
+getValue
+public
+Object
+getValue
+()
+Returns the current element of the sequence.
+Specified by:
+getValue
+in interface
+SpinnerModel
+Returns:
+the
+value
+property
+See Also:
+SpinnerModel.getValue()
+setValue(java.lang.Object)
+setValue
+public
+void
+setValue
+(
+Object
+elt)
+Changes the current element of the sequence and notifies
+ChangeListeners
+.  If the specified
+ value is not equal to an element of the underlying sequence
+ then an
+IllegalArgumentException
+is thrown.
+ In the following example the
+setValue
+call
+ would cause an exception to be thrown:
+String[] values = {"one", "two", "free", "four"};
+ SpinnerModel model = new SpinnerListModel(values);
+ model.setValue("TWO");
+Specified by:
+setValue
+in interface
+SpinnerModel
+Parameters:
+elt
+- the sequence element that will be model's current value
+Throws:
+IllegalArgumentException
+- if the specified value isn't allowed
+See Also:
+SpinnerModel.setValue(java.lang.Object)
+getValue()
+getNextValue
+public
+Object
+getNextValue
+()
+Returns the next legal value of the underlying sequence or
+null
+if value is already the last element.
+Specified by:
+getNextValue
+in interface
+SpinnerModel
+Returns:
+the next legal value of the underlying sequence or
+null
+if value is already the last element
+See Also:
+SpinnerModel.getNextValue()
+getPreviousValue()
+getPreviousValue
+public
+Object
+getPreviousValue
+()
+Returns the previous element of the underlying sequence or
+null
+if value is already the first element.
+Specified by:
+getPreviousValue
+in interface
+SpinnerModel
+Returns:
+the previous element of the underlying sequence or
+null
+if value is already the first element
+See Also:
+SpinnerModel.getPreviousValue()
+getNextValue()
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

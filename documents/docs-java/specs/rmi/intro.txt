@@ -1,0 +1,69 @@
+Java Remote Method Invocation: 1 - Introduction
+1 Introduction
+Background
+System Goals
+1.1 Background
+Distributed systems require that computations running in different
+address spaces, potentially on different hosts, be able to communicate.
+For a basic communication mechanism, the Java
+TM
+programming
+language supports sockets, which are flexible and sufficient for general
+communication. However, sockets require the client and server to engage
+in applications-level protocols to encode and decode messages for
+exchange, and the design of such protocols is cumbersome and can be
+error-prone.
+An alternative to sockets is Remote Procedure Call (RPC), which
+abstracts the communication interface to the level of a procedure call.
+Instead of working directly with sockets, the programmer has the
+illusion of calling a local procedure, when in fact the arguments of the
+call are packaged up and shipped off to the remote target of the call.
+RPC systems encode arguments and return values using an external data
+representation, such as XDR.
+RPC, however, does not translate well into distributed object
+systems, where communication between program-level
+objects
+residing in different address spaces is needed. In order to match the
+semantics of object invocation, distributed object systems require
+remote method invocation
+or RMI. In such systems, a local
+surrogate (stub) object manages the invocation on a remote object.
+The Java platform's remote method invocation system described in this
+specification has been specifically designed to operate in the Java
+application environment. The Java programming language's RMI system
+assumes the homogeneous environment of the Java virtual machine (JVM),
+and the system can therefore take advantage of the Java platform's
+object model whenever possible.
+1.2 System Goals
+The goals for supporting distributed objects in the Java programming
+language are:
+Support seamless remote invocation on objects in different virtual
+machines
+Support callbacks from servers to applets
+Integrate the distributed object model into the Java programming
+language in a natural way while retaining most of the Java programming
+language's object semantics
+Make differences between the distributed object model and local Java
+platform's object model apparent
+Make writing reliable distributed applications as simple as
+possible
+Preserve the type-safety provided by the Java platform's runtime
+environment
+Support various reference semantics for remote objects; for example
+live (nonpersistent) references and persistent references
+Maintain the safe environment of the Java platform provided by
+security managers and class loaders
+Underlying all these goals is a general requirement that the RMI
+model be both simple (easy to use) and natural (fits well in the
+language).
+The first two chapters in this specification describe the distributed
+object model for the Java programming language and the system overview.
+The remaining chapters describe the RMI client and server visible APIs
+which are part of the Java SE platform.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

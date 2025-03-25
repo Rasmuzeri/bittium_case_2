@@ -1,0 +1,334 @@
+MessageProp (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.security.jgss
+Package
+org.ietf.jgss
+Class MessageProp
+java.lang.Object
+org.ietf.jgss.MessageProp
+public class
+MessageProp
+extends
+Object
+This is a utility class used within the per-message GSSContext
+ methods to convey per-message properties.
+When used with the GSSContext interface's wrap and getMIC methods, an
+ instance of this class is used to indicate the desired
+ Quality-of-Protection (QOP) and to request if confidentiality services
+ are to be applied to caller supplied data (wrap only).  To request
+ default QOP, the value of 0 should be used for QOP.
+When used with the unwrap and verifyMIC methods of the GSSContext
+ interface, an instance of this class will be used to indicate the
+ applied QOP and confidentiality services over the supplied message.
+ In the case of verifyMIC, the confidentiality state will always be
+false
+.  Upon return from these methods, this object will also
+ contain any supplementary status values applicable to the processed
+ token.  The supplementary status values can indicate old tokens, out
+ of sequence tokens, gap tokens or duplicate tokens.
+Since:
+1.4
+See Also:
+GSSContext.wrap(byte[], int, int, org.ietf.jgss.MessageProp)
+GSSContext.unwrap(byte[], int, int, org.ietf.jgss.MessageProp)
+GSSContext.getMIC(byte[], int, int, org.ietf.jgss.MessageProp)
+GSSContext.verifyMIC(byte[], int, int, byte[], int, int, org.ietf.jgss.MessageProp)
+Constructor Summary
+Constructors
+Constructor
+Description
+MessageProp
+(boolean privState)
+Constructor which sets the desired privacy state.
+MessageProp
+(int qop,
+ boolean privState)
+Constructor which sets the values for the qop and privacy state.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+int
+getMinorStatus
+()
+Retrieves the minor status code that the underlying mechanism might
+ have set for this per-message operation.
+String
+getMinorString
+()
+Retrieves a string explaining the minor status code.
+boolean
+getPrivacy
+()
+Retrieves the privacy state.
+int
+getQOP
+()
+Retrieves the QOP value.
+boolean
+isDuplicateToken
+()
+Tests if this is a duplicate of an earlier token.
+boolean
+isGapToken
+()
+Tests if an expected token was not received, i.e., one or more
+ predecessor tokens have not yet been successfully processed.
+boolean
+isOldToken
+()
+Tests if this token's validity period has expired, i.e., the token
+ is too old to be checked for duplication.
+boolean
+isUnseqToken
+()
+Tests if a later token had already been processed.
+void
+setPrivacy
+(boolean privState)
+Sets the privacy state.
+void
+setQOP
+(int qop)
+Sets the QOP value.
+void
+setSupplementaryStates
+(boolean duplicate,
+ boolean old,
+ boolean unseq,
+ boolean gap,
+ int minorStatus,
+String
+minorString)
+This method sets the state for the supplementary information flags
+ and the minor status in MessageProp.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+MessageProp
+public
+MessageProp
+(boolean privState)
+Constructor which sets the desired privacy state. The QOP value used
+ is 0.
+Parameters:
+privState
+- the privacy (i.e. confidentiality) state
+MessageProp
+public
+MessageProp
+(int qop,
+ boolean privState)
+Constructor which sets the values for the qop and privacy state.
+Parameters:
+qop
+- the QOP value
+privState
+- the privacy (i.e. confidentiality) state
+Method Details
+getQOP
+public
+int
+getQOP
+()
+Retrieves the QOP value.
+Returns:
+an int representing the QOP value
+See Also:
+setQOP(int)
+getPrivacy
+public
+boolean
+getPrivacy
+()
+Retrieves the privacy state.
+Returns:
+true if the privacy (i.e., confidentiality) state is true,
+ false otherwise.
+See Also:
+setPrivacy(boolean)
+setQOP
+public
+void
+setQOP
+(int qop)
+Sets the QOP value.
+Parameters:
+qop
+- the int value to set the QOP to
+See Also:
+getQOP()
+setPrivacy
+public
+void
+setPrivacy
+(boolean privState)
+Sets the privacy state.
+Parameters:
+privState
+- true is the privacy (i.e., confidentiality) state
+ is true, false otherwise.
+See Also:
+getPrivacy()
+isDuplicateToken
+public
+boolean
+isDuplicateToken
+()
+Tests if this is a duplicate of an earlier token.
+Returns:
+true if this is a duplicate, false otherwise.
+isOldToken
+public
+boolean
+isOldToken
+()
+Tests if this token's validity period has expired, i.e., the token
+ is too old to be checked for duplication.
+Returns:
+true if the token's validity period has expired, false
+ otherwise.
+isUnseqToken
+public
+boolean
+isUnseqToken
+()
+Tests if a later token had already been processed.
+Returns:
+true if a later token had already been processed, false otherwise.
+isGapToken
+public
+boolean
+isGapToken
+()
+Tests if an expected token was not received, i.e., one or more
+ predecessor tokens have not yet been successfully processed.
+Returns:
+true if an expected per-message token was not received,
+ false otherwise.
+getMinorStatus
+public
+int
+getMinorStatus
+()
+Retrieves the minor status code that the underlying mechanism might
+ have set for this per-message operation.
+Returns:
+the int minor status
+getMinorString
+public
+String
+getMinorString
+()
+Retrieves a string explaining the minor status code.
+Returns:
+a String corresponding to the minor status
+ code.
+null
+will be returned when no minor status code
+ has been set.
+setSupplementaryStates
+public
+void
+setSupplementaryStates
+(boolean duplicate,
+ boolean old,
+ boolean unseq,
+ boolean gap,
+ int minorStatus,
+String
+minorString)
+This method sets the state for the supplementary information flags
+ and the minor status in MessageProp.  It is not used by the
+ application but by the GSS implementation to return this information
+ to the caller of a per-message context method.
+Parameters:
+duplicate
+- true if the token was a duplicate of an earlier
+ token, false otherwise
+old
+- true if the token's validity period has expired, false
+ otherwise
+unseq
+- true if a later token has already been processed, false
+ otherwise
+gap
+- true if one or more predecessor tokens have not yet been
+ successfully processed, false otherwise
+minorStatus
+- the int minor status code for the per-message
+ operation
+minorString
+- the textual representation of the minorStatus value
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,552 @@
+System.Logger (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang
+Interface System.Logger
+Enclosing class:
+System
+public static interface
+System.Logger
+System.Logger
+instances log messages that will be
+ routed to the underlying logging framework the
+LoggerFinder
+uses.
+System.Logger
+instances are typically obtained from
+ the
+System
+class, by calling
+System.getLogger(loggerName)
+or
+System.getLogger(loggerName, bundle)
+.
+Since:
+9
+See Also:
+System.getLogger(java.lang.String)
+System.getLogger(java.lang.String, java.util.ResourceBundle)
+System.LoggerFinder
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Interface
+Description
+static enum
+System.Logger.Level
+System
+loggers
+levels.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+String
+getName
+()
+Returns the name of this logger.
+boolean
+isLoggable
+(
+System.Logger.Level
+level)
+Checks if a message of the given level would be logged by
+ this logger.
+default void
+log
+(
+System.Logger.Level
+level,
+Object
+obj)
+Logs a message produced from the given object.
+default void
+log
+(
+System.Logger.Level
+level,
+String
+msg)
+Logs a message.
+default void
+log
+(
+System.Logger.Level
+level,
+String
+format,
+Object
+... params)
+Logs a message with an optional list of parameters.
+default void
+log
+(
+System.Logger.Level
+level,
+String
+msg,
+Throwable
+thrown)
+Logs a message associated with a given throwable.
+default void
+log
+(
+System.Logger.Level
+level,
+Supplier
+<
+String
+> msgSupplier)
+Logs a lazily supplied message.
+default void
+log
+(
+System.Logger.Level
+level,
+Supplier
+<
+String
+> msgSupplier,
+Throwable
+thrown)
+Logs a lazily supplied message associated with a given throwable.
+void
+log
+(
+System.Logger.Level
+level,
+ResourceBundle
+bundle,
+String
+format,
+Object
+... params)
+Logs a message with resource bundle and an optional list of
+ parameters.
+void
+log
+(
+System.Logger.Level
+level,
+ResourceBundle
+bundle,
+String
+msg,
+Throwable
+thrown)
+Logs a localized message associated with a given throwable.
+Method Details
+getName
+String
+getName
+()
+Returns the name of this logger.
+Returns:
+the logger name.
+isLoggable
+boolean
+isLoggable
+(
+System.Logger.Level
+level)
+Checks if a message of the given level would be logged by
+ this logger.
+Parameters:
+level
+- the log message level.
+Returns:
+true
+if the given log message level is currently
+         being logged.
+Throws:
+NullPointerException
+- if
+level
+is
+null
+.
+log
+default
+void
+log
+(
+System.Logger.Level
+level,
+String
+msg)
+Logs a message.
+Implementation Requirements:
+The default implementation for this method calls
+this.log(level, (ResourceBundle)null, msg, (Object[])null);
+Parameters:
+level
+- the log message level.
+msg
+- the string message (or a key in the message catalog, if
+ this logger is a
+localized logger
+);
+ can be
+null
+.
+Throws:
+NullPointerException
+- if
+level
+is
+null
+.
+log
+default
+void
+log
+(
+System.Logger.Level
+level,
+Supplier
+<
+String
+> msgSupplier)
+Logs a lazily supplied message.
+
+ If the logger is currently enabled for the given log message level
+ then a message is logged that is the result produced by the
+ given supplier function.  Otherwise, the supplier is not operated on.
+Implementation Requirements:
+When logging is enabled for the given level, the default
+ implementation for this method calls
+this.log(level, (ResourceBundle)null, msgSupplier.get(), (Object[])null);
+Parameters:
+level
+- the log message level.
+msgSupplier
+- a supplier function that produces a message.
+Throws:
+NullPointerException
+- if
+level
+is
+null
+,
+         or
+msgSupplier
+is
+null
+.
+log
+default
+void
+log
+(
+System.Logger.Level
+level,
+Object
+obj)
+Logs a message produced from the given object.
+
+ If the logger is currently enabled for the given log message level then
+ a message is logged that, by default, is the result produced from
+ calling  toString on the given object.
+ Otherwise, the object is not operated on.
+Implementation Requirements:
+When logging is enabled for the given level, the default
+ implementation for this method calls
+this.log(level, (ResourceBundle)null, obj.toString(), (Object[])null);
+Parameters:
+level
+- the log message level.
+obj
+- the object to log.
+Throws:
+NullPointerException
+- if
+level
+is
+null
+, or
+obj
+is
+null
+.
+log
+default
+void
+log
+(
+System.Logger.Level
+level,
+String
+msg,
+Throwable
+thrown)
+Logs a message associated with a given throwable.
+Implementation Requirements:
+The default implementation for this method calls
+this.log(level, (ResourceBundle)null, msg, thrown);
+Parameters:
+level
+- the log message level.
+msg
+- the string message (or a key in the message catalog, if
+ this logger is a
+localized logger
+);
+ can be
+null
+.
+thrown
+- a
+Throwable
+associated with the log message;
+        can be
+null
+.
+Throws:
+NullPointerException
+- if
+level
+is
+null
+.
+log
+default
+void
+log
+(
+System.Logger.Level
+level,
+Supplier
+<
+String
+> msgSupplier,
+Throwable
+thrown)
+Logs a lazily supplied message associated with a given throwable.
+
+ If the logger is currently enabled for the given log message level
+ then a message is logged that is the result produced by the
+ given supplier function.  Otherwise, the supplier is not operated on.
+Implementation Requirements:
+When logging is enabled for the given level, the default
+ implementation for this method calls
+this.log(level, (ResourceBundle)null, msgSupplier.get(), thrown);
+Parameters:
+level
+- one of the log message level identifiers.
+msgSupplier
+- a supplier function that produces a message.
+thrown
+- a
+Throwable
+associated with log message;
+               can be
+null
+.
+Throws:
+NullPointerException
+- if
+level
+is
+null
+, or
+msgSupplier
+is
+null
+.
+log
+default
+void
+log
+(
+System.Logger.Level
+level,
+String
+format,
+Object
+... params)
+Logs a message with an optional list of parameters.
+Implementation Requirements:
+The default implementation for this method calls
+this.log(level, (ResourceBundle)null, format, params);
+Parameters:
+level
+- one of the log message level identifiers.
+format
+- the string message format in
+MessageFormat
+format, (or a key in the message
+ catalog, if this logger is a
+localized logger
+);
+ can be
+null
+.
+params
+- an optional list of parameters to the message (may be
+ none).
+Throws:
+NullPointerException
+- if
+level
+is
+null
+.
+log
+void
+log
+(
+System.Logger.Level
+level,
+ResourceBundle
+bundle,
+String
+msg,
+Throwable
+thrown)
+Logs a localized message associated with a given throwable.
+
+ If the given resource bundle is non-
+null
+,  the
+msg
+string is localized using the given resource bundle.
+ Otherwise the
+msg
+string is not localized.
+Parameters:
+level
+- the log message level.
+bundle
+- a resource bundle to localize
+msg
+; can be
+null
+.
+msg
+- the string message (or a key in the message catalog,
+            if
+bundle
+is not
+null
+); can be
+null
+.
+thrown
+- a
+Throwable
+associated with the log message;
+        can be
+null
+.
+Throws:
+NullPointerException
+- if
+level
+is
+null
+.
+log
+void
+log
+(
+System.Logger.Level
+level,
+ResourceBundle
+bundle,
+String
+format,
+Object
+... params)
+Logs a message with resource bundle and an optional list of
+ parameters.
+
+ If the given resource bundle is non-
+null
+,  the
+format
+string is localized using the given resource bundle.
+ Otherwise the
+format
+string is not localized.
+Parameters:
+level
+- the log message level.
+bundle
+- a resource bundle to localize
+format
+; can be
+null
+.
+format
+- the string message format in
+MessageFormat
+format, (or a key in the message
+ catalog if
+bundle
+is not
+null
+); can be
+null
+.
+params
+- an optional list of parameters to the message (may be
+ none).
+Throws:
+NullPointerException
+- if
+level
+is
+null
+.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

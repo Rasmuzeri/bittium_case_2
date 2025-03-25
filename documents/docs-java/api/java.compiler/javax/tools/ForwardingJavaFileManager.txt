@@ -1,0 +1,1403 @@
+ForwardingJavaFileManager (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.tools
+Class ForwardingJavaFileManager<M extends
+JavaFileManager
+>
+java.lang.Object
+javax.tools.ForwardingJavaFileManager<M>
+Type Parameters:
+M
+- the kind of file manager forwarded to by this object
+All Implemented Interfaces:
+Closeable
+,
+Flushable
+,
+AutoCloseable
+,
+JavaFileManager
+,
+OptionChecker
+public class
+ForwardingJavaFileManager<M extends
+JavaFileManager
+>
+extends
+Object
+implements
+JavaFileManager
+Forwards calls to a given file manager.  Subclasses of this class
+ might override some of these methods and might also provide
+ additional fields and methods.
+Unless stated otherwise, references in this class to "
+this file manager
+"
+ should be interpreted as referring indirectly to the
+delegate file manager
+.
+Since:
+1.6
+Nested Class Summary
+Nested classes/interfaces declared in interface javax.tools.
+JavaFileManager
+JavaFileManager.Location
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected final
+M
+fileManager
+The file manager to which all methods are delegated.
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+ForwardingJavaFileManager
+(
+M
+fileManager)
+Creates a new instance of
+ForwardingJavaFileManager
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+close
+()
+Releases any resources opened by this file manager directly or
+ indirectly.
+boolean
+contains
+(
+JavaFileManager.Location
+location,
+FileObject
+fo)
+Determines whether or not a given file object is "contained in" a specified location.
+void
+flush
+()
+Flushes any resources opened for output by this file manager
+ directly or indirectly.
+ClassLoader
+getClassLoader
+(
+JavaFileManager.Location
+location)
+Returns a class loader for loading plug-ins from the given
+ package-oriented location.
+FileObject
+getFileForInput
+(
+JavaFileManager.Location
+location,
+String
+packageName,
+String
+relativeName)
+Returns a
+file object
+for input
+ representing the specified
+relative
+ name
+in the specified package in the given package-oriented location.
+FileObject
+getFileForOutput
+(
+JavaFileManager.Location
+location,
+String
+packageName,
+String
+relativeName,
+FileObject
+sibling)
+Returns a
+file object
+for output
+ representing the specified
+relative
+ name
+in the specified package in the given location.
+FileObject
+getFileForOutputForOriginatingFiles
+(
+JavaFileManager.Location
+location,
+String
+packageName,
+String
+relativeName,
+FileObject
+... originatingFiles)
+Returns a
+file object
+for output
+ representing the specified
+relative
+ name
+in the specified package in the given location.
+JavaFileObject
+getJavaFileForInput
+(
+JavaFileManager.Location
+location,
+String
+className,
+JavaFileObject.Kind
+kind)
+Returns a
+file object
+for input
+ representing the specified class of the specified kind in the
+ given package-oriented location.
+JavaFileObject
+getJavaFileForOutput
+(
+JavaFileManager.Location
+location,
+String
+className,
+JavaFileObject.Kind
+kind,
+FileObject
+sibling)
+Returns a
+file object
+for output
+ representing the specified class of the specified kind in the
+ given package-oriented location.
+JavaFileObject
+getJavaFileForOutputForOriginatingFiles
+(
+JavaFileManager.Location
+location,
+String
+className,
+JavaFileObject.Kind
+kind,
+FileObject
+... originatingFiles)
+Returns a
+file object
+for output
+ representing the specified class of the specified kind in the
+ given package-oriented location.
+JavaFileManager.Location
+getLocationForModule
+(
+JavaFileManager.Location
+location,
+String
+moduleName)
+Gets a location for a named module within a location, which may be either
+ a module-oriented location or an output location.
+JavaFileManager.Location
+getLocationForModule
+(
+JavaFileManager.Location
+location,
+JavaFileObject
+fo)
+Gets a location for the module containing a specific file
+ to be found within a location, which may be either
+ a module-oriented location or an output location.
+<S>
+ServiceLoader
+<S>
+getServiceLoader
+(
+JavaFileManager.Location
+location,
+Class
+<S> service)
+Get a service loader for a specific service class from a given location.
+boolean
+handleOption
+(
+String
+current,
+Iterator
+<
+String
+> remaining)
+Handles one option.
+boolean
+hasLocation
+(
+JavaFileManager.Location
+location)
+Determines if a location is known to this file manager.
+String
+inferBinaryName
+(
+JavaFileManager.Location
+location,
+JavaFileObject
+file)
+Infers a binary name of a file object based on a package-oriented location.
+String
+inferModuleName
+(
+JavaFileManager.Location
+location)
+Infer the name of the module from its location, as returned by
+getLocationForModule
+or
+listModuleLocations
+.
+boolean
+isSameFile
+(
+FileObject
+a,
+FileObject
+b)
+Compares two file objects and return true if they represent the
+ same underlying object.
+int
+isSupportedOption
+(
+String
+option)
+Determines if the given option is supported and if so, the
+ number of arguments the option takes.
+Iterable
+<
+JavaFileObject
+>
+list
+(
+JavaFileManager.Location
+location,
+String
+packageName,
+Set
+<
+JavaFileObject.Kind
+> kinds,
+ boolean recurse)
+Lists all file objects matching the given criteria in the given
+ package-oriented location.
+Iterable
+<
+Set
+<
+JavaFileManager.Location
+>>
+listLocationsForModules
+(
+JavaFileManager.Location
+location)
+Lists the locations for all the modules in a module-oriented location or an output location.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+fileManager
+protected final
+M
+extends
+JavaFileManager
+fileManager
+The file manager to which all methods are delegated.
+Constructor Details
+ForwardingJavaFileManager
+protected
+ForwardingJavaFileManager
+(
+M
+fileManager)
+Creates a new instance of
+ForwardingJavaFileManager
+.
+Parameters:
+fileManager
+- delegate to this file manager
+Method Details
+getClassLoader
+public
+ClassLoader
+getClassLoader
+(
+JavaFileManager.Location
+location)
+Description copied from interface:
+JavaFileManager
+Returns a class loader for loading plug-ins from the given
+ package-oriented location.
+ For example, to load annotation processors,
+ a compiler will request a class loader for the
+ANNOTATION_PROCESSOR_PATH
+location.
+Specified by:
+getClassLoader
+in interface
+JavaFileManager
+Parameters:
+location
+- a location
+Returns:
+a class loader for the given location; or
+null
+if loading plug-ins from the given location is disabled or if
+ the location is not known
+Throws:
+SecurityException
+- if a class loader can not be created
+ in the current security context
+IllegalStateException
+- if
+JavaFileManager.close()
+has been called
+ and this file manager cannot be reopened
+list
+public
+Iterable
+<
+JavaFileObject
+>
+list
+(
+JavaFileManager.Location
+location,
+String
+packageName,
+Set
+<
+JavaFileObject.Kind
+> kinds,
+ boolean recurse)
+throws
+IOException
+Description copied from interface:
+JavaFileManager
+Lists all file objects matching the given criteria in the given
+ package-oriented location.
+ List file objects in "subpackages" if recurse is true.
+Note: even if the given location is unknown to this file
+ manager, it may not return
+null
+.  Also, an unknown
+ location may not cause an exception.
+Specified by:
+list
+in interface
+JavaFileManager
+Parameters:
+location
+- a location
+packageName
+- a package name
+kinds
+- return objects only of these kinds
+recurse
+- if true include "subpackages"
+Returns:
+an Iterable of file objects matching the given criteria
+Throws:
+IOException
+- if an I/O error occurred, or if
+JavaFileManager.close()
+has been called and this file manager cannot be
+ reopened
+IllegalStateException
+- if
+JavaFileManager.close()
+has been called
+ and this file manager cannot be reopened
+inferBinaryName
+public
+String
+inferBinaryName
+(
+JavaFileManager.Location
+location,
+JavaFileObject
+file)
+Description copied from interface:
+JavaFileManager
+Infers a binary name of a file object based on a package-oriented location.
+ The binary name returned might not be a valid binary name according to
+The Java Language Specification
+.
+Specified by:
+inferBinaryName
+in interface
+JavaFileManager
+Parameters:
+location
+- a location
+file
+- a file object
+Returns:
+a binary name or
+null
+the file object is not
+ found in the given location
+Throws:
+IllegalStateException
+- if
+JavaFileManager.close()
+has been called
+ and this file manager cannot be reopened
+isSameFile
+public
+boolean
+isSameFile
+(
+FileObject
+a,
+FileObject
+b)
+Description copied from interface:
+JavaFileManager
+Compares two file objects and return true if they represent the
+ same underlying object.
+Specified by:
+isSameFile
+in interface
+JavaFileManager
+Parameters:
+a
+- a file object
+b
+- a file object
+Returns:
+true if the given file objects represent the same
+ underlying object
+Throws:
+IllegalArgumentException
+- if either of the arguments
+ were created with another file manager and this file manager
+ does not support foreign file objects
+handleOption
+public
+boolean
+handleOption
+(
+String
+current,
+Iterator
+<
+String
+> remaining)
+Description copied from interface:
+JavaFileManager
+Handles one option.  If
+current
+is an option to this
+ file manager it will consume any arguments to that option from
+remaining
+and return true, otherwise return false.
+Specified by:
+handleOption
+in interface
+JavaFileManager
+Parameters:
+current
+- current option
+remaining
+- remaining options
+Returns:
+true if this option was handled by this file manager,
+ false otherwise
+Throws:
+IllegalArgumentException
+- if this option to this file
+ manager is used incorrectly
+IllegalStateException
+- if
+JavaFileManager.close()
+has been called
+ and this file manager cannot be reopened
+hasLocation
+public
+boolean
+hasLocation
+(
+JavaFileManager.Location
+location)
+Description copied from interface:
+JavaFileManager
+Determines if a location is known to this file manager.
+Specified by:
+hasLocation
+in interface
+JavaFileManager
+Parameters:
+location
+- a location
+Returns:
+true if the location is known
+isSupportedOption
+public
+int
+isSupportedOption
+(
+String
+option)
+Description copied from interface:
+OptionChecker
+Determines if the given option is supported and if so, the
+ number of arguments the option takes.
+Specified by:
+isSupportedOption
+in interface
+OptionChecker
+Parameters:
+option
+- an option
+Returns:
+the number of arguments the given option takes or -1 if
+ the option is not supported
+getJavaFileForInput
+public
+JavaFileObject
+getJavaFileForInput
+(
+JavaFileManager.Location
+location,
+String
+className,
+JavaFileObject.Kind
+kind)
+throws
+IOException
+Description copied from interface:
+JavaFileManager
+Returns a
+file object
+for input
+ representing the specified class of the specified kind in the
+ given package-oriented location.
+Specified by:
+getJavaFileForInput
+in interface
+JavaFileManager
+Parameters:
+location
+- a location
+className
+- the name of a class
+kind
+- the kind of file, must be one of
+SOURCE
+or
+CLASS
+Returns:
+a file object, might return
+null
+if the
+ file does not exist
+Throws:
+IllegalArgumentException
+- if the location is not known
+ to this file manager and the file manager does not support
+ unknown locations, or if the kind is not valid, or if the
+ location is a module-oriented location
+IllegalStateException
+- if
+JavaFileManager.close()
+has been called
+ and this file manager cannot be reopened
+IOException
+- if an I/O error occurred, or if
+JavaFileManager.close()
+has been called and this file manager cannot be
+ reopened
+getJavaFileForOutput
+public
+JavaFileObject
+getJavaFileForOutput
+(
+JavaFileManager.Location
+location,
+String
+className,
+JavaFileObject.Kind
+kind,
+FileObject
+sibling)
+throws
+IOException
+Description copied from interface:
+JavaFileManager
+Returns a
+file object
+for output
+ representing the specified class of the specified kind in the
+ given package-oriented location.
+Optionally, this file manager might consider the sibling as
+ a hint for where to place the output.  The exact semantics of
+ this hint is unspecified.  The JDK compiler, javac, for
+ example, will place class files in the same directories as
+ originating source files unless a class file output directory
+ is provided.  To facilitate this behavior, javac might provide
+ the originating source file as sibling when calling this
+ method.
+Specified by:
+getJavaFileForOutput
+in interface
+JavaFileManager
+Parameters:
+location
+- a package-oriented location
+className
+- the name of a class
+kind
+- the kind of file, must be one of
+SOURCE
+or
+CLASS
+sibling
+- a file object to be used as hint for placement;
+ might be
+null
+Returns:
+a file object for output
+Throws:
+IllegalArgumentException
+- if sibling is not known to
+ this file manager, or if the location is not known to this file
+ manager and the file manager does not support unknown
+ locations, or if the kind is not valid, or if the location is
+ not an output location
+IllegalStateException
+-
+JavaFileManager.close()
+has been called
+ and this file manager cannot be reopened
+IOException
+- if an I/O error occurred, or if
+JavaFileManager.close()
+has been called and this file manager cannot be
+ reopened
+getJavaFileForOutputForOriginatingFiles
+public
+JavaFileObject
+getJavaFileForOutputForOriginatingFiles
+(
+JavaFileManager.Location
+location,
+String
+className,
+JavaFileObject.Kind
+kind,
+FileObject
+... originatingFiles)
+throws
+IOException
+Returns a
+file object
+for output
+ representing the specified class of the specified kind in the
+ given package-oriented location.
+The provided
+originatingFiles
+represent files that
+ were, in an unspecified way, used to create the content of
+ the file created by this method. See
+originatingElements
+in
+Filer.createSourceFile(java.lang.CharSequence, javax.lang.model.element.Element...)
+.
+Elements.getFileObjectOf(javax.lang.model.element.Element)
+may be used to convert the
+Element
+s to
+FileObject
+s.
+Specified by:
+getJavaFileForOutputForOriginatingFiles
+in interface
+JavaFileManager
+Implementation Requirements:
+If the subclass of the
+ForwardingJavaFileManager
+overrides the
+getJavaFileForOutput(javax.tools.JavaFileManager.Location, java.lang.String, javax.tools.JavaFileObject.Kind, javax.tools.FileObject)
+method, this method will delegate to it as per the
+ general contract of
+JavaFileManager.getJavaFileForOutputForOriginatingFiles(javax.tools.JavaFileManager.Location, java.lang.String, javax.tools.JavaFileObject.Kind, javax.tools.FileObject...)
+.
+ If the subclass does not override the method, the call will be delegated to the
+fileManager
+.
+Parameters:
+location
+- a package-oriented location
+className
+- the name of a class
+kind
+- the kind of file, must be one of
+SOURCE
+or
+CLASS
+originatingFiles
+- the files which are contributing to this newly created file;
+null
+is equivalent to empty
+originatingFiles
+,
+                         meaning no known originating files
+Returns:
+a file object for output
+Throws:
+IllegalArgumentException
+- if sibling is not known to
+ this file manager, or if the location is not known to this file
+ manager and the file manager does not support unknown
+ locations, or if the kind is not valid, or if the location is
+ not an output location
+IllegalStateException
+-
+JavaFileManager.close()
+has been called
+ and this file manager cannot be reopened
+IOException
+- if an I/O error occurred, or if
+JavaFileManager.close()
+has been called and this file manager cannot be
+ reopened
+See Also:
+Filer.createSourceFile(java.lang.CharSequence, javax.lang.model.element.Element...)
+getFileForInput
+public
+FileObject
+getFileForInput
+(
+JavaFileManager.Location
+location,
+String
+packageName,
+String
+relativeName)
+throws
+IOException
+Description copied from interface:
+JavaFileManager
+Returns a
+file object
+for input
+ representing the specified
+relative
+ name
+in the specified package in the given package-oriented location.
+If the returned object represents a
+source
+or
+class
+file, it must be an instance
+ of
+JavaFileObject
+.
+Informally, the file object returned by this method is
+ located in the concatenation of the location, package name, and
+ relative name.  For example, to locate the properties file
+ "resources/compiler.properties" in the package
+ "com.sun.tools.javac" in the
+SOURCE_PATH
+location, this method
+ might be called like so:
+Copy
+getFileForInput(SOURCE_PATH, "com.sun.tools.javac", "resources/compiler.properties");
+If the call was executed on Windows, with SOURCE_PATH set to
+"C:\Documents and Settings\UncleBob\src\share\classes"
+,
+ a valid result would be a file object representing the file
+"C:\Documents and Settings\UncleBob\src\share\classes\com\sun\tools\javac\resources\compiler.properties"
+.
+Specified by:
+getFileForInput
+in interface
+JavaFileManager
+Parameters:
+location
+- a package-oriented location
+packageName
+- a package name
+relativeName
+- a relative name
+Returns:
+a file object, might return
+null
+if the file
+ does not exist
+Throws:
+IllegalArgumentException
+- if the location is not known
+ to this file manager and the file manager does not support
+ unknown locations, or if
+relativeName
+is not valid,
+ or if the location is a module-oriented location
+IllegalStateException
+- if
+JavaFileManager.close()
+has been called
+ and this file manager cannot be reopened
+IOException
+- if an I/O error occurred, or if
+JavaFileManager.close()
+has been called and this file manager cannot be
+ reopened
+getFileForOutput
+public
+FileObject
+getFileForOutput
+(
+JavaFileManager.Location
+location,
+String
+packageName,
+String
+relativeName,
+FileObject
+sibling)
+throws
+IOException
+Description copied from interface:
+JavaFileManager
+Returns a
+file object
+for output
+ representing the specified
+relative
+ name
+in the specified package in the given location.
+Optionally, this file manager might consider the sibling as
+ a hint for where to place the output.  The exact semantics of
+ this hint is unspecified.  The JDK compiler, javac, for
+ example, will place class files in the same directories as
+ originating source files unless a class file output directory
+ is provided.  To facilitate this behavior, javac might provide
+ the originating source file as sibling when calling this
+ method.
+If the returned object represents a
+source
+or
+class
+file, it must be an instance
+ of
+JavaFileObject
+.
+Informally, the file object returned by this method is
+ located in the concatenation of the location, package name, and
+ relative name or next to the sibling argument.  See
+getFileForInput
+for an example.
+Specified by:
+getFileForOutput
+in interface
+JavaFileManager
+Parameters:
+location
+- an output location
+packageName
+- a package name
+relativeName
+- a relative name
+sibling
+- a file object to be used as hint for placement;
+ might be
+null
+Returns:
+a file object
+Throws:
+IllegalArgumentException
+- if sibling is not known to
+ this file manager, or if the location is not known to this file
+ manager and the file manager does not support unknown
+ locations, or if
+relativeName
+is not valid,
+ or if the location is not an output location
+IllegalStateException
+- if
+JavaFileManager.close()
+has been called
+ and this file manager cannot be reopened
+IOException
+- if an I/O error occurred, or if
+JavaFileManager.close()
+has been called and this file manager cannot be
+ reopened
+getFileForOutputForOriginatingFiles
+public
+FileObject
+getFileForOutputForOriginatingFiles
+(
+JavaFileManager.Location
+location,
+String
+packageName,
+String
+relativeName,
+FileObject
+... originatingFiles)
+throws
+IOException
+Returns a
+file object
+for output
+ representing the specified
+relative
+ name
+in the specified package in the given location.
+The provided
+originatingFiles
+represent files that
+ were, in an unspecified way, used to create the content of
+ the file created by this method. See
+originatingElements
+in
+Filer.createResource(javax.tools.JavaFileManager.Location, java.lang.CharSequence, java.lang.CharSequence, javax.lang.model.element.Element...)
+.
+Elements.getFileObjectOf(javax.lang.model.element.Element)
+may be used to convert the
+Element
+s to
+FileObject
+s.
+If the returned object represents a
+source
+or
+class
+file, it must be an instance
+ of
+JavaFileObject
+.
+Informally, the file object returned by this method is
+ located in the concatenation of the location, package name, and
+ relative name or in a location inferred from the
+originatingFiles
+.
+ See
+getFileForInput
+for an example.
+Specified by:
+getFileForOutputForOriginatingFiles
+in interface
+JavaFileManager
+Implementation Requirements:
+If the subclass of the
+ForwardingJavaFileManager
+overrides the
+getFileForOutput(javax.tools.JavaFileManager.Location, java.lang.String, java.lang.String, javax.tools.FileObject)
+method, this method will delegate to it as per the
+ general contract of
+JavaFileManager.getFileForOutputForOriginatingFiles(javax.tools.JavaFileManager.Location, java.lang.String, java.lang.String, javax.tools.FileObject...)
+.
+ If the subclass does not override the method, the call will be delegated to the
+fileManager
+.
+Parameters:
+location
+- an output location
+packageName
+- a package name
+relativeName
+- a relative name
+originatingFiles
+- the files which are contributing to this newly created file;
+null
+is equivalent to empty
+originatingFiles
+,
+                         meaning no known originating files
+Returns:
+a file object
+Throws:
+IllegalArgumentException
+- if sibling is not known to
+ this file manager, or if the location is not known to this file
+ manager and the file manager does not support unknown
+ locations, or if
+relativeName
+is not valid,
+ or if the location is not an output location
+IllegalStateException
+- if
+JavaFileManager.close()
+has been called
+ and this file manager cannot be reopened
+IOException
+- if an I/O error occurred, or if
+JavaFileManager.close()
+has been called and this file manager cannot be
+ reopened
+See Also:
+Filer.createResource(javax.tools.JavaFileManager.Location, java.lang.CharSequence, java.lang.CharSequence, javax.lang.model.element.Element...)
+flush
+public
+void
+flush
+()
+           throws
+IOException
+Description copied from interface:
+JavaFileManager
+Flushes any resources opened for output by this file manager
+ directly or indirectly.  Flushing a closed file manager has no
+ effect.
+Specified by:
+flush
+in interface
+Flushable
+Specified by:
+flush
+in interface
+JavaFileManager
+Throws:
+IOException
+- if an I/O error occurred
+See Also:
+JavaFileManager.close()
+close
+public
+void
+close
+()
+           throws
+IOException
+Description copied from interface:
+JavaFileManager
+Releases any resources opened by this file manager directly or
+ indirectly.  This might render this file manager useless and
+ the effect of subsequent calls to methods on this object or any
+ objects obtained through this object is undefined unless
+ explicitly allowed.  However, closing a file manager which has
+ already been closed has no effect.
+Specified by:
+close
+in interface
+AutoCloseable
+Specified by:
+close
+in interface
+Closeable
+Specified by:
+close
+in interface
+JavaFileManager
+Throws:
+IOException
+- if an I/O error occurred
+See Also:
+JavaFileManager.flush()
+getLocationForModule
+public
+JavaFileManager.Location
+getLocationForModule
+(
+JavaFileManager.Location
+location,
+String
+moduleName)
+throws
+IOException
+Description copied from interface:
+JavaFileManager
+Gets a location for a named module within a location, which may be either
+ a module-oriented location or an output location.
+ The result will be an output location if the given location is
+ an output location, or it will be a package-oriented location.
+Specified by:
+getLocationForModule
+in interface
+JavaFileManager
+Parameters:
+location
+- the module-oriented location
+moduleName
+- the name of the module to be found
+Returns:
+the location for the named module
+Throws:
+IOException
+- if an I/O error occurred
+Since:
+9
+getLocationForModule
+public
+JavaFileManager.Location
+getLocationForModule
+(
+JavaFileManager.Location
+location,
+JavaFileObject
+fo)
+throws
+IOException
+Description copied from interface:
+JavaFileManager
+Gets a location for the module containing a specific file
+ to be found within a location, which may be either
+ a module-oriented location or an output location.
+ The result will be an output location if the given location is
+ an output location, or it will be a package-oriented location.
+Specified by:
+getLocationForModule
+in interface
+JavaFileManager
+Parameters:
+location
+- the module-oriented location
+fo
+- the file
+Returns:
+the module containing the file
+Throws:
+IOException
+- if an I/O error occurred
+Since:
+9
+getServiceLoader
+public
+<S>
+ServiceLoader
+<S>
+getServiceLoader
+(
+JavaFileManager.Location
+location,
+Class
+<S> service)
+throws
+IOException
+Description copied from interface:
+JavaFileManager
+Get a service loader for a specific service class from a given location.
+
+ If the location is a module-oriented location, the service loader will use the
+ service declarations in the modules found in that location. Otherwise, a service loader
+ is created using the package-oriented location, in which case, the services are
+ determined using the provider-configuration files in
+META-INF/services
+.
+Specified by:
+getServiceLoader
+in interface
+JavaFileManager
+Type Parameters:
+S
+- the service class
+Parameters:
+location
+- the module-oriented location
+service
+- the
+Class
+object of the service class
+Returns:
+a service loader for the given service class
+Throws:
+IOException
+- if an I/O error occurred
+Since:
+9
+inferModuleName
+public
+String
+inferModuleName
+(
+JavaFileManager.Location
+location)
+throws
+IOException
+Description copied from interface:
+JavaFileManager
+Infer the name of the module from its location, as returned by
+getLocationForModule
+or
+listModuleLocations
+.
+Specified by:
+inferModuleName
+in interface
+JavaFileManager
+Parameters:
+location
+- a package-oriented location representing a module
+Returns:
+the name of the module
+Throws:
+IOException
+- if an I/O error occurred
+Since:
+9
+listLocationsForModules
+public
+Iterable
+<
+Set
+<
+JavaFileManager.Location
+>>
+listLocationsForModules
+(
+JavaFileManager.Location
+location)
+throws
+IOException
+Description copied from interface:
+JavaFileManager
+Lists the locations for all the modules in a module-oriented location or an output location.
+ The locations that are returned will be output locations if the given location is an output,
+ or it will be a package-oriented locations.
+Specified by:
+listLocationsForModules
+in interface
+JavaFileManager
+Parameters:
+location
+- the module-oriented location for which to list the modules
+Returns:
+a series of sets of locations containing modules
+Throws:
+IOException
+- if an I/O error occurred
+Since:
+9
+contains
+public
+boolean
+contains
+(
+JavaFileManager.Location
+location,
+FileObject
+fo)
+throws
+IOException
+Description copied from interface:
+JavaFileManager
+Determines whether or not a given file object is "contained in" a specified location.
+For a package-oriented location, a file object is contained in the location if there exist
+ values for
+packageName
+and
+relativeName
+such that either of the following
+ calls would return the
+same
+file object:
+Copy
+getFileForInput(location,
+packageName
+,
+relativeName
+)
+getFileForOutput(location,
+packageName
+,
+relativeName
+, null)
+For a module-oriented location, a file object is contained in the location if there exists
+ a module that may be obtained by the call:
+Copy
+getLocationForModule(location,
+moduleName
+)
+such that the file object is contained in the (package-oriented) location for that module.
+Specified by:
+contains
+in interface
+JavaFileManager
+Parameters:
+location
+- the location
+fo
+- the file object
+Returns:
+whether or not the file is contained in the location
+Throws:
+IOException
+- if there is a problem determining the result
+Since:
+9
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

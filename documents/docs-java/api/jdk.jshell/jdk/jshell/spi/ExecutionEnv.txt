@@ -1,0 +1,176 @@
+ExecutionEnv (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.jshell
+Package
+jdk.jshell.spi
+Interface ExecutionEnv
+public interface
+ExecutionEnv
+Functionality made available to a pluggable JShell execution engine.  It is
+ provided to the execution engine by the core JShell implementation.
+This interface is designed to provide the access to core JShell functionality
+ needed to implement ExecutionControl.
+Since:
+9
+See Also:
+ExecutionControl
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+void
+closeDown
+()
+Reports that the execution engine has shutdown.
+default
+Optional
+<
+JShellConsole
+>
+console
+()
+Returns the
+JShellConsole
+that should be used
+ by the execution engine, or
+null
+if none.
+List
+<
+String
+>
+extraRemoteVMOptions
+()
+Returns the additional VM options to be used when launching the remote
+ JVM.
+PrintStream
+userErr
+()
+Returns the user's error stream.
+InputStream
+userIn
+()
+Returns the user's input stream.
+PrintStream
+userOut
+()
+Returns the user's output stream.
+Method Details
+userIn
+InputStream
+userIn
+()
+Returns the user's input stream.
+Returns:
+the user's input stream
+userOut
+PrintStream
+userOut
+()
+Returns the user's output stream.
+Returns:
+the user's output stream
+userErr
+PrintStream
+userErr
+()
+Returns the user's error stream.
+Returns:
+the user's error stream
+extraRemoteVMOptions
+List
+<
+String
+>
+extraRemoteVMOptions
+()
+Returns the additional VM options to be used when launching the remote
+ JVM. This is advice to the execution engine.
+Note: an execution engine need not launch a remote JVM.
+Returns:
+the additional options with which to launch the remote JVM
+closeDown
+void
+closeDown
+()
+Reports that the execution engine has shutdown.
+console
+default
+Optional
+<
+JShellConsole
+>
+console
+()
+Returns the
+JShellConsole
+that should be used
+ by the execution engine, or
+null
+if none.
+Note: an execution engine may not support
+JShellConsole
+.
+Implementation Requirements:
+The default implementation of this method
+           returns an empty
+Optional
+.
+Returns:
+returns console, or an empty
+Optional
+if none,
+         never
+null
+Since:
+21
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

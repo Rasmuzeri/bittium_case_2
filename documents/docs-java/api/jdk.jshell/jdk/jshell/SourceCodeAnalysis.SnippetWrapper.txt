@@ -1,0 +1,188 @@
+SourceCodeAnalysis.SnippetWrapper (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.jshell
+Package
+jdk.jshell
+Interface SourceCodeAnalysis.SnippetWrapper
+Enclosing class:
+SourceCodeAnalysis
+public static interface
+SourceCodeAnalysis.SnippetWrapper
+The wrapping of a snippet of Java source into valid top-level Java
+ source. The wrapping will always either be an import or include a
+ synthetic class at the top-level. If a synthetic class is generated, it
+ will be proceeded by the package and import declarations, and may contain
+ synthetic class members.
+This interface, in addition to the mapped form, provides the context and
+ position mapping information.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+String
+fullClassName
+()
+Returns the fully qualified class name of the
+wrapped()
+class.
+Snippet.Kind
+kind
+()
+Returns the
+Snippet.Kind
+of the
+source()
+.
+String
+source
+()
+Returns the input that is wrapped.
+int
+sourceToWrappedPosition
+(int pos)
+Maps character position within the source to character position
+ within the wrapped.
+String
+wrapped
+()
+Returns a Java class definition that wraps the
+source()
+or, if an import, the import source.
+int
+wrappedToSourcePosition
+(int pos)
+Maps character position within the wrapped to character position
+ within the source.
+Method Details
+source
+String
+source
+()
+Returns the input that is wrapped. For
+wrappers(String)
+,
+ this is the source of the snippet within the input. A variable
+ declaration of
+N
+variables will map to
+N
+wrappers
+ with the source separated.
+For
+wrapper(Snippet)
+,
+ this is
+Snippet.source()
+.
+Returns:
+the input source corresponding to the wrapper.
+wrapped
+String
+wrapped
+()
+Returns a Java class definition that wraps the
+source()
+or, if an import, the import source.
+If the input is not a valid Snippet, this will not be a valid
+ class/import definition.
+The source may be divided and mapped to different locations within
+ the wrapped source.
+Returns:
+the source wrapped into top-level Java code
+fullClassName
+String
+fullClassName
+()
+Returns the fully qualified class name of the
+wrapped()
+class.
+ For erroneous input, a best guess is returned.
+Returns:
+the name of the synthetic wrapped class; if an import, the
+ name is not defined
+kind
+Snippet.Kind
+kind
+()
+Returns the
+Snippet.Kind
+of the
+source()
+.
+Returns:
+an enum representing the general kind of snippet.
+sourceToWrappedPosition
+int
+sourceToWrappedPosition
+(int pos)
+Maps character position within the source to character position
+ within the wrapped.
+Parameters:
+pos
+- the position in
+source()
+Returns:
+the corresponding position in
+wrapped()
+wrappedToSourcePosition
+int
+wrappedToSourcePosition
+(int pos)
+Maps character position within the wrapped to character position
+ within the source.
+Parameters:
+pos
+- the position in
+wrapped()
+Returns:
+the corresponding position in
+source()
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

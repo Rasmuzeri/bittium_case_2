@@ -1,0 +1,218 @@
+Formatter (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.logging
+Package
+java.util.logging
+Class Formatter
+java.lang.Object
+java.util.logging.Formatter
+Direct Known Subclasses:
+SimpleFormatter
+,
+XMLFormatter
+public abstract class
+Formatter
+extends
+Object
+A Formatter provides support for formatting LogRecords.
+Typically each logging Handler will have a Formatter associated
+ with it.  The Formatter takes a LogRecord and converts it to
+ a string.
+Some formatters (such as the XMLFormatter) need to wrap head
+ and tail strings around a set of formatted records. The getHeader
+ and getTail methods can be used to obtain these strings.
+Since:
+1.4
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+Formatter
+()
+Construct a new formatter.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+abstract
+String
+format
+(
+LogRecord
+record)
+Format the given log record and return the formatted string.
+String
+formatMessage
+(
+LogRecord
+record)
+Localize and format the message string from a log record.
+String
+getHead
+(
+Handler
+h)
+Return the header string for a set of formatted records.
+String
+getTail
+(
+Handler
+h)
+Return the tail string for a set of formatted records.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+Formatter
+protected
+Formatter
+()
+Construct a new formatter.
+Method Details
+format
+public abstract
+String
+format
+(
+LogRecord
+record)
+Format the given log record and return the formatted string.
+The resulting formatted String will normally include a
+ localized and formatted version of the LogRecord's message field.
+ It is recommended to use the
+formatMessage(java.util.logging.LogRecord)
+convenience method to localize and format the message field.
+Parameters:
+record
+- the log record to be formatted.
+Returns:
+the formatted log record
+getHead
+public
+String
+getHead
+(
+Handler
+h)
+Return the header string for a set of formatted records.
+This base class returns an empty string, but this may be
+ overridden by subclasses.
+Parameters:
+h
+- The target handler (can be null)
+Returns:
+header string
+getTail
+public
+String
+getTail
+(
+Handler
+h)
+Return the tail string for a set of formatted records.
+This base class returns an empty string, but this may be
+ overridden by subclasses.
+Parameters:
+h
+- The target handler (can be null)
+Returns:
+tail string
+formatMessage
+public
+String
+formatMessage
+(
+LogRecord
+record)
+Localize and format the message string from a log record.  This
+ method is provided as a convenience for Formatter subclasses to
+ use when they are performing formatting.
+The message string is first localized to a format string using
+ the record's ResourceBundle.  (If there is no ResourceBundle,
+ or if the message key is not found, then the key is used as the
+ format string.)  The format String uses java.text style
+ formatting.
+If there are no parameters, no formatter is used.
+Otherwise, if the string contains "{<digit>"
+     where <digit> is in [0-9],
+     java.text.MessageFormat is used to format the string.
+Otherwise no formatting is performed.
+Parameters:
+record
+- the log record containing the raw message
+Returns:
+a localized and formatted message
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

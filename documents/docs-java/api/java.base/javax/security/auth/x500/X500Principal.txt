@@ -1,0 +1,709 @@
+X500Principal (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+javax.security.auth.x500
+Class X500Principal
+java.lang.Object
+javax.security.auth.x500.X500Principal
+All Implemented Interfaces:
+Serializable
+,
+Principal
+public final class
+X500Principal
+extends
+Object
+implements
+Principal
+,
+Serializable
+This class represents an X.500
+Principal
+.
+X500Principal
+s are represented by distinguished names such as
+ "CN=Duke, OU=JavaSoft, O=Sun Microsystems, C=US".
+This class can be instantiated by using a string representation
+ of the distinguished name, or by using the ASN.1 DER encoded byte
+ representation of the distinguished name.  The current specification
+ for the string representation of a distinguished name is defined in
+RFC 2253: Lightweight
+ Directory Access Protocol (v3): UTF-8 String Representation of
+ Distinguished Names
+. This class, however, accepts string formats from
+ both RFC 2253 and
+RFC 1779:
+ A String Representation of Distinguished Names
+, and also recognizes
+ attribute type keywords whose OIDs (Object Identifiers) are defined in
+RFC 5280: Internet X.509
+ Public Key Infrastructure Certificate and CRL Profile
+.
+The string representation for this
+X500Principal
+can be obtained by calling the
+getName
+methods.
+Note that the
+getSubjectX500Principal
+and
+getIssuerX500Principal
+methods of
+X509Certificate
+return X500Principals representing the
+ issuer and subject fields of the certificate.
+Since:
+1.4
+See Also:
+X509Certificate
+Serialized Form
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+String
+CANONICAL
+Canonical String format of Distinguished Names.
+static final
+String
+RFC1779
+RFC 1779 String format of Distinguished Names.
+static final
+String
+RFC2253
+RFC 2253 String format of Distinguished Names.
+Constructor Summary
+Constructors
+Constructor
+Description
+X500Principal
+(byte[] name)
+Creates an
+X500Principal
+from a distinguished name in
+ ASN.1 DER encoded form.
+X500Principal
+(
+InputStream
+is)
+Creates an
+X500Principal
+from an
+InputStream
+containing the distinguished name in ASN.1 DER encoded form.
+X500Principal
+(
+String
+name)
+Creates an
+X500Principal
+from a string representation of
+ an X.500 distinguished name (ex:
+ "CN=Duke, OU=JavaSoft, O=Sun Microsystems, C=US").
+X500Principal
+(
+String
+name,
+Map
+<
+String
+,
+String
+> keywordMap)
+Creates an
+X500Principal
+from a string representation of
+ an X.500 distinguished name (ex:
+ "CN=Duke, OU=JavaSoft, O=Sun Microsystems, C=US").
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+equals
+(
+Object
+o)
+Compares the specified
+Object
+with this
+X500Principal
+for equality.
+byte[]
+getEncoded
+()
+Returns the distinguished name in ASN.1 DER encoded form.
+String
+getName
+()
+Returns a string representation of the X.500 distinguished name using
+ the format defined in RFC 2253.
+String
+getName
+(
+String
+format)
+Returns a string representation of the X.500 distinguished name
+ using the specified format.
+String
+getName
+(
+String
+format,
+Map
+<
+String
+,
+String
+> oidMap)
+Returns a string representation of the X.500 distinguished name
+ using the specified format.
+int
+hashCode
+()
+Return a hash code for this
+X500Principal
+.
+String
+toString
+()
+Return a user-friendly string representation of this
+X500Principal
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface java.security.
+Principal
+implies
+Field Details
+RFC1779
+public static final
+String
+RFC1779
+RFC 1779 String format of Distinguished Names.
+See Also:
+Constant Field Values
+RFC2253
+public static final
+String
+RFC2253
+RFC 2253 String format of Distinguished Names.
+See Also:
+Constant Field Values
+CANONICAL
+public static final
+String
+CANONICAL
+Canonical String format of Distinguished Names.
+See Also:
+Constant Field Values
+Constructor Details
+X500Principal
+public
+X500Principal
+(
+String
+name)
+Creates an
+X500Principal
+from a string representation of
+ an X.500 distinguished name (ex:
+ "CN=Duke, OU=JavaSoft, O=Sun Microsystems, C=US").
+ The distinguished name must be specified using the grammar defined in
+ RFC 1779 or RFC 2253 (either format is acceptable).
+This constructor recognizes the attribute type keywords
+ defined in RFC 1779 and RFC 2253
+ (and listed in
+getName(String format)
+),
+ as well as the T, DNQ or DNQUALIFIER, SURNAME, GIVENNAME, INITIALS,
+ GENERATION, EMAILADDRESS, and SERIALNUMBER keywords whose Object
+ Identifiers (OIDs) are defined in RFC 5280.
+ Any other attribute type must be specified as an OID.
+This implementation enforces a more restrictive OID syntax than
+ defined in RFC 1779 and 2253. It uses the more correct syntax defined in
+RFC 4512
+, which
+ specifies that OIDs contain at least 2 digits:
+numericoid = number 1*( DOT number )
+Parameters:
+name
+- an X.500 distinguished name in RFC 1779 or RFC 2253 format
+Throws:
+NullPointerException
+- if the
+name
+is
+null
+IllegalArgumentException
+- if the
+name
+is improperly specified
+X500Principal
+public
+X500Principal
+(
+String
+name,
+Map
+<
+String
+,
+String
+> keywordMap)
+Creates an
+X500Principal
+from a string representation of
+ an X.500 distinguished name (ex:
+ "CN=Duke, OU=JavaSoft, O=Sun Microsystems, C=US").
+ The distinguished name must be specified using the grammar defined in
+ RFC 1779 or RFC 2253 (either format is acceptable).
+This constructor recognizes the attribute type keywords specified
+ in
+X500Principal(String)
+and also recognizes additional
+ keywords that have entries in the
+keywordMap
+parameter.
+ Keyword entries in the keywordMap take precedence over the default
+ keywords recognized by
+X500Principal(String)
+. Keywords
+ MUST be specified in all upper-case, otherwise they will be ignored.
+ Improperly specified keywords are ignored; however if a keyword in the
+ name maps to an improperly specified Object Identifier (OID), an
+IllegalArgumentException
+is thrown. It is permissible to
+ have 2 different keywords that map to the same OID.
+This implementation enforces a more restrictive OID syntax than
+ defined in RFC 1779 and 2253. It uses the more correct syntax defined in
+RFC 4512
+, which
+ specifies that OIDs contain at least 2 digits:
+numericoid = number 1*( DOT number )
+Parameters:
+name
+- an X.500 distinguished name in RFC 1779 or RFC 2253 format
+keywordMap
+- an attribute type keyword map, where each key is a
+   keyword String that maps to a corresponding object identifier in String
+   form (a sequence of nonnegative integers separated by periods). The map
+   may be empty but never
+null
+.
+Throws:
+NullPointerException
+- if
+name
+or
+keywordMap
+is
+null
+IllegalArgumentException
+- if the
+name
+is
+   improperly specified or a keyword in the
+name
+maps to an
+   OID that is not in the correct form
+Since:
+1.6
+X500Principal
+public
+X500Principal
+(byte[] name)
+Creates an
+X500Principal
+from a distinguished name in
+ ASN.1 DER encoded form. The ASN.1 notation for this structure is as
+ follows.
+Name ::= CHOICE {
+   RDNSequence }
+
+ RDNSequence ::= SEQUENCE OF RelativeDistinguishedName
+
+ RelativeDistinguishedName ::=
+   SET SIZE (1 .. MAX) OF AttributeTypeAndValue
+
+ AttributeTypeAndValue ::= SEQUENCE {
+   type     AttributeType,
+   value    AttributeValue }
+
+ AttributeType ::= OBJECT IDENTIFIER
+
+ AttributeValue ::= ANY DEFINED BY AttributeType
+ ....
+ DirectoryString ::= CHOICE {
+       teletexString           TeletexString (SIZE (1..MAX)),
+       printableString         PrintableString (SIZE (1..MAX)),
+       universalString         UniversalString (SIZE (1..MAX)),
+       utf8String              UTF8String (SIZE (1.. MAX)),
+       bmpString               BMPString (SIZE (1..MAX)) }
+Parameters:
+name
+- a byte array containing the distinguished name in ASN.1
+ DER encoded form
+Throws:
+IllegalArgumentException
+- if an encoding error occurs
+          (incorrect form for DN)
+X500Principal
+public
+X500Principal
+(
+InputStream
+is)
+Creates an
+X500Principal
+from an
+InputStream
+containing the distinguished name in ASN.1 DER encoded form.
+ The ASN.1 notation for this structure is supplied in the
+ documentation for
+X500Principal(byte[] name)
+.
+The read position of the input stream is positioned
+ to the next available byte after the encoded distinguished name.
+Parameters:
+is
+- an
+InputStream
+containing the distinguished
+          name in ASN.1 DER encoded form
+Throws:
+NullPointerException
+- if the
+InputStream
+is
+null
+IllegalArgumentException
+- if an encoding error occurs
+          (incorrect form for DN)
+Method Details
+getName
+public
+String
+getName
+()
+Returns a string representation of the X.500 distinguished name using
+ the format defined in RFC 2253.
+This method is equivalent to calling
+getName(X500Principal.RFC2253)
+.
+Specified by:
+getName
+in interface
+Principal
+Returns:
+the distinguished name of this
+X500Principal
+getName
+public
+String
+getName
+(
+String
+format)
+Returns a string representation of the X.500 distinguished name
+ using the specified format. Valid values for the format are
+ "RFC1779", "RFC2253", and "CANONICAL" (case-insensitive).
+If "RFC1779" is specified as the format,
+ this method emits the attribute type keywords defined in
+ RFC 1779 (CN, L, ST, O, OU, C, STREET).
+ Any other attribute type is emitted as an OID.
+If "RFC2253" is specified as the format,
+ this method emits the attribute type keywords defined in
+ RFC 2253 (CN, L, ST, O, OU, C, STREET, DC, UID).
+ Any other attribute type is emitted as an OID.
+ Under a strict reading, RFC 2253 only specifies a UTF-8 string
+ representation. The String returned by this method is the
+ Unicode string achieved by decoding this UTF-8 representation.
+If "CANONICAL" is specified as the format,
+ this method returns an RFC 2253 conformant string representation
+ with the following additional canonicalizations:
+Leading zeros are removed from attribute types
+          that are encoded as dotted decimal OIDs
+DirectoryString attribute values of type
+          PrintableString and UTF8String are not
+          output in hexadecimal format
+DirectoryString attribute values of types
+          other than PrintableString and UTF8String
+          are output in hexadecimal format
+Leading and trailing white space characters
+          are removed from non-hexadecimal attribute values
+          (unless the value consists entirely of white space characters)
+Internal substrings of one or more white space characters are
+          converted to a single space in non-hexadecimal
+          attribute values
+Relative Distinguished Names containing more than one
+          Attribute Value Assertion (AVA) are output in the
+          following order: an alphabetical ordering of AVAs
+          containing standard keywords, followed by a numeric
+          ordering of AVAs containing OID keywords.
+The only characters in attribute values that are escaped are
+          those which section 2.4 of RFC 2253 states must be escaped
+          (they are escaped using a preceding backslash character)
+The entire name is converted to upper case
+          using
+String.toUpperCase(Locale.US)
+The entire name is converted to lower case
+          using
+String.toLowerCase(Locale.US)
+The name is finally normalized using normalization form KD,
+          as described in the Unicode Standard and UAX #15
+Additional standard formats may be introduced in the future.
+Parameters:
+format
+- the format to use
+Returns:
+a string representation of this
+X500Principal
+using the specified format
+Throws:
+IllegalArgumentException
+- if the specified format is invalid
+          or null
+getName
+public
+String
+getName
+(
+String
+format,
+Map
+<
+String
+,
+String
+> oidMap)
+Returns a string representation of the X.500 distinguished name
+ using the specified format. Valid values for the format are
+ "RFC1779" and "RFC2253" (case-insensitive). "CANONICAL" is not
+ permitted and an
+IllegalArgumentException
+will be thrown.
+This method returns Strings in the format as specified in
+getName(String)
+and also emits additional attribute type
+ keywords for OIDs that have entries in the
+oidMap
+parameter. OID entries in the oidMap take precedence over the default
+ OIDs recognized by
+getName(String)
+.
+ Improperly specified OIDs are ignored; however if an OID
+ in the name maps to an improperly specified keyword, an
+IllegalArgumentException
+is thrown.
+Additional standard formats may be introduced in the future.
+Warning: additional attribute type keywords may not be recognized
+ by other implementations; therefore do not use this method if
+ you are unsure if these keywords will be recognized by other
+ implementations.
+Parameters:
+format
+- the format to use
+oidMap
+- an OID map, where each key is an object identifier in
+  String form (a sequence of nonnegative integers separated by periods)
+  that maps to a corresponding attribute type keyword String.
+  The map may be empty but never
+null
+.
+Returns:
+a string representation of this
+X500Principal
+using the specified format
+Throws:
+IllegalArgumentException
+- if the specified format is invalid,
+  null, or an OID in the name maps to an improperly specified keyword
+NullPointerException
+- if
+oidMap
+is
+null
+Since:
+1.6
+getEncoded
+public
+byte[]
+getEncoded
+()
+Returns the distinguished name in ASN.1 DER encoded form. The ASN.1
+ notation for this structure is supplied in the documentation for
+X500Principal(byte[] name)
+.
+Note that the byte array returned is cloned to protect against
+ subsequent modifications.
+Returns:
+a byte array containing the distinguished name in ASN.1 DER
+ encoded form
+toString
+public
+String
+toString
+()
+Return a user-friendly string representation of this
+X500Principal
+.
+Specified by:
+toString
+in interface
+Principal
+Overrides:
+toString
+in class
+Object
+Returns:
+a string representation of this
+X500Principal
+equals
+public
+boolean
+equals
+(
+Object
+o)
+Compares the specified
+Object
+with this
+X500Principal
+for equality.
+Specifically, this method returns
+true
+if
+ the
+Object
+o
+is an
+X500Principal
+and if the respective canonical string representations
+ (obtained via the
+getName(X500Principal.CANONICAL)
+method)
+ of this object and
+o
+are equal.
+This implementation is compliant with the requirements of RFC 5280.
+Specified by:
+equals
+in interface
+Principal
+Overrides:
+equals
+in class
+Object
+Parameters:
+o
+- Object to be compared for equality with this
+X500Principal
+Returns:
+true
+if the specified
+Object
+is equal
+          to this
+X500Principal
+,
+false
+otherwise
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+public
+int
+hashCode
+()
+Return a hash code for this
+X500Principal
+.
+The hash code is calculated via:
+getName(X500Principal.CANONICAL).hashCode()
+Specified by:
+hashCode
+in interface
+Principal
+Overrides:
+hashCode
+in class
+Object
+Returns:
+a hash code for this
+X500Principal
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

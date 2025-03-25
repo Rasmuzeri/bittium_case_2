@@ -1,0 +1,195 @@
+Checksum (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.util.zip
+Interface Checksum
+All Known Implementing Classes:
+Adler32
+,
+CRC32
+,
+CRC32C
+public interface
+Checksum
+An interface representing a data checksum.
+Since:
+1.1
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+long
+getValue
+()
+Returns the current checksum value.
+void
+reset
+()
+Resets the checksum to its initial value.
+default void
+update
+(byte[] b)
+Updates the current checksum with the specified array of bytes.
+void
+update
+(byte[] b,
+ int off,
+ int len)
+Updates the current checksum with the specified array of bytes.
+void
+update
+(int b)
+Updates the current checksum with the specified byte.
+default void
+update
+(
+ByteBuffer
+buffer)
+Updates the current checksum with the bytes from the specified buffer.
+Method Details
+update
+void
+update
+(int b)
+Updates the current checksum with the specified byte.
+Parameters:
+b
+- the byte to update the checksum with
+update
+default
+void
+update
+(byte[] b)
+Updates the current checksum with the specified array of bytes.
+Implementation Requirements:
+This default implementation is equal to calling
+update(b, 0, b.length)
+.
+Parameters:
+b
+- the array of bytes to update the checksum with
+Throws:
+NullPointerException
+- if
+b
+is
+null
+Since:
+9
+update
+void
+update
+(byte[] b,
+ int off,
+ int len)
+Updates the current checksum with the specified array of bytes.
+Parameters:
+b
+- the byte array to update the checksum with
+off
+- the start offset of the data
+len
+- the number of bytes to use for the update
+update
+default
+void
+update
+(
+ByteBuffer
+buffer)
+Updates the current checksum with the bytes from the specified buffer.
+
+ The checksum is updated with the remaining bytes in the buffer, starting
+ at the buffer's position. Upon return, the buffer's position will be
+ updated to its limit; its limit will not have been changed.
+API Note:
+For best performance with DirectByteBuffer and other ByteBuffer
+ implementations without a backing array implementers of this interface
+ should override this method.
+Implementation Requirements:
+The default implementation has the following behavior.
+For ByteBuffers backed by an accessible byte array.
+update(buffer.array(),
+        buffer.position() + buffer.arrayOffset(),
+        buffer.remaining());
+For ByteBuffers not backed by an accessible byte array.
+byte[] b = new byte[Math.min(buffer.remaining(), 4096)];
+ while (buffer.hasRemaining()) {
+     int length = Math.min(buffer.remaining(), b.length);
+     buffer.get(b, 0, length);
+     update(b, 0, length);
+ }
+Parameters:
+buffer
+- the ByteBuffer to update the checksum with
+Throws:
+NullPointerException
+- if
+buffer
+is
+null
+Since:
+9
+getValue
+long
+getValue
+()
+Returns the current checksum value.
+Returns:
+the current checksum value
+reset
+void
+reset
+()
+Resets the checksum to its initial value.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

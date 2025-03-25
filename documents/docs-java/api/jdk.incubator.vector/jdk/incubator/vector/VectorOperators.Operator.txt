@@ -1,0 +1,272 @@
+VectorOperators.Operator (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.incubator.vector
+Package
+jdk.incubator.vector
+Interface VectorOperators.Operator
+All Known Subinterfaces:
+VectorOperators.Associative
+,
+VectorOperators.Binary
+,
+VectorOperators.Comparison
+,
+VectorOperators.Conversion
+<E,
+F>
+,
+VectorOperators.Ternary
+,
+VectorOperators.Test
+,
+VectorOperators.Unary
+Enclosing class:
+VectorOperators
+public static interface
+VectorOperators.Operator
+Root type for all operator tokens, providing queries for common
+ properties such as arity, argument and return types, symbolic
+ name, and operator name.
+API Note:
+User code should not implement this interface.  A future release of
+ this type may restrict implementations to be members of the same
+ package.
+See Also:
+Unary
+Binary
+Ternary
+Associative
+Comparison
+Test
+Conversion
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+int
+arity
+()
+Returns the arity of this operator (1, 2, or 3).
+boolean
+compatibleWith
+(
+Class
+<?> elementType)
+Reports whether this operator is compatible with
+ the proposed element type.
+boolean
+isAssociative
+()
+Returns the associativity of this operator.
+boolean
+isBoolean
+()
+Reports whether this operator returns a boolean (a mask).
+String
+name
+()
+Returns the symbolic name of this operator,
+ as a constant in
+VectorOperators
+.
+String
+operatorName
+()
+Returns the Java operator symbol or method
+ name corresponding to this operator.
+Class
+<?>
+rangeType
+()
+Reports the special return type of this operator.
+Method Details
+name
+String
+name
+()
+Returns the symbolic name of this operator,
+ as a constant in
+VectorOperators
+.
+
+ The operator symbol, Java method name,
+ or example expression,
+ such as
+"+"
+,
+"max"
+or
+"-a"
+,
+ is also available as
+operatorName()
+.
+Returns:
+the symbolic name of this operator,
+         such as
+"ADD"
+operatorName
+String
+operatorName
+()
+Returns the Java operator symbol or method
+ name corresponding to this operator.
+ If there is no symbol or method, return a
+ string containing a representative expression
+ for the operator, using operand names
+a
+,
+b
+(for non-unary operators),
+ and
+c
+(for ternary operators).
+
+ The symbolic name of the constant,
+ such as
+"ADD"
+,
+ is also available as
+name()
+.
+Returns:
+an operator token, such as
+"+"
+,
+         or a method name, such as
+"max"
+,
+         or a representative expression, such as
+"-a"
+arity
+int
+arity
+()
+Returns the arity of this operator (1, 2, or 3).
+Returns:
+the arity of this operator (1, 2, or 3)
+isBoolean
+boolean
+isBoolean
+()
+Reports whether this operator returns a boolean (a mask).
+ A boolean operator also reports
+boolean
+as the
+rangeType
+.
+Returns:
+whether this operator returns a boolean
+rangeType
+Class
+<?>
+rangeType
+()
+Reports the special return type of this operator.
+ If this operator is a boolean, returns
+boolean.class
+.
+ If this operator is a
+Conversion
+,
+ returns its
+range type
+.
+
+ Otherwise, the operator's return value always has
+ whatever type was given as an input, and this method
+ returns
+Object.class
+to denote that fact.
+Returns:
+the special return type, or
+Object.class
+if none
+isAssociative
+boolean
+isAssociative
+()
+Returns the associativity of this operator.
+ Only binary operators can be associative.
+Returns:
+the associativity of this operator
+compatibleWith
+boolean
+compatibleWith
+(
+Class
+<?> elementType)
+Reports whether this operator is compatible with
+ the proposed element type.
+
+ First, unrestricted operators are compatible with all element
+ types.
+
+ Next, if the element type is
+double
+or
+float
+and the operator is restricted to floating point types, it is
+ compatible.
+
+ Otherwise, if the element type is neither
+double
+nor
+float
+and the operator is restricted to integral
+ types, it is compatible.  Otherwise, the operator is not
+ compatible.
+Parameters:
+elementType
+- the proposed operand type for the operator
+Returns:
+whether the proposed type is compatible with this operator
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,374 @@
+AttachProvider (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.attach
+Package
+com.sun.tools.attach.spi
+Class AttachProvider
+java.lang.Object
+com.sun.tools.attach.spi.AttachProvider
+public abstract class
+AttachProvider
+extends
+Object
+Attach provider class for attaching to a Java virtual machine.
+An attach provider is a concrete subclass of this class that has a
+ zero-argument constructor and implements the abstract methods specified
+ below.
+An attach provider implementation is typically tied to a Java virtual
+ machine implementation, version, or even mode of operation. That is, a specific
+ provider implementation will typically only be capable of attaching to
+ a specific Java virtual machine implementation or version. For example, Oracle's
+ JDK implementation ships with provider implementations that can only attach to
+ Oracle's
+HotSpot
+virtual machine. In general, if an environment
+ consists of Java virtual machines of different versions and from different
+ vendors then there will be an attach provider implementation for each
+family
+of implementations or versions.
+An attach provider is identified by its
+name
+and
+type
+. The
+name
+is typically, but not required to
+ be, a name that corresponds to the VM vendor. The Oracle JDK implementation,
+ for example, ships with attach providers that use the package name
+"sun"
+(for historical reasons). The
+type
+typically corresponds to the attach mechanism. For example, an
+ implementation that uses the Doors inter-process communication mechanism
+ might use the type
+"doors"
+. The purpose of the name and type is to
+ identify providers in environments where there are multiple providers
+ installed.
+AttachProvider implementations are loaded and instantiated at the first
+ invocation of the
+providers
+method. This method
+ attempts to load all provider implementations that are installed on the
+ platform.
+All of the methods in this class are safe for use by multiple
+ concurrent threads.
+Since:
+1.6
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+AttachProvider
+()
+Initializes a new instance of this class.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+VirtualMachine
+attachVirtualMachine
+(
+VirtualMachineDescriptor
+vmd)
+Attaches to a Java virtual machine.
+abstract
+VirtualMachine
+attachVirtualMachine
+(
+String
+id)
+Attaches to a Java virtual machine.
+abstract
+List
+<
+VirtualMachineDescriptor
+>
+listVirtualMachines
+()
+Lists the Java virtual machines known to this provider.
+abstract
+String
+name
+()
+Return this provider's name.
+static
+List
+<
+AttachProvider
+>
+providers
+()
+Returns a list of the installed attach providers.
+abstract
+String
+type
+()
+Return this provider's type.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+AttachProvider
+protected
+AttachProvider
+()
+Initializes a new instance of this class.
+Throws:
+SecurityException
+- If a security manager has been installed and it denies
+AttachPermission
+("
+createAttachProvider
+")
+Method Details
+name
+public abstract
+String
+name
+()
+Return this provider's name.
+Returns:
+The name of this provider
+type
+public abstract
+String
+type
+()
+Return this provider's type.
+Returns:
+The type of this provider
+attachVirtualMachine
+public abstract
+VirtualMachine
+attachVirtualMachine
+(
+String
+id)
+throws
+AttachNotSupportedException
+,
+IOException
+Attaches to a Java virtual machine.
+A Java virtual machine is identified by an abstract identifier. The
+ nature of this identifier is platform dependent but in many cases it will be the
+ string representation of the process identifier (or pid).
+This method parses the identifier and maps the identifier to a Java
+ virtual machine (in an implementation dependent manner). If the identifier
+ cannot be parsed by the provider then an
+AttachNotSupportedException
+is thrown. Once parsed this method attempts to attach to the Java virtual machine.
+ If the provider detects that the identifier corresponds to a Java virtual machine
+ that does not exist, or it corresponds to a Java virtual machine that does not support
+ the attach mechanism implemented by this provider, or it detects that the
+ Java virtual machine is a version to which this provider cannot attach, then
+ an
+AttachNotSupportedException
+is thrown.
+Parameters:
+id
+- The abstract identifier that identifies the Java virtual machine.
+Returns:
+VirtualMachine representing the target virtual machine.
+Throws:
+SecurityException
+- If a security manager has been installed and it denies
+AttachPermission
+("
+attachVirtualMachine
+"), or other permission
+          required by the implementation.
+AttachNotSupportedException
+- If the identifier cannot be parsed, or it corresponds to
+          to a Java virtual machine that does not exist, or it
+          corresponds to a Java virtual machine which this
+          provider cannot attach.
+IOException
+- If some other I/O error occurs
+NullPointerException
+- If
+id
+is
+null
+attachVirtualMachine
+public
+VirtualMachine
+attachVirtualMachine
+(
+VirtualMachineDescriptor
+vmd)
+throws
+AttachNotSupportedException
+,
+IOException
+Attaches to a Java virtual machine.
+A Java virtual machine can be described using a
+VirtualMachineDescriptor
+.
+ This method invokes the descriptor's
+provider()
+method
+ to check that it is equal to this provider. It then attempts to attach to the
+ Java virtual machine.
+Parameters:
+vmd
+- The virtual machine descriptor
+Returns:
+VirtualMachine representing the target virtual machine.
+Throws:
+SecurityException
+- If a security manager has been installed and it denies
+AttachPermission
+("
+attachVirtualMachine
+"), or other permission
+          required by the implementation.
+AttachNotSupportedException
+- If the descriptor's
+provider()
+method returns a provider that is not this provider, or it does not
+          correspond to a Java virtual machine to which this provider can attach.
+IOException
+- If some other I/O error occurs
+NullPointerException
+- If
+vmd
+is
+null
+listVirtualMachines
+public abstract
+List
+<
+VirtualMachineDescriptor
+>
+listVirtualMachines
+()
+Lists the Java virtual machines known to this provider.
+This method returns a list of
+VirtualMachineDescriptor
+elements. Each
+VirtualMachineDescriptor
+describes a Java virtual machine
+ to which this provider can
+potentially
+attach.  There isn't any
+ guarantee that invoking
+attachVirtualMachine
+on each descriptor in the list will succeed.
+Returns:
+The list of virtual machine descriptors which describe the
+          Java virtual machines known to this provider (may be empty).
+providers
+public static
+List
+<
+AttachProvider
+>
+providers
+()
+Returns a list of the installed attach providers.
+An AttachProvider is installed on the platform if:
+It is installed in a JAR file that is visible to the defining
+   class loader of the AttachProvider type (usually, but not required
+   to be, the
+system
+   class loader
+).
+The JAR file contains a provider configuration named
+com.sun.tools.attach.spi.AttachProvider
+in the resource directory
+META-INF/services
+.
+The provider configuration file lists the full-qualified class
+   name of the AttachProvider implementation.
+The format of the provider configuration file is one fully-qualified
+ class name per line. Space and tab characters surrounding each class name,
+ as well as blank lines are ignored. The comment character is
+'#'
+(
+0x23
+), and on each line all characters following
+ the first comment character are ignored. The file must be encoded in
+ UTF-8.
+AttachProvider implementations are loaded and instantiated
+ (using the zero-arg constructor) at the first invocation of this method.
+ The list returned by the first invocation of this method is the list
+ of providers. Subsequent invocations of this method return a list of the same
+ providers. The list is unmodifiable.
+Returns:
+A list of the installed attach providers.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

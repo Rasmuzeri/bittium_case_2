@@ -1,0 +1,179 @@
+Connector (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.jdi
+Package
+com.sun.jdi.connect
+Interface Connector
+All Known Subinterfaces:
+AttachingConnector
+,
+LaunchingConnector
+,
+ListeningConnector
+public interface
+Connector
+A method of connection between a debugger and a target VM.
+ A connector encapsulates exactly one
+Transport
+. used
+ to establish the connection. Each connector has a set of arguments
+ which controls its operation. The arguments are stored as a
+ map, keyed by a string. Each implementation defines the string
+ argument keys it accepts.
+Since:
+1.3
+See Also:
+LaunchingConnector
+AttachingConnector
+ListeningConnector
+Connector.Argument
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Interface
+Description
+static interface
+Connector.Argument
+Specification for and value of a Connector argument.
+static interface
+Connector.BooleanArgument
+Specification for and value of a Connector argument,
+ whose value is Boolean.
+static interface
+Connector.IntegerArgument
+Specification for and value of a Connector argument,
+ whose value is an integer.
+static interface
+Connector.SelectedArgument
+Specification for and value of a Connector argument,
+ whose value is a String selected from a list of choices.
+static interface
+Connector.StringArgument
+Specification for and value of a Connector argument,
+ whose value is a String.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+Map
+<
+String
+,
+Connector.Argument
+>
+defaultArguments
+()
+Returns the arguments accepted by this Connector and their
+ default values.
+String
+description
+()
+Returns a human-readable description of this connector
+ and its purpose.
+String
+name
+()
+Returns a short identifier for the connector.
+Transport
+transport
+()
+Returns the transport mechanism used by this connector to establish
+ connections with a target VM.
+Method Details
+name
+String
+name
+()
+Returns a short identifier for the connector. Connector implementors
+ should follow similar naming conventions as are used with packages
+ to avoid name collisions. For example, the Sun connector
+ implementations have names prefixed with "com.sun.jdi.".
+ Not intended for exposure to end-user.
+Returns:
+the name of this connector.
+description
+String
+description
+()
+Returns a human-readable description of this connector
+ and its purpose.
+Returns:
+the description of this connector
+transport
+Transport
+transport
+()
+Returns the transport mechanism used by this connector to establish
+ connections with a target VM.
+Returns:
+the
+Transport
+used by this connector.
+defaultArguments
+Map
+<
+String
+,
+Connector.Argument
+>
+defaultArguments
+()
+Returns the arguments accepted by this Connector and their
+ default values. The keys of the returned map are string argument
+ names. The values are
+Connector.Argument
+containing
+ information about the argument and its default value.
+Returns:
+the map associating argument names with argument
+ information and default value.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

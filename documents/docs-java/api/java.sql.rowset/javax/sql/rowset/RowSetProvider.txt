@@ -1,0 +1,246 @@
+RowSetProvider (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.sql.rowset
+Package
+javax.sql.rowset
+Class RowSetProvider
+java.lang.Object
+javax.sql.rowset.RowSetProvider
+public class
+RowSetProvider
+extends
+Object
+A factory API that enables applications to obtain a
+RowSetFactory
+implementation  that can be used to create different
+ types of
+RowSet
+implementations.
+Example:
+RowSetFactory aFactory = RowSetProvider.newFactory();
+ CachedRowSet crs = aFactory.createCachedRowSet();
+ ...
+ RowSetFactory rsf = RowSetProvider.newFactory("com.sun.rowset.RowSetFactoryImpl", null);
+ WebRowSet wrs = rsf.createWebRowSet();
+Tracing of this class may be enabled by setting the System property
+javax.sql.rowset.RowSetFactory.debug
+to any value but
+false
+.
+Since:
+1.7
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+RowSetProvider
+()
+RowSetProvider constructor
+Method Summary
+All Methods
+Static Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+RowSetFactory
+newFactory
+()
+Creates a new instance of a
+RowSetFactory
+implementation.
+static
+RowSetFactory
+newFactory
+(
+String
+factoryClassName,
+ClassLoader
+cl)
+Creates  a new instance of a
+RowSetFactory
+from the
+ specified factory class name.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+RowSetProvider
+protected
+RowSetProvider
+()
+RowSetProvider constructor
+Method Details
+newFactory
+public static
+RowSetFactory
+newFactory
+()
+                                throws
+SQLException
+Creates a new instance of a
+RowSetFactory
+implementation.  This method uses the following
+ look up order to determine
+ the
+RowSetFactory
+implementation class to load:
+The System property
+javax.sql.rowset.RowSetFactory
+.  For example:
+-Djavax.sql.rowset.RowSetFactory=com.sun.rowset.RowSetFactoryImpl
+The
+ServiceLoader
+API. The
+ServiceLoader
+API will look
+ for a class name in the file
+META-INF/services/javax.sql.rowset.RowSetFactory
+in jars available to the runtime. For example, to have the RowSetFactory
+ implementation
+com.sun.rowset.RowSetFactoryImpl
+loaded, the
+ entry in
+META-INF/services/javax.sql.rowset.RowSetFactory
+would be:
+com.sun.rowset.RowSetFactoryImpl
+Platform default
+RowSetFactory
+instance.
+Once an application has obtained a reference to a
+RowSetFactory
+,
+ it can use the factory to obtain RowSet instances.
+Returns:
+New instance of a
+RowSetFactory
+Throws:
+SQLException
+- if the default factory class cannot be loaded,
+ instantiated. The cause will be set to actual Exception
+Since:
+1.7
+See Also:
+ServiceLoader
+newFactory
+public static
+RowSetFactory
+newFactory
+(
+String
+factoryClassName,
+ClassLoader
+cl)
+throws
+SQLException
+Creates  a new instance of a
+RowSetFactory
+from the
+ specified factory class name.
+ This function is useful when there are multiple providers in the classpath.
+ It gives more control to the application as it can specify which provider
+ should be loaded.
+Once an application has obtained a reference to a
+RowSetFactory
+it can use the factory to obtain RowSet instances.
+Parameters:
+factoryClassName
+- fully qualified factory class name that
+ provides  an implementation of
+javax.sql.rowset.RowSetFactory
+.
+cl
+-
+ClassLoader
+used to load the factory
+ class. If
+null
+current
+Thread
+'s context
+ classLoader is used to load the factory class.
+Returns:
+New instance of a
+RowSetFactory
+Throws:
+SQLException
+- if
+factoryClassName
+is
+null
+, or the factory class cannot be loaded, instantiated.
+Since:
+1.7
+See Also:
+newFactory()
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

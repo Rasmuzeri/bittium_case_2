@@ -1,0 +1,269 @@
+Linker.Option (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang.foreign
+Interface Linker.Option
+Enclosing interface:
+Linker
+PREVIEW
+public static sealed interface
+Linker.Option
+Option
+is a preview API of the Java platform.
+Programs can only use
+Option
+when preview features are enabled.
+Preview features may be removed in a future release, or upgraded to permanent features of the Java platform.
+A linker option is used to provide additional parameters to a linkage request.
+Since:
+20
+Method Summary
+Static Methods
+Modifier and Type
+Method
+Description
+static
+Linker.Option
+PREVIEW
+captureCallState
+(
+String
+... capturedState)
+Returns a linker option used to save portions of the execution state immediately after
+          calling a foreign function associated with a downcall method handle,
+          before it can be overwritten by the Java runtime, or read through conventional means.
+static
+StructLayout
+PREVIEW
+captureStateLayout
+()
+Returns a struct layout that represents the layout of the capture state segment that is passed
+          to a downcall handle linked with
+captureCallState(String...)
+.
+static
+Linker.Option
+PREVIEW
+firstVariadicArg
+(int index)
+Returns a linker option used to denote the index indicating the start of the variadic arguments passed to the
+          function described by the function descriptor associated with a downcall linkage request.
+static
+Linker.Option
+PREVIEW
+isTrivial
+()
+Returns a linker option used to mark a foreign function as
+trivial
+.
+Method Details
+firstVariadicArg
+static
+Linker.Option
+PREVIEW
+firstVariadicArg
+(int index)
+Returns a linker option used to denote the index indicating the start of the variadic arguments passed to the
+          function described by the function descriptor associated with a downcall linkage request.
+The
+index
+value must conform to
+0 <= index <= N
+, where
+N
+is the number of argument
+ layouts of the function descriptor used in conjunction with this linker option. When the
+index
+is:
+0
+, all arguments passed to the function are passed as variadic arguments
+N
+, none of the arguments passed to the function are passed as variadic arguments
+n
+, where
+0 < m < N
+, the arguments
+m..N
+are passed as variadic arguments
+It is important to always use this linker option when linking a
+variadic
+ function
+, even if no variadic argument is passed (the second case in the list
+ above), as this might still affect the calling convention on certain platforms.
+Implementation Note:
+The index value is validated when making a linkage request, which is when the function descriptor
+           against which the index is validated is available.
+Parameters:
+index
+- the index of the first variadic argument layout in the function descriptor associated
+              with a downcall linkage request.
+Returns:
+a linker option used to denote the index indicating the start of the variadic arguments passed to the
+          function described by the function descriptor associated with a downcall linkage request
+captureCallState
+static
+Linker.Option
+PREVIEW
+captureCallState
+(
+String
+... capturedState)
+Returns a linker option used to save portions of the execution state immediately after
+          calling a foreign function associated with a downcall method handle,
+          before it can be overwritten by the Java runtime, or read through conventional means.
+Execution state is captured by a downcall method handle on invocation, by writing it
+ to a native segment provided by the user to the downcall method handle.
+ For this purpose, a downcall method handle linked with this
+ option will feature an additional
+MemorySegment
+PREVIEW
+parameter directly
+ following the target address, and optional
+SegmentAllocator
+PREVIEW
+parameters.
+ This parameter, the
+capture state segment
+, represents the native segment into which
+ the captured state is written.
+The capture state segment must have size and alignment compatible with the layout returned by
+captureStateLayout()
+. This layout is a struct layout which has a named field for
+ each captured value.
+Captured state can be retrieved from the capture state segment by constructing var handles
+ from the
+capture state layout
+.
+The following example demonstrates the use of this linker option:
+Copy
+MemorySegment targetAddress = ...
+Linker.Option ccs = Linker.Option.captureCallState("errno");
+MethodHandle handle = Linker.nativeLinker().downcallHandle(targetAddress, FunctionDescriptor.ofVoid(), ccs);
+
+StructLayout capturedStateLayout = Linker.Option.captureStateLayout();
+VarHandle errnoHandle = capturedStateLayout.varHandle(PathElement.groupElement("errno"));
+try (Arena arena = Arena.ofConfined()) {
+    MemorySegment capturedState = arena.allocate(capturedStateLayout);
+    handle.invoke(capturedState);
+    int errno = (int) errnoHandle.get(capturedState);
+    // use errno
+}
+Parameters:
+capturedState
+- the names of the values to save.
+Returns:
+a linker option used to save portions of the execution state immediately after
+          calling a foreign function associated with a downcall method handle,
+          before it can be overwritten by the Java runtime, or read through conventional means
+Throws:
+IllegalArgumentException
+- if at least one of the provided
+capturedState
+names
+                                  is unsupported on the current platform.
+See Also:
+captureStateLayout()
+captureStateLayout
+static
+StructLayout
+PREVIEW
+captureStateLayout
+()
+Returns a struct layout that represents the layout of the capture state segment that is passed
+          to a downcall handle linked with
+captureCallState(String...)
+.
+The capture state layout is
+platform-dependent
+but is guaranteed to be
+ a
+struct layout
+PREVIEW
+containing only
+value layouts
+PREVIEW
+and possibly
+padding layouts
+PREVIEW
+.
+ As an example, on Windows, the returned layout might contain three value layouts named:
+GetLastError
+WSAGetLastError
+errno
+Clients can obtain the names of the supported captured value layouts as follows:
+Copy
+List<String> capturedNames = Linker.Option.captureStateLayout().memberLayouts().stream()
+       .map(MemoryLayout::name)
+       .flatMap(Optional::stream)
+       .toList();
+Returns:
+a struct layout that represents the layout of the capture state segment that is passed
+          to a downcall handle linked with
+captureCallState(String...)
+See Also:
+captureCallState(String...)
+isTrivial
+static
+Linker.Option
+PREVIEW
+isTrivial
+()
+Returns a linker option used to mark a foreign function as
+trivial
+.
+A trivial function is a function that has an extremely short running time
+ in all cases (similar to calling an empty function), and does not call back into Java (e.g. using an upcall stub).
+Using this linker option is a hint which some implementations may use to apply
+ optimizations that are only valid for trivial functions.
+Using this linker option when linking non trivial functions is likely to have adverse effects,
+ such as loss of performance, or JVM crashes.
+Returns:
+a linker option used to mark a foreign function as
+trivial
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

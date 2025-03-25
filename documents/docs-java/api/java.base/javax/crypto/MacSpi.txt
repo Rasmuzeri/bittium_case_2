@@ -1,0 +1,307 @@
+MacSpi (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+javax.crypto
+Class MacSpi
+java.lang.Object
+javax.crypto.MacSpi
+public abstract class
+MacSpi
+extends
+Object
+This class defines the
+Service Provider Interface
+(
+SPI
+)
+ for the
+Mac
+class.
+ All the abstract methods in this class must be implemented by each
+ cryptographic service provider who wishes to supply the implementation
+ of a particular MAC algorithm.
+Implementations are free to implement the Cloneable interface.
+Since:
+1.4
+Constructor Summary
+Constructors
+Constructor
+Description
+MacSpi
+()
+Constructor for subclasses to call.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Object
+clone
+()
+Returns a clone if the implementation is cloneable.
+protected abstract byte[]
+engineDoFinal
+()
+Completes the MAC computation and resets the MAC for further use,
+ maintaining the secret key that the MAC was initialized with.
+protected abstract int
+engineGetMacLength
+()
+Returns the length of the MAC in bytes.
+protected abstract void
+engineInit
+(
+Key
+key,
+AlgorithmParameterSpec
+params)
+Initializes the MAC with the given (secret) key and algorithm
+ parameters.
+protected abstract void
+engineReset
+()
+Resets the MAC for further use, maintaining the secret key that the
+ MAC was initialized with.
+protected abstract void
+engineUpdate
+(byte input)
+Processes the given byte.
+protected abstract void
+engineUpdate
+(byte[] input,
+ int offset,
+ int len)
+Processes the first
+len
+bytes in
+input
+,
+ starting at
+offset
+inclusive.
+protected void
+engineUpdate
+(
+ByteBuffer
+input)
+Processes
+input.remaining()
+bytes in the ByteBuffer
+input
+, starting at
+input.position()
+.
+Methods declared in class java.lang.
+Object
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+MacSpi
+public
+MacSpi
+()
+Constructor for subclasses to call.
+Method Details
+engineGetMacLength
+protected abstract
+int
+engineGetMacLength
+()
+Returns the length of the MAC in bytes.
+Returns:
+the MAC length in bytes.
+engineInit
+protected abstract
+void
+engineInit
+(
+Key
+key,
+AlgorithmParameterSpec
+params)
+throws
+InvalidKeyException
+,
+InvalidAlgorithmParameterException
+Initializes the MAC with the given (secret) key and algorithm
+ parameters.
+Parameters:
+key
+- the (secret) key.
+params
+- the algorithm parameters.
+Throws:
+InvalidKeyException
+- if the given key is inappropriate for
+ initializing this MAC.
+InvalidAlgorithmParameterException
+- if the given algorithm
+ parameters are inappropriate for this MAC.
+engineUpdate
+protected abstract
+void
+engineUpdate
+(byte input)
+Processes the given byte.
+Parameters:
+input
+- the input byte to be processed.
+engineUpdate
+protected abstract
+void
+engineUpdate
+(byte[] input,
+ int offset,
+ int len)
+Processes the first
+len
+bytes in
+input
+,
+ starting at
+offset
+inclusive.
+Parameters:
+input
+- the input buffer.
+offset
+- the offset in
+input
+where the input starts.
+len
+- the number of bytes to process.
+engineUpdate
+protected
+void
+engineUpdate
+(
+ByteBuffer
+input)
+Processes
+input.remaining()
+bytes in the ByteBuffer
+input
+, starting at
+input.position()
+.
+ Upon return, the buffer's position will be equal to its limit;
+ its limit will not have changed.
+Subclasses should consider overriding this method if they can
+ process ByteBuffers more efficiently than byte arrays.
+Parameters:
+input
+- the ByteBuffer
+Throws:
+NullPointerException
+- if
+input
+is null
+Since:
+1.5
+engineDoFinal
+protected abstract
+byte[]
+engineDoFinal
+()
+Completes the MAC computation and resets the MAC for further use,
+ maintaining the secret key that the MAC was initialized with.
+Returns:
+the MAC result.
+engineReset
+protected abstract
+void
+engineReset
+()
+Resets the MAC for further use, maintaining the secret key that the
+ MAC was initialized with.
+clone
+public
+Object
+clone
+()
+             throws
+CloneNotSupportedException
+Returns a clone if the implementation is cloneable.
+Overrides:
+clone
+in class
+Object
+Returns:
+a clone if the implementation is cloneable.
+Throws:
+CloneNotSupportedException
+- if this is called
+ on an implementation that does not support
+Cloneable
+.
+See Also:
+Cloneable
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

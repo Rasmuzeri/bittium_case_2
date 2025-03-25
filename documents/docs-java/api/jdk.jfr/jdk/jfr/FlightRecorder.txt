@@ -1,0 +1,459 @@
+FlightRecorder (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.jfr
+Package
+jdk.jfr
+Class FlightRecorder
+java.lang.Object
+jdk.jfr.FlightRecorder
+public final class
+FlightRecorder
+extends
+Object
+Class for accessing, controlling, and managing Flight Recorder.
+This class provides the methods necessary for creating, starting, stopping,
+ and destroying recordings.
+Since:
+9
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static void
+addListener
+(
+FlightRecorderListener
+changeListener)
+Adds a recorder listener and captures the
+AccessControlContext
+to
+ use when invoking the listener.
+static void
+addPeriodicEvent
+(
+Class
+<? extends
+Event
+> eventClass,
+Runnable
+hook)
+Adds a hook for a periodic event.
+List
+<
+EventType
+>
+getEventTypes
+()
+Returns an immutable list that contains all currently registered events.
+static
+FlightRecorder
+getFlightRecorder
+()
+Returns the Flight Recorder for the platform.
+List
+<
+Recording
+>
+getRecordings
+()
+Returns an immutable list of the available recordings.
+static boolean
+isAvailable
+()
+Returns
+true
+if the Java Virtual Machine (JVM) has Flight Recorder capabilities.
+static boolean
+isInitialized
+()
+Returns
+true
+if Flight Recorder is initialized.
+static void
+register
+(
+Class
+<? extends
+Event
+> eventClass)
+Registers an event class.
+static boolean
+removeListener
+(
+FlightRecorderListener
+changeListener)
+Removes a recorder listener.
+static boolean
+removePeriodicEvent
+(
+Runnable
+hook)
+Removes a hook for a periodic event.
+Recording
+takeSnapshot
+()
+Creates a snapshot of all available recorded data.
+static void
+unregister
+(
+Class
+<? extends
+Event
+> eventClass)
+Unregisters an event class.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Method Details
+getRecordings
+public
+List
+<
+Recording
+>
+getRecordings
+()
+Returns an immutable list of the available recordings.
+A recording becomes available when it is created. It becomes unavailable when it
+ is in the
+CLOSED
+state, typically after a call to
+Recording.close()
+.
+Returns:
+a list of recordings, not
+null
+takeSnapshot
+public
+Recording
+takeSnapshot
+()
+Creates a snapshot of all available recorded data.
+A snapshot is a synthesized recording in a
+STOPPED
+state. If no data is
+ available, a recording with size
+0
+is returned.
+A snapshot provides stable access to data for later operations (for example,
+ operations to change the interval or to reduce the data size).
+The following example shows how to create a snapshot and write a subset of the data to a file.
+Copy
+try (Recording snapshot = FlightRecorder.getFlightRecorder().takeSnapshot()) {
+    if (snapshot.getSize() > 0) {
+        snapshot.setMaxSize(100_000_000);
+        snapshot.setMaxAge(Duration.ofMinutes(5));
+        snapshot.dump(Paths.get("snapshot.jfr"));
+    }
+}
+The caller must close the recording when access to the data is no longer
+ needed.
+Returns:
+a snapshot of all available recording data, not
+null
+register
+public static
+void
+register
+(
+Class
+<? extends
+Event
+> eventClass)
+Registers an event class.
+If the event class is already registered, then the invocation of this method is
+ ignored.
+Parameters:
+eventClass
+- the event class to register, not
+null
+Throws:
+IllegalArgumentException
+- if class is abstract or not a subclass
+         of
+Event
+SecurityException
+- if a security manager exists and the caller
+         does not have
+FlightRecorderPermission("registerEvent")
+unregister
+public static
+void
+unregister
+(
+Class
+<? extends
+Event
+> eventClass)
+Unregisters an event class.
+If the event class is not registered, then the invocation of this method is
+ ignored.
+Parameters:
+eventClass
+- the event class to unregistered, not
+null
+Throws:
+IllegalArgumentException
+- if a class is abstract or not a subclass
+         of
+Event
+SecurityException
+- if a security manager exists and the caller
+         does not have
+FlightRecorderPermission("registerEvent")
+getFlightRecorder
+public static
+FlightRecorder
+getFlightRecorder
+()
+                                        throws
+IllegalStateException
+,
+SecurityException
+Returns the Flight Recorder for the platform.
+Returns:
+a Flight Recorder instance, not
+null
+Throws:
+IllegalStateException
+- if Flight Recorder can't be created (for
+         example, if the Java Virtual Machine (JVM) lacks Flight Recorder
+         support, or if the file repository can't be created or accessed)
+SecurityException
+- if a security manager exists and the caller does
+         not have
+FlightRecorderPermission("accessFlightRecorder")
+addPeriodicEvent
+public static
+void
+addPeriodicEvent
+(
+Class
+<? extends
+Event
+> eventClass,
+Runnable
+hook)
+throws
+SecurityException
+Adds a hook for a periodic event.
+The implementation of the hook should return as soon as possible, to
+ avoid blocking other Flight Recorder operations. The hook should emit
+ one or more events of the specified type. When a hook is added, the
+ interval at which the call is invoked is configurable using the
+"period"
+setting.
+Parameters:
+eventClass
+- the class that the hook should run for, not
+null
+hook
+- the hook, not
+null
+Throws:
+IllegalArgumentException
+- if a class is not a subclass of
+Event
+, is abstract, or the hook is already added
+IllegalStateException
+- if the event class has the
+Registered(false)
+annotation and is not registered manually
+SecurityException
+- if a security manager exists and the caller
+         does not have
+FlightRecorderPermission("registerEvent")
+removePeriodicEvent
+public static
+boolean
+removePeriodicEvent
+(
+Runnable
+hook)
+throws
+SecurityException
+Removes a hook for a periodic event.
+Parameters:
+hook
+- the hook to remove, not
+null
+Returns:
+true
+if hook is removed,
+false
+otherwise
+Throws:
+SecurityException
+- if a security manager exists and the caller
+         does not have
+FlightRecorderPermission("registerEvent")
+getEventTypes
+public
+List
+<
+EventType
+>
+getEventTypes
+()
+Returns an immutable list that contains all currently registered events.
+By default, events are registered when they are first used, typically
+ when an event object is allocated. To ensure an event is visible early,
+ registration can be triggered by invoking the
+register(Class)
+method.
+Returns:
+list of events, not
+null
+addListener
+public static
+void
+addListener
+(
+FlightRecorderListener
+changeListener)
+Adds a recorder listener and captures the
+AccessControlContext
+to
+ use when invoking the listener.
+If Flight Recorder is already initialized when the listener is added, then the method
+FlightRecorderListener.recorderInitialized(FlightRecorder)
+method is
+ invoked before returning from this method.
+Parameters:
+changeListener
+- the listener to add, not
+null
+Throws:
+SecurityException
+- if a security manager exists and the caller
+         does not have
+FlightRecorderPermission("accessFlightRecorder")
+removeListener
+public static
+boolean
+removeListener
+(
+FlightRecorderListener
+changeListener)
+Removes a recorder listener.
+If the same listener is added multiple times, only one instance is
+ removed.
+Parameters:
+changeListener
+- listener to remove, not
+null
+Returns:
+true
+, if the listener could be removed,
+false
+otherwise
+Throws:
+SecurityException
+- if a security manager exists and the caller
+         does not have
+FlightRecorderPermission("accessFlightRecorder")
+isAvailable
+public static
+boolean
+isAvailable
+()
+Returns
+true
+if the Java Virtual Machine (JVM) has Flight Recorder capabilities.
+This method can quickly check whether Flight Recorder can be
+ initialized, without actually doing the initialization work. The value may
+ change during runtime and it is not safe to cache it.
+Returns:
+true
+, if Flight Recorder is available,
+false
+otherwise
+See Also:
+for callback when Flight Recorder is
+      initialized
+isInitialized
+public static
+boolean
+isInitialized
+()
+Returns
+true
+if Flight Recorder is initialized.
+Returns:
+true
+, if Flight Recorder is initialized,
+false
+otherwise
+See Also:
+for callback when Flight Recorder is
+      initialized
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

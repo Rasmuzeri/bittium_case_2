@@ -1,0 +1,1145 @@
+SerialClob (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.sql.rowset
+Package
+javax.sql.rowset.serial
+Class SerialClob
+java.lang.Object
+javax.sql.rowset.serial.SerialClob
+All Implemented Interfaces:
+Serializable
+,
+Cloneable
+,
+Clob
+public class
+SerialClob
+extends
+Object
+implements
+Clob
+,
+Serializable
+,
+Cloneable
+A serialized mapping in the Java programming language of an SQL
+CLOB
+value.
+The
+SerialClob
+class provides a constructor for creating
+ an instance from a
+Clob
+object.  Note that the
+Clob
+object should have brought the SQL
+CLOB
+value's data over
+ to the client before a
+SerialClob
+object
+ is constructed from it.  The data of an SQL
+CLOB
+value can
+ be materialized on the client as a stream of Unicode characters.
+SerialClob
+methods make it possible to get a substring
+ from a
+SerialClob
+object or to locate the start of
+ a pattern of characters.
+Thread safety
+A SerialClob is not safe for use by multiple concurrent threads.  If a
+ SerialClob is to be used by more than one thread then access to the SerialClob
+ should be controlled by appropriate synchronization.
+Since:
+1.5
+See Also:
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+SerialClob
+(char[] ch)
+Constructs a
+SerialClob
+object that is a serialized version of
+ the given
+char
+array.
+SerialClob
+(
+Clob
+clob)
+Constructs a
+SerialClob
+object that is a serialized
+ version of the given
+Clob
+object.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Object
+clone
+()
+Returns a clone of this
+SerialClob
+.
+boolean
+equals
+(
+Object
+obj)
+Compares this SerialClob to the specified object.
+void
+free
+()
+This method frees the
+SerialClob
+object and releases the
+ resources that it holds.
+InputStream
+getAsciiStream
+()
+Retrieves the
+CLOB
+value designated by this
+SerialClob
+object as an ascii stream.
+Reader
+getCharacterStream
+()
+Returns this
+SerialClob
+object's data as a stream
+ of Unicode characters.
+Reader
+getCharacterStream
+(long pos,
+ long length)
+Returns a
+Reader
+object that contains a partial
+SerialClob
+value, starting
+ with the character specified by pos, which is length characters in length.
+String
+getSubString
+(long pos,
+ int length)
+Returns a copy of the substring contained in this
+SerialClob
+object, starting at the given position
+ and continuing for the specified number or characters.
+int
+hashCode
+()
+Returns a hash code for this
+SerialClob
+.
+long
+length
+()
+Retrieves the number of characters in this
+SerialClob
+object's array of characters.
+long
+position
+(
+String
+searchStr,
+ long start)
+Returns the position in this
+SerialClob
+object
+ where the given
+String
+object begins, starting
+ the search at the specified position.
+long
+position
+(
+Clob
+searchStr,
+ long start)
+Returns the position in this
+SerialClob
+object
+ where the given
+Clob
+signature begins, starting
+ the search at the specified position.
+OutputStream
+setAsciiStream
+(long pos)
+Retrieves a stream to be used to write Ascii characters to the
+CLOB
+value that this
+SerialClob
+object represents,
+ starting at position
+pos
+.
+Writer
+setCharacterStream
+(long pos)
+Retrieves a stream to be used to write a stream of Unicode characters
+ to the
+CLOB
+value that this
+SerialClob
+object
+ represents, at position
+pos
+.
+int
+setString
+(long pos,
+String
+str)
+Writes the given Java
+String
+to the
+CLOB
+value that this
+SerialClob
+object represents, at the position
+pos
+.
+int
+setString
+(long pos,
+String
+str,
+ int offset,
+ int length)
+Writes
+len
+characters of
+str
+, starting
+ at character
+offset
+, to the
+CLOB
+value
+ that this
+Clob
+represents.
+void
+truncate
+(long length)
+Truncates the
+CLOB
+value that this
+SerialClob
+object represents so that it has a length of
+len
+characters.
+Methods declared in class java.lang.
+Object
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+SerialClob
+public
+SerialClob
+(char[] ch)
+throws
+SerialException
+,
+SQLException
+Constructs a
+SerialClob
+object that is a serialized version of
+ the given
+char
+array.
+The new
+SerialClob
+object is initialized with the data from the
+char
+array, thus allowing disconnected
+RowSet
+objects to establish a serialized
+Clob
+object without touching
+ the data source.
+Parameters:
+ch
+- the char array representing the
+Clob
+object to be
+         serialized
+Throws:
+SerialException
+- if an error occurs during serialization
+SQLException
+- if a SQL error occurs
+SerialClob
+public
+SerialClob
+(
+Clob
+clob)
+throws
+SerialException
+,
+SQLException
+Constructs a
+SerialClob
+object that is a serialized
+ version of the given
+Clob
+object.
+The new
+SerialClob
+object is initialized with the
+ data from the
+Clob
+object; therefore, the
+Clob
+object should have previously brought the
+ SQL
+CLOB
+value's data over to the client from
+ the database. Otherwise, the new
+SerialClob
+object
+ object will contain no data.
+Note: The
+Clob
+object supplied to this constructor must
+ return non-null for both the
+Clob.getCharacterStream()
+and
+Clob.getAsciiStream
+methods. This
+SerialClob
+constructor cannot serialize a
+Clob
+object in this instance
+ and will throw an
+SQLException
+object.
+Parameters:
+clob
+- the
+Clob
+object from which this
+SerialClob
+object is to be constructed; cannot be null
+Throws:
+SerialException
+- if an error occurs during serialization
+SQLException
+- if a SQL error occurs in capturing the CLOB;
+     if the
+Clob
+object is a null; or if either of the
+Clob.getCharacterStream()
+and
+Clob.getAsciiStream()
+methods on the
+Clob
+returns a null
+See Also:
+Clob
+Method Details
+length
+public
+long
+length
+()
+            throws
+SerialException
+Retrieves the number of characters in this
+SerialClob
+object's array of characters.
+Specified by:
+length
+in interface
+Clob
+Returns:
+a
+long
+indicating the length in characters of this
+SerialClob
+object's array of character
+Throws:
+SerialException
+- if an error occurs;
+ if
+free
+had previously been called on this object
+getCharacterStream
+public
+Reader
+getCharacterStream
+()
+                          throws
+SerialException
+Returns this
+SerialClob
+object's data as a stream
+ of Unicode characters. Unlike the related method,
+getAsciiStream
+,
+ a stream is produced regardless of whether the
+SerialClob
+object
+ was created with a
+Clob
+object or a
+char
+array.
+Specified by:
+getCharacterStream
+in interface
+Clob
+Returns:
+a
+java.io.Reader
+object containing this
+SerialClob
+object's data
+Throws:
+SerialException
+- if an error occurs;
+ if
+free
+had previously been called on this object
+See Also:
+Clob.setCharacterStream(long)
+getAsciiStream
+public
+InputStream
+getAsciiStream
+()
+                           throws
+SerialException
+,
+SQLException
+Retrieves the
+CLOB
+value designated by this
+SerialClob
+object as an ascii stream. This method forwards the
+getAsciiStream
+call to the underlying
+Clob
+object in the event that this
+SerialClob
+object is instantiated with a
+Clob
+object. If this
+SerialClob
+object is instantiated with
+ a
+char
+array, a
+SerialException
+object is thrown.
+Specified by:
+getAsciiStream
+in interface
+Clob
+Returns:
+a
+java.io.InputStream
+object containing
+     this
+SerialClob
+object's data
+Throws:
+SerialException
+- if this
+SerialClob
+object was not
+ instantiated with a
+Clob
+object;
+ if
+free
+had previously been called on this object
+SQLException
+- if there is an error accessing the
+CLOB
+value represented by the
+Clob
+object
+ that was used to create this
+SerialClob
+object
+See Also:
+Clob.setAsciiStream(long)
+getSubString
+public
+String
+getSubString
+(long pos,
+ int length)
+throws
+SerialException
+Returns a copy of the substring contained in this
+SerialClob
+object, starting at the given position
+ and continuing for the specified number or characters.
+Specified by:
+getSubString
+in interface
+Clob
+Parameters:
+pos
+- the position of the first character in the substring
+            to be copied; the first character of the
+SerialClob
+object is at position
+1
+; must not be less than
+1
+,
+            and the sum of the starting position and the length
+            of the substring must be less than the length of this
+SerialClob
+object
+length
+- the number of characters in the substring to be
+               returned; must not be greater than the length of
+               this
+SerialClob
+object, and the
+               sum of the starting position and the length
+               of the substring must be less than the length of this
+SerialClob
+object
+Returns:
+a
+String
+object containing a substring of
+         this
+SerialClob
+object beginning at the
+         given position and containing the specified number of
+         consecutive characters
+Throws:
+SerialException
+- if either of the arguments is out of bounds;
+ if
+free
+had previously been called on this object
+position
+public
+long
+position
+(
+String
+searchStr,
+ long start)
+throws
+SerialException
+,
+SQLException
+Returns the position in this
+SerialClob
+object
+ where the given
+String
+object begins, starting
+ the search at the specified position. This method returns
+-1
+if the pattern is not found.
+Specified by:
+position
+in interface
+Clob
+Parameters:
+searchStr
+- the
+String
+object for which to
+                  search
+start
+- the position in this
+SerialClob
+object
+         at which to start the search; the first position is
+1
+; must not be less than
+1
+nor
+         greater than the length of this
+SerialClob
+object
+Returns:
+the position at which the given
+String
+object
+         begins, starting the search at the specified position;
+-1
+if the given
+String
+object is
+         not found or the starting position is out of bounds; position
+         numbering for the return value starts at
+1
+Throws:
+SerialException
+- if the
+free
+method had been
+ previously called on this object
+SQLException
+- if there is an error accessing the Clob value
+         from the database.
+position
+public
+long
+position
+(
+Clob
+searchStr,
+ long start)
+throws
+SerialException
+,
+SQLException
+Returns the position in this
+SerialClob
+object
+ where the given
+Clob
+signature begins, starting
+ the search at the specified position. This method returns
+-1
+if the pattern is not found.
+Specified by:
+position
+in interface
+Clob
+Parameters:
+searchStr
+- the
+Clob
+object for which to search
+start
+- the position in this
+SerialClob
+object
+        at which to begin the search; the first position is
+1
+; must not be less than
+1
+nor
+         greater than the length of this
+SerialClob
+object
+Returns:
+the position at which the given
+Clob
+object begins in this
+SerialClob
+object,
+         at or after the specified starting position
+Throws:
+SerialException
+- if an error occurs locating the Clob signature;
+ if the
+free
+method had been previously called on this object
+SQLException
+- if there is an error accessing the Clob value
+         from the database
+setString
+public
+int
+setString
+(long pos,
+String
+str)
+throws
+SerialException
+Writes the given Java
+String
+to the
+CLOB
+value that this
+SerialClob
+object represents, at the position
+pos
+.
+Specified by:
+setString
+in interface
+Clob
+Parameters:
+pos
+- the position at which to start writing to the
+CLOB
+value that this
+SerialClob
+object represents; the first
+         position is
+1
+; must not be less than
+1
+nor
+         greater than the length+1 of this
+SerialClob
+object
+str
+- the string to be written to the
+CLOB
+value that this
+SerialClob
+object represents
+Returns:
+the number of characters written
+Throws:
+SerialException
+- if there is an error accessing the
+CLOB
+value; if an invalid position is set;
+ if the
+free
+method had been previously called on this object
+setString
+public
+int
+setString
+(long pos,
+String
+str,
+ int offset,
+ int length)
+throws
+SerialException
+Writes
+len
+characters of
+str
+, starting
+ at character
+offset
+, to the
+CLOB
+value
+ that this
+Clob
+represents.
+Specified by:
+setString
+in interface
+Clob
+Parameters:
+pos
+- the position at which to start writing to the
+CLOB
+value that this
+SerialClob
+object represents; the first
+         position is
+1
+; must not be less than
+1
+nor
+         greater than the length+1 of this
+SerialClob
+object
+str
+- the string to be written to the
+CLOB
+value that this
+Clob
+object represents
+offset
+- the offset into
+str
+to start reading
+        the characters to be written
+length
+- the number of characters to be written
+Returns:
+the number of characters written
+Throws:
+SerialException
+- if there is an error accessing the
+CLOB
+value; if an invalid position is set; if an
+     invalid offset value is set; or the combined values of the
+length
+and
+offset
+is greater than the length of
+str
+;
+ if the
+free
+method had been previously called on this object
+setAsciiStream
+public
+OutputStream
+setAsciiStream
+(long pos)
+throws
+SerialException
+,
+SQLException
+Retrieves a stream to be used to write Ascii characters to the
+CLOB
+value that this
+SerialClob
+object represents,
+ starting at position
+pos
+. This method forwards the
+setAsciiStream()
+call to the underlying
+Clob
+object in
+ the event that this
+SerialClob
+object is instantiated with a
+Clob
+object. If this
+SerialClob
+object is instantiated
+  with a
+char
+array, a
+SerialException
+object is thrown.
+Specified by:
+setAsciiStream
+in interface
+Clob
+Parameters:
+pos
+- the position at which to start writing to the
+CLOB
+object
+Returns:
+the stream to which ASCII encoded characters can be written
+Throws:
+SerialException
+- if SerialClob is not instantiated with a
+     Clob object;
+ if the
+free
+method had been previously called on this object
+SQLException
+- if there is an error accessing the
+CLOB
+value
+See Also:
+getAsciiStream()
+setCharacterStream
+public
+Writer
+setCharacterStream
+(long pos)
+throws
+SerialException
+,
+SQLException
+Retrieves a stream to be used to write a stream of Unicode characters
+ to the
+CLOB
+value that this
+SerialClob
+object
+ represents, at position
+pos
+. This method forwards the
+setCharacterStream()
+call to the underlying
+Clob
+object in the event that this
+SerialClob
+object is instantiated with a
+Clob
+object. If this
+SerialClob
+object is instantiated with
+ a
+char
+array, a
+SerialException
+is thrown.
+Specified by:
+setCharacterStream
+in interface
+Clob
+Parameters:
+pos
+- the position at which to start writing to the
+CLOB
+value
+Returns:
+a stream to which Unicode encoded characters can be written
+Throws:
+SerialException
+- if the SerialClob is not instantiated with
+     a Clob object;
+ if the
+free
+method had been previously called on this object
+SQLException
+- if there is an error accessing the
+CLOB
+value
+See Also:
+getCharacterStream()
+truncate
+public
+void
+truncate
+(long length)
+throws
+SerialException
+Truncates the
+CLOB
+value that this
+SerialClob
+object represents so that it has a length of
+len
+characters.
+Truncating a
+SerialClob
+object to length 0 has the effect of
+ clearing its contents.
+Specified by:
+truncate
+in interface
+Clob
+Parameters:
+length
+- the length, in bytes, to which the
+CLOB
+value should be truncated
+Throws:
+SerialException
+- if there is an error accessing the
+CLOB
+value;
+ if the
+free
+method had been previously called on this object
+getCharacterStream
+public
+Reader
+getCharacterStream
+(long pos,
+ long length)
+throws
+SQLException
+Returns a
+Reader
+object that contains a partial
+SerialClob
+value, starting
+ with the character specified by pos, which is length characters in length.
+Specified by:
+getCharacterStream
+in interface
+Clob
+Parameters:
+pos
+- the offset to the first character of the partial value to
+ be retrieved.  The first character in the
+SerialClob
+is at position 1.
+length
+- the length in characters of the partial value to be retrieved.
+Returns:
+Reader
+through which the partial
+SerialClob
+value can be read.
+Throws:
+SQLException
+- if pos is less than 1 or if pos is greater than the
+ number of characters in the
+SerialClob
+or if pos + length
+ is greater than the number of characters in the
+SerialClob
+;
+SerialException
+- if the
+free
+method had been previously
+ called on this object
+Since:
+1.6
+free
+public
+void
+free
+()
+          throws
+SQLException
+This method frees the
+SerialClob
+object and releases the
+ resources that it holds.
+ The object is invalid once the
+free
+method is called.
+If
+free
+is called multiple times, the subsequent
+ calls to
+free
+are treated as a no-op.
+Specified by:
+free
+in interface
+Clob
+Throws:
+SQLException
+- if an error occurs releasing
+ the Clob's resources
+Since:
+1.6
+equals
+public
+boolean
+equals
+(
+Object
+obj)
+Compares this SerialClob to the specified object.  The result is
+true
+if and only if the argument is not
+null
+and is a
+SerialClob
+object that represents the same sequence of characters as this
+ object.
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- The object to compare this
+SerialClob
+against
+Returns:
+true
+if the given object represents a
+SerialClob
+equivalent to this SerialClob,
+false
+otherwise
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+public
+int
+hashCode
+()
+Returns a hash code for this
+SerialClob
+.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+a hash code value for this object.
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+clone
+public
+Object
+clone
+()
+Returns a clone of this
+SerialClob
+. The copy will contain a
+ reference to a clone of the internal character array, not a reference
+ to the original internal character array of this
+SerialClob
+object.
+ The underlying
+Clob
+object will be set to null.
+Overrides:
+clone
+in class
+Object
+Returns:
+a clone of this SerialClob
+See Also:
+Cloneable
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

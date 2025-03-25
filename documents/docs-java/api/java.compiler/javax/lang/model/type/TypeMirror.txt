@@ -1,0 +1,565 @@
+TypeMirror (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.lang.model.type
+Interface TypeMirror
+All Superinterfaces:
+AnnotatedConstruct
+All Known Subinterfaces:
+ArrayType
+,
+DeclaredType
+,
+ErrorType
+,
+ExecutableType
+,
+IntersectionType
+,
+NoType
+,
+NullType
+,
+PrimitiveType
+,
+ReferenceType
+,
+TypeVariable
+,
+UnionType
+,
+WildcardType
+public interface
+TypeMirror
+extends
+AnnotatedConstruct
+Represents a type in the Java programming language.
+ Types include primitive types, declared types (class and interface types),
+ array types, type variables, and the null type.
+ Also represented are wildcard type arguments, the signature and
+ return types of executables, and pseudo-types corresponding to
+ packages, modules, and the keyword
+void
+.
+Types should be compared using the utility methods in
+Types
+.  There is no guarantee that any particular type will always
+ be represented by the same object.
+To implement operations based on the class of an
+TypeMirror
+object, either use a
+visitor
+or use the result of the
+getKind()
+method.  Using
+instanceof
+is
+not
+necessarily a reliable idiom for
+ determining the effective class of an object in this modeling
+ hierarchy since an implementation may choose to have a single
+ object implement multiple
+TypeMirror
+subinterfaces.
+See
+Java Language Specification
+:
+4.1 The Kinds of Types and Values
+4.2 Primitive Types and Values
+4.3 Reference Types and Values
+4.4 Type Variables
+4.5 Parameterized Types
+4.8 Raw Types
+4.9 Intersection Types
+10.1 Array Types
+Since:
+1.6
+See Also:
+Element
+Types
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+<R,
+P> R
+accept
+(
+TypeVisitor
+<R,
+P> v,
+ P p)
+Applies a visitor to this type.
+boolean
+equals
+(
+Object
+obj)
+Obeys the general contract of
+Object.equals
+.
+<A extends
+Annotation
+>
+A
+getAnnotation
+(
+Class
+<A> annotationType)
+Returns this construct's annotation of the specified type if
+ such an annotation is
+present
+, else
+null
+.
+List
+<? extends
+AnnotationMirror
+>
+getAnnotationMirrors
+()
+Returns the annotations that are
+directly present
+on
+ this construct.
+<A extends
+Annotation
+>
+A[]
+getAnnotationsByType
+(
+Class
+<A> annotationType)
+Returns annotations that are
+associated
+with this construct.
+TypeKind
+getKind
+()
+Returns the
+kind
+of this type.
+int
+hashCode
+()
+Obeys the general contract of
+Object.hashCode
+.
+String
+toString
+()
+Returns an informative string representation of this type.
+Method Details
+getKind
+TypeKind
+getKind
+()
+Returns the
+kind
+of this type.
+The kind of a
+primitive type
+is
+ one of the kinds for which
+TypeKind.isPrimitive()
+returns
+true
+.
+The kind of a
+null type
+is
+NULL
+.
+The kind of an
+array type
+is
+ARRAY
+.
+The kind of a
+declared type
+is
+DECLARED
+.
+The kind of an
+error type
+is
+ERROR
+.
+The kind of a
+type variable
+is
+TYPEVAR
+.
+The kind of a
+wildcard type
+is
+WILDCARD
+.
+The kind of an
+executable type
+is
+EXECUTABLE
+.
+The kind of a
+pseudo-type
+is one
+ of
+VOID
+,
+PACKAGE
+,
+MODULE
+, or
+NONE
+.
+The kind of a
+union type
+is
+UNION
+.
+The kind of an
+intersection
+ type
+is
+INTERSECTION
+.
+Returns:
+the
+kind
+of this type
+equals
+boolean
+equals
+(
+Object
+obj)
+Obeys the general contract of
+Object.equals
+.
+ This method does not, however, indicate whether two types represent
+ the same type.
+ Semantic comparisons of type equality should instead use
+Types.isSameType(TypeMirror, TypeMirror)
+.
+ The results of
+t1.equals(t2)
+and
+Types.isSameType(t1, t2)
+may differ.
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- the object to be compared with this type
+Returns:
+true
+if the specified object is equal to this one
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+int
+hashCode
+()
+Obeys the general contract of
+Object.hashCode
+.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+a hash code value for this object.
+See Also:
+equals(java.lang.Object)
+toString
+String
+toString
+()
+Returns an informative string representation of this type.  If
+ possible, the string should be of a form suitable for
+ representing this type in source code.  Any names embedded in
+ the result are qualified if possible.
+Overrides:
+toString
+in class
+Object
+Returns:
+a string representation of this type
+getAnnotationMirrors
+List
+<? extends
+AnnotationMirror
+>
+getAnnotationMirrors
+()
+Returns the annotations that are
+directly present
+on
+ this construct.
+Note that any annotations returned by this method are type
+ annotations.
+Specified by:
+getAnnotationMirrors
+in interface
+AnnotatedConstruct
+Returns:
+the annotations
+directly present
+on this
+ construct; an empty list if there are none
+Since:
+1.8
+getAnnotation
+<A extends
+Annotation
+>
+A
+getAnnotation
+(
+Class
+<A> annotationType)
+Returns this construct's annotation of the specified type if
+ such an annotation is
+present
+, else
+null
+.
+The annotation returned by this method could contain an element
+ whose value is of type
+Class
+.
+ This value cannot be returned directly:  information necessary to
+ locate and load a class (such as the class loader to use) is
+ not available, and the class might not be loadable at all.
+ Attempting to read a
+Class
+object by invoking the relevant
+ method on the returned annotation
+ will result in a
+MirroredTypeException
+,
+ from which the corresponding
+TypeMirror
+may be extracted.
+ Similarly, attempting to read a
+Class[]
+-valued element
+ will result in a
+MirroredTypesException
+.
+Note:
+This method is unlike others in this and related
+ interfaces.  It operates on runtime reflective information —
+ representations of annotation interfaces currently loaded into the
+ VM — rather than on the representations defined by and used
+ throughout these interfaces.  Consequently, calling methods on
+ the returned annotation object can throw many of the exceptions
+ that can be thrown when calling methods on an annotation object
+ returned by core reflection.  This method is intended for
+ callers that are written to operate on a known, fixed set of
+ annotation interfaces.
+Note that any annotation returned by this method is a type
+ annotation.
+Specified by:
+getAnnotation
+in interface
+AnnotatedConstruct
+Type Parameters:
+A
+- the annotation interface
+Parameters:
+annotationType
+- the
+Class
+object corresponding to
+          the annotation interface
+Returns:
+this construct's annotation of the specified type if
+ such an annotation is
+present
+, else
+null
+Since:
+1.8
+See Also:
+AnnotatedConstruct.getAnnotationMirrors()
+AnnotatedElement.getAnnotation(java.lang.Class<T>)
+EnumConstantNotPresentException
+AnnotationTypeMismatchException
+IncompleteAnnotationException
+MirroredTypeException
+MirroredTypesException
+getAnnotationsByType
+<A extends
+Annotation
+>
+A[]
+getAnnotationsByType
+(
+Class
+<A> annotationType)
+Returns annotations that are
+associated
+with this construct.
+
+ If there are no annotations associated with this construct, the
+ return value is an array of length 0.
+
+ The order of annotations which are directly or indirectly
+ present on a construct
+C
+is computed as if indirectly present
+ annotations on
+C
+are directly present on
+C
+in place of their
+ container annotation, in the order in which they appear in the
+ value element of the container annotation.
+
+ The difference between this method and
+AnnotatedConstruct.getAnnotation(Class)
+is that this method detects if its argument is a
+repeatable
+ annotation interface
+, and if so, attempts to find one or more
+ annotations of that type by "looking through" a container annotation.
+The annotations returned by this method could contain an element
+ whose value is of type
+Class
+.
+ This value cannot be returned directly:  information necessary to
+ locate and load a class (such as the class loader to use) is
+ not available, and the class might not be loadable at all.
+ Attempting to read a
+Class
+object by invoking the relevant
+ method on the returned annotation
+ will result in a
+MirroredTypeException
+,
+ from which the corresponding
+TypeMirror
+may be extracted.
+ Similarly, attempting to read a
+Class[]
+-valued element
+ will result in a
+MirroredTypesException
+.
+Note:
+This method is unlike others in this and related
+ interfaces.  It operates on runtime reflective information —
+ representations of annotation interfaces currently loaded into the
+ VM — rather than on the representations defined by and used
+ throughout these interfaces.  Consequently, calling methods on
+ the returned annotation object can throw many of the exceptions
+ that can be thrown when calling methods on an annotation object
+ returned by core reflection.  This method is intended for
+ callers that are written to operate on a known, fixed set of
+ annotation interfaces.
+Note that any annotations returned by this method are type
+ annotations.
+Specified by:
+getAnnotationsByType
+in interface
+AnnotatedConstruct
+Type Parameters:
+A
+- the annotation interface
+Parameters:
+annotationType
+- the
+Class
+object corresponding to
+          the annotation interface
+Returns:
+this construct's annotations for the specified annotation
+         type if present on this construct, else an empty array
+Since:
+1.8
+See Also:
+AnnotatedConstruct.getAnnotationMirrors()
+AnnotatedConstruct.getAnnotation(Class)
+AnnotatedElement.getAnnotationsByType(Class)
+EnumConstantNotPresentException
+AnnotationTypeMismatchException
+IncompleteAnnotationException
+MirroredTypeException
+MirroredTypesException
+accept
+<R,
+P>
+R
+accept
+(
+TypeVisitor
+<R,
+P> v,
+ P p)
+Applies a visitor to this type.
+Type Parameters:
+R
+- the return type of the visitor's methods
+P
+- the type of the additional parameter to the visitor's methods
+Parameters:
+v
+- the visitor operating on this type
+p
+- additional parameter to the visitor
+Returns:
+a visitor-specified result
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

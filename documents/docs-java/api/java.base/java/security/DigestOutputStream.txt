@@ -1,0 +1,339 @@
+DigestOutputStream (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.security
+Class DigestOutputStream
+java.lang.Object
+java.io.OutputStream
+java.io.FilterOutputStream
+java.security.DigestOutputStream
+All Implemented Interfaces:
+Closeable
+,
+Flushable
+,
+AutoCloseable
+public class
+DigestOutputStream
+extends
+FilterOutputStream
+A transparent stream that updates the associated message digest using
+ the bits going through the stream.
+To complete the message digest computation, call one of the
+digest
+methods on the associated message
+ digest after your calls to one of this digest output stream's
+write
+methods.
+It is possible to turn this stream on or off (see
+on
+). When it is on, a call to one of the
+write
+methods results in
+ an update on the message digest.  But when it is off, the message
+ digest is not updated. The default is for the stream to be on.
+Since:
+1.2
+See Also:
+MessageDigest
+DigestInputStream
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected
+MessageDigest
+digest
+The message digest associated with this stream.
+Fields declared in class java.io.
+FilterOutputStream
+out
+Constructor Summary
+Constructors
+Constructor
+Description
+DigestOutputStream
+(
+OutputStream
+stream,
+MessageDigest
+digest)
+Creates a digest output stream, using the specified output stream
+ and message digest.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+MessageDigest
+getMessageDigest
+()
+Returns the message digest associated with this stream.
+void
+on
+(boolean on)
+Turns the digest function on or off.
+void
+setMessageDigest
+(
+MessageDigest
+digest)
+Associates the specified message digest with this stream.
+String
+toString
+()
+Prints a string representation of this digest output stream and
+ its associated message digest object.
+void
+write
+(byte[] b,
+ int off,
+ int len)
+Updates the message digest (if the digest function is on) using
+ the specified subarray, and in any case writes the subarray to
+ the output stream.
+void
+write
+(int b)
+Updates the message digest (if the digest function is on) using
+ the specified byte, and in any case writes the byte
+ to the output stream.
+Methods declared in class java.io.
+FilterOutputStream
+close
+,
+flush
+,
+write
+Methods declared in class java.io.
+OutputStream
+nullOutputStream
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Field Details
+digest
+protected
+MessageDigest
+digest
+The message digest associated with this stream.
+Constructor Details
+DigestOutputStream
+public
+DigestOutputStream
+(
+OutputStream
+stream,
+MessageDigest
+digest)
+Creates a digest output stream, using the specified output stream
+ and message digest.
+Parameters:
+stream
+- the output stream.
+digest
+- the message digest to associate with this stream.
+Method Details
+getMessageDigest
+public
+MessageDigest
+getMessageDigest
+()
+Returns the message digest associated with this stream.
+Returns:
+the message digest associated with this stream.
+See Also:
+setMessageDigest(java.security.MessageDigest)
+setMessageDigest
+public
+void
+setMessageDigest
+(
+MessageDigest
+digest)
+Associates the specified message digest with this stream.
+Parameters:
+digest
+- the message digest to be associated with this stream.
+See Also:
+getMessageDigest()
+write
+public
+void
+write
+(int b)
+throws
+IOException
+Updates the message digest (if the digest function is on) using
+ the specified byte, and in any case writes the byte
+ to the output stream. That is, if the digest function is on
+ (see
+on
+), this method calls
+update
+on the message digest associated with this
+ stream, passing it the byte
+b
+. This method then
+ writes the byte to the output stream, blocking until the byte
+ is actually written.
+Overrides:
+write
+in class
+FilterOutputStream
+Parameters:
+b
+- the byte to be used for updating and writing to the
+ output stream.
+Throws:
+IOException
+- if an I/O error occurs.
+See Also:
+MessageDigest.update(byte)
+write
+public
+void
+write
+(byte[] b,
+ int off,
+ int len)
+throws
+IOException
+Updates the message digest (if the digest function is on) using
+ the specified subarray, and in any case writes the subarray to
+ the output stream. That is, if the digest function is on (see
+on
+), this method calls
+update
+on the message digest associated with this stream, passing it
+ the subarray specifications. This method then writes the subarray
+ bytes to the output stream, blocking until the bytes are actually
+ written.
+Overrides:
+write
+in class
+FilterOutputStream
+Parameters:
+b
+- the array containing the subarray to be used for updating
+ and writing to the output stream.
+off
+- the offset into
+b
+of the first byte to
+ be updated and written.
+len
+- the number of bytes of data to be updated and written
+ from
+b
+, starting at offset
+off
+.
+Throws:
+IOException
+- if an I/O error occurs.
+See Also:
+MessageDigest.update(byte[], int, int)
+on
+public
+void
+on
+(boolean on)
+Turns the digest function on or off. The default is on.  When
+ it is on, a call to one of the
+write
+methods results in an
+ update on the message digest.  But when it is off, the message
+ digest is not updated.
+Parameters:
+on
+-
+true
+to turn the digest function on,
+false
+to turn it off.
+toString
+public
+String
+toString
+()
+Prints a string representation of this digest output stream and
+ its associated message digest object.
+Overrides:
+toString
+in class
+Object
+Returns:
+a string representation of the object.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

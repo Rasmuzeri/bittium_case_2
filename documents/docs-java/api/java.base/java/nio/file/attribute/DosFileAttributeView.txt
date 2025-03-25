@@ -1,0 +1,286 @@
+DosFileAttributeView (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.nio.file.attribute
+Interface DosFileAttributeView
+All Superinterfaces:
+AttributeView
+,
+BasicFileAttributeView
+,
+FileAttributeView
+public interface
+DosFileAttributeView
+extends
+BasicFileAttributeView
+A file attribute view that provides a view of the legacy "DOS" file attributes.
+ These attributes are supported by file systems such as the File Allocation
+ Table (FAT) format commonly used in
+consumer devices
+.
+A
+DosFileAttributeView
+is a
+BasicFileAttributeView
+that
+ additionally supports access to the set of DOS attribute flags that are used
+ to indicate if the file is read-only, hidden, a system file, or archived.
+Where dynamic access to file attributes is required, the attributes
+ supported by this attribute view are as defined by
+BasicFileAttributeView
+, and in addition, the following attributes are
+ supported:
+Supported attributes
+Name
+Type
+readonly
+Boolean
+hidden
+Boolean
+system
+Boolean
+archive
+Boolean
+The
+getAttribute
+method may
+ be used to read any of these attributes, or any of the attributes defined by
+BasicFileAttributeView
+as if by invoking the
+readAttributes()
+method.
+The
+setAttribute
+method may
+ be used to update the file's last modified time, last access time or create
+ time attributes as defined by
+BasicFileAttributeView
+. It may also be
+ used to update the DOS attributes as if by invoking the
+setReadOnly
+,
+setHidden
+,
+setSystem
+, and
+setArchive
+methods respectively.
+Since:
+1.7
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+String
+name
+()
+Returns the name of the attribute view.
+DosFileAttributes
+readAttributes
+()
+Reads the basic file attributes as a bulk operation.
+void
+setArchive
+(boolean value)
+Updates the value of the archive attribute.
+void
+setHidden
+(boolean value)
+Updates the value of the hidden attribute.
+void
+setReadOnly
+(boolean value)
+Updates the value of the read-only attribute.
+void
+setSystem
+(boolean value)
+Updates the value of the system attribute.
+Methods declared in interface java.nio.file.attribute.
+BasicFileAttributeView
+setTimes
+Method Details
+name
+String
+name
+()
+Returns the name of the attribute view. Attribute views of this type
+ have the name
+"dos"
+.
+Specified by:
+name
+in interface
+AttributeView
+Specified by:
+name
+in interface
+BasicFileAttributeView
+Returns:
+the name of the attribute view
+readAttributes
+DosFileAttributes
+readAttributes
+()
+                          throws
+IOException
+Description copied from interface:
+BasicFileAttributeView
+Reads the basic file attributes as a bulk operation.
+It is implementation specific if all file attributes are read as an
+ atomic operation with respect to other file system operations.
+Specified by:
+readAttributes
+in interface
+BasicFileAttributeView
+Returns:
+the file attributes
+Throws:
+IOException
+- if an I/O error occurs
+SecurityException
+- In the case of the default provider, a security manager is
+          installed, its
+checkRead
+method is invoked to check read access to the file
+setReadOnly
+void
+setReadOnly
+(boolean value)
+throws
+IOException
+Updates the value of the read-only attribute.
+It is implementation specific if the attribute can be updated as an
+ atomic operation with respect to other file system operations. An
+ implementation may, for example, require to read the existing value of
+ the DOS attribute in order to update this attribute.
+Parameters:
+value
+- the new value of the attribute
+Throws:
+IOException
+- if an I/O error occurs
+SecurityException
+- In the case of the default, and a security manager is installed,
+          its
+checkWrite
+method
+          is invoked to check write access to the file
+setHidden
+void
+setHidden
+(boolean value)
+throws
+IOException
+Updates the value of the hidden attribute.
+It is implementation specific if the attribute can be updated as an
+ atomic operation with respect to other file system operations. An
+ implementation may, for example, require to read the existing value of
+ the DOS attribute in order to update this attribute.
+Parameters:
+value
+- the new value of the attribute
+Throws:
+IOException
+- if an I/O error occurs
+SecurityException
+- In the case of the default, and a security manager is installed,
+          its
+checkWrite
+method
+          is invoked to check write access to the file
+setSystem
+void
+setSystem
+(boolean value)
+throws
+IOException
+Updates the value of the system attribute.
+It is implementation specific if the attribute can be updated as an
+ atomic operation with respect to other file system operations. An
+ implementation may, for example, require to read the existing value of
+ the DOS attribute in order to update this attribute.
+Parameters:
+value
+- the new value of the attribute
+Throws:
+IOException
+- if an I/O error occurs
+SecurityException
+- In the case of the default, and a security manager is installed,
+          its
+checkWrite
+method
+          is invoked to check write access to the file
+setArchive
+void
+setArchive
+(boolean value)
+throws
+IOException
+Updates the value of the archive attribute.
+It is implementation specific if the attribute can be updated as an
+ atomic operation with respect to other file system operations. An
+ implementation may, for example, require to read the existing value of
+ the DOS attribute in order to update this attribute.
+Parameters:
+value
+- the new value of the attribute
+Throws:
+IOException
+- if an I/O error occurs
+SecurityException
+- In the case of the default, and a security manager is installed,
+          its
+checkWrite
+method
+          is invoked to check write access to the file
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

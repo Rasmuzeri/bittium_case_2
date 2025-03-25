@@ -1,0 +1,286 @@
+JdiDefaultExecutionControl (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.jshell
+Package
+jdk.jshell.execution
+Class JdiDefaultExecutionControl
+java.lang.Object
+jdk.jshell.execution.StreamingExecutionControl
+jdk.jshell.execution.JdiExecutionControl
+jdk.jshell.execution.JdiDefaultExecutionControl
+All Implemented Interfaces:
+AutoCloseable
+,
+ExecutionControl
+public class
+JdiDefaultExecutionControl
+extends
+JdiExecutionControl
+The implementation of
+ExecutionControl
+that the
+ JShell-core uses by default.
+ Launches a remote process -- the "remote agent".
+ Interfaces to the remote agent over a socket and via JDI.
+ Designed to work with
+RemoteExecutionControl
+.
+Since:
+9
+Nested Class Summary
+Nested classes/interfaces declared in interface jdk.jshell.spi.
+ExecutionControl
+ExecutionControl.ClassBytecodes
+,
+ExecutionControl.ClassInstallException
+,
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.ExecutionControlException
+,
+ExecutionControl.InternalException
+,
+ExecutionControl.NotImplementedException
+,
+ExecutionControl.ResolutionException
+,
+ExecutionControl.RunException
+,
+ExecutionControl.StoppedException
+,
+ExecutionControl.UserException
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+close
+()
+Closes the execution engine.
+String
+invoke
+(
+String
+classname,
+String
+methodname)
+Invokes an executable Snippet by calling a method on the specified
+ wrapper class.
+void
+stop
+()
+Interrupts a running remote invoke by manipulating remote variables
+ and sending a stop via JDI.
+protected
+VirtualMachine
+vm
+()
+Returns the JDI
+VirtualMachine
+instance.
+Methods declared in class jdk.jshell.execution.
+JdiExecutionControl
+redefine
+,
+referenceType
+Methods declared in class jdk.jshell.execution.
+StreamingExecutionControl
+addToClasspath
+,
+close
+,
+extensionCommand
+,
+load
+,
+varValue
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface jdk.jshell.spi.
+ExecutionControl
+addToClasspath
+,
+extensionCommand
+,
+load
+,
+varValue
+Method Details
+invoke
+public
+String
+invoke
+(
+String
+classname,
+String
+methodname)
+throws
+ExecutionControl.RunException
+,
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.InternalException
+Description copied from interface:
+ExecutionControl
+Invokes an executable Snippet by calling a method on the specified
+ wrapper class. The method must have no arguments and return String.
+Specified by:
+invoke
+in interface
+ExecutionControl
+Overrides:
+invoke
+in class
+StreamingExecutionControl
+Parameters:
+classname
+- the class whose method should be invoked
+methodname
+- the name of method to invoke
+Returns:
+the result of the execution or null if no result
+Throws:
+ExecutionControl.UserException
+- the invoke raised a user exception
+ExecutionControl.ResolutionException
+- the invoke attempted to directly or
+ indirectly invoke an unresolved snippet
+ExecutionControl.StoppedException
+- if the
+invoke()
+was canceled by
+ExecutionControl.stop()
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+ExecutionControl.InternalException
+- an internal problem occurred
+ExecutionControl.RunException
+stop
+public
+void
+stop
+()
+          throws
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.InternalException
+Interrupts a running remote invoke by manipulating remote variables
+ and sending a stop via JDI.
+Throws:
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+ExecutionControl.InternalException
+- an internal problem occurred
+close
+public
+void
+close
+()
+Description copied from class:
+StreamingExecutionControl
+Closes the execution engine. Send an exit command to the remote agent.
+Specified by:
+close
+in interface
+AutoCloseable
+Specified by:
+close
+in interface
+ExecutionControl
+Overrides:
+close
+in class
+StreamingExecutionControl
+vm
+protected
+VirtualMachine
+vm
+()
+                     throws
+ExecutionControl.EngineTerminationException
+Description copied from class:
+JdiExecutionControl
+Returns the JDI
+VirtualMachine
+instance.
+Specified by:
+vm
+in class
+JdiExecutionControl
+Returns:
+the virtual machine
+Throws:
+ExecutionControl.EngineTerminationException
+- if the VM is dead/disconnected
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

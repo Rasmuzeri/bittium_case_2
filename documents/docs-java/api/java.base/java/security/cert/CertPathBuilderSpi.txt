@@ -1,0 +1,216 @@
+CertPathBuilderSpi (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.security.cert
+Class CertPathBuilderSpi
+java.lang.Object
+java.security.cert.CertPathBuilderSpi
+public abstract class
+CertPathBuilderSpi
+extends
+Object
+The
+Service Provider Interface
+(
+SPI
+)
+ for the
+CertPathBuilder
+class. All
+CertPathBuilder
+implementations must include a class (the
+ SPI class) that extends this class (
+CertPathBuilderSpi
+) and
+ implements all of its methods. In general, instances of this class should
+ only be accessed through the
+CertPathBuilder
+class. For
+ details, see the Java Cryptography Architecture.
+Concurrent Access
+Instances of this class need not be protected against concurrent
+ access from multiple threads. Threads that need to access a single
+CertPathBuilderSpi
+instance concurrently should synchronize
+ amongst themselves and provide the necessary locking before calling the
+ wrapping
+CertPathBuilder
+object.
+However, implementations of
+CertPathBuilderSpi
+may still
+ encounter concurrency issues, since multiple threads each
+ manipulating a different
+CertPathBuilderSpi
+instance need not
+ synchronize.
+Since:
+1.4
+Constructor Summary
+Constructors
+Constructor
+Description
+CertPathBuilderSpi
+()
+The default constructor.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+abstract
+CertPathBuilderResult
+engineBuild
+(
+CertPathParameters
+params)
+Attempts to build a certification path using the specified
+ algorithm parameter set.
+CertPathChecker
+engineGetRevocationChecker
+()
+Returns a
+CertPathChecker
+that this implementation uses to
+ check the revocation status of certificates.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+CertPathBuilderSpi
+public
+CertPathBuilderSpi
+()
+The default constructor.
+Method Details
+engineBuild
+public abstract
+CertPathBuilderResult
+engineBuild
+(
+CertPathParameters
+params)
+throws
+CertPathBuilderException
+,
+InvalidAlgorithmParameterException
+Attempts to build a certification path using the specified
+ algorithm parameter set.
+Parameters:
+params
+- the algorithm parameters
+Returns:
+the result of the build algorithm
+Throws:
+CertPathBuilderException
+- if the builder is unable to construct
+ a certification path that satisfies the specified parameters
+InvalidAlgorithmParameterException
+- if the specified parameters
+ are inappropriate for this
+CertPathBuilder
+engineGetRevocationChecker
+public
+CertPathChecker
+engineGetRevocationChecker
+()
+Returns a
+CertPathChecker
+that this implementation uses to
+ check the revocation status of certificates. A PKIX implementation
+ returns objects of type
+PKIXRevocationChecker
+.
+The primary purpose of this method is to allow callers to specify
+ additional input parameters and options specific to revocation checking.
+ See the class description of
+CertPathBuilder
+for an example.
+This method was added to version 1.8 of the Java Platform Standard
+ Edition. In order to maintain backwards compatibility with existing
+ service providers, this method cannot be abstract and by default throws
+ an
+UnsupportedOperationException
+.
+Returns:
+a
+CertPathChecker
+that this implementation uses to
+ check the revocation status of certificates
+Throws:
+UnsupportedOperationException
+- if this method is not supported
+Since:
+1.8
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

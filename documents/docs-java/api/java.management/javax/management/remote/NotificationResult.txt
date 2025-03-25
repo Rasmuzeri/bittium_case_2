@@ -1,0 +1,219 @@
+NotificationResult (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.management
+Package
+javax.management.remote
+Class NotificationResult
+java.lang.Object
+javax.management.remote.NotificationResult
+All Implemented Interfaces:
+Serializable
+public class
+NotificationResult
+extends
+Object
+implements
+Serializable
+Result of a query for buffered notifications.  Notifications in
+ a notification buffer have positive, monotonically increasing
+ sequence numbers.  The result of a notification query contains the
+ following elements:
+The sequence number of the earliest notification still in
+ the buffer.
+The sequence number of the next notification available for
+ querying.  This will be the starting sequence number for the next
+ notification query.
+An array of (Notification,listenerID) pairs corresponding to
+ the returned notifications and the listeners they correspond to.
+It is possible for the
+nextSequenceNumber
+to be less
+ than the
+earliestSequenceNumber
+.  This signifies that
+ notifications between the two might have been lost.
+Since:
+1.5
+See Also:
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+NotificationResult
+(long earliestSequenceNumber,
+ long nextSequenceNumber,
+TargetedNotification
+[] targetedNotifications)
+Constructs a notification query result.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+long
+getEarliestSequenceNumber
+()
+Returns the sequence number of the earliest notification still
+ in the buffer.
+long
+getNextSequenceNumber
+()
+Returns the sequence number of the next notification available
+ for querying.
+TargetedNotification
+[]
+getTargetedNotifications
+()
+Returns the notifications resulting from the query, and the
+ listeners they correspond to.
+String
+toString
+()
+Returns a string representation of the object.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+NotificationResult
+public
+NotificationResult
+(long earliestSequenceNumber,
+ long nextSequenceNumber,
+TargetedNotification
+[] targetedNotifications)
+Constructs a notification query result.
+Parameters:
+earliestSequenceNumber
+- the sequence number of the
+ earliest notification still in the buffer.
+nextSequenceNumber
+- the sequence number of the next
+ notification available for querying.
+targetedNotifications
+- the notifications resulting from
+ the query, and the listeners they correspond to.  This array
+ can be empty.
+Throws:
+IllegalArgumentException
+- if
+targetedNotifications
+is null or if
+earliestSequenceNumber
+or
+nextSequenceNumber
+is negative.
+Method Details
+getEarliestSequenceNumber
+public
+long
+getEarliestSequenceNumber
+()
+Returns the sequence number of the earliest notification still
+ in the buffer.
+Returns:
+the sequence number of the earliest notification still
+ in the buffer.
+getNextSequenceNumber
+public
+long
+getNextSequenceNumber
+()
+Returns the sequence number of the next notification available
+ for querying.
+Returns:
+the sequence number of the next notification available
+ for querying.
+getTargetedNotifications
+public
+TargetedNotification
+[]
+getTargetedNotifications
+()
+Returns the notifications resulting from the query, and the
+ listeners they correspond to.
+Returns:
+the notifications resulting from the query, and the
+ listeners they correspond to.  This array can be empty.
+toString
+public
+String
+toString
+()
+Returns a string representation of the object.  The result
+ should be a concise but informative representation that is easy
+ for a person to read.
+Overrides:
+toString
+in class
+Object
+Returns:
+a string representation of the object.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

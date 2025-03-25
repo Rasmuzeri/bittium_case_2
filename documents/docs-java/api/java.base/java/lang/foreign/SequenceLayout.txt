@@ -1,0 +1,331 @@
+SequenceLayout (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang.foreign
+Interface SequenceLayout
+All Superinterfaces:
+MemoryLayout
+PREVIEW
+public sealed interface
+SequenceLayout
+extends
+MemoryLayout
+PREVIEW
+SequenceLayout
+is a preview API of the Java platform.
+Programs can only use
+SequenceLayout
+when preview features are enabled.
+Preview features may be removed in a future release, or upgraded to permanent features of the Java platform.
+A compound layout that denotes a homogeneous repetition of a given
+element layout
+.
+ The repetition count is said to be the sequence layout's
+element count
+. A sequence layout can be thought of as a
+ struct layout where the sequence layout's element layout is repeated a number of times that is equal to the sequence
+ layout's element count. In other words this layout:
+Copy
+MemoryLayout.sequenceLayout(3, ValueLayout.JAVA_INT.withOrder(ByteOrder.BIG_ENDIAN));
+is equivalent to the following layout:
+Copy
+MemoryLayout.structLayout(
+    ValueLayout.JAVA_INT.withOrder(ByteOrder.BIG_ENDIAN),
+    ValueLayout.JAVA_INT.withOrder(ByteOrder.BIG_ENDIAN),
+    ValueLayout.JAVA_INT.withOrder(ByteOrder.BIG_ENDIAN));
+Implementation Requirements:
+This class is immutable, thread-safe and
+value-based
+.
+Since:
+19
+Nested Class Summary
+Nested classes/interfaces declared in interface java.lang.foreign.
+MemoryLayout
+PREVIEW
+MemoryLayout.PathElement
+PREVIEW
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+long
+elementCount
+()
+Returns the element count of this sequence layout.
+MemoryLayout
+PREVIEW
+elementLayout
+()
+Returns the element layout of this sequence layout.
+SequenceLayout
+PREVIEW
+flatten
+()
+Returns a flattened sequence layout.
+SequenceLayout
+PREVIEW
+reshape
+(long... elementCounts)
+Rearranges the elements in this sequence layout into a multi-dimensional sequence layout.
+SequenceLayout
+PREVIEW
+withByteAlignment
+(long byteAlignment)
+Returns a memory layout with the same characteristics as this layout, but with the given
+ alignment constraint (in bytes).
+SequenceLayout
+PREVIEW
+withElementCount
+(long elementCount)
+Returns a sequence layout with the same characteristics of this layout, but with the given element count.
+SequenceLayout
+PREVIEW
+withName
+(
+String
+name)
+Returns a memory layout with the same characteristics as this layout, but with the given name.
+Methods declared in interface java.lang.foreign.
+MemoryLayout
+PREVIEW
+byteAlignment
+,
+byteOffset
+,
+byteOffsetHandle
+,
+byteSize
+,
+equals
+,
+hashCode
+,
+name
+,
+select
+,
+sliceHandle
+,
+toString
+,
+varHandle
+,
+withoutName
+Method Details
+elementLayout
+MemoryLayout
+PREVIEW
+elementLayout
+()
+Returns the element layout of this sequence layout.
+Returns:
+the element layout of this sequence layout
+elementCount
+long
+elementCount
+()
+Returns the element count of this sequence layout.
+Returns:
+the element count of this sequence layout
+withElementCount
+SequenceLayout
+PREVIEW
+withElementCount
+(long elementCount)
+Returns a sequence layout with the same characteristics of this layout, but with the given element count.
+Parameters:
+elementCount
+- the new element count.
+Returns:
+a sequence layout with the same characteristics of this layout, but with the given element count
+Throws:
+IllegalArgumentException
+- if
+elementCount
+is negative.
+IllegalArgumentException
+- if
+elementLayout.bitSize() * elementCount
+overflows.
+reshape
+SequenceLayout
+PREVIEW
+reshape
+(long... elementCounts)
+Rearranges the elements in this sequence layout into a multi-dimensional sequence layout.
+ The resulting layout is a sequence layout where element layouts in the
+flattened projection
+of this sequence layout are rearranged into one or more nested sequence layouts
+ according to the provided element counts. This transformation preserves the layout size;
+ that is, multiplying the provided element counts must yield the same element count
+ as the flattened projection of this sequence layout.
+For instance, given a sequence layout of the kind:
+Copy
+var seq = MemoryLayout.sequenceLayout(4, MemoryLayout.sequenceLayout(3, ValueLayout.JAVA_INT));
+calling
+seq.reshape(2, 6)
+will yield the following sequence layout:
+Copy
+var reshapeSeq = MemoryLayout.sequenceLayout(2, MemoryLayout.sequenceLayout(6, ValueLayout.JAVA_INT));
+If one of the provided element count is the special value
+-1
+, then the element
+ count in that position will be inferred from the remaining element counts and the
+ element count of the flattened projection of this layout. For instance, a layout equivalent to
+ the above
+reshapeSeq
+can also be computed in the following ways:
+Copy
+var reshapeSeqImplicit1 = seq.reshape(-1, 6);
+var reshapeSeqImplicit2 = seq.reshape(2, -1);
+Parameters:
+elementCounts
+- an array of element counts, of which at most one can be
+-1
+.
+Returns:
+a sequence layout where element layouts in the
+flattened projection
+of this
+ sequence layout (see
+flatten()
+) are re-arranged into one or more nested sequence layouts.
+Throws:
+IllegalArgumentException
+- if two or more element counts are set to
+-1
+, or if one
+ or more element count is
+<= 0
+(but other than
+-1
+) or, if, after any required inference,
+ multiplying the element counts does not yield the same element count as the flattened projection of this
+ sequence layout.
+flatten
+SequenceLayout
+PREVIEW
+flatten
+()
+Returns a flattened sequence layout. The element layout of the returned sequence layout
+ is the first non-sequence layout found by inspecting (recursively, if needed) the element layout of this sequence layout:
+Copy
+MemoryLayout flatElementLayout(SequenceLayout sequenceLayout) {
+   return switch (sequenceLayout.elementLayout()) {
+       case SequenceLayout nestedSequenceLayout -> flatElementLayout(nestedSequenceLayout);
+       case MemoryLayout layout -> layout;
+   };
+}
+This transformation preserves the layout size; nested sequence layout in this sequence layout will
+ be dropped and their element counts will be incorporated into that of the returned sequence layout.
+ For instance, given a sequence layout of the kind:
+Copy
+var seq = MemoryLayout.sequenceLayout(4, MemoryLayout.sequenceLayout(3, ValueLayout.JAVA_INT));
+calling
+seq.flatten()
+will yield the following sequence layout:
+Copy
+var flattenedSeq = MemoryLayout.sequenceLayout(12, ValueLayout.JAVA_INT);
+Returns:
+a sequence layout with the same size as this layout (but, possibly, with different
+ element count), whose element layout is not a sequence layout.
+withName
+SequenceLayout
+PREVIEW
+withName
+(
+String
+name)
+Returns a memory layout with the same characteristics as this layout, but with the given name.
+Specified by:
+withName
+in interface
+MemoryLayout
+PREVIEW
+Parameters:
+name
+- the layout name.
+Returns:
+a memory layout with the same characteristics as this layout, but with the given name
+See Also:
+MemoryLayout.name()
+PREVIEW
+withByteAlignment
+SequenceLayout
+PREVIEW
+withByteAlignment
+(long byteAlignment)
+Returns a memory layout with the same characteristics as this layout, but with the given
+ alignment constraint (in bytes).
+Specified by:
+withByteAlignment
+in interface
+MemoryLayout
+PREVIEW
+Parameters:
+byteAlignment
+- the layout alignment constraint, expressed in bytes.
+Returns:
+a memory layout with the same characteristics as this layout, but with the given
+ alignment constraint (in bytes)
+Throws:
+IllegalArgumentException
+- if
+byteAlignment
+is not a power of two.
+IllegalArgumentException
+- if
+byteAlignment < elementLayout().byteAlignment()
+.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

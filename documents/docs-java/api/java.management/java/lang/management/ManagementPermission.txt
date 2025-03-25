@@ -1,0 +1,209 @@
+ManagementPermission (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.management
+Package
+java.lang.management
+Class ManagementPermission
+java.lang.Object
+java.security.Permission
+java.security.BasicPermission
+java.lang.management.ManagementPermission
+All Implemented Interfaces:
+Serializable
+,
+Guard
+public final class
+ManagementPermission
+extends
+BasicPermission
+The permission which the SecurityManager will check when code
+ that is running with a SecurityManager calls methods defined
+ in the management interface for the Java platform.
+The following table
+ provides a summary description of what the permission allows,
+ and discusses the risks of granting code the permission.
+Table shows permission target name, what the permission allows, and associated risks
+Permission Target Name
+What the Permission Allows
+Risks of Allowing this Permission
+control
+Ability to control the runtime characteristics of the Java virtual
+       machine, for example, enabling and disabling the verbose output for
+       the class loading or memory system, setting the threshold of a memory
+       pool, and enabling and disabling the thread contention monitoring
+       support. Some actions controlled by this permission can disclose
+       information about the running application, like the -verbose:class
+       flag.
+This allows an attacker to control the runtime characteristics
+       of the Java virtual machine and cause the system to misbehave. An
+       attacker can also access some information related to the running
+       application.
+monitor
+Ability to retrieve runtime information about
+       the Java virtual machine such as thread
+       stack trace, a list of all loaded class names, and input arguments
+       to the Java virtual machine.
+This allows malicious code to monitor runtime information and
+       uncover vulnerabilities.
+Programmers do not normally create ManagementPermission objects directly.
+ Instead they are created by the security policy code based on reading
+ the security policy file.
+Since:
+1.5
+See Also:
+BasicPermission
+Permission
+Permissions
+PermissionCollection
+SecurityManager
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+ManagementPermission
+(
+String
+name)
+Constructs a ManagementPermission with the specified name.
+ManagementPermission
+(
+String
+name,
+String
+actions)
+Constructs a new ManagementPermission object.
+Method Summary
+Methods declared in class java.security.
+BasicPermission
+equals
+,
+getActions
+,
+hashCode
+,
+implies
+,
+newPermissionCollection
+Methods declared in class java.security.
+Permission
+checkGuard
+,
+getName
+,
+toString
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+ManagementPermission
+public
+ManagementPermission
+(
+String
+name)
+Constructs a ManagementPermission with the specified name.
+Parameters:
+name
+- Permission name. Must be either "monitor" or "control".
+Throws:
+NullPointerException
+- if
+name
+is
+null
+.
+IllegalArgumentException
+- if
+name
+is empty or invalid.
+ManagementPermission
+public
+ManagementPermission
+(
+String
+name,
+String
+actions)
+throws
+IllegalArgumentException
+Constructs a new ManagementPermission object.
+Parameters:
+name
+- Permission name. Must be either "monitor" or "control".
+actions
+- Must be either null or the empty string.
+Throws:
+NullPointerException
+- if
+name
+is
+null
+.
+IllegalArgumentException
+- if
+name
+is empty or
+ if arguments are invalid.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

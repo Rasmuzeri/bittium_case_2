@@ -1,0 +1,731 @@
+Uses of Class java.net.SocketAddress (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Class
+java.net.SocketAddress
+Packages that use
+SocketAddress
+Package
+Description
+com.sun.nio.sctp
+A Java API for Stream Control Transport Protocol.
+java.net
+Provides the classes for implementing networking applications.
+java.nio.channels
+Defines channels, which represent connections to entities that are capable of
+ performing I/O operations, such as files and sockets; defines selectors, for
+ multiplexed, non-blocking I/O operations.
+Uses of
+SocketAddress
+in
+com.sun.nio.sctp
+Fields in
+com.sun.nio.sctp
+with type parameters of type
+SocketAddress
+Modifier and Type
+Field
+Description
+static final
+SctpSocketOption
+<
+SocketAddress
+>
+SctpStandardSocketOptions.
+SCTP_PRIMARY_ADDR
+Requests that the local SCTP stack use the given peer address as
+ the association primary.
+static final
+SctpSocketOption
+<
+SocketAddress
+>
+SctpStandardSocketOptions.
+SCTP_SET_PEER_PRIMARY_ADDR
+Requests that the peer mark the enclosed address as the association
+ primary.
+Methods in
+com.sun.nio.sctp
+that return
+SocketAddress
+Modifier and Type
+Method
+Description
+abstract
+SocketAddress
+MessageInfo.
+address
+()
+Returns the source socket address if the message has been received,
+ otherwise the preferred destination of the message to be sent.
+abstract
+SocketAddress
+PeerAddressChangeNotification.
+address
+()
+Returns the peer address.
+abstract
+SocketAddress
+SendFailedNotification.
+address
+()
+Returns the address.
+Methods in
+com.sun.nio.sctp
+that return types with arguments of type
+SocketAddress
+Modifier and Type
+Method
+Description
+abstract
+Set
+<
+SocketAddress
+>
+SctpChannel.
+getAllLocalAddresses
+()
+Returns all of the socket addresses to which this channel's socket is
+ bound.
+abstract
+Set
+<
+SocketAddress
+>
+SctpMultiChannel.
+getAllLocalAddresses
+()
+Returns all of the socket addresses to which this channel's socket is
+ bound.
+abstract
+Set
+<
+SocketAddress
+>
+SctpServerChannel.
+getAllLocalAddresses
+()
+Returns all of the socket addresses to which this channel's socket is
+ bound.
+abstract
+Set
+<
+SocketAddress
+>
+SctpChannel.
+getRemoteAddresses
+()
+Returns all of the remote addresses to which this channel's socket
+ is connected.
+abstract
+Set
+<
+SocketAddress
+>
+SctpMultiChannel.
+getRemoteAddresses
+(
+Association
+association)
+Returns all of the remote addresses to which the given association on
+ this channel's socket is connected.
+Methods in
+com.sun.nio.sctp
+with parameters of type
+SocketAddress
+Modifier and Type
+Method
+Description
+abstract
+SctpChannel
+SctpChannel.
+bind
+(
+SocketAddress
+local)
+Binds the channel's socket to a local address.
+final
+SctpMultiChannel
+SctpMultiChannel.
+bind
+(
+SocketAddress
+local)
+Binds the channel's socket to a local address and configures the socket
+ to listen for connections.
+abstract
+SctpMultiChannel
+SctpMultiChannel.
+bind
+(
+SocketAddress
+local,
+ int backlog)
+Binds the channel's socket to a local address and configures the socket
+ to listen for connections.
+final
+SctpServerChannel
+SctpServerChannel.
+bind
+(
+SocketAddress
+local)
+Binds the channel's socket to a local address and configures the socket
+ to listen for associations.
+abstract
+SctpServerChannel
+SctpServerChannel.
+bind
+(
+SocketAddress
+local,
+ int backlog)
+Binds the channel's socket to a local address and configures the socket
+ to listen for associations.
+abstract boolean
+SctpChannel.
+connect
+(
+SocketAddress
+remote)
+Connects this channel's socket.
+abstract boolean
+SctpChannel.
+connect
+(
+SocketAddress
+remote,
+ int maxOutStreams,
+ int maxInStreams)
+Connects this channel's socket.
+static
+MessageInfo
+MessageInfo.
+createOutgoing
+(
+Association
+association,
+SocketAddress
+address,
+ int streamNumber)
+Creates a
+MessageInfo
+instance suitable for use when
+ sending a message to a given association.
+static
+MessageInfo
+MessageInfo.
+createOutgoing
+(
+SocketAddress
+address,
+ int streamNumber)
+Creates a
+MessageInfo
+instance suitable for use when
+ sending a message.
+static
+SctpChannel
+SctpChannel.
+open
+(
+SocketAddress
+remote,
+ int maxOutStreams,
+ int maxInStreams)
+Opens an SCTP channel and connects it to a remote address.
+Uses of
+SocketAddress
+in
+java.net
+Subclasses of
+SocketAddress
+in
+java.net
+Modifier and Type
+Class
+Description
+class
+InetSocketAddress
+This class implements an IP Socket Address (IP address + port number)
+ It can also be a pair (hostname + port number), in which case an attempt
+ will be made to resolve the hostname.
+final class
+UnixDomainSocketAddress
+A Unix domain socket address.
+Methods in
+java.net
+that return
+SocketAddress
+Modifier and Type
+Method
+Description
+SocketAddress
+Proxy.
+address
+()
+Returns the socket address of the proxy, or
+null
+if it's a direct connection.
+SocketAddress
+DatagramSocket.
+getLocalSocketAddress
+()
+Returns the address of the endpoint this socket is bound to.
+SocketAddress
+ServerSocket.
+getLocalSocketAddress
+()
+Returns the address of the endpoint this socket is bound to.
+SocketAddress
+Socket.
+getLocalSocketAddress
+()
+Returns the address of the endpoint this socket is bound to.
+SocketAddress
+DatagramSocket.
+getRemoteSocketAddress
+()
+Returns the address of the endpoint this socket is connected to, or
+null
+if it is unconnected.
+SocketAddress
+Socket.
+getRemoteSocketAddress
+()
+Returns the address of the endpoint this socket is connected to, or
+null
+if it is unconnected.
+SocketAddress
+DatagramPacket.
+getSocketAddress
+()
+Returns the
+SocketAddress
+(usually
+IP address
++
+port number
+) of the remote host that this packet
+ is being sent to or is coming from.
+Methods in
+java.net
+with parameters of type
+SocketAddress
+Modifier and Type
+Method
+Description
+void
+DatagramSocket.
+bind
+(
+SocketAddress
+addr)
+Binds this DatagramSocket to a specific address and port.
+void
+ServerSocket.
+bind
+(
+SocketAddress
+endpoint)
+Binds the
+ServerSocket
+to a specific address
+ (IP address and port number).
+void
+ServerSocket.
+bind
+(
+SocketAddress
+endpoint,
+ int backlog)
+Binds the
+ServerSocket
+to a specific address
+ (IP address and port number).
+void
+Socket.
+bind
+(
+SocketAddress
+bindpoint)
+Binds the socket to a local address.
+void
+DatagramSocket.
+connect
+(
+SocketAddress
+addr)
+Connects this socket to a remote socket address (IP address + port number).
+void
+Socket.
+connect
+(
+SocketAddress
+endpoint)
+Connects this socket to the server.
+void
+Socket.
+connect
+(
+SocketAddress
+endpoint,
+ int timeout)
+Connects this socket to the server with a specified timeout value.
+protected abstract void
+SocketImpl.
+connect
+(
+SocketAddress
+address,
+ int timeout)
+Connects this socket to the specified port number on the specified host.
+abstract void
+ProxySelector.
+connectFailed
+(
+URI
+uri,
+SocketAddress
+sa,
+IOException
+ioe)
+Called to indicate that a connection could not be established
+ to a proxy/socks server.
+void
+DatagramSocket.
+joinGroup
+(
+SocketAddress
+mcastaddr,
+NetworkInterface
+netIf)
+Joins a multicast group.
+protected abstract void
+DatagramSocketImpl.
+joinGroup
+(
+SocketAddress
+mcastaddr,
+NetworkInterface
+netIf)
+Join the multicast group.
+void
+MulticastSocket.
+joinGroup
+(
+SocketAddress
+mcastaddr,
+NetworkInterface
+netIf)
+Joins a multicast group.
+void
+DatagramSocket.
+leaveGroup
+(
+SocketAddress
+mcastaddr,
+NetworkInterface
+netIf)
+Leave a multicast group on a specified local interface.
+protected abstract void
+DatagramSocketImpl.
+leaveGroup
+(
+SocketAddress
+mcastaddr,
+NetworkInterface
+netIf)
+Leave the multicast group.
+void
+MulticastSocket.
+leaveGroup
+(
+SocketAddress
+mcastaddr,
+NetworkInterface
+netIf)
+Leave a multicast group on a specified local interface.
+void
+DatagramPacket.
+setSocketAddress
+(
+SocketAddress
+address)
+Sets the SocketAddress (usually IP address + port number) of the remote
+ host to which this datagram is being sent.
+Constructors in
+java.net
+with parameters of type
+SocketAddress
+Modifier
+Constructor
+Description
+DatagramPacket
+(byte[] buf,
+ int offset,
+ int length,
+SocketAddress
+address)
+Constructs a datagram packet for sending packets of length
+length
+with offset
+offset
+to the
+ specified port number on the specified host.
+DatagramPacket
+(byte[] buf,
+ int length,
+SocketAddress
+address)
+Constructs a datagram packet for sending packets of length
+length
+to the specified port number on the specified
+ host.
+DatagramSocket
+(
+SocketAddress
+bindaddr)
+Creates a datagram socket, bound to the specified local
+ socket address.
+MulticastSocket
+(
+SocketAddress
+bindaddr)
+Creates a multicast socket, bound to the specified local
+ socket address.
+Proxy
+(
+Proxy.Type
+type,
+SocketAddress
+sa)
+Creates an entry representing a PROXY connection.
+Uses of
+SocketAddress
+in
+java.nio.channels
+Methods in
+java.nio.channels
+that return
+SocketAddress
+Modifier and Type
+Method
+Description
+abstract
+SocketAddress
+AsynchronousServerSocketChannel.
+getLocalAddress
+()
+Returns the socket address that this channel's socket is bound to.
+abstract
+SocketAddress
+AsynchronousSocketChannel.
+getLocalAddress
+()
+Returns the socket address that this channel's socket is bound to.
+abstract
+SocketAddress
+DatagramChannel.
+getLocalAddress
+()
+Returns the socket address that this channel's socket is bound to.
+SocketAddress
+NetworkChannel.
+getLocalAddress
+()
+Returns the socket address that this channel's socket is bound to.
+abstract
+SocketAddress
+ServerSocketChannel.
+getLocalAddress
+()
+Returns the socket address that this channel's socket is bound to.
+abstract
+SocketAddress
+SocketChannel.
+getLocalAddress
+()
+Returns the socket address that this channel's socket is bound to.
+abstract
+SocketAddress
+AsynchronousSocketChannel.
+getRemoteAddress
+()
+Returns the remote address to which this channel's socket is connected.
+abstract
+SocketAddress
+DatagramChannel.
+getRemoteAddress
+()
+Returns the remote address to which this channel's socket is connected.
+abstract
+SocketAddress
+SocketChannel.
+getRemoteAddress
+()
+Returns the remote address to which this channel's socket is connected.
+abstract
+SocketAddress
+DatagramChannel.
+receive
+(
+ByteBuffer
+dst)
+Receives a datagram via this channel.
+Methods in
+java.nio.channels
+with parameters of type
+SocketAddress
+Modifier and Type
+Method
+Description
+final
+AsynchronousServerSocketChannel
+AsynchronousServerSocketChannel.
+bind
+(
+SocketAddress
+local)
+Binds the channel's socket to a local address and configures the socket to
+ listen for connections.
+abstract
+AsynchronousServerSocketChannel
+AsynchronousServerSocketChannel.
+bind
+(
+SocketAddress
+local,
+ int backlog)
+Binds the channel's socket to a local address and configures the socket to
+ listen for connections.
+abstract
+AsynchronousSocketChannel
+AsynchronousSocketChannel.
+bind
+(
+SocketAddress
+local)
+abstract
+DatagramChannel
+DatagramChannel.
+bind
+(
+SocketAddress
+local)
+NetworkChannel
+NetworkChannel.
+bind
+(
+SocketAddress
+local)
+Binds the channel's socket to a local address.
+final
+ServerSocketChannel
+ServerSocketChannel.
+bind
+(
+SocketAddress
+local)
+Binds the channel's socket to a local address and configures the socket
+ to listen for connections.
+abstract
+ServerSocketChannel
+ServerSocketChannel.
+bind
+(
+SocketAddress
+local,
+ int backlog)
+Binds the channel's socket to a local address and configures the socket to
+ listen for connections.
+abstract
+SocketChannel
+SocketChannel.
+bind
+(
+SocketAddress
+local)
+Binds the channel's socket to a local address.
+abstract
+Future
+<
+Void
+>
+AsynchronousSocketChannel.
+connect
+(
+SocketAddress
+remote)
+Connects this channel.
+abstract <A> void
+AsynchronousSocketChannel.
+connect
+(
+SocketAddress
+remote,
+ A attachment,
+CompletionHandler
+<
+Void
+,
+? super A> handler)
+Connects this channel.
+abstract
+DatagramChannel
+DatagramChannel.
+connect
+(
+SocketAddress
+remote)
+Connects this channel's socket.
+abstract boolean
+SocketChannel.
+connect
+(
+SocketAddress
+remote)
+Connects this channel's socket.
+static
+SocketChannel
+SocketChannel.
+open
+(
+SocketAddress
+remote)
+Opens a socket channel and connects it to a remote address.
+abstract int
+DatagramChannel.
+send
+(
+ByteBuffer
+src,
+SocketAddress
+target)
+Sends a datagram via this channel.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

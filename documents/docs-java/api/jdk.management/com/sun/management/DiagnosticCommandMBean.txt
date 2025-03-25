@@ -1,0 +1,245 @@
+DiagnosticCommandMBean (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.management
+Package
+com.sun.management
+Interface DiagnosticCommandMBean
+All Superinterfaces:
+DynamicMBean
+public interface
+DiagnosticCommandMBean
+extends
+DynamicMBean
+Management interface for the diagnostic commands for the HotSpot Virtual Machine.
+The
+DiagnosticCommandMBean
+is registered to the
+platform MBeanServer
+as are other platform MBeans.
+The
+ObjectName
+for uniquely identifying
+ the diagnostic MBean within an MBeanServer is:
+com.sun.management:type=DiagnosticCommand
+This MBean is a
+DynamicMBean
+and also a
+NotificationEmitter
+.
+ The
+DiagnosticCommandMBean
+is generated at runtime and is subject to
+ modifications during the lifetime of the Java virtual machine.
+
+ A
+diagnostic command
+is represented as an operation of
+ the
+DiagnosticCommandMBean
+interface. Each diagnostic command has:
+the diagnostic command name which is the name being referenced in
+     the HotSpot Virtual Machine
+the MBean operation name which is the
+name
+generated for the diagnostic command operation invocation.
+     The MBean operation name is implementation dependent
+The recommended way to transform a diagnostic command name into a MBean
+ operation name is as follows:
+All characters from the first one to the first dot are set to be
+      lower-case characters
+Every dot or underline character is removed and the following
+   character is set to be an upper-case character
+All other characters are copied without modification
+The diagnostic command name is always provided with the meta-data on the
+ operation in a field named
+dcmd.name
+(see below).
+A diagnostic command may or may not support options or arguments.
+ All the operations return
+String
+and either take
+ no parameter for operations that do not support any option or argument,
+ or take a
+String[]
+parameter for operations that support at least
+ one option or argument.
+ Each option or argument must be stored in a single String.
+ Options or arguments split across several String instances are not supported.
+The distinction between options and arguments: options are identified by
+ the option name while arguments are identified by their position in the
+ command line. Options and arguments are processed in the order of the array
+ passed to the invocation method.
+Like any operation of a dynamic MBean, each of these operations is
+ described by
+MBeanOperationInfo
+instance. Here's the values returned by this object:
+getName()
+returns the operation name generated from the diagnostic command name
+getDescription()
+returns the diagnostic command description
+      (the same as the one return in the 'help' command)
+getImpact()
+returns
+ACTION_INFO
+getReturnType()
+returns
+java.lang.String
+getDescriptor()
+returns a Descriptor instance (see below)
+The
+Descriptor
+is a collection of fields containing additional
+ meta-data for a JMX element. A field is a name and an associated value.
+ The additional meta-data provided for an operation associated with a
+ diagnostic command are described in the table below:
+description
+Name
+Type
+Description
+dcmd.name
+String
+The original diagnostic command name (not the operation name)
+dcmd.description
+String
+The diagnostic command description
+dcmd.help
+String
+The full help message for this diagnostic command (same output as
+          the one produced by the 'help' command)
+dcmd.vmImpact
+String
+The impact of the diagnostic command,
+      this value is the same as the one printed in the 'impact'
+      section of the help message of the diagnostic command, and it
+      is different from the getImpact() of the MBeanOperationInfo
+dcmd.enabled
+boolean
+True if the diagnostic command is enabled, false otherwise
+dcmd.permissionClass
+String
+Some diagnostic command might require a specific permission to be
+          executed, in addition to the MBeanPermission to invoke their
+          associated MBean operation. This field returns the fully qualified
+          name of the permission class or null if no permission is required
+dcmd.permissionName
+String
+The fist argument of the permission required to execute this
+          diagnostic command or null if no permission is required
+dcmd.permissionAction
+String
+The second argument of the permission required to execute this
+          diagnostic command or null if the permission constructor has only
+          one argument (like the ManagementPermission) or if no permission
+          is required
+dcmd.arguments
+Descriptor
+A Descriptor instance containing the descriptions of options and
+          arguments supported by the diagnostic command (see below)
+The description of parameters (options or arguments) of a diagnostic
+ command is provided within a Descriptor instance. In this Descriptor,
+ each field name is a parameter name, and each field value is itself
+ a Descriptor instance. The fields provided in this second Descriptor
+ instance are described in the table below:
+description
+Name
+Type
+Description
+dcmd.arg.name
+String
+The name of the parameter
+dcmd.arg.type
+String
+The type of the parameter. The returned String is the name of a type
+          recognized by the diagnostic command parser. These types are not
+          Java types and are implementation dependent.
+dcmd.arg.description
+String
+The parameter description
+dcmd.arg.isMandatory
+boolean
+True if the parameter is mandatory, false otherwise
+dcmd.arg.isOption
+boolean
+True if the parameter is an option, false if it is an argument
+dcmd.arg.isMultiple
+boolean
+True if the parameter can be specified several times, false
+          otherwise
+When the set of diagnostic commands currently supported by the Java
+ Virtual Machine is modified, the
+DiagnosticCommandMBean
+emits
+ a
+Notification
+with a
+type
+of
+"jmx.mbean.info.changed"
+and a
+userData
+that
+ is the new
+MBeanInfo
+.
+Since:
+1.8
+Method Summary
+Methods declared in interface javax.management.
+DynamicMBean
+getAttribute
+,
+getAttributes
+,
+getMBeanInfo
+,
+invoke
+,
+setAttribute
+,
+setAttributes
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

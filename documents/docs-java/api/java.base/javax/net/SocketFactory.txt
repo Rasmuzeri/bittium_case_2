@@ -1,0 +1,416 @@
+SocketFactory (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+javax.net
+Class SocketFactory
+java.lang.Object
+javax.net.SocketFactory
+Direct Known Subclasses:
+SSLSocketFactory
+public abstract class
+SocketFactory
+extends
+Object
+This class creates sockets.  It may be subclassed by other factories,
+ which create particular subclasses of sockets and thus provide a general
+ framework for the addition of public socket-level functionality.
+Socket factories are a simple way to capture a variety of policies
+ related to the sockets being constructed, producing such sockets in
+ a way which does not require special configuration of the code which
+ asks for the sockets:
+Due to polymorphism of both factories and sockets, different
+      kinds of sockets can be used by the same application code just
+      by passing it different kinds of factories.
+Factories can themselves be customized with parameters used
+      in socket construction.  So for example, factories could be
+      customized to return sockets with different networking timeouts
+      or security parameters already configured.
+The sockets returned to the application can be subclasses
+      of java.net.Socket, so that they can directly expose new APIs
+      for features such as compression, security, record marking,
+      statistics collection, or firewall tunneling.
+Factory classes are specified by environment-specific configuration
+ mechanisms.  For example, the
+getDefault
+method could return
+ a factory that was appropriate for a particular user or applet, and a
+ framework could use a factory customized to its own purposes.
+Since:
+1.4
+See Also:
+ServerSocketFactory
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+SocketFactory
+()
+Creates a
+SocketFactory
+.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Socket
+createSocket
+()
+Creates an unconnected socket.
+abstract
+Socket
+createSocket
+(
+String
+host,
+ int port)
+Creates a socket and connects it to the specified remote host
+ at the specified remote port.
+abstract
+Socket
+createSocket
+(
+String
+host,
+ int port,
+InetAddress
+localHost,
+ int localPort)
+Creates a socket and connects it to the specified remote host
+ on the specified remote port.
+abstract
+Socket
+createSocket
+(
+InetAddress
+host,
+ int port)
+Creates a socket and connects it to the specified port number
+ at the specified address.
+abstract
+Socket
+createSocket
+(
+InetAddress
+address,
+ int port,
+InetAddress
+localAddress,
+ int localPort)
+Creates a socket and connect it to the specified remote address
+ on the specified remote port.
+static
+SocketFactory
+getDefault
+()
+Returns a copy of the environment's default socket factory.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+SocketFactory
+protected
+SocketFactory
+()
+Creates a
+SocketFactory
+.
+Method Details
+getDefault
+public static
+SocketFactory
+getDefault
+()
+Returns a copy of the environment's default socket factory.
+Returns:
+the default
+SocketFactory
+createSocket
+public
+Socket
+createSocket
+()
+                    throws
+IOException
+Creates an unconnected socket.
+Returns:
+the unconnected socket
+Throws:
+IOException
+- if the socket cannot be created
+See Also:
+Socket.connect(java.net.SocketAddress)
+Socket.connect(java.net.SocketAddress, int)
+Socket()
+createSocket
+public abstract
+Socket
+createSocket
+(
+String
+host,
+ int port)
+throws
+IOException
+,
+UnknownHostException
+Creates a socket and connects it to the specified remote host
+ at the specified remote port.  This socket is configured using
+ the socket options established for this factory.
+If there is a security manager, its
+checkConnect
+method is called with the host address and
+port
+as its arguments. This could result in a SecurityException.
+Parameters:
+host
+- the server host name with which to connect, or
+null
+for the loopback address.
+port
+- the server port
+Returns:
+the
+Socket
+Throws:
+IOException
+- if an I/O error occurs when creating the socket
+SecurityException
+- if a security manager exists and its
+checkConnect
+method doesn't allow the operation.
+UnknownHostException
+- if the host is not known
+IllegalArgumentException
+- if the port parameter is outside the
+         specified range of valid port values, which is between 0 and
+         65535, inclusive.
+See Also:
+SecurityManager.checkConnect(java.lang.String, int)
+Socket(String, int)
+createSocket
+public abstract
+Socket
+createSocket
+(
+String
+host,
+ int port,
+InetAddress
+localHost,
+ int localPort)
+throws
+IOException
+,
+UnknownHostException
+Creates a socket and connects it to the specified remote host
+ on the specified remote port.
+ The socket will also be bound to the local address and port supplied.
+ This socket is configured using
+ the socket options established for this factory.
+If there is a security manager, its
+checkConnect
+method is called with the host address and
+port
+as its arguments. This could result in a SecurityException.
+Parameters:
+host
+- the server host name with which to connect, or
+null
+for the loopback address.
+port
+- the server port
+localHost
+- the local address the socket is bound to
+localPort
+- the local port the socket is bound to
+Returns:
+the
+Socket
+Throws:
+IOException
+- if an I/O error occurs when creating the socket
+SecurityException
+- if a security manager exists and its
+checkConnect
+method doesn't allow the operation.
+UnknownHostException
+- if the host is not known
+IllegalArgumentException
+- if the port parameter or localPort
+         parameter is outside the specified range of valid port values,
+         which is between 0 and 65535, inclusive.
+See Also:
+SecurityManager.checkConnect(java.lang.String, int)
+Socket(String, int, java.net.InetAddress, int)
+createSocket
+public abstract
+Socket
+createSocket
+(
+InetAddress
+host,
+ int port)
+throws
+IOException
+Creates a socket and connects it to the specified port number
+ at the specified address.  This socket is configured using
+ the socket options established for this factory.
+If there is a security manager, its
+checkConnect
+method is called with the host address and
+port
+as its arguments. This could result in a SecurityException.
+Parameters:
+host
+- the server host
+port
+- the server port
+Returns:
+the
+Socket
+Throws:
+IOException
+- if an I/O error occurs when creating the socket
+SecurityException
+- if a security manager exists and its
+checkConnect
+method doesn't allow the operation.
+IllegalArgumentException
+- if the port parameter is outside the
+         specified range of valid port values, which is between 0 and
+         65535, inclusive.
+NullPointerException
+- if
+host
+is null.
+See Also:
+SecurityManager.checkConnect(java.lang.String, int)
+Socket(java.net.InetAddress, int)
+createSocket
+public abstract
+Socket
+createSocket
+(
+InetAddress
+address,
+ int port,
+InetAddress
+localAddress,
+ int localPort)
+throws
+IOException
+Creates a socket and connect it to the specified remote address
+ on the specified remote port.  The socket will also be bound
+ to the local address and port supplied.  The socket is configured using
+ the socket options established for this factory.
+If there is a security manager, its
+checkConnect
+method is called with the host address and
+port
+as its arguments. This could result in a SecurityException.
+Parameters:
+address
+- the server network address
+port
+- the server port
+localAddress
+- the client network address
+localPort
+- the client port
+Returns:
+the
+Socket
+Throws:
+IOException
+- if an I/O error occurs when creating the socket
+SecurityException
+- if a security manager exists and its
+checkConnect
+method doesn't allow the operation.
+IllegalArgumentException
+- if the port parameter or localPort
+         parameter is outside the specified range of valid port values,
+         which is between 0 and 65535, inclusive.
+NullPointerException
+- if
+address
+is null.
+See Also:
+SecurityManager.checkConnect(java.lang.String, int)
+Socket(java.net.InetAddress, int, java.net.InetAddress, int)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

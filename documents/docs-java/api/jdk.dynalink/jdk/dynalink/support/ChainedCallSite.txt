@@ -1,0 +1,282 @@
+ChainedCallSite (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.dynalink
+Package
+jdk.dynalink.support
+Class ChainedCallSite
+java.lang.Object
+java.lang.invoke.CallSite
+java.lang.invoke.MutableCallSite
+jdk.dynalink.support.AbstractRelinkableCallSite
+jdk.dynalink.support.ChainedCallSite
+All Implemented Interfaces:
+RelinkableCallSite
+public class
+ChainedCallSite
+extends
+AbstractRelinkableCallSite
+A relinkable call site that implements a polymorphic inline caching strategy.
+ It remembers up to 8
+GuardedInvocation
+s it was linked with, and on
+ each relink request builds a cascading chain of method handles of one
+ invocation falling back to the next one. The number of remembered invocations
+ can be customized by overriding
+getMaxChainLength()
+in a subclass.
+ When this call site is relinked with a new invocation and the length of the
+ chain is already at the maximum, it will throw away the oldest invocation.
+ Invocations with invalidated switch points and ones for which their
+ invalidating exception triggered are removed eagerly from the chain. The
+ invocations are never reordered; the most recently linked method handle is
+ always at the start of the chain and the least recently linked at its end.
+ The call site can be safely relinked on more than one thread concurrently.
+ Race conditions in linking are resolved by throwing away the
+GuardedInvocation
+produced on the losing thread without incorporating
+ it into the chain, so it can lead to repeated linking for the same arguments.
+Constructor Summary
+Constructors
+Constructor
+Description
+ChainedCallSite
+(
+CallSiteDescriptor
+descriptor)
+Creates a new chained call site.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+protected int
+getMaxChainLength
+()
+The maximum number of method handles in the chain.
+void
+relink
+(
+GuardedInvocation
+guardedInvocation,
+MethodHandle
+relinkAndInvoke)
+This method will be called by the dynamic linker every time the call site
+ is relinked (but see
+RelinkableCallSite.resetAndRelink(GuardedInvocation, MethodHandle)
+for an
+ exception).
+void
+resetAndRelink
+(
+GuardedInvocation
+guardedInvocation,
+MethodHandle
+relinkAndInvoke)
+This method will be called by the dynamic linker every time the call site
+ is relinked
+and
+the linker wishes the call site to throw away any
+ prior linkage state (that is how it differs from
+RelinkableCallSite.relink(GuardedInvocation, MethodHandle)
+).
+Methods declared in class jdk.dynalink.support.
+AbstractRelinkableCallSite
+getDescriptor
+,
+initialize
+Methods declared in class java.lang.invoke.
+MutableCallSite
+dynamicInvoker
+,
+getTarget
+,
+setTarget
+,
+syncAll
+Methods declared in class java.lang.invoke.
+CallSite
+type
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+ChainedCallSite
+public
+ChainedCallSite
+(
+CallSiteDescriptor
+descriptor)
+Creates a new chained call site.
+Parameters:
+descriptor
+- the descriptor for the call site.
+Method Details
+getMaxChainLength
+protected
+int
+getMaxChainLength
+()
+The maximum number of method handles in the chain. Defaults to 8. You can
+ override it in a subclass if you need to change the value.
+Returns:
+the maximum number of method handles in the chain. The return
+ value is checked, and if your override returns a value less than 1, a
+RuntimeException
+will be thrown.
+relink
+public
+void
+relink
+(
+GuardedInvocation
+guardedInvocation,
+MethodHandle
+relinkAndInvoke)
+Description copied from interface:
+RelinkableCallSite
+This method will be called by the dynamic linker every time the call site
+ is relinked (but see
+RelinkableCallSite.resetAndRelink(GuardedInvocation, MethodHandle)
+for an
+ exception). It will be passed a
+GuardedInvocation
+that the call
+ site should incorporate into its target method handle. When this method
+ is called, the call site is allowed to keep other non-invalidated
+ invocations around for implementation of polymorphic inline caches and
+ compose them with this invocation to form its final target.
+Parameters:
+guardedInvocation
+- the guarded invocation that the call site should
+ incorporate into its target method handle.
+relinkAndInvoke
+- a relink-and-invoke method handle. This is a
+ method handle matching the method type of the call site that is supplied
+ by the
+DynamicLinker
+as a callback. It should be used by this
+ call site as the ultimate fallback when it can't invoke its target with
+ the passed arguments. The fallback method is such that when it's invoked,
+ it'll try to obtain an adequate target
+GuardedInvocation
+for the
+ invocation, and subsequently invoke
+RelinkableCallSite.relink(GuardedInvocation, MethodHandle)
+or
+RelinkableCallSite.resetAndRelink(GuardedInvocation, MethodHandle)
+, and finally
+ invoke the target.
+resetAndRelink
+public
+void
+resetAndRelink
+(
+GuardedInvocation
+guardedInvocation,
+MethodHandle
+relinkAndInvoke)
+Description copied from interface:
+RelinkableCallSite
+This method will be called by the dynamic linker every time the call site
+ is relinked
+and
+the linker wishes the call site to throw away any
+ prior linkage state (that is how it differs from
+RelinkableCallSite.relink(GuardedInvocation, MethodHandle)
+). It will be passed a
+GuardedInvocation
+that the call site should use to build its new
+ target method handle. When this method is called, the call site is
+ discouraged from keeping any previous state, and is supposed to only
+ link the current invocation.
+Parameters:
+guardedInvocation
+- the guarded invocation that the call site should
+ use to build its target method handle.
+relinkAndInvoke
+- a relink-and-invoke method handle. This is a
+ method handle matching the method type of the call site that is supplied
+ by the
+DynamicLinker
+as a callback. It should be used by this
+ call site as the ultimate fallback when it can't invoke its target with
+ the passed arguments. The fallback method is such that when it's invoked,
+ it'll try to obtain an adequate target
+GuardedInvocation
+for the
+ invocation, and subsequently invoke
+RelinkableCallSite.relink(GuardedInvocation, MethodHandle)
+or
+RelinkableCallSite.resetAndRelink(GuardedInvocation, MethodHandle)
+, and finally
+ invoke the target.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

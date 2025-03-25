@@ -1,0 +1,300 @@
+CardPermission (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.smartcardio
+Package
+javax.smartcardio
+Class CardPermission
+java.lang.Object
+java.security.Permission
+javax.smartcardio.CardPermission
+All Implemented Interfaces:
+Serializable
+,
+Guard
+public class
+CardPermission
+extends
+Permission
+A permission for Smart Card operations. A CardPermission consists of the
+ name of the card terminal the permission applies to and a set of actions
+ that are valid for that terminal.
+A CardPermission with a name of
+*
+applies to all
+ card terminals. The actions string is a comma separated list of the actions
+ listed below, or
+*
+to signify "all actions."
+Individual actions are:
+connect
+connect to a card using
+CardTerminal.connect()
+reset
+reset the card using
+Card.disconnect(true)
+exclusive
+establish exclusive access to a card using
+Card.beginExclusive()
+and
+endExclusive()
+transmitControl
+transmit a control command using
+Card.transmitControlCommand()
+getBasicChannel
+obtain the basic logical channel using
+Card.getBasicChannel()
+openLogicalChannel
+open a new logical channel using
+Card.openLogicalChannel()
+Since:
+1.6
+See Also:
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+CardPermission
+(
+String
+terminalName,
+String
+actions)
+Constructs a new CardPermission with the specified actions.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+equals
+(
+Object
+obj)
+Compares the specified object with this CardPermission for equality.
+String
+getActions
+()
+Returns the canonical string representation of the actions.
+int
+hashCode
+()
+Returns the hash code value for this CardPermission object.
+boolean
+implies
+(
+Permission
+permission)
+Checks if this CardPermission object implies the specified permission.
+Methods declared in class java.security.
+Permission
+checkGuard
+,
+getName
+,
+newPermissionCollection
+,
+toString
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+CardPermission
+public
+CardPermission
+(
+String
+terminalName,
+String
+actions)
+Constructs a new CardPermission with the specified actions.
+terminalName
+is the name of a CardTerminal or
+*
+if this permission applies to all terminals.
+actions
+contains a comma-separated list of the individual actions
+ or
+*
+to signify all actions. For more information,
+ see the documentation at the top of this
+class
+.
+Parameters:
+terminalName
+- the name of the card terminal, or
+*
+actions
+- the action string (or null if the set of permitted
+   actions is empty)
+Throws:
+NullPointerException
+- if terminalName is null
+IllegalArgumentException
+- if actions is an invalid actions
+   specification
+Method Details
+getActions
+public
+String
+getActions
+()
+Returns the canonical string representation of the actions.
+ It is
+*
+to signify all actions defined by this class or
+ the string concatenation of the comma-separated,
+ lexicographically sorted list of individual actions.
+Specified by:
+getActions
+in class
+Permission
+Returns:
+the canonical string representation of the actions.
+implies
+public
+boolean
+implies
+(
+Permission
+permission)
+Checks if this CardPermission object implies the specified permission.
+ That is the case, if and only if
+permission
+is an instance of CardPermission,
+permission
+'s actions are a proper subset of this
+   object's actions, and
+this object's
+getName()
+method is either
+*
+or equal to
+permission
+'s
+name
+.
+Specified by:
+implies
+in class
+Permission
+Parameters:
+permission
+- the permission to check against
+Returns:
+true if and only if this CardPermission object implies the
+   specified permission.
+equals
+public
+boolean
+equals
+(
+Object
+obj)
+Compares the specified object with this CardPermission for equality.
+ This CardPermission is equal to another Object
+object
+, if
+ and only if
+object
+is an instance of CardPermission,
+this.getName()
+is equal to
+((CardPermission)object).getName()
+, and
+this.getActions()
+is equal to
+((CardPermission)object).getActions()
+.
+Specified by:
+equals
+in class
+Permission
+Parameters:
+obj
+- the object to be compared for equality with this CardPermission
+Returns:
+true if and only if the specified object is equal to this
+   CardPermission
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+public
+int
+hashCode
+()
+Returns the hash code value for this CardPermission object.
+Specified by:
+hashCode
+in class
+Permission
+Returns:
+the hash code value for this CardPermission object.
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

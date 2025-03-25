@@ -1,0 +1,856 @@
+java.xml (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Module:
+Description
+Modules
+Packages
+Services
+Module:
+Description
+|
+Modules |
+Packages
+|
+Services
+SEARCH
+Module java.xml
+module
+java.xml
+Defines the Java APIs for XML Processing (JAXP).
+The JAXP APIs
+Factories and Processors
+Configuration
+JAXP Properties
+System Properties
+Configuration File
+jaxp.properties
+File
+User-defined Configuration File
+Property Precedence
+JAXP Lookup Mechanism
+Lookup Procedure
+Implementation Note
+The JAXP APIs
+JAXP comprises a set of APIs built upon a number of XML technologies and
+ standards that are essential for XML processing. These include APIs for:
+Parsing: the
+JAXP Parsing API
+based on
+Document Object Model (DOM)
+and
+Simple API for XML Parsing (SAX)
+, and
+Streaming API for XML (StAX)
+;
+Serializing: StAX and
+Extensible Stylesheet Language Transformations (XSLT)
+;
+Validation: the
+JAXP Validation API
+based on the XML Schema Definition Language;
+Transformation: the
+JAXP Transformation API
+or XSLT (Extensible Stylesheet Language Transformations);
+Querying and traversing XML documents: the
+XML XPath Language API (XPath)
+;
+Resolving external resources: the
+XML Catalog API
+;
+Factories and Processors
+Factories are the entry points of each API, providing methods to allow applications
+ to set
+JAXP Properties
+programmatically, before
+ creating processors. The
+Configuration
+section provides more
+ details on this. Factories also support the
+JAXP Lookup Mechanism
+, in which applications can be
+ deployed with third party implementations to use instead of JDK implementations
+Processors are aggregates of parsers (or readers), serializers (or writers),
+ validators, and transformers that control and perform the processing in their
+ respective areas. They are defined in their relevant packages.
+ In the
+parsers
+package for example,
+ are the
+DocumentBuilder
+and
+SAXParser
+, that represent the DOM and
+ SAX processors.
+The processors are configured and instantiated with their corresponding factories.
+ The DocumentBuilder and SAXParser for example are constructed with the
+DocumentBuilderFactory
+and
+SAXParserFactory
+respectively.
+Configuration
+When a JAXP factory is invoked for the first time, it performs a configuration
+ process to determine the implementation to be used and its subsequent behaviors.
+ During configuration, the factory examines configuration sources such as the
+JAXP Properties
+,
+System Properties
+,
+ and the
+JAXP Configuration File
+, and sets the values
+ following the
+Property Precedence
+. The terminologies and
+ process are defined below.
+JAXP Properties
+JAXP properties are configuration settings that are applied to XML processors.
+ They can be used to control and customize the behavior of a processor.
+ Depending on the JAXP API that is being used, JAXP properties may be referred
+ to as
+Attributes, Properties
+, or
+Features
+.
+System Properties
+Select JAXP properties have corresponding System Properties allowing the properties
+ to be set at runtime, on the command line, or within the
+JAXP Configuration File
+.
+ For example, the System Property
+javax.xml.catalog.resolve
+may be used
+ to set the
+CatalogFeatures
+' RESOLVE
+ property.
+The exact time at which system properties are read is unspecified. In order to
+ ensure that the desired values are properly applied, applications should ensure
+ that system properties are set appropriately prior to the creation of the first
+ JAXP factory and are not modified thereafter.
+Configuration File
+JAXP supports the use of configuration files for
+specifying the implementation class to load for the JAXP factories
+as well as for setting JAXP properties.
+Configuration files are Java
+Properties
+files that consist
+ of mappings between system properties and their values defined by various APIs
+ or processes. The following configuration file entries demonstrate setting the
+javax.xml.parsers.DocumentBuilderFactory
+and
+CatalogFeatures.RESOLVE
+properties:
+Copy
+javax.xml.parsers.DocumentBuilderFactory=packagename.DocumentBuilderFactoryImpl
+   javax.xml.catalog.resolve=strict
+jaxp.properties
+File
+By default, JAXP looks for the configuration file
+jaxp.properties
+,
+ located in the ${java.home}/conf directory; and if the file exists, loads the
+ specified properties to customize the behavior of the XML factories and processors.
+The
+jaxp.properties
+file will be read only once during the initialization
+ of the JAXP implementation and cached in memory. If there is an error accessing
+ or reading the file, the configuration process proceeds as if the file does not exist.
+User-defined Configuration File
+In addition to the
+jaxp.properties
+file, the system property
+java.xml.config.file
+can be set to specify the location of
+ a configuration file. If the
+java.xml.config.file
+property is included
+ within a configuration file, it will be ignored.
+When the
+java.xml.config.file
+is specified, the configuration file will be
+ read and the included properties will override the same properties that were
+ defined in the
+jaxp.properties
+file. If the
+java.xml.config.file
+has not been set when the JAXP implementation is initialized, no further attempt
+ will be made to check for its existence.
+The
+java.xml.config.file
+value must contain a valid pathname
+ to a configuration file. If the pathname is not absolute, it will be considered
+ relative to the working directory of the JVM.
+ If there is an error reading the configuration file, the configuration process
+ proceeds as if the
+java.xml.config.file
+property was not set.
+ Implementations may optionally issue a warning message.
+Property Precedence
+JAXP properties can be set in multiple ways, including by API methods, system
+ properties, and the
+JAXP Configuration File
+. When not
+ explicitly set, they will be initialized with default values or more restrictive
+ values when
+FEATURE_SECURE_PROCESSING
+(FSP) is enabled. The configuration order of precedence for properties is as
+ follows, from highest to lowest:
+The APIs for factories or processors
+System Property
+User-defined
+Configuration File
+The default JAXP Configuration File
+jaxp.properties
+The default values for JAXP Properties. If the
+FSP
+is true,
+ the default values will be set to process XML securely.
+Using the
+CatalogFeatures
+' RESOLVE
+ property as an example, the following illustrates how these rules are applied:
+Properties specified with factory or processor APIs have the highest
+ precedence. The following code effectively sets the RESOLVE property to
+strict
+, regardless of settings in any other configuration sources.
+Copy
+DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+   dbf.setAttribute(CatalogFeatures.Feature.RESOLVE.getPropertyName(), "strict");
+If the property is not set on the factory as in the above code, a
+ system property setting will be in effect.
+Copy
+// in the following example, the RESOLVE property is set to 'continue'
+    // for the entire application
+    java -Djavax.xml.catalog.resolve=continue myApp
+If the property is not set on the factory, or using a system property,
+ the setting in a configuration file will take effect. The following entry
+ sets the property to '
+continue
+'.
+Copy
+javax.xml.catalog.resolve=continue
+If the property is not set anywhere, it will be resolved to its
+ default value that is '
+strict
+'.
+JAXP Lookup Mechanism
+JAXP defines an ordered lookup procedure to determine the implementation class
+ to load for the JAXP factories. Factories that support the mechanism are listed
+ in the table below along with the method, System Property, and System
+ Default method to be used in the procedure.
+JAXP Factories
+Factory
+Method
+System Property
+System Default
+DatatypeFactory
+newInstance()
+javax.xml.datatype.DatatypeFactory
+newDefaultInstance()
+DocumentBuilderFactory
+newInstance()
+javax.xml.parsers.DocumentBuilderFactory
+newDefaultInstance()
+SAXParserFactory
+newInstance()
+javax.xml.parsers.SAXParserFactory
+newDefaultInstance()
+XMLEventFactory
+newFactory()
+javax.xml.stream.XMLEventFactory
+newDefaultFactory()
+XMLInputFactory
+newFactory()
+javax.xml.stream.XMLInputFactory
+newDefaultFactory()
+XMLOutputFactory
+newFactory()
+javax.xml.stream.XMLOutputFactory
+newDefaultFactory()
+TransformerFactory
+newInstance()
+javax.xml.transform.TransformerFactory
+newDefaultInstance()
+SchemaFactory
+newInstance(schemaLanguage)
+javax.xml.validation.SchemaFactory:
+schemaLanguage
+[1]
+newDefaultInstance()
+XPathFactory
+newInstance(uri)
+DEFAULT_PROPERTY_NAME
++ ":uri"[2]
+newDefaultInstance()
+[1]
+where
+schemaLanguage
+is the parameter to the
+newInstance(schemaLanguage)
+method.
+[2]
+where
+uri
+is the parameter to the
+newInstance(uri)
+method.
+Lookup Procedure
+The order of precedence for locating the implementation class of a
+JAXP Factory
+is as follows, from highest to lowest:
+The system property as listed in the column System Property of the table
+JAXP Factories
+above
+The
+Configuration File
+The service-provider loading facility, defined by the
+ServiceLoader
+class, to attempt to locate and load an
+ implementation of the service using the
+default loading mechanism
+:
+ the service-provider loading facility will use the
+current thread's context class loader
+to attempt to load the service. If the context class
+ loader is null, the
+system class loader
+will be used.
+SchemaFactory
+In case of the
+SchemaFactory
+,
+ each potential service provider is required to implement the method
+isSchemaLanguageSupported(String schemaLanguage)
+.
+ The first service provider found that supports the specified schema language
+ is returned.
+XPathFactory
+In case of the
+XPathFactory
+,
+ each potential service provider is required to implement the method
+isObjectModelSupported(String objectModel)
+.
+ The first service provider found that supports the specified object model is
+ returned.
+Otherwise, the
+system-default
+implementation is returned, which is
+ equivalent to calling the
+newDefaultInstance() or newDefaultFactory()
+method as shown in column System Default of the table
+JAXP Factories
+above.
+SchemaFactory
+In case of the
+SchemaFactory
+,
+ there must be a
+platform default
+SchemaFactory
+for W3C XML Schema.
+XPathFactory
+In case of the
+XPathFactory
+,
+ there must be a
+platform default
+XPathFactory
+for the W3C DOM, i.e.
+DEFAULT_OBJECT_MODEL_URI
+.
+Implementation Note:
+Implementation Specific Properties
+Processor Support
+List of Implementation Specific Properties
+Legacy Property Names (deprecated)
+Implementation Specific Properties
+In addition to the standard
+JAXP Properties
+,
+ the JDK implementation supports a number of implementation specific properties
+ whose name is prefixed by "
+jdk.xml.
+". These properties also follow the
+ configuration process as defined in the
+Configuration
+section.
+Refer to the
+Implementation Specific Properties
+table
+ for the list of properties supported by the JDK implementation.
+Processor Support
+The properties may be supported by one or more processors as listed in the table
+ below. Depending on the type of the property, they may be set via
+ Method 1: setAttribute/Parameter/Property or 2: setFeature as illustrated
+ in the relevant columns.
+Processors
+ID
+Name
+Method 1: setAttribute/Parameter/Property
+Method 2: setFeature
+DOM
+DOM Parser
+DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+dbf.setAttribute(name, value);
+DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+dbf.setFeature(name, value);
+SAX
+SAX Parser
+SAXParserFactory spf = SAXParserFactory.newInstance();
+SAXParser parser = spf.newSAXParser();
+parser.setProperty(name, value);
+SAXParserFactory spf = SAXParserFactory.newInstance();
+spf.setFeature(name, value);
+StAX
+StAX Parser
+XMLInputFactory xif = XMLInputFactory.newInstance();
+xif.setProperty(name, value);
+XMLInputFactory xif = XMLInputFactory.newInstance();
+xif.setProperty(name, value);
+Validation
+XML Validation API
+SchemaFactory schemaFactory = SchemaFactory.newInstance(schemaLanguage);
+schemaFactory.setProperty(name, value);
+SchemaFactory schemaFactory = SchemaFactory.newInstance(schemaLanguage);
+schemaFactory.setFeature(name, value);
+Transform
+XML Transform API
+TransformerFactory factory = TransformerFactory.newInstance();
+factory.setAttribute(name, value);
+TransformerFactory factory = TransformerFactory.newInstance();
+factory.setFeature(name, value);
+XSLTC Serializer
+XSLTC Serializer
+Transformer transformer = TransformerFactory.newInstance().newTransformer();
+transformer.setOutputProperty(name, value);
+DOMLS
+DOM Load and Save
+LSSerializer serializer = domImplementation.createLSSerializer();
+serializer.getDomConfig().setParameter(name, value);
+XPath
+XPath
+XPathFactory factory = XPathFactory.newInstance();
+factory.setProperty(name, value);
+XPathFactory factory = XPathFactory.newInstance();
+factory.setFeature(name, value);
+Implementation Specific Properties
+Full Name (prefix
+jdk.xml.
+)
+[1]
+Description
+System Property
+[2]
+Value
+[3]
+Security
+[4]
+Supported Processor
+[5]
+Since
+[6]
+Type
+Value
+Default
+Enforced
+ID
+Set Method
+jdk.xml.entityExpansionLimit
+Limits the number of entity expansions.
+yes
+Integer
+A positive integer. A value less than or equal to 0 indicates no limit.
+ If the value is not an integer, a NumberFormatException is thrown.
+64000
+64000
+Yes
+DOM
+SAX
+StAX
+Validation
+Transform
+Method 1
+8
+jdk.xml.elementAttributeLimit
+Limits the number of attributes an element can have.
+10000
+10000
+jdk.xml.maxOccurLimit
+Limits the number of content model nodes that may be created when building
+ a grammar for a W3C XML Schema that contains maxOccurs attributes with values
+ other than "unbounded".
+5000
+5000
+jdk.xml.totalEntitySizeLimit
+Limits the total size of all entities that include general and parameter
+ entities. The size is calculated as an aggregation of all entities.
+5x10^7
+5x10^7
+jdk.xml.maxGeneralEntitySizeLimit
+Limits the maximum size of any general entities.
+0
+0
+jdk.xml.maxParameterEntitySizeLimit
+Limits the maximum size of any parameter entities, including the result
+ of nesting multiple parameter entities.
+10^6
+10^6
+jdk.xml.entityReplacementLimit
+Limits the total number of nodes in all entity references.
+3x10^6
+3x10^6
+jdk.xml.maxElementDepth
+Limits the maximum element depth.
+0
+0
+jdk.xml.maxXMLNameLimit
+Limits the maximum size of XML names, including element name, attribute
+ name and namespace prefix and URI.
+1000
+1000
+jdk.xml.isStandalone
+Indicates that the serializer should treat the output as a
+ standalone document. The property can be used to ensure a newline is written
+ after the XML declaration. Unlike the property
+xml-declaration
+, this property
+ does not have an effect on whether an XML declaration should be written out.
+boolean
+true/false
+false
+N/A
+No
+DOMLS
+17
+jdk.xml.xsltcIsStandalone
+Indicates that the
+XSLTC serializer
+should
+ treat the output as a standalone document. The property can be used to ensure
+ a newline is written after the XML declaration. Unlike the property
+OMIT_XML_DECLARATION
+,
+ this property does not have an effect on whether an XML declaration should be
+ written out.
+This property behaves similar to that for
+DOMLS
+above,
+ except that it is for the
+XSLTC Serializer
+and its value is a String.
+String
+yes/no
+no
+N/A
+No
+XSLTC Serializer
+17
+jdk.xml.cdataChunkSize
+Instructs the parser to return the data in a CData section in a single chunk
+ when the property is zero or unspecified, or in multiple chunks when it is greater
+ than zero. The parser shall split the data by linebreaks, and any chunks that are
+ larger than the specified size to ones that are equal to or smaller than the size.
+yes
+Integer
+A positive integer. A value less than
+ or equal to 0 indicates that the property is not specified. If the value is not
+ an integer, a NumberFormatException is thrown.
+0
+N/A
+No
+SAX
+StAX
+9
+jdk.xml.extensionClassLoader
+Sets a non-null ClassLoader instance to be used for loading XSLTC java
+ extension functions.
+no
+Object
+A reference to a ClassLoader object. Null if the value is not specified.
+null
+N/A
+No
+Transform
+9
+jdk.xml.xpathExprGrpLimit
+Limits the number of groups an XPath expression can contain.
+yes
+Integer
+A positive integer. A value less than or equal to 0 indicates no limit.
+ If the value is not an integer, a NumberFormatException is thrown.
+10
+10
+Yes
+Transform
+XPath
+19
+jdk.xml.xpathExprOpLimit
+Limits the number of operators an XPath expression can contain.
+100
+100
+jdk.xml.xpathTotalOpLimit
+Limits the total number of XPath operators in an XSL Stylesheet.
+10000
+10000
+Transform
+jdk.xml.enableExtensionFunctions
+Determines if XSLT and XPath extension functions are to be allowed.
+yes
+Boolean
+true or false. True indicates that extension functions are allowed; False otherwise.
+true
+false
+Yes
+Transform
+XPath
+Method 2
+8
+jdk.xml.overrideDefaultParser
+Enables the use of a 3rd party's parser implementation to override the
+ system-default parser for the JDK's Transform, Validation and XPath implementations.
+true or false. True enables the use of 3rd party's parser implementations
+ to override the system-default implementation during XML Transform, Validation
+ or XPath operation. False disables the use of 3rd party's parser
+ implementations.
+false
+false
+Yes
+Transform
+Validation
+XPath
+Method 2
+9
+jdk.xml.resetSymbolTable
+Instructs the parser to reset its internal symbol table during each parse operation.
+true or false. True indicates that the SymbolTable associated with a parser needs to be
+ reallocated during each parse operation.
+False indicates that the parser's SymbolTable instance shall be reused
+ during subsequent parse operations.
+false
+N/A
+No
+SAX
+Method 2
+9
+[1]
+The full name of a property should be used to set the property.
+[2]
+A value "yes" indicates there is a corresponding System Property
+ for the property, "no" otherwise. The name of the System Property is the same
+ as that of the property.
+[3]
+The value must be exactly as listed in this table, case-sensitive.
+ The value of the corresponding System Property is the String representation of
+ the property value. If the type is boolean, the system property is true only
+ if it is "true"; If the type is String, the system property is true only if
+ it is exactly the same string representing the positive value (e.g. "yes" for
+xsltcIsStandalone
+); The system property is false otherwise. If the type
+ is Integer, the value of the System Property is the String representation of
+ the value (e.g. "64000" for
+entityExpansionLimit
+).
+[4]
+A value "yes" indicates the property is a Security Property. As indicated
+ in the
+Property Precedence
+, the values listed in the column
+enforced
+will be used to initialize these properties when
+FSP
+is true.
+[5]
+One or more processors that support the property. The IDs and Set Method
+ are as shown in the table
+Processors
+.
+[6]
+Indicates the initial release the property is introduced.
+Legacy Property Names (deprecated)
+JDK releases prior to JDK 17 support the use of URI style prefix for properties.
+ These legacy property names are
+deprecated
+as of JDK 17 and may be removed
+ in future releases. If both new and legacy properties are set, the new property
+ names take precedence regardless of how and where they are set. The overriding order
+ as defined in
+Property Precedence
+thus becomes:
+Value set on factories or processors using new property names.
+Value set on factories or processors using
+legacy property names
+;
+Value set as System Property;
+Value set in the configuration file;
+Value set by FEATURE_SECURE_PROCESSING;
+The default value;
+The following table lists the properties and their corresponding legacy names.
+Legacy Property Names (deprecated since 17)
+Property
+Legacy Property Name(s)
+jdk.xml.entityExpansionLimit
+http://www.oracle.com/xml/jaxp/properties/entityExpansionLimit
+jdk.xml.elementAttributeLimit
+http://www.oracle.com/xml/jaxp/properties/elementAttributeLimit
+jdk.xml.maxOccurLimit
+http://www.oracle.com/xml/jaxp/properties/maxOccurLimit
+jdk.xml.totalEntitySizeLimit
+http://www.oracle.com/xml/jaxp/properties/totalEntitySizeLimit
+jdk.xml.maxGeneralEntitySizeLimit
+http://www.oracle.com/xml/jaxp/properties/maxGeneralEntitySizeLimit
+jdk.xml.maxParameterEntitySizeLimit
+http://www.oracle.com/xml/jaxp/properties/maxParameterEntitySizeLimit
+jdk.xml.entityReplacementLimit
+http://www.oracle.com/xml/jaxp/properties/entityReplacementLimit
+jdk.xml.maxElementDepth
+http://www.oracle.com/xml/jaxp/properties/maxElementDepth
+jdk.xml.maxXMLNameLimit
+http://www.oracle.com/xml/jaxp/properties/maxXMLNameLimit
+jdk.xml.isStandalone
+http://www.oracle.com/xml/jaxp/properties/isStandalone
+jdk.xml.xsltcIsStandalone
+http://www.oracle.com/xml/is-standalone
+http://www.oracle.com/xml/jaxp/properties/xsltcIsStandalone
+jdk.xml.extensionClassLoader
+jdk.xml.transform.extensionClassLoader
+jdk.xml.enableExtensionFunctions
+http://www.oracle.com/xml/jaxp/properties/enableExtensionFunctions
+Module Graph:
+Since:
+9
+Packages
+Exports
+Package
+Description
+javax.xml
+Defines constants for XML processing.
+javax.xml.catalog
+Provides the classes for implementing
+XML Catalogs OASIS Standard V1.1, 7 October 2005
+.
+javax.xml.datatype
+Defines XML/Java Type Mappings.
+javax.xml.namespace
+Defines XML Namespace processing.
+javax.xml.parsers
+Provides the classes for processing XML documents with a SAX (Simple API for XML)
+ parser or a DOM (Document Object Model) Document builder.
+javax.xml.stream
+Defines interfaces and classes for the Streaming API for XML (StAX).
+javax.xml.stream.events
+Defines event interfaces for the Streaming API for XML (StAX).
+javax.xml.stream.util
+Provides utility classes for the Streaming API for XML (StAX).
+javax.xml.transform
+Defines the generic APIs for processing transformation instructions,
+ and performing a transformation from source to result.
+javax.xml.transform.dom
+Provides DOM specific transformation classes.
+javax.xml.transform.sax
+Provides SAX specific transformation classes.
+javax.xml.transform.stax
+Provides StAX specific transformation classes.
+javax.xml.transform.stream
+Provides stream and URI specific transformation classes.
+javax.xml.validation
+Provides an API for validation of XML documents.
+javax.xml.xpath
+Provides an
+object-model neutral
+API for the
+ evaluation of XPath expressions and access to the evaluation
+ environment.
+org.w3c.dom
+Provides the interfaces for the Document Object Model (DOM).
+org.w3c.dom.bootstrap
+Provides a factory for obtaining instances of
+DOMImplementation
+.
+org.w3c.dom.events
+Provides interfaces for DOM Level 2 Events.
+org.w3c.dom.ls
+Provides interfaces for DOM Level 3 Load and Save.
+org.w3c.dom.ranges
+Provides interfaces for DOM Level 2 Range.
+org.w3c.dom.traversal
+Provides interfaces for DOM Level 2 Traversal.
+org.w3c.dom.views
+Provides interfaces for DOM Level 2 Views.
+org.xml.sax
+Provides the interfaces for the Simple API for XML (SAX).
+org.xml.sax.ext
+Provides interfaces to SAX2 facilities that
+ conformant SAX drivers won't necessarily support.
+org.xml.sax.helpers
+Provides helper classes, including
+ support for bootstrapping SAX-based applications.
+Services
+Uses
+Type
+Description
+DatatypeFactory
+Factory that creates new
+javax.xml.datatype
+Object
+s that map XML to/from Java
+Object
+s.
+DocumentBuilderFactory
+Defines a factory API that enables applications to obtain a
+ parser that produces DOM object trees from XML documents.
+SAXParserFactory
+Defines a factory API that enables applications to configure and
+ obtain a SAX based parser to parse XML documents.
+SchemaFactory
+Factory that creates
+Schema
+objects.
+TransformerFactory
+A TransformerFactory instance can be used to create
+Transformer
+and
+Templates
+objects.
+XMLEventFactory
+This interface defines a utility class for creating instances of
+ XMLEvents
+XMLInputFactory
+Defines an abstract implementation of a factory for getting streams.
+XMLOutputFactory
+Defines an abstract implementation of a factory for
+ getting XMLEventWriters and XMLStreamWriters.
+XMLReader
+Interface for reading an XML document using callbacks.
+XPathFactory
+An
+XPathFactory
+instance can be used to create
+XPath
+objects.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

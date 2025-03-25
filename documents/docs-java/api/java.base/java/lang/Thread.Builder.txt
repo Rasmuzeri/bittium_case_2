@@ -1,0 +1,350 @@
+Thread.Builder (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang
+Interface Thread.Builder
+All Known Subinterfaces:
+Thread.Builder.OfPlatform
+,
+Thread.Builder.OfVirtual
+Enclosing class:
+Thread
+public static sealed interface
+Thread.Builder
+permits
+Thread.Builder.OfPlatform
+,
+Thread.Builder.OfVirtual
+A builder for
+Thread
+and
+ThreadFactory
+objects.
+Builder
+defines methods to set
+Thread
+properties such
+ as the thread
+name
+. This includes properties that would
+ otherwise be
+inherited
+. Once set, a
+Thread
+or
+ThreadFactory
+is created with the following methods:
+The
+unstarted
+method creates a new
+unstarted
+Thread
+to run a task. The
+Thread
+'s
+start
+method must be invoked to schedule the
+          thread to execute.
+The
+start
+method creates a new
+Thread
+to run a task and schedules the thread to execute.
+The
+factory
+method creates a
+ThreadFactory
+.
+A
+Thread.Builder
+is not thread safe. The
+ThreadFactory
+returned by the builder's
+factory()
+method is thread safe.
+Unless otherwise specified, passing a null argument to a method in
+ this interface causes a
+NullPointerException
+to be thrown.
+Since:
+21
+See Also:
+Thread.ofPlatform()
+Thread.ofVirtual()
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Interface
+Description
+static interface
+Thread.Builder.OfPlatform
+A builder for creating a platform
+Thread
+or
+ThreadFactory
+that creates platform threads.
+static interface
+Thread.Builder.OfVirtual
+A builder for creating a virtual
+Thread
+or
+ThreadFactory
+that creates virtual threads.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+ThreadFactory
+factory
+()
+Returns a
+ThreadFactory
+to create threads from the current
+ state of the builder.
+Thread.Builder
+inheritInheritableThreadLocals
+(boolean inherit)
+Sets whether the thread inherits the initial values of
+inheritable-thread-local
+variables from the
+ constructing thread.
+Thread.Builder
+name
+(
+String
+name)
+Sets the thread name.
+Thread.Builder
+name
+(
+String
+prefix,
+ long start)
+Sets the thread name to be the concatenation of a string prefix and
+ the string representation of a counter value.
+Thread
+start
+(
+Runnable
+task)
+Creates a new
+Thread
+from the current state of the builder and
+ schedules it to execute.
+Thread.Builder
+uncaughtExceptionHandler
+(
+Thread.UncaughtExceptionHandler
+ueh)
+Sets the uncaught exception handler.
+Thread
+unstarted
+(
+Runnable
+task)
+Creates a new
+Thread
+from the current state of the builder to
+ run the given task.
+Method Details
+name
+Thread.Builder
+name
+(
+String
+name)
+Sets the thread name.
+Parameters:
+name
+- thread name
+Returns:
+this builder
+name
+Thread.Builder
+name
+(
+String
+prefix,
+ long start)
+Sets the thread name to be the concatenation of a string prefix and
+ the string representation of a counter value. The counter's initial
+ value is
+start
+. It is incremented after a
+Thread
+is
+ created with this builder so that the next thread is named with
+ the new counter value. A
+ThreadFactory
+created with this
+ builder is seeded with the current value of the counter. The
+ThreadFactory
+increments its copy of the counter after
+newThread
+is used to create a
+Thread
+.
+API Note:
+The following example creates a builder that is invoked twice to start
+ two threads named "
+worker-0
+" and "
+worker-1
+".
+Copy
+Thread.Builder builder = Thread.ofPlatform().name("worker-", 0);
+  Thread t1 = builder.start(task1);   // name "worker-0"
+  Thread t2 = builder.start(task2);   // name "worker-1"
+Parameters:
+prefix
+- thread name prefix
+start
+- the starting value of the counter
+Returns:
+this builder
+Throws:
+IllegalArgumentException
+- if start is negative
+inheritInheritableThreadLocals
+Thread.Builder
+inheritInheritableThreadLocals
+(boolean inherit)
+Sets whether the thread inherits the initial values of
+inheritable-thread-local
+variables from the
+ constructing thread. The default is to inherit.
+Parameters:
+inherit
+-
+true
+to inherit,
+false
+to not inherit
+Returns:
+this builder
+uncaughtExceptionHandler
+Thread.Builder
+uncaughtExceptionHandler
+(
+Thread.UncaughtExceptionHandler
+ueh)
+Sets the uncaught exception handler.
+Parameters:
+ueh
+- uncaught exception handler
+Returns:
+this builder
+unstarted
+Thread
+unstarted
+(
+Runnable
+task)
+Creates a new
+Thread
+from the current state of the builder to
+ run the given task. The
+Thread
+'s
+start
+method must be invoked to schedule the thread to execute.
+Parameters:
+task
+- the object to run when the thread executes
+Returns:
+a new unstarted Thread
+Throws:
+SecurityException
+- if denied by the security manager
+         (See
+Interaction with
+         security manager when creating platform threads
+)
+See Also:
+Inheritance when creating threads
+start
+Thread
+start
+(
+Runnable
+task)
+Creates a new
+Thread
+from the current state of the builder and
+ schedules it to execute.
+Parameters:
+task
+- the object to run when the thread executes
+Returns:
+a new started Thread
+Throws:
+SecurityException
+- if denied by the security manager
+         (See
+Interaction with
+         security manager when creating platform threads
+)
+See Also:
+Inheritance when creating threads
+factory
+ThreadFactory
+factory
+()
+Returns a
+ThreadFactory
+to create threads from the current
+ state of the builder. The returned thread factory is safe for use by
+ multiple concurrent threads.
+Returns:
+a thread factory to create threads
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

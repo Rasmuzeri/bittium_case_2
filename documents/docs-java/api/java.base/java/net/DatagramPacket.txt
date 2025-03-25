@@ -1,0 +1,680 @@
+DatagramPacket (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.net
+Class DatagramPacket
+java.lang.Object
+java.net.DatagramPacket
+public final class
+DatagramPacket
+extends
+Object
+This class represents a datagram packet.
+Datagram packets are used to implement a connectionless packet
+ delivery service. Each message is routed from one machine to
+ another based solely on information contained within that packet.
+ Multiple packets sent from one machine to another might be routed
+ differently, and might arrive in any order. Packet delivery is
+ not guaranteed.
+Unless otherwise specified, passing a
+null
+argument causes
+ a
+NullPointerException
+to be thrown.
+Methods and constructors of
+DatagramPacket
+accept parameters
+ of type
+SocketAddress
+.
+DatagramPacket
+supports
+InetSocketAddress
+, and may support additional
+SocketAddress
+sub-types.
+Since:
+1.0
+Constructor Summary
+Constructors
+Constructor
+Description
+DatagramPacket
+(byte[] buf,
+ int length)
+Constructs a
+DatagramPacket
+for receiving packets of
+ length
+length
+.
+DatagramPacket
+(byte[] buf,
+ int offset,
+ int length)
+Constructs a
+DatagramPacket
+for receiving packets of
+ length
+length
+, specifying an offset into the buffer.
+DatagramPacket
+(byte[] buf,
+ int offset,
+ int length,
+InetAddress
+address,
+ int port)
+Constructs a datagram packet for sending packets of length
+length
+with offset
+offset
+to the
+ specified port number on the specified host.
+DatagramPacket
+(byte[] buf,
+ int offset,
+ int length,
+SocketAddress
+address)
+Constructs a datagram packet for sending packets of length
+length
+with offset
+offset
+to the
+ specified port number on the specified host.
+DatagramPacket
+(byte[] buf,
+ int length,
+InetAddress
+address,
+ int port)
+Constructs a datagram packet for sending packets of length
+length
+to the specified port number on the specified
+ host.
+DatagramPacket
+(byte[] buf,
+ int length,
+SocketAddress
+address)
+Constructs a datagram packet for sending packets of length
+length
+to the specified port number on the specified
+ host.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+InetAddress
+getAddress
+()
+Returns the IP address of the machine to which this datagram is being
+ sent or from which the datagram was received, or
+null
+if not
+ set.
+byte[]
+getData
+()
+Returns the data buffer.
+int
+getLength
+()
+Returns the length of the data to be sent or the length of the
+ data received.
+int
+getOffset
+()
+Returns the offset of the data to be sent or the offset of the
+ data received.
+int
+getPort
+()
+Returns the port number on the remote host to which this datagram is
+ being sent or from which the datagram was received, or 0 if not set.
+SocketAddress
+getSocketAddress
+()
+Returns the
+SocketAddress
+(usually
+IP address
++
+port number
+) of the remote host that this packet
+ is being sent to or is coming from.
+void
+setAddress
+(
+InetAddress
+iaddr)
+Sets the IP address of the machine to which this datagram
+ is being sent.
+void
+setData
+(byte[] buf)
+Set the data buffer for this packet.
+void
+setData
+(byte[] buf,
+ int offset,
+ int length)
+Set the data buffer for this packet.
+void
+setLength
+(int length)
+Set the length for this packet.
+void
+setPort
+(int iport)
+Sets the port number on the remote host to which this datagram
+ is being sent.
+void
+setSocketAddress
+(
+SocketAddress
+address)
+Sets the SocketAddress (usually IP address + port number) of the remote
+ host to which this datagram is being sent.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+DatagramPacket
+public
+DatagramPacket
+(byte[] buf,
+ int offset,
+ int length)
+Constructs a
+DatagramPacket
+for receiving packets of
+ length
+length
+, specifying an offset into the buffer.
+The
+length
+argument must be less than or equal to
+buf.length
+.
+Parameters:
+buf
+- buffer for holding the incoming datagram.
+offset
+- the offset for the buffer
+length
+- the number of bytes to read.
+Throws:
+IllegalArgumentException
+- if the length or offset
+          is negative, or if the length plus the offset is
+          greater than the length of the packet's given buffer.
+Since:
+1.2
+DatagramPacket
+public
+DatagramPacket
+(byte[] buf,
+ int length)
+Constructs a
+DatagramPacket
+for receiving packets of
+ length
+length
+.
+The
+length
+argument must be less than or equal to
+buf.length
+.
+Parameters:
+buf
+- buffer for holding the incoming datagram.
+length
+- the number of bytes to read.
+Throws:
+IllegalArgumentException
+- if the length is negative
+          or if the length is greater than the length of the
+          packet's given buffer.
+DatagramPacket
+public
+DatagramPacket
+(byte[] buf,
+ int offset,
+ int length,
+InetAddress
+address,
+ int port)
+Constructs a datagram packet for sending packets of length
+length
+with offset
+offset
+to the
+ specified port number on the specified host. The
+length
+argument must be less than or equal to
+buf.length
+.
+Parameters:
+buf
+- the packet data.
+offset
+- the packet data offset.
+length
+- the packet data length.
+address
+- the destination address, or
+null
+.
+port
+- the destination port number.
+Throws:
+IllegalArgumentException
+- if the length or offset
+          is negative, or if the length plus the offset is
+          greater than the length of the packet's given buffer,
+          or if the port is out of range.
+Since:
+1.2
+See Also:
+InetAddress
+DatagramPacket
+public
+DatagramPacket
+(byte[] buf,
+ int offset,
+ int length,
+SocketAddress
+address)
+Constructs a datagram packet for sending packets of length
+length
+with offset
+offset
+to the
+ specified port number on the specified host. The
+length
+argument must be less than or equal to
+buf.length
+.
+Parameters:
+buf
+- the packet data.
+offset
+- the packet data offset.
+length
+- the packet data length.
+address
+- the destination socket address.
+Throws:
+IllegalArgumentException
+- if address is null or its
+          type is not supported, or if the length or offset is
+          negative, or if the length plus the offset is greater
+          than the length of the packet's given buffer.
+Since:
+1.4
+See Also:
+InetAddress
+DatagramPacket
+public
+DatagramPacket
+(byte[] buf,
+ int length,
+InetAddress
+address,
+ int port)
+Constructs a datagram packet for sending packets of length
+length
+to the specified port number on the specified
+ host. The
+length
+argument must be less than or equal
+ to
+buf.length
+.
+Parameters:
+buf
+- the packet data.
+length
+- the packet length.
+address
+- the destination address, or
+null
+.
+port
+- the destination port number.
+Throws:
+IllegalArgumentException
+- if the length is negative,
+          or if the length is greater than the length of the
+          packet's given buffer, or if the port is out of range.
+See Also:
+InetAddress
+DatagramPacket
+public
+DatagramPacket
+(byte[] buf,
+ int length,
+SocketAddress
+address)
+Constructs a datagram packet for sending packets of length
+length
+to the specified port number on the specified
+ host. The
+length
+argument must be less than or equal
+ to
+buf.length
+.
+Parameters:
+buf
+- the packet data.
+length
+- the packet length.
+address
+- the destination address.
+Throws:
+IllegalArgumentException
+- if address is null or its type is
+          not supported, or if the length is negative, or if the length
+          is greater than the length of the packet's given buffer, or
+          if the port is out of range.
+Since:
+1.4
+See Also:
+InetAddress
+Method Details
+getAddress
+public
+InetAddress
+getAddress
+()
+Returns the IP address of the machine to which this datagram is being
+ sent or from which the datagram was received, or
+null
+if not
+ set.
+Returns:
+the IP address of the machine to which this datagram is being
+          sent or from which the datagram was received.
+See Also:
+InetAddress
+setAddress(java.net.InetAddress)
+getPort
+public
+int
+getPort
+()
+Returns the port number on the remote host to which this datagram is
+ being sent or from which the datagram was received, or 0 if not set.
+Returns:
+the port number on the remote host to which this datagram is
+          being sent or from which the datagram was received.
+See Also:
+setPort(int)
+getData
+public
+byte[]
+getData
+()
+Returns the data buffer. The data received or the data to be sent
+ starts from the
+offset
+in the buffer,
+ and runs for
+length
+long.
+Returns:
+the buffer used to receive or  send data
+See Also:
+setData(byte[], int, int)
+getOffset
+public
+int
+getOffset
+()
+Returns the offset of the data to be sent or the offset of the
+ data received.
+Returns:
+the offset of the data to be sent or the offset of the
+          data received.
+Since:
+1.2
+getLength
+public
+int
+getLength
+()
+Returns the length of the data to be sent or the length of the
+ data received.
+Returns:
+the length of the data to be sent or the length of the
+          data received.
+See Also:
+setLength(int)
+setData
+public
+void
+setData
+(byte[] buf,
+ int offset,
+ int length)
+Set the data buffer for this packet. This sets the
+ data, length and offset of the packet.
+Parameters:
+buf
+- the buffer to set for this packet
+offset
+- the offset into the data
+length
+- the length of the data
+          and/or the length of the buffer used to receive data
+Throws:
+IllegalArgumentException
+- if the length or offset
+          is negative, or if the length plus the offset is
+          greater than the length of the packet's given buffer.
+Since:
+1.2
+See Also:
+getData()
+getOffset()
+getLength()
+setAddress
+public
+void
+setAddress
+(
+InetAddress
+iaddr)
+Sets the IP address of the machine to which this datagram
+ is being sent.
+Parameters:
+iaddr
+- the
+InetAddress
+, or
+null
+.
+Since:
+1.1
+See Also:
+getAddress()
+setPort
+public
+void
+setPort
+(int iport)
+Sets the port number on the remote host to which this datagram
+ is being sent.
+Parameters:
+iport
+- the port number
+Throws:
+IllegalArgumentException
+- if the port is out of range
+Since:
+1.1
+See Also:
+getPort()
+setSocketAddress
+public
+void
+setSocketAddress
+(
+SocketAddress
+address)
+Sets the SocketAddress (usually IP address + port number) of the remote
+ host to which this datagram is being sent.
+Parameters:
+address
+- the
+SocketAddress
+Throws:
+IllegalArgumentException
+- if address is null or is a
+          SocketAddress subclass not supported.
+Since:
+1.4
+See Also:
+getSocketAddress()
+getSocketAddress
+public
+SocketAddress
+getSocketAddress
+()
+Returns the
+SocketAddress
+(usually
+IP address
++
+port number
+) of the remote host that this packet
+ is being sent to or is coming from.
+Returns:
+the
+SocketAddress
+Since:
+1.4
+See Also:
+setSocketAddress(java.net.SocketAddress)
+setData
+public
+void
+setData
+(byte[] buf)
+Set the data buffer for this packet. With the offset of
+ this DatagramPacket set to 0, and the length set to
+ the length of
+buf
+.
+Parameters:
+buf
+- the buffer to set for this packet.
+Since:
+1.1
+See Also:
+getLength()
+getData()
+setLength
+public
+void
+setLength
+(int length)
+Set the length for this packet. The length of the packet is
+ the number of bytes from the packet's data buffer that will be
+ sent, or the number of bytes of the packet's data buffer that
+ will be used for receiving data. The
+length
+plus the
+offset
+must be lesser or equal to the
+ length of the packet's data buffer.
+Parameters:
+length
+- the length to set for this packet.
+Throws:
+IllegalArgumentException
+- if the length is negative,
+          or if the length plus the offset is greater than the
+          length of the packet's data buffer.
+Since:
+1.1
+See Also:
+getLength()
+setData(byte[], int, int)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

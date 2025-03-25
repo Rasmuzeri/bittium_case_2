@@ -1,0 +1,391 @@
+SAXSource (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.xml
+Package
+javax.xml.transform.sax
+Class SAXSource
+java.lang.Object
+javax.xml.transform.sax.SAXSource
+All Implemented Interfaces:
+Source
+public class
+SAXSource
+extends
+Object
+implements
+Source
+Acts as an holder for SAX-style Source.
+Note that XSLT requires namespace support. Attempting to transform an
+ input source that is not
+ generated with a namespace-aware parser may result in errors.
+ Parsers can be made namespace aware by calling the
+SAXParserFactory.setNamespaceAware(boolean awareness)
+method.
+Since:
+1.4
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+String
+FEATURE
+If
+TransformerFactory.getFeature(java.lang.String)
+returns true when passed this value as an argument,
+ the Transformer supports Source input of this type.
+Constructor Summary
+Constructors
+Constructor
+Description
+SAXSource
+()
+Zero-argument default constructor.
+SAXSource
+(
+InputSource
+inputSource)
+Create a
+SAXSource
+, using a SAX
+InputSource
+.
+SAXSource
+(
+XMLReader
+reader,
+InputSource
+inputSource)
+Create a
+SAXSource
+, using an
+XMLReader
+and a SAX InputSource.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+InputSource
+getInputSource
+()
+Get the SAX InputSource to be used for the Source.
+String
+getSystemId
+()
+Get the base ID (URI or system ID) from where URIs
+ will be resolved.
+XMLReader
+getXMLReader
+()
+Get the XMLReader to be used for the Source.
+boolean
+isEmpty
+()
+Indicates whether the
+SAXSource
+object is empty.
+void
+setInputSource
+(
+InputSource
+inputSource)
+Set the SAX InputSource to be used for the Source.
+void
+setSystemId
+(
+String
+systemId)
+Set the system identifier for this Source.
+void
+setXMLReader
+(
+XMLReader
+reader)
+Set the XMLReader to be used for the Source.
+static
+InputSource
+sourceToInputSource
+(
+Source
+source)
+Attempt to obtain a SAX InputSource object from a Source
+ object.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+FEATURE
+public static final
+String
+FEATURE
+If
+TransformerFactory.getFeature(java.lang.String)
+returns true when passed this value as an argument,
+ the Transformer supports Source input of this type.
+See Also:
+Constant Field Values
+Constructor Details
+SAXSource
+public
+SAXSource
+()
+Zero-argument default constructor.  If this constructor is used, and
+ no SAX source is set using
+setInputSource(InputSource inputSource)
+, then the
+Transformer
+will
+ create an empty source
+InputSource
+using
+new InputSource()
+.
+See Also:
+Transformer.transform(Source xmlSource, Result outputTarget)
+SAXSource
+public
+SAXSource
+(
+XMLReader
+reader,
+InputSource
+inputSource)
+Create a
+SAXSource
+, using an
+XMLReader
+and a SAX InputSource. The
+Transformer
+or
+SAXTransformerFactory
+will set itself
+ to be the reader's
+ContentHandler
+, and then will call
+ reader.parse(inputSource).
+Parameters:
+reader
+- An XMLReader to be used for the parse.
+inputSource
+- A SAX input source reference that must be non-null
+ and that will be passed to the reader parse method.
+SAXSource
+public
+SAXSource
+(
+InputSource
+inputSource)
+Create a
+SAXSource
+, using a SAX
+InputSource
+.
+ The
+Transformer
+or
+SAXTransformerFactory
+creates a
+ reader (if setXMLReader is not used), sets itself as
+ the reader's
+ContentHandler
+, and calls
+ reader.parse(inputSource).
+Parameters:
+inputSource
+- An input source reference that must be non-null
+ and that will be passed to the parse method of the reader.
+Method Details
+setXMLReader
+public
+void
+setXMLReader
+(
+XMLReader
+reader)
+Set the XMLReader to be used for the Source.
+Parameters:
+reader
+- A valid XMLReader or XMLFilter reference.
+getXMLReader
+public
+XMLReader
+getXMLReader
+()
+Get the XMLReader to be used for the Source.
+Returns:
+A valid XMLReader or XMLFilter reference, or null.
+setInputSource
+public
+void
+setInputSource
+(
+InputSource
+inputSource)
+Set the SAX InputSource to be used for the Source.
+Parameters:
+inputSource
+- A valid InputSource reference.
+getInputSource
+public
+InputSource
+getInputSource
+()
+Get the SAX InputSource to be used for the Source.
+Returns:
+A valid InputSource reference, or null.
+setSystemId
+public
+void
+setSystemId
+(
+String
+systemId)
+Set the system identifier for this Source.  If an input source
+ has already been set, it will set the system ID or that
+ input source, otherwise it will create a new input source.
+The system identifier is optional if there is a byte stream
+ or a character stream, but it is still useful to provide one,
+ since the application can use it to resolve relative URIs
+ and can include it in error messages and warnings (the parser
+ will attempt to open a connection to the URI only if
+ no byte stream or character stream is specified).
+Specified by:
+setSystemId
+in interface
+Source
+Parameters:
+systemId
+- The system identifier as a URI string.
+getSystemId
+public
+String
+getSystemId
+()
+Get the base ID (URI or system ID) from where URIs
+ will be resolved.
+Specified by:
+getSystemId
+in interface
+Source
+Returns:
+Base URL for the
+Source
+, or
+null
+.
+sourceToInputSource
+public static
+InputSource
+sourceToInputSource
+(
+Source
+source)
+Attempt to obtain a SAX InputSource object from a Source
+ object.
+Parameters:
+source
+- Must be a non-null Source reference.
+Returns:
+An InputSource, or null if Source can not be converted.
+isEmpty
+public
+boolean
+isEmpty
+()
+Indicates whether the
+SAXSource
+object is empty. Empty is
+ defined as follows:
+if the system identifier and
+InputSource
+are
+null
+;
+if the system identifier is
+null
+, and the
+InputSource
+is empty.
+Specified by:
+isEmpty
+in interface
+Source
+Returns:
+true if the
+SAXSource
+object is empty, false otherwise
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

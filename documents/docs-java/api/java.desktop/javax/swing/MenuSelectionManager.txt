@@ -1,0 +1,373 @@
+MenuSelectionManager (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing
+Class MenuSelectionManager
+java.lang.Object
+javax.swing.MenuSelectionManager
+public class
+MenuSelectionManager
+extends
+Object
+A MenuSelectionManager owns the selection in menu hierarchy.
+Since:
+1.2
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected
+ChangeEvent
+changeEvent
+Only one ChangeEvent is needed per button model instance since the
+ event's only state is the source property.
+protected
+EventListenerList
+listenerList
+The collection of registered listeners
+Constructor Summary
+Constructors
+Constructor
+Description
+MenuSelectionManager
+()
+Constructs a
+MenuSelectionManager
+.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+addChangeListener
+(
+ChangeListener
+l)
+Adds a ChangeListener to the button.
+void
+clearSelectedPath
+()
+Tell the menu selection to close and unselect all the menu components.
+Component
+componentForPoint
+(
+Component
+source,
+Point
+sourcePoint)
+Returns the component in the currently selected path
+ which contains sourcePoint.
+static
+MenuSelectionManager
+defaultManager
+()
+Returns the default menu selection manager.
+protected void
+fireStateChanged
+()
+Notifies all listeners that have registered interest for
+ notification on this event type.
+ChangeListener
+[]
+getChangeListeners
+()
+Returns an array of all the
+ChangeListener
+s added
+ to this MenuSelectionManager with addChangeListener().
+MenuElement
+[]
+getSelectedPath
+()
+Returns the path to the currently selected menu item
+boolean
+isComponentPartOfCurrentMenu
+(
+Component
+c)
+Return true if
+c
+is part of the currently used menu
+void
+processKeyEvent
+(
+KeyEvent
+e)
+When a MenuElement receives an event from a KeyListener, it should never process the event
+ directly.
+void
+processMouseEvent
+(
+MouseEvent
+event)
+When a MenuElement receives an event from a MouseListener, it should never process the event
+ directly.
+void
+removeChangeListener
+(
+ChangeListener
+l)
+Removes a ChangeListener from the button.
+void
+setSelectedPath
+(
+MenuElement
+[] path)
+Changes the selection in the menu hierarchy.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+changeEvent
+protected transient
+ChangeEvent
+changeEvent
+Only one ChangeEvent is needed per button model instance since the
+ event's only state is the source property.  The source of events
+ generated is always "this".
+listenerList
+protected
+EventListenerList
+listenerList
+The collection of registered listeners
+Constructor Details
+MenuSelectionManager
+public
+MenuSelectionManager
+()
+Constructs a
+MenuSelectionManager
+.
+Method Details
+defaultManager
+public static
+MenuSelectionManager
+defaultManager
+()
+Returns the default menu selection manager.
+Returns:
+a MenuSelectionManager object
+setSelectedPath
+public
+void
+setSelectedPath
+(
+MenuElement
+[] path)
+Changes the selection in the menu hierarchy.  The elements
+ in the array are sorted in order from the root menu
+ element to the currently selected menu element.
+Note that this method is public but is used by the look and
+ feel engine and should not be called by client applications.
+Parameters:
+path
+- an array of
+MenuElement
+objects specifying
+        the selected path
+getSelectedPath
+public
+MenuElement
+[]
+getSelectedPath
+()
+Returns the path to the currently selected menu item
+Returns:
+an array of MenuElement objects representing the selected path
+clearSelectedPath
+public
+void
+clearSelectedPath
+()
+Tell the menu selection to close and unselect all the menu components. Call this method
+ when a choice has been made
+addChangeListener
+public
+void
+addChangeListener
+(
+ChangeListener
+l)
+Adds a ChangeListener to the button.
+Parameters:
+l
+- the listener to add
+removeChangeListener
+public
+void
+removeChangeListener
+(
+ChangeListener
+l)
+Removes a ChangeListener from the button.
+Parameters:
+l
+- the listener to remove
+getChangeListeners
+public
+ChangeListener
+[]
+getChangeListeners
+()
+Returns an array of all the
+ChangeListener
+s added
+ to this MenuSelectionManager with addChangeListener().
+Returns:
+all of the
+ChangeListener
+s added or an empty
+         array if no listeners have been added
+Since:
+1.4
+fireStateChanged
+protected
+void
+fireStateChanged
+()
+Notifies all listeners that have registered interest for
+ notification on this event type.  The event instance
+ is created lazily.
+See Also:
+EventListenerList
+processMouseEvent
+public
+void
+processMouseEvent
+(
+MouseEvent
+event)
+When a MenuElement receives an event from a MouseListener, it should never process the event
+ directly. Instead all MenuElements should call this method with the event.
+Parameters:
+event
+- a MouseEvent object
+componentForPoint
+public
+Component
+componentForPoint
+(
+Component
+source,
+Point
+sourcePoint)
+Returns the component in the currently selected path
+ which contains sourcePoint.
+Parameters:
+source
+- The component in whose coordinate space sourcePoint
+        is given
+sourcePoint
+- The point which is being tested
+Returns:
+The component in the currently selected path which
+         contains sourcePoint (relative to the source component's
+         coordinate space.  If sourcePoint is not inside a component
+         on the currently selected path, null is returned.
+processKeyEvent
+public
+void
+processKeyEvent
+(
+KeyEvent
+e)
+When a MenuElement receives an event from a KeyListener, it should never process the event
+ directly. Instead all MenuElements should call this method with the event.
+Parameters:
+e
+- a KeyEvent object
+isComponentPartOfCurrentMenu
+public
+boolean
+isComponentPartOfCurrentMenu
+(
+Component
+c)
+Return true if
+c
+is part of the currently used menu
+Parameters:
+c
+- a
+Component
+Returns:
+true if
+c
+is part of the currently used menu,
+         false otherwise
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

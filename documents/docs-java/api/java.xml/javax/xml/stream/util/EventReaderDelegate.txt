@@ -1,0 +1,382 @@
+EventReaderDelegate (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.xml
+Package
+javax.xml.stream.util
+Class EventReaderDelegate
+java.lang.Object
+javax.xml.stream.util.EventReaderDelegate
+All Implemented Interfaces:
+Iterator
+<
+Object
+>
+,
+XMLEventReader
+public class
+EventReaderDelegate
+extends
+Object
+implements
+XMLEventReader
+This is the base class for deriving an XMLEventReader
+ filter.
+
+ This class is designed to sit between an XMLEventReader and an
+ application's XMLEventReader.  By default each method
+ does nothing but call the corresponding method on the
+ parent interface.
+Since:
+1.6
+See Also:
+XMLEventReader
+StreamReaderDelegate
+Constructor Summary
+Constructors
+Constructor
+Description
+EventReaderDelegate
+()
+Construct an empty filter with no parent.
+EventReaderDelegate
+(
+XMLEventReader
+reader)
+Construct an filter with the specified parent.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+close
+()
+Frees any resources associated with this Reader.
+String
+getElementText
+()
+Reads the content of a text-only element.
+XMLEventReader
+getParent
+()
+Get the parent of this instance.
+Object
+getProperty
+(
+String
+name)
+Get the value of a feature/property from the underlying implementation
+boolean
+hasNext
+()
+Check if there are more events.
+Object
+next
+()
+Returns the next element in the iteration.
+XMLEvent
+nextEvent
+()
+Gets the next XMLEvent.
+XMLEvent
+nextTag
+()
+Skips any insignificant space events until a START_ELEMENT or
+ END_ELEMENT is reached.
+XMLEvent
+peek
+()
+Check the next XMLEvent without reading it from the stream.
+void
+setParent
+(
+XMLEventReader
+reader)
+Set the parent of this instance.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface java.util.
+Iterator
+forEachRemaining
+,
+remove
+Constructor Details
+EventReaderDelegate
+public
+EventReaderDelegate
+()
+Construct an empty filter with no parent.
+EventReaderDelegate
+public
+EventReaderDelegate
+(
+XMLEventReader
+reader)
+Construct an filter with the specified parent.
+Parameters:
+reader
+- the parent
+Method Details
+setParent
+public
+void
+setParent
+(
+XMLEventReader
+reader)
+Set the parent of this instance.
+Parameters:
+reader
+- the new parent
+getParent
+public
+XMLEventReader
+getParent
+()
+Get the parent of this instance.
+Returns:
+the parent or null if none is set
+nextEvent
+public
+XMLEvent
+nextEvent
+()
+                   throws
+XMLStreamException
+Description copied from interface:
+XMLEventReader
+Gets the next XMLEvent. The initial event is
+StartDocument
+.
+Specified by:
+nextEvent
+in interface
+XMLEventReader
+Returns:
+the next XMLEvent
+Throws:
+XMLStreamException
+- if there is an error with the underlying XML.
+See Also:
+XMLEvent
+next
+public
+Object
+next
+()
+Description copied from interface:
+Iterator
+Returns the next element in the iteration.
+Specified by:
+next
+in interface
+Iterator
+<
+Object
+>
+Returns:
+the next element in the iteration
+hasNext
+public
+boolean
+hasNext
+()
+Description copied from interface:
+XMLEventReader
+Check if there are more events.
+ Returns true if there are more events and false otherwise.
+Specified by:
+hasNext
+in interface
+Iterator
+<
+Object
+>
+Specified by:
+hasNext
+in interface
+XMLEventReader
+Returns:
+true if the event reader has more events, false otherwise
+peek
+public
+XMLEvent
+peek
+()
+              throws
+XMLStreamException
+Description copied from interface:
+XMLEventReader
+Check the next XMLEvent without reading it from the stream.
+ Returns null if the stream is at EOF or has no more XMLEvents.
+ A call to peek() will be equal to the next return of next().
+Specified by:
+peek
+in interface
+XMLEventReader
+Returns:
+the next XMLEvent
+Throws:
+XMLStreamException
+- if an error occurs
+See Also:
+XMLEvent
+close
+public
+void
+close
+()
+           throws
+XMLStreamException
+Description copied from interface:
+XMLEventReader
+Frees any resources associated with this Reader.  This method does not close the
+ underlying input source.
+Specified by:
+close
+in interface
+XMLEventReader
+Throws:
+XMLStreamException
+- if there are errors freeing associated resources
+getElementText
+public
+String
+getElementText
+()
+                      throws
+XMLStreamException
+Description copied from interface:
+XMLEventReader
+Reads the content of a text-only element. Precondition:
+ the current event is START_ELEMENT. Postcondition:
+ The current event is the corresponding END_ELEMENT.
+Specified by:
+getElementText
+in interface
+XMLEventReader
+Returns:
+the text of the element
+Throws:
+XMLStreamException
+- if the current event is not a START_ELEMENT
+ or if a non text element is encountered
+nextTag
+public
+XMLEvent
+nextTag
+()
+                 throws
+XMLStreamException
+Description copied from interface:
+XMLEventReader
+Skips any insignificant space events until a START_ELEMENT or
+ END_ELEMENT is reached. If anything other than space characters are
+ encountered, an exception is thrown. This method should
+ be used when processing element-only content because
+ the parser is not able to recognize ignorable whitespace if
+ the DTD is missing or not interpreted.
+Specified by:
+nextTag
+in interface
+XMLEventReader
+Returns:
+a START_ELEMENT or END_ELEMENT
+Throws:
+XMLStreamException
+- if anything other than space characters are encountered
+getProperty
+public
+Object
+getProperty
+(
+String
+name)
+throws
+IllegalArgumentException
+Description copied from interface:
+XMLEventReader
+Get the value of a feature/property from the underlying implementation
+Specified by:
+getProperty
+in interface
+XMLEventReader
+Parameters:
+name
+- The name of the property
+Returns:
+The value of the property
+Throws:
+IllegalArgumentException
+- if the property is not supported
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

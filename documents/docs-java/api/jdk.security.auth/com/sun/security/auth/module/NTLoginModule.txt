@@ -1,0 +1,339 @@
+NTLoginModule (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.security.auth
+Package
+com.sun.security.auth.module
+Class NTLoginModule
+java.lang.Object
+com.sun.security.auth.module.NTLoginModule
+All Implemented Interfaces:
+LoginModule
+public class
+NTLoginModule
+extends
+Object
+implements
+LoginModule
+This
+LoginModule
+renders a user's NT security information as some number of
+Principal
+s
+ and associates them with a
+Subject
+.
+This LoginModule recognizes the debug option.
+ If set to true in the login Configuration,
+ debug messages will be output to the output stream, System.out.
+This LoginModule also recognizes the debugNative option.
+ If set to true in the login Configuration,
+ debug messages from the native component of the module
+ will be output to the output stream, System.out.
+See Also:
+LoginModule
+Constructor Summary
+Constructors
+Constructor
+Description
+NTLoginModule
+()
+Creates an
+NTLoginModule
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+abort
+()
+This method is called if the LoginContext's
+ overall authentication failed.
+boolean
+commit
+()
+This method is called if the LoginContext's
+ overall authentication succeeded
+ (the relevant REQUIRED, REQUISITE, SUFFICIENT and OPTIONAL LoginModules
+ succeeded).
+void
+initialize
+(
+Subject
+subject,
+CallbackHandler
+callbackHandler,
+Map
+<
+String
+,
+?> sharedState,
+Map
+<
+String
+,
+?> options)
+Initialize this
+LoginModule
+.
+boolean
+login
+()
+Import underlying NT system identity information.
+boolean
+logout
+()
+Logout the user.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+NTLoginModule
+public
+NTLoginModule
+()
+Creates an
+NTLoginModule
+.
+Method Details
+initialize
+public
+void
+initialize
+(
+Subject
+subject,
+CallbackHandler
+callbackHandler,
+Map
+<
+String
+,
+?> sharedState,
+Map
+<
+String
+,
+?> options)
+Initialize this
+LoginModule
+.
+Specified by:
+initialize
+in interface
+LoginModule
+Parameters:
+subject
+- the
+Subject
+to be authenticated.
+callbackHandler
+- a
+CallbackHandler
+for communicating
+          with the end user (prompting for usernames and
+          passwords, for example). This particular LoginModule only
+          extracts the underlying NT system information, so this
+          parameter is ignored.
+sharedState
+- shared
+LoginModule
+state.
+options
+- options specified in the login
+Configuration
+for this particular
+LoginModule
+.
+login
+public
+boolean
+login
+()
+              throws
+LoginException
+Import underlying NT system identity information.
+Specified by:
+login
+in interface
+LoginModule
+Returns:
+true in all cases since this
+LoginModule
+should not be ignored.
+Throws:
+FailedLoginException
+- if the authentication fails.
+LoginException
+- if this
+LoginModule
+is unable to perform the authentication.
+commit
+public
+boolean
+commit
+()
+               throws
+LoginException
+This method is called if the LoginContext's
+ overall authentication succeeded
+ (the relevant REQUIRED, REQUISITE, SUFFICIENT and OPTIONAL LoginModules
+ succeeded).
+If this LoginModule's own authentication attempt
+ succeeded (checked by retrieving the private state saved by the
+login
+method), then this method associates some
+ number of various
+Principal
+s
+ with the
+Subject
+located in the
+LoginModuleContext
+.  If this LoginModule's own
+ authentication attempted failed, then this method removes
+ any state that was originally saved.
+Specified by:
+commit
+in interface
+LoginModule
+Returns:
+true if this LoginModule's own login and commit
+          attempts succeeded, or false otherwise.
+Throws:
+LoginException
+- if the commit fails.
+abort
+public
+boolean
+abort
+()
+              throws
+LoginException
+This method is called if the LoginContext's
+ overall authentication failed.
+ (the relevant REQUIRED, REQUISITE, SUFFICIENT and OPTIONAL LoginModules
+ did not succeed).
+If this LoginModule's own authentication attempt
+ succeeded (checked by retrieving the private state saved by the
+login
+and
+commit
+methods),
+ then this method cleans up any state that was originally saved.
+Specified by:
+abort
+in interface
+LoginModule
+Returns:
+false if this LoginModule's own login and/or commit attempts
+          failed, and true otherwise.
+Throws:
+LoginException
+- if the abort fails.
+logout
+public
+boolean
+logout
+()
+               throws
+LoginException
+Logout the user.
+This method removes the
+NTUserPrincipal
+,
+NTDomainPrincipal
+,
+NTSidUserPrincipal
+,
+NTSidDomainPrincipal
+,
+NTSidGroupPrincipal
+s,
+ and
+NTSidPrimaryGroupPrincipal
+that may have been added by the
+commit
+method.
+Specified by:
+logout
+in interface
+LoginModule
+Returns:
+true in all cases since this
+LoginModule
+should not be ignored.
+Throws:
+LoginException
+- if the logout fails.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,1526 @@
+VectorSpecies (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.incubator.vector
+Package
+jdk.incubator.vector
+Interface VectorSpecies<E>
+Type Parameters:
+E
+- the boxed version of
+ETYPE
+,
+           the element type of a vector
+public interface
+VectorSpecies<E>
+VectorSpecies
+relies on preview features of the Java platform:
+VectorSpecies
+refers to one or more preview APIs:
+MemorySegment
+.
+Programs can only use
+VectorSpecies
+when preview features are enabled.
+Preview features may be removed in a future release, or upgraded to permanent features of the Java platform.
+Interface for managing all vectors of the same combination
+ of
+element type
+(
+ETYPE
+)
+ and
+shape
+.
+API Note:
+User code should not implement this interface.  A future release of
+ this type may restrict implementations to be members of the same
+ package.
+Implementation Note:
+The string representation of an instance of this interface will
+ be of the form "Species[ETYPE, VLENGTH, SHAPE]", where
+ETYPE
+is the primitive
+lane type
+,
+VLENGTH
+is the
+vector lane count
+associated with the species, and
+SHAPE
+is the
+vector shape
+associated with the species.
+Vector species objects can be stored in locals and parameters and as
+static final
+constants, but storing them in other Java
+ fields or in array elements, while semantically valid, may incur
+ performance penalties.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+Vector
+<
+E
+>
+broadcast
+(long e)
+Returns a vector of the given species
+ where all lane elements are set to
+ the primitive value
+e
+.
+<F>
+VectorSpecies
+<F>
+check
+(
+Class
+<F> elementType)
+Checks that this species has the given element type,
+ and returns this species unchanged.
+long
+checkValue
+(long e)
+Checks that this species can represent the given element value,
+ and returns the value unchanged.
+int
+elementSize
+()
+Returns the lane size, in bits, of vectors of this
+ species.
+static int
+elementSize
+(
+Class
+<?> elementType)
+Returns the bit-size of the given vector element type (
+ETYPE
+).
+Class
+<
+E
+>
+elementType
+()
+Returns the primitive element type of vectors of this
+ species.
+boolean
+equals
+(
+Object
+obj)
+Indicates whether this species is identical to some other object.
+Vector
+<
+E
+>
+fromArray
+(
+Object
+a,
+ int offset)
+Returns a vector of this species
+ where lane elements are initialized
+ from the given array at the given offset.
+Vector
+<
+E
+>
+fromMemorySegment
+(
+MemorySegment
+PREVIEW
+ms,
+ long offset,
+ByteOrder
+bo)
+Loads a vector of this species from a
+memory segment
+PREVIEW
+starting at an offset into the memory segment.
+int
+hashCode
+()
+Returns a hash code value for the species,
+ based on the vector shape and element type.
+VectorMask
+<
+E
+>
+indexInRange
+(int offset,
+ int limit)
+Returns a mask of this species where only
+ the lanes at index N such that the adjusted index
+N+offset
+is in the range
+[0..limit-1]
+are set.
+VectorMask
+<
+E
+>
+indexInRange
+(long offset,
+ long limit)
+Returns a mask of this species where only
+ the lanes at index N such that the adjusted index
+N+offset
+is in the range
+[0..limit-1]
+are set.
+VectorShuffle
+<
+E
+>
+iotaShuffle
+(int start,
+ int step,
+ boolean wrap)
+Creates a shuffle using source indexes set to sequential
+ values starting from
+start
+and stepping
+ by the given
+step
+.
+int
+length
+()
+Returns the number of lanes in a vector of this species.
+VectorMask
+<
+E
+>
+loadMask
+(boolean[] bits,
+ int offset)
+Returns a mask of this species
+ where lane elements are initialized
+ from the given array at the given offset.
+int
+loopBound
+(int length)
+Loop control function which returns the largest multiple of
+VLENGTH
+that is less than or equal to the given
+length
+value.
+long
+loopBound
+(long length)
+Loop control function which returns the largest multiple of
+VLENGTH
+that is less than or equal to the given
+length
+value.
+VectorMask
+<
+E
+>
+maskAll
+(boolean bit)
+Returns a mask of this species,
+ where each lane is set or unset according to given
+ single boolean, which is broadcast to all lanes.
+Class
+<? extends
+VectorMask
+<
+E
+>>
+maskType
+()
+Returns the vector mask type for this species.
+static <E>
+VectorSpecies
+<E>
+of
+(
+Class
+<E> elementType,
+VectorShape
+shape)
+Finds a species for an element type and shape.
+static <E>
+VectorSpecies
+<E>
+ofLargestShape
+(
+Class
+<E> etype)
+Finds the largest vector species of the given element type.
+static <E>
+VectorSpecies
+<E>
+ofPreferred
+(
+Class
+<E> etype)
+Finds the species preferred by the current platform
+ for a given vector element type.
+int
+partLimit
+(
+VectorSpecies
+<?> outputSpecies,
+ boolean lanewise)
+Given this species and a second one, reports the net
+ expansion or contraction of a (potentially) resizing
+reinterpretation cast
+or
+lane-wise conversion
+from this species to the second.
+VectorShuffle
+<
+E
+>
+shuffleFromArray
+(int[] sourceIndexes,
+ int offset)
+Creates a shuffle for this species from
+ an
+int
+array starting at an offset.
+VectorShuffle
+<
+E
+>
+shuffleFromOp
+(
+IntUnaryOperator
+fn)
+Creates a shuffle for this species from
+ the successive values of an operator applied to
+ the range
+[0..VLENGTH-1]
+.
+VectorShuffle
+<
+E
+>
+shuffleFromValues
+(int... sourceIndexes)
+Creates a shuffle for this species from
+ a series of source indexes.
+String
+toString
+()
+Returns a string of the form "Species[ETYPE, VLENGTH, SHAPE]",
+ where
+ETYPE
+is the primitive
+lane type
+,
+VLENGTH
+is the
+vector lane count
+associated with the species, and
+SHAPE
+is the
+vector shape
+associated with the species.
+int
+vectorBitSize
+()
+Returns the total vector size, in bits, of any vector
+ of this species.
+int
+vectorByteSize
+()
+Returns the total vector size, in bytes, of any vector
+ of this species.
+VectorShape
+vectorShape
+()
+Returns the shape of vectors produced by this
+ species.
+Class
+<? extends
+Vector
+<
+E
+>>
+vectorType
+()
+Returns the vector type of this species.
+<F>
+VectorSpecies
+<F>
+withLanes
+(
+Class
+<F> newType)
+Finds a species with the given element type and the
+ same shape as this species.
+VectorSpecies
+<
+E
+>
+withShape
+(
+VectorShape
+newShape)
+Finds a species with the given shape and the same
+ elementType as this species.
+Vector
+<
+E
+>
+zero
+()
+Returns a vector of this species
+ where all lane elements are set to
+ the default primitive value,
+(ETYPE)0
+.
+Method Details
+elementType
+Class
+<
+E
+>
+elementType
+()
+Returns the primitive element type of vectors of this
+ species.
+Returns:
+the primitive element type (
+ETYPE
+)
+See Also:
+Class.arrayType()
+vectorType
+Class
+<? extends
+Vector
+<
+E
+>>
+vectorType
+()
+Returns the vector type of this species.
+ A vector is of this species if and only if
+ it is of the corresponding vector type.
+Returns:
+the vector type of this species
+maskType
+Class
+<? extends
+VectorMask
+<
+E
+>>
+maskType
+()
+Returns the vector mask type for this species.
+Returns:
+the mask type
+elementSize
+int
+elementSize
+()
+Returns the lane size, in bits, of vectors of this
+ species.
+Returns:
+the element size, in bits
+vectorShape
+VectorShape
+vectorShape
+()
+Returns the shape of vectors produced by this
+ species.
+Returns:
+the shape of any vectors of this species
+length
+int
+length
+()
+Returns the number of lanes in a vector of this species.
+API Note:
+This is also the number of lanes in a mask or
+ shuffle associated with a vector of this species.
+Returns:
+the number of vector lanes
+vectorBitSize
+int
+vectorBitSize
+()
+Returns the total vector size, in bits, of any vector
+ of this species.
+ This is the same value as
+this.vectorShape().vectorBitSize()
+.
+API Note:
+This size may be distinct from the size in bits
+ of a mask or shuffle of this species.
+Returns:
+the total vector size, in bits
+vectorByteSize
+int
+vectorByteSize
+()
+Returns the total vector size, in bytes, of any vector
+ of this species.
+ This is the same value as
+this.vectorShape().vectorBitSize() / Byte.SIZE
+.
+API Note:
+This size may be distinct from the size in bits
+ of a mask or shuffle of this species.
+Returns:
+the total vector size, in bytes
+loopBound
+int
+loopBound
+(int length)
+Loop control function which returns the largest multiple of
+VLENGTH
+that is less than or equal to the given
+length
+value.
+ Here,
+VLENGTH
+is the result of
+this.length()
+,
+ and
+length
+is interpreted as a number of lanes.
+ The resulting value
+R
+satisfies this inequality:
+R <= length < R+VLENGTH
+Specifically, this method computes
+length - floorMod(length, VLENGTH)
+, where
+floorMod
+computes a remainder
+ value by rounding its quotient toward negative infinity.
+ As long as
+VLENGTH
+is a power of two, then the result
+ is also equal to
+length & ~(VLENGTH - 1)
+.
+Parameters:
+length
+- the input length
+Returns:
+the largest multiple of the vector length not greater
+         than the given length
+Throws:
+IllegalArgumentException
+- if the
+length
+is
+         negative and the result would overflow to a positive value
+See Also:
+Math.floorMod(int, int)
+loopBound
+long
+loopBound
+(long length)
+Loop control function which returns the largest multiple of
+VLENGTH
+that is less than or equal to the given
+length
+value.
+ Here,
+VLENGTH
+is the result of
+this.length()
+,
+ and
+length
+is interpreted as a number of lanes.
+ The resulting value
+R
+satisfies this inequality:
+R <= length < R+VLENGTH
+Specifically, this method computes
+length - floorMod(length, VLENGTH)
+, where
+floorMod
+computes a remainder
+ value by rounding its quotient toward negative infinity.
+ As long as
+VLENGTH
+is a power of two, then the result
+ is also equal to
+length & ~(VLENGTH - 1)
+.
+Parameters:
+length
+- the input length
+Returns:
+the largest multiple of the vector length not greater
+         than the given length
+Throws:
+IllegalArgumentException
+- if the
+length
+is
+         negative and the result would overflow to a positive value
+Since:
+19
+See Also:
+Math.floorMod(long, int)
+indexInRange
+VectorMask
+<
+E
+>
+indexInRange
+(int offset,
+ int limit)
+Returns a mask of this species where only
+ the lanes at index N such that the adjusted index
+N+offset
+is in the range
+[0..limit-1]
+are set.
+This method returns the value of the expression
+maskAll(true).indexInRange(offset, limit)
+Parameters:
+offset
+- the starting index
+limit
+- the upper-bound (exclusive) of index range
+Returns:
+a mask with out-of-range lanes unset
+See Also:
+VectorMask.indexInRange(int, int)
+indexInRange
+VectorMask
+<
+E
+>
+indexInRange
+(long offset,
+ long limit)
+Returns a mask of this species where only
+ the lanes at index N such that the adjusted index
+N+offset
+is in the range
+[0..limit-1]
+are set.
+This method returns the value of the expression
+maskAll(true).indexInRange(offset, limit)
+Parameters:
+offset
+- the starting index
+limit
+- the upper-bound (exclusive) of index range
+Returns:
+a mask with out-of-range lanes unset
+Since:
+19
+See Also:
+VectorMask.indexInRange(long, long)
+check
+<F>
+VectorSpecies
+<F>
+check
+(
+Class
+<F> elementType)
+Checks that this species has the given element type,
+ and returns this species unchanged.
+ The effect is similar to this pseudocode:
+elementType == elementType()
+        ? this
+        : throw new ClassCastException()
+.
+Type Parameters:
+F
+- the boxed element type of the required lane type
+Parameters:
+elementType
+- the required lane type
+Returns:
+the same species
+Throws:
+ClassCastException
+- if the species has the wrong element type
+See Also:
+Vector.check(Class)
+Vector.check(VectorSpecies)
+partLimit
+int
+partLimit
+(
+VectorSpecies
+<?> outputSpecies,
+ boolean lanewise)
+Given this species and a second one, reports the net
+ expansion or contraction of a (potentially) resizing
+reinterpretation cast
+or
+lane-wise conversion
+from this species to the second.
+
+ The sign and magnitude of the return value depends on the size
+ difference between the proposed input and output
+shapes
+, and (optionally, if
+lanewise
+is true)
+ also on the size difference between the proposed input and
+ output
+lanes
+.
+First, a logical result size is determined.
+
+ If
+lanewise
+is false, this size that of the input
+VSHAPE
+.  If
+lanewise
+is true, the logical
+ result size is the product of the input
+VLENGTH
+times the size of the
+output
+ETYPE
+.
+Next, the logical result size is compared against
+ the size of the proposed output shape, to see how it
+ will fit.
+If the logical result fits precisely in the
+ output shape, the return value is zero, signifying
+ no net expansion or contraction.
+If the logical result would overflow the output shape, the
+ return value is the ratio (greater than one) of the logical
+ result size to the (smaller) output size.  This ratio can be
+ viewed as measuring the proportion of "dropped input bits"
+ which must be deleted from the input in order for the result to
+ fit in the output vector.  It is also the
+part limit
+,
+ a upper exclusive limit on the
+part
+parameter to a
+ method that would transform the input species to the output
+ species.
+If the logical result would drop into the output shape
+ with room to spare, the return value is a negative number whose
+ absolute value the ratio (greater than one) between the output
+ size and the (smaller) logical result size.  This ratio can be
+ viewed as measuring the proportion of "extra padding bits"
+ which must be added to the logical result to fill up the output
+ vector.  It is also the
+part limit
+, an exclusive lower
+ limit on the
+part
+parameter to a method that would
+ transform the input species to the output species.
+Parameters:
+outputSpecies
+- the proposed output species
+lanewise
+- whether to take lane sizes into account
+Returns:
+an indication of the size change, as a signed ratio or zero
+See Also:
+Vector.reinterpretShape(VectorSpecies,int)
+Vector.convertShape(VectorOperators.Conversion,VectorSpecies,int)
+withLanes
+<F>
+VectorSpecies
+<F>
+withLanes
+(
+Class
+<F> newType)
+Finds a species with the given element type and the
+ same shape as this species.
+ Returns the same value as
+VectorSpecies.of(newType, this.vectorShape())
+.
+Type Parameters:
+F
+- the boxed element type
+Parameters:
+newType
+- the new element type
+Returns:
+a species for the new element type and the same shape
+Throws:
+IllegalArgumentException
+- if no such species exists for the
+         given combination of element type and shape
+         or if the given type is not a valid
+ETYPE
+See Also:
+withShape(VectorShape)
+of(Class, VectorShape)
+withShape
+VectorSpecies
+<
+E
+>
+withShape
+(
+VectorShape
+newShape)
+Finds a species with the given shape and the same
+ elementType as this species.
+ Returns the same value as
+VectorSpecies.of(this.elementType(), newShape)
+.
+Parameters:
+newShape
+- the new shape
+Returns:
+a species for the same element type and the new shape
+Throws:
+IllegalArgumentException
+- if no such species exists for the
+         given combination of element type and shape
+See Also:
+withLanes(Class)
+of(Class, VectorShape)
+of
+static
+<E>
+VectorSpecies
+<E>
+of
+(
+Class
+<E> elementType,
+VectorShape
+shape)
+Finds a species for an element type and shape.
+Type Parameters:
+E
+- the boxed element type
+Parameters:
+elementType
+- the element type
+shape
+- the shape
+Returns:
+a species for the given element type and shape
+Throws:
+IllegalArgumentException
+- if no such species exists for the
+         given combination of element type and shape
+         or if the given type is not a valid
+ETYPE
+See Also:
+withLanes(Class)
+withShape(VectorShape)
+ofLargestShape
+static
+<E>
+VectorSpecies
+<E>
+ofLargestShape
+(
+Class
+<E> etype)
+Finds the largest vector species of the given element type.
+The returned species is a species chosen by the platform that has a
+ shape with the largest possible bit-size for the given element type.
+ The underlying vector shape might not support other lane types
+ on some platforms, which may limit the applicability of
+reinterpretation casts
+.
+ Vector algorithms which require reinterpretation casts will
+ be more portable if they use the platform's
+preferred species
+.
+Type Parameters:
+E
+- the boxed element type
+Parameters:
+etype
+- the element type
+Returns:
+a preferred species for an element type
+Throws:
+IllegalArgumentException
+- if no such species exists for the
+         element type
+         or if the given type is not a valid
+ETYPE
+See Also:
+ofPreferred(Class)
+ofPreferred
+static
+<E>
+VectorSpecies
+<E>
+ofPreferred
+(
+Class
+<E> etype)
+Finds the species preferred by the current platform
+ for a given vector element type.
+ This is the same value as
+VectorSpecies.of(etype, VectorShape.preferredShape())
+.
+This species is chosen by the platform so that it has the
+ largest possible shape that supports all lane element types.
+ This has the following implications:
+The various preferred species for different element types
+ will have the same underlying shape.
+All vectors created from preferred species will have a
+ common bit-size and information capacity.
+Reinterpretation casts
+between vectors of preferred species will neither truncate
+ lanes nor fill them with default values.
+For any particular element type, some platform might possibly
+ provide a
+larger vector shape
+that (as a trade-off) does not support all possible element types.
+Implementation Note:
+On many platforms there is no behavioral difference
+ between
+ofLargestShape
+and
+ofPreferred
+, because the preferred shape is usually
+ also the largest available shape for every lane type.
+ Therefore, most vector algorithms will perform well without
+ofLargestShape
+.
+Type Parameters:
+E
+- the boxed element type
+Parameters:
+etype
+- the element type
+Returns:
+a preferred species for this element type
+Throws:
+IllegalArgumentException
+- if no such species exists for the
+         element type
+         or if the given type is not a valid
+ETYPE
+See Also:
+Vector.reinterpretShape(VectorSpecies,int)
+VectorShape.preferredShape()
+ofLargestShape(Class)
+elementSize
+static
+int
+elementSize
+(
+Class
+<?> elementType)
+Returns the bit-size of the given vector element type (
+ETYPE
+).
+ The element type must be a valid
+ETYPE
+, not a
+ wrapper type or other object type.
+
+ The element type argument must be a mirror for a valid vector
+ETYPE
+, such as
+byte.class
+,
+int.class
+,
+ or
+double.class
+.  The bit-size of such a type is the
+SIZE
+constant for the corresponding wrapper class, such
+ as
+Byte.SIZE
+, or
+Integer.SIZE
+, or
+Double.SIZE
+.
+Parameters:
+elementType
+- a vector element type (an
+ETYPE
+)
+Returns:
+the bit-size of
+elementType
+, such as 32 for
+int.class
+Throws:
+IllegalArgumentException
+- if the given
+elementType
+argument is not
+         a valid vector
+ETYPE
+zero
+Vector
+<
+E
+>
+zero
+()
+Returns a vector of this species
+ where all lane elements are set to
+ the default primitive value,
+(ETYPE)0
+.
+
+ Equivalent to
+IntVector.zero(this)
+or an equivalent
+zero
+method,
+ on the vector type corresponding to
+ this species.
+Returns:
+a zero vector of the given species
+See Also:
+IntVector.zero(VectorSpecies)
+FloatVector.zero(VectorSpecies)
+fromArray
+Vector
+<
+E
+>
+fromArray
+(
+Object
+a,
+ int offset)
+Returns a vector of this species
+ where lane elements are initialized
+ from the given array at the given offset.
+ The array must be of the correct
+ETYPE
+.
+
+ Equivalent to
+IntVector.fromArray(this,a,offset)
+or an equivalent
+fromArray
+method,
+ on the vector type corresponding to
+ this species.
+Parameters:
+a
+- an array of the
+ETYPE
+for this species
+offset
+- the index of the first lane value to load
+Returns:
+a vector of the given species filled from the array
+Throws:
+IndexOutOfBoundsException
+- if
+offset+N < 0
+or
+offset+N >= a.length
+for any lane
+N
+in the vector
+See Also:
+IntVector.fromArray(VectorSpecies,int[],int)
+FloatVector.fromArray(VectorSpecies,float[],int)
+fromMemorySegment
+Vector
+<
+E
+>
+fromMemorySegment
+(
+MemorySegment
+PREVIEW
+ms,
+ long offset,
+ByteOrder
+bo)
+Loads a vector of this species from a
+memory segment
+PREVIEW
+starting at an offset into the memory segment.
+ Bytes are composed into primitive lane elements according
+ to the specified byte order.
+ The vector is arranged into lanes according to
+memory ordering
+.
+Equivalent to
+IntVector.fromMemorySegment(this,ms,offset,bo)
+,
+ on the vector type corresponding to
+ this species.
+Parameters:
+ms
+- the memory segment
+offset
+- the offset into the memory segment
+bo
+- the intended byte order
+Returns:
+a vector of the given species filled from the memory segment
+Throws:
+IndexOutOfBoundsException
+- if
+offset+N*ESIZE < 0
+or
+offset+(N+1)*ESIZE > a.length
+for any lane
+N
+in the vector
+Since:
+19
+See Also:
+IntVector.fromMemorySegment(VectorSpecies, java.lang.foreign.MemorySegment, long, java.nio.ByteOrder)
+PREVIEW
+FloatVector.fromMemorySegment(VectorSpecies, java.lang.foreign.MemorySegment, long, java.nio.ByteOrder)
+PREVIEW
+loadMask
+VectorMask
+<
+E
+>
+loadMask
+(boolean[] bits,
+ int offset)
+Returns a mask of this species
+ where lane elements are initialized
+ from the given array at the given offset.
+
+ Equivalent to
+VectorMask.fromArray(this,a,offset)
+.
+Parameters:
+bits
+- the
+boolean
+array
+offset
+- the offset into the array
+Returns:
+the mask loaded from the
+boolean
+array
+Throws:
+IndexOutOfBoundsException
+- if
+offset+N < 0
+or
+offset+N >= a.length
+for any lane
+N
+in the vector mask
+See Also:
+VectorMask.fromArray(VectorSpecies,boolean[],int)
+maskAll
+VectorMask
+<
+E
+>
+maskAll
+(boolean bit)
+Returns a mask of this species,
+ where each lane is set or unset according to given
+ single boolean, which is broadcast to all lanes.
+Parameters:
+bit
+- the given mask bit to be replicated
+Returns:
+a mask where each lane is set or unset according to
+         the given bit
+See Also:
+Vector.maskAll(boolean)
+broadcast
+Vector
+<
+E
+>
+broadcast
+(long e)
+Returns a vector of the given species
+ where all lane elements are set to
+ the primitive value
+e
+.
+This method returns the value of this expression:
+EVector.broadcast(this, (ETYPE)e)
+, where
+EVector
+is the vector class specific to the
+ the
+ETYPE
+of this species.
+ The
+long
+value must be accurately representable
+ by
+ETYPE
+, so that
+e==(long)(ETYPE)e
+.
+Parameters:
+e
+- the value to broadcast
+Returns:
+a vector where all lane elements are set to
+         the primitive value
+e
+Throws:
+IllegalArgumentException
+- if the given
+long
+value cannot
+         be represented by the vector species
+ETYPE
+See Also:
+Vector.broadcast(long)
+checkValue(long)
+checkValue
+long
+checkValue
+(long e)
+Checks that this species can represent the given element value,
+ and returns the value unchanged.
+
+ The
+long
+value must be accurately representable
+ by the
+ETYPE
+of the vector species, so that
+e==(long)(ETYPE)e
+.
+
+ The effect is similar to this pseudocode:
+e == (long)(ETYPE)e
+        ? e
+        : throw new IllegalArgumentException()
+.
+Parameters:
+e
+- the value to be checked
+Returns:
+e
+Throws:
+IllegalArgumentException
+- if the given
+long
+value cannot
+         be represented by the vector species
+ETYPE
+See Also:
+broadcast(long)
+shuffleFromValues
+VectorShuffle
+<
+E
+>
+shuffleFromValues
+(int... sourceIndexes)
+Creates a shuffle for this species from
+ a series of source indexes.
+For each shuffle lane, where
+N
+is the shuffle lane
+ index, the
+N
+th index value is validated
+ against the species
+VLENGTH
+, and (if invalid)
+ is partially wrapped to an exceptional index in the
+ range
+[-VLENGTH..-1]
+.
+Parameters:
+sourceIndexes
+- the source indexes which the shuffle will draw from
+Returns:
+a shuffle where each lane's source index is set to the given
+int
+value, partially wrapped if exceptional
+Throws:
+IndexOutOfBoundsException
+- if
+sourceIndexes.length != VLENGTH
+See Also:
+VectorShuffle.fromValues(VectorSpecies,int...)
+shuffleFromArray
+VectorShuffle
+<
+E
+>
+shuffleFromArray
+(int[] sourceIndexes,
+ int offset)
+Creates a shuffle for this species from
+ an
+int
+array starting at an offset.
+For each shuffle lane, where
+N
+is the shuffle lane
+ index, the array element at index
+i + N
+is validated
+ against the species
+VLENGTH
+, and (if invalid)
+ is partially wrapped to an exceptional index in the
+ range
+[-VLENGTH..-1]
+.
+Parameters:
+sourceIndexes
+- the source indexes which the shuffle will draw from
+offset
+- the offset into the array
+Returns:
+a shuffle where each lane's source index is set to the given
+int
+value, partially wrapped if exceptional
+Throws:
+IndexOutOfBoundsException
+- if
+offset < 0
+, or
+offset > sourceIndexes.length - VLENGTH
+See Also:
+VectorShuffle.fromArray(VectorSpecies,int[],int)
+shuffleFromOp
+VectorShuffle
+<
+E
+>
+shuffleFromOp
+(
+IntUnaryOperator
+fn)
+Creates a shuffle for this species from
+ the successive values of an operator applied to
+ the range
+[0..VLENGTH-1]
+.
+For each shuffle lane, where
+N
+is the shuffle lane
+ index, the
+N
+th index value is validated
+ against the species
+VLENGTH
+, and (if invalid)
+ is partially wrapped to an exceptional index in the
+ range
+[-VLENGTH..-1]
+.
+Care should be taken to ensure
+VectorShuffle
+values
+ produced from this method are consumed as constants to ensure
+ optimal generation of code.  For example, shuffle values can be
+ held in
+static final
+fields or loop-invariant local variables.
+This method behaves as if a shuffle is created from an array of
+ mapped indexes as follows:
+int[] a = new int[VLENGTH];
+   for (int i = 0; i < a.length; i++) {
+       a[i] = fn.applyAsInt(i);
+   }
+   return VectorShuffle.fromArray(this, a, 0);
+Parameters:
+fn
+- the lane index mapping function
+Returns:
+a shuffle of mapped indexes
+See Also:
+VectorShuffle.fromOp(VectorSpecies,IntUnaryOperator)
+iotaShuffle
+VectorShuffle
+<
+E
+>
+iotaShuffle
+(int start,
+ int step,
+ boolean wrap)
+Creates a shuffle using source indexes set to sequential
+ values starting from
+start
+and stepping
+ by the given
+step
+.
+This method returns the value of the expression
+VectorSpecies.shuffleFromOp(i -> R(start + i * step))
+,
+ where
+R
+is
+wrapIndex
+if
+wrap
+is true, and is the identity function otherwise.
+If
+wrap
+is false each index is validated
+ against the species
+VLENGTH
+, and (if invalid)
+ is partially wrapped to an exceptional index in the
+ range
+[-VLENGTH..-1]
+.
+ Otherwise, if
+wrap
+is true, also reduce each index, as if
+ by
+wrapIndex
+,
+ to the valid range
+[0..VLENGTH-1]
+.
+API Note:
+The
+wrap
+parameter should be set to
+true
+if invalid source indexes should be wrapped.  Otherwise,
+ setting it to
+false
+allows invalid source indexes to be
+ range-checked by later operations such as
+unary rearrange
+.
+Parameters:
+start
+- the starting value of the source index sequence, typically
+0
+step
+- the difference between adjacent source indexes, typically
+1
+wrap
+- whether to wrap resulting indexes modulo
+VLENGTH
+Returns:
+a shuffle of sequential lane indexes
+See Also:
+VectorShuffle.iota(VectorSpecies,int,int,boolean)
+toString
+String
+toString
+()
+Returns a string of the form "Species[ETYPE, VLENGTH, SHAPE]",
+ where
+ETYPE
+is the primitive
+lane type
+,
+VLENGTH
+is the
+vector lane count
+associated with the species, and
+SHAPE
+is the
+vector shape
+associated with the species.
+Overrides:
+toString
+in class
+Object
+Returns:
+a string of the form "Species[ETYPE, VLENGTH, SHAPE]"
+equals
+boolean
+equals
+(
+Object
+obj)
+Indicates whether this species is identical to some other object.
+ Two species are identical only if they have the same shape
+ and same element type.
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- the reference object with which to compare.
+Returns:
+whether this species is identical to some other object
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+int
+hashCode
+()
+Returns a hash code value for the species,
+ based on the vector shape and element type.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+a hash code value for this species
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

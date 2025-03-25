@@ -1,0 +1,482 @@
+Uses of Interface com.sun.jdi.Value (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Interface
+com.sun.jdi.Value
+Packages that use
+Value
+Package
+Description
+com.sun.jdi
+This is the core package of the Java Debug
+ Interface (JDI), it defines mirrors for values, types, and the target
+ VirtualMachine itself - as well bootstrapping facilities.
+com.sun.jdi.event
+This package defines JDI events and event processing.
+Uses of
+Value
+in
+com.sun.jdi
+Subinterfaces of
+Value
+in
+com.sun.jdi
+Modifier and Type
+Interface
+Description
+interface
+ArrayReference
+Provides access to an array object and its components in the target VM.
+interface
+BooleanValue
+Provides access to a primitive
+boolean
+value in
+ the target VM.
+interface
+ByteValue
+Provides access to a primitive
+byte
+value in the target VM.
+interface
+CharValue
+Provides access to a primitive
+char
+value in
+ the target VM.
+interface
+ClassLoaderReference
+A class loader object from the target VM.
+interface
+ClassObjectReference
+An instance of java.lang.Class from the target VM.
+interface
+DoubleValue
+Provides access to a primitive
+double
+value in
+ the target VM.
+interface
+FloatValue
+Provides access to a primitive
+float
+value in
+ the target VM.
+interface
+IntegerValue
+Provides access to a primitive
+int
+value in
+ the target VM.
+interface
+LongValue
+Provides access to a primitive
+long
+value in
+ the target VM.
+interface
+ModuleReference
+A module in the target VM.
+interface
+ObjectReference
+An object that currently exists in the target VM.
+interface
+PrimitiveValue
+The value assigned to a field or variable of primitive type in a
+ target VM.
+interface
+ShortValue
+Provides access to a primitive
+short
+value in
+ the target VM.
+interface
+StringReference
+A string object from the target VM.
+interface
+ThreadGroupReference
+A thread group object from the target VM.
+interface
+ThreadReference
+A thread object from the target VM.
+interface
+VoidValue
+Provides access to a primitive
+void
+value in
+ the target VM.
+Methods in
+com.sun.jdi
+that return
+Value
+Modifier and Type
+Method
+Description
+Value
+ArrayReference.
+getValue
+(int index)
+Returns an array component value.
+Value
+ObjectReference.
+getValue
+(
+Field
+sig)
+Gets the value of a given instance or static field in this object.
+Value
+ReferenceType.
+getValue
+(
+Field
+field)
+Gets the
+Value
+of a given static
+Field
+in this type.
+Value
+StackFrame.
+getValue
+(
+LocalVariable
+variable)
+Gets the
+Value
+of a
+LocalVariable
+in this frame.
+Value
+ClassType.
+invokeMethod
+(
+ThreadReference
+thread,
+Method
+method,
+List
+<? extends
+Value
+> arguments,
+ int options)
+Invokes the specified static
+Method
+in the
+ target VM.
+default
+Value
+InterfaceType.
+invokeMethod
+(
+ThreadReference
+thread,
+Method
+method,
+List
+<? extends
+Value
+> arguments,
+ int options)
+Invokes the specified static
+Method
+in the
+ target VM.
+Value
+ObjectReference.
+invokeMethod
+(
+ThreadReference
+thread,
+Method
+method,
+List
+<? extends
+Value
+> arguments,
+ int options)
+Invokes the specified
+Method
+on this object in the
+ target VM.
+Methods in
+com.sun.jdi
+that return types with arguments of type
+Value
+Modifier and Type
+Method
+Description
+List
+<
+Value
+>
+StackFrame.
+getArgumentValues
+()
+Returns the values of all arguments in this frame.
+List
+<
+Value
+>
+ArrayReference.
+getValues
+()
+Returns all of the components in this array.
+List
+<
+Value
+>
+ArrayReference.
+getValues
+(int index,
+ int length)
+Returns a range of array components.
+Map
+<
+Field
+,
+Value
+>
+ObjectReference.
+getValues
+(
+List
+<? extends
+Field
+> fields)
+Gets the value of multiple instance and/or static fields in this object.
+Map
+<
+Field
+,
+Value
+>
+ReferenceType.
+getValues
+(
+List
+<? extends
+Field
+> fields)
+Returns a map containing the
+Value
+of each
+ static
+Field
+in the given list.
+Map
+<
+LocalVariable
+,
+Value
+>
+StackFrame.
+getValues
+(
+List
+<? extends
+LocalVariable
+> variables)
+Returns the values of multiple local variables in this frame.
+Methods in
+com.sun.jdi
+with parameters of type
+Value
+Modifier and Type
+Method
+Description
+void
+ThreadReference.
+forceEarlyReturn
+(
+Value
+value)
+Force a method to return before it reaches a return
+ statement.
+void
+ArrayReference.
+setValue
+(int index,
+Value
+value)
+Replaces an array component with another value.
+void
+ClassType.
+setValue
+(
+Field
+field,
+Value
+value)
+Assigns a value to a static field.
+void
+ObjectReference.
+setValue
+(
+Field
+field,
+Value
+value)
+Sets the value of a given instance or static field in this object.
+void
+StackFrame.
+setValue
+(
+LocalVariable
+variable,
+Value
+value)
+Sets the
+Value
+of a
+LocalVariable
+in this frame.
+Method parameters in
+com.sun.jdi
+with type arguments of type
+Value
+Modifier and Type
+Method
+Description
+Value
+ClassType.
+invokeMethod
+(
+ThreadReference
+thread,
+Method
+method,
+List
+<? extends
+Value
+> arguments,
+ int options)
+Invokes the specified static
+Method
+in the
+ target VM.
+default
+Value
+InterfaceType.
+invokeMethod
+(
+ThreadReference
+thread,
+Method
+method,
+List
+<? extends
+Value
+> arguments,
+ int options)
+Invokes the specified static
+Method
+in the
+ target VM.
+Value
+ObjectReference.
+invokeMethod
+(
+ThreadReference
+thread,
+Method
+method,
+List
+<? extends
+Value
+> arguments,
+ int options)
+Invokes the specified
+Method
+on this object in the
+ target VM.
+ObjectReference
+ClassType.
+newInstance
+(
+ThreadReference
+thread,
+Method
+method,
+List
+<? extends
+Value
+> arguments,
+ int options)
+Constructs a new instance of this type, using
+ the given constructor
+Method
+in the
+ target VM.
+void
+ArrayReference.
+setValues
+(int index,
+List
+<? extends
+Value
+> values,
+ int srcIndex,
+ int length)
+Replaces a range of array components with other values.
+void
+ArrayReference.
+setValues
+(
+List
+<? extends
+Value
+> values)
+Replaces all array components with other values.
+Uses of
+Value
+in
+com.sun.jdi.event
+Methods in
+com.sun.jdi.event
+that return
+Value
+Modifier and Type
+Method
+Description
+Value
+MethodExitEvent.
+returnValue
+()
+Returns the value that the method will return.
+Value
+WatchpointEvent.
+valueCurrent
+()
+Current value of the field.
+Value
+ModificationWatchpointEvent.
+valueToBe
+()
+Value that will be assigned to the field when the instruction
+ completes.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

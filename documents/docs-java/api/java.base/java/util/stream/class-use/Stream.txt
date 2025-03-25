@@ -1,0 +1,1611 @@
+Uses of Interface java.util.stream.Stream (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Interface
+java.util.stream.Stream
+Packages that use
+Stream
+Package
+Description
+java.io
+Provides for system input and output through data streams,
+ serialization and the file system.
+java.lang
+Provides classes that are fundamental to the design of the Java
+ programming language.
+java.lang.foreign
+Provides low-level access to memory and functions outside the Java runtime.
+java.lang.module
+Classes to support module descriptors and creating configurations of modules
+ by means of resolution and service binding.
+java.net
+Provides the classes for implementing networking applications.
+java.net.http
+HTTP Client and WebSocket APIs
+java.net.spi
+Service-provider classes for the
+java.net
+package.
+java.nio.file
+Defines interfaces and classes for the Java virtual machine to access files,
+ file attributes, and file systems.
+java.security
+Provides the classes and interfaces for the security framework.
+java.sql
+Provides the API for accessing and processing data stored in a
+ data source (usually a relational database) using the
+ Java programming language.
+java.time
+The main API for dates, times, instants, and durations.
+java.util
+Contains the collections framework, some internationalization support classes,
+ a service loader, properties, random number generation, string parsing
+ and scanning classes, base64 encoding and decoding, a bit array, and
+ several miscellaneous utility classes.
+java.util.jar
+Provides classes for reading and writing the JAR (Java ARchive)
+ file format, which is based on the standard ZIP file format with an
+ optional manifest file.
+java.util.random
+This package contains classes and interfaces that support a generic API
+ for random number generation.
+java.util.regex
+Classes for matching character sequences against patterns specified
+ by regular expressions.
+java.util.stream
+Classes to support functional-style operations on streams of elements, such
+ as map-reduce transformations on collections.
+java.util.zip
+Provides classes for reading and writing the standard ZIP and GZIP file
+ formats.
+javax.xml.catalog
+Provides the classes for implementing
+XML Catalogs OASIS Standard V1.1, 7 October 2005
+.
+jdk.jshell
+Provides interfaces for creating tools, such as a Read-Eval-Print Loop (REPL),
+ which interactively evaluate "snippets" of Java programming language code.
+Uses of
+Stream
+in
+java.io
+Methods in
+java.io
+that return
+Stream
+Modifier and Type
+Method
+Description
+Stream
+<
+String
+>
+BufferedReader.
+lines
+()
+Returns a
+Stream
+, the elements of which are lines read from
+ this
+BufferedReader
+.
+Uses of
+Stream
+in
+java.lang
+Methods in
+java.lang
+that return
+Stream
+Modifier and Type
+Method
+Description
+static
+Stream
+<
+ProcessHandle
+>
+ProcessHandle.
+allProcesses
+()
+Returns a snapshot of all processes visible to the current process.
+Stream
+<
+ProcessHandle
+>
+Process.
+children
+()
+Returns a snapshot of the direct children of the process.
+Stream
+<
+ProcessHandle
+>
+ProcessHandle.
+children
+()
+Returns a snapshot of the current direct children of the process.
+Stream
+<
+ProcessHandle
+>
+Process.
+descendants
+()
+Returns a snapshot of the descendants of the process.
+Stream
+<
+ProcessHandle
+>
+ProcessHandle.
+descendants
+()
+Returns a snapshot of the descendants of the process.
+Stream
+<
+String
+>
+String.
+lines
+()
+Returns a stream of lines extracted from this string,
+ separated by line terminators.
+Stream
+<
+URL
+>
+ClassLoader.
+resources
+(
+String
+name)
+Returns a stream whose elements are the URLs of all the resources with
+ the given name.
+Method parameters in
+java.lang
+with type arguments of type
+Stream
+Modifier and Type
+Method
+Description
+<T> T
+StackWalker.
+walk
+(
+Function
+<? super
+Stream
+<
+StackWalker.StackFrame
+>,
+? extends T> function)
+Applies the given function to the stream of
+StackFrame
+s
+ for the current thread, traversing from the top frame of the stack,
+ which is the method calling this
+walk
+method.
+Uses of
+Stream
+in
+java.lang.foreign
+Methods in
+java.lang.foreign
+that return
+Stream
+Modifier and Type
+Method
+Description
+Stream
+<
+MemorySegment
+PREVIEW
+>
+MemorySegment.
+elements
+(
+MemoryLayout
+PREVIEW
+elementLayout)
+Returns a sequential
+Stream
+over disjoint slices (whose size matches that of the specified layout)
+ in this segment.
+Uses of
+Stream
+in
+java.lang.module
+Methods in
+java.lang.module
+that return
+Stream
+Modifier and Type
+Method
+Description
+Stream
+<
+String
+>
+ModuleReader.
+list
+()
+Lists the contents of the module, returning a stream of elements that
+ are the names of all resources in the module.
+Uses of
+Stream
+in
+java.net
+Methods in
+java.net
+that return
+Stream
+Modifier and Type
+Method
+Description
+Stream
+<
+InetAddress
+>
+NetworkInterface.
+inetAddresses
+()
+Get a Stream of all or a subset of the InetAddresses bound to this
+ network interface.
+static
+Stream
+<
+NetworkInterface
+>
+NetworkInterface.
+networkInterfaces
+()
+Returns a
+Stream
+of all the interfaces on this machine.
+Stream
+<
+NetworkInterface
+>
+NetworkInterface.
+subInterfaces
+()
+Get a Stream of all subinterfaces (also known as virtual
+ interfaces) attached to this network interface.
+Uses of
+Stream
+in
+java.net.http
+Methods in
+java.net.http
+that return types with arguments of type
+Stream
+Modifier and Type
+Method
+Description
+static
+HttpResponse.BodyHandler
+<
+Stream
+<
+String
+>>
+HttpResponse.BodyHandlers.
+ofLines
+()
+Returns a
+BodyHandler<Stream<String>>
+that returns a
+BodySubscriber
+<Stream<String>>
+obtained
+ from
+BodySubscribers.ofLines(charset)
+.
+static
+HttpResponse.BodySubscriber
+<
+Stream
+<
+String
+>>
+HttpResponse.BodySubscribers.
+ofLines
+(
+Charset
+charset)
+Returns a
+BodySubscriber
+which streams the response body as
+ a
+Stream
+<String>
+, where each string in the stream
+ corresponds to a line as defined by
+BufferedReader.lines()
+.
+Uses of
+Stream
+in
+java.net.spi
+Methods in
+java.net.spi
+that return
+Stream
+Modifier and Type
+Method
+Description
+Stream
+<
+InetAddress
+>
+InetAddressResolver.
+lookupByName
+(
+String
+host,
+InetAddressResolver.LookupPolicy
+lookupPolicy)
+Given the name of a host, returns a stream of IP addresses of the requested
+ address family associated with a provided hostname.
+Uses of
+Stream
+in
+java.nio.file
+Methods in
+java.nio.file
+that return
+Stream
+Modifier and Type
+Method
+Description
+static
+Stream
+<
+Path
+>
+Files.
+find
+(
+Path
+start,
+ int maxDepth,
+BiPredicate
+<
+Path
+,
+BasicFileAttributes
+> matcher,
+FileVisitOption
+... options)
+Return a
+Stream
+that is lazily populated with
+Path
+by searching for files in a file tree rooted at a given starting
+ file.
+static
+Stream
+<
+String
+>
+Files.
+lines
+(
+Path
+path)
+Read all lines from a file as a
+Stream
+.
+static
+Stream
+<
+String
+>
+Files.
+lines
+(
+Path
+path,
+Charset
+cs)
+Read all lines from a file as a
+Stream
+.
+static
+Stream
+<
+Path
+>
+Files.
+list
+(
+Path
+dir)
+Return a lazily populated
+Stream
+, the elements of
+ which are the entries in the directory.
+static
+Stream
+<
+Path
+>
+Files.
+walk
+(
+Path
+start,
+ int maxDepth,
+FileVisitOption
+... options)
+Return a
+Stream
+that is lazily populated with
+Path
+by walking the file tree rooted at a given starting file.
+static
+Stream
+<
+Path
+>
+Files.
+walk
+(
+Path
+start,
+FileVisitOption
+... options)
+Return a
+Stream
+that is lazily populated with
+Path
+by walking the file tree rooted at a given starting file.
+Uses of
+Stream
+in
+java.security
+Methods in
+java.security
+that return
+Stream
+Modifier and Type
+Method
+Description
+Stream
+<
+Permission
+>
+PermissionCollection.
+elementsAsStream
+()
+Returns a stream of all the Permission objects in the collection.
+Uses of
+Stream
+in
+java.sql
+Methods in
+java.sql
+that return
+Stream
+Modifier and Type
+Method
+Description
+static
+Stream
+<
+Driver
+>
+DriverManager.
+drivers
+()
+Retrieves a Stream with all of the currently loaded JDBC drivers
+ to which the current caller has access.
+Uses of
+Stream
+in
+java.time
+Methods in
+java.time
+that return
+Stream
+Modifier and Type
+Method
+Description
+Stream
+<
+LocalDate
+>
+LocalDate.
+datesUntil
+(
+LocalDate
+endExclusive)
+Returns a sequential ordered stream of dates.
+Stream
+<
+LocalDate
+>
+LocalDate.
+datesUntil
+(
+LocalDate
+endExclusive,
+Period
+step)
+Returns a sequential ordered stream of dates by given incremental step.
+Uses of
+Stream
+in
+java.util
+Methods in
+java.util
+that return
+Stream
+Modifier and Type
+Method
+Description
+static
+Stream
+<
+Locale
+>
+Locale.
+availableLocales
+()
+Returns a stream of installed locales.
+Stream
+<
+MatchResult
+>
+Scanner.
+findAll
+(
+String
+patString)
+Returns a stream of match results that match the provided pattern string.
+Stream
+<
+MatchResult
+>
+Scanner.
+findAll
+(
+Pattern
+pattern)
+Returns a stream of match results from this scanner.
+default
+Stream
+<
+E
+>
+Collection.
+parallelStream
+()
+Returns a possibly parallel
+Stream
+with this collection as its
+ source.
+Stream
+<
+RandomGenerator.SplittableGenerator
+>
+SplittableRandom.
+splits
+()
+Returns an effectively unlimited stream of new pseudorandom number
+ generators, each of which implements the
+RandomGenerator.SplittableGenerator
+interface.
+Stream
+<
+RandomGenerator.SplittableGenerator
+>
+SplittableRandom.
+splits
+(long streamSize)
+Returns a stream producing the given
+streamSize
+number of new
+ pseudorandom number generators, each of which implements the
+RandomGenerator.SplittableGenerator
+interface.
+Stream
+<
+RandomGenerator.SplittableGenerator
+>
+SplittableRandom.
+splits
+(long streamSize,
+RandomGenerator.SplittableGenerator
+source)
+Returns a stream producing the given
+streamSize
+number of new
+ pseudorandom number generators, each of which implements the
+RandomGenerator.SplittableGenerator
+interface.
+Stream
+<
+RandomGenerator.SplittableGenerator
+>
+SplittableRandom.
+splits
+(
+RandomGenerator.SplittableGenerator
+source)
+Returns an effectively unlimited stream of new pseudorandom number
+ generators, each of which implements the
+RandomGenerator.SplittableGenerator
+interface.
+static <T>
+Stream
+<T>
+Arrays.
+stream
+(T[] array)
+Returns a sequential
+Stream
+with the specified array as its
+ source.
+static <T>
+Stream
+<T>
+Arrays.
+stream
+(T[] array,
+ int startInclusive,
+ int endExclusive)
+Returns a sequential
+Stream
+with the specified range of the
+ specified array as its source.
+default
+Stream
+<
+E
+>
+Collection.
+stream
+()
+Returns a sequential
+Stream
+with this collection as its source.
+Stream
+<
+T
+>
+Optional.
+stream
+()
+If a value is present, returns a sequential
+Stream
+containing
+ only that value, otherwise returns an empty
+Stream
+.
+Stream
+<
+ServiceLoader.Provider
+<
+S
+>>
+ServiceLoader.
+stream
+()
+Returns a stream to lazily load available providers of this loader's
+ service.
+Stream
+<
+String
+>
+Scanner.
+tokens
+()
+Returns a stream of delimiter-separated tokens from this scanner.
+Uses of
+Stream
+in
+java.util.jar
+Methods in
+java.util.jar
+that return
+Stream
+Modifier and Type
+Method
+Description
+Stream
+<
+JarEntry
+>
+JarFile.
+stream
+()
+Returns an ordered
+Stream
+over the jar file entries.
+Stream
+<
+JarEntry
+>
+JarFile.
+versionedStream
+()
+Returns a
+Stream
+of the versioned jar file entries.
+Uses of
+Stream
+in
+java.util.random
+Methods in
+java.util.random
+that return
+Stream
+Modifier and Type
+Method
+Description
+static
+Stream
+<
+RandomGeneratorFactory
+<
+RandomGenerator
+>>
+RandomGeneratorFactory.
+all
+()
+Returns a non-empty stream of available
+RandomGeneratorFactory(s)
+.
+default
+Stream
+<
+RandomGenerator.ArbitrarilyJumpableGenerator
+>
+RandomGenerator.ArbitrarilyJumpableGenerator.
+jumps
+(double distance)
+Returns an effectively unlimited stream of new pseudorandom number
+ generators, each of which implements the
+RandomGenerator.ArbitrarilyJumpableGenerator
+interface, produced by jumping
+ copies of this generator by different integer multiples of the
+ specified jump distance.
+default
+Stream
+<
+RandomGenerator.ArbitrarilyJumpableGenerator
+>
+RandomGenerator.ArbitrarilyJumpableGenerator.
+jumps
+(long streamSize,
+ double distance)
+Returns a stream producing the given
+streamSize
+number of new
+ pseudorandom number generators, each of which implements the
+RandomGenerator.ArbitrarilyJumpableGenerator
+interface, produced by jumping
+ copies of this generator by different integer multiples of the
+ specified jump distance.
+default
+Stream
+<
+RandomGenerator
+>
+RandomGenerator.JumpableGenerator.
+jumps
+()
+Returns an effectively unlimited stream of new pseudorandom number
+ generators, each of which implements the
+RandomGenerator
+interface.
+default
+Stream
+<
+RandomGenerator
+>
+RandomGenerator.JumpableGenerator.
+jumps
+(long streamSize)
+Returns a stream producing the given
+streamSize
+number of new
+ pseudorandom number generators, each of which implements the
+RandomGenerator
+interface.
+default
+Stream
+<
+RandomGenerator.JumpableGenerator
+>
+RandomGenerator.LeapableGenerator.
+leaps
+()
+Returns an effectively unlimited stream of new pseudorandom number
+ generators, each of which implements the
+RandomGenerator.JumpableGenerator
+interface.
+default
+Stream
+<
+RandomGenerator.JumpableGenerator
+>
+RandomGenerator.LeapableGenerator.
+leaps
+(long streamSize)
+Returns a stream producing the given
+streamSize
+number of new
+ pseudorandom number generators, each of which implements the
+RandomGenerator.JumpableGenerator
+interface.
+default
+Stream
+<
+RandomGenerator
+>
+RandomGenerator.JumpableGenerator.
+rngs
+()
+Returns an effectively unlimited stream of new pseudorandom number
+ generators, each of which implements the
+RandomGenerator
+interface.
+default
+Stream
+<
+RandomGenerator
+>
+RandomGenerator.JumpableGenerator.
+rngs
+(long streamSize)
+Returns a stream producing the given
+streamSize
+number of new
+ pseudorandom number generators, each of which implements the
+RandomGenerator
+interface.
+default
+Stream
+<
+RandomGenerator
+>
+RandomGenerator.SplittableGenerator.
+rngs
+()
+Returns an effectively unlimited stream of new pseudorandom number
+ generators, each of which implements the
+RandomGenerator
+interface.
+default
+Stream
+<
+RandomGenerator
+>
+RandomGenerator.SplittableGenerator.
+rngs
+(long streamSize)
+Returns a stream producing the given
+streamSize
+number of new
+ pseudorandom number generators, each of which implements the
+RandomGenerator
+interface.
+Stream
+<
+RandomGenerator
+>
+RandomGenerator.StreamableGenerator.
+rngs
+()
+Returns an effectively unlimited stream of objects, each of which
+ implements the
+RandomGenerator
+interface.
+default
+Stream
+<
+RandomGenerator
+>
+RandomGenerator.StreamableGenerator.
+rngs
+(long streamSize)
+Returns an effectively unlimited stream of objects, each of which
+ implements the
+RandomGenerator
+interface.
+default
+Stream
+<
+RandomGenerator.SplittableGenerator
+>
+RandomGenerator.SplittableGenerator.
+splits
+()
+Returns an effectively unlimited stream of new pseudorandom number
+ generators, each of which implements the
+RandomGenerator.SplittableGenerator
+interface.
+Stream
+<
+RandomGenerator.SplittableGenerator
+>
+RandomGenerator.SplittableGenerator.
+splits
+(long streamSize)
+Returns a stream producing the given
+streamSize
+number of new
+ pseudorandom number generators, each of which implements the
+RandomGenerator.SplittableGenerator
+interface.
+Stream
+<
+RandomGenerator.SplittableGenerator
+>
+RandomGenerator.SplittableGenerator.
+splits
+(long streamSize,
+RandomGenerator.SplittableGenerator
+source)
+Returns a stream producing the given
+streamSize
+number of new
+ pseudorandom number generators, each of which implements the
+RandomGenerator.SplittableGenerator
+interface.
+Stream
+<
+RandomGenerator.SplittableGenerator
+>
+RandomGenerator.SplittableGenerator.
+splits
+(
+RandomGenerator.SplittableGenerator
+source)
+Returns an effectively unlimited stream of new pseudorandom number
+ generators, each of which implements the
+RandomGenerator.SplittableGenerator
+interface.
+Uses of
+Stream
+in
+java.util.regex
+Methods in
+java.util.regex
+that return
+Stream
+Modifier and Type
+Method
+Description
+Stream
+<
+MatchResult
+>
+Matcher.
+results
+()
+Returns a stream of match results for each subsequence of the input
+ sequence that matches the pattern.
+Stream
+<
+String
+>
+Pattern.
+splitAsStream
+(
+CharSequence
+input)
+Creates a stream from the given input sequence around matches of this
+ pattern.
+Uses of
+Stream
+in
+java.util.stream
+Methods in
+java.util.stream
+that return
+Stream
+Modifier and Type
+Method
+Description
+Stream
+<
+Double
+>
+DoubleStream.
+boxed
+()
+Returns a
+Stream
+consisting of the elements of this stream,
+ boxed to
+Double
+.
+Stream
+<
+Integer
+>
+IntStream.
+boxed
+()
+Returns a
+Stream
+consisting of the elements of this stream,
+ each boxed to an
+Integer
+.
+Stream
+<
+Long
+>
+LongStream.
+boxed
+()
+Returns a
+Stream
+consisting of the elements of this stream,
+ each boxed to a
+Long
+.
+Stream
+<
+T
+>
+Stream.Builder.
+build
+()
+Builds the stream, transitioning this builder to the built state.
+static <T>
+Stream
+<T>
+Stream.
+concat
+(
+Stream
+<? extends T> a,
+Stream
+<? extends T> b)
+Creates a lazily concatenated stream whose elements are all the
+ elements of the first stream followed by all the elements of the
+ second stream.
+Stream
+<
+T
+>
+Stream.
+distinct
+()
+Returns a stream consisting of the distinct elements (according to
+Object.equals(Object)
+) of this stream.
+default
+Stream
+<
+T
+>
+Stream.
+dropWhile
+(
+Predicate
+<? super
+T
+> predicate)
+Returns, if this stream is ordered, a stream consisting of the remaining
+ elements of this stream after dropping the longest prefix of elements
+ that match the given predicate.
+static <T>
+Stream
+<T>
+Stream.
+empty
+()
+Returns an empty sequential
+Stream
+.
+Stream
+<
+T
+>
+Stream.
+filter
+(
+Predicate
+<? super
+T
+> predicate)
+Returns a stream consisting of the elements of this stream that match
+ the given predicate.
+<R>
+Stream
+<R>
+Stream.
+flatMap
+(
+Function
+<? super
+T
+,
+? extends
+Stream
+<? extends R>> mapper)
+Returns a stream consisting of the results of replacing each element of
+ this stream with the contents of a mapped stream produced by applying
+ the provided mapping function to each element.
+static <T>
+Stream
+<T>
+Stream.
+generate
+(
+Supplier
+<? extends T> s)
+Returns an infinite sequential unordered stream where each element is
+ generated by the provided
+Supplier
+.
+static <T>
+Stream
+<T>
+Stream.
+iterate
+(T seed,
+Predicate
+<? super T> hasNext,
+UnaryOperator
+<T> next)
+Returns a sequential ordered
+Stream
+produced by iterative
+ application of the given
+next
+function to an initial element,
+ conditioned on satisfying the given
+hasNext
+predicate.
+static <T>
+Stream
+<T>
+Stream.
+iterate
+(T seed,
+UnaryOperator
+<T> f)
+Returns an infinite sequential ordered
+Stream
+produced by iterative
+ application of a function
+f
+to an initial element
+seed
+,
+ producing a
+Stream
+consisting of
+seed
+,
+f(seed)
+,
+f(f(seed))
+, etc.
+Stream
+<
+T
+>
+Stream.
+limit
+(long maxSize)
+Returns a stream consisting of the elements of this stream, truncated
+ to be no longer than
+maxSize
+in length.
+<R>
+Stream
+<R>
+Stream.
+map
+(
+Function
+<? super
+T
+,
+? extends R> mapper)
+Returns a stream consisting of the results of applying the given
+ function to the elements of this stream.
+default <R>
+Stream
+<R>
+Stream.
+mapMulti
+(
+BiConsumer
+<? super
+T
+,
+? super
+Consumer
+<R>> mapper)
+Returns a stream consisting of the results of replacing each element of
+ this stream with multiple elements, specifically zero or more elements.
+<U>
+Stream
+<U>
+DoubleStream.
+mapToObj
+(
+DoubleFunction
+<? extends U> mapper)
+Returns an object-valued
+Stream
+consisting of the results of
+ applying the given function to the elements of this stream.
+<U>
+Stream
+<U>
+IntStream.
+mapToObj
+(
+IntFunction
+<? extends U> mapper)
+Returns an object-valued
+Stream
+consisting of the results of
+ applying the given function to the elements of this stream.
+<U>
+Stream
+<U>
+LongStream.
+mapToObj
+(
+LongFunction
+<? extends U> mapper)
+Returns an object-valued
+Stream
+consisting of the results of
+ applying the given function to the elements of this stream.
+static <T>
+Stream
+<T>
+Stream.
+of
+(T t)
+Returns a sequential
+Stream
+containing a single element.
+static <T>
+Stream
+<T>
+Stream.
+of
+(T... values)
+Returns a sequential ordered stream whose elements are the specified values.
+static <T>
+Stream
+<T>
+Stream.
+ofNullable
+(T t)
+Returns a sequential
+Stream
+containing a single element, if
+ non-null, otherwise returns an empty
+Stream
+.
+Stream
+<
+T
+>
+Stream.
+peek
+(
+Consumer
+<? super
+T
+> action)
+Returns a stream consisting of the elements of this stream, additionally
+ performing the provided action on each element as elements are consumed
+ from the resulting stream.
+Stream
+<
+T
+>
+Stream.
+skip
+(long n)
+Returns a stream consisting of the remaining elements of this stream
+ after discarding the first
+n
+elements of the stream.
+Stream
+<
+T
+>
+Stream.
+sorted
+()
+Returns a stream consisting of the elements of this stream, sorted
+ according to natural order.
+Stream
+<
+T
+>
+Stream.
+sorted
+(
+Comparator
+<? super
+T
+> comparator)
+Returns a stream consisting of the elements of this stream, sorted
+ according to the provided
+Comparator
+.
+static <T>
+Stream
+<T>
+StreamSupport.
+stream
+(
+Supplier
+<? extends
+Spliterator
+<T>> supplier,
+ int characteristics,
+ boolean parallel)
+Creates a new sequential or parallel
+Stream
+from a
+Supplier
+of
+Spliterator
+.
+static <T>
+Stream
+<T>
+StreamSupport.
+stream
+(
+Spliterator
+<T> spliterator,
+ boolean parallel)
+Creates a new sequential or parallel
+Stream
+from a
+Spliterator
+.
+default
+Stream
+<
+T
+>
+Stream.
+takeWhile
+(
+Predicate
+<? super
+T
+> predicate)
+Returns, if this stream is ordered, a stream consisting of the longest
+ prefix of elements taken from this stream that match the given predicate.
+Methods in
+java.util.stream
+with parameters of type
+Stream
+Modifier and Type
+Method
+Description
+static <T>
+Stream
+<T>
+Stream.
+concat
+(
+Stream
+<? extends T> a,
+Stream
+<? extends T> b)
+Creates a lazily concatenated stream whose elements are all the
+ elements of the first stream followed by all the elements of the
+ second stream.
+Method parameters in
+java.util.stream
+with type arguments of type
+Stream
+Modifier and Type
+Method
+Description
+<R>
+Stream
+<R>
+Stream.
+flatMap
+(
+Function
+<? super
+T
+,
+? extends
+Stream
+<? extends R>> mapper)
+Returns a stream consisting of the results of replacing each element of
+ this stream with the contents of a mapped stream produced by applying
+ the provided mapping function to each element.
+static <T,
+U,
+A,
+R>
+Collector
+<T,
+?,
+R>
+Collectors.
+flatMapping
+(
+Function
+<? super T,
+? extends
+Stream
+<? extends U>> mapper,
+Collector
+<? super U,
+A,
+R> downstream)
+Adapts a
+Collector
+accepting elements of type
+U
+to one
+ accepting elements of type
+T
+by applying a flat mapping function
+ to each input element before accumulation.
+Uses of
+Stream
+in
+java.util.zip
+Methods in
+java.util.zip
+that return
+Stream
+Modifier and Type
+Method
+Description
+Stream
+<? extends
+ZipEntry
+>
+ZipFile.
+stream
+()
+Returns an ordered
+Stream
+over the ZIP file entries.
+Uses of
+Stream
+in
+javax.xml.catalog
+Methods in
+javax.xml.catalog
+that return
+Stream
+Modifier and Type
+Method
+Description
+Stream
+<
+Catalog
+>
+Catalog.
+catalogs
+()
+Returns a sequential Stream of alternative Catalogs specified using the
+nextCatalog
+entries in the current catalog, and as the input of
+ catalog files excluding the current catalog (that is, the first in the
+ input list) when the Catalog object is created by the
+CatalogManager
+.
+Uses of
+Stream
+in
+jdk.jshell
+Methods in
+jdk.jshell
+that return
+Stream
+Modifier and Type
+Method
+Description
+Stream
+<
+Diag
+>
+JShell.
+diagnostics
+(
+Snippet
+snippet)
+Return the diagnostics of the most recent evaluation of the snippet.
+Stream
+<
+ImportSnippet
+>
+JShell.
+imports
+()
+Returns the active import snippets.
+Stream
+<
+MethodSnippet
+>
+JShell.
+methods
+()
+Returns the active method snippets.
+Stream
+<
+Snippet
+>
+JShell.
+snippets
+()
+Return all snippets.
+Stream
+<
+TypeDeclSnippet
+>
+JShell.
+types
+()
+Returns the active type declaration (class, interface, annotation type, and enum) snippets.
+Stream
+<
+String
+>
+JShell.
+unresolvedDependencies
+(
+DeclarationSnippet
+snippet)
+For
+RECOVERABLE_DEFINED
+or
+RECOVERABLE_NOT_DEFINED
+declarations, the names of current unresolved dependencies for
+ the snippet.
+Stream
+<
+VarSnippet
+>
+JShell.
+variables
+()
+Returns the active variable snippets.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

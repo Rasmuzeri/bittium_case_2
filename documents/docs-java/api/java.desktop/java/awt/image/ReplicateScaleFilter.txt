@@ -1,0 +1,494 @@
+ReplicateScaleFilter (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt.image
+Class ReplicateScaleFilter
+java.lang.Object
+java.awt.image.ImageFilter
+java.awt.image.ReplicateScaleFilter
+All Implemented Interfaces:
+ImageConsumer
+,
+Cloneable
+Direct Known Subclasses:
+AreaAveragingScaleFilter
+public class
+ReplicateScaleFilter
+extends
+ImageFilter
+An ImageFilter class for scaling images using the simplest algorithm.
+ This class extends the basic ImageFilter Class to scale an existing
+ image and provide a source for a new image containing the resampled
+ image.  The pixels in the source image are sampled to produce pixels
+ for an image of the specified size by replicating rows and columns of
+ pixels to scale up or omitting rows and columns of pixels to scale
+ down.
+It is meant to be used in conjunction with a FilteredImageSource
+ object to produce scaled versions of existing images.  Due to
+ implementation dependencies, there may be differences in pixel values
+ of an image filtered on different platforms.
+See Also:
+FilteredImageSource
+ImageFilter
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected int
+destHeight
+The target height to scale the image.
+protected int
+destWidth
+The target width to scale the image.
+protected
+Object
+outpixbuf
+A
+byte
+array initialized with a size of
+destWidth
+and used to deliver a row of pixel
+ data to the
+ImageConsumer
+.
+protected int[]
+srccols
+An
+int
+array containing information about a
+ column of pixels.
+protected int
+srcHeight
+The height of the source image.
+protected int[]
+srcrows
+An
+int
+array containing information about a
+ row of pixels.
+protected int
+srcWidth
+The width of the source image.
+Fields declared in class java.awt.image.
+ImageFilter
+consumer
+Fields declared in interface java.awt.image.
+ImageConsumer
+COMPLETESCANLINES
+,
+IMAGEABORTED
+,
+IMAGEERROR
+,
+RANDOMPIXELORDER
+,
+SINGLEFRAME
+,
+SINGLEFRAMEDONE
+,
+SINGLEPASS
+,
+STATICIMAGEDONE
+,
+TOPDOWNLEFTRIGHT
+Constructor Summary
+Constructors
+Constructor
+Description
+ReplicateScaleFilter
+(int width,
+ int height)
+Constructs a ReplicateScaleFilter that scales the pixels from
+ its source Image as specified by the width and height parameters.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+setDimensions
+(int w,
+ int h)
+Override the dimensions of the source image and pass the dimensions
+ of the new scaled size to the ImageConsumer.
+void
+setPixels
+(int x,
+ int y,
+ int w,
+ int h,
+ColorModel
+model,
+ byte[] pixels,
+ int off,
+ int scansize)
+Choose which rows and columns of the delivered byte pixels are
+ needed for the destination scaled image and pass through just
+ those rows and columns that are needed, replicated as necessary.
+void
+setPixels
+(int x,
+ int y,
+ int w,
+ int h,
+ColorModel
+model,
+ int[] pixels,
+ int off,
+ int scansize)
+Choose which rows and columns of the delivered int pixels are
+ needed for the destination scaled image and pass through just
+ those rows and columns that are needed, replicated as necessary.
+void
+setProperties
+(
+Hashtable
+<?,
+?> props)
+Passes along the properties from the source object after adding a
+ property indicating the scale applied.
+Methods declared in class java.awt.image.
+ImageFilter
+clone
+,
+getFilterInstance
+,
+imageComplete
+,
+resendTopDownLeftRight
+,
+setColorModel
+,
+setHints
+Methods declared in class java.lang.
+Object
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+srcWidth
+protected
+int
+srcWidth
+The width of the source image.
+srcHeight
+protected
+int
+srcHeight
+The height of the source image.
+destWidth
+protected
+int
+destWidth
+The target width to scale the image.
+destHeight
+protected
+int
+destHeight
+The target height to scale the image.
+srcrows
+protected
+int[]
+srcrows
+An
+int
+array containing information about a
+ row of pixels.
+srccols
+protected
+int[]
+srccols
+An
+int
+array containing information about a
+ column of pixels.
+outpixbuf
+protected
+Object
+outpixbuf
+A
+byte
+array initialized with a size of
+destWidth
+and used to deliver a row of pixel
+ data to the
+ImageConsumer
+.
+Constructor Details
+ReplicateScaleFilter
+public
+ReplicateScaleFilter
+(int width,
+ int height)
+Constructs a ReplicateScaleFilter that scales the pixels from
+ its source Image as specified by the width and height parameters.
+Parameters:
+width
+- the target width to scale the image
+height
+- the target height to scale the image
+Throws:
+IllegalArgumentException
+- if
+width
+equals
+         zero or
+height
+equals zero
+Method Details
+setProperties
+public
+void
+setProperties
+(
+Hashtable
+<?,
+?> props)
+Passes along the properties from the source object after adding a
+ property indicating the scale applied.
+ This method invokes
+super.setProperties
+,
+ which might result in additional properties being added.
+Note: This method is intended to be called by the
+ImageProducer
+of the
+Image
+whose pixels
+ are being filtered. Developers using
+ this class to filter pixels from an image should avoid calling
+ this method directly since that operation could interfere
+ with the filtering operation.
+Specified by:
+setProperties
+in interface
+ImageConsumer
+Overrides:
+setProperties
+in class
+ImageFilter
+Parameters:
+props
+- the properties from the source object
+setDimensions
+public
+void
+setDimensions
+(int w,
+ int h)
+Override the dimensions of the source image and pass the dimensions
+ of the new scaled size to the ImageConsumer.
+Note: This method is intended to be called by the
+ImageProducer
+of the
+Image
+whose pixels
+ are being filtered. Developers using
+ this class to filter pixels from an image should avoid calling
+ this method directly since that operation could interfere
+ with the filtering operation.
+Specified by:
+setDimensions
+in interface
+ImageConsumer
+Overrides:
+setDimensions
+in class
+ImageFilter
+Parameters:
+w
+- the width of the source image
+h
+- the height of the source image
+See Also:
+ImageConsumer
+setPixels
+public
+void
+setPixels
+(int x,
+ int y,
+ int w,
+ int h,
+ColorModel
+model,
+ byte[] pixels,
+ int off,
+ int scansize)
+Choose which rows and columns of the delivered byte pixels are
+ needed for the destination scaled image and pass through just
+ those rows and columns that are needed, replicated as necessary.
+Note: This method is intended to be called by the
+ImageProducer
+of the
+Image
+whose pixels
+ are being filtered. Developers using
+ this class to filter pixels from an image should avoid calling
+ this method directly since that operation could interfere
+ with the filtering operation.
+Specified by:
+setPixels
+in interface
+ImageConsumer
+Overrides:
+setPixels
+in class
+ImageFilter
+Parameters:
+x
+- the X coordinate of the upper-left corner of the
+        area of pixels to be set
+y
+- the Y coordinate of the upper-left corner of the
+        area of pixels to be set
+w
+- the width of the area of pixels
+h
+- the height of the area of pixels
+model
+- the specified
+ColorModel
+pixels
+- the array of pixels
+off
+- the offset into the
+pixels
+array
+scansize
+- the distance from one row of pixels to the next in
+ the
+pixels
+array
+See Also:
+ImageConsumer.setPixels(int, int, int, int, java.awt.image.ColorModel, byte[], int, int)
+setPixels
+public
+void
+setPixels
+(int x,
+ int y,
+ int w,
+ int h,
+ColorModel
+model,
+ int[] pixels,
+ int off,
+ int scansize)
+Choose which rows and columns of the delivered int pixels are
+ needed for the destination scaled image and pass through just
+ those rows and columns that are needed, replicated as necessary.
+Note: This method is intended to be called by the
+ImageProducer
+of the
+Image
+whose pixels
+ are being filtered. Developers using
+ this class to filter pixels from an image should avoid calling
+ this method directly since that operation could interfere
+ with the filtering operation.
+Specified by:
+setPixels
+in interface
+ImageConsumer
+Overrides:
+setPixels
+in class
+ImageFilter
+Parameters:
+x
+- the X coordinate of the upper-left corner of the
+        area of pixels to be set
+y
+- the Y coordinate of the upper-left corner of the
+        area of pixels to be set
+w
+- the width of the area of pixels
+h
+- the height of the area of pixels
+model
+- the specified
+ColorModel
+pixels
+- the array of pixels
+off
+- the offset into the
+pixels
+array
+scansize
+- the distance from one row of pixels to the next in
+ the
+pixels
+array
+See Also:
+ImageConsumer.setPixels(int, int, int, int, java.awt.image.ColorModel, byte[], int, int)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

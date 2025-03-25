@@ -1,0 +1,1315 @@
+Headers (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.httpserver
+Package
+com.sun.net.httpserver
+Class Headers
+java.lang.Object
+com.sun.net.httpserver.Headers
+All Implemented Interfaces:
+Map
+<
+String
+,
+List
+<
+String
+>>
+public class
+Headers
+extends
+Object
+implements
+Map
+<
+String
+,
+List
+<
+String
+>>
+HTTP request and response headers are represented by this class which
+ implements the interface
+Map
+<
+String
+,
+List
+<
+String
+>>.
+ The keys are case-insensitive Strings representing the header names and
+ the value associated with each key is
+ a
+List
+<
+String
+> with one
+ element for each occurrence of the header name in the request or response.
+For example, if a response header instance contains
+ one key "HeaderName" with two values "value1 and value2"
+ then this object is output as two header lines:
+HeaderName: value1
+ HeaderName: value2
+All the normal
+Map
+methods are provided, but the
+ following additional convenience methods are most likely to be used:
+getFirst(String)
+returns a single valued header or the first
+     value of a multi-valued header.
+add(String,String)
+adds the given header value to the list
+     for the given key.
+set(String,String)
+sets the given header field to the single
+     value given overwriting any existing values in the value list.
+An instance of
+Headers
+is either
+mutable
+or
+immutable
+.
+ A
+mutable headers
+allows to add, remove, or modify header names and
+ values, e.g. the instance returned by
+HttpExchange.getResponseHeaders()
+.
+ An
+immutable headers
+disallows any modification to header names or
+ values, e.g. the instance returned by
+HttpExchange.getRequestHeaders()
+.
+ The mutator methods for an immutable headers instance unconditionally throw
+UnsupportedOperationException
+.
+All methods in this class reject
+null
+values for keys and values.
+null
+keys will never be present in HTTP request or response headers.
+Since:
+1.6
+Nested Class Summary
+Nested classes/interfaces declared in interface java.util.
+Map
+Map.Entry
+<
+K
+,
+V
+>
+Constructor Summary
+Constructors
+Constructor
+Description
+Headers
+()
+Creates an empty instance of
+Headers
+.
+Headers
+(
+Map
+<
+String
+,
+List
+<
+String
+>> headers)
+Creates a mutable
+Headers
+from the given
+headers
+with
+ the same header names and values.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+add
+(
+String
+key,
+String
+value)
+Adds the given
+value
+to the list of headers for the given
+key
+.
+void
+clear
+()
+Removes all of the mappings from this map (optional operation).
+boolean
+containsKey
+(
+Object
+key)
+Returns
+true
+if this map contains a mapping for the specified
+ key.
+boolean
+containsValue
+(
+Object
+value)
+Returns
+true
+if this map maps one or more keys to the
+ specified value.
+Set
+<
+Map.Entry
+<
+String
+,
+List
+<
+String
+>>>
+entrySet
+()
+Returns a
+Set
+view of the mappings contained in this map.
+boolean
+equals
+(
+Object
+o)
+Indicates whether some other object is "equal to" this one.
+List
+<
+String
+>
+get
+(
+Object
+key)
+Returns the value to which the specified key is mapped,
+ or
+null
+if this map contains no mapping for the key.
+String
+getFirst
+(
+String
+key)
+Returns the first value from the
+List
+of
+String
+values
+ for the given
+key
+, or
+null
+if no mapping for the
+key
+exists.
+int
+hashCode
+()
+Returns a hash code value for the object.
+boolean
+isEmpty
+()
+Returns
+true
+if this map contains no key-value mappings.
+Set
+<
+String
+>
+keySet
+()
+Returns a
+Set
+view of the keys contained in this map.
+static
+Headers
+of
+(
+String
+... headers)
+Returns an immutable
+Headers
+with the given name value pairs as
+ its set of headers.
+static
+Headers
+of
+(
+Map
+<
+String
+,
+List
+<
+String
+>> headers)
+Returns an immutable
+Headers
+from the given
+headers
+with
+ the same header names and values.
+List
+<
+String
+>
+put
+(
+String
+key,
+List
+<
+String
+> value)
+Associates the specified value with the specified key in this map
+ (optional operation).
+void
+putAll
+(
+Map
+<? extends
+String
+,
+? extends
+List
+<
+String
+>> t)
+Copies all of the mappings from the specified map to this map
+ (optional operation).
+List
+<
+String
+>
+remove
+(
+Object
+key)
+Removes the mapping for a key from this map if it is present
+ (optional operation).
+void
+set
+(
+String
+key,
+String
+value)
+Sets the given
+value
+as the sole header value for the given
+key
+.
+int
+size
+()
+Returns the number of key-value mappings in this map.
+Collection
+<
+List
+<
+String
+>>
+values
+()
+Returns a
+Collection
+view of the values contained in this map.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface java.util.
+Map
+compute
+,
+computeIfAbsent
+,
+computeIfPresent
+,
+forEach
+,
+getOrDefault
+,
+merge
+,
+putIfAbsent
+,
+remove
+,
+replace
+,
+replace
+,
+replaceAll
+Constructor Details
+Headers
+public
+Headers
+()
+Creates an empty instance of
+Headers
+.
+Headers
+public
+Headers
+(
+Map
+<
+String
+,
+List
+<
+String
+>> headers)
+Creates a mutable
+Headers
+from the given
+headers
+with
+ the same header names and values.
+Parameters:
+headers
+- a map of header names and values
+Throws:
+NullPointerException
+- if
+headers
+or any of its names or
+                              values are null, or if any value contains
+                              null.
+Since:
+18
+Method Details
+size
+public
+int
+size
+()
+Description copied from interface:
+Map
+Returns the number of key-value mappings in this map.  If the
+ map contains more than
+Integer.MAX_VALUE
+elements, returns
+Integer.MAX_VALUE
+.
+Specified by:
+size
+in interface
+Map
+<
+String
+,
+List
+<
+String
+>>
+Returns:
+the number of key-value mappings in this map
+isEmpty
+public
+boolean
+isEmpty
+()
+Description copied from interface:
+Map
+Returns
+true
+if this map contains no key-value mappings.
+Specified by:
+isEmpty
+in interface
+Map
+<
+String
+,
+List
+<
+String
+>>
+Returns:
+true
+if this map contains no key-value mappings
+containsKey
+public
+boolean
+containsKey
+(
+Object
+key)
+Description copied from interface:
+Map
+Returns
+true
+if this map contains a mapping for the specified
+ key.  More formally, returns
+true
+if and only if
+ this map contains a mapping for a key
+k
+such that
+Objects.equals(key, k)
+.  (There can be
+ at most one such mapping.)
+Specified by:
+containsKey
+in interface
+Map
+<
+String
+,
+List
+<
+String
+>>
+Parameters:
+key
+- key whose presence in this map is to be tested
+Returns:
+true
+if this map contains a mapping for the specified
+         key
+containsValue
+public
+boolean
+containsValue
+(
+Object
+value)
+Description copied from interface:
+Map
+Returns
+true
+if this map maps one or more keys to the
+ specified value.  More formally, returns
+true
+if and only if
+ this map contains at least one mapping to a value
+v
+such that
+Objects.equals(value, v)
+.  This operation
+ will probably require time linear in the map size for most
+ implementations of the
+Map
+interface.
+Specified by:
+containsValue
+in interface
+Map
+<
+String
+,
+List
+<
+String
+>>
+Parameters:
+value
+- value whose presence in this map is to be tested
+Returns:
+true
+if this map maps one or more keys to the
+         specified value
+get
+public
+List
+<
+String
+>
+get
+(
+Object
+key)
+Description copied from interface:
+Map
+Returns the value to which the specified key is mapped,
+ or
+null
+if this map contains no mapping for the key.
+More formally, if this map contains a mapping from a key
+k
+to a value
+v
+such that
+Objects.equals(key, k)
+,
+ then this method returns
+v
+; otherwise
+ it returns
+null
+.  (There can be at most one such mapping.)
+If this map permits null values, then a return value of
+null
+does not
+necessarily
+indicate that the map
+ contains no mapping for the key; it's also possible that the map
+ explicitly maps the key to
+null
+.  The
+containsKey
+operation may be used to distinguish these two cases.
+Specified by:
+get
+in interface
+Map
+<
+String
+,
+List
+<
+String
+>>
+Parameters:
+key
+- the key whose associated value is to be returned
+Returns:
+the value to which the specified key is mapped, or
+null
+if this map contains no mapping for the key
+getFirst
+public
+String
+getFirst
+(
+String
+key)
+Returns the first value from the
+List
+of
+String
+values
+ for the given
+key
+, or
+null
+if no mapping for the
+key
+exists.
+Parameters:
+key
+- the key to search for
+Returns:
+the first
+String
+value associated with the key,
+            or
+null
+if no mapping for the key exists
+put
+public
+List
+<
+String
+>
+put
+(
+String
+key,
+List
+<
+String
+> value)
+Description copied from interface:
+Map
+Associates the specified value with the specified key in this map
+ (optional operation).  If the map previously contained a mapping for
+ the key, the old value is replaced by the specified value.  (A map
+m
+is said to contain a mapping for a key
+k
+if and only
+ if
+m.containsKey(k)
+would return
+true
+.)
+Specified by:
+put
+in interface
+Map
+<
+String
+,
+List
+<
+String
+>>
+Parameters:
+key
+- key with which the specified value is to be associated
+value
+- value to be associated with the specified key
+Returns:
+the previous value associated with
+key
+, or
+null
+if there was no mapping for
+key
+.
+         (A
+null
+return can also indicate that the map
+         previously associated
+null
+with
+key
+,
+         if the implementation supports
+null
+values.)
+add
+public
+void
+add
+(
+String
+key,
+String
+value)
+Adds the given
+value
+to the list of headers for the given
+key
+. If the mapping does not already exist, then it is created.
+Parameters:
+key
+- the header name
+value
+- the value to add to the header
+set
+public
+void
+set
+(
+String
+key,
+String
+value)
+Sets the given
+value
+as the sole header value for the given
+key
+. If the mapping does not already exist, then it is created.
+Parameters:
+key
+- the header name
+value
+- the header value to set
+remove
+public
+List
+<
+String
+>
+remove
+(
+Object
+key)
+Description copied from interface:
+Map
+Removes the mapping for a key from this map if it is present
+ (optional operation).   More formally, if this map contains a mapping
+ from key
+k
+to value
+v
+such that
+Objects.equals(key, k)
+, that mapping
+ is removed.  (The map can contain at most one such mapping.)
+Returns the value to which this map previously associated the key,
+ or
+null
+if the map contained no mapping for the key.
+If this map permits null values, then a return value of
+null
+does not
+necessarily
+indicate that the map
+ contained no mapping for the key; it's also possible that the map
+ explicitly mapped the key to
+null
+.
+The map will not contain a mapping for the specified key once the
+ call returns.
+Specified by:
+remove
+in interface
+Map
+<
+String
+,
+List
+<
+String
+>>
+Parameters:
+key
+- key whose mapping is to be removed from the map
+Returns:
+the previous value associated with
+key
+, or
+null
+if there was no mapping for
+key
+.
+putAll
+public
+void
+putAll
+(
+Map
+<? extends
+String
+,
+? extends
+List
+<
+String
+>> t)
+Description copied from interface:
+Map
+Copies all of the mappings from the specified map to this map
+ (optional operation).  The effect of this call is equivalent to that
+ of calling
+put(k, v)
+on this map once
+ for each mapping from key
+k
+to value
+v
+in the
+ specified map.  The behavior of this operation is undefined if the specified map
+ is modified while the operation is in progress. If the specified map has a defined
+encounter order
+,
+ processing of its mappings generally occurs in that order.
+Specified by:
+putAll
+in interface
+Map
+<
+String
+,
+List
+<
+String
+>>
+Parameters:
+t
+- mappings to be stored in this map
+clear
+public
+void
+clear
+()
+Description copied from interface:
+Map
+Removes all of the mappings from this map (optional operation).
+ The map will be empty after this call returns.
+Specified by:
+clear
+in interface
+Map
+<
+String
+,
+List
+<
+String
+>>
+keySet
+public
+Set
+<
+String
+>
+keySet
+()
+Description copied from interface:
+Map
+Returns a
+Set
+view of the keys contained in this map.
+ The set is backed by the map, so changes to the map are
+ reflected in the set, and vice-versa.  If the map is modified
+ while an iteration over the set is in progress (except through
+ the iterator's own
+remove
+operation), the results of
+ the iteration are undefined.  The set supports element removal,
+ which removes the corresponding mapping from the map, via the
+Iterator.remove
+,
+Set.remove
+,
+removeAll
+,
+retainAll
+, and
+clear
+operations.  It does not support the
+add
+or
+addAll
+operations.
+Specified by:
+keySet
+in interface
+Map
+<
+String
+,
+List
+<
+String
+>>
+Returns:
+a set view of the keys contained in this map
+values
+public
+Collection
+<
+List
+<
+String
+>>
+values
+()
+Description copied from interface:
+Map
+Returns a
+Collection
+view of the values contained in this map.
+ The collection is backed by the map, so changes to the map are
+ reflected in the collection, and vice-versa.  If the map is
+ modified while an iteration over the collection is in progress
+ (except through the iterator's own
+remove
+operation),
+ the results of the iteration are undefined.  The collection
+ supports element removal, which removes the corresponding
+ mapping from the map, via the
+Iterator.remove
+,
+Collection.remove
+,
+removeAll
+,
+retainAll
+and
+clear
+operations.  It does not
+ support the
+add
+or
+addAll
+operations.
+Specified by:
+values
+in interface
+Map
+<
+String
+,
+List
+<
+String
+>>
+Returns:
+a collection view of the values contained in this map
+entrySet
+public
+Set
+<
+Map.Entry
+<
+String
+,
+List
+<
+String
+>>>
+entrySet
+()
+Description copied from interface:
+Map
+Returns a
+Set
+view of the mappings contained in this map.
+ The set is backed by the map, so changes to the map are
+ reflected in the set, and vice-versa.  If the map is modified
+ while an iteration over the set is in progress (except through
+ the iterator's own
+remove
+operation, or through the
+setValue
+operation on a map entry returned by the
+ iterator) the results of the iteration are undefined.  The set
+ supports element removal, which removes the corresponding
+ mapping from the map, via the
+Iterator.remove
+,
+Set.remove
+,
+removeAll
+,
+retainAll
+and
+clear
+operations.  It does not support the
+add
+or
+addAll
+operations.
+Specified by:
+entrySet
+in interface
+Map
+<
+String
+,
+List
+<
+String
+>>
+Returns:
+a set view of the mappings contained in this map
+equals
+public
+boolean
+equals
+(
+Object
+o)
+Description copied from class:
+Object
+Indicates whether some other object is "equal to" this one.
+The
+equals
+method implements an equivalence relation
+ on non-null object references:
+It is
+reflexive
+: for any non-null reference value
+x
+,
+x.equals(x)
+should return
+true
+.
+It is
+symmetric
+: for any non-null reference values
+x
+and
+y
+,
+x.equals(y)
+should return
+true
+if and only if
+y.equals(x)
+returns
+true
+.
+It is
+transitive
+: for any non-null reference values
+x
+,
+y
+, and
+z
+, if
+x.equals(y)
+returns
+true
+and
+y.equals(z)
+returns
+true
+, then
+x.equals(z)
+should return
+true
+.
+It is
+consistent
+: for any non-null reference values
+x
+and
+y
+, multiple invocations of
+x.equals(y)
+consistently return
+true
+or consistently return
+false
+, provided no
+     information used in
+equals
+comparisons on the
+     objects is modified.
+For any non-null reference value
+x
+,
+x.equals(null)
+should return
+false
+.
+An equivalence relation partitions the elements it operates on
+ into
+equivalence classes
+; all the members of an
+ equivalence class are equal to each other. Members of an
+ equivalence class are substitutable for each other, at least
+ for some purposes.
+Specified by:
+equals
+in interface
+Map
+<
+String
+,
+List
+<
+String
+>>
+Overrides:
+equals
+in class
+Object
+Parameters:
+o
+- the reference object with which to compare.
+Returns:
+true
+if this object is the same as the obj
+          argument;
+false
+otherwise.
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+public
+int
+hashCode
+()
+Description copied from class:
+Object
+Returns a hash code value for the object. This method is
+ supported for the benefit of hash tables such as those provided by
+HashMap
+.
+The general contract of
+hashCode
+is:
+Whenever it is invoked on the same object more than once during
+     an execution of a Java application, the
+hashCode
+method
+     must consistently return the same integer, provided no information
+     used in
+equals
+comparisons on the object is modified.
+     This integer need not remain consistent from one execution of an
+     application to another execution of the same application.
+If two objects are equal according to the
+equals
+method, then calling the
+hashCode
+method on each of the two objects must produce the
+     same integer result.
+It is
+not
+required that if two objects are unequal
+     according to the
+equals
+method, then
+     calling the
+hashCode
+method on each of the two objects
+     must produce distinct integer results.  However, the programmer
+     should be aware that producing distinct integer results for
+     unequal objects may improve the performance of hash tables.
+Specified by:
+hashCode
+in interface
+Map
+<
+String
+,
+List
+<
+String
+>>
+Overrides:
+hashCode
+in class
+Object
+Returns:
+a hash code value for this object.
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+of
+public static
+Headers
+of
+(
+String
+... headers)
+Returns an immutable
+Headers
+with the given name value pairs as
+ its set of headers.
+The supplied
+String
+instances must alternate as header names
+ and header values. To add several values to the same name, the same name
+ must be supplied with each new value. If the supplied
+headers
+is
+ empty, then an empty
+Headers
+is returned.
+Parameters:
+headers
+- the list of name value pairs
+Returns:
+an immutable headers with the given name value pairs
+Throws:
+NullPointerException
+- if
+headers
+or any of its
+                                  elements are null.
+IllegalArgumentException
+- if the number of supplied strings is odd.
+Since:
+18
+of
+public static
+Headers
+of
+(
+Map
+<
+String
+,
+List
+<
+String
+>> headers)
+Returns an immutable
+Headers
+from the given
+headers
+with
+ the same header names and values.
+Parameters:
+headers
+- a map of header names and values
+Returns:
+an immutable headers
+Throws:
+NullPointerException
+- if
+headers
+or any of its names or
+                              values are null, or if any value contains
+                              null.
+Since:
+18
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

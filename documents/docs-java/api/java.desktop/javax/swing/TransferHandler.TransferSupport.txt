@@ -1,0 +1,512 @@
+TransferHandler.TransferSupport (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing
+Class TransferHandler.TransferSupport
+java.lang.Object
+javax.swing.TransferHandler.TransferSupport
+Enclosing class:
+TransferHandler
+public static final class
+TransferHandler.TransferSupport
+extends
+Object
+This class encapsulates all relevant details of a clipboard
+ or drag and drop transfer, and also allows for customizing
+ aspects of the drag and drop experience.
+The main purpose of this class is to provide the information
+ needed by a developer to determine the suitability of a
+ transfer or to import the data contained within. But it also
+ doubles as a controller for customizing properties during drag
+ and drop, such as whether or not to show the drop location,
+ and which drop action to use.
+Developers typically need not create instances of this
+ class. Instead, they are something provided by the DnD
+ implementation to certain methods in
+TransferHandler
+.
+Since:
+1.6
+See Also:
+TransferHandler.canImport(TransferHandler.TransferSupport)
+TransferHandler.importData(TransferHandler.TransferSupport)
+Constructor Summary
+Constructors
+Constructor
+Description
+TransferSupport
+(
+Component
+component,
+Transferable
+transferable)
+Create a
+TransferSupport
+with
+isDrop()
+false
+for the given component and
+Transferable
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Component
+getComponent
+()
+Returns the target component of this transfer.
+DataFlavor
+[]
+getDataFlavors
+()
+Returns the data flavors for this transfer.
+int
+getDropAction
+()
+Returns the action chosen for the drop, when this
+TransferSupport
+represents a drop.
+TransferHandler.DropLocation
+getDropLocation
+()
+Returns the current (non-
+null
+) drop location for the component,
+ when this
+TransferSupport
+represents a drop.
+int
+getSourceDropActions
+()
+Returns the drag source's supported drop actions, when this
+TransferSupport
+represents a drop.
+Transferable
+getTransferable
+()
+Returns the
+Transferable
+associated with this transfer.
+int
+getUserDropAction
+()
+Returns the user drop action for the drop, when this
+TransferSupport
+represents a drop.
+boolean
+isDataFlavorSupported
+(
+DataFlavor
+df)
+Returns whether or not the given data flavor is supported.
+boolean
+isDrop
+()
+Returns whether or not this
+TransferSupport
+represents a drop operation.
+void
+setDropAction
+(int dropAction)
+Sets the drop action for the transfer - which must represent a drop
+ - to the given action,
+ instead of the default user drop action.
+void
+setShowDropLocation
+(boolean showDropLocation)
+Sets whether or not the drop location should be visually indicated
+ for the transfer - which must represent a drop.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+TransferSupport
+public
+TransferSupport
+(
+Component
+component,
+Transferable
+transferable)
+Create a
+TransferSupport
+with
+isDrop()
+false
+for the given component and
+Transferable
+.
+Parameters:
+component
+- the target component
+transferable
+- the transferable
+Throws:
+NullPointerException
+- if either parameter
+         is
+null
+Method Details
+isDrop
+public
+boolean
+isDrop
+()
+Returns whether or not this
+TransferSupport
+represents a drop operation.
+Returns:
+true
+if this is a drop operation,
+false
+otherwise.
+getComponent
+public
+Component
+getComponent
+()
+Returns the target component of this transfer.
+Returns:
+the target component
+getDropLocation
+public
+TransferHandler.DropLocation
+getDropLocation
+()
+Returns the current (non-
+null
+) drop location for the component,
+ when this
+TransferSupport
+represents a drop.
+Note: For components with built-in drop support, this location
+ will be a subclass of
+DropLocation
+of the same type
+ returned by that component's
+getDropLocation
+method.
+This method is only for use with drag and drop transfers.
+ Calling it when
+isDrop()
+is
+false
+results
+ in an
+IllegalStateException
+.
+Returns:
+the drop location
+Throws:
+IllegalStateException
+- if this is not a drop
+See Also:
+isDrop()
+setShowDropLocation
+public
+void
+setShowDropLocation
+(boolean showDropLocation)
+Sets whether or not the drop location should be visually indicated
+ for the transfer - which must represent a drop. This is applicable to
+ those components that automatically
+ show the drop location when appropriate during a drag and drop
+ operation. By default, the drop location is shown only when the
+TransferHandler
+has said it can accept the import represented
+ by this
+TransferSupport
+. With this method you can force the
+ drop location to always be shown, or always not be shown.
+This method is only for use with drag and drop transfers.
+ Calling it when
+isDrop()
+is
+false
+results
+ in an
+IllegalStateException
+.
+Parameters:
+showDropLocation
+- whether or not to indicate the drop location
+Throws:
+IllegalStateException
+- if this is not a drop
+See Also:
+isDrop()
+setDropAction
+public
+void
+setDropAction
+(int dropAction)
+Sets the drop action for the transfer - which must represent a drop
+ - to the given action,
+ instead of the default user drop action. The action must be
+ supported by the source's drop actions, and must be one
+ of
+COPY
+,
+MOVE
+or
+LINK
+.
+This method is only for use with drag and drop transfers.
+ Calling it when
+isDrop()
+is
+false
+results
+ in an
+IllegalStateException
+.
+Parameters:
+dropAction
+- the drop action
+Throws:
+IllegalStateException
+- if this is not a drop
+IllegalArgumentException
+- if an invalid action is specified
+See Also:
+getDropAction()
+getUserDropAction()
+getSourceDropActions()
+isDrop()
+getDropAction
+public
+int
+getDropAction
+()
+Returns the action chosen for the drop, when this
+TransferSupport
+represents a drop.
+Unless explicitly chosen by way of
+setDropAction
+,
+ this returns the user drop action provided by
+getUserDropAction
+.
+You may wish to query this in
+TransferHandler
+'s
+importData
+method to customize processing based
+ on the action.
+This method is only for use with drag and drop transfers.
+ Calling it when
+isDrop()
+is
+false
+results
+ in an
+IllegalStateException
+.
+Returns:
+the action chosen for the drop
+Throws:
+IllegalStateException
+- if this is not a drop
+See Also:
+setDropAction(int)
+getUserDropAction()
+isDrop()
+getUserDropAction
+public
+int
+getUserDropAction
+()
+Returns the user drop action for the drop, when this
+TransferSupport
+represents a drop.
+The user drop action is chosen for a drop as described in the
+ documentation for
+DropTargetDragEvent
+and
+DropTargetDropEvent
+. A different action
+ may be chosen as the drop action by way of the
+setDropAction
+method.
+You may wish to query this in
+TransferHandler
+'s
+canImport
+method when determining the suitability of a
+ drop or when deciding on a drop action to explicitly choose.
+This method is only for use with drag and drop transfers.
+ Calling it when
+isDrop()
+is
+false
+results
+ in an
+IllegalStateException
+.
+Returns:
+the user drop action
+Throws:
+IllegalStateException
+- if this is not a drop
+See Also:
+setDropAction(int)
+getDropAction()
+isDrop()
+getSourceDropActions
+public
+int
+getSourceDropActions
+()
+Returns the drag source's supported drop actions, when this
+TransferSupport
+represents a drop.
+The source actions represent the set of actions supported by the
+ source of this transfer, and are represented as some bitwise-OR
+ combination of
+COPY
+,
+MOVE
+and
+LINK
+.
+ You may wish to query this in
+TransferHandler
+'s
+canImport
+method when determining the suitability of a drop
+ or when deciding on a drop action to explicitly choose. To determine
+ if a particular action is supported by the source, bitwise-AND
+ the action with the source drop actions, and then compare the result
+ against the original action. For example:
+boolean copySupported = (COPY & getSourceDropActions()) == COPY;
+This method is only for use with drag and drop transfers.
+ Calling it when
+isDrop()
+is
+false
+results
+ in an
+IllegalStateException
+.
+Returns:
+the drag source's supported drop actions
+Throws:
+IllegalStateException
+- if this is not a drop
+See Also:
+isDrop()
+getDataFlavors
+public
+DataFlavor
+[]
+getDataFlavors
+()
+Returns the data flavors for this transfer.
+Returns:
+the data flavors for this transfer
+isDataFlavorSupported
+public
+boolean
+isDataFlavorSupported
+(
+DataFlavor
+df)
+Returns whether or not the given data flavor is supported.
+Parameters:
+df
+- the
+DataFlavor
+to test
+Returns:
+whether or not the given flavor is supported.
+getTransferable
+public
+Transferable
+getTransferable
+()
+Returns the
+Transferable
+associated with this transfer.
+Note: Unless it is necessary to fetch the
+Transferable
+directly, use one of the other methods on this class to inquire about
+ the transfer. This may perform better than fetching the
+Transferable
+and asking it directly.
+Returns:
+the
+Transferable
+associated with this transfer
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

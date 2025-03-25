@@ -1,0 +1,575 @@
+AbstractUndoableEdit (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.undo
+Class AbstractUndoableEdit
+java.lang.Object
+javax.swing.undo.AbstractUndoableEdit
+All Implemented Interfaces:
+Serializable
+,
+UndoableEdit
+Direct Known Subclasses:
+AbstractDocument.ElementEdit
+,
+CompoundEdit
+,
+DefaultStyledDocument.AttributeUndoableEdit
+,
+StateEdit
+public class
+AbstractUndoableEdit
+extends
+Object
+implements
+UndoableEdit
+,
+Serializable
+An abstract implementation of
+UndoableEdit
+,
+ implementing simple responses to all boolean methods in
+ that interface.
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected static final
+String
+RedoName
+String returned by
+getRedoPresentationName
+;
+ as of Java 2 platform v1.3.1 this field is no longer used.
+protected static final
+String
+UndoName
+String returned by
+getUndoPresentationName
+;
+ as of Java 2 platform v1.3.1 this field is no longer used.
+Constructor Summary
+Constructors
+Constructor
+Description
+AbstractUndoableEdit
+()
+Creates an
+AbstractUndoableEdit
+which defaults
+hasBeenDone
+and
+alive
+to
+true
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+addEdit
+(
+UndoableEdit
+anEdit)
+This default implementation returns false.
+boolean
+canRedo
+()
+Returns
+true
+if this edit is
+alive
+and
+hasBeenDone
+is
+false
+.
+boolean
+canUndo
+()
+Returns true if this edit is
+alive
+and
+hasBeenDone
+is
+true
+.
+void
+die
+()
+Sets
+alive
+to false.
+String
+getPresentationName
+()
+This default implementation returns "".
+String
+getRedoPresentationName
+()
+Retrieves the value from the defaults table with key
+AbstractUndoableEdit.redoText
+and returns
+ that value followed by a space, followed by
+getPresentationName
+.
+String
+getUndoPresentationName
+()
+Retrieves the value from the defaults table with key
+AbstractUndoableEdit.undoText
+and returns
+ that value followed by a space, followed by
+getPresentationName
+.
+boolean
+isSignificant
+()
+This default implementation returns true.
+void
+redo
+()
+Throws
+CannotRedoException
+if
+canRedo
+returns false.
+boolean
+replaceEdit
+(
+UndoableEdit
+anEdit)
+This default implementation returns false.
+String
+toString
+()
+Returns a string that displays and identifies this
+ object's properties.
+void
+undo
+()
+Throws
+CannotUndoException
+if
+canUndo
+returns
+false
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Field Details
+UndoName
+protected static final
+String
+UndoName
+String returned by
+getUndoPresentationName
+;
+ as of Java 2 platform v1.3.1 this field is no longer used. This value
+ is now localized and comes from the defaults table with key
+AbstractUndoableEdit.undoText
+.
+See Also:
+UIDefaults
+Constant Field Values
+RedoName
+protected static final
+String
+RedoName
+String returned by
+getRedoPresentationName
+;
+ as of Java 2 platform v1.3.1 this field is no longer used. This value
+ is now localized and comes from the defaults table with key
+AbstractUndoableEdit.redoText
+.
+See Also:
+UIDefaults
+Constant Field Values
+Constructor Details
+AbstractUndoableEdit
+public
+AbstractUndoableEdit
+()
+Creates an
+AbstractUndoableEdit
+which defaults
+hasBeenDone
+and
+alive
+to
+true
+.
+Method Details
+die
+public
+void
+die
+()
+Sets
+alive
+to false. Note that this
+ is a one way operation; dead edits cannot be resurrected.
+ Sending
+undo
+or
+redo
+to
+ a dead edit results in an exception being thrown.
+Typically an edit is killed when it is consolidated by
+ another edit's
+addEdit
+or
+replaceEdit
+method, or when it is dequeued from an
+UndoManager
+.
+Specified by:
+die
+in interface
+UndoableEdit
+See Also:
+CompoundEdit.die()
+undo
+public
+void
+undo
+()
+          throws
+CannotUndoException
+Throws
+CannotUndoException
+if
+canUndo
+returns
+false
+. Sets
+hasBeenDone
+to
+false
+. Subclasses should override to undo the
+ operation represented by this edit. Override should begin with
+ a call to super.
+Specified by:
+undo
+in interface
+UndoableEdit
+Throws:
+CannotUndoException
+- if
+canUndo
+returns
+false
+See Also:
+canUndo()
+canUndo
+public
+boolean
+canUndo
+()
+Returns true if this edit is
+alive
+and
+hasBeenDone
+is
+true
+.
+Specified by:
+canUndo
+in interface
+UndoableEdit
+Returns:
+true if this edit is
+alive
+and
+hasBeenDone
+is
+true
+See Also:
+die()
+undo()
+redo()
+redo
+public
+void
+redo
+()
+          throws
+CannotRedoException
+Throws
+CannotRedoException
+if
+canRedo
+returns false. Sets
+hasBeenDone
+to
+true
+.
+ Subclasses should override to redo the operation represented by
+ this edit. Override should begin with a call to super.
+Specified by:
+redo
+in interface
+UndoableEdit
+Throws:
+CannotRedoException
+- if
+canRedo
+returns
+false
+See Also:
+canRedo()
+canRedo
+public
+boolean
+canRedo
+()
+Returns
+true
+if this edit is
+alive
+and
+hasBeenDone
+is
+false
+.
+Specified by:
+canRedo
+in interface
+UndoableEdit
+Returns:
+true
+if this edit is
+alive
+and
+hasBeenDone
+is
+false
+See Also:
+die()
+undo()
+redo()
+addEdit
+public
+boolean
+addEdit
+(
+UndoableEdit
+anEdit)
+This default implementation returns false.
+Specified by:
+addEdit
+in interface
+UndoableEdit
+Parameters:
+anEdit
+- the edit to be added
+Returns:
+false
+See Also:
+UndoableEdit.addEdit(javax.swing.undo.UndoableEdit)
+replaceEdit
+public
+boolean
+replaceEdit
+(
+UndoableEdit
+anEdit)
+This default implementation returns false.
+Specified by:
+replaceEdit
+in interface
+UndoableEdit
+Parameters:
+anEdit
+- the edit to replace
+Returns:
+false
+See Also:
+UndoableEdit.replaceEdit(javax.swing.undo.UndoableEdit)
+isSignificant
+public
+boolean
+isSignificant
+()
+This default implementation returns true.
+Specified by:
+isSignificant
+in interface
+UndoableEdit
+Returns:
+true
+See Also:
+UndoableEdit.isSignificant()
+getPresentationName
+public
+String
+getPresentationName
+()
+This default implementation returns "". Used by
+getUndoPresentationName
+and
+getRedoPresentationName
+to
+ construct the strings they return. Subclasses should override to
+ return an appropriate description of the operation this edit
+ represents.
+Specified by:
+getPresentationName
+in interface
+UndoableEdit
+Returns:
+the empty string ""
+See Also:
+getUndoPresentationName()
+getRedoPresentationName()
+getUndoPresentationName
+public
+String
+getUndoPresentationName
+()
+Retrieves the value from the defaults table with key
+AbstractUndoableEdit.undoText
+and returns
+ that value followed by a space, followed by
+getPresentationName
+.
+ If
+getPresentationName
+returns "",
+ then the defaults value is returned alone.
+Specified by:
+getUndoPresentationName
+in interface
+UndoableEdit
+Returns:
+the value from the defaults table with key
+AbstractUndoableEdit.undoText
+, followed
+    by a space, followed by
+getPresentationName
+unless
+getPresentationName
+is "" in which
+    case, the defaults value is returned alone.
+See Also:
+getPresentationName()
+getRedoPresentationName
+public
+String
+getRedoPresentationName
+()
+Retrieves the value from the defaults table with key
+AbstractUndoableEdit.redoText
+and returns
+ that value followed by a space, followed by
+getPresentationName
+.
+ If
+getPresentationName
+returns "",
+ then the defaults value is returned alone.
+Specified by:
+getRedoPresentationName
+in interface
+UndoableEdit
+Returns:
+the value from the defaults table with key
+AbstractUndoableEdit.redoText
+, followed
+    by a space, followed by
+getPresentationName
+unless
+getPresentationName
+is "" in which
+    case, the defaults value is returned alone.
+See Also:
+getPresentationName()
+toString
+public
+String
+toString
+()
+Returns a string that displays and identifies this
+ object's properties.
+Overrides:
+toString
+in class
+Object
+Returns:
+a String representation of this object
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

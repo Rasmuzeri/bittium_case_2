@@ -1,0 +1,139 @@
+Plugin (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.compiler
+Package
+com.sun.source.util
+Interface Plugin
+public interface
+Plugin
+The interface for a javac plug-in.
+The javac plug-in mechanism allows a user to specify one or more plug-ins
+ on the javac command line, to be started soon after the compilation
+ has begun. Plug-ins are identified by a user-friendly name. Each plug-in that
+ is started will be passed an array of strings, which may be used to
+ provide the plug-in with values for any desired options or other arguments.
+Plug-ins are located via a
+ServiceLoader
+,
+ using the same class path as annotation processors (i.e.
+ANNOTATION_PROCESSOR_PATH
+or
+-processorpath
+).
+It is expected that a typical plug-in will simply register a
+TaskListener
+to be informed of events during the execution
+ of the compilation, and that the rest of the work will be done
+ by the task listener.
+Since:
+1.8
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+default boolean
+autoStart
+()
+Returns whether or not this plugin should be automatically started,
+ even if not explicitly specified in the command-line options.
+String
+getName
+()
+Returns the user-friendly name of this plug-in.
+void
+init
+(
+JavacTask
+task,
+String
+... args)
+Initializes the plug-in for a given compilation task.
+Method Details
+getName
+String
+getName
+()
+Returns the user-friendly name of this plug-in.
+Returns:
+the user-friendly name of the plug-in
+init
+void
+init
+(
+JavacTask
+task,
+String
+... args)
+Initializes the plug-in for a given compilation task.
+Parameters:
+task
+- The compilation task that has just been started
+args
+- Arguments, if any, for the plug-in
+autoStart
+default
+boolean
+autoStart
+()
+Returns whether or not this plugin should be automatically started,
+ even if not explicitly specified in the command-line options.
+This method will be called by javac for all plugins located by the
+ service loader. If the method returns
+true
+, the plugin will be
+initialized
+with an empty array of
+ string arguments if it is not otherwise initialized due to an explicit
+ command-line option.
+Returns:
+whether or not this plugin should be automatically started
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

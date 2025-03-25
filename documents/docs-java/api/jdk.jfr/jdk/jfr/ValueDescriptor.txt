@@ -1,0 +1,472 @@
+ValueDescriptor (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.jfr
+Package
+jdk.jfr
+Class ValueDescriptor
+java.lang.Object
+jdk.jfr.ValueDescriptor
+public final class
+ValueDescriptor
+extends
+Object
+Describes the event fields and annotation elements.
+The following example shows how the
+ValueDescriptor
+class can
+ be used to list field information of all types.
+Copy
+void printTypes() {
+    Map<String, List<ValueDescriptor>> typeMap = new LinkedHashMap<>();
+    for (EventType eventType : FlightRecorder.getFlightRecorder().getEventTypes()) {
+        findTypes(typeMap, eventType.getName(), eventType.getFields());
+    }
+    for (String type : typeMap.keySet()) {
+        System.out.println("Type: " + type);
+        for (ValueDescriptor field : typeMap.get(type)) {
+            System.out.println(" Field: " + field.getName());
+            String arrayBrackets = field.isArray() ? "[]" : "";
+            System.out.println("  Type: " + field.getTypeName() + arrayBrackets);
+            if (field.getLabel() != null) {
+                System.out.println("  Label: " + field.getLabel());
+            }
+            if (field.getDescription() != null) {
+                System.out.println("  Description: " + field.getDescription());
+            }
+            if (field.getContentType() != null) {
+                System.out.println("  Content Types: " + field.getContentType());
+            }
+        }
+        System.out.println();
+    }
+}
+
+void findTypes(Map<String, List<ValueDescriptor>> typeMap, String typeName, List<ValueDescriptor> fields) {
+    if (!typeMap.containsKey(typeName)) {
+        typeMap.put(typeName, fields);
+        for (ValueDescriptor subField : fields) {
+            findTypes(typeMap, subField.getTypeName(), subField.getFields());
+        }
+    }
+}
+Since:
+9
+Constructor Summary
+Constructors
+Constructor
+Description
+ValueDescriptor
+(
+Class
+<?> type,
+String
+name)
+Constructs a value descriptor, useful for dynamically creating event types and
+ annotations.
+ValueDescriptor
+(
+Class
+<?> type,
+String
+name,
+List
+<
+AnnotationElement
+> annotations)
+Constructs a value descriptor, useful for dynamically creating event types and
+ annotations.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+<A extends
+Annotation
+>
+A
+getAnnotation
+(
+Class
+<A> annotationType)
+Returns the first annotation for the specified type if an annotation
+ element with the same name is directly present for this value descriptor,
+null
+otherwise.
+List
+<
+AnnotationElement
+>
+getAnnotationElements
+()
+Returns an immutable list of annotation elements for this value
+ descriptor.
+String
+getContentType
+()
+Returns a textual identifier that specifies how a value represented by
+ this
+ValueDescriptor
+is interpreted or formatted.
+String
+getDescription
+()
+Returns a sentence describing the value (for example,
+"Maximum
+ throughput in the transaction system. Value is reset after each new
+ batch."
+).
+List
+<
+ValueDescriptor
+>
+getFields
+()
+Returns an immutable list of value descriptors if the type is complex,
+ else an empty list.
+String
+getLabel
+()
+Returns a human-readable name that describes the value (for example,
+"Maximum Throughput"
+).
+String
+getName
+()
+Returns the name of the value (for example,
+"maxThroughput"
+).
+long
+getTypeId
+()
+Returns a unique ID for the type in the Java virtual Machine (JVM).
+String
+getTypeName
+()
+Returns the fully qualified class name of the type that is associated with
+ this value descriptor.
+boolean
+isArray
+()
+Returns if this value descriptor is an array type.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+ValueDescriptor
+public
+ValueDescriptor
+(
+Class
+<?> type,
+String
+name)
+Constructs a value descriptor, useful for dynamically creating event types and
+ annotations.
+The following types are supported:
+byte.class
+short.class
+int.class
+long.class
+char.class
+float.class
+double.class
+boolean.class
+String.class
+Class.class
+Thread.class
+The name must be a valid Java identifier (for example,
+"maxThroughput"
+). See
+ section 3.8 and 3.9 of the Java Language Specification for more information.
+Parameters:
+type
+- the type, not
+null
+name
+- the name, not
+null
+Throws:
+IllegalArgumentException
+- if the name is not a valid Java identifier
+SecurityException
+- if a security manager is present and the caller
+         doesn't have
+FlightRecorderPermission("registerEvent")
+ValueDescriptor
+public
+ValueDescriptor
+(
+Class
+<?> type,
+String
+name,
+List
+<
+AnnotationElement
+> annotations)
+Constructs a value descriptor, useful for dynamically creating event types and
+ annotations.
+The following types are supported:
+byte.class
+short.class
+int.class
+long.class
+char.class
+float.class
+double.class
+boolean.class
+String.class
+Class.class
+Thread.class
+The name must be a valid Java identifier (for example,
+"maxThroughput"
+). See
+ section 3.8 and 3.9 of the Java Language Specification for more information.
+Parameters:
+type
+- the type, not
+null
+name
+- the name, not
+null
+annotations
+- the annotations on the value descriptors, not
+null
+Throws:
+IllegalArgumentException
+- if the name is not a valid Java identifier
+SecurityException
+- if a security manager is present and the caller
+         doesn't have
+FlightRecorderPermission("registerEvent")
+Method Details
+getLabel
+public
+String
+getLabel
+()
+Returns a human-readable name that describes the value (for example,
+"Maximum Throughput"
+).
+Returns:
+a human-readable name, or
+null
+if doesn't exist
+getName
+public
+String
+getName
+()
+Returns the name of the value (for example,
+"maxThroughput"
+).
+Returns:
+the name, not
+null
+getDescription
+public
+String
+getDescription
+()
+Returns a sentence describing the value (for example,
+"Maximum
+ throughput in the transaction system. Value is reset after each new
+ batch."
+).
+Returns:
+the description, or
+null
+if doesn't exist
+getContentType
+public
+String
+getContentType
+()
+Returns a textual identifier that specifies how a value represented by
+ this
+ValueDescriptor
+is interpreted or formatted.
+For example, if the value descriptor's type is
+float
+and the
+ event value is
+0.5f
+, a content type of
+"jdk.jfr.Percentage"
+hints to a client that the value is a
+ percentage and that it should be rendered as
+"50%"
+.
+The JDK provides the following predefined content types:
+jdk.jfr.Percentage
+jdk.jfr.Timespan
+jdk.jfr.Timestamp
+jdk.jfr.Frequency
+jdk.jfr.Flag
+jdk.jfr.MemoryAddress
+jdk.jfr.DataAmount
+jdk.jfr.NetworkAddress
+User-defined content types can be created by using the
+ContentType
+class.
+Returns:
+the content type, or
+null
+if doesn't exist
+See Also:
+ContentType
+getTypeName
+public
+String
+getTypeName
+()
+Returns the fully qualified class name of the type that is associated with
+ this value descriptor.
+Returns:
+the type name, not
+null
+See Also:
+getTypeId()
+getTypeId
+public
+long
+getTypeId
+()
+Returns a unique ID for the type in the Java virtual Machine (JVM).
+
+ The ID might not be the same between JVM instances.
+Returns:
+the type ID, not negative
+isArray
+public
+boolean
+isArray
+()
+Returns if this value descriptor is an array type.
+Returns:
+true
+if it is an array type,
+false
+otherwise
+getAnnotation
+public
+<A extends
+Annotation
+>
+A
+getAnnotation
+(
+Class
+<A> annotationType)
+Returns the first annotation for the specified type if an annotation
+ element with the same name is directly present for this value descriptor,
+null
+otherwise.
+Type Parameters:
+A
+- the type of the annotation to query for and return if present
+Parameters:
+annotationType
+- the Class object that corresponds to the annotation
+        type, not
+null
+Returns:
+this element's annotation for the specified annotation type if
+         directly present, else
+null
+getAnnotationElements
+public
+List
+<
+AnnotationElement
+>
+getAnnotationElements
+()
+Returns an immutable list of annotation elements for this value
+ descriptor.
+Returns:
+a list of annotations, not
+null
+getFields
+public
+List
+<
+ValueDescriptor
+>
+getFields
+()
+Returns an immutable list of value descriptors if the type is complex,
+ else an empty list.
+Returns:
+a list of value descriptors, not
+null
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,1393 @@
+SQLOutputImpl (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.sql.rowset
+Package
+javax.sql.rowset.serial
+Class SQLOutputImpl
+java.lang.Object
+javax.sql.rowset.serial.SQLOutputImpl
+All Implemented Interfaces:
+SQLOutput
+public class
+SQLOutputImpl
+extends
+Object
+implements
+SQLOutput
+The output stream for writing the attributes of a
+ custom-mapped user-defined type (UDT) back to the database.
+ The driver uses this interface internally, and its
+ methods are never directly invoked by an application programmer.
+When an application calls the
+ method
+PreparedStatement.setObject
+, the driver
+ checks to see whether the value to be written is a UDT with
+ a custom mapping.  If it is, there will be an entry in a
+ type map containing the
+Class
+object for the
+ class that implements
+SQLData
+for this UDT.
+ If the value to be written is an instance of
+SQLData
+,
+ the driver will create an instance of
+SQLOutputImpl
+and pass it to the method
+SQLData.writeSQL
+.
+ The method
+writeSQL
+in turn calls the
+ appropriate
+SQLOutputImpl.writeXXX
+methods
+ to write data from the
+SQLData
+object to
+ the
+SQLOutputImpl
+output stream as the
+ representation of an SQL user-defined type.
+Since:
+1.5
+Constructor Summary
+Constructors
+Constructor
+Description
+SQLOutputImpl
+(
+Vector
+<?> attributes,
+Map
+<
+String
+,
+?> map)
+Creates a new
+SQLOutputImpl
+object
+ initialized with the given vector of attributes and
+ type map.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+writeArray
+(
+Array
+x)
+Writes an
+Array
+object in the Java
+ programming language to this
+SQLOutputImpl
+object.
+void
+writeAsciiStream
+(
+InputStream
+x)
+Writes a stream of ASCII characters to this
+SQLOutputImpl
+object.
+void
+writeBigDecimal
+(
+BigDecimal
+x)
+Writes a
+java.math.BigDecimal
+object in the Java programming
+ language to this
+SQLOutputImpl
+object.
+void
+writeBinaryStream
+(
+InputStream
+x)
+Writes a stream of uninterpreted bytes to this
+SQLOutputImpl
+object.
+void
+writeBlob
+(
+Blob
+x)
+Writes a
+Blob
+object in the Java programming language
+ to this
+SQLOutputImpl
+object.
+void
+writeBoolean
+(boolean x)
+Writes a
+boolean
+in the Java programming language
+ to this
+SQLOutputImpl
+object.
+void
+writeByte
+(byte x)
+Writes a
+byte
+in the Java programming language
+ to this
+SQLOutputImpl
+object.
+void
+writeBytes
+(byte[] x)
+Writes an array of
+bytes
+in the Java programming language
+ to this
+SQLOutputImpl
+object.
+void
+writeCharacterStream
+(
+Reader
+x)
+Writes a stream of Unicode characters to this
+SQLOutputImpl
+object.
+void
+writeClob
+(
+Clob
+x)
+Writes a
+Clob
+object in the Java programming language
+ to this
+SQLOutputImpl
+object.
+void
+writeDate
+(
+Date
+x)
+Writes a
+java.sql.Date
+object in the Java programming
+ language to this
+SQLOutputImpl
+object.
+void
+writeDouble
+(double x)
+Writes a
+double
+in the Java programming language
+ to this
+SQLOutputImpl
+object.
+void
+writeFloat
+(float x)
+Writes a
+float
+in the Java programming language
+ to this
+SQLOutputImpl
+object.
+void
+writeInt
+(int x)
+Writes an
+int
+in the Java programming language
+ to this
+SQLOutputImpl
+object.
+void
+writeLong
+(long x)
+Writes a
+long
+in the Java programming language
+ to this
+SQLOutputImpl
+object.
+void
+writeNClob
+(
+NClob
+x)
+Writes an SQL
+NCLOB
+value to the stream.
+void
+writeNString
+(
+String
+x)
+Writes the next attribute to the stream as a
+String
+in the Java programming language.
+void
+writeObject
+(
+SQLData
+x)
+Writes to the stream the data contained in the given
+SQLData
+object.
+void
+writeRef
+(
+Ref
+x)
+Writes a
+Ref
+object in the Java programming language
+ to this
+SQLOutputImpl
+object.
+void
+writeRowId
+(
+RowId
+x)
+Writes an SQL
+ROWID
+value to the stream.
+void
+writeShort
+(short x)
+Writes a
+short
+in the Java programming language
+ to this
+SQLOutputImpl
+object.
+void
+writeSQLXML
+(
+SQLXML
+x)
+Writes an SQL
+XML
+value to the stream.
+void
+writeString
+(
+String
+x)
+Writes a
+String
+in the Java programming language
+ to this
+SQLOutputImpl
+object.
+void
+writeStruct
+(
+Struct
+x)
+Writes a
+Struct
+object in the Java
+ programming language to this
+SQLOutputImpl
+object.
+void
+writeTime
+(
+Time
+x)
+Writes a
+java.sql.Time
+object in the Java programming
+ language to this
+SQLOutputImpl
+object.
+void
+writeTimestamp
+(
+Timestamp
+x)
+Writes a
+java.sql.Timestamp
+object in the Java programming
+ language to this
+SQLOutputImpl
+object.
+void
+writeURL
+(
+URL
+url)
+Writes an
+java.sql.Type.DATALINK
+object in the Java
+ programming language to this
+SQLOutputImpl
+object.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface java.sql.
+SQLOutput
+writeObject
+Constructor Details
+SQLOutputImpl
+public
+SQLOutputImpl
+(
+Vector
+<?> attributes,
+Map
+<
+String
+,
+?> map)
+throws
+SQLException
+Creates a new
+SQLOutputImpl
+object
+ initialized with the given vector of attributes and
+ type map.  The driver will use the type map to determine
+ which
+SQLData.writeSQL
+method to invoke.
+ This method will then call the appropriate
+SQLOutputImpl
+writer methods in order and
+ thereby write the attributes to the new output stream.
+Parameters:
+attributes
+- a
+Vector
+object containing the attributes of
+        the UDT to be mapped to one or more objects in the Java
+        programming language
+map
+- a
+java.util.Map
+object containing zero or
+        more entries, with each entry consisting of 1) a
+String
+giving the fully qualified name of a UDT and 2) the
+Class
+object for the
+SQLData
+implementation
+        that defines how the UDT is to be mapped
+Throws:
+SQLException
+- if the
+attributes
+or the
+map
+is a
+null
+value
+Method Details
+writeString
+public
+void
+writeString
+(
+String
+x)
+throws
+SQLException
+Writes a
+String
+in the Java programming language
+ to this
+SQLOutputImpl
+object. The driver converts
+ it to an SQL
+CHAR
+,
+VARCHAR
+, or
+LONGVARCHAR
+before returning it to the database.
+Specified by:
+writeString
+in interface
+SQLOutput
+Parameters:
+x
+- the value to pass to the database
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeBoolean
+public
+void
+writeBoolean
+(boolean x)
+throws
+SQLException
+Writes a
+boolean
+in the Java programming language
+ to this
+SQLOutputImpl
+object. The driver converts
+ it to an SQL
+BIT
+before returning it to the database.
+Specified by:
+writeBoolean
+in interface
+SQLOutput
+Parameters:
+x
+- the value to pass to the database
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeByte
+public
+void
+writeByte
+(byte x)
+throws
+SQLException
+Writes a
+byte
+in the Java programming language
+ to this
+SQLOutputImpl
+object. The driver converts
+ it to an SQL
+BIT
+before returning it to the database.
+Specified by:
+writeByte
+in interface
+SQLOutput
+Parameters:
+x
+- the value to pass to the database
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeShort
+public
+void
+writeShort
+(short x)
+throws
+SQLException
+Writes a
+short
+in the Java programming language
+ to this
+SQLOutputImpl
+object. The driver converts
+ it to an SQL
+SMALLINT
+before returning it to the database.
+Specified by:
+writeShort
+in interface
+SQLOutput
+Parameters:
+x
+- the value to pass to the database
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeInt
+public
+void
+writeInt
+(int x)
+throws
+SQLException
+Writes an
+int
+in the Java programming language
+ to this
+SQLOutputImpl
+object. The driver converts
+ it to an SQL
+INTEGER
+before returning it to the database.
+Specified by:
+writeInt
+in interface
+SQLOutput
+Parameters:
+x
+- the value to pass to the database
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeLong
+public
+void
+writeLong
+(long x)
+throws
+SQLException
+Writes a
+long
+in the Java programming language
+ to this
+SQLOutputImpl
+object. The driver converts
+ it to an SQL
+BIGINT
+before returning it to the database.
+Specified by:
+writeLong
+in interface
+SQLOutput
+Parameters:
+x
+- the value to pass to the database
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeFloat
+public
+void
+writeFloat
+(float x)
+throws
+SQLException
+Writes a
+float
+in the Java programming language
+ to this
+SQLOutputImpl
+object. The driver converts
+ it to an SQL
+REAL
+before returning it to the database.
+Specified by:
+writeFloat
+in interface
+SQLOutput
+Parameters:
+x
+- the value to pass to the database
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeDouble
+public
+void
+writeDouble
+(double x)
+throws
+SQLException
+Writes a
+double
+in the Java programming language
+ to this
+SQLOutputImpl
+object. The driver converts
+ it to an SQL
+DOUBLE
+before returning it to the database.
+Specified by:
+writeDouble
+in interface
+SQLOutput
+Parameters:
+x
+- the value to pass to the database
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeBigDecimal
+public
+void
+writeBigDecimal
+(
+BigDecimal
+x)
+throws
+SQLException
+Writes a
+java.math.BigDecimal
+object in the Java programming
+ language to this
+SQLOutputImpl
+object. The driver converts
+ it to an SQL
+NUMERIC
+before returning it to the database.
+Specified by:
+writeBigDecimal
+in interface
+SQLOutput
+Parameters:
+x
+- the value to pass to the database
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeBytes
+public
+void
+writeBytes
+(byte[] x)
+throws
+SQLException
+Writes an array of
+bytes
+in the Java programming language
+ to this
+SQLOutputImpl
+object. The driver converts
+ it to an SQL
+VARBINARY
+or
+LONGVARBINARY
+before returning it to the database.
+Specified by:
+writeBytes
+in interface
+SQLOutput
+Parameters:
+x
+- the value to pass to the database
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeDate
+public
+void
+writeDate
+(
+Date
+x)
+throws
+SQLException
+Writes a
+java.sql.Date
+object in the Java programming
+ language to this
+SQLOutputImpl
+object. The driver converts
+ it to an SQL
+DATE
+before returning it to the database.
+Specified by:
+writeDate
+in interface
+SQLOutput
+Parameters:
+x
+- the value to pass to the database
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeTime
+public
+void
+writeTime
+(
+Time
+x)
+throws
+SQLException
+Writes a
+java.sql.Time
+object in the Java programming
+ language to this
+SQLOutputImpl
+object. The driver converts
+ it to an SQL
+TIME
+before returning it to the database.
+Specified by:
+writeTime
+in interface
+SQLOutput
+Parameters:
+x
+- the value to pass to the database
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeTimestamp
+public
+void
+writeTimestamp
+(
+Timestamp
+x)
+throws
+SQLException
+Writes a
+java.sql.Timestamp
+object in the Java programming
+ language to this
+SQLOutputImpl
+object. The driver converts
+ it to an SQL
+TIMESTAMP
+before returning it to the database.
+Specified by:
+writeTimestamp
+in interface
+SQLOutput
+Parameters:
+x
+- the value to pass to the database
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeCharacterStream
+public
+void
+writeCharacterStream
+(
+Reader
+x)
+throws
+SQLException
+Writes a stream of Unicode characters to this
+SQLOutputImpl
+object. The driver will do any necessary
+ conversion from Unicode to the database
+CHAR
+format.
+Specified by:
+writeCharacterStream
+in interface
+SQLOutput
+Parameters:
+x
+- the value to pass to the database
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeAsciiStream
+public
+void
+writeAsciiStream
+(
+InputStream
+x)
+throws
+SQLException
+Writes a stream of ASCII characters to this
+SQLOutputImpl
+object. The driver will do any necessary
+ conversion from ASCII to the database
+CHAR
+format.
+Specified by:
+writeAsciiStream
+in interface
+SQLOutput
+Parameters:
+x
+- the value to pass to the database
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeBinaryStream
+public
+void
+writeBinaryStream
+(
+InputStream
+x)
+throws
+SQLException
+Writes a stream of uninterpreted bytes to this
+SQLOutputImpl
+object.
+Specified by:
+writeBinaryStream
+in interface
+SQLOutput
+Parameters:
+x
+- the value to pass to the database
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeObject
+public
+void
+writeObject
+(
+SQLData
+x)
+throws
+SQLException
+Writes to the stream the data contained in the given
+SQLData
+object.
+ When the
+SQLData
+object is
+null
+, this
+ method writes an SQL
+NULL
+to the stream.
+ Otherwise, it calls the
+SQLData.writeSQL
+method of the given object, which
+ writes the object's attributes to the stream.
+The implementation of the method
+SQLData.writeSQ
+calls the appropriate
+SQLOutputImpl.writeXXX
+method(s)
+ for writing each of the object's attributes in order.
+ The attributes must be read from an
+SQLInput
+input stream and written to an
+SQLOutputImpl
+output stream in the same order in which they were
+ listed in the SQL definition of the user-defined type.
+Specified by:
+writeObject
+in interface
+SQLOutput
+Parameters:
+x
+- the object representing data of an SQL structured or
+          distinct type
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeRef
+public
+void
+writeRef
+(
+Ref
+x)
+throws
+SQLException
+Writes a
+Ref
+object in the Java programming language
+ to this
+SQLOutputImpl
+object.  The driver converts
+ it to a serializable
+SerialRef
+SQL
+REF
+value
+ before returning it to the database.
+Specified by:
+writeRef
+in interface
+SQLOutput
+Parameters:
+x
+- an object representing an SQL
+REF
+value
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeBlob
+public
+void
+writeBlob
+(
+Blob
+x)
+throws
+SQLException
+Writes a
+Blob
+object in the Java programming language
+ to this
+SQLOutputImpl
+object.  The driver converts
+ it to a serializable
+SerialBlob
+SQL
+BLOB
+value
+ before returning it to the database.
+Specified by:
+writeBlob
+in interface
+SQLOutput
+Parameters:
+x
+- an object representing an SQL
+BLOB
+value
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeClob
+public
+void
+writeClob
+(
+Clob
+x)
+throws
+SQLException
+Writes a
+Clob
+object in the Java programming language
+ to this
+SQLOutputImpl
+object.  The driver converts
+ it to a serializable
+SerialClob
+SQL
+CLOB
+value
+ before returning it to the database.
+Specified by:
+writeClob
+in interface
+SQLOutput
+Parameters:
+x
+- an object representing an SQL
+CLOB
+value
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeStruct
+public
+void
+writeStruct
+(
+Struct
+x)
+throws
+SQLException
+Writes a
+Struct
+object in the Java
+ programming language to this
+SQLOutputImpl
+object. The driver converts this value to an SQL structured type
+ before returning it to the database.
+This method should be used when an SQL structured type has been
+ mapped to a
+Struct
+object in the Java programming
+ language (the standard mapping).  The method
+writeObject
+should be used if an SQL structured type
+ has been custom mapped to a class in the Java programming language.
+Specified by:
+writeStruct
+in interface
+SQLOutput
+Parameters:
+x
+- an object representing the attributes of an SQL structured type
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeArray
+public
+void
+writeArray
+(
+Array
+x)
+throws
+SQLException
+Writes an
+Array
+object in the Java
+ programming language to this
+SQLOutputImpl
+object. The driver converts this value to a serializable
+SerialArray
+SQL
+ARRAY
+value before returning it to the database.
+Specified by:
+writeArray
+in interface
+SQLOutput
+Parameters:
+x
+- an object representing an SQL
+ARRAY
+value
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeURL
+public
+void
+writeURL
+(
+URL
+url)
+throws
+SQLException
+Writes an
+java.sql.Type.DATALINK
+object in the Java
+ programming language to this
+SQLOutputImpl
+object. The
+ driver converts this value to a serializable
+SerialDatalink
+SQL
+DATALINK
+value before return it to the database.
+Specified by:
+writeURL
+in interface
+SQLOutput
+Parameters:
+url
+- an object representing a SQL
+DATALINK
+value
+Throws:
+SQLException
+- if the
+SQLOutputImpl
+object is in
+        use by a
+SQLData
+object attempting to write the attribute
+        values of a UDT to the database.
+writeNString
+public
+void
+writeNString
+(
+String
+x)
+throws
+SQLException
+Writes the next attribute to the stream as a
+String
+in the Java programming language. The driver converts this to a
+ SQL
+NCHAR
+or
+NVARCHAR
+or
+LONGNVARCHAR
+value
+ (depending on the argument's
+ size relative to the driver's limits on
+NVARCHAR
+values)
+ when it sends it to the stream.
+Specified by:
+writeNString
+in interface
+SQLOutput
+Parameters:
+x
+- the value to pass to the database
+Throws:
+SQLException
+- if a database access error occurs
+Since:
+1.6
+writeNClob
+public
+void
+writeNClob
+(
+NClob
+x)
+throws
+SQLException
+Writes an SQL
+NCLOB
+value to the stream.
+Specified by:
+writeNClob
+in interface
+SQLOutput
+Parameters:
+x
+- a
+NClob
+object representing data of an SQL
+NCLOB
+value
+Throws:
+SQLException
+- if a database access error occurs
+Since:
+1.6
+writeRowId
+public
+void
+writeRowId
+(
+RowId
+x)
+throws
+SQLException
+Writes an SQL
+ROWID
+value to the stream.
+Specified by:
+writeRowId
+in interface
+SQLOutput
+Parameters:
+x
+- a
+RowId
+object representing data of an SQL
+ROWID
+value
+Throws:
+SQLException
+- if a database access error occurs
+Since:
+1.6
+writeSQLXML
+public
+void
+writeSQLXML
+(
+SQLXML
+x)
+throws
+SQLException
+Writes an SQL
+XML
+value to the stream.
+Specified by:
+writeSQLXML
+in interface
+SQLOutput
+Parameters:
+x
+- a
+SQLXML
+object representing data of an SQL
+XML
+value
+Throws:
+SQLException
+- if a database access error occurs
+Since:
+1.6
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

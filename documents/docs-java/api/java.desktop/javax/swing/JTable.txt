@@ -1,0 +1,6843 @@
+JTable (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing
+Class JTable
+java.lang.Object
+java.awt.Component
+java.awt.Container
+javax.swing.JComponent
+javax.swing.JTable
+All Implemented Interfaces:
+ImageObserver
+,
+MenuContainer
+,
+Serializable
+,
+EventListener
+,
+Accessible
+,
+CellEditorListener
+,
+ListSelectionListener
+,
+RowSorterListener
+,
+TableColumnModelListener
+,
+TableModelListener
+,
+Scrollable
+@JavaBean
+(
+defaultProperty
+="UI",
+description
+="A component which displays data in a two dimensional grid.")
+public class
+JTable
+extends
+JComponent
+implements
+TableModelListener
+,
+Scrollable
+,
+TableColumnModelListener
+,
+ListSelectionListener
+,
+CellEditorListener
+,
+Accessible
+,
+RowSorterListener
+The
+JTable
+is used to display and edit regular two-dimensional tables
+ of cells.
+ See
+How to Use Tables
+in
+The Java Tutorial
+for task-oriented documentation and examples of using
+JTable
+.
+The
+JTable
+has many
+ facilities that make it possible to customize its rendering and editing
+ but provides defaults for these features so that simple tables can be
+ set up easily.  For example, to set up a table with 10 rows and 10
+ columns of numbers:
+TableModel dataModel = new AbstractTableModel() {
+          public int getColumnCount() { return 10; }
+          public int getRowCount() { return 10;}
+          public Object getValueAt(int row, int col) { return Integer.valueOf(row*col); }
+      };
+      JTable table = new JTable(dataModel);
+      JScrollPane scrollpane = new JScrollPane(table);
+JTable
+s are typically placed inside of a
+JScrollPane
+.  By
+ default, a
+JTable
+will adjust its width such that
+ a horizontal scrollbar is unnecessary.  To allow for a horizontal scrollbar,
+ invoke
+setAutoResizeMode(int)
+with
+AUTO_RESIZE_OFF
+.
+ Note that if you wish to use a
+JTable
+in a standalone
+ view (outside of a
+JScrollPane
+) and want the header
+ displayed, you can get it using
+getTableHeader()
+and
+ display it separately.
+To enable sorting and filtering of rows, use a
+RowSorter
+.
+ You can set up a row sorter in either of two ways:
+Directly set the
+RowSorter
+. For example:
+table.setRowSorter(new TableRowSorter(model))
+.
+Set the
+autoCreateRowSorter
+property to
+true
+, so that the
+JTable
+creates a
+RowSorter
+for
+       you. For example:
+setAutoCreateRowSorter(true)
+.
+When designing applications that use the
+JTable
+it is worth paying
+ close attention to the data structures that will represent the table's data.
+ The
+DefaultTableModel
+is a model implementation that
+ uses a
+Vector
+of
+Vector
+s of
+Object
+s to
+ store the cell values. As well as copying the data from an
+ application into the
+DefaultTableModel
+,
+ it is also possible to wrap the data in the methods of the
+TableModel
+interface so that the data can be passed to the
+JTable
+directly, as in the example above. This often results
+ in more efficient applications because the model is free to choose the
+ internal representation that best suits the data.
+ A good rule of thumb for deciding whether to use the
+AbstractTableModel
+or the
+DefaultTableModel
+is to use the
+AbstractTableModel
+as the base class for creating subclasses and the
+DefaultTableModel
+when subclassing is not required.
+The "TableExample" directory in the demo area of the source distribution
+ gives a number of complete examples of
+JTable
+usage,
+ covering how the
+JTable
+can be used to provide an
+ editable view of data taken from a database and how to modify
+ the columns in the display to use specialized renderers and editors.
+The
+JTable
+uses integers exclusively to refer to both the rows and the columns
+ of the model that it displays. The
+JTable
+simply takes a tabular range of cells
+ and uses
+getValueAt(int, int)
+to retrieve the
+ values from the model during painting.  It is important to remember that
+ the column and row indexes returned by various
+JTable
+methods
+ are in terms of the
+JTable
+(the view) and are not
+ necessarily the same indexes used by the model.
+By default, columns may be rearranged in the
+JTable
+so that the
+ view's columns appear in a different order to the columns in the model.
+ This does not affect the implementation of the model at all: when the
+ columns are reordered, the
+JTable
+maintains the new order of the columns
+ internally and converts its column indices before querying the model.
+So, when writing a
+TableModel
+, it is not necessary to listen for column
+ reordering events as the model will be queried in its own coordinate
+ system regardless of what is happening in the view.
+ In the examples area there is a demonstration of a sorting algorithm making
+ use of exactly this technique to interpose yet another coordinate system
+ where the order of the rows is changed, rather than the order of the columns.
+Similarly when using the sorting and filtering functionality
+ provided by
+RowSorter
+the underlying
+TableModel
+does not need to know how to do sorting,
+ rather
+RowSorter
+will handle it.  Coordinate
+ conversions will be necessary when using the row based methods of
+JTable
+with the underlying
+TableModel
+.
+ All of
+JTable
+s row based methods are in terms of the
+RowSorter
+, which is not necessarily the same as that
+ of the underlying
+TableModel
+.  For example, the
+ selection is always in terms of
+JTable
+so that when
+ using
+RowSorter
+you will need to convert using
+convertRowIndexToView
+or
+convertRowIndexToModel
+.  The following shows how to
+ convert coordinates from
+JTable
+to that of the
+ underlying model:
+int[] selection = table.getSelectedRows();
+   for (int i = 0; i < selection.length; i++) {
+     selection[i] = table.convertRowIndexToModel(selection[i]);
+   }
+   // selection is now in terms of the underlying TableModel
+By default if sorting is enabled
+JTable
+will persist the
+ selection and variable row heights in terms of the model on
+ sorting.  For example if row 0, in terms of the underlying model,
+ is currently selected, after the sort row 0, in terms of the
+ underlying model will be selected.  Visually the selection may
+ change, but in terms of the underlying model it will remain the
+ same.  The one exception to that is if the model index is no longer
+ visible or was removed.  For example, if row 0 in terms of model
+ was filtered out the selection will be empty after the sort.
+J2SE 5 adds methods to
+JTable
+to provide convenient access to some
+ common printing needs. Simple new
+print()
+methods allow for quick
+ and easy addition of printing support to your application. In addition, a new
+getPrintable(javax.swing.JTable.PrintMode, java.text.MessageFormat, java.text.MessageFormat)
+method is available for more advanced printing needs.
+As for all
+JComponent
+classes, you can use
+InputMap
+and
+ActionMap
+to associate an
+Action
+object with a
+KeyStroke
+and execute the
+ action under specified conditions.
+Warning:
+Swing is not thread safe. For more
+ information see
+Swing's Threading
+ Policy
+.
+Warning:
+Serialized objects of this class will not be compatible with
+ future Swing releases. The current serialization support is
+ appropriate for short term storage or RMI between applications running
+ the same version of Swing.  As of 1.4, support for long term storage
+ of all JavaBeans
+ has been added to the
+java.beans
+package.
+ Please see
+XMLEncoder
+.
+Since:
+1.2
+See Also:
+DefaultTableModel
+TableRowSorter
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+protected class
+JTable.AccessibleJTable
+This class implements accessibility support for the
+JTable
+class.
+static final class
+JTable.DropLocation
+A subclass of
+TransferHandler.DropLocation
+representing
+ a drop location for a
+JTable
+.
+static enum
+JTable.PrintMode
+Printing modes, used in printing
+JTable
+s.
+Nested classes/interfaces declared in class javax.swing.
+JComponent
+JComponent.AccessibleJComponent
+Nested classes/interfaces declared in class java.awt.
+Container
+Container.AccessibleAWTContainer
+Nested classes/interfaces declared in class java.awt.
+Component
+Component.AccessibleAWTComponent
+,
+Component.BaselineResizeBehavior
+,
+Component.BltBufferStrategy
+,
+Component.FlipBufferStrategy
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final int
+AUTO_RESIZE_ALL_COLUMNS
+During all resize operations, proportionately resize all columns.
+static final int
+AUTO_RESIZE_LAST_COLUMN
+During all resize operations, apply adjustments to the last column only.
+static final int
+AUTO_RESIZE_NEXT_COLUMN
+When a column is adjusted in the UI, adjust the next column the opposite way.
+static final int
+AUTO_RESIZE_OFF
+Do not adjust column widths automatically; use a horizontal scrollbar instead.
+static final int
+AUTO_RESIZE_SUBSEQUENT_COLUMNS
+During UI adjustment, change subsequent columns to preserve the total width;
+ this is the default behavior.
+protected boolean
+autoCreateColumnsFromModel
+The table will query the
+TableModel
+to build the default
+  set of columns if this is true.
+protected int
+autoResizeMode
+Determines if the table automatically resizes the
+  width of the table's columns to take up the entire width of the
+  table, and how it does the resizing.
+protected
+TableCellEditor
+cellEditor
+The active cell editor object, that overwrites the screen real estate
+ occupied by the current cell and allows the user to change its contents.
+protected boolean
+cellSelectionEnabled
+Obsolete as of Java 2 platform v1.3.
+protected
+TableColumnModel
+columnModel
+The
+TableColumnModel
+of the table.
+protected
+TableModel
+dataModel
+The
+TableModel
+of the table.
+protected
+Hashtable
+<
+Object
+,
+Object
+>
+defaultEditorsByColumnClass
+A table of objects that display and edit the contents of a cell,
+ indexed by class as declared in
+getColumnClass
+in the
+TableModel
+interface.
+protected
+Hashtable
+<
+Object
+,
+Object
+>
+defaultRenderersByColumnClass
+A table of objects that display the contents of a cell,
+ indexed by class as declared in
+getColumnClass
+in the
+TableModel
+interface.
+protected int
+editingColumn
+Identifies the column of the cell being edited.
+protected int
+editingRow
+Identifies the row of the cell being edited.
+protected
+Component
+editorComp
+If editing, the
+Component
+that is handling the editing.
+protected
+Color
+gridColor
+The color of the grid.
+protected
+Dimension
+preferredViewportSize
+Used by the
+Scrollable
+interface to determine the initial visible area.
+protected int
+rowHeight
+The height in pixels of each row in the table.
+protected int
+rowMargin
+The height in pixels of the margin between the cells in each row.
+protected boolean
+rowSelectionAllowed
+True if row selection is allowed in this table.
+protected
+Color
+selectionBackground
+The background color of selected cells.
+protected
+Color
+selectionForeground
+The foreground color of selected cells.
+protected
+ListSelectionModel
+selectionModel
+The
+ListSelectionModel
+of the table, used to keep track of row selections.
+protected boolean
+showHorizontalLines
+The table draws horizontal lines between cells if
+showHorizontalLines
+is true.
+protected boolean
+showVerticalLines
+The table draws vertical lines between cells if
+showVerticalLines
+is true.
+protected
+JTableHeader
+tableHeader
+The
+TableHeader
+working with the table.
+Fields declared in class javax.swing.
+JComponent
+listenerList
+,
+TOOL_TIP_TEXT_KEY
+,
+ui
+,
+UNDEFINED_CONDITION
+,
+WHEN_ANCESTOR_OF_FOCUSED_COMPONENT
+,
+WHEN_FOCUSED
+,
+WHEN_IN_FOCUSED_WINDOW
+Fields declared in class java.awt.
+Component
+accessibleContext
+,
+BOTTOM_ALIGNMENT
+,
+CENTER_ALIGNMENT
+,
+LEFT_ALIGNMENT
+,
+RIGHT_ALIGNMENT
+,
+TOP_ALIGNMENT
+Fields declared in interface java.awt.image.
+ImageObserver
+ABORT
+,
+ALLBITS
+,
+ERROR
+,
+FRAMEBITS
+,
+HEIGHT
+,
+PROPERTIES
+,
+SOMEBITS
+,
+WIDTH
+Constructor Summary
+Constructors
+Constructor
+Description
+JTable
+()
+Constructs a default
+JTable
+that is initialized with a default
+ data model, a default column model, and a default selection
+ model.
+JTable
+(int numRows,
+ int numColumns)
+Constructs a
+JTable
+with
+numRows
+and
+numColumns
+of empty cells using
+DefaultTableModel
+.
+JTable
+(
+Object
+[][] rowData,
+Object
+[] columnNames)
+Constructs a
+JTable
+to display the values in the two dimensional array,
+rowData
+, with column names,
+columnNames
+.
+JTable
+(
+Vector
+<? extends
+Vector
+> rowData,
+Vector
+<?> columnNames)
+Constructs a
+JTable
+to display the values in the
+Vector
+of
+Vectors
+,
+rowData
+,
+ with column names,
+columnNames
+.
+JTable
+(
+TableModel
+dm)
+Constructs a
+JTable
+that is initialized with
+dm
+as the data model, a default column model,
+ and a default selection model.
+JTable
+(
+TableModel
+dm,
+TableColumnModel
+cm)
+Constructs a
+JTable
+that is initialized with
+dm
+as the data model,
+cm
+as the column model, and a default selection model.
+JTable
+(
+TableModel
+dm,
+TableColumnModel
+cm,
+ListSelectionModel
+sm)
+Constructs a
+JTable
+that is initialized with
+dm
+as the data model,
+cm
+as the
+ column model, and
+sm
+as the selection model.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+void
+addColumn
+(
+TableColumn
+aColumn)
+Appends
+aColumn
+to the end of the array of columns held by
+  this
+JTable
+'s column model.
+void
+addColumnSelectionInterval
+(int index0,
+ int index1)
+Adds the columns from
+index0
+to
+index1
+,
+ inclusive, to the current selection.
+void
+addNotify
+()
+Calls the
+configureEnclosingScrollPane
+method.
+void
+addRowSelectionInterval
+(int index0,
+ int index1)
+Adds the rows from
+index0
+to
+index1
+, inclusive, to
+ the current selection.
+void
+changeSelection
+(int rowIndex,
+ int columnIndex,
+ boolean toggle,
+ boolean extend)
+Updates the selection models of the table, depending on the state of the
+ two flags:
+toggle
+and
+extend
+.
+void
+clearSelection
+()
+Deselects all selected columns and rows.
+void
+columnAdded
+(
+TableColumnModelEvent
+e)
+Invoked when a column is added to the table column model.
+int
+columnAtPoint
+(
+Point
+point)
+Returns the index of the column that
+point
+lies in,
+ or -1 if the result is not in the range
+ [0,
+getColumnCount()
+-1].
+void
+columnMarginChanged
+(
+ChangeEvent
+e)
+Invoked when a column is moved due to a margin change.
+void
+columnMoved
+(
+TableColumnModelEvent
+e)
+Invoked when a column is repositioned.
+void
+columnRemoved
+(
+TableColumnModelEvent
+e)
+Invoked when a column is removed from the table column model.
+void
+columnSelectionChanged
+(
+ListSelectionEvent
+e)
+Invoked when the selection model of the
+TableColumnModel
+is changed.
+protected void
+configureEnclosingScrollPane
+()
+If this
+JTable
+is the
+viewportView
+of an enclosing
+JScrollPane
+(the usual situation), configure this
+ScrollPane
+by, amongst other things,
+ installing the table's
+tableHeader
+as the
+columnHeaderView
+of the scroll pane.
+int
+convertColumnIndexToModel
+(int viewColumnIndex)
+Maps the index of the column in the view at
+viewColumnIndex
+to the index of the column
+ in the table model.
+int
+convertColumnIndexToView
+(int modelColumnIndex)
+Maps the index of the column in the table model at
+modelColumnIndex
+to the index of the column
+ in the view.
+int
+convertRowIndexToModel
+(int viewRowIndex)
+Maps the index of the row in terms of the view to the
+ underlying
+TableModel
+.
+int
+convertRowIndexToView
+(int modelRowIndex)
+Maps the index of the row in terms of the
+TableModel
+to the view.
+protected
+TableColumnModel
+createDefaultColumnModel
+()
+Returns the default column model object, which is
+ a
+DefaultTableColumnModel
+.
+void
+createDefaultColumnsFromModel
+()
+Creates default columns for the table from
+ the data model using the
+getColumnCount
+method
+ defined in the
+TableModel
+interface.
+protected
+TableModel
+createDefaultDataModel
+()
+Returns the default table model object, which is
+ a
+DefaultTableModel
+.
+protected void
+createDefaultEditors
+()
+Creates default cell editors for objects, numbers, and boolean values.
+protected void
+createDefaultRenderers
+()
+Creates default cell renderers for objects, numbers, doubles, dates,
+ booleans, and icons.
+protected
+ListSelectionModel
+createDefaultSelectionModel
+()
+Returns the default selection model object, which is
+ a
+DefaultListSelectionModel
+.
+protected
+JTableHeader
+createDefaultTableHeader
+()
+Returns the default table header object, which is
+ a
+JTableHeader
+.
+static
+JScrollPane
+createScrollPaneForTable
+(
+JTable
+aTable)
+Deprecated.
+As of Swing version 1.0.2,
+ replaced by
+new JScrollPane(aTable)
+.
+void
+doLayout
+()
+Causes this table to lay out its rows and columns.
+boolean
+editCellAt
+(int row,
+ int column)
+Programmatically starts editing the cell at
+row
+and
+column
+, if those indices are in the valid range, and
+ the cell at those indices is editable.
+boolean
+editCellAt
+(int row,
+ int column,
+EventObject
+e)
+Programmatically starts editing the cell at
+row
+and
+column
+, if those indices are in the valid range, and
+ the cell at those indices is editable.
+void
+editingCanceled
+(
+ChangeEvent
+e)
+Invoked when editing is canceled.
+void
+editingStopped
+(
+ChangeEvent
+e)
+Invoked when editing is finished.
+AccessibleContext
+getAccessibleContext
+()
+Gets the AccessibleContext associated with this JTable.
+boolean
+getAutoCreateColumnsFromModel
+()
+Determines whether the table will create default columns from the model.
+boolean
+getAutoCreateRowSorter
+()
+Returns
+true
+if whenever the model changes, a new
+RowSorter
+should be created and installed
+ as the table's sorter; otherwise, returns
+false
+.
+int
+getAutoResizeMode
+()
+Returns the auto resize mode of the table.
+TableCellEditor
+getCellEditor
+()
+Returns the active cell editor, which is
+null
+if the table
+ is not currently editing.
+TableCellEditor
+getCellEditor
+(int row,
+ int column)
+Returns an appropriate editor for the cell specified by
+row
+and
+column
+.
+Rectangle
+getCellRect
+(int row,
+ int column,
+ boolean includeSpacing)
+Returns a rectangle for the cell that lies at the intersection of
+row
+and
+column
+.
+TableCellRenderer
+getCellRenderer
+(int row,
+ int column)
+Returns an appropriate renderer for the cell specified by this row and
+ column.
+boolean
+getCellSelectionEnabled
+()
+Returns true if both row and column selection models are enabled.
+TableColumn
+getColumn
+(
+Object
+identifier)
+Returns the
+TableColumn
+object for the column in the table
+ whose identifier is equal to
+identifier
+, when compared using
+equals
+.
+Class
+<?>
+getColumnClass
+(int column)
+Returns the type of the column appearing in the view at
+ column position
+column
+.
+int
+getColumnCount
+()
+Returns the number of columns in the column model.
+TableColumnModel
+getColumnModel
+()
+Returns the
+TableColumnModel
+that contains all column information
+ of this table.
+String
+getColumnName
+(int column)
+Returns the name of the column appearing in the view at
+ column position
+column
+.
+boolean
+getColumnSelectionAllowed
+()
+Returns true if columns can be selected.
+TableCellEditor
+getDefaultEditor
+(
+Class
+<?> columnClass)
+Returns the editor to be used when no editor has been set in
+ a
+TableColumn
+.
+TableCellRenderer
+getDefaultRenderer
+(
+Class
+<?> columnClass)
+Returns the cell renderer to be used when no renderer has been set in
+ a
+TableColumn
+.
+boolean
+getDragEnabled
+()
+Returns whether or not automatic drag handling is enabled.
+final
+JTable.DropLocation
+getDropLocation
+()
+Returns the location that this component should visually indicate
+ as the drop location during a DnD operation over the component,
+ or
+null
+if no location is to currently be shown.
+final
+DropMode
+getDropMode
+()
+Returns the drop mode for this component.
+int
+getEditingColumn
+()
+Returns the index of the column that contains the cell currently
+ being edited.
+int
+getEditingRow
+()
+Returns the index of the row that contains the cell currently
+ being edited.
+Component
+getEditorComponent
+()
+Returns the component that is handling the editing session.
+boolean
+getFillsViewportHeight
+()
+Returns whether or not this table is always made large enough
+ to fill the height of an enclosing viewport.
+Color
+getGridColor
+()
+Returns the color used to draw grid lines.
+Dimension
+getIntercellSpacing
+()
+Returns the horizontal and vertical space between cells.
+TableModel
+getModel
+()
+Returns the
+TableModel
+that provides the data displayed by this
+JTable
+.
+Dimension
+getPreferredScrollableViewportSize
+()
+Returns the preferred size of the viewport for this table.
+Printable
+getPrintable
+(
+JTable.PrintMode
+printMode,
+MessageFormat
+headerFormat,
+MessageFormat
+footerFormat)
+Return a
+Printable
+for use in printing this JTable.
+int
+getRowCount
+()
+Returns the number of rows that can be shown in the
+JTable
+, given unlimited space.
+int
+getRowHeight
+()
+Returns the height of a table row, in pixels.
+int
+getRowHeight
+(int row)
+Returns the height, in pixels, of the cells in
+row
+.
+int
+getRowMargin
+()
+Gets the amount of empty space, in pixels, between cells.
+boolean
+getRowSelectionAllowed
+()
+Returns true if rows can be selected.
+RowSorter
+<? extends
+TableModel
+>
+getRowSorter
+()
+Returns the object responsible for sorting.
+int
+getScrollableBlockIncrement
+(
+Rectangle
+visibleRect,
+ int orientation,
+ int direction)
+Returns
+visibleRect.height
+or
+visibleRect.width
+,
+ depending on this table's orientation.
+boolean
+getScrollableTracksViewportHeight
+()
+Returns
+false
+to indicate that the height of the viewport does
+ not determine the height of the table, unless
+getFillsViewportHeight
+is
+true
+and the preferred height
+ of the table is smaller than the viewport's height.
+boolean
+getScrollableTracksViewportWidth
+()
+Returns false if
+autoResizeMode
+is set to
+AUTO_RESIZE_OFF
+, which indicates that the
+ width of the viewport does not determine the width
+ of the table.
+int
+getScrollableUnitIncrement
+(
+Rectangle
+visibleRect,
+ int orientation,
+ int direction)
+Returns the scroll increment (in pixels) that completely exposes one new
+ row or column (depending on the orientation).
+int
+getSelectedColumn
+()
+Returns the index of the first selected column,
+ -1 if no column is selected.
+int
+getSelectedColumnCount
+()
+Returns the number of selected columns.
+int[]
+getSelectedColumns
+()
+Returns the indices of all selected columns.
+int
+getSelectedRow
+()
+Returns the index of the first selected row, -1 if no row is selected.
+int
+getSelectedRowCount
+()
+Returns the number of selected rows.
+int[]
+getSelectedRows
+()
+Returns the indices of all selected rows.
+Color
+getSelectionBackground
+()
+Returns the background color for selected cells.
+Color
+getSelectionForeground
+()
+Returns the foreground color for selected cells.
+ListSelectionModel
+getSelectionModel
+()
+Returns the
+ListSelectionModel
+that is used to maintain row
+ selection state.
+boolean
+getShowHorizontalLines
+()
+Returns true if the table draws horizontal lines between cells, false if it
+ doesn't.
+boolean
+getShowVerticalLines
+()
+Returns true if the table draws vertical lines between cells, false if it
+ doesn't.
+boolean
+getSurrendersFocusOnKeystroke
+()
+Returns true if the editor should get the focus
+ when keystrokes cause the editor to be activated
+JTableHeader
+getTableHeader
+()
+Returns the
+tableHeader
+used by this
+JTable
+.
+String
+getToolTipText
+(
+MouseEvent
+event)
+Overrides
+JComponent
+'s
+getToolTipText
+method in order to allow the renderer's tips to be used
+ if it has text set.
+TableUI
+getUI
+()
+Returns the L&F object that renders this component.
+String
+getUIClassID
+()
+Returns the suffix used to construct the name of the L&F class used to
+ render this component.
+boolean
+getUpdateSelectionOnSort
+()
+Returns true if the selection should be updated after sorting.
+Object
+getValueAt
+(int row,
+ int column)
+Returns the cell value at
+row
+and
+column
+.
+protected void
+initializeLocalVars
+()
+Initializes table properties to their default values.
+boolean
+isCellEditable
+(int row,
+ int column)
+Returns true if the cell at
+row
+and
+column
+is editable.
+boolean
+isCellSelected
+(int row,
+ int column)
+Returns true if the specified indices are in the valid range of rows
+ and columns and the cell at the specified position is selected.
+boolean
+isColumnSelected
+(int column)
+Returns true if the specified index is in the valid range of columns,
+ and the column at that index is selected.
+boolean
+isEditing
+()
+Returns true if a cell is being edited.
+boolean
+isRowSelected
+(int row)
+Returns true if the specified index is in the valid range of rows,
+ and the row at that index is selected.
+void
+moveColumn
+(int column,
+ int targetColumn)
+Moves the column
+column
+to the position currently
+ occupied by the column
+targetColumn
+in the view.
+protected
+String
+paramString
+()
+Returns a string representation of this table.
+Component
+prepareEditor
+(
+TableCellEditor
+editor,
+ int row,
+ int column)
+Prepares the editor by querying the data model for the value and
+ selection state of the cell at
+row
+,
+column
+.
+Component
+prepareRenderer
+(
+TableCellRenderer
+renderer,
+ int row,
+ int column)
+Prepares the renderer by querying the data model for the
+ value and selection state
+ of the cell at
+row
+,
+column
+.
+boolean
+print
+()
+A convenience method that displays a printing dialog, and then prints
+ this
+JTable
+in mode
+PrintMode.FIT_WIDTH
+,
+ with no header or footer text.
+boolean
+print
+(
+JTable.PrintMode
+printMode)
+A convenience method that displays a printing dialog, and then prints
+ this
+JTable
+in the given printing mode,
+ with no header or footer text.
+boolean
+print
+(
+JTable.PrintMode
+printMode,
+MessageFormat
+headerFormat,
+MessageFormat
+footerFormat)
+A convenience method that displays a printing dialog, and then prints
+ this
+JTable
+in the given printing mode,
+ with the specified header and footer text.
+boolean
+print
+(
+JTable.PrintMode
+printMode,
+MessageFormat
+headerFormat,
+MessageFormat
+footerFormat,
+ boolean showPrintDialog,
+PrintRequestAttributeSet
+attr,
+ boolean interactive)
+Prints this table, as specified by the fully featured
+print
+method, with the default printer specified as the print service.
+boolean
+print
+(
+JTable.PrintMode
+printMode,
+MessageFormat
+headerFormat,
+MessageFormat
+footerFormat,
+ boolean showPrintDialog,
+PrintRequestAttributeSet
+attr,
+ boolean interactive,
+PrintService
+service)
+Prints this
+JTable
+.
+void
+removeColumn
+(
+TableColumn
+aColumn)
+Removes
+aColumn
+from this
+JTable
+'s
+  array of columns.
+void
+removeColumnSelectionInterval
+(int index0,
+ int index1)
+Deselects the columns from
+index0
+to
+index1
+, inclusive.
+void
+removeEditor
+()
+Discards the editor object and frees the real estate it used for
+ cell rendering.
+void
+removeNotify
+()
+Calls the
+unconfigureEnclosingScrollPane
+method.
+void
+removeRowSelectionInterval
+(int index0,
+ int index1)
+Deselects the rows from
+index0
+to
+index1
+, inclusive.
+protected void
+resizeAndRepaint
+()
+Equivalent to
+revalidate
+followed by
+repaint
+.
+int
+rowAtPoint
+(
+Point
+point)
+Returns the index of the row that
+point
+lies in,
+ or -1 if the result is not in the range
+ [0,
+getRowCount()
+-1].
+void
+selectAll
+()
+Selects all rows, columns, and cells in the table.
+void
+setAutoCreateColumnsFromModel
+(boolean autoCreateColumnsFromModel)
+Sets this table's
+autoCreateColumnsFromModel
+flag.
+void
+setAutoCreateRowSorter
+(boolean autoCreateRowSorter)
+Specifies whether a
+RowSorter
+should be created for the
+ table whenever its model changes.
+void
+setAutoResizeMode
+(int mode)
+Sets the table's auto resize mode when the table is resized.
+void
+setCellEditor
+(
+TableCellEditor
+anEditor)
+Sets the active cell editor.
+void
+setCellSelectionEnabled
+(boolean cellSelectionEnabled)
+Sets whether this table allows both a column selection and a
+ row selection to exist simultaneously.
+void
+setColumnModel
+(
+TableColumnModel
+columnModel)
+Sets the column model for this table to
+columnModel
+and registers
+ for listener notifications from the new column model.
+void
+setColumnSelectionAllowed
+(boolean columnSelectionAllowed)
+Sets whether the columns in this model can be selected.
+void
+setColumnSelectionInterval
+(int index0,
+ int index1)
+Selects the columns from
+index0
+to
+index1
+,
+ inclusive.
+void
+setDefaultEditor
+(
+Class
+<?> columnClass,
+TableCellEditor
+editor)
+Sets a default cell editor to be used if no editor has been set in
+ a
+TableColumn
+.
+void
+setDefaultRenderer
+(
+Class
+<?> columnClass,
+TableCellRenderer
+renderer)
+Sets a default cell renderer to be used if no renderer has been set in
+ a
+TableColumn
+.
+void
+setDragEnabled
+(boolean b)
+Turns on or off automatic drag handling.
+final void
+setDropMode
+(
+DropMode
+dropMode)
+Sets the drop mode for this component.
+void
+setEditingColumn
+(int aColumn)
+Sets the
+editingColumn
+variable.
+void
+setEditingRow
+(int aRow)
+Sets the
+editingRow
+variable.
+void
+setFillsViewportHeight
+(boolean fillsViewportHeight)
+Sets whether or not this table is always made large enough
+ to fill the height of an enclosing viewport.
+void
+setGridColor
+(
+Color
+gridColor)
+Sets the color used to draw grid lines to
+gridColor
+and redisplays.
+void
+setIntercellSpacing
+(
+Dimension
+intercellSpacing)
+Sets the
+rowMargin
+and the
+columnMargin
+--
+ the height and width of the space between cells -- to
+intercellSpacing
+.
+void
+setModel
+(
+TableModel
+dataModel)
+Sets the data model for this table to
+dataModel
+and registers
+ with it for listener notifications from the new data model.
+void
+setPreferredScrollableViewportSize
+(
+Dimension
+size)
+Sets the preferred size of the viewport for this table.
+void
+setRowHeight
+(int rowHeight)
+Sets the height, in pixels, of all cells to
+rowHeight
+,
+ revalidates, and repaints.
+void
+setRowHeight
+(int row,
+ int rowHeight)
+Sets the height for
+row
+to
+rowHeight
+,
+ revalidates, and repaints.
+void
+setRowMargin
+(int rowMargin)
+Sets the amount of empty space between cells in adjacent rows.
+void
+setRowSelectionAllowed
+(boolean rowSelectionAllowed)
+Sets whether the rows in this model can be selected.
+void
+setRowSelectionInterval
+(int index0,
+ int index1)
+Selects the rows from
+index0
+to
+index1
+,
+ inclusive.
+void
+setRowSorter
+(
+RowSorter
+<? extends
+TableModel
+> sorter)
+Sets the
+RowSorter
+.
+void
+setSelectionBackground
+(
+Color
+selectionBackground)
+Sets the background color for selected cells.
+void
+setSelectionForeground
+(
+Color
+selectionForeground)
+Sets the foreground color for selected cells.
+void
+setSelectionMode
+(int selectionMode)
+Sets the table's selection mode to allow only single selections, a single
+ contiguous interval, or multiple intervals.
+void
+setSelectionModel
+(
+ListSelectionModel
+selectionModel)
+Sets the row selection model for this table to
+selectionModel
+and registers for listener notifications from the new selection model.
+void
+setShowGrid
+(boolean showGrid)
+Sets whether the table draws grid lines around cells.
+void
+setShowHorizontalLines
+(boolean showHorizontalLines)
+Sets whether the table draws horizontal lines between cells.
+void
+setShowVerticalLines
+(boolean showVerticalLines)
+Sets whether the table draws vertical lines between cells.
+void
+setSurrendersFocusOnKeystroke
+(boolean surrendersFocusOnKeystroke)
+Sets whether editors in this JTable get the keyboard focus
+ when an editor is activated as a result of the JTable
+ forwarding keyboard events for a cell.
+void
+setTableHeader
+(
+JTableHeader
+tableHeader)
+Sets the
+tableHeader
+working with this
+JTable
+to
+newHeader
+.
+void
+setUI
+(
+TableUI
+ui)
+Sets the L&F object that renders this component and repaints.
+void
+setUpdateSelectionOnSort
+(boolean update)
+Specifies whether the selection should be updated after sorting.
+void
+setValueAt
+(
+Object
+aValue,
+ int row,
+ int column)
+Sets the value for the cell in the table model at
+row
+and
+column
+.
+void
+sizeColumnsToFit
+(boolean lastColumnOnly)
+Deprecated.
+As of Swing version 1.0.3,
+ replaced by
+doLayout()
+.
+void
+sizeColumnsToFit
+(int resizingColumn)
+Obsolete as of Java 2 platform v1.4.
+void
+sorterChanged
+(
+RowSorterEvent
+e)
+RowSorterListener
+notification that the
+RowSorter
+has changed in some way.
+void
+tableChanged
+(
+TableModelEvent
+e)
+Invoked when this table's
+TableModel
+generates
+ a
+TableModelEvent
+.
+protected void
+unconfigureEnclosingScrollPane
+()
+Reverses the effect of
+configureEnclosingScrollPane
+by replacing the
+columnHeaderView
+of the enclosing
+ scroll pane with
+null
+.
+void
+updateUI
+()
+Notification from the
+UIManager
+that the L&F has changed.
+void
+valueChanged
+(
+ListSelectionEvent
+e)
+Invoked when the row selection changes -- repaints to show the new
+ selection.
+Methods declared in class javax.swing.
+JComponent
+addAncestorListener
+,
+addVetoableChangeListener
+,
+computeVisibleRect
+,
+contains
+,
+createToolTip
+,
+disable
+,
+enable
+,
+firePropertyChange
+,
+firePropertyChange
+,
+fireVetoableChange
+,
+getActionForKeyStroke
+,
+getActionMap
+,
+getAlignmentX
+,
+getAlignmentY
+,
+getAncestorListeners
+,
+getAutoscrolls
+,
+getBaseline
+,
+getBaselineResizeBehavior
+,
+getBorder
+,
+getBounds
+,
+getClientProperty
+,
+getComponentGraphics
+,
+getComponentPopupMenu
+,
+getConditionForKeyStroke
+,
+getDebugGraphicsOptions
+,
+getDefaultLocale
+,
+getFontMetrics
+,
+getGraphics
+,
+getHeight
+,
+getInheritsPopupMenu
+,
+getInputMap
+,
+getInputMap
+,
+getInputVerifier
+,
+getInsets
+,
+getInsets
+,
+getListeners
+,
+getLocation
+,
+getMaximumSize
+,
+getMinimumSize
+,
+getNextFocusableComponent
+,
+getPopupLocation
+,
+getPreferredSize
+,
+getRegisteredKeyStrokes
+,
+getRootPane
+,
+getSize
+,
+getToolTipLocation
+,
+getToolTipText
+,
+getTopLevelAncestor
+,
+getTransferHandler
+,
+getVerifyInputWhenFocusTarget
+,
+getVetoableChangeListeners
+,
+getVisibleRect
+,
+getWidth
+,
+getX
+,
+getY
+,
+grabFocus
+,
+hide
+,
+isDoubleBuffered
+,
+isLightweightComponent
+,
+isManagingFocus
+,
+isOpaque
+,
+isOptimizedDrawingEnabled
+,
+isPaintingForPrint
+,
+isPaintingOrigin
+,
+isPaintingTile
+,
+isRequestFocusEnabled
+,
+isValidateRoot
+,
+paint
+,
+paintBorder
+,
+paintChildren
+,
+paintComponent
+,
+paintImmediately
+,
+paintImmediately
+,
+print
+,
+printAll
+,
+printBorder
+,
+printChildren
+,
+printComponent
+,
+processComponentKeyEvent
+,
+processKeyBinding
+,
+processKeyEvent
+,
+processMouseEvent
+,
+processMouseMotionEvent
+,
+putClientProperty
+,
+registerKeyboardAction
+,
+registerKeyboardAction
+,
+removeAncestorListener
+,
+removeVetoableChangeListener
+,
+repaint
+,
+repaint
+,
+requestDefaultFocus
+,
+requestFocus
+,
+requestFocus
+,
+requestFocusInWindow
+,
+requestFocusInWindow
+,
+resetKeyboardActions
+,
+reshape
+,
+revalidate
+,
+scrollRectToVisible
+,
+setActionMap
+,
+setAlignmentX
+,
+setAlignmentY
+,
+setAutoscrolls
+,
+setBackground
+,
+setBorder
+,
+setComponentPopupMenu
+,
+setDebugGraphicsOptions
+,
+setDefaultLocale
+,
+setDoubleBuffered
+,
+setEnabled
+,
+setFocusTraversalKeys
+,
+setFont
+,
+setForeground
+,
+setInheritsPopupMenu
+,
+setInputMap
+,
+setInputVerifier
+,
+setMaximumSize
+,
+setMinimumSize
+,
+setNextFocusableComponent
+,
+setOpaque
+,
+setPreferredSize
+,
+setRequestFocusEnabled
+,
+setToolTipText
+,
+setTransferHandler
+,
+setUI
+,
+setVerifyInputWhenFocusTarget
+,
+setVisible
+,
+unregisterKeyboardAction
+,
+update
+Methods declared in class java.awt.
+Container
+add
+,
+add
+,
+add
+,
+add
+,
+add
+,
+addContainerListener
+,
+addImpl
+,
+addPropertyChangeListener
+,
+addPropertyChangeListener
+,
+applyComponentOrientation
+,
+areFocusTraversalKeysSet
+,
+countComponents
+,
+deliverEvent
+,
+findComponentAt
+,
+findComponentAt
+,
+getComponent
+,
+getComponentAt
+,
+getComponentAt
+,
+getComponentCount
+,
+getComponents
+,
+getComponentZOrder
+,
+getContainerListeners
+,
+getFocusTraversalKeys
+,
+getFocusTraversalPolicy
+,
+getLayout
+,
+getMousePosition
+,
+insets
+,
+invalidate
+,
+isAncestorOf
+,
+isFocusCycleRoot
+,
+isFocusCycleRoot
+,
+isFocusTraversalPolicyProvider
+,
+isFocusTraversalPolicySet
+,
+layout
+,
+list
+,
+list
+,
+locate
+,
+minimumSize
+,
+paintComponents
+,
+preferredSize
+,
+printComponents
+,
+processContainerEvent
+,
+processEvent
+,
+remove
+,
+remove
+,
+removeAll
+,
+removeContainerListener
+,
+setComponentZOrder
+,
+setFocusCycleRoot
+,
+setFocusTraversalPolicy
+,
+setFocusTraversalPolicyProvider
+,
+setLayout
+,
+transferFocusDownCycle
+,
+validate
+,
+validateTree
+Methods declared in class java.awt.
+Component
+action
+,
+add
+,
+addComponentListener
+,
+addFocusListener
+,
+addHierarchyBoundsListener
+,
+addHierarchyListener
+,
+addInputMethodListener
+,
+addKeyListener
+,
+addMouseListener
+,
+addMouseMotionListener
+,
+addMouseWheelListener
+,
+bounds
+,
+checkImage
+,
+checkImage
+,
+coalesceEvents
+,
+contains
+,
+createImage
+,
+createImage
+,
+createVolatileImage
+,
+createVolatileImage
+,
+disableEvents
+,
+dispatchEvent
+,
+enable
+,
+enableEvents
+,
+enableInputMethods
+,
+firePropertyChange
+,
+firePropertyChange
+,
+firePropertyChange
+,
+firePropertyChange
+,
+firePropertyChange
+,
+firePropertyChange
+,
+firePropertyChange
+,
+getBackground
+,
+getBounds
+,
+getColorModel
+,
+getComponentListeners
+,
+getComponentOrientation
+,
+getCursor
+,
+getDropTarget
+,
+getFocusCycleRootAncestor
+,
+getFocusListeners
+,
+getFocusTraversalKeysEnabled
+,
+getFont
+,
+getForeground
+,
+getGraphicsConfiguration
+,
+getHierarchyBoundsListeners
+,
+getHierarchyListeners
+,
+getIgnoreRepaint
+,
+getInputContext
+,
+getInputMethodListeners
+,
+getInputMethodRequests
+,
+getKeyListeners
+,
+getLocale
+,
+getLocation
+,
+getLocationOnScreen
+,
+getMouseListeners
+,
+getMouseMotionListeners
+,
+getMousePosition
+,
+getMouseWheelListeners
+,
+getName
+,
+getParent
+,
+getPropertyChangeListeners
+,
+getPropertyChangeListeners
+,
+getSize
+,
+getToolkit
+,
+getTreeLock
+,
+gotFocus
+,
+handleEvent
+,
+hasFocus
+,
+imageUpdate
+,
+inside
+,
+isBackgroundSet
+,
+isCursorSet
+,
+isDisplayable
+,
+isEnabled
+,
+isFocusable
+,
+isFocusOwner
+,
+isFocusTraversable
+,
+isFontSet
+,
+isForegroundSet
+,
+isLightweight
+,
+isMaximumSizeSet
+,
+isMinimumSizeSet
+,
+isPreferredSizeSet
+,
+isShowing
+,
+isValid
+,
+isVisible
+,
+keyDown
+,
+keyUp
+,
+list
+,
+list
+,
+list
+,
+location
+,
+lostFocus
+,
+mouseDown
+,
+mouseDrag
+,
+mouseEnter
+,
+mouseExit
+,
+mouseMove
+,
+mouseUp
+,
+move
+,
+nextFocus
+,
+paintAll
+,
+postEvent
+,
+prepareImage
+,
+prepareImage
+,
+processComponentEvent
+,
+processFocusEvent
+,
+processHierarchyBoundsEvent
+,
+processHierarchyEvent
+,
+processInputMethodEvent
+,
+processMouseWheelEvent
+,
+remove
+,
+removeComponentListener
+,
+removeFocusListener
+,
+removeHierarchyBoundsListener
+,
+removeHierarchyListener
+,
+removeInputMethodListener
+,
+removeKeyListener
+,
+removeMouseListener
+,
+removeMouseMotionListener
+,
+removeMouseWheelListener
+,
+removePropertyChangeListener
+,
+removePropertyChangeListener
+,
+repaint
+,
+repaint
+,
+repaint
+,
+requestFocus
+,
+requestFocus
+,
+requestFocusInWindow
+,
+resize
+,
+resize
+,
+setBounds
+,
+setBounds
+,
+setComponentOrientation
+,
+setCursor
+,
+setDropTarget
+,
+setFocusable
+,
+setFocusTraversalKeysEnabled
+,
+setIgnoreRepaint
+,
+setLocale
+,
+setLocation
+,
+setLocation
+,
+setMixingCutoutShape
+,
+setName
+,
+setSize
+,
+setSize
+,
+show
+,
+show
+,
+size
+,
+toString
+,
+transferFocus
+,
+transferFocusBackward
+,
+transferFocusUpCycle
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Field Details
+AUTO_RESIZE_OFF
+public static final
+int
+AUTO_RESIZE_OFF
+Do not adjust column widths automatically; use a horizontal scrollbar instead.
+See Also:
+Constant Field Values
+AUTO_RESIZE_NEXT_COLUMN
+public static final
+int
+AUTO_RESIZE_NEXT_COLUMN
+When a column is adjusted in the UI, adjust the next column the opposite way.
+See Also:
+Constant Field Values
+AUTO_RESIZE_SUBSEQUENT_COLUMNS
+public static final
+int
+AUTO_RESIZE_SUBSEQUENT_COLUMNS
+During UI adjustment, change subsequent columns to preserve the total width;
+ this is the default behavior.
+See Also:
+Constant Field Values
+AUTO_RESIZE_LAST_COLUMN
+public static final
+int
+AUTO_RESIZE_LAST_COLUMN
+During all resize operations, apply adjustments to the last column only.
+See Also:
+Constant Field Values
+AUTO_RESIZE_ALL_COLUMNS
+public static final
+int
+AUTO_RESIZE_ALL_COLUMNS
+During all resize operations, proportionately resize all columns.
+See Also:
+Constant Field Values
+dataModel
+protected
+TableModel
+dataModel
+The
+TableModel
+of the table.
+columnModel
+protected
+TableColumnModel
+columnModel
+The
+TableColumnModel
+of the table.
+selectionModel
+protected
+ListSelectionModel
+selectionModel
+The
+ListSelectionModel
+of the table, used to keep track of row selections.
+tableHeader
+protected
+JTableHeader
+tableHeader
+The
+TableHeader
+working with the table.
+rowHeight
+protected
+int
+rowHeight
+The height in pixels of each row in the table.
+rowMargin
+protected
+int
+rowMargin
+The height in pixels of the margin between the cells in each row.
+gridColor
+protected
+Color
+gridColor
+The color of the grid.
+showHorizontalLines
+protected
+boolean
+showHorizontalLines
+The table draws horizontal lines between cells if
+showHorizontalLines
+is true.
+showVerticalLines
+protected
+boolean
+showVerticalLines
+The table draws vertical lines between cells if
+showVerticalLines
+is true.
+autoResizeMode
+protected
+int
+autoResizeMode
+Determines if the table automatically resizes the
+  width of the table's columns to take up the entire width of the
+  table, and how it does the resizing.
+autoCreateColumnsFromModel
+protected
+boolean
+autoCreateColumnsFromModel
+The table will query the
+TableModel
+to build the default
+  set of columns if this is true.
+preferredViewportSize
+protected
+Dimension
+preferredViewportSize
+Used by the
+Scrollable
+interface to determine the initial visible area.
+rowSelectionAllowed
+protected
+boolean
+rowSelectionAllowed
+True if row selection is allowed in this table.
+cellSelectionEnabled
+protected
+boolean
+cellSelectionEnabled
+Obsolete as of Java 2 platform v1.3.  Please use the
+rowSelectionAllowed
+property and the
+columnSelectionAllowed
+property of the
+columnModel
+instead. Or use the
+ method
+getCellSelectionEnabled
+.
+editorComp
+protected transient
+Component
+editorComp
+If editing, the
+Component
+that is handling the editing.
+cellEditor
+protected transient
+TableCellEditor
+cellEditor
+The active cell editor object, that overwrites the screen real estate
+ occupied by the current cell and allows the user to change its contents.
+null
+if the table isn't currently editing.
+editingColumn
+protected transient
+int
+editingColumn
+Identifies the column of the cell being edited.
+editingRow
+protected transient
+int
+editingRow
+Identifies the row of the cell being edited.
+defaultRenderersByColumnClass
+protected transient
+Hashtable
+<
+Object
+,
+Object
+>
+defaultRenderersByColumnClass
+A table of objects that display the contents of a cell,
+ indexed by class as declared in
+getColumnClass
+in the
+TableModel
+interface.
+defaultEditorsByColumnClass
+protected transient
+Hashtable
+<
+Object
+,
+Object
+>
+defaultEditorsByColumnClass
+A table of objects that display and edit the contents of a cell,
+ indexed by class as declared in
+getColumnClass
+in the
+TableModel
+interface.
+selectionForeground
+protected
+Color
+selectionForeground
+The foreground color of selected cells.
+selectionBackground
+protected
+Color
+selectionBackground
+The background color of selected cells.
+Constructor Details
+JTable
+public
+JTable
+()
+Constructs a default
+JTable
+that is initialized with a default
+ data model, a default column model, and a default selection
+ model.
+See Also:
+createDefaultDataModel()
+createDefaultColumnModel()
+createDefaultSelectionModel()
+JTable
+public
+JTable
+(
+TableModel
+dm)
+Constructs a
+JTable
+that is initialized with
+dm
+as the data model, a default column model,
+ and a default selection model.
+Parameters:
+dm
+- the data model for the table
+See Also:
+createDefaultColumnModel()
+createDefaultSelectionModel()
+JTable
+public
+JTable
+(
+TableModel
+dm,
+TableColumnModel
+cm)
+Constructs a
+JTable
+that is initialized with
+dm
+as the data model,
+cm
+as the column model, and a default selection model.
+Parameters:
+dm
+- the data model for the table
+cm
+- the column model for the table
+See Also:
+createDefaultSelectionModel()
+JTable
+public
+JTable
+(
+TableModel
+dm,
+TableColumnModel
+cm,
+ListSelectionModel
+sm)
+Constructs a
+JTable
+that is initialized with
+dm
+as the data model,
+cm
+as the
+ column model, and
+sm
+as the selection model.
+ If any of the parameters are
+null
+this method
+ will initialize the table with the corresponding default model.
+ The
+autoCreateColumnsFromModel
+flag is set to false
+ if
+cm
+is non-null, otherwise it is set to true
+ and the column model is populated with suitable
+TableColumns
+for the columns in
+dm
+.
+Parameters:
+dm
+- the data model for the table
+cm
+- the column model for the table
+sm
+- the row selection model for the table
+See Also:
+createDefaultDataModel()
+createDefaultColumnModel()
+createDefaultSelectionModel()
+JTable
+public
+JTable
+(int numRows,
+ int numColumns)
+Constructs a
+JTable
+with
+numRows
+and
+numColumns
+of empty cells using
+DefaultTableModel
+.  The columns will have
+ names of the form "A", "B", "C", etc.
+Parameters:
+numRows
+- the number of rows the table holds
+numColumns
+- the number of columns the table holds
+See Also:
+DefaultTableModel
+JTable
+public
+JTable
+(
+Vector
+<? extends
+Vector
+> rowData,
+Vector
+<?> columnNames)
+Constructs a
+JTable
+to display the values in the
+Vector
+of
+Vectors
+,
+rowData
+,
+ with column names,
+columnNames
+.  The
+Vectors
+contained in
+rowData
+should contain the values for that row. In other words,
+ the value of the cell at row 1, column 5 can be obtained
+ with the following code:
+((Vector)rowData.elementAt(1)).elementAt(5);
+Parameters:
+rowData
+- the data for the new table
+columnNames
+- names of each column
+JTable
+public
+JTable
+(
+Object
+[][] rowData,
+Object
+[] columnNames)
+Constructs a
+JTable
+to display the values in the two dimensional array,
+rowData
+, with column names,
+columnNames
+.
+rowData
+is an array of rows, so the value of the cell at row 1,
+ column 5 can be obtained with the following code:
+rowData[1][5];
+All rows must be of the same length as
+columnNames
+.
+Parameters:
+rowData
+- the data for the new table
+columnNames
+- names of each column
+Method Details
+addNotify
+public
+void
+addNotify
+()
+Calls the
+configureEnclosingScrollPane
+method.
+Overrides:
+addNotify
+in class
+JComponent
+See Also:
+configureEnclosingScrollPane()
+configureEnclosingScrollPane
+protected
+void
+configureEnclosingScrollPane
+()
+If this
+JTable
+is the
+viewportView
+of an enclosing
+JScrollPane
+(the usual situation), configure this
+ScrollPane
+by, amongst other things,
+ installing the table's
+tableHeader
+as the
+columnHeaderView
+of the scroll pane.
+ When a
+JTable
+is added to a
+JScrollPane
+in the usual way,
+ using
+new JScrollPane(myTable)
+,
+addNotify
+is
+ called in the
+JTable
+(when the table is added to the viewport).
+JTable
+'s
+addNotify
+method in turn calls this method,
+ which is protected so that this default installation procedure can
+ be overridden by a subclass.
+See Also:
+addNotify()
+removeNotify
+public
+void
+removeNotify
+()
+Calls the
+unconfigureEnclosingScrollPane
+method.
+Overrides:
+removeNotify
+in class
+JComponent
+See Also:
+unconfigureEnclosingScrollPane()
+unconfigureEnclosingScrollPane
+protected
+void
+unconfigureEnclosingScrollPane
+()
+Reverses the effect of
+configureEnclosingScrollPane
+by replacing the
+columnHeaderView
+of the enclosing
+ scroll pane with
+null
+.
+JTable
+'s
+removeNotify
+method calls
+ this method, which is protected so that this default uninstallation
+ procedure can be overridden by a subclass.
+Since:
+1.3
+See Also:
+removeNotify()
+configureEnclosingScrollPane()
+createScrollPaneForTable
+@Deprecated
+public static
+JScrollPane
+createScrollPaneForTable
+(
+JTable
+aTable)
+Deprecated.
+As of Swing version 1.0.2,
+ replaced by
+new JScrollPane(aTable)
+.
+Equivalent to
+new JScrollPane(aTable)
+.
+Parameters:
+aTable
+- a
+JTable
+to be used for the scroll pane
+Returns:
+a
+JScrollPane
+created using
+aTable
+setTableHeader
+@BeanProperty
+(
+description
+="The JTableHeader instance which renders the column headers.")
+public
+void
+setTableHeader
+(
+JTableHeader
+tableHeader)
+Sets the
+tableHeader
+working with this
+JTable
+to
+newHeader
+.
+ It is legal to have a
+null
+tableHeader
+.
+Parameters:
+tableHeader
+- new tableHeader
+See Also:
+getTableHeader()
+getTableHeader
+public
+JTableHeader
+getTableHeader
+()
+Returns the
+tableHeader
+used by this
+JTable
+.
+Returns:
+the
+tableHeader
+used by this table
+See Also:
+setTableHeader(javax.swing.table.JTableHeader)
+setRowHeight
+@BeanProperty
+(
+description
+="The height of the specified row.")
+public
+void
+setRowHeight
+(int rowHeight)
+Sets the height, in pixels, of all cells to
+rowHeight
+,
+ revalidates, and repaints.
+ The height of the cells will be equal to the row height minus
+ the row margin.
+Parameters:
+rowHeight
+- new row height
+Throws:
+IllegalArgumentException
+- if
+rowHeight
+is
+                                          less than 1
+See Also:
+getRowHeight()
+getRowHeight
+public
+int
+getRowHeight
+()
+Returns the height of a table row, in pixels.
+Returns:
+the height in pixels of a table row
+See Also:
+setRowHeight(int)
+setRowHeight
+@BeanProperty
+(
+description
+="The height in pixels of the cells in <code>row</code>")
+public
+void
+setRowHeight
+(int row,
+ int rowHeight)
+Sets the height for
+row
+to
+rowHeight
+,
+ revalidates, and repaints. The height of the cells in this row
+ will be equal to the row height minus the row margin.
+Parameters:
+row
+- the row whose height is being
+                                                changed
+rowHeight
+- new row height, in pixels
+Throws:
+IllegalArgumentException
+- if
+rowHeight
+is
+                                          less than 1
+Since:
+1.3
+getRowHeight
+public
+int
+getRowHeight
+(int row)
+Returns the height, in pixels, of the cells in
+row
+.
+Parameters:
+row
+- the row whose height is to be returned
+Returns:
+the height, in pixels, of the cells in the row
+Since:
+1.3
+setRowMargin
+@BeanProperty
+(
+description
+="The amount of space between cells.")
+public
+void
+setRowMargin
+(int rowMargin)
+Sets the amount of empty space between cells in adjacent rows.
+Parameters:
+rowMargin
+- the number of pixels between cells in a row
+See Also:
+getRowMargin()
+getRowMargin
+public
+int
+getRowMargin
+()
+Gets the amount of empty space, in pixels, between cells. Equivalent to:
+getIntercellSpacing().height
+.
+Returns:
+the number of pixels between cells in a row
+See Also:
+setRowMargin(int)
+setIntercellSpacing
+@BeanProperty
+(
+bound
+=false,
+description
+="The spacing between the cells, drawn in the background color of the JTable.")
+public
+void
+setIntercellSpacing
+(
+Dimension
+intercellSpacing)
+Sets the
+rowMargin
+and the
+columnMargin
+--
+ the height and width of the space between cells -- to
+intercellSpacing
+.
+Parameters:
+intercellSpacing
+- a
+Dimension
+specifying the new width
+                                  and height between cells
+See Also:
+getIntercellSpacing()
+getIntercellSpacing
+public
+Dimension
+getIntercellSpacing
+()
+Returns the horizontal and vertical space between cells.
+ The default spacing is look and feel dependent.
+Returns:
+the horizontal and vertical spacing between cells
+See Also:
+setIntercellSpacing(java.awt.Dimension)
+setGridColor
+@BeanProperty
+(
+description
+="The grid color.")
+public
+void
+setGridColor
+(
+Color
+gridColor)
+Sets the color used to draw grid lines to
+gridColor
+and redisplays.
+ The default color is look and feel dependent.
+Parameters:
+gridColor
+- the new color of the grid lines
+Throws:
+IllegalArgumentException
+- if
+gridColor
+is
+null
+See Also:
+getGridColor()
+getGridColor
+public
+Color
+getGridColor
+()
+Returns the color used to draw grid lines.
+ The default color is look and feel dependent.
+Returns:
+the color used to draw grid lines
+See Also:
+setGridColor(java.awt.Color)
+setShowGrid
+@BeanProperty
+(
+description
+="The color used to draw the grid lines.")
+public
+void
+setShowGrid
+(boolean showGrid)
+Sets whether the table draws grid lines around cells.
+  If
+showGrid
+is true it does; if it is false it doesn't.
+  There is no
+getShowGrid
+method as this state is held
+  in two variables --
+showHorizontalLines
+and
+showVerticalLines
+--
+  each of which can be queried independently.
+Parameters:
+showGrid
+- true if table view should draw grid lines
+See Also:
+setShowVerticalLines(boolean)
+setShowHorizontalLines(boolean)
+setShowHorizontalLines
+@BeanProperty
+(
+description
+="Whether horizontal lines should be drawn in between the cells.")
+public
+void
+setShowHorizontalLines
+(boolean showHorizontalLines)
+Sets whether the table draws horizontal lines between cells.
+  If
+showHorizontalLines
+is true it does; if it is false it doesn't.
+Parameters:
+showHorizontalLines
+- true if table view should draw horizontal lines
+See Also:
+getShowHorizontalLines()
+setShowGrid(boolean)
+setShowVerticalLines(boolean)
+setShowVerticalLines
+@BeanProperty
+(
+description
+="Whether vertical lines should be drawn in between the cells.")
+public
+void
+setShowVerticalLines
+(boolean showVerticalLines)
+Sets whether the table draws vertical lines between cells.
+  If
+showVerticalLines
+is true it does; if it is false it doesn't.
+Parameters:
+showVerticalLines
+- true if table view should draw vertical lines
+See Also:
+getShowVerticalLines()
+setShowGrid(boolean)
+setShowHorizontalLines(boolean)
+getShowHorizontalLines
+public
+boolean
+getShowHorizontalLines
+()
+Returns true if the table draws horizontal lines between cells, false if it
+ doesn't. The default value is look and feel dependent.
+Returns:
+true if the table draws horizontal lines between cells, false if it
+          doesn't
+See Also:
+setShowHorizontalLines(boolean)
+getShowVerticalLines
+public
+boolean
+getShowVerticalLines
+()
+Returns true if the table draws vertical lines between cells, false if it
+ doesn't. The default value is look and feel dependent.
+Returns:
+true if the table draws vertical lines between cells, false if it
+          doesn't
+See Also:
+setShowVerticalLines(boolean)
+setAutoResizeMode
+@BeanProperty
+(
+enumerationValues
+={"JTable.AUTO_RESIZE_OFF","JTable.AUTO_RESIZE_NEXT_COLUMN","JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS","JTable.AUTO_RESIZE_LAST_COLUMN","JTable.AUTO_RESIZE_ALL_COLUMNS"},
+description
+="Whether the columns should adjust themselves automatically.")
+public
+void
+setAutoResizeMode
+(int mode)
+Sets the table's auto resize mode when the table is resized.  For further
+ information on how the different resize modes work, see
+doLayout()
+.
+Parameters:
+mode
+- One of 5 legal values:
+                   AUTO_RESIZE_OFF,
+                   AUTO_RESIZE_NEXT_COLUMN,
+                   AUTO_RESIZE_SUBSEQUENT_COLUMNS,
+                   AUTO_RESIZE_LAST_COLUMN,
+                   AUTO_RESIZE_ALL_COLUMNS
+See Also:
+getAutoResizeMode()
+doLayout()
+getAutoResizeMode
+public
+int
+getAutoResizeMode
+()
+Returns the auto resize mode of the table.  The default mode
+ is AUTO_RESIZE_SUBSEQUENT_COLUMNS.
+Returns:
+the autoResizeMode of the table
+See Also:
+setAutoResizeMode(int)
+doLayout()
+setAutoCreateColumnsFromModel
+@BeanProperty
+(
+description
+="Automatically populates the columnModel when a new TableModel is submitted.")
+public
+void
+setAutoCreateColumnsFromModel
+(boolean autoCreateColumnsFromModel)
+Sets this table's
+autoCreateColumnsFromModel
+flag.
+ This method calls
+createDefaultColumnsFromModel
+if
+autoCreateColumnsFromModel
+changes from false to true.
+Parameters:
+autoCreateColumnsFromModel
+- true if
+JTable
+should automatically create columns
+See Also:
+getAutoCreateColumnsFromModel()
+createDefaultColumnsFromModel()
+getAutoCreateColumnsFromModel
+public
+boolean
+getAutoCreateColumnsFromModel
+()
+Determines whether the table will create default columns from the model.
+ If true,
+setModel
+will clear any existing columns and
+ create new columns from the new model.  Also, if the event in
+ the
+tableChanged
+notification specifies that the
+ entire table changed, then the columns will be rebuilt.
+ The default is true.
+Returns:
+the autoCreateColumnsFromModel of the table
+See Also:
+setAutoCreateColumnsFromModel(boolean)
+createDefaultColumnsFromModel()
+createDefaultColumnsFromModel
+public
+void
+createDefaultColumnsFromModel
+()
+Creates default columns for the table from
+ the data model using the
+getColumnCount
+method
+ defined in the
+TableModel
+interface.
+Clears any existing columns before creating the
+ new columns based on information from the model.
+See Also:
+getAutoCreateColumnsFromModel()
+setDefaultRenderer
+public
+void
+setDefaultRenderer
+(
+Class
+<?> columnClass,
+TableCellRenderer
+renderer)
+Sets a default cell renderer to be used if no renderer has been set in
+ a
+TableColumn
+. If renderer is
+null
+,
+ removes the default renderer for this column class.
+Parameters:
+columnClass
+- set the default cell renderer for this columnClass
+renderer
+- default cell renderer to be used for this
+                         columnClass
+See Also:
+getDefaultRenderer(java.lang.Class<?>)
+setDefaultEditor(java.lang.Class<?>, javax.swing.table.TableCellEditor)
+getDefaultRenderer
+public
+TableCellRenderer
+getDefaultRenderer
+(
+Class
+<?> columnClass)
+Returns the cell renderer to be used when no renderer has been set in
+ a
+TableColumn
+. During the rendering of cells the renderer is fetched from
+ a
+Hashtable
+of entries according to the class of the cells in the column. If
+ there is no entry for this
+columnClass
+the method returns
+ the entry for the most specific superclass. The
+JTable
+installs entries
+ for
+Object
+,
+Number
+, and
+Boolean
+, all of which can be modified
+ or replaced.
+Parameters:
+columnClass
+- return the default cell renderer
+                        for this columnClass
+Returns:
+the renderer for this columnClass
+See Also:
+setDefaultRenderer(java.lang.Class<?>, javax.swing.table.TableCellRenderer)
+getColumnClass(int)
+setDefaultEditor
+public
+void
+setDefaultEditor
+(
+Class
+<?> columnClass,
+TableCellEditor
+editor)
+Sets a default cell editor to be used if no editor has been set in
+ a
+TableColumn
+. If no editing is required in a table, or a
+ particular column in a table, uses the
+isCellEditable
+method in the
+TableModel
+interface to ensure that this
+JTable
+will not start an editor in these columns.
+ If editor is
+null
+, removes the default editor for this
+ column class.
+Parameters:
+columnClass
+- set the default cell editor for this columnClass
+editor
+- default cell editor to be used for this columnClass
+See Also:
+TableModel.isCellEditable(int, int)
+getDefaultEditor(java.lang.Class<?>)
+setDefaultRenderer(java.lang.Class<?>, javax.swing.table.TableCellRenderer)
+getDefaultEditor
+public
+TableCellEditor
+getDefaultEditor
+(
+Class
+<?> columnClass)
+Returns the editor to be used when no editor has been set in
+ a
+TableColumn
+. During the editing of cells the editor is fetched from
+ a
+Hashtable
+of entries according to the class of the cells in the column. If
+ there is no entry for this
+columnClass
+the method returns
+ the entry for the most specific superclass. The
+JTable
+installs entries
+ for
+Object
+,
+Number
+, and
+Boolean
+, all of which can be modified
+ or replaced.
+Parameters:
+columnClass
+- return the default cell editor for this columnClass
+Returns:
+the default cell editor to be used for this columnClass
+See Also:
+setDefaultEditor(java.lang.Class<?>, javax.swing.table.TableCellEditor)
+getColumnClass(int)
+setDragEnabled
+@BeanProperty
+(
+bound
+=false,
+description
+="determines whether automatic drag handling is enabled")
+public
+void
+setDragEnabled
+(boolean b)
+Turns on or off automatic drag handling. In order to enable automatic
+ drag handling, this property should be set to
+true
+, and the
+ table's
+TransferHandler
+needs to be
+non-null
+.
+ The default value of the
+dragEnabled
+property is
+false
+.
+The job of honoring this property, and recognizing a user drag gesture,
+ lies with the look and feel implementation, and in particular, the table's
+TableUI
+. When automatic drag handling is enabled, most look and
+ feels (including those that subclass
+BasicLookAndFeel
+) begin a
+ drag and drop operation whenever the user presses the mouse button over
+ an item (in single selection mode) or a selection (in other selection
+ modes) and then moves the mouse a few pixels. Setting this property to
+true
+can therefore have a subtle effect on how selections behave.
+If a look and feel is used that ignores this property, you can still
+ begin a drag and drop operation by calling
+exportAsDrag
+on the
+ table's
+TransferHandler
+.
+Parameters:
+b
+- whether or not to enable automatic drag handling
+Throws:
+HeadlessException
+- if
+b
+is
+true
+and
+GraphicsEnvironment.isHeadless()
+returns
+true
+Since:
+1.4
+See Also:
+GraphicsEnvironment.isHeadless()
+getDragEnabled()
+JComponent.setTransferHandler(javax.swing.TransferHandler)
+TransferHandler
+getDragEnabled
+public
+boolean
+getDragEnabled
+()
+Returns whether or not automatic drag handling is enabled.
+Returns:
+the value of the
+dragEnabled
+property
+Since:
+1.4
+See Also:
+setDragEnabled(boolean)
+setDropMode
+public final
+void
+setDropMode
+(
+DropMode
+dropMode)
+Sets the drop mode for this component. For backward compatibility,
+ the default for this property is
+DropMode.USE_SELECTION
+.
+ Usage of one of the other modes is recommended, however, for an
+ improved user experience.
+DropMode.ON
+, for instance,
+ offers similar behavior of showing items as selected, but does so without
+ affecting the actual selection in the table.
+JTable
+supports the following drop modes:
+DropMode.USE_SELECTION
+DropMode.ON
+DropMode.INSERT
+DropMode.INSERT_ROWS
+DropMode.INSERT_COLS
+DropMode.ON_OR_INSERT
+DropMode.ON_OR_INSERT_ROWS
+DropMode.ON_OR_INSERT_COLS
+The drop mode is only meaningful if this component has a
+TransferHandler
+that accepts drops.
+Parameters:
+dropMode
+- the drop mode to use
+Throws:
+IllegalArgumentException
+- if the drop mode is unsupported
+         or
+null
+Since:
+1.6
+See Also:
+getDropMode()
+getDropLocation()
+JComponent.setTransferHandler(javax.swing.TransferHandler)
+TransferHandler
+getDropMode
+public final
+DropMode
+getDropMode
+()
+Returns the drop mode for this component.
+Returns:
+the drop mode for this component
+Since:
+1.6
+See Also:
+setDropMode(javax.swing.DropMode)
+getDropLocation
+@BeanProperty
+(
+bound
+=false)
+public final
+JTable.DropLocation
+getDropLocation
+()
+Returns the location that this component should visually indicate
+ as the drop location during a DnD operation over the component,
+ or
+null
+if no location is to currently be shown.
+This method is not meant for querying the drop location
+ from a
+TransferHandler
+, as the drop location is only
+ set after the
+TransferHandler
+'s
+canImport
+has returned and has allowed for the location to be shown.
+When this property changes, a property change event with
+ name "dropLocation" is fired by the component.
+Returns:
+the drop location
+Since:
+1.6
+See Also:
+setDropMode(javax.swing.DropMode)
+TransferHandler.canImport(TransferHandler.TransferSupport)
+setAutoCreateRowSorter
+@BeanProperty
+(
+preferred
+=true,
+description
+="Whether or not to turn on sorting by default.")
+public
+void
+setAutoCreateRowSorter
+(boolean autoCreateRowSorter)
+Specifies whether a
+RowSorter
+should be created for the
+ table whenever its model changes.
+When
+setAutoCreateRowSorter(true)
+is invoked, a
+TableRowSorter
+is immediately created and installed on the
+ table.  While the
+autoCreateRowSorter
+property remains
+true
+, every time the model is changed, a new
+TableRowSorter
+is created and set as the table's row sorter.
+ The default value for the
+autoCreateRowSorter
+property is
+false
+.
+Parameters:
+autoCreateRowSorter
+- whether or not a
+RowSorter
+should be automatically created
+Since:
+1.6
+See Also:
+TableRowSorter
+getAutoCreateRowSorter
+public
+boolean
+getAutoCreateRowSorter
+()
+Returns
+true
+if whenever the model changes, a new
+RowSorter
+should be created and installed
+ as the table's sorter; otherwise, returns
+false
+.
+Returns:
+true if a
+RowSorter
+should be created when
+         the model changes
+Since:
+1.6
+setUpdateSelectionOnSort
+@BeanProperty
+(
+expert
+=true,
+description
+="Whether or not to update the selection on sorting")
+public
+void
+setUpdateSelectionOnSort
+(boolean update)
+Specifies whether the selection should be updated after sorting.
+ If true, on sorting the selection is reset such that
+ the same rows, in terms of the model, remain selected.  The default
+ is true.
+Parameters:
+update
+- whether or not to update the selection on sorting
+Since:
+1.6
+getUpdateSelectionOnSort
+public
+boolean
+getUpdateSelectionOnSort
+()
+Returns true if the selection should be updated after sorting.
+Returns:
+whether to update the selection on a sort
+Since:
+1.6
+setRowSorter
+@BeanProperty
+(
+description
+="The table\'s RowSorter")
+public
+void
+setRowSorter
+(
+RowSorter
+<? extends
+TableModel
+> sorter)
+Sets the
+RowSorter
+.
+RowSorter
+is used
+ to provide sorting and filtering to a
+JTable
+.
+This method clears the selection and resets any variable row heights.
+This method fires a
+PropertyChangeEvent
+when appropriate,
+ with the property name
+"rowSorter"
+.  For
+ backward-compatibility, this method fires an additional event with the
+ property name
+"sorter"
+.
+If the underlying model of the
+RowSorter
+differs from
+ that of this
+JTable
+undefined behavior will result.
+Parameters:
+sorter
+- the
+RowSorter
+;
+null
+turns
+        sorting off
+Since:
+1.6
+See Also:
+TableRowSorter
+getRowSorter
+public
+RowSorter
+<? extends
+TableModel
+>
+getRowSorter
+()
+Returns the object responsible for sorting.
+Returns:
+the object responsible for sorting
+Since:
+1.6
+setSelectionMode
+@BeanProperty
+(
+enumerationValues
+={"ListSelectionModel.SINGLE_SELECTION","ListSelectionModel.SINGLE_INTERVAL_SELECTION","ListSelectionModel.MULTIPLE_INTERVAL_SELECTION"},
+description
+="The selection mode used by the row and column selection models.")
+public
+void
+setSelectionMode
+(int selectionMode)
+Sets the table's selection mode to allow only single selections, a single
+ contiguous interval, or multiple intervals.
+Note:
+JTable
+provides all the methods for handling
+ column and row selection.  When setting states,
+ such as
+setSelectionMode
+, it not only
+ updates the mode for the row selection model but also sets similar
+ values in the selection model of the
+columnModel
+.
+ If you want to have the row and column selection models operating
+ in different modes, set them both directly.
+Both the row and column selection models for
+JTable
+default to using a
+DefaultListSelectionModel
+so that
+JTable
+works the same way as the
+JList
+. See the
+setSelectionMode
+method
+ in
+JList
+for details about the modes.
+Parameters:
+selectionMode
+- the mode used by the row and column selection models
+See Also:
+JList.setSelectionMode(int)
+setRowSelectionAllowed
+@BeanProperty
+(
+visualUpdate
+=true,
+description
+="If true, an entire row is selected for each selected cell.")
+public
+void
+setRowSelectionAllowed
+(boolean rowSelectionAllowed)
+Sets whether the rows in this model can be selected.
+Parameters:
+rowSelectionAllowed
+- true if this model will allow row selection
+See Also:
+getRowSelectionAllowed()
+getRowSelectionAllowed
+public
+boolean
+getRowSelectionAllowed
+()
+Returns true if rows can be selected.
+Returns:
+true if rows can be selected, otherwise false
+See Also:
+setRowSelectionAllowed(boolean)
+setColumnSelectionAllowed
+@BeanProperty
+(
+visualUpdate
+=true,
+description
+="If true, an entire column is selected for each selected cell.")
+public
+void
+setColumnSelectionAllowed
+(boolean columnSelectionAllowed)
+Sets whether the columns in this model can be selected.
+Parameters:
+columnSelectionAllowed
+- true if this model will allow column selection
+See Also:
+getColumnSelectionAllowed()
+getColumnSelectionAllowed
+public
+boolean
+getColumnSelectionAllowed
+()
+Returns true if columns can be selected.
+Returns:
+true if columns can be selected, otherwise false
+See Also:
+setColumnSelectionAllowed(boolean)
+setCellSelectionEnabled
+@BeanProperty
+(
+visualUpdate
+=true,
+description
+="Select a rectangular region of cells rather than rows or columns.")
+public
+void
+setCellSelectionEnabled
+(boolean cellSelectionEnabled)
+Sets whether this table allows both a column selection and a
+ row selection to exist simultaneously. When set,
+ the table treats the intersection of the row and column selection
+ models as the selected cells. Override
+isCellSelected
+to
+ change this default behavior. This method is equivalent to setting
+ both the
+rowSelectionAllowed
+property and
+columnSelectionAllowed
+property of the
+columnModel
+to the supplied value.
+Parameters:
+cellSelectionEnabled
+- true if simultaneous row and column
+                                  selection is allowed
+See Also:
+getCellSelectionEnabled()
+isCellSelected(int, int)
+getCellSelectionEnabled
+public
+boolean
+getCellSelectionEnabled
+()
+Returns true if both row and column selection models are enabled.
+ Equivalent to
+getRowSelectionAllowed() &&
+ getColumnSelectionAllowed()
+.
+Returns:
+true if both row and column selection models are enabled
+See Also:
+setCellSelectionEnabled(boolean)
+selectAll
+public
+void
+selectAll
+()
+Selects all rows, columns, and cells in the table.
+clearSelection
+public
+void
+clearSelection
+()
+Deselects all selected columns and rows.
+setRowSelectionInterval
+public
+void
+setRowSelectionInterval
+(int index0,
+ int index1)
+Selects the rows from
+index0
+to
+index1
+,
+ inclusive.
+Parameters:
+index0
+- one end of the interval
+index1
+- the other end of the interval
+Throws:
+IllegalArgumentException
+- if
+index0
+or
+index1
+lie outside
+                                          [0,
+getRowCount()
+-1]
+setColumnSelectionInterval
+public
+void
+setColumnSelectionInterval
+(int index0,
+ int index1)
+Selects the columns from
+index0
+to
+index1
+,
+ inclusive.
+Parameters:
+index0
+- one end of the interval
+index1
+- the other end of the interval
+Throws:
+IllegalArgumentException
+- if
+index0
+or
+index1
+lie outside
+                                          [0,
+getColumnCount()
+-1]
+addRowSelectionInterval
+public
+void
+addRowSelectionInterval
+(int index0,
+ int index1)
+Adds the rows from
+index0
+to
+index1
+, inclusive, to
+ the current selection.
+Parameters:
+index0
+- one end of the interval
+index1
+- the other end of the interval
+Throws:
+IllegalArgumentException
+- if
+index0
+or
+index1
+lie outside [0,
+getRowCount()
+-1]
+addColumnSelectionInterval
+public
+void
+addColumnSelectionInterval
+(int index0,
+ int index1)
+Adds the columns from
+index0
+to
+index1
+,
+ inclusive, to the current selection.
+Parameters:
+index0
+- one end of the interval
+index1
+- the other end of the interval
+Throws:
+IllegalArgumentException
+- if
+index0
+or
+index1
+lie outside
+                                          [0,
+getColumnCount()
+-1]
+removeRowSelectionInterval
+public
+void
+removeRowSelectionInterval
+(int index0,
+ int index1)
+Deselects the rows from
+index0
+to
+index1
+, inclusive.
+Parameters:
+index0
+- one end of the interval
+index1
+- the other end of the interval
+Throws:
+IllegalArgumentException
+- if
+index0
+or
+index1
+lie outside
+                                          [0,
+getRowCount()
+-1]
+removeColumnSelectionInterval
+public
+void
+removeColumnSelectionInterval
+(int index0,
+ int index1)
+Deselects the columns from
+index0
+to
+index1
+, inclusive.
+Parameters:
+index0
+- one end of the interval
+index1
+- the other end of the interval
+Throws:
+IllegalArgumentException
+- if
+index0
+or
+index1
+lie outside
+                                          [0,
+getColumnCount()
+-1]
+getSelectedRow
+@BeanProperty
+(
+bound
+=false)
+public
+int
+getSelectedRow
+()
+Returns the index of the first selected row, -1 if no row is selected.
+Returns:
+the index of the first selected row
+getSelectedColumn
+@BeanProperty
+(
+bound
+=false)
+public
+int
+getSelectedColumn
+()
+Returns the index of the first selected column,
+ -1 if no column is selected.
+Returns:
+the index of the first selected column
+getSelectedRows
+@BeanProperty
+(
+bound
+=false)
+public
+int[]
+getSelectedRows
+()
+Returns the indices of all selected rows.
+Returns:
+an array of integers containing the indices of all selected rows,
+         or an empty array if no row is selected
+See Also:
+getSelectedRow()
+getSelectedColumns
+@BeanProperty
+(
+bound
+=false)
+public
+int[]
+getSelectedColumns
+()
+Returns the indices of all selected columns.
+Returns:
+an array of integers containing the indices of all selected columns,
+         or an empty array if no column is selected
+See Also:
+getSelectedColumn()
+getSelectedRowCount
+@BeanProperty
+(
+bound
+=false)
+public
+int
+getSelectedRowCount
+()
+Returns the number of selected rows.
+Returns:
+the number of selected rows, 0 if no rows are selected
+getSelectedColumnCount
+@BeanProperty
+(
+bound
+=false)
+public
+int
+getSelectedColumnCount
+()
+Returns the number of selected columns.
+Returns:
+the number of selected columns, 0 if no columns are selected
+isRowSelected
+public
+boolean
+isRowSelected
+(int row)
+Returns true if the specified index is in the valid range of rows,
+ and the row at that index is selected.
+Parameters:
+row
+- a row in the row model
+Returns:
+true if
+row
+is a valid index and the row at
+              that index is selected (where 0 is the first row)
+isColumnSelected
+public
+boolean
+isColumnSelected
+(int column)
+Returns true if the specified index is in the valid range of columns,
+ and the column at that index is selected.
+Parameters:
+column
+- the column in the column model
+Returns:
+true if
+column
+is a valid index and the column at
+              that index is selected (where 0 is the first column)
+isCellSelected
+public
+boolean
+isCellSelected
+(int row,
+ int column)
+Returns true if the specified indices are in the valid range of rows
+ and columns and the cell at the specified position is selected.
+Parameters:
+row
+- the row being queried
+column
+- the column being queried
+Returns:
+true if
+row
+and
+column
+are valid indices
+              and the cell at index
+(row, column)
+is selected,
+              where the first row and first column are at index 0
+changeSelection
+public
+void
+changeSelection
+(int rowIndex,
+ int columnIndex,
+ boolean toggle,
+ boolean extend)
+Updates the selection models of the table, depending on the state of the
+ two flags:
+toggle
+and
+extend
+. Most changes
+ to the selection that are the result of keyboard or mouse events received
+ by the UI are channeled through this method so that the behavior may be
+ overridden by a subclass. Some UIs may need more functionality than
+ this method provides, such as when manipulating the lead for discontiguous
+ selection, and may not call into this method for some selection changes.
+This implementation uses the following conventions:
+toggle
+:
+false
+,
+extend
+:
+false
+.
+      Clear the previous selection and ensure the new cell is selected.
+toggle
+:
+false
+,
+extend
+:
+true
+.
+      Extend the previous selection from the anchor to the specified cell,
+      clearing all other selections.
+toggle
+:
+true
+,
+extend
+:
+false
+.
+      If the specified cell is selected, deselect it. If it is not selected, select it.
+toggle
+:
+true
+,
+extend
+:
+true
+.
+      Apply the selection state of the anchor to all cells between it and the
+      specified cell.
+Parameters:
+rowIndex
+- affects the selection at
+row
+columnIndex
+- affects the selection at
+column
+toggle
+- see description above
+extend
+- if true, extend the current selection
+Since:
+1.3
+getSelectionForeground
+public
+Color
+getSelectionForeground
+()
+Returns the foreground color for selected cells.
+Returns:
+the
+Color
+object for the foreground property
+See Also:
+setSelectionForeground(java.awt.Color)
+setSelectionBackground(java.awt.Color)
+setSelectionForeground
+@BeanProperty
+(
+description
+="A default foreground color for selected cells.")
+public
+void
+setSelectionForeground
+(
+Color
+selectionForeground)
+Sets the foreground color for selected cells.  Cell renderers
+ can use this color to render text and graphics for selected
+ cells.
+The default value of this property is defined by the look
+ and feel implementation.
+This is a
+JavaBeans
+bound property.
+Parameters:
+selectionForeground
+- the
+Color
+to use in the foreground
+                             for selected list items
+See Also:
+getSelectionForeground()
+setSelectionBackground(java.awt.Color)
+JComponent.setForeground(java.awt.Color)
+JComponent.setBackground(java.awt.Color)
+JComponent.setFont(java.awt.Font)
+getSelectionBackground
+public
+Color
+getSelectionBackground
+()
+Returns the background color for selected cells.
+Returns:
+the
+Color
+used for the background of selected list items
+See Also:
+setSelectionBackground(java.awt.Color)
+setSelectionForeground(java.awt.Color)
+setSelectionBackground
+@BeanProperty
+(
+description
+="A default background color for selected cells.")
+public
+void
+setSelectionBackground
+(
+Color
+selectionBackground)
+Sets the background color for selected cells.  Cell renderers
+ can use this color to the fill selected cells.
+The default value of this property is defined by the look
+ and feel implementation.
+This is a
+JavaBeans
+bound property.
+Parameters:
+selectionBackground
+- the
+Color
+to use for the background
+                             of selected cells
+See Also:
+getSelectionBackground()
+setSelectionForeground(java.awt.Color)
+JComponent.setForeground(java.awt.Color)
+JComponent.setBackground(java.awt.Color)
+JComponent.setFont(java.awt.Font)
+getColumn
+public
+TableColumn
+getColumn
+(
+Object
+identifier)
+Returns the
+TableColumn
+object for the column in the table
+ whose identifier is equal to
+identifier
+, when compared using
+equals
+.
+Parameters:
+identifier
+- the identifier object
+Returns:
+the
+TableColumn
+object that matches the identifier
+Throws:
+IllegalArgumentException
+- if
+identifier
+is
+null
+or no
+TableColumn
+has this identifier
+convertColumnIndexToModel
+public
+int
+convertColumnIndexToModel
+(int viewColumnIndex)
+Maps the index of the column in the view at
+viewColumnIndex
+to the index of the column
+ in the table model.  Returns the index of the corresponding
+ column in the model.  If
+viewColumnIndex
+is less than zero, returns
+viewColumnIndex
+.
+Parameters:
+viewColumnIndex
+- the index of the column in the view
+Returns:
+the index of the corresponding column in the model
+See Also:
+convertColumnIndexToView(int)
+convertColumnIndexToView
+public
+int
+convertColumnIndexToView
+(int modelColumnIndex)
+Maps the index of the column in the table model at
+modelColumnIndex
+to the index of the column
+ in the view.  Returns the index of the
+ corresponding column in the view; returns -1 if this column is not
+ being displayed.  If
+modelColumnIndex
+is less than zero,
+ returns
+modelColumnIndex
+.
+Parameters:
+modelColumnIndex
+- the index of the column in the model
+Returns:
+the index of the corresponding column in the view
+See Also:
+convertColumnIndexToModel(int)
+convertRowIndexToView
+public
+int
+convertRowIndexToView
+(int modelRowIndex)
+Maps the index of the row in terms of the
+TableModel
+to the view.  If the contents of the
+ model are not sorted the model and view indices are the same.
+Parameters:
+modelRowIndex
+- the index of the row in terms of the model
+Returns:
+the index of the corresponding row in the view, or -1 if
+         the row isn't visible
+Throws:
+IndexOutOfBoundsException
+- if sorting is enabled and passed an
+         index outside the number of rows of the
+TableModel
+Since:
+1.6
+See Also:
+TableRowSorter
+convertRowIndexToModel
+public
+int
+convertRowIndexToModel
+(int viewRowIndex)
+Maps the index of the row in terms of the view to the
+ underlying
+TableModel
+.  If the contents of the
+ model are not sorted the model and view indices are the same.
+Parameters:
+viewRowIndex
+- the index of the row in the view
+Returns:
+the index of the corresponding row in the model
+Throws:
+IndexOutOfBoundsException
+- if sorting is enabled and passed an
+         index outside the range of the
+JTable
+as
+         determined by the method
+getRowCount
+Since:
+1.6
+See Also:
+TableRowSorter
+getRowCount()
+getRowCount
+@BeanProperty
+(
+bound
+=false)
+public
+int
+getRowCount
+()
+Returns the number of rows that can be shown in the
+JTable
+, given unlimited space.  If a
+RowSorter
+with a filter has been specified, the
+ number of rows returned may differ from that of the underlying
+TableModel
+.
+Returns:
+the number of rows shown in the
+JTable
+See Also:
+getColumnCount()
+getColumnCount
+@BeanProperty
+(
+bound
+=false)
+public
+int
+getColumnCount
+()
+Returns the number of columns in the column model. Note that this may
+ be different from the number of columns in the table model.
+Returns:
+the number of columns in the table
+See Also:
+getRowCount()
+removeColumn(javax.swing.table.TableColumn)
+getColumnName
+public
+String
+getColumnName
+(int column)
+Returns the name of the column appearing in the view at
+ column position
+column
+.
+Parameters:
+column
+- the column in the view being queried
+Returns:
+the name of the column at position
+column
+in the view where the first column is column 0
+getColumnClass
+public
+Class
+<?>
+getColumnClass
+(int column)
+Returns the type of the column appearing in the view at
+ column position
+column
+.
+Parameters:
+column
+- the column in the view being queried
+Returns:
+the type of the column at position
+column
+in the view where the first column is column 0
+getValueAt
+public
+Object
+getValueAt
+(int row,
+ int column)
+Returns the cell value at
+row
+and
+column
+.
+Note
+: The column is specified in the table view's display
+              order, and not in the
+TableModel
+'s column
+              order.  This is an important distinction because as the
+              user rearranges the columns in the table,
+              the column at a given index in the view will change.
+              Meanwhile the user's actions never affect the model's
+              column ordering.
+Parameters:
+row
+- the row whose value is to be queried
+column
+- the column whose value is to be queried
+Returns:
+the Object at the specified cell
+setValueAt
+public
+void
+setValueAt
+(
+Object
+aValue,
+ int row,
+ int column)
+Sets the value for the cell in the table model at
+row
+and
+column
+.
+Note
+: The column is specified in the table view's display
+              order, and not in the
+TableModel
+'s column
+              order.  This is an important distinction because as the
+              user rearranges the columns in the table,
+              the column at a given index in the view will change.
+              Meanwhile the user's actions never affect the model's
+              column ordering.
+aValue
+is the new value.
+Parameters:
+aValue
+- the new value
+row
+- the row of the cell to be changed
+column
+- the column of the cell to be changed
+See Also:
+getValueAt(int, int)
+isCellEditable
+public
+boolean
+isCellEditable
+(int row,
+ int column)
+Returns true if the cell at
+row
+and
+column
+is editable.  Otherwise, invoking
+setValueAt
+on the cell
+ will have no effect.
+Note
+: The column is specified in the table view's display
+              order, and not in the
+TableModel
+'s column
+              order.  This is an important distinction because as the
+              user rearranges the columns in the table,
+              the column at a given index in the view will change.
+              Meanwhile the user's actions never affect the model's
+              column ordering.
+Parameters:
+row
+- the row whose value is to be queried
+column
+- the column whose value is to be queried
+Returns:
+true if the cell is editable
+See Also:
+setValueAt(java.lang.Object, int, int)
+addColumn
+public
+void
+addColumn
+(
+TableColumn
+aColumn)
+Appends
+aColumn
+to the end of the array of columns held by
+  this
+JTable
+'s column model.
+  If the column name of
+aColumn
+is
+null
+,
+  sets the column name of
+aColumn
+to the name
+  returned by
+getModel().getColumnName()
+.
+To add a column to this
+JTable
+to display the
+modelColumn
+'th column of data in the model with a
+  given
+width
+,
+cellRenderer
+,
+  and
+cellEditor
+you can use:
+addColumn(new TableColumn(modelColumn, width, cellRenderer, cellEditor));
+[Any of the
+TableColumn
+constructors can be used
+  instead of this one.]
+  The model column number is stored inside the
+TableColumn
+and is used during rendering and editing to locate the appropriates
+  data values in the model. The model column number does not change
+  when columns are reordered in the view.
+Parameters:
+aColumn
+- the
+TableColumn
+to be added
+See Also:
+removeColumn(javax.swing.table.TableColumn)
+removeColumn
+public
+void
+removeColumn
+(
+TableColumn
+aColumn)
+Removes
+aColumn
+from this
+JTable
+'s
+  array of columns.  Note: this method does not remove the column
+  of data from the model; it just removes the
+TableColumn
+that was responsible for displaying it.
+Parameters:
+aColumn
+- the
+TableColumn
+to be removed
+See Also:
+addColumn(javax.swing.table.TableColumn)
+moveColumn
+public
+void
+moveColumn
+(int column,
+ int targetColumn)
+Moves the column
+column
+to the position currently
+ occupied by the column
+targetColumn
+in the view.
+ The old column at
+targetColumn
+is
+ shifted left or right to make room.
+Parameters:
+column
+- the index of column to be moved
+targetColumn
+- the new index of the column
+columnAtPoint
+public
+int
+columnAtPoint
+(
+Point
+point)
+Returns the index of the column that
+point
+lies in,
+ or -1 if the result is not in the range
+ [0,
+getColumnCount()
+-1].
+Parameters:
+point
+- the location of interest
+Returns:
+the index of the column that
+point
+lies in,
+          or -1 if the result is not in the range
+          [0,
+getColumnCount()
+-1]
+See Also:
+rowAtPoint(java.awt.Point)
+rowAtPoint
+public
+int
+rowAtPoint
+(
+Point
+point)
+Returns the index of the row that
+point
+lies in,
+ or -1 if the result is not in the range
+ [0,
+getRowCount()
+-1].
+Parameters:
+point
+- the location of interest
+Returns:
+the index of the row that
+point
+lies in,
+          or -1 if the result is not in the range
+          [0,
+getRowCount()
+-1]
+See Also:
+columnAtPoint(java.awt.Point)
+getCellRect
+public
+Rectangle
+getCellRect
+(int row,
+ int column,
+ boolean includeSpacing)
+Returns a rectangle for the cell that lies at the intersection of
+row
+and
+column
+.
+ If
+includeSpacing
+is true then the value returned
+ has the full height and width of the row and column
+ specified. If it is false, the returned rectangle is inset by the
+ intercell spacing to return the true bounds of the rendering or
+ editing component as it will be set during rendering.
+If the column index is valid but the row index is less
+ than zero the method returns a rectangle with the
+y
+and
+height
+values set appropriately
+ and the
+x
+and
+width
+values both set
+ to zero. In general, when either the row or column indices indicate a
+ cell outside the appropriate range, the method returns a rectangle
+ depicting the closest edge of the closest cell that is within
+ the table's range. When both row and column indices are out
+ of range the returned rectangle covers the closest
+ point of the closest cell.
+In all cases, calculations that use this method to calculate
+ results along one axis will not fail because of anomalies in
+ calculations along the other axis. When the cell is not valid
+ the
+includeSpacing
+parameter is ignored.
+Parameters:
+row
+- the row index where the desired cell
+                                is located
+column
+- the column index where the desired cell
+                                is located in the display; this is not
+                                necessarily the same as the column index
+                                in the data model for the table; the
+convertColumnIndexToView(int)
+method may be used to convert a data
+                                model column index to a display
+                                column index
+includeSpacing
+- if false, return the true cell bounds -
+                                computed by subtracting the intercell
+                                spacing from the height and widths of
+                                the column and row models
+Returns:
+the rectangle containing the cell at location
+row
+,
+column
+See Also:
+getIntercellSpacing()
+doLayout
+public
+void
+doLayout
+()
+Causes this table to lay out its rows and columns.  Overridden so
+ that columns can be resized to accommodate a change in the size of
+ a containing parent.
+ Resizes one or more of the columns in the table
+ so that the total width of all of this
+JTable
+'s
+ columns is equal to the width of the table.
+Before the layout begins the method gets the
+resizingColumn
+of the
+tableHeader
+.
+ When the method is called as a result of the resizing of an enclosing window,
+ the
+resizingColumn
+is
+null
+. This means that resizing
+ has taken place "outside" the
+JTable
+and the change -
+ or "delta" - should be distributed to all of the columns regardless
+ of this
+JTable
+'s automatic resize mode.
+If the
+resizingColumn
+is not
+null
+, it is one of
+ the columns in the table that has changed size rather than
+ the table itself. In this case the auto-resize modes govern
+ the way the extra (or deficit) space is distributed
+ amongst the available columns.
+The modes are:
+AUTO_RESIZE_OFF: Don't automatically adjust the column's
+ widths at all. Use a horizontal scrollbar to accommodate the
+ columns when their sum exceeds the width of the
+Viewport
+.  If the
+JTable
+is not
+ enclosed in a
+JScrollPane
+this may
+ leave parts of the table invisible.
+AUTO_RESIZE_NEXT_COLUMN: Use just the column after the
+ resizing column. This results in the "boundary" or divider
+ between adjacent cells being independently adjustable.
+AUTO_RESIZE_SUBSEQUENT_COLUMNS: Use all columns after the
+ one being adjusted to absorb the changes.  This is the
+ default behavior.
+AUTO_RESIZE_LAST_COLUMN: Automatically adjust the
+ size of the last column only. If the bounds of the last column
+ prevent the desired size from being allocated, set the
+ width of the last column to the appropriate limit and make
+ no further adjustments.
+AUTO_RESIZE_ALL_COLUMNS: Spread the delta amongst all the columns
+ in the
+JTable
+, including the one that is being
+ adjusted.
+Note:
+When a
+JTable
+makes adjustments
+   to the widths of the columns it respects their minimum and
+   maximum values absolutely.  It is therefore possible that,
+   even after this method is called, the total width of the columns
+   is still not equal to the width of the table. When this happens
+   the
+JTable
+does not put itself
+   in AUTO_RESIZE_OFF mode to bring up a scroll bar, or break other
+   commitments of its current auto-resize mode -- instead it
+   allows its bounds to be set larger (or smaller) than the total of the
+   column minimum or maximum, meaning, either that there
+   will not be enough room to display all of the columns, or that the
+   columns will not fill the
+JTable
+'s bounds.
+   These respectively, result in the clipping of some columns
+   or an area being painted in the
+JTable
+'s
+   background color during painting.
+The mechanism for distributing the delta amongst the available
+   columns is provided in a private method in the
+JTable
+class:
+adjustSizes(long targetSize, final Resizable3 r, boolean inverse)
+an explanation of which is provided in the following section.
+Resizable3
+is a private
+   interface that allows any data structure containing a collection
+   of elements with a size, preferred size, maximum size and minimum size
+   to have its elements manipulated by the algorithm.
+Distributing the delta
+Overview
+Call "DELTA" the difference between the target size and the
+ sum of the preferred sizes of the elements in r. The individual
+ sizes are calculated by taking the original preferred
+ sizes and adding a share of the DELTA - that share being based on
+ how far each preferred size is from its limiting bound (minimum or
+ maximum).
+Definition
+Call the individual constraints min[i], max[i], and pref[i].
+Call their respective sums: MIN, MAX, and PREF.
+Each new size will be calculated using:
+size[i] = pref[i] + delta[i]
+where each individual delta[i] is calculated according to:
+If (DELTA < 0) we are in shrink mode where:
+DELTA
+          delta[i] = ------------ * (pref[i] - min[i])
+                     (PREF - MIN)
+If (DELTA > 0) we are in expand mode where:
+DELTA
+          delta[i] = ------------ * (max[i] - pref[i])
+                      (MAX - PREF)
+The overall effect is that the total size moves that same percentage,
+ k, towards the total minimum or maximum and that percentage guarantees
+ accommodation of the required space, DELTA.
+Details
+Naive evaluation of the formulae presented here would be subject to
+ the aggregated rounding errors caused by doing this operation in finite
+ precision (using ints). To deal with this, the multiplying factor above,
+ is constantly recalculated and this takes account of the rounding
+ errors in the previous iterations. The result is an algorithm that
+ produces a set of integers whose values exactly sum to the supplied
+targetSize
+, and does so by spreading the rounding
+ errors evenly over the given elements.
+When the MAX and MIN bounds are hit
+When
+targetSize
+is outside the [MIN, MAX] range,
+ the algorithm sets all sizes to their appropriate limiting value
+ (maximum or minimum).
+Overrides:
+doLayout
+in class
+Container
+See Also:
+LayoutManager.layoutContainer(java.awt.Container)
+Container.setLayout(java.awt.LayoutManager)
+Container.validate()
+sizeColumnsToFit
+@Deprecated
+public
+void
+sizeColumnsToFit
+(boolean lastColumnOnly)
+Deprecated.
+As of Swing version 1.0.3,
+ replaced by
+doLayout()
+.
+Sizes the table columns to fit the available space.
+Parameters:
+lastColumnOnly
+- determines whether to resize last column only
+See Also:
+doLayout()
+sizeColumnsToFit
+public
+void
+sizeColumnsToFit
+(int resizingColumn)
+Obsolete as of Java 2 platform v1.4.  Please use the
+doLayout()
+method instead.
+Parameters:
+resizingColumn
+- the column whose resizing made this adjustment
+                          necessary or -1 if there is no such column
+See Also:
+doLayout()
+getToolTipText
+public
+String
+getToolTipText
+(
+MouseEvent
+event)
+Overrides
+JComponent
+'s
+getToolTipText
+method in order to allow the renderer's tips to be used
+ if it has text set.
+Note:
+For
+JTable
+to properly display
+ tooltips of its renderers
+JTable
+must be a registered component with the
+ToolTipManager
+.
+ This is done automatically in
+initializeLocalVars
+,
+ but if at a later point
+JTable
+is told
+setToolTipText(null)
+it will unregister the table
+ component, and no tips from renderers will display anymore.
+Overrides:
+getToolTipText
+in class
+JComponent
+Parameters:
+event
+- the
+MouseEvent
+that initiated the
+ToolTip
+display
+Returns:
+a string containing the  tooltip
+See Also:
+JComponent.getToolTipText()
+setSurrendersFocusOnKeystroke
+public
+void
+setSurrendersFocusOnKeystroke
+(boolean surrendersFocusOnKeystroke)
+Sets whether editors in this JTable get the keyboard focus
+ when an editor is activated as a result of the JTable
+ forwarding keyboard events for a cell.
+ By default, this property is false, and the JTable
+ retains the focus unless the cell is clicked.
+Parameters:
+surrendersFocusOnKeystroke
+- true if the editor should get the focus
+          when keystrokes cause the editor to be
+          activated
+Since:
+1.4
+See Also:
+getSurrendersFocusOnKeystroke()
+getSurrendersFocusOnKeystroke
+public
+boolean
+getSurrendersFocusOnKeystroke
+()
+Returns true if the editor should get the focus
+ when keystrokes cause the editor to be activated
+Returns:
+true if the editor should get the focus
+          when keystrokes cause the editor to be
+          activated
+Since:
+1.4
+See Also:
+setSurrendersFocusOnKeystroke(boolean)
+editCellAt
+public
+boolean
+editCellAt
+(int row,
+ int column)
+Programmatically starts editing the cell at
+row
+and
+column
+, if those indices are in the valid range, and
+ the cell at those indices is editable.
+ Note that this is a convenience method for
+editCellAt(int, int, null)
+.
+Parameters:
+row
+- the row to be edited
+column
+- the column to be edited
+Returns:
+false if for any reason the cell cannot be edited,
+                or if the indices are invalid
+editCellAt
+public
+boolean
+editCellAt
+(int row,
+ int column,
+EventObject
+e)
+Programmatically starts editing the cell at
+row
+and
+column
+, if those indices are in the valid range, and
+ the cell at those indices is editable.
+ To prevent the
+JTable
+from
+ editing a particular table, column or cell value, return false from
+ the
+isCellEditable
+method in the
+TableModel
+interface.
+Parameters:
+row
+- the row to be edited
+column
+- the column to be edited
+e
+- event to pass into
+shouldSelectCell
+;
+                  note that as of Java 2 platform v1.2, the call to
+shouldSelectCell
+is no longer made
+Returns:
+false if for any reason the cell cannot be edited,
+                or if the indices are invalid
+isEditing
+@BeanProperty
+(
+bound
+=false)
+public
+boolean
+isEditing
+()
+Returns true if a cell is being edited.
+Returns:
+true if the table is editing a cell
+See Also:
+editingColumn
+editingRow
+getEditorComponent
+@BeanProperty
+(
+bound
+=false)
+public
+Component
+getEditorComponent
+()
+Returns the component that is handling the editing session.
+ If nothing is being edited, returns null.
+Returns:
+Component handling editing session
+getEditingColumn
+public
+int
+getEditingColumn
+()
+Returns the index of the column that contains the cell currently
+ being edited.  If nothing is being edited, returns -1.
+Returns:
+the index of the column that contains the cell currently
+          being edited; returns -1 if nothing being edited
+See Also:
+editingRow
+getEditingRow
+public
+int
+getEditingRow
+()
+Returns the index of the row that contains the cell currently
+ being edited.  If nothing is being edited, returns -1.
+Returns:
+the index of the row that contains the cell currently
+          being edited; returns -1 if nothing being edited
+See Also:
+editingColumn
+getUI
+public
+TableUI
+getUI
+()
+Returns the L&F object that renders this component.
+Overrides:
+getUI
+in class
+JComponent
+Returns:
+the
+TableUI
+object that renders this component
+setUI
+@BeanProperty
+(
+hidden
+=true,
+visualUpdate
+=true,
+description
+="The UI object that implements the Component\'s LookAndFeel.")
+public
+void
+setUI
+(
+TableUI
+ui)
+Sets the L&F object that renders this component and repaints.
+Parameters:
+ui
+- the TableUI L&F object
+See Also:
+UIDefaults.getUI(javax.swing.JComponent)
+updateUI
+public
+void
+updateUI
+()
+Notification from the
+UIManager
+that the L&F has changed.
+ Replaces the current UI object with the latest version from the
+UIManager
+.
+Overrides:
+updateUI
+in class
+JComponent
+See Also:
+JComponent.updateUI()
+getUIClassID
+@BeanProperty
+(
+bound
+=false)
+public
+String
+getUIClassID
+()
+Returns the suffix used to construct the name of the L&F class used to
+ render this component.
+Overrides:
+getUIClassID
+in class
+JComponent
+Returns:
+the string "TableUI"
+See Also:
+JComponent.getUIClassID()
+UIDefaults.getUI(javax.swing.JComponent)
+setModel
+@BeanProperty
+(
+description
+="The model that is the source of the data for this view.")
+public
+void
+setModel
+(
+TableModel
+dataModel)
+Sets the data model for this table to
+dataModel
+and registers
+ with it for listener notifications from the new data model.
+Parameters:
+dataModel
+- the new data source for this table
+Throws:
+IllegalArgumentException
+- if
+dataModel
+is
+null
+See Also:
+getModel()
+getModel
+public
+TableModel
+getModel
+()
+Returns the
+TableModel
+that provides the data displayed by this
+JTable
+.
+Returns:
+the
+TableModel
+that provides the data displayed by this
+JTable
+See Also:
+setModel(javax.swing.table.TableModel)
+setColumnModel
+@BeanProperty
+(
+description
+="The object governing the way columns appear in the view.")
+public
+void
+setColumnModel
+(
+TableColumnModel
+columnModel)
+Sets the column model for this table to
+columnModel
+and registers
+ for listener notifications from the new column model. Also sets the
+ column model of the
+JTableHeader
+to
+columnModel
+.
+Parameters:
+columnModel
+- the new data source for this table
+Throws:
+IllegalArgumentException
+- if
+columnModel
+is
+null
+See Also:
+getColumnModel()
+getColumnModel
+public
+TableColumnModel
+getColumnModel
+()
+Returns the
+TableColumnModel
+that contains all column information
+ of this table.
+Returns:
+the object that provides the column state of the table
+See Also:
+setColumnModel(javax.swing.table.TableColumnModel)
+setSelectionModel
+@BeanProperty
+(
+description
+="The selection model for rows.")
+public
+void
+setSelectionModel
+(
+ListSelectionModel
+selectionModel)
+Sets the row selection model for this table to
+selectionModel
+and registers for listener notifications from the new selection model.
+Parameters:
+selectionModel
+- the new selection model
+Throws:
+IllegalArgumentException
+- if
+selectionModel
+is
+null
+See Also:
+getSelectionModel()
+getSelectionModel
+public
+ListSelectionModel
+getSelectionModel
+()
+Returns the
+ListSelectionModel
+that is used to maintain row
+ selection state.
+Returns:
+the object that provides row selection state,
+null
+if row
+         selection is not allowed
+See Also:
+setSelectionModel(javax.swing.ListSelectionModel)
+sorterChanged
+public
+void
+sorterChanged
+(
+RowSorterEvent
+e)
+RowSorterListener
+notification that the
+RowSorter
+has changed in some way.
+Specified by:
+sorterChanged
+in interface
+RowSorterListener
+Parameters:
+e
+- the
+RowSorterEvent
+describing the change
+Throws:
+NullPointerException
+- if
+e
+is
+null
+Since:
+1.6
+tableChanged
+public
+void
+tableChanged
+(
+TableModelEvent
+e)
+Invoked when this table's
+TableModel
+generates
+ a
+TableModelEvent
+.
+ The
+TableModelEvent
+should be constructed in the
+ coordinate system of the model; the appropriate mapping to the
+ view coordinate system is performed by this
+JTable
+when it receives the event.
+Application code will not use these methods explicitly, they
+ are used internally by
+JTable
+.
+Note that as of 1.3, this method clears the selection, if any.
+Specified by:
+tableChanged
+in interface
+TableModelListener
+Parameters:
+e
+- a
+TableModelEvent
+to notify listener that a table model
+          has changed
+columnAdded
+public
+void
+columnAdded
+(
+TableColumnModelEvent
+e)
+Invoked when a column is added to the table column model.
+Application code will not use these methods explicitly, they
+ are used internally by JTable.
+Specified by:
+columnAdded
+in interface
+TableColumnModelListener
+Parameters:
+e
+- a
+TableColumnModelEvent
+See Also:
+TableColumnModelListener
+columnRemoved
+public
+void
+columnRemoved
+(
+TableColumnModelEvent
+e)
+Invoked when a column is removed from the table column model.
+Application code will not use these methods explicitly, they
+ are used internally by JTable.
+Specified by:
+columnRemoved
+in interface
+TableColumnModelListener
+Parameters:
+e
+- a
+TableColumnModelEvent
+See Also:
+TableColumnModelListener
+columnMoved
+public
+void
+columnMoved
+(
+TableColumnModelEvent
+e)
+Invoked when a column is repositioned. If a cell is being
+ edited, then editing is stopped and the cell is redrawn.
+Application code will not use these methods explicitly, they
+ are used internally by JTable.
+Specified by:
+columnMoved
+in interface
+TableColumnModelListener
+Parameters:
+e
+- the event received
+See Also:
+TableColumnModelListener
+columnMarginChanged
+public
+void
+columnMarginChanged
+(
+ChangeEvent
+e)
+Invoked when a column is moved due to a margin change.
+ If a cell is being edited, then editing is stopped and the cell
+ is redrawn.
+Application code will not use these methods explicitly, they
+ are used internally by JTable.
+Specified by:
+columnMarginChanged
+in interface
+TableColumnModelListener
+Parameters:
+e
+- the event received
+See Also:
+TableColumnModelListener
+columnSelectionChanged
+public
+void
+columnSelectionChanged
+(
+ListSelectionEvent
+e)
+Invoked when the selection model of the
+TableColumnModel
+is changed.
+Application code will not use these methods explicitly, they
+ are used internally by JTable.
+Specified by:
+columnSelectionChanged
+in interface
+TableColumnModelListener
+Parameters:
+e
+- the event received
+See Also:
+TableColumnModelListener
+valueChanged
+public
+void
+valueChanged
+(
+ListSelectionEvent
+e)
+Invoked when the row selection changes -- repaints to show the new
+ selection.
+Application code will not use these methods explicitly, they
+ are used internally by JTable.
+Specified by:
+valueChanged
+in interface
+ListSelectionListener
+Parameters:
+e
+- the event received
+See Also:
+ListSelectionListener
+editingStopped
+public
+void
+editingStopped
+(
+ChangeEvent
+e)
+Invoked when editing is finished. The changes are saved and the
+ editor is discarded.
+Application code will not use these methods explicitly, they
+ are used internally by JTable.
+Specified by:
+editingStopped
+in interface
+CellEditorListener
+Parameters:
+e
+- the event received
+See Also:
+CellEditorListener
+editingCanceled
+public
+void
+editingCanceled
+(
+ChangeEvent
+e)
+Invoked when editing is canceled. The editor object is discarded
+ and the cell is rendered once again.
+Application code will not use these methods explicitly, they
+ are used internally by JTable.
+Specified by:
+editingCanceled
+in interface
+CellEditorListener
+Parameters:
+e
+- the event received
+See Also:
+CellEditorListener
+setPreferredScrollableViewportSize
+@BeanProperty
+(
+bound
+=false,
+description
+="The preferred size of the viewport.")
+public
+void
+setPreferredScrollableViewportSize
+(
+Dimension
+size)
+Sets the preferred size of the viewport for this table.
+Parameters:
+size
+- a
+Dimension
+object specifying the
+preferredSize
+of a
+JViewport
+whose view is this table
+See Also:
+Scrollable.getPreferredScrollableViewportSize()
+getPreferredScrollableViewportSize
+public
+Dimension
+getPreferredScrollableViewportSize
+()
+Returns the preferred size of the viewport for this table.
+Specified by:
+getPreferredScrollableViewportSize
+in interface
+Scrollable
+Returns:
+a
+Dimension
+object containing the
+preferredSize
+of the
+JViewport
+which displays this table
+See Also:
+Scrollable.getPreferredScrollableViewportSize()
+getScrollableUnitIncrement
+public
+int
+getScrollableUnitIncrement
+(
+Rectangle
+visibleRect,
+ int orientation,
+ int direction)
+Returns the scroll increment (in pixels) that completely exposes one new
+ row or column (depending on the orientation).
+This method is called each time the user requests a unit scroll.
+Specified by:
+getScrollableUnitIncrement
+in interface
+Scrollable
+Parameters:
+visibleRect
+- the view area visible within the viewport
+orientation
+- either
+SwingConstants.VERTICAL
+or
+SwingConstants.HORIZONTAL
+direction
+- less than zero to scroll up/left,
+                  greater than zero for down/right
+Returns:
+the "unit" increment for scrolling in the specified direction
+See Also:
+Scrollable.getScrollableUnitIncrement(java.awt.Rectangle, int, int)
+getScrollableBlockIncrement
+public
+int
+getScrollableBlockIncrement
+(
+Rectangle
+visibleRect,
+ int orientation,
+ int direction)
+Returns
+visibleRect.height
+or
+visibleRect.width
+,
+ depending on this table's orientation.  Note that as of Swing 1.1.1
+ (Java 2 v 1.2.2) the value
+ returned will ensure that the viewport is cleanly aligned on
+ a row boundary.
+Specified by:
+getScrollableBlockIncrement
+in interface
+Scrollable
+Parameters:
+visibleRect
+- The view area visible within the viewport
+orientation
+- Either SwingConstants.VERTICAL or SwingConstants.HORIZONTAL.
+direction
+- Less than zero to scroll up/left, greater than zero for down/right.
+Returns:
+visibleRect.height
+or
+visibleRect.width
+per the orientation
+See Also:
+Scrollable.getScrollableBlockIncrement(java.awt.Rectangle, int, int)
+getScrollableTracksViewportWidth
+@BeanProperty
+(
+bound
+=false)
+public
+boolean
+getScrollableTracksViewportWidth
+()
+Returns false if
+autoResizeMode
+is set to
+AUTO_RESIZE_OFF
+, which indicates that the
+ width of the viewport does not determine the width
+ of the table.  Otherwise returns true.
+Specified by:
+getScrollableTracksViewportWidth
+in interface
+Scrollable
+Returns:
+false if
+autoResizeMode
+is set
+   to
+AUTO_RESIZE_OFF
+, otherwise returns true
+See Also:
+Scrollable.getScrollableTracksViewportWidth()
+getScrollableTracksViewportHeight
+@BeanProperty
+(
+bound
+=false)
+public
+boolean
+getScrollableTracksViewportHeight
+()
+Returns
+false
+to indicate that the height of the viewport does
+ not determine the height of the table, unless
+getFillsViewportHeight
+is
+true
+and the preferred height
+ of the table is smaller than the viewport's height.
+Specified by:
+getScrollableTracksViewportHeight
+in interface
+Scrollable
+Returns:
+false
+unless
+getFillsViewportHeight
+is
+true
+and the table needs to be stretched to fill
+         the viewport
+See Also:
+Scrollable.getScrollableTracksViewportHeight()
+setFillsViewportHeight(boolean)
+getFillsViewportHeight()
+setFillsViewportHeight
+@BeanProperty
+(
+description
+="Whether or not this table is always made large enough to fill the height of an enclosing viewport")
+public
+void
+setFillsViewportHeight
+(boolean fillsViewportHeight)
+Sets whether or not this table is always made large enough
+ to fill the height of an enclosing viewport. If the preferred
+ height of the table is smaller than the viewport, then the table
+ will be stretched to fill the viewport. In other words, this
+ ensures the table is never smaller than the viewport.
+ The default for this property is
+false
+.
+Parameters:
+fillsViewportHeight
+- whether or not this table is always
+        made large enough to fill the height of an enclosing
+        viewport
+Since:
+1.6
+See Also:
+getFillsViewportHeight()
+getScrollableTracksViewportHeight()
+getFillsViewportHeight
+public
+boolean
+getFillsViewportHeight
+()
+Returns whether or not this table is always made large enough
+ to fill the height of an enclosing viewport.
+Returns:
+whether or not this table is always made large enough
+         to fill the height of an enclosing viewport
+Since:
+1.6
+See Also:
+setFillsViewportHeight(boolean)
+createDefaultRenderers
+protected
+void
+createDefaultRenderers
+()
+Creates default cell renderers for objects, numbers, doubles, dates,
+ booleans, and icons.
+See Also:
+DefaultTableCellRenderer
+createDefaultEditors
+protected
+void
+createDefaultEditors
+()
+Creates default cell editors for objects, numbers, and boolean values.
+See Also:
+DefaultCellEditor
+initializeLocalVars
+protected
+void
+initializeLocalVars
+()
+Initializes table properties to their default values.
+createDefaultDataModel
+protected
+TableModel
+createDefaultDataModel
+()
+Returns the default table model object, which is
+ a
+DefaultTableModel
+.  A subclass can override this
+ method to return a different table model object.
+Returns:
+the default table model object
+See Also:
+DefaultTableModel
+createDefaultColumnModel
+protected
+TableColumnModel
+createDefaultColumnModel
+()
+Returns the default column model object, which is
+ a
+DefaultTableColumnModel
+.  A subclass can override this
+ method to return a different column model object.
+Returns:
+the default column model object
+See Also:
+DefaultTableColumnModel
+createDefaultSelectionModel
+protected
+ListSelectionModel
+createDefaultSelectionModel
+()
+Returns the default selection model object, which is
+ a
+DefaultListSelectionModel
+.  A subclass can override this
+ method to return a different selection model object.
+Returns:
+the default selection model object
+See Also:
+DefaultListSelectionModel
+createDefaultTableHeader
+protected
+JTableHeader
+createDefaultTableHeader
+()
+Returns the default table header object, which is
+ a
+JTableHeader
+.  A subclass can override this
+ method to return a different table header object.
+Returns:
+the default table header object
+See Also:
+JTableHeader
+resizeAndRepaint
+protected
+void
+resizeAndRepaint
+()
+Equivalent to
+revalidate
+followed by
+repaint
+.
+getCellEditor
+public
+TableCellEditor
+getCellEditor
+()
+Returns the active cell editor, which is
+null
+if the table
+ is not currently editing.
+Returns:
+the
+TableCellEditor
+that does the editing,
+         or
+null
+if the table is not currently editing.
+See Also:
+cellEditor
+getCellEditor(int, int)
+setCellEditor
+@BeanProperty
+(
+description
+="The table\'s active cell editor.")
+public
+void
+setCellEditor
+(
+TableCellEditor
+anEditor)
+Sets the active cell editor.
+Parameters:
+anEditor
+- the active cell editor
+See Also:
+cellEditor
+setEditingColumn
+public
+void
+setEditingColumn
+(int aColumn)
+Sets the
+editingColumn
+variable.
+Parameters:
+aColumn
+- the column of the cell to be edited
+See Also:
+editingColumn
+setEditingRow
+public
+void
+setEditingRow
+(int aRow)
+Sets the
+editingRow
+variable.
+Parameters:
+aRow
+- the row of the cell to be edited
+See Also:
+editingRow
+getCellRenderer
+public
+TableCellRenderer
+getCellRenderer
+(int row,
+ int column)
+Returns an appropriate renderer for the cell specified by this row and
+ column. If the
+TableColumn
+for this column has a non-null
+ renderer, returns that.  If not, finds the class of the data in
+ this column (using
+getColumnClass
+)
+ and returns the default renderer for this type of data.
+Note:
+Throughout the table package, the internal implementations always
+ use this method to provide renderers so that this default behavior
+ can be safely overridden by a subclass.
+Parameters:
+row
+- the row of the cell to render, where 0 is the first row
+column
+- the column of the cell to render,
+                  where 0 is the first column
+Returns:
+the assigned renderer; if
+null
+returns the default renderer
+                  for this type of object
+See Also:
+DefaultTableCellRenderer
+TableColumn.setCellRenderer(javax.swing.table.TableCellRenderer)
+setDefaultRenderer(java.lang.Class<?>, javax.swing.table.TableCellRenderer)
+prepareRenderer
+public
+Component
+prepareRenderer
+(
+TableCellRenderer
+renderer,
+ int row,
+ int column)
+Prepares the renderer by querying the data model for the
+ value and selection state
+ of the cell at
+row
+,
+column
+.
+ Returns the component (may be a
+Component
+or a
+JComponent
+) under the event location.
+During a printing operation, this method will configure the
+ renderer without indicating selection or focus, to prevent
+ them from appearing in the printed output. To do other
+ customizations based on whether or not the table is being
+ printed, you can check the value of
+JComponent.isPaintingForPrint()
+, either here
+ or within custom renderers.
+Note:
+Throughout the table package, the internal implementations always
+ use this method to prepare renderers so that this default behavior
+ can be safely overridden by a subclass.
+Parameters:
+renderer
+- the
+TableCellRenderer
+to prepare
+row
+- the row of the cell to render, where 0 is the first row
+column
+- the column of the cell to render,
+                  where 0 is the first column
+Returns:
+the
+Component
+under the event location
+getCellEditor
+public
+TableCellEditor
+getCellEditor
+(int row,
+ int column)
+Returns an appropriate editor for the cell specified by
+row
+and
+column
+. If the
+TableColumn
+for this column has a non-null editor,
+ returns that.  If not, finds the class of the data in this
+ column (using
+getColumnClass
+)
+ and returns the default editor for this type of data.
+Note:
+Throughout the table package, the internal implementations always
+ use this method to provide editors so that this default behavior
+ can be safely overridden by a subclass.
+Parameters:
+row
+- the row of the cell to edit, where 0 is the first row
+column
+- the column of the cell to edit,
+                  where 0 is the first column
+Returns:
+the editor for this cell;
+                  if
+null
+return the default editor for
+                  this type of cell
+See Also:
+DefaultCellEditor
+prepareEditor
+public
+Component
+prepareEditor
+(
+TableCellEditor
+editor,
+ int row,
+ int column)
+Prepares the editor by querying the data model for the value and
+ selection state of the cell at
+row
+,
+column
+.
+Note:
+Throughout the table package, the internal implementations always
+ use this method to prepare editors so that this default behavior
+ can be safely overridden by a subclass.
+Parameters:
+editor
+- the
+TableCellEditor
+to set up
+row
+- the row of the cell to edit,
+                where 0 is the first row
+column
+- the column of the cell to edit,
+                where 0 is the first column
+Returns:
+the
+Component
+being edited
+removeEditor
+public
+void
+removeEditor
+()
+Discards the editor object and frees the real estate it used for
+ cell rendering.
+paramString
+protected
+String
+paramString
+()
+Returns a string representation of this table. This method
+ is intended to be used only for debugging purposes, and the
+ content and format of the returned string may vary between
+ implementations. The returned string may be empty but may not
+ be
+null
+.
+Overrides:
+paramString
+in class
+JComponent
+Returns:
+a string representation of this table
+print
+public
+boolean
+print
+()
+              throws
+PrinterException
+A convenience method that displays a printing dialog, and then prints
+ this
+JTable
+in mode
+PrintMode.FIT_WIDTH
+,
+ with no header or footer text. A modal progress dialog, with an abort
+ option, will be shown for the duration of printing.
+Note: In headless mode, no dialogs are shown and printing
+ occurs on the default printer.
+Returns:
+true, unless printing is cancelled by the user
+Throws:
+SecurityException
+- if this thread is not allowed to
+                           initiate a print job request
+PrinterException
+- if an error in the print system causes the job
+                          to be aborted
+Since:
+1.5
+See Also:
+print(JTable.PrintMode, MessageFormat, MessageFormat, boolean, PrintRequestAttributeSet, boolean, PrintService)
+getPrintable(javax.swing.JTable.PrintMode, java.text.MessageFormat, java.text.MessageFormat)
+print
+public
+boolean
+print
+(
+JTable.PrintMode
+printMode)
+throws
+PrinterException
+A convenience method that displays a printing dialog, and then prints
+ this
+JTable
+in the given printing mode,
+ with no header or footer text. A modal progress dialog, with an abort
+ option, will be shown for the duration of printing.
+Note: In headless mode, no dialogs are shown and printing
+ occurs on the default printer.
+Parameters:
+printMode
+- the printing mode that the printable should use
+Returns:
+true, unless printing is cancelled by the user
+Throws:
+SecurityException
+- if this thread is not allowed to
+                           initiate a print job request
+PrinterException
+- if an error in the print system causes the job
+                          to be aborted
+Since:
+1.5
+See Also:
+print(JTable.PrintMode, MessageFormat, MessageFormat, boolean, PrintRequestAttributeSet, boolean, PrintService)
+getPrintable(javax.swing.JTable.PrintMode, java.text.MessageFormat, java.text.MessageFormat)
+print
+public
+boolean
+print
+(
+JTable.PrintMode
+printMode,
+MessageFormat
+headerFormat,
+MessageFormat
+footerFormat)
+throws
+PrinterException
+A convenience method that displays a printing dialog, and then prints
+ this
+JTable
+in the given printing mode,
+ with the specified header and footer text. A modal progress dialog,
+ with an abort option, will be shown for the duration of printing.
+Note: In headless mode, no dialogs are shown and printing
+ occurs on the default printer.
+Parameters:
+printMode
+- the printing mode that the printable should use
+headerFormat
+- a
+MessageFormat
+specifying the text
+                          to be used in printing a header,
+                          or null for none
+footerFormat
+- a
+MessageFormat
+specifying the text
+                          to be used in printing a footer,
+                          or null for none
+Returns:
+true, unless printing is cancelled by the user
+Throws:
+SecurityException
+- if this thread is not allowed to
+                           initiate a print job request
+PrinterException
+- if an error in the print system causes the job
+                          to be aborted
+Since:
+1.5
+See Also:
+print(JTable.PrintMode, MessageFormat, MessageFormat, boolean, PrintRequestAttributeSet, boolean, PrintService)
+getPrintable(javax.swing.JTable.PrintMode, java.text.MessageFormat, java.text.MessageFormat)
+print
+public
+boolean
+print
+(
+JTable.PrintMode
+printMode,
+MessageFormat
+headerFormat,
+MessageFormat
+footerFormat,
+ boolean showPrintDialog,
+PrintRequestAttributeSet
+attr,
+ boolean interactive)
+throws
+PrinterException
+,
+HeadlessException
+Prints this table, as specified by the fully featured
+print
+method, with the default printer specified as the print service.
+Parameters:
+printMode
+- the printing mode that the printable should use
+headerFormat
+- a
+MessageFormat
+specifying the text
+                          to be used in printing a header,
+                          or
+null
+for none
+footerFormat
+- a
+MessageFormat
+specifying the text
+                          to be used in printing a footer,
+                          or
+null
+for none
+showPrintDialog
+- whether or not to display a print dialog
+attr
+- a
+PrintRequestAttributeSet
+specifying any printing attributes,
+                          or
+null
+for none
+interactive
+- whether or not to print in an interactive mode
+Returns:
+true, unless printing is cancelled by the user
+Throws:
+HeadlessException
+- if the method is asked to show a printing
+                           dialog or run interactively, and
+GraphicsEnvironment.isHeadless
+returns
+true
+SecurityException
+- if this thread is not allowed to
+                           initiate a print job request
+PrinterException
+- if an error in the print system causes the job
+                          to be aborted
+Since:
+1.5
+See Also:
+print(JTable.PrintMode, MessageFormat, MessageFormat, boolean, PrintRequestAttributeSet, boolean, PrintService)
+getPrintable(javax.swing.JTable.PrintMode, java.text.MessageFormat, java.text.MessageFormat)
+print
+public
+boolean
+print
+(
+JTable.PrintMode
+printMode,
+MessageFormat
+headerFormat,
+MessageFormat
+footerFormat,
+ boolean showPrintDialog,
+PrintRequestAttributeSet
+attr,
+ boolean interactive,
+PrintService
+service)
+throws
+PrinterException
+,
+HeadlessException
+Prints this
+JTable
+. Takes steps that the majority of
+ developers would take in order to print a
+JTable
+.
+ In short, it prepares the table, calls
+getPrintable
+to
+ fetch an appropriate
+Printable
+, and then sends it to the
+ printer.
+A
+boolean
+parameter allows you to specify whether or not
+ a printing dialog is displayed to the user. When it is, the user may
+ use the dialog to change the destination printer or printing attributes,
+ or even to cancel the print. Another two parameters allow for a
+PrintService
+and printing attributes to be specified.
+ These parameters can be used either to provide initial values for the
+ print dialog, or to specify values when the dialog is not shown.
+A second
+boolean
+parameter allows you to specify whether
+ or not to perform printing in an interactive mode. If
+true
+,
+ a modal progress dialog, with an abort option, is displayed for the
+ duration of printing . This dialog also prevents any user action which
+ may affect the table. However, it can not prevent the table from being
+ modified by code (for example, another thread that posts updates using
+SwingUtilities.invokeLater
+). It is therefore the
+ responsibility of the developer to ensure that no other code modifies
+ the table in any way during printing (invalid modifications include
+ changes in: size, renderers, or underlying data). Printing behavior is
+ undefined when the table is changed during printing.
+If
+false
+is specified for this parameter, no dialog will
+ be displayed and printing will begin immediately on the event-dispatch
+ thread. This blocks any other events, including repaints, from being
+ processed until printing is complete. Although this effectively prevents
+ the table from being changed, it doesn't provide a good user experience.
+ For this reason, specifying
+false
+is only recommended when
+ printing from an application with no visible GUI.
+Note: Attempting to show the printing dialog or run interactively, while
+ in headless mode, will result in a
+HeadlessException
+.
+Before fetching the printable, this method will gracefully terminate
+ editing, if necessary, to prevent an editor from showing in the printed
+ result. Additionally,
+JTable
+will prepare its renderers
+ during printing such that selection and focus are not indicated.
+ As far as customizing further how the table looks in the printout,
+ developers can provide custom renderers or paint code that conditionalize
+ on the value of
+JComponent.isPaintingForPrint()
+.
+See
+getPrintable(javax.swing.JTable.PrintMode, java.text.MessageFormat, java.text.MessageFormat)
+for more description on how the table is
+ printed.
+Parameters:
+printMode
+- the printing mode that the printable should use
+headerFormat
+- a
+MessageFormat
+specifying the text
+                          to be used in printing a header,
+                          or
+null
+for none
+footerFormat
+- a
+MessageFormat
+specifying the text
+                          to be used in printing a footer,
+                          or
+null
+for none
+showPrintDialog
+- whether or not to display a print dialog
+attr
+- a
+PrintRequestAttributeSet
+specifying any printing attributes,
+                          or
+null
+for none
+interactive
+- whether or not to print in an interactive mode
+service
+- the destination
+PrintService
+,
+                          or
+null
+to use the default printer
+Returns:
+true, unless printing is cancelled by the user
+Throws:
+HeadlessException
+- if the method is asked to show a printing
+                           dialog or run interactively, and
+GraphicsEnvironment.isHeadless
+returns
+true
+SecurityException
+- if a security manager exists and its
+SecurityManager.checkPrintJobAccess()
+method disallows this thread from creating a print job request
+PrinterException
+- if an error in the print system causes the job
+                          to be aborted
+Since:
+1.6
+See Also:
+getPrintable(javax.swing.JTable.PrintMode, java.text.MessageFormat, java.text.MessageFormat)
+GraphicsEnvironment.isHeadless()
+getPrintable
+public
+Printable
+getPrintable
+(
+JTable.PrintMode
+printMode,
+MessageFormat
+headerFormat,
+MessageFormat
+footerFormat)
+Return a
+Printable
+for use in printing this JTable.
+This method is meant for those wishing to customize the default
+Printable
+implementation used by
+JTable
+'s
+print
+methods. Developers wanting simply to print the table
+ should use one of those methods directly.
+The
+Printable
+can be requested in one of two printing modes.
+ In both modes, it spreads table rows naturally in sequence across
+ multiple pages, fitting as many rows as possible per page.
+PrintMode.NORMAL
+specifies that the table be
+ printed at its current size. In this mode, there may be a need to spread
+ columns across pages in a similar manner to that of the rows. When the
+ need arises, columns are distributed in an order consistent with the
+ table's
+ComponentOrientation
+.
+PrintMode.FIT_WIDTH
+specifies that the output be
+ scaled smaller, if necessary, to fit the table's entire width
+ (and thereby all columns) on each page. Width and height are scaled
+ equally, maintaining the aspect ratio of the output.
+The
+Printable
+heads the portion of table on each page
+ with the appropriate section from the table's
+JTableHeader
+,
+ if it has one.
+Header and footer text can be added to the output by providing
+MessageFormat
+arguments. The printing code requests
+ Strings from the formats, providing a single item which may be included
+ in the formatted string: an
+Integer
+representing the current
+ page number.
+You are encouraged to read the documentation for
+MessageFormat
+as some characters, such as single-quote,
+ are special and need to be escaped.
+Here's an example of creating a
+MessageFormat
+that can be
+ used to print "Duke's Table: Page - " and the current page number:
+// notice the escaping of the single quote
+     // notice how the page number is included with "{0}"
+     MessageFormat format = new MessageFormat("Duke''s Table: Page - {0}");
+The
+Printable
+constrains what it draws to the printable
+ area of each page that it prints. Under certain circumstances, it may
+ find it impossible to fit all of a page's content into that area. In
+ these cases the output may be clipped, but the implementation
+ makes an effort to do something reasonable. Here are a few situations
+ where this is known to occur, and how they may be handled by this
+ particular implementation:
+In any mode, when the header or footer text is too wide to fit
+       completely in the printable area -- print as much of the text as
+       possible starting from the beginning, as determined by the table's
+ComponentOrientation
+.
+In any mode, when a row is too tall to fit in the
+       printable area -- print the upper-most portion of the row
+       and paint no lower border on the table.
+In
+PrintMode.NORMAL
+when a column
+       is too wide to fit in the printable area -- print the center
+       portion of the column and leave the left and right borders
+       off the table.
+It is entirely valid for this
+Printable
+to be wrapped
+ inside another in order to create complex reports and documents. You may
+ even request that different pages be rendered into different sized
+ printable areas. The implementation must be prepared to handle this
+ (possibly by doing its layout calculations on the fly). However,
+ providing different heights to each page will likely not work well
+ with
+PrintMode.NORMAL
+when it has to spread columns
+ across pages.
+As far as customizing how the table looks in the printed result,
+JTable
+itself will take care of hiding the selection
+ and focus during printing. For additional customizations, your
+ renderers or painting code can customize the look based on the value
+ of
+JComponent.isPaintingForPrint()
+Also,
+before
+calling this method you may wish to
+first
+modify the state of the table, such as to cancel cell editing or
+ have the user size the table appropriately. However, you must not
+ modify the state of the table
+after
+this
+Printable
+has been fetched (invalid modifications include changes in size or
+ underlying data). The behavior of the returned
+Printable
+is undefined once the table has been changed.
+Parameters:
+printMode
+- the printing mode that the printable should use
+headerFormat
+- a
+MessageFormat
+specifying the text to
+                       be used in printing a header, or null for none
+footerFormat
+- a
+MessageFormat
+specifying the text to
+                       be used in printing a footer, or null for none
+Returns:
+a
+Printable
+for printing this JTable
+Since:
+1.5
+See Also:
+print(JTable.PrintMode, MessageFormat, MessageFormat, boolean, PrintRequestAttributeSet, boolean)
+Printable
+PrinterJob
+getAccessibleContext
+@BeanProperty
+(
+bound
+=false)
+public
+AccessibleContext
+getAccessibleContext
+()
+Gets the AccessibleContext associated with this JTable.
+ For tables, the AccessibleContext takes the form of an
+ AccessibleJTable.
+ A new AccessibleJTable instance is created if necessary.
+Specified by:
+getAccessibleContext
+in interface
+Accessible
+Overrides:
+getAccessibleContext
+in class
+Component
+Returns:
+an AccessibleJTable that serves as the
+         AccessibleContext of this JTable
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

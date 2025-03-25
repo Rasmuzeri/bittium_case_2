@@ -1,0 +1,188 @@
+InetAddressResolver (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.net.spi
+Interface InetAddressResolver
+public interface
+InetAddressResolver
+This interface defines operations for looking up host names and IP addresses.
+InetAddress
+delegates all lookup operations to the
+system-wide
+ resolver
+.
+The
+system-wide resolver
+can be customized by
+deploying an implementation
+of
+InetAddressResolverProvider
+.
+Since:
+18
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Interface
+Description
+static final class
+InetAddressResolver.LookupPolicy
+A
+LookupPolicy
+object describes characteristics that can be applied to a lookup operation.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+String
+lookupByAddress
+(byte[] addr)
+Lookup the host name corresponding to the raw IP address provided.
+Stream
+<
+InetAddress
+>
+lookupByName
+(
+String
+host,
+InetAddressResolver.LookupPolicy
+lookupPolicy)
+Given the name of a host, returns a stream of IP addresses of the requested
+ address family associated with a provided hostname.
+Method Details
+lookupByName
+Stream
+<
+InetAddress
+>
+lookupByName
+(
+String
+host,
+InetAddressResolver.LookupPolicy
+lookupPolicy)
+throws
+UnknownHostException
+Given the name of a host, returns a stream of IP addresses of the requested
+ address family associated with a provided hostname.
+host
+should be a machine name, such as "
+www.example.com
+",
+ not a textual representation of its IP address. No validation is performed on
+ the given
+host
+name: if a textual representation is supplied, the name
+ resolution is likely to fail and
+UnknownHostException
+may be thrown.
+The address family type and addresses order are specified by the
+LookupPolicy
+instance. Lookup operation characteristics could be
+ acquired with
+InetAddressResolver.LookupPolicy.characteristics()
+.
+ If
+InetAddressResolver.LookupPolicy.IPV4
+and
+InetAddressResolver.LookupPolicy.IPV6
+characteristics provided then this
+ method returns addresses of both IPV4 and IPV6 families.
+Parameters:
+host
+- the specified hostname
+lookupPolicy
+- the address lookup policy
+Returns:
+a stream of IP addresses for the requested host
+Throws:
+NullPointerException
+- if either parameter is
+null
+UnknownHostException
+- if no IP address for the
+host
+could be found
+See Also:
+InetAddressResolver.LookupPolicy
+lookupByAddress
+String
+lookupByAddress
+(byte[] addr)
+throws
+UnknownHostException
+Lookup the host name corresponding to the raw IP address provided.
+addr
+argument is in network byte order: the highest order byte of the address
+ is in
+addr[0]
+.
+IPv4 address byte array must be 4 bytes long and IPv6 byte array
+ must be 16 bytes long.
+Parameters:
+addr
+- byte array representing a raw IP address
+Returns:
+String
+representing the host name mapping
+Throws:
+UnknownHostException
+- if no host name is found for the specified IP address
+IllegalArgumentException
+- if the length of the provided byte array doesn't correspond
+                                  to a valid IP address length
+NullPointerException
+- if addr is
+null
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

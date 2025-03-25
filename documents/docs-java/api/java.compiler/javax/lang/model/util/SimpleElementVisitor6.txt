@@ -1,0 +1,444 @@
+SimpleElementVisitor6 (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.lang.model.util
+Class SimpleElementVisitor6<R,
+P>
+java.lang.Object
+javax.lang.model.util.AbstractElementVisitor6
+<R,
+P>
+javax.lang.model.util.SimpleElementVisitor6<R,
+P>
+Type Parameters:
+R
+- the return type of this visitor's methods.  Use
+Void
+for visitors that do not need to return results.
+P
+- the type of the additional parameter to this visitor's methods.  Use
+Void
+for visitors that do not need an additional parameter.
+All Implemented Interfaces:
+ElementVisitor
+<R,
+P>
+Direct Known Subclasses:
+ElementKindVisitor6
+,
+SimpleElementVisitor7
+@SupportedSourceVersion
+(
+RELEASE_6
+)
+public class
+SimpleElementVisitor6<R,
+P>
+extends
+AbstractElementVisitor6
+<R,
+P>
+A simple visitor of program elements with default behavior
+ appropriate for the
+RELEASE_6
+source version.
+
+ Visit methods corresponding to
+RELEASE_6
+language
+ constructs call
+defaultAction
+, passing their
+ arguments to
+defaultAction
+'s corresponding parameters.
+
+ For constructs introduced in
+RELEASE_7
+and later,
+visitUnknown
+is called instead.
+API Note:
+Methods in this class may be overridden subject to their general
+ contract.
+WARNING:
+The
+ElementVisitor
+interface implemented by this class may have
+ methods added to it in the future to accommodate new, currently
+ unknown, language structures added to future versions of the
+ Java programming language.  Therefore, methods whose names
+ begin with
+"visit"
+may be added to this class in the
+ future; to avoid incompatibilities, classes and subclasses which
+ extend this class should not declare any instance methods with
+ names beginning with
+"visit"
+.
+When such a new visit method is added, the default
+ implementation in this class will be to directly or indirectly call
+ the
+visitUnknown
+method.  A new simple
+ element visitor class will also be introduced to correspond to the
+ new language level; this visitor will have different default
+ behavior for the visit method in question.  When a new visitor is
+ introduced, portions of this visitor class may be deprecated,
+ including its constructors.
+Since:
+1.6
+See Also:
+SimpleElementVisitor7
+SimpleElementVisitor8
+SimpleElementVisitor9
+SimpleElementVisitor14
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected final
+R
+DEFAULT_VALUE
+Default value to be returned;
+defaultAction
+returns this value unless the method is
+ overridden.
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+SimpleElementVisitor6
+()
+Deprecated.
+Release 6 is obsolete; update to a visitor for a newer
+ release level.
+protected
+SimpleElementVisitor6
+(
+R
+defaultValue)
+Deprecated.
+Release 6 is obsolete; update to a visitor for a newer
+ release level.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+protected
+R
+defaultAction
+(
+Element
+e,
+P
+p)
+The default action for visit methods.
+R
+visitExecutable
+(
+ExecutableElement
+e,
+P
+p)
+Visits an executable element.
+R
+visitPackage
+(
+PackageElement
+e,
+P
+p)
+Visits a package element.
+R
+visitType
+(
+TypeElement
+e,
+P
+p)
+Visits a type element.
+R
+visitTypeParameter
+(
+TypeParameterElement
+e,
+P
+p)
+Visits a type parameter element.
+R
+visitVariable
+(
+VariableElement
+e,
+P
+p)
+Visits a variable element.
+Methods declared in class javax.lang.model.util.
+AbstractElementVisitor6
+visit
+,
+visit
+,
+visitModule
+,
+visitRecordComponent
+,
+visitUnknown
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+DEFAULT_VALUE
+protected final
+R
+DEFAULT_VALUE
+Default value to be returned;
+defaultAction
+returns this value unless the method is
+ overridden.
+Constructor Details
+SimpleElementVisitor6
+@Deprecated
+(
+since
+="9")
+protected
+SimpleElementVisitor6
+()
+Deprecated.
+Release 6 is obsolete; update to a visitor for a newer
+ release level.
+Constructor for concrete subclasses; uses
+null
+for the
+ default value.
+SimpleElementVisitor6
+@Deprecated
+(
+since
+="9")
+protected
+SimpleElementVisitor6
+(
+R
+defaultValue)
+Deprecated.
+Release 6 is obsolete; update to a visitor for a newer
+ release level.
+Constructor for concrete subclasses; uses the argument for the
+ default value.
+Parameters:
+defaultValue
+- the value to assign to
+DEFAULT_VALUE
+Method Details
+defaultAction
+protected
+R
+defaultAction
+(
+Element
+e,
+P
+p)
+The default action for visit methods.
+Implementation Requirements:
+The implementation in this class just returns
+DEFAULT_VALUE
+; subclasses will commonly override this method.
+Parameters:
+e
+- the element to process
+p
+- a visitor-specified parameter
+Returns:
+DEFAULT_VALUE
+unless overridden
+visitPackage
+public
+R
+visitPackage
+(
+PackageElement
+e,
+P
+p)
+Visits a package element.
+Implementation Requirements:
+This implementation calls
+defaultAction
+.
+Parameters:
+e
+- the element to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+visitType
+public
+R
+visitType
+(
+TypeElement
+e,
+P
+p)
+Visits a type element.
+Implementation Requirements:
+This implementation calls
+defaultAction
+.
+Parameters:
+e
+- the element to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+visitVariable
+public
+R
+visitVariable
+(
+VariableElement
+e,
+P
+p)
+Visits a variable element.
+Implementation Requirements:
+This implementation calls
+defaultAction
+, unless the
+ element is a
+RESOURCE_VARIABLE
+in which case
+visitUnknown
+is called.
+Parameters:
+e
+- the element to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+visitExecutable
+public
+R
+visitExecutable
+(
+ExecutableElement
+e,
+P
+p)
+Visits an executable element.
+Implementation Requirements:
+This implementation calls
+defaultAction
+.
+Parameters:
+e
+- the element to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+visitTypeParameter
+public
+R
+visitTypeParameter
+(
+TypeParameterElement
+e,
+P
+p)
+Visits a type parameter element.
+Implementation Requirements:
+This implementation calls
+defaultAction
+.
+Parameters:
+e
+- the element to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

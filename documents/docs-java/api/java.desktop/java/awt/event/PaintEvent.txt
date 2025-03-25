@@ -1,0 +1,333 @@
+PaintEvent (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt.event
+Class PaintEvent
+java.lang.Object
+java.util.EventObject
+java.awt.AWTEvent
+java.awt.event.ComponentEvent
+java.awt.event.PaintEvent
+All Implemented Interfaces:
+Serializable
+public class
+PaintEvent
+extends
+ComponentEvent
+The component-level paint event.
+ This event is a special type which is used to ensure that
+ paint/update method calls are serialized along with the other
+ events delivered from the event queue.  This event is not
+ designed to be used with the Event Listener model; programs
+ should continue to override paint/update methods in order
+ render themselves properly.
+An unspecified behavior will be caused if the
+id
+parameter
+ of any particular
+PaintEvent
+instance is not
+ in the range from
+PAINT_FIRST
+to
+PAINT_LAST
+.
+Since:
+1.1
+See Also:
+Serialized Form
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final int
+PAINT
+The paint event type.
+static final int
+PAINT_FIRST
+Marks the first integer id for the range of paint event ids.
+static final int
+PAINT_LAST
+Marks the last integer id for the range of paint event ids.
+static final int
+UPDATE
+The update event type.
+Fields declared in class java.awt.event.
+ComponentEvent
+COMPONENT_FIRST
+,
+COMPONENT_HIDDEN
+,
+COMPONENT_LAST
+,
+COMPONENT_MOVED
+,
+COMPONENT_RESIZED
+,
+COMPONENT_SHOWN
+Fields declared in class java.awt.
+AWTEvent
+ACTION_EVENT_MASK
+,
+ADJUSTMENT_EVENT_MASK
+,
+COMPONENT_EVENT_MASK
+,
+consumed
+,
+CONTAINER_EVENT_MASK
+,
+FOCUS_EVENT_MASK
+,
+HIERARCHY_BOUNDS_EVENT_MASK
+,
+HIERARCHY_EVENT_MASK
+,
+id
+,
+INPUT_METHOD_EVENT_MASK
+,
+INVOCATION_EVENT_MASK
+,
+ITEM_EVENT_MASK
+,
+KEY_EVENT_MASK
+,
+MOUSE_EVENT_MASK
+,
+MOUSE_MOTION_EVENT_MASK
+,
+MOUSE_WHEEL_EVENT_MASK
+,
+PAINT_EVENT_MASK
+,
+RESERVED_ID_MAX
+,
+TEXT_EVENT_MASK
+,
+WINDOW_EVENT_MASK
+,
+WINDOW_FOCUS_EVENT_MASK
+,
+WINDOW_STATE_EVENT_MASK
+Fields declared in class java.util.
+EventObject
+source
+Constructor Summary
+Constructors
+Constructor
+Description
+PaintEvent
+(
+Component
+source,
+ int id,
+Rectangle
+updateRect)
+Constructs a
+PaintEvent
+object with the specified
+ source component and type.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Rectangle
+getUpdateRect
+()
+Returns the rectangle representing the area which needs to be
+ repainted in response to this event.
+void
+setUpdateRect
+(
+Rectangle
+updateRect)
+Sets the rectangle representing the area which needs to be
+ repainted in response to this event.
+Methods declared in class java.awt.event.
+ComponentEvent
+getComponent
+,
+paramString
+Methods declared in class java.awt.
+AWTEvent
+consume
+,
+getID
+,
+isConsumed
+,
+setSource
+,
+toString
+Methods declared in class java.util.
+EventObject
+getSource
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Field Details
+PAINT_FIRST
+public static final
+int
+PAINT_FIRST
+Marks the first integer id for the range of paint event ids.
+See Also:
+Constant Field Values
+PAINT_LAST
+public static final
+int
+PAINT_LAST
+Marks the last integer id for the range of paint event ids.
+See Also:
+Constant Field Values
+PAINT
+public static final
+int
+PAINT
+The paint event type.
+See Also:
+Constant Field Values
+UPDATE
+public static final
+int
+UPDATE
+The update event type.
+See Also:
+Constant Field Values
+Constructor Details
+PaintEvent
+public
+PaintEvent
+(
+Component
+source,
+ int id,
+Rectangle
+updateRect)
+Constructs a
+PaintEvent
+object with the specified
+ source component and type.
+This method throws an
+IllegalArgumentException
+if
+source
+is
+null
+.
+Parameters:
+source
+- The object where the event originated
+id
+- The integer that identifies the event type.
+                     For information on allowable values, see
+                     the class description for
+PaintEvent
+updateRect
+- The rectangle area which needs to be repainted
+Throws:
+IllegalArgumentException
+- if
+source
+is null
+See Also:
+EventObject.getSource()
+AWTEvent.getID()
+getUpdateRect()
+Method Details
+getUpdateRect
+public
+Rectangle
+getUpdateRect
+()
+Returns the rectangle representing the area which needs to be
+ repainted in response to this event.
+Returns:
+the rectangle representing the area which needs to be
+ repainted in response to this event
+setUpdateRect
+public
+void
+setUpdateRect
+(
+Rectangle
+updateRect)
+Sets the rectangle representing the area which needs to be
+ repainted in response to this event.
+Parameters:
+updateRect
+- the rectangle area which needs to be repainted
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

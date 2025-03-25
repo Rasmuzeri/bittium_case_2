@@ -1,0 +1,886 @@
+SSLServerSocket (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+javax.net.ssl
+Class SSLServerSocket
+java.lang.Object
+java.net.ServerSocket
+javax.net.ssl.SSLServerSocket
+All Implemented Interfaces:
+Closeable
+,
+AutoCloseable
+public abstract class
+SSLServerSocket
+extends
+ServerSocket
+This class extends
+ServerSocket
+and
+ provides secure server sockets using protocols such as the Secure
+ Sockets Layer (SSL) or Transport Layer Security (TLS) protocols.
+Instances of this class are generally created using an
+SSLServerSocketFactory
+.  The primary function
+ of an
+SSLServerSocket
+is to create
+SSLSocket
+s by
+accept
+ing
+ connections.
+An
+SSLServerSocket
+contains several pieces of state data
+ which are inherited by the
+SSLSocket
+at
+ socket creation.  These include the enabled cipher
+ suites and protocols, whether client
+ authentication is necessary, and whether created sockets should
+ begin handshaking in client or server mode.  The state
+ inherited by the created
+SSLSocket
+can be
+ overridden by calling the appropriate methods.
+Since:
+1.4
+See Also:
+ServerSocket
+SSLSocket
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+SSLServerSocket
+()
+Used only by subclasses.
+protected
+SSLServerSocket
+(int port)
+Used only by subclasses.
+protected
+SSLServerSocket
+(int port,
+ int backlog)
+Used only by subclasses.
+protected
+SSLServerSocket
+(int port,
+ int backlog,
+InetAddress
+address)
+Used only by subclasses.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+abstract
+String
+[]
+getEnabledCipherSuites
+()
+Returns the list of cipher suites which are currently enabled
+ for use by newly accepted connections.
+abstract
+String
+[]
+getEnabledProtocols
+()
+Returns the names of the protocols which are currently
+ enabled for use by the newly accepted connections.
+abstract boolean
+getEnableSessionCreation
+()
+Returns true if new SSL sessions may be established by the
+ sockets which are created from this server socket.
+abstract boolean
+getNeedClientAuth
+()
+Returns true if client authentication will be
+required
+on
+ newly
+accept
+ed server-mode
+SSLSocket
+s.
+SSLParameters
+getSSLParameters
+()
+Returns the SSLParameters in effect for newly accepted connections.
+abstract
+String
+[]
+getSupportedCipherSuites
+()
+Returns the names of the cipher suites which could be enabled for use
+ on an SSL connection.
+abstract
+String
+[]
+getSupportedProtocols
+()
+Returns the names of the protocols which could be enabled for use.
+abstract boolean
+getUseClientMode
+()
+Returns true if accepted connections will be in SSL client mode.
+abstract boolean
+getWantClientAuth
+()
+Returns true if client authentication will be
+requested
+on
+ newly accepted server-mode connections.
+abstract void
+setEnabledCipherSuites
+(
+String
+[] suites)
+Sets the cipher suites enabled for use by accepted connections.
+abstract void
+setEnabledProtocols
+(
+String
+[] protocols)
+Controls which particular protocols are enabled for use by
+ accepted connections.
+abstract void
+setEnableSessionCreation
+(boolean flag)
+Controls whether new SSL sessions may be established by the
+ sockets which are created from this server socket.
+abstract void
+setNeedClientAuth
+(boolean need)
+Controls whether
+accept
+ed server-mode
+SSLSockets
+will be initially configured to
+require
+client authentication.
+void
+setSSLParameters
+(
+SSLParameters
+params)
+Applies SSLParameters to newly accepted connections.
+abstract void
+setUseClientMode
+(boolean mode)
+Controls whether accepted connections are in the (default) SSL
+ server mode, or the SSL client mode.
+abstract void
+setWantClientAuth
+(boolean want)
+Controls whether
+accept
+ed server-mode
+SSLSockets
+will be initially configured to
+request
+client authentication.
+Methods declared in class java.net.
+ServerSocket
+accept
+,
+bind
+,
+bind
+,
+close
+,
+getChannel
+,
+getInetAddress
+,
+getLocalPort
+,
+getLocalSocketAddress
+,
+getOption
+,
+getReceiveBufferSize
+,
+getReuseAddress
+,
+getSoTimeout
+,
+implAccept
+,
+isBound
+,
+isClosed
+,
+setOption
+,
+setPerformancePreferences
+,
+setReceiveBufferSize
+,
+setReuseAddress
+,
+setSocketFactory
+,
+setSoTimeout
+,
+supportedOptions
+,
+toString
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+SSLServerSocket
+protected
+SSLServerSocket
+()
+                   throws
+IOException
+Used only by subclasses.
+Create an unbound TCP server socket using the default authentication
+ context.
+Throws:
+IOException
+- if an I/O error occurs when creating the socket
+SSLServerSocket
+protected
+SSLServerSocket
+(int port)
+throws
+IOException
+Used only by subclasses.
+Create a TCP server socket on a port, using the default
+ authentication context.  The connection backlog defaults to
+ fifty connections queued up before the system starts to
+ reject new connection requests.
+A port number of
+0
+creates a socket on any free port.
+If there is a security manager, its
+checkListen
+method is called with the
+port
+argument as its
+ argument to ensure the operation is allowed. This could result
+ in a SecurityException.
+Parameters:
+port
+- the port on which to listen
+Throws:
+IOException
+- if an I/O error occurs when creating the socket
+SecurityException
+- if a security manager exists and its
+checkListen
+method doesn't allow the operation.
+IllegalArgumentException
+- if the port parameter is outside the
+         specified range of valid port values, which is between 0 and
+         65535, inclusive.
+See Also:
+SecurityManager.checkListen(int)
+SSLServerSocket
+protected
+SSLServerSocket
+(int port,
+ int backlog)
+throws
+IOException
+Used only by subclasses.
+Create a TCP server socket on a port, using the default
+ authentication context and a specified backlog of connections.
+A port number of
+0
+creates a socket on any free port.
+The
+backlog
+argument is the requested maximum number of
+ pending connections on the socket. Its exact semantics are implementation
+ specific. In particular, an implementation may impose a maximum length
+ or may choose to ignore the parameter altogether. The value provided
+ should be greater than
+0
+. If it is less than or equal to
+0
+, then an implementation specific default will be used.
+If there is a security manager, its
+checkListen
+method is called with the
+port
+argument as its
+ argument to ensure the operation is allowed. This could result
+ in a SecurityException.
+Parameters:
+port
+- the port on which to listen
+backlog
+- requested maximum length of the queue of incoming
+                  connections.
+Throws:
+IOException
+- if an I/O error occurs when creating the socket
+SecurityException
+- if a security manager exists and its
+checkListen
+method doesn't allow the operation.
+IllegalArgumentException
+- if the port parameter is outside the
+         specified range of valid port values, which is between 0 and
+         65535, inclusive.
+See Also:
+SecurityManager.checkListen(int)
+SSLServerSocket
+protected
+SSLServerSocket
+(int port,
+ int backlog,
+InetAddress
+address)
+throws
+IOException
+Used only by subclasses.
+Create a TCP server socket on a port, using the default
+ authentication context and a specified backlog of connections
+ as well as a particular specified network interface.  This
+ constructor is used on multihomed hosts, such as those used
+ for firewalls or as routers, to control through which interface
+ a network service is provided.
+If there is a security manager, its
+checkListen
+method is called with the
+port
+argument as its
+ argument to ensure the operation is allowed. This could result
+ in a SecurityException.
+A port number of
+0
+creates a socket on any free port.
+The
+backlog
+argument is the requested maximum number of
+ pending connections on the socket. Its exact semantics are implementation
+ specific. In particular, an implementation may impose a maximum length
+ or may choose to ignore the parameter altogether. The value provided
+ should be greater than
+0
+. If it is less than or equal to
+0
+, then an implementation specific default will be used.
+If
+address
+is null, it will default accepting connections
+ on any/all local addresses.
+Parameters:
+port
+- the port on which to listen
+backlog
+- requested maximum length of the queue of incoming
+                  connections.
+address
+- the address of the network interface through
+          which connections will be accepted
+Throws:
+IOException
+- if an I/O error occurs when creating the socket
+SecurityException
+- if a security manager exists and its
+checkListen
+method doesn't allow the operation.
+IllegalArgumentException
+- if the port parameter is outside the
+         specified range of valid port values, which is between 0 and
+         65535, inclusive.
+See Also:
+SecurityManager.checkListen(int)
+Method Details
+getEnabledCipherSuites
+public abstract
+String
+[]
+getEnabledCipherSuites
+()
+Returns the list of cipher suites which are currently enabled
+ for use by newly accepted connections.
+If this list has not been explicitly modified, a system-provided
+ default guarantees a minimum quality of service in all enabled
+ cipher suites.
+Note that even if a suite is enabled, it may never be used. This
+ can occur if the peer does not support it, or its use is restricted,
+ or the requisite certificates (and private keys) for the suite are
+ not available, or an anonymous suite is enabled but authentication
+ is required.
+The returned array includes cipher suites from the list of standard
+ cipher suite names in the
+JSSE Cipher Suite Names
+section of the Java Security Standard
+ Algorithm Names Specification, and may also include other cipher
+ suites that the provider supports.
+Returns:
+an array of cipher suites enabled
+See Also:
+getSupportedCipherSuites()
+setEnabledCipherSuites(String[])
+setEnabledCipherSuites
+public abstract
+void
+setEnabledCipherSuites
+(
+String
+[] suites)
+Sets the cipher suites enabled for use by accepted connections.
+The cipher suites must have been listed by getSupportedCipherSuites()
+ as being supported.  Following a successful call to this method,
+ only suites listed in the
+suites
+parameter are enabled
+ for use.
+Suites that require authentication information which is not available
+ in this ServerSocket's authentication context will not be used
+ in any case, even if they are enabled.
+Note that the standard list of cipher suite names may be found in the
+JSSE Cipher Suite Names
+section of the Java Security Standard
+ Algorithm Names Specification.  Providers  may support cipher suite
+ names not found in this list or might not use the recommended name
+ for a certain cipher suite.
+SSLSocket
+s returned from
+accept()
+inherit this setting.
+Parameters:
+suites
+- Names of all the cipher suites to enable
+Throws:
+IllegalArgumentException
+- when one or more of ciphers
+          named by the parameter is not supported, or when
+          the parameter is null.
+See Also:
+getSupportedCipherSuites()
+getEnabledCipherSuites()
+getSupportedCipherSuites
+public abstract
+String
+[]
+getSupportedCipherSuites
+()
+Returns the names of the cipher suites which could be enabled for use
+ on an SSL connection.
+Normally, only a subset of these will actually
+ be enabled by default, since this list may include cipher suites which
+ do not meet quality of service requirements for those defaults.  Such
+ cipher suites are useful in specialized applications.
+The returned array includes cipher suites from the list of standard
+ cipher suite names in the
+JSSE Cipher Suite Names
+section of the Java Security Standard
+ Algorithm Names Specification, and may also include other cipher
+ suites that the provider supports.
+Returns:
+an array of cipher suite names
+See Also:
+getEnabledCipherSuites()
+setEnabledCipherSuites(String[])
+getSupportedProtocols
+public abstract
+String
+[]
+getSupportedProtocols
+()
+Returns the names of the protocols which could be enabled for use.
+Returns:
+an array of protocol names supported
+See Also:
+getEnabledProtocols()
+setEnabledProtocols(String[])
+getEnabledProtocols
+public abstract
+String
+[]
+getEnabledProtocols
+()
+Returns the names of the protocols which are currently
+ enabled for use by the newly accepted connections.
+Note that even if a protocol is enabled, it may never be used.
+ This can occur if the peer does not support the protocol, or its
+ use is restricted, or there are no enabled cipher suites supported
+ by the protocol.
+Returns:
+an array of protocol names
+See Also:
+getSupportedProtocols()
+setEnabledProtocols(String[])
+setEnabledProtocols
+public abstract
+void
+setEnabledProtocols
+(
+String
+[] protocols)
+Controls which particular protocols are enabled for use by
+ accepted connections.
+The protocols must have been listed by
+ getSupportedProtocols() as being supported.
+ Following a successful call to this method, only protocols listed
+ in the
+protocols
+parameter are enabled for use.
+SSLSocket
+s returned from
+accept()
+inherit this setting.
+Parameters:
+protocols
+- Names of all the protocols to enable.
+Throws:
+IllegalArgumentException
+- when one or more of
+            the protocols named by the parameter is not supported or
+            when the protocols parameter is null.
+See Also:
+getEnabledProtocols()
+getSupportedProtocols()
+setNeedClientAuth
+public abstract
+void
+setNeedClientAuth
+(boolean need)
+Controls whether
+accept
+ed server-mode
+SSLSockets
+will be initially configured to
+require
+client authentication.
+A socket's client authentication setting is one of the following:
+client authentication required
+client authentication requested
+no client authentication desired
+Unlike
+setWantClientAuth(boolean)
+, if the accepted
+ socket's option is set and the client chooses not to provide
+ authentication information about itself,
+the negotiations
+ will stop and the connection will be dropped
+.
+Calling this method overrides any previous setting made by
+ this method or
+setWantClientAuth(boolean)
+.
+The initial inherited setting may be overridden by calling
+SSLSocket.setNeedClientAuth(boolean)
+or
+SSLSocket.setWantClientAuth(boolean)
+.
+Parameters:
+need
+- set to true if client authentication is required,
+          or false if no client authentication is desired.
+See Also:
+getNeedClientAuth()
+setWantClientAuth(boolean)
+getWantClientAuth()
+setUseClientMode(boolean)
+getNeedClientAuth
+public abstract
+boolean
+getNeedClientAuth
+()
+Returns true if client authentication will be
+required
+on
+ newly
+accept
+ed server-mode
+SSLSocket
+s.
+The initial inherited setting may be overridden by calling
+SSLSocket.setNeedClientAuth(boolean)
+or
+SSLSocket.setWantClientAuth(boolean)
+.
+Returns:
+true if client authentication is required,
+          or false if no client authentication is desired.
+See Also:
+setNeedClientAuth(boolean)
+setWantClientAuth(boolean)
+getWantClientAuth()
+setUseClientMode(boolean)
+setWantClientAuth
+public abstract
+void
+setWantClientAuth
+(boolean want)
+Controls whether
+accept
+ed server-mode
+SSLSockets
+will be initially configured to
+request
+client authentication.
+A socket's client authentication setting is one of the following:
+client authentication required
+client authentication requested
+no client authentication desired
+Unlike
+setNeedClientAuth(boolean)
+, if the accepted
+ socket's option is set and the client chooses not to provide
+ authentication information about itself,
+the negotiations
+ will continue
+.
+Calling this method overrides any previous setting made by
+ this method or
+setNeedClientAuth(boolean)
+.
+The initial inherited setting may be overridden by calling
+SSLSocket.setNeedClientAuth(boolean)
+or
+SSLSocket.setWantClientAuth(boolean)
+.
+Parameters:
+want
+- set to true if client authentication is requested,
+          or false if no client authentication is desired.
+See Also:
+getWantClientAuth()
+setNeedClientAuth(boolean)
+getNeedClientAuth()
+setUseClientMode(boolean)
+getWantClientAuth
+public abstract
+boolean
+getWantClientAuth
+()
+Returns true if client authentication will be
+requested
+on
+ newly accepted server-mode connections.
+The initial inherited setting may be overridden by calling
+SSLSocket.setNeedClientAuth(boolean)
+or
+SSLSocket.setWantClientAuth(boolean)
+.
+Returns:
+true if client authentication is requested,
+          or false if no client authentication is desired.
+See Also:
+setWantClientAuth(boolean)
+setNeedClientAuth(boolean)
+getNeedClientAuth()
+setUseClientMode(boolean)
+setUseClientMode
+public abstract
+void
+setUseClientMode
+(boolean mode)
+Controls whether accepted connections are in the (default) SSL
+ server mode, or the SSL client mode.
+Servers normally authenticate themselves, and clients are not
+ required to do so.
+In rare cases, TCP servers
+ need to act in the SSL client mode on newly accepted
+ connections. For example, FTP clients acquire server sockets
+ and listen there for reverse connections from the server. An
+ FTP client would use an SSLServerSocket in "client" mode to
+ accept the reverse connection while the FTP server uses an
+ SSLSocket with "client" mode disabled to initiate the
+ connection. During the resulting handshake, existing SSL
+ sessions may be reused.
+SSLSocket
+s returned from
+accept()
+inherit this setting.
+Parameters:
+mode
+- true if newly accepted connections should use SSL
+          client mode.
+See Also:
+getUseClientMode()
+getUseClientMode
+public abstract
+boolean
+getUseClientMode
+()
+Returns true if accepted connections will be in SSL client mode.
+Returns:
+true if the connection should use SSL client mode.
+See Also:
+setUseClientMode(boolean)
+setEnableSessionCreation
+public abstract
+void
+setEnableSessionCreation
+(boolean flag)
+Controls whether new SSL sessions may be established by the
+ sockets which are created from this server socket.
+SSLSocket
+s returned from
+accept()
+inherit this setting.
+Parameters:
+flag
+- true indicates that sessions may be created; this
+          is the default. false indicates that an existing session
+          must be resumed.
+See Also:
+getEnableSessionCreation()
+getEnableSessionCreation
+public abstract
+boolean
+getEnableSessionCreation
+()
+Returns true if new SSL sessions may be established by the
+ sockets which are created from this server socket.
+Returns:
+true indicates that sessions may be created; this
+          is the default.  false indicates that an existing
+          session must be resumed
+See Also:
+setEnableSessionCreation(boolean)
+getSSLParameters
+public
+SSLParameters
+getSSLParameters
+()
+Returns the SSLParameters in effect for newly accepted connections.
+ The ciphersuites and protocols of the returned SSLParameters
+ are always non-null.
+Returns:
+the SSLParameters in effect for newly accepted connections
+Since:
+1.7
+See Also:
+setSSLParameters(SSLParameters)
+setSSLParameters
+public
+void
+setSSLParameters
+(
+SSLParameters
+params)
+Applies SSLParameters to newly accepted connections.
+This means:
+If
+params.getCipherSuites()
+is non-null,
+setEnabledCipherSuites()
+is called with that value.
+If
+params.getProtocols()
+is non-null,
+setEnabledProtocols()
+is called with that value.
+If
+params.getNeedClientAuth()
+or
+params.getWantClientAuth()
+return
+true
+,
+setNeedClientAuth(true)
+and
+setWantClientAuth(true)
+are called, respectively;
+   otherwise
+setWantClientAuth(false)
+is called.
+If
+params.getServerNames()
+is non-null, the socket will
+   configure its server names with that value.
+If
+params.getSNIMatchers()
+is non-null, the socket will
+   configure its SNI matchers with that value.
+Parameters:
+params
+- the parameters
+Throws:
+IllegalArgumentException
+- if the setEnabledCipherSuites() or
+    the setEnabledProtocols() call fails
+Since:
+1.7
+See Also:
+getSSLParameters()
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

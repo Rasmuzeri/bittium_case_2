@@ -1,0 +1,403 @@
+Snippet.Kind (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Enum Constants
+Field
+Method
+Detail:
+Enum Constants
+Field
+Method
+Summary:
+Nested
+|
+Enum Constants
+|
+Field |
+Method
+Detail:
+Enum Constants
+|
+Field |
+Method
+SEARCH
+Module
+jdk.jshell
+Package
+jdk.jshell
+Enum Class Snippet.Kind
+java.lang.Object
+java.lang.Enum
+<
+Snippet.Kind
+>
+jdk.jshell.Snippet.Kind
+All Implemented Interfaces:
+Serializable
+,
+Comparable
+<
+Snippet.Kind
+>
+,
+Constable
+Enclosing class:
+Snippet
+public static enum
+Snippet.Kind
+extends
+Enum
+<
+Snippet.Kind
+>
+Describes the general kind of snippet.
+ The
+Kind
+is an immutable property of a Snippet.
+ It is accessed with
+Snippet.kind()
+.
+ The
+Kind
+can be used to determine which
+ subclass of Snippet it is. For example,
+eval("int three() { return 3; }")
+will
+ return a snippet creation event.  The
+Kind
+of that Snippet
+ will be
+METHOD
+, from which you know that the subclass
+ of
+Snippet
+is
+MethodSnippet
+and it can be
+ cast as such.
+Nested Class Summary
+Nested classes/interfaces declared in class java.lang.
+Enum
+Enum.EnumDesc
+<
+E
+extends
+Enum
+<
+E
+>>
+Enum Constant Summary
+Enum Constants
+Enum Constant
+Description
+ERRONEOUS
+A syntactically incorrect input for which the specific
+ kind could not be determined.
+EXPRESSION
+An expression, with or without side-effects.
+IMPORT
+An import declaration:
+import
+...
+METHOD
+A method declaration.
+STATEMENT
+A statement.
+TYPE_DECL
+A type declaration.
+VAR
+One variable declaration.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+isPersistent
+()
+Indicates whether this
+Kind
+of Snippet is persistent.
+static
+Snippet.Kind
+valueOf
+(
+String
+name)
+Returns the enum constant of this class with the specified name.
+static
+Snippet.Kind
+[]
+values
+()
+Returns an array containing the constants of this enum class, in
+the order they are declared.
+Methods declared in class java.lang.
+Enum
+clone
+,
+compareTo
+,
+describeConstable
+,
+equals
+,
+finalize
+,
+getDeclaringClass
+,
+hashCode
+,
+name
+,
+ordinal
+,
+toString
+,
+valueOf
+Methods declared in class java.lang.
+Object
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Enum Constant Details
+IMPORT
+public static final
+Snippet.Kind
+IMPORT
+An import declaration:
+import
+...
+ The snippet is an instance of
+ImportSnippet
+.
+An import can be a single type import
+ (
+Snippet.SubKind.SINGLE_TYPE_IMPORT_SUBKIND
+),
+ a static single import
+ (
+Snippet.SubKind.SINGLE_STATIC_IMPORT_SUBKIND
+),
+ an on-demand type import
+ (
+Snippet.SubKind.TYPE_IMPORT_ON_DEMAND_SUBKIND
+),
+ or a static on-demand type import
+ (
+Snippet.SubKind.SINGLE_STATIC_IMPORT_SUBKIND
+) --
+ use
+Snippet.subKind()
+to distinguish.
+An import declaration is
+persistent
+.
+See
+Java Language Specification
+:
+7.5 Import Declarations
+TYPE_DECL
+public static final
+Snippet.Kind
+TYPE_DECL
+A type declaration.
+ Which includes: NormalClassDeclaration, EnumDeclaration,
+ NormalInterfaceDeclaration, and AnnotationTypeDeclaration.
+ The snippet is an instance of
+TypeDeclSnippet
+.
+A type declaration may be an interface
+Snippet.SubKind.INTERFACE_SUBKIND
+,
+ classes
+Snippet.SubKind.CLASS_SUBKIND
+, enums, and
+ annotation interfaces -- see
+Snippet.SubKind
+to
+ differentiate.
+A type declaration is
+persistent
+.
+See
+Java Language Specification
+:
+7.6 Top Level Type Declarations
+METHOD
+public static final
+Snippet.Kind
+METHOD
+A method declaration.
+ The snippet is an instance of
+MethodSnippet
+.
+A method declaration is
+persistent
+.
+See
+Java Language Specification
+:
+8.4 Method Declarations
+VAR
+public static final
+Snippet.Kind
+VAR
+One variable declaration.
+ Corresponding to one
+VariableDeclarator
+.
+ The snippet is an instance of
+VarSnippet
+.
+The variable may be with or without initializer, or be a temporary
+ variable representing an expression -- see
+Snippet.SubKind
+to differentiate.
+A variable declaration is
+persistent
+.
+See
+Java Language Specification
+:
+8.3 Field Declarations
+EXPRESSION
+public static final
+Snippet.Kind
+EXPRESSION
+An expression, with or without side-effects.
+ The snippet is an instance of
+ExpressionSnippet
+.
+The expression is currently either a simple named reference to a
+ variable (
+Snippet.SubKind.VAR_VALUE_SUBKIND
+) or an
+ assignment (both of which have natural referencing
+ names) -- see
+Snippet.SubKind
+to differentiate.
+ All other expression forms (operators, method calls, ...) generate a
+ scratch variable and so are instead of the VAR Kind.
+See
+Java Language Specification
+:
+15 Expressions
+STATEMENT
+public static final
+Snippet.Kind
+STATEMENT
+A statement.
+ The snippet is an instance of
+StatementSnippet
+.
+See
+Java Language Specification
+:
+14.5 Statements
+ERRONEOUS
+public static final
+Snippet.Kind
+ERRONEOUS
+A syntactically incorrect input for which the specific
+ kind could not be determined.
+ The snippet is an instance of
+ErroneousSnippet
+.
+Method Details
+values
+public static
+Snippet.Kind
+[]
+values
+()
+Returns an array containing the constants of this enum class, in
+the order they are declared.
+Returns:
+an array containing the constants of this enum class, in the order they are declared
+valueOf
+public static
+Snippet.Kind
+valueOf
+(
+String
+name)
+Returns the enum constant of this class with the specified name.
+The string must match
+exactly
+an identifier used to declare an
+enum constant in this class.  (Extraneous whitespace characters are 
+not permitted.)
+Parameters:
+name
+- the name of the enum constant to be returned.
+Returns:
+the enum constant with the specified name
+Throws:
+IllegalArgumentException
+- if this enum class has no constant with the specified name
+NullPointerException
+- if the argument is null
+isPersistent
+public
+boolean
+isPersistent
+()
+Indicates whether this
+Kind
+of Snippet is persistent. Only
+ declarations are persistent because they influence future Snippets.
+Note that though the
+Kind
+of
+ a Snippet may be persistent, that does not mean that the Snippet will
+ persist; For example it may be invalid or have been dropped.  See:
+Snippet.Status.isDefined()
+.
+Returns:
+true
+if this
+Kind
+of
+Snippet
+is
+ visible to subsequent evaluations; otherwise
+false
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

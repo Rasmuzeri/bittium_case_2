@@ -1,0 +1,130 @@
+Name (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Field
+Required
+Optional
+Detail:
+Field
+Element
+Summary:
+Field |
+Required
+|
+Optional
+Detail:
+Field |
+Element
+SEARCH
+Module
+jdk.jfr
+Package
+jdk.jfr
+Annotation Interface Name
+@Target
+({
+TYPE
+,
+FIELD
+,
+METHOD
+})
+@Retention
+(
+RUNTIME
+)
+public @interface
+Name
+Annotation that sets the default name for an element.
+For event classes, the name must be a legal class name as specified in the Java
+ language, (for example,
+"com.example.Transaction"
+. For event fields
+ or event settings, the name must be a valid identifier (for example,
+"message"
+). See section 3.8 and 3.9 of the Java Language
+ Specification for more information.
+If the specified name is invalid, the annotation is ignored.
+A stable and easy-to-use event name is of the form:
+[org|com|net].[organization|product].EventName
+Events without a
+@Name
+annotation get their name from the fully
+ qualified class name, which works well for experimentation but should be
+ avoided in production.
+The name should be stable to avoid breaking setting files and code that
+ consumes or configures the event.
+The name should not contain redundant or unnecessary information such as
+"jfr"
+,
+"internal"
+,
+"events"
+, or
+"Event"
+.
+The name should be short, but not so short that it clashes with other
+ organizations or products.
+The name should be easy to understand and remember for users that want to
+ configure the event. This is especially true if the event is part of a
+ framework or library that is meant to be used by others. It is usually enough
+ to put all the events for a library or product in the same namespace. For
+ example, all the events for OpenJDK are in the
+"jdk"
+namespace, with
+ no sub-namespaces for
+"hotspot"
+,
+"gc"
+, or
+"compiler"
+.
+ This avoids unnecessary cognitive load for users. Events can instead be
+ arranged into categories, by using the
+@Category
+annotation.
+ Categories can be renamed freely without causing disruption to
+ dependencies
+Since:
+9
+Required Element Summary
+Required Elements
+Modifier and Type
+Required Element
+Description
+String
+value
+Returns the name.
+Element Details
+value
+String
+value
+Returns the name.
+Returns:
+the name
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

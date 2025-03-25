@@ -1,0 +1,600 @@
+BeansLinker (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.dynalink
+Package
+jdk.dynalink.beans
+Class BeansLinker
+java.lang.Object
+jdk.dynalink.beans.BeansLinker
+All Implemented Interfaces:
+GuardingDynamicLinker
+public class
+BeansLinker
+extends
+Object
+implements
+GuardingDynamicLinker
+A linker for ordinary Java objects. Normally used as the ultimate fallback
+ linker by the
+DynamicLinkerFactory
+so it is given the chance to link
+ calls to all objects that no other linker recognized. Specifically, this
+ linker will:
+if the object is a
+record
+, expose all public accessors of
+ record components as property getters for
+StandardOperation.GET
+operations
+ in the
+StandardNamespace.PROPERTY
+namespace;
+expose all public methods of form
+setXxx()
+,
+getXxx()
+,
+ and
+isXxx()
+as property setters and getters for
+StandardOperation.SET
+and
+StandardOperation.GET
+operations in the
+StandardNamespace.PROPERTY
+namespace, except for getters for properties
+ with names already handled by record component getters;
+expose all public methods for retrieval for
+StandardOperation.GET
+operation in the
+StandardNamespace.METHOD
+namespace;
+ the methods thus retrieved can then be invoked using
+StandardOperation.CALL
+.
+expose all public fields as properties, unless there are getters or
+ setters for the properties of the same name;
+expose elements of native Java arrays,
+List
+and
+Map
+objects as
+StandardOperation.GET
+and
+StandardOperation.SET
+operations in the
+StandardNamespace.ELEMENT
+namespace;
+expose removal of elements of
+List
+and
+Map
+objects as
+StandardOperation.REMOVE
+operation in the
+StandardNamespace.ELEMENT
+namespace;
+expose a virtual property named
+length
+on Java arrays,
+Collection
+and
+Map
+objects;
+expose
+StandardOperation.NEW
+on instances of
+StaticClass
+as calls to constructors, including those static class objects that represent
+ Java arrays (their constructors take a single
+int
+parameter
+ representing the length of the array to create);
+expose static methods, fields, and properties of classes in a similar
+ manner to how instance method, fields, and properties are exposed, on
+StaticClass
+objects.
+expose a virtual property named
+static
+on instances of
+Class
+to access their
+StaticClass
+.
+Overloaded method resolution
+is performed automatically
+ for property setters, methods, and constructors. Additionally, manual
+ overloaded method selection is supported by having a call site specify a name
+ for a method that contains an explicit signature, e.g.
+StandardOperation.GET.withNamespace(METHOD).named("parseInt(String,int)")
+You can use non-qualified class names in such signatures regardless of those
+ classes' packages, they will match any class with the same non-qualified name. You
+ only have to use a fully qualified class name in case non-qualified class
+ names would cause selection ambiguity (that is extremely rare). Overloaded
+ resolution for constructors is not automatic as there is no logical place to
+ attach that functionality to but if a language wishes to provide this
+ functionality, it can use
+getConstructorMethod(Class, String)
+as a
+ useful building block for it.
+Variable argument invocation
+is handled for both methods
+ and constructors.
+Caller sensitive methods
+can be linked as long as they
+ are otherwise public and link requests have call site descriptors carrying
+ full-strength
+MethodHandles.Lookup
+objects and not weakened lookups or the public
+ lookup.
+The behavior for handling missing members
+can be
+ customized by passing a
+MissingMemberHandlerFactory
+to the
+constructor
+.
+The class also exposes various methods for discovery of available
+ property and method names on classes and class instances, as well as access
+ to per-class linkers using the
+getLinkerForClass(Class)
+method.
+Constructor Summary
+Constructors
+Constructor
+Description
+BeansLinker
+()
+Creates a new beans linker.
+BeansLinker
+(
+MissingMemberHandlerFactory
+missingMemberHandlerFactory)
+Creates a new beans linker with the specified factory for creating
+ missing member handlers.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+Object
+getConstructorMethod
+(
+Class
+<?> clazz,
+String
+signature)
+Return the dynamic method of constructor of the given class and the given
+ signature.
+GuardedInvocation
+getGuardedInvocation
+(
+LinkRequest
+request,
+LinkerServices
+linkerServices)
+Creates a guarded invocation appropriate for a particular invocation with
+ the specified arguments at a call site.
+static
+Set
+<
+String
+>
+getInstanceMethodNames
+(
+Class
+<?> clazz)
+Returns a set of names of all instance methods of a class.
+TypeBasedGuardingDynamicLinker
+getLinkerForClass
+(
+Class
+<?> clazz)
+Returns a bean linker for a particular single class.
+static
+Set
+<
+String
+>
+getReadableInstancePropertyNames
+(
+Class
+<?> clazz)
+Returns a set of names of all readable instance properties of a class.
+static
+Set
+<
+String
+>
+getReadableStaticPropertyNames
+(
+Class
+<?> clazz)
+Returns a set of names of all readable static properties of a class.
+static
+Set
+<
+String
+>
+getStaticMethodNames
+(
+Class
+<?> clazz)
+Returns a set of names of all static methods of a class.
+static
+Set
+<
+String
+>
+getWritableInstancePropertyNames
+(
+Class
+<?> clazz)
+Returns a set of names of all writable instance properties of a class.
+static
+Set
+<
+String
+>
+getWritableStaticPropertyNames
+(
+Class
+<?> clazz)
+Returns a set of names of all writable static properties of a class.
+static boolean
+isDynamicConstructor
+(
+Object
+obj)
+Returns true if the object is a Java constructor (obtained through
+getConstructorMethod(Class, String)
+}.
+static boolean
+isDynamicMethod
+(
+Object
+obj)
+Returns true if the object is a Java dynamic method (e.g., one
+ obtained through a
+GET:METHOD
+operation on a Java object or
+StaticClass
+or through
+getConstructorMethod(Class, String)
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+BeansLinker
+public
+BeansLinker
+()
+Creates a new beans linker. Equivalent to
+BeansLinker(MissingMemberHandlerFactory)
+with
+null
+passed as the missing member handler factory, resulting in
+ the default behavior for linking and evaluating missing members.
+BeansLinker
+public
+BeansLinker
+(
+MissingMemberHandlerFactory
+missingMemberHandlerFactory)
+Creates a new beans linker with the specified factory for creating
+ missing member handlers. The passed factory can be null if the default
+ behavior is adequate. See
+MissingMemberHandlerFactory
+for details.
+Parameters:
+missingMemberHandlerFactory
+- a factory for creating handlers for
+ operations on missing members.
+Method Details
+getLinkerForClass
+public
+TypeBasedGuardingDynamicLinker
+getLinkerForClass
+(
+Class
+<?> clazz)
+Returns a bean linker for a particular single class. Useful when you need
+ to override or extend the behavior of linking for some classes in your
+ language runtime's linker, but still want to delegate to the default
+ behavior in some cases.
+Parameters:
+clazz
+- the class
+Returns:
+a bean linker for that class
+isDynamicMethod
+public static
+boolean
+isDynamicMethod
+(
+Object
+obj)
+Returns true if the object is a Java dynamic method (e.g., one
+ obtained through a
+GET:METHOD
+operation on a Java object or
+StaticClass
+or through
+getConstructorMethod(Class, String)
+.
+Parameters:
+obj
+- the object we want to test for being a Java dynamic method.
+Returns:
+true if it is a dynamic method, false otherwise.
+isDynamicConstructor
+public static
+boolean
+isDynamicConstructor
+(
+Object
+obj)
+Returns true if the object is a Java constructor (obtained through
+getConstructorMethod(Class, String)
+}.
+Parameters:
+obj
+- the object we want to test for being a Java constructor.
+Returns:
+true if it is a constructor, false otherwise.
+getConstructorMethod
+public static
+Object
+getConstructorMethod
+(
+Class
+<?> clazz,
+String
+signature)
+Return the dynamic method of constructor of the given class and the given
+ signature. This method is useful for exposing a functionality for
+ selecting an overloaded constructor based on an explicit signature, as
+ this functionality is not otherwise exposed by Dynalink as
+StaticClass
+objects act as overloaded constructors without
+ explicit signature selection. Example usage would be:
+getConstructorMethod(java.awt.Color.class, "int, int, int")
+.
+Parameters:
+clazz
+- the class
+signature
+- full signature of the constructor. Note how you can use
+ names of primitive types, array names with normal Java notation (e.g.
+"int[]"
+), and normally you can even use unqualified class names
+ (e.g.
+"String, List"
+instead of
+"java.lang.String, java.util.List"
+as long as they don't cause
+ ambiguity in the specific parameter position.
+Returns:
+dynamic method for the constructor or null if no constructor with
+ the specified signature exists.
+getReadableInstancePropertyNames
+public static
+Set
+<
+String
+>
+getReadableInstancePropertyNames
+(
+Class
+<?> clazz)
+Returns a set of names of all readable instance properties of a class.
+Parameters:
+clazz
+- the class
+Returns:
+a set of names of all readable instance properties of a class.
+getWritableInstancePropertyNames
+public static
+Set
+<
+String
+>
+getWritableInstancePropertyNames
+(
+Class
+<?> clazz)
+Returns a set of names of all writable instance properties of a class.
+Parameters:
+clazz
+- the class
+Returns:
+a set of names of all writable instance properties of a class.
+getInstanceMethodNames
+public static
+Set
+<
+String
+>
+getInstanceMethodNames
+(
+Class
+<?> clazz)
+Returns a set of names of all instance methods of a class.
+Parameters:
+clazz
+- the class
+Returns:
+a set of names of all instance methods of a class.
+getReadableStaticPropertyNames
+public static
+Set
+<
+String
+>
+getReadableStaticPropertyNames
+(
+Class
+<?> clazz)
+Returns a set of names of all readable static properties of a class.
+Parameters:
+clazz
+- the class
+Returns:
+a set of names of all readable static properties of a class.
+getWritableStaticPropertyNames
+public static
+Set
+<
+String
+>
+getWritableStaticPropertyNames
+(
+Class
+<?> clazz)
+Returns a set of names of all writable static properties of a class.
+Parameters:
+clazz
+- the class
+Returns:
+a set of names of all writable static properties of a class.
+getStaticMethodNames
+public static
+Set
+<
+String
+>
+getStaticMethodNames
+(
+Class
+<?> clazz)
+Returns a set of names of all static methods of a class.
+Parameters:
+clazz
+- the class
+Returns:
+a set of names of all static methods of a class.
+getGuardedInvocation
+public
+GuardedInvocation
+getGuardedInvocation
+(
+LinkRequest
+request,
+LinkerServices
+linkerServices)
+throws
+Exception
+Description copied from interface:
+GuardingDynamicLinker
+Creates a guarded invocation appropriate for a particular invocation with
+ the specified arguments at a call site.
+Specified by:
+getGuardedInvocation
+in interface
+GuardingDynamicLinker
+Parameters:
+request
+- the object describing the request for linking a
+ particular invocation
+linkerServices
+- linker services
+Returns:
+a guarded invocation with a method handle suitable for the
+ arguments, as well as a guard condition that if fails should trigger
+ relinking. Must return null if it can't resolve the invocation. If the
+ returned invocation is unconditional (which is actually quite rare), the
+ guard in the return value can be null. The invocation can also have any
+ number of switch points for asynchronous invalidation of the linkage, as
+ well as a
+Throwable
+subclass that describes an expected exception
+ condition that also triggers relinking (often it is faster to rely on an
+ infrequent but expected
+ClassCastException
+than on an always
+ evaluated
+instanceof
+guard). While the linker must produce an
+ invocation with parameter types matching those in the call site
+ descriptor of the link request, it should not try to match the return
+ type expected at the call site except when it can do it with only the
+ conversions that lose neither precision nor magnitude, see
+LinkerServices.asTypeLosslessReturn(MethodHandle, MethodType)
+for
+ further explanation.
+Throws:
+Exception
+- if the operation fails for whatever reason
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

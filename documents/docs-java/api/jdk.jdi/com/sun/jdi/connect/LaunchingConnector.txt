@@ -1,0 +1,166 @@
+LaunchingConnector (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.jdi
+Package
+com.sun.jdi.connect
+Interface LaunchingConnector
+All Superinterfaces:
+Connector
+public interface
+LaunchingConnector
+extends
+Connector
+A connector which can launch a target VM before connecting to it.
+Since:
+1.3
+Nested Class Summary
+Nested classes/interfaces declared in interface com.sun.jdi.connect.
+Connector
+Connector.Argument
+,
+Connector.BooleanArgument
+,
+Connector.IntegerArgument
+,
+Connector.SelectedArgument
+,
+Connector.StringArgument
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+VirtualMachine
+launch
+(
+Map
+<
+String
+,
+? extends
+Connector.Argument
+> arguments)
+Launches an application and connects to its VM.
+Methods declared in interface com.sun.jdi.connect.
+Connector
+defaultArguments
+,
+description
+,
+name
+,
+transport
+Method Details
+launch
+VirtualMachine
+launch
+(
+Map
+<
+String
+,
+? extends
+Connector.Argument
+> arguments)
+throws
+IOException
+,
+IllegalConnectorArgumentsException
+,
+VMStartException
+Launches an application and connects to its VM. Properties
+ of the launch (possibly including options,
+ main class, and arguments) are specified in
+arguments
+.
+ The argument map associates argument name strings to instances
+ of
+Connector.Argument
+. The default argument map for a
+ connector can be obtained through
+Connector.defaultArguments()
+.
+ Argument map values can be changed, but map entries should not be
+ added or deleted.
+A target VM launched by a launching connector is not
+ guaranteed to be stable until after the
+VMStartEvent
+has been
+ received.
+Important note:
+If a target VM is launched through this
+ funcctions, its output and error streams must be read as it
+ executes. These streams are available through the
+Process
+object returned by
+VirtualMachine.process()
+. If the streams are not periodically
+ read, the target VM will stop executing when the buffers for these
+ streams are filled.
+Parameters:
+arguments
+- the argument map to be used in launching the VM.
+Returns:
+the
+VirtualMachine
+mirror of the target VM.
+Throws:
+IOException
+- when unable to launch.
+ Specific exceptions are dependent on the Connector implementation
+ in use.
+IllegalConnectorArgumentsException
+- when one of the
+ connector arguments is invalid.
+VMStartException
+- when the VM was successfully launched, but
+ terminated with an error before a connection could be established.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

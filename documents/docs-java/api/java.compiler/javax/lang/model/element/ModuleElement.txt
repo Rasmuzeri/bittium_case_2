@@ -1,0 +1,370 @@
+ModuleElement (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.lang.model.element
+Interface ModuleElement
+All Superinterfaces:
+AnnotatedConstruct
+,
+Element
+,
+QualifiedNameable
+public interface
+ModuleElement
+extends
+Element
+,
+QualifiedNameable
+Represents a module program element.  Provides access to
+ information about the module, its directives, and its members.
+API Note:
+The represented module may have an explicit
+reference
+ representation
+(either source code or executable output) or may be
+ created from implicit information. The explicit and standalone
+ source code construct for a module is typically a
+module-info.java
+file (JLS
+7.7
+).
+Automatic modules
+(JLS
+7.7.1
+) are named modules that do
+not
+have a
+module-info
+file. Implicit information
+ is used to model
+unnamed modules
+.
+In the context of annotation processing, a module element can
+ be:
+created from the initial inputs to a run of the tool
+queried for
+in the configured environment
+See
+Java Language Specification
+:
+7.7 Module Declarations
+Since:
+9
+See Also:
+Elements.getModuleOf(javax.lang.model.element.Element)
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Interface
+Description
+static interface
+ModuleElement.Directive
+Represents a directive within the declaration of this
+ module.
+static enum
+ModuleElement.DirectiveKind
+The
+kind
+of a directive.
+static interface
+ModuleElement.DirectiveVisitor
+<
+R
+,
+P
+>
+A visitor of module directives, in the style of the visitor design
+ pattern.
+static interface
+ModuleElement.ExportsDirective
+An exported package of a module.
+static interface
+ModuleElement.OpensDirective
+An opened package of a module.
+static interface
+ModuleElement.ProvidesDirective
+An implementation of a service provided by a module.
+static interface
+ModuleElement.RequiresDirective
+A dependency of a module.
+static interface
+ModuleElement.UsesDirective
+A reference to a service used by a module.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+TypeMirror
+asType
+()
+Returns a
+pseudo-type
+for this module.
+List
+<? extends
+ModuleElement.Directive
+>
+getDirectives
+()
+Returns the directives contained in the declaration of this module.
+List
+<? extends
+Element
+>
+getEnclosedElements
+()
+Returns the packages within this module.
+Element
+getEnclosingElement
+()
+Returns
+null
+since a module is not enclosed by another
+ element.
+Name
+getQualifiedName
+()
+Returns the fully qualified name of this module.
+Name
+getSimpleName
+()
+Returns the simple name of this module.
+boolean
+isOpen
+()
+Returns
+true
+if this is an open module and
+false
+otherwise.
+boolean
+isUnnamed
+()
+Returns
+true
+if this is an unnamed module and
+false
+otherwise.
+Methods declared in interface javax.lang.model.element.
+Element
+accept
+,
+equals
+,
+getAnnotation
+,
+getAnnotationMirrors
+,
+getAnnotationsByType
+,
+getKind
+,
+getModifiers
+,
+hashCode
+Method Details
+asType
+TypeMirror
+asType
+()
+Returns a
+pseudo-type
+for this module.
+Specified by:
+asType
+in interface
+Element
+Returns:
+a
+pseudo-type
+for this module
+See Also:
+NoType
+TypeKind.MODULE
+getQualifiedName
+Name
+getQualifiedName
+()
+Returns the fully qualified name of this module.  For an
+unnamed module
+, an
+empty name
+is returned.
+Specified by:
+getQualifiedName
+in interface
+QualifiedNameable
+API Note:
+If the module name consists of one identifier, then
+ this method returns that identifier, which is deemed to be
+ module's fully qualified name despite not being in qualified
+ form.  If the module name consists of more than one identifier,
+ then this method returns the entire name.
+Returns:
+the fully qualified name of this module, or an
+ empty name if this is an unnamed module
+See
+Java Language Specification
+:
+6.2 Names and Identifiers
+getSimpleName
+Name
+getSimpleName
+()
+Returns the simple name of this module.  For an
+unnamed module
+, an
+empty name
+is returned.
+Specified by:
+getSimpleName
+in interface
+Element
+API Note:
+If the module name consists of one identifier, then
+ this method returns that identifier.  If the module name
+ consists of more than one identifier, then this method returns
+ the rightmost such identifier, which is deemed to be the
+ module's simple name.
+Returns:
+the simple name of this module or an empty name if
+ this is an unnamed module
+See
+Java Language Specification
+:
+6.2 Names and Identifiers
+See Also:
+PackageElement.getSimpleName()
+ExecutableElement.getSimpleName()
+TypeElement.getSimpleName()
+VariableElement.getSimpleName()
+getSimpleName()
+RecordComponentElement.getSimpleName()
+getEnclosedElements
+List
+<? extends
+Element
+>
+getEnclosedElements
+()
+Returns the packages within this module.
+Specified by:
+getEnclosedElements
+in interface
+Element
+Returns:
+the packages within this module
+See Also:
+TypeElement.getEnclosedElements()
+PackageElement.getEnclosedElements()
+getEnclosedElements()
+Elements.getAllMembers(javax.lang.model.element.TypeElement)
+isOpen
+boolean
+isOpen
+()
+Returns
+true
+if this is an open module and
+false
+otherwise.
+Returns:
+true
+if this is an open module and
+false
+otherwise
+isUnnamed
+boolean
+isUnnamed
+()
+Returns
+true
+if this is an unnamed module and
+false
+otherwise.
+Returns:
+true
+if this is an unnamed module and
+false
+otherwise
+See
+Java Language Specification
+:
+7.7.5 Unnamed Modules
+getEnclosingElement
+Element
+getEnclosingElement
+()
+Returns
+null
+since a module is not enclosed by another
+ element.
+Specified by:
+getEnclosingElement
+in interface
+Element
+Returns:
+null
+See Also:
+Elements.getPackageOf(javax.lang.model.element.Element)
+getDirectives
+List
+<? extends
+ModuleElement.Directive
+>
+getDirectives
+()
+Returns the directives contained in the declaration of this module.
+Returns:
+the directives in the declaration of this module
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

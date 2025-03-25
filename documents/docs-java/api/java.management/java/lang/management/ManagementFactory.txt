@@ -1,0 +1,1204 @@
+ManagementFactory (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+java.management
+Package
+java.lang.management
+Class ManagementFactory
+java.lang.Object
+java.lang.management.ManagementFactory
+public class
+ManagementFactory
+extends
+Object
+The
+ManagementFactory
+class is a factory class for getting
+ managed beans for the Java platform.
+ This class consists of static methods each of which returns
+ one or more
+platform MXBeans
+representing
+ the management interface of a component of the Java virtual
+ machine.
+Platform MXBeans
+A platform MXBean is a
+managed bean
+that
+ conforms to the
+JMX
+Instrumentation Specification and only uses a set of basic data types.
+ A JMX management application and the
+platform MBeanServer
+can interoperate without requiring classes for MXBean specific
+ data types.
+ The data types being transmitted between the JMX connector
+ server and the connector client are
+open types
+and this allows interoperation across versions.
+ See
+the specification of MXBeans
+for details.
+Each platform MXBean is a
+PlatformManagedObject
+and it has a unique
+ObjectName
+for
+ registration in the platform
+MBeanServer
+as returned by
+ by the
+getObjectName
+method.
+An application can access a platform MXBean in the following ways:
+1. Direct access to an MXBean interface
+Get an MXBean instance by calling the
+getPlatformMXBean
+or
+getPlatformMXBeans
+method
+         and access the MXBean locally in the running
+         virtual machine.
+Construct an MXBean proxy instance that forwards the
+         method calls to a given
+MBeanServer
+by calling
+         the
+getPlatformMXBean(MBeanServerConnection, Class)
+or
+getPlatformMXBeans(MBeanServerConnection, Class)
+method.
+         The
+newPlatformMXBeanProxy
+method
+         can also be used to construct an MXBean proxy instance of
+         a given
+ObjectName
+.
+         A proxy is typically constructed to remotely access
+         an MXBean of another running virtual machine.
+2. Indirect access to an MXBean interface via MBeanServer
+Go through the platform
+MBeanServer
+to access MXBeans
+         locally or a specific
+MBeanServerConnection
+to access
+         MXBeans remotely.
+         The attributes and operations of an MXBean use only
+JMX open types
+which include basic data types,
+CompositeData
+,
+         and
+TabularData
+defined in
+OpenType
+.
+         The mapping is specified in
+         the
+MXBean
+specification
+         for details.
+The
+getPlatformManagementInterfaces
+method returns all management interfaces supported in the Java virtual machine
+ including the standard management interfaces listed in the tables
+ below as well as the management interfaces extended by the JDK implementation.
+A Java virtual machine has a single instance of the following management
+ interfaces:
+The list of Management Interfaces and their single instances
+Management Interface
+ObjectName
+ClassLoadingMXBean
+java.lang:type=ClassLoading
+MemoryMXBean
+java.lang:type=Memory
+ThreadMXBean
+java.lang:type=Threading
+RuntimeMXBean
+java.lang:type=Runtime
+OperatingSystemMXBean
+java.lang:type=OperatingSystem
+PlatformLoggingMXBean
+java.util.logging:type=Logging
+A Java virtual machine has zero or a single instance of
+ the following management interfaces.
+The list of Management Interfaces and their single instances
+Management Interface
+ObjectName
+CompilationMXBean
+java.lang:type=Compilation
+A Java virtual machine may have one or more instances of the following
+ management interfaces.
+The list of Management Interfaces and their single instances
+Management Interface
+ObjectName
+GarbageCollectorMXBean
+java.lang:type=GarbageCollector
+,name=
+collector's name
+MemoryManagerMXBean
+java.lang:type=MemoryManager
+,name=
+manager's name
+MemoryPoolMXBean
+java.lang:type=MemoryPool
+,name=
+pool's name
+BufferPoolMXBean
+java.nio:type=BufferPool,name=
+pool name
+Since:
+1.5
+See Also:
+JMX Specification
+Ways to Access Management Metrics
+MXBean
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+String
+CLASS_LOADING_MXBEAN_NAME
+String representation of the
+ObjectName
+for the
+ClassLoadingMXBean
+.
+static final
+String
+COMPILATION_MXBEAN_NAME
+String representation of the
+ObjectName
+for the
+CompilationMXBean
+.
+static final
+String
+GARBAGE_COLLECTOR_MXBEAN_DOMAIN_TYPE
+The domain name and the type key property in
+ the
+ObjectName
+for a
+GarbageCollectorMXBean
+.
+static final
+String
+MEMORY_MANAGER_MXBEAN_DOMAIN_TYPE
+The domain name and the type key property in
+ the
+ObjectName
+for a
+MemoryManagerMXBean
+.
+static final
+String
+MEMORY_MXBEAN_NAME
+String representation of the
+ObjectName
+for the
+MemoryMXBean
+.
+static final
+String
+MEMORY_POOL_MXBEAN_DOMAIN_TYPE
+The domain name and the type key property in
+ the
+ObjectName
+for a
+MemoryPoolMXBean
+.
+static final
+String
+OPERATING_SYSTEM_MXBEAN_NAME
+String representation of the
+ObjectName
+for the
+OperatingSystemMXBean
+.
+static final
+String
+RUNTIME_MXBEAN_NAME
+String representation of the
+ObjectName
+for the
+RuntimeMXBean
+.
+static final
+String
+THREAD_MXBEAN_NAME
+String representation of the
+ObjectName
+for the
+ThreadMXBean
+.
+Method Summary
+All Methods
+Static Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+ClassLoadingMXBean
+getClassLoadingMXBean
+()
+Returns the managed bean for the class loading system of
+ the Java virtual machine.
+static
+CompilationMXBean
+getCompilationMXBean
+()
+Returns the managed bean for the compilation system of
+ the Java virtual machine.
+static
+List
+<
+GarbageCollectorMXBean
+>
+getGarbageCollectorMXBeans
+()
+Returns a list of
+GarbageCollectorMXBean
+objects
+ in the Java virtual machine.
+static
+List
+<
+MemoryManagerMXBean
+>
+getMemoryManagerMXBeans
+()
+Returns a list of
+MemoryManagerMXBean
+objects
+ in the Java virtual machine.
+static
+MemoryMXBean
+getMemoryMXBean
+()
+Returns the managed bean for the memory system of
+ the Java virtual machine.
+static
+List
+<
+MemoryPoolMXBean
+>
+getMemoryPoolMXBeans
+()
+Returns a list of
+MemoryPoolMXBean
+objects in the
+ Java virtual machine.
+static
+OperatingSystemMXBean
+getOperatingSystemMXBean
+()
+Returns the managed bean for the operating system on which
+ the Java virtual machine is running.
+static
+Set
+<
+Class
+<? extends
+PlatformManagedObject
+>>
+getPlatformManagementInterfaces
+()
+Returns the set of
+Class
+objects, subinterface of
+PlatformManagedObject
+, representing
+ all management interfaces for
+ monitoring and managing the Java platform.
+static
+MBeanServer
+getPlatformMBeanServer
+()
+Returns the platform
+MBeanServer
+.
+static <T extends
+PlatformManagedObject
+>
+T
+getPlatformMXBean
+(
+Class
+<T> mxbeanInterface)
+Returns the platform MXBean implementing
+ the given
+mxbeanInterface
+which is specified
+ to have one single instance in the Java virtual machine.
+static <T extends
+PlatformManagedObject
+>
+T
+getPlatformMXBean
+(
+MBeanServerConnection
+connection,
+Class
+<T> mxbeanInterface)
+Returns the platform MXBean proxy for
+mxbeanInterface
+which is specified to have one single
+ instance in a Java virtual machine and the proxy will
+ forward the method calls through the given
+MBeanServerConnection
+.
+static <T extends
+PlatformManagedObject
+>
+List
+<T>
+getPlatformMXBeans
+(
+Class
+<T> mxbeanInterface)
+Returns the list of platform MXBeans implementing
+ the given
+mxbeanInterface
+in the Java
+ virtual machine.
+static <T extends
+PlatformManagedObject
+>
+List
+<T>
+getPlatformMXBeans
+(
+MBeanServerConnection
+connection,
+Class
+<T> mxbeanInterface)
+Returns the list of the platform MXBean proxies for
+ forwarding the method calls of the
+mxbeanInterface
+through the given
+MBeanServerConnection
+.
+static
+RuntimeMXBean
+getRuntimeMXBean
+()
+Returns the managed bean for the runtime system of
+ the Java virtual machine.
+static
+ThreadMXBean
+getThreadMXBean
+()
+Returns the managed bean for the thread system of
+ the Java virtual machine.
+static <T> T
+newPlatformMXBeanProxy
+(
+MBeanServerConnection
+connection,
+String
+mxbeanName,
+Class
+<T> mxbeanInterface)
+Returns a proxy for a platform MXBean interface of a
+ given
+MXBean name
+that forwards its method calls through the given
+MBeanServerConnection
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+CLASS_LOADING_MXBEAN_NAME
+public static final
+String
+CLASS_LOADING_MXBEAN_NAME
+String representation of the
+ObjectName
+for the
+ClassLoadingMXBean
+.
+See Also:
+Constant Field Values
+COMPILATION_MXBEAN_NAME
+public static final
+String
+COMPILATION_MXBEAN_NAME
+String representation of the
+ObjectName
+for the
+CompilationMXBean
+.
+See Also:
+Constant Field Values
+MEMORY_MXBEAN_NAME
+public static final
+String
+MEMORY_MXBEAN_NAME
+String representation of the
+ObjectName
+for the
+MemoryMXBean
+.
+See Also:
+Constant Field Values
+OPERATING_SYSTEM_MXBEAN_NAME
+public static final
+String
+OPERATING_SYSTEM_MXBEAN_NAME
+String representation of the
+ObjectName
+for the
+OperatingSystemMXBean
+.
+See Also:
+Constant Field Values
+RUNTIME_MXBEAN_NAME
+public static final
+String
+RUNTIME_MXBEAN_NAME
+String representation of the
+ObjectName
+for the
+RuntimeMXBean
+.
+See Also:
+Constant Field Values
+THREAD_MXBEAN_NAME
+public static final
+String
+THREAD_MXBEAN_NAME
+String representation of the
+ObjectName
+for the
+ThreadMXBean
+.
+See Also:
+Constant Field Values
+GARBAGE_COLLECTOR_MXBEAN_DOMAIN_TYPE
+public static final
+String
+GARBAGE_COLLECTOR_MXBEAN_DOMAIN_TYPE
+The domain name and the type key property in
+ the
+ObjectName
+for a
+GarbageCollectorMXBean
+.
+ The unique
+ObjectName
+for a
+GarbageCollectorMXBean
+can be formed by appending this string with
+ "
+,name=
+collector's name
+".
+See Also:
+Constant Field Values
+MEMORY_MANAGER_MXBEAN_DOMAIN_TYPE
+public static final
+String
+MEMORY_MANAGER_MXBEAN_DOMAIN_TYPE
+The domain name and the type key property in
+ the
+ObjectName
+for a
+MemoryManagerMXBean
+.
+ The unique
+ObjectName
+for a
+MemoryManagerMXBean
+can be formed by appending this string with
+ "
+,name=
+manager's name
+".
+See Also:
+Constant Field Values
+MEMORY_POOL_MXBEAN_DOMAIN_TYPE
+public static final
+String
+MEMORY_POOL_MXBEAN_DOMAIN_TYPE
+The domain name and the type key property in
+ the
+ObjectName
+for a
+MemoryPoolMXBean
+.
+ The unique
+ObjectName
+for a
+MemoryPoolMXBean
+can be formed by appending this string with
+,name=
+pool's name
+.
+See Also:
+Constant Field Values
+Method Details
+getClassLoadingMXBean
+public static
+ClassLoadingMXBean
+getClassLoadingMXBean
+()
+Returns the managed bean for the class loading system of
+ the Java virtual machine.
+Returns:
+a
+ClassLoadingMXBean
+object for
+ the Java virtual machine.
+getMemoryMXBean
+public static
+MemoryMXBean
+getMemoryMXBean
+()
+Returns the managed bean for the memory system of
+ the Java virtual machine.
+Returns:
+a
+MemoryMXBean
+object for the Java virtual machine.
+getThreadMXBean
+public static
+ThreadMXBean
+getThreadMXBean
+()
+Returns the managed bean for the thread system of
+ the Java virtual machine.
+Returns:
+a
+ThreadMXBean
+object for the Java virtual machine.
+getRuntimeMXBean
+public static
+RuntimeMXBean
+getRuntimeMXBean
+()
+Returns the managed bean for the runtime system of
+ the Java virtual machine.
+Returns:
+a
+RuntimeMXBean
+object for the Java virtual machine.
+getCompilationMXBean
+public static
+CompilationMXBean
+getCompilationMXBean
+()
+Returns the managed bean for the compilation system of
+ the Java virtual machine.  This method returns
+null
+if the Java virtual machine has no compilation system.
+Returns:
+a
+CompilationMXBean
+object for the Java virtual
+   machine or
+null
+if the Java virtual machine has
+   no compilation system.
+getOperatingSystemMXBean
+public static
+OperatingSystemMXBean
+getOperatingSystemMXBean
+()
+Returns the managed bean for the operating system on which
+ the Java virtual machine is running.
+Returns:
+an
+OperatingSystemMXBean
+object for
+ the Java virtual machine.
+getMemoryPoolMXBeans
+public static
+List
+<
+MemoryPoolMXBean
+>
+getMemoryPoolMXBeans
+()
+Returns a list of
+MemoryPoolMXBean
+objects in the
+ Java virtual machine.
+ The Java virtual machine can have one or more memory pools.
+ It may add or remove memory pools during execution.
+Returns:
+a list of
+MemoryPoolMXBean
+objects.
+getMemoryManagerMXBeans
+public static
+List
+<
+MemoryManagerMXBean
+>
+getMemoryManagerMXBeans
+()
+Returns a list of
+MemoryManagerMXBean
+objects
+ in the Java virtual machine.
+ The Java virtual machine can have one or more memory managers.
+ It may add or remove memory managers during execution.
+Returns:
+a list of
+MemoryManagerMXBean
+objects.
+getGarbageCollectorMXBeans
+public static
+List
+<
+GarbageCollectorMXBean
+>
+getGarbageCollectorMXBeans
+()
+Returns a list of
+GarbageCollectorMXBean
+objects
+ in the Java virtual machine.
+ The Java virtual machine may have one or more
+GarbageCollectorMXBean
+objects.
+ It may add or remove
+GarbageCollectorMXBean
+during execution.
+Returns:
+a list of
+GarbageCollectorMXBean
+objects.
+getPlatformMBeanServer
+public static
+MBeanServer
+getPlatformMBeanServer
+()
+Returns the platform
+MBeanServer
+.
+ On the first call to this method, it first creates the platform
+MBeanServer
+by calling the
+MBeanServerFactory.createMBeanServer
+method and registers each platform MXBean in this platform
+MBeanServer
+with its
+ObjectName
+.
+ This method, in subsequent calls, will simply return the
+ initially created platform
+MBeanServer
+.
+MXBeans that get created and destroyed dynamically, for example,
+ memory
+pools
+and
+managers
+,
+ will automatically be registered and deregistered into the platform
+MBeanServer
+.
+If the system property
+javax.management.builder.initial
+is set, the platform
+MBeanServer
+creation will be done
+ by the specified
+MBeanServerBuilder
+.
+It is recommended that this platform MBeanServer also be used
+ to register other application managed beans
+ besides the platform MXBeans.
+ This will allow all MBeans to be published through the same
+MBeanServer
+and hence allow for easier network publishing
+ and discovery.
+ Name conflicts with the platform MXBeans should be avoided.
+Returns:
+the platform
+MBeanServer
+; the platform
+         MXBeans are registered into the platform
+MBeanServer
+at the first time this method is called.
+Throws:
+SecurityException
+- if there is a security manager
+ and the caller does not have the permission required by
+MBeanServerFactory.createMBeanServer()
+.
+See Also:
+MBeanServerFactory
+MBeanServerFactory.createMBeanServer()
+newPlatformMXBeanProxy
+public static
+<T>
+T
+newPlatformMXBeanProxy
+(
+MBeanServerConnection
+connection,
+String
+mxbeanName,
+Class
+<T> mxbeanInterface)
+throws
+IOException
+Returns a proxy for a platform MXBean interface of a
+ given
+MXBean name
+that forwards its method calls through the given
+MBeanServerConnection
+.
+This method is equivalent to:
+Proxy.newProxyInstance
+(mxbeanInterface.getClassLoader(),
+        new Class[] { mxbeanInterface }, handler)
+where
+handler
+is an
+InvocationHandler
+to which method invocations to the MXBean interface
+ are dispatched. This
+handler
+converts an input parameter
+ from an MXBean data type to its mapped open type before forwarding
+ to the
+MBeanServer
+and converts a return value from
+ an MXBean method call through the
+MBeanServer
+from an open type to the corresponding return type declared in
+ the MXBean interface.
+If the MXBean is a notification emitter (i.e.,
+ it implements
+NotificationEmitter
+),
+ both the
+mxbeanInterface
+and
+NotificationEmitter
+will be implemented by this proxy.
+Notes:
+Using an MXBean proxy is a convenience remote access to
+ a platform MXBean of a running virtual machine.  All method
+ calls to the MXBean proxy are forwarded to an
+MBeanServerConnection
+where
+IOException
+may be thrown
+ when the communication problem occurs with the connector server.
+ If thrown,
+IOException
+will be wrappped in
+UndeclaredThrowableException
+.
+ An application remotely accessing the platform MXBeans using
+ proxy should prepare to catch
+UndeclaredThrowableException
+and
+ handle its
+cause
+as if that cause had been thrown by the
+MBeanServerConnection
+interface.
+When a client application is designed to remotely access MXBeans
+ for a running virtual machine whose version is different than
+ the version on which the application is running,
+ it should prepare to catch
+InvalidObjectException
+which is thrown when an MXBean proxy receives a name of an
+ enum constant which is missing in the enum class loaded in
+ the client application.   If thrown,
+InvalidObjectException
+will be
+ wrappped in
+UndeclaredThrowableException
+.
+MBeanServerInvocationHandler
+or its
+newProxyInstance
+method cannot be used to create
+ a proxy for a platform MXBean. The proxy object created
+ by
+MBeanServerInvocationHandler
+does not handle
+ the properties of the platform MXBeans described in
+ the
+class specification
+.
+Type Parameters:
+T
+- an
+mxbeanInterface
+type parameter
+Parameters:
+connection
+- the
+MBeanServerConnection
+to forward to.
+mxbeanName
+- the name of a platform MXBean within
+connection
+to forward to.
+mxbeanName
+must be
+ in the format of
+ObjectName
+.
+mxbeanInterface
+- the MXBean interface to be implemented
+ by the proxy.
+Returns:
+a proxy for a platform MXBean interface of a
+ given
+MXBean name
+that forwards its method calls through the given
+MBeanServerConnection
+, or
+null
+if not exist.
+Throws:
+IllegalArgumentException
+- if
+mxbeanName
+is not with a valid
+ObjectName
+format, or
+the named MXBean in the
+connection
+is
+     not a MXBean provided by the platform, or
+the named MXBean is not registered in the
+MBeanServerConnection
+, or
+the named MXBean is not an instance of the given
+mxbeanInterface
+IOException
+- if a communication problem
+ occurred when accessing the
+MBeanServerConnection
+.
+getPlatformMXBean
+public static
+<T extends
+PlatformManagedObject
+>
+T
+getPlatformMXBean
+(
+Class
+<T> mxbeanInterface)
+Returns the platform MXBean implementing
+ the given
+mxbeanInterface
+which is specified
+ to have one single instance in the Java virtual machine.
+ This method may return
+null
+if the management interface
+ is not implemented in the Java virtual machine (for example,
+ a Java virtual machine with no compilation system does not
+ implement
+CompilationMXBean
+);
+ otherwise, this method is equivalent to calling:
+getPlatformMXBeans(mxbeanInterface)
+.get(0);
+Type Parameters:
+T
+- an
+mxbeanInterface
+type parameter
+Parameters:
+mxbeanInterface
+- a management interface for a platform
+     MXBean with one single instance in the Java virtual machine
+     if implemented.
+Returns:
+the platform MXBean that implements
+mxbeanInterface
+, or
+null
+if not exist.
+Throws:
+IllegalArgumentException
+- if
+mxbeanInterface
+is not a platform management interface or
+ not a singleton platform MXBean.
+Since:
+1.7
+getPlatformMXBeans
+public static
+<T extends
+PlatformManagedObject
+>
+List
+<T>
+getPlatformMXBeans
+(
+Class
+<T> mxbeanInterface)
+Returns the list of platform MXBeans implementing
+ the given
+mxbeanInterface
+in the Java
+ virtual machine.
+ The returned list may contain zero, one, or more instances.
+ The number of instances in the returned list is defined
+ in the specification of the given management interface.
+ The order is undefined and there is no guarantee that
+ the list returned is in the same order as previous invocations.
+Type Parameters:
+T
+- an
+mxbeanInterface
+type parameter
+Parameters:
+mxbeanInterface
+- a management interface for a platform
+                        MXBean
+Returns:
+the list of platform MXBeans that implement
+mxbeanInterface
+.
+Throws:
+IllegalArgumentException
+- if
+mxbeanInterface
+is not a platform management interface.
+Since:
+1.7
+getPlatformMXBean
+public static
+<T extends
+PlatformManagedObject
+>
+T
+getPlatformMXBean
+(
+MBeanServerConnection
+connection,
+Class
+<T> mxbeanInterface)
+throws
+IOException
+Returns the platform MXBean proxy for
+mxbeanInterface
+which is specified to have one single
+ instance in a Java virtual machine and the proxy will
+ forward the method calls through the given
+MBeanServerConnection
+.
+ This method may return
+null
+if the management interface
+ is not implemented in the Java virtual machine being monitored
+ (for example, a Java virtual machine with no compilation system
+ does not implement
+CompilationMXBean
+);
+ otherwise, this method is equivalent to calling:
+getPlatformMXBeans(connection, mxbeanInterface)
+.get(0);
+Type Parameters:
+T
+- an
+mxbeanInterface
+type parameter
+Parameters:
+connection
+- the
+MBeanServerConnection
+to forward to.
+mxbeanInterface
+- a management interface for a platform
+     MXBean with one single instance in the Java virtual machine
+     being monitored, if implemented.
+Returns:
+the platform MXBean proxy for
+ forwarding the method calls of the
+mxbeanInterface
+through the given
+MBeanServerConnection
+,
+ or
+null
+if not exist.
+Throws:
+IllegalArgumentException
+- if
+mxbeanInterface
+is not a platform management interface or
+ not a singleton platform MXBean.
+IOException
+- if a communication problem
+ occurred when accessing the
+MBeanServerConnection
+.
+Since:
+1.7
+See Also:
+newPlatformMXBeanProxy(javax.management.MBeanServerConnection, java.lang.String, java.lang.Class<T>)
+getPlatformMXBeans
+public static
+<T extends
+PlatformManagedObject
+>
+List
+<T>
+getPlatformMXBeans
+(
+MBeanServerConnection
+connection,
+Class
+<T> mxbeanInterface)
+throws
+IOException
+Returns the list of the platform MXBean proxies for
+ forwarding the method calls of the
+mxbeanInterface
+through the given
+MBeanServerConnection
+.
+ The returned list may contain zero, one, or more instances.
+ The number of instances in the returned list is defined
+ in the specification of the given management interface.
+ The order is undefined and there is no guarantee that
+ the list returned is in the same order as previous invocations.
+Type Parameters:
+T
+- an
+mxbeanInterface
+type parameter
+Parameters:
+connection
+- the
+MBeanServerConnection
+to forward to.
+mxbeanInterface
+- a management interface for a platform
+                        MXBean
+Returns:
+the list of platform MXBean proxies for
+ forwarding the method calls of the
+mxbeanInterface
+through the given
+MBeanServerConnection
+.
+Throws:
+IllegalArgumentException
+- if
+mxbeanInterface
+is not a platform management interface.
+IOException
+- if a communication problem
+ occurred when accessing the
+MBeanServerConnection
+.
+Since:
+1.7
+See Also:
+newPlatformMXBeanProxy(javax.management.MBeanServerConnection, java.lang.String, java.lang.Class<T>)
+getPlatformManagementInterfaces
+public static
+Set
+<
+Class
+<? extends
+PlatformManagedObject
+>>
+getPlatformManagementInterfaces
+()
+Returns the set of
+Class
+objects, subinterface of
+PlatformManagedObject
+, representing
+ all management interfaces for
+ monitoring and managing the Java platform.
+Returns:
+the set of
+Class
+objects, subinterface of
+PlatformManagedObject
+representing
+ the management interfaces for
+ monitoring and managing the Java platform.
+Since:
+1.7
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

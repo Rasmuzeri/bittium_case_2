@@ -1,0 +1,203 @@
+AttachPermission (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.attach
+Package
+com.sun.tools.attach
+Class AttachPermission
+java.lang.Object
+java.security.Permission
+java.security.BasicPermission
+com.sun.tools.attach.AttachPermission
+All Implemented Interfaces:
+Serializable
+,
+Guard
+public final class
+AttachPermission
+extends
+BasicPermission
+When a
+SecurityManager
+set, this
+ is the permission which will be checked when code invokes
+VirtualMachine.attach
+to attach to a target virtual
+ machine.
+ This permission is also checked when an
+AttachProvider
+is created.
+An
+AttachPermission
+object contains a name (also referred
+ to as a "target name") but no actions list; you either have the
+ named permission or you don't.
+ The following table provides a summary description of what the
+ permission allows, and discusses the risks of granting code the
+ permission.
+Table shows permission
+ target name, what the permission allows, and associated risks
+Permission Target Name
+What the Permission Allows
+Risks of Allowing this Permission
+attachVirtualMachine
+Ability to attach to another Java virtual machine and load agents
+       into that VM.
+This allows an attacker to control the target VM which can potentially
+       cause it to misbehave.
+createAttachProvider
+Ability to create an
+AttachProvider
+instance.
+This allows an attacker to create an AttachProvider which can
+       potentially be used to attach to other Java virtual machines.
+Programmers do not normally create AttachPermission objects directly.
+ Instead they are created by the security policy code based on reading
+ the security policy file.
+See Also:
+VirtualMachine
+AttachProvider
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+AttachPermission
+(
+String
+name)
+Constructs a new AttachPermission object.
+AttachPermission
+(
+String
+name,
+String
+actions)
+Constructs a new AttachPermission object.
+Method Summary
+Methods declared in class java.security.
+BasicPermission
+equals
+,
+getActions
+,
+hashCode
+,
+implies
+,
+newPermissionCollection
+Methods declared in class java.security.
+Permission
+checkGuard
+,
+getName
+,
+toString
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+AttachPermission
+public
+AttachPermission
+(
+String
+name)
+Constructs a new AttachPermission object.
+Parameters:
+name
+- Permission name. Must be either "attachVirtualMachine",
+             or "createAttachProvider".
+Throws:
+NullPointerException
+- if name is
+null
+.
+IllegalArgumentException
+- if the name is invalid.
+AttachPermission
+public
+AttachPermission
+(
+String
+name,
+String
+actions)
+Constructs a new AttachPermission object.
+Parameters:
+name
+- Permission name.   Must be either "attachVirtualMachine",
+             or "createAttachProvider".
+actions
+- Not used and should be
+null
+, or
+                the empty string.
+Throws:
+NullPointerException
+- if name is
+null
+.
+IllegalArgumentException
+- if arguments are invalid.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

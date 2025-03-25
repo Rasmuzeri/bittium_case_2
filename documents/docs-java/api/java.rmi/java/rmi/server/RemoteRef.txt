@@ -1,0 +1,419 @@
+RemoteRef (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+java.rmi
+Package
+java.rmi.server
+Interface RemoteRef
+All Superinterfaces:
+Externalizable
+,
+Serializable
+All Known Subinterfaces:
+ServerRef
+public interface
+RemoteRef
+extends
+Externalizable
+RemoteRef
+represents the handle for a remote object. A
+RemoteStub
+uses a remote reference to carry out a
+ remote method invocation to a remote object.
+Since:
+1.1
+See Also:
+RemoteStub
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+String
+packagePrefix
+Initialize the server package prefix: assumes that the
+ implementation of server ref classes (e.g., UnicastRef,
+ UnicastServerRef) are located in the package defined by the
+ prefix.
+static final long
+serialVersionUID
+Deprecated.
+A
+serialVersionUID
+field in an interface is
+ ineffectual.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+void
+done
+(
+RemoteCall
+call)
+Deprecated.
+1.2 style stubs no longer use this method.
+String
+getRefClass
+(
+ObjectOutput
+out)
+Returns the class name of the ref type to be serialized onto
+ the stream 'out'.
+Object
+invoke
+(
+Remote
+obj,
+Method
+method,
+Object
+[] params,
+ long opnum)
+Invoke a method.
+void
+invoke
+(
+RemoteCall
+call)
+Deprecated.
+1.2 style stubs no longer use this method.
+RemoteCall
+newCall
+(
+RemoteObject
+obj,
+Operation
+[] op,
+ int opnum,
+ long hash)
+Deprecated.
+1.2 style stubs no longer use this method.
+boolean
+remoteEquals
+(
+RemoteRef
+obj)
+Compares two remote objects for equality.
+int
+remoteHashCode
+()
+Returns a hashcode for a remote object.
+String
+remoteToString
+()
+Returns a String that represents the reference of this remote
+ object.
+Methods declared in interface java.io.
+Externalizable
+readExternal
+,
+writeExternal
+Field Details
+serialVersionUID
+@Deprecated
+static final
+long
+serialVersionUID
+Deprecated.
+A
+serialVersionUID
+field in an interface is
+ ineffectual. Do not use; no replacement.
+indicate compatibility with JDK 1.1.x version of class.
+See Also:
+Constant Field Values
+packagePrefix
+static final
+String
+packagePrefix
+Initialize the server package prefix: assumes that the
+ implementation of server ref classes (e.g., UnicastRef,
+ UnicastServerRef) are located in the package defined by the
+ prefix.
+See Also:
+Constant Field Values
+Method Details
+invoke
+Object
+invoke
+(
+Remote
+obj,
+Method
+method,
+Object
+[] params,
+ long opnum)
+throws
+Exception
+Invoke a method. This form of delegating method invocation
+ to the reference allows the reference to take care of
+ setting up the connection to the remote host, marshaling
+ some representation for the method and parameters, then
+ communicating the method invocation to the remote host.
+ This method either returns the result of a method invocation
+ on the remote object which resides on the remote host or
+ throws a RemoteException if the call failed or an
+ application-level exception if the remote invocation throws
+ an exception.
+Parameters:
+obj
+- the object that contains the RemoteRef (e.g., the
+            RemoteStub for the object.
+method
+- the method to be invoked
+params
+- the parameter list
+opnum
+- a hash that may be used to represent the method
+Returns:
+result of remote method invocation
+Throws:
+Exception
+- if any exception occurs during remote method
+ invocation
+Since:
+1.2
+newCall
+@Deprecated
+RemoteCall
+newCall
+(
+RemoteObject
+obj,
+Operation
+[] op,
+ int opnum,
+ long hash)
+throws
+RemoteException
+Deprecated.
+1.2 style stubs no longer use this method. Instead of
+ using a sequence of method calls on the stub's the remote reference
+ (
+newCall
+,
+invoke
+, and
+done
+), a
+ stub uses a single method,
+invoke(Remote, Method, Object[],
+ int)
+, on the remote reference to carry out parameter
+ marshalling, remote method executing and unmarshalling of the return
+ value.
+Creates an appropriate call object for a new remote method
+ invocation on this object.  Passing operation array and index,
+ allows the stubs generator to assign the operation indexes and
+ interpret them. The remote reference may need the operation to
+ encode in the call.
+Parameters:
+obj
+- remote stub through which to make call
+op
+- array of stub operations
+opnum
+- operation number
+hash
+- stub/skeleton interface hash
+Returns:
+call object representing remote call
+Throws:
+RemoteException
+- if failed to initiate new remote call
+Since:
+1.1
+See Also:
+invoke(Remote,java.lang.reflect.Method,Object[],long)
+invoke
+@Deprecated
+void
+invoke
+(
+RemoteCall
+call)
+throws
+Exception
+Deprecated.
+1.2 style stubs no longer use this method. Instead of
+ using a sequence of method calls to the remote reference
+ (
+newCall
+,
+invoke
+, and
+done
+), a
+ stub uses a single method,
+invoke(Remote, Method, Object[],
+ int)
+, on the remote reference to carry out parameter
+ marshalling, remote method executing and unmarshalling of the return
+ value.
+Executes the remote call.
+
+ Invoke will raise any "user" exceptions which
+ should pass through and not be caught by the stub.  If any
+ exception is raised during the remote invocation, invoke should
+ take care of cleaning up the connection before raising the
+ "user" or remote exception.
+Parameters:
+call
+- object representing remote call
+Throws:
+Exception
+- if any exception occurs during remote method
+Since:
+1.1
+See Also:
+invoke(Remote,java.lang.reflect.Method,Object[],long)
+done
+@Deprecated
+void
+done
+(
+RemoteCall
+call)
+throws
+RemoteException
+Deprecated.
+1.2 style stubs no longer use this method. Instead of
+ using a sequence of method calls to the remote reference
+ (
+newCall
+,
+invoke
+, and
+done
+), a
+ stub uses a single method,
+invoke(Remote, Method, Object[],
+ int)
+, on the remote reference to carry out parameter
+ marshalling, remote method executing and unmarshalling of the return
+ value.
+Allows the remote reference to clean up (or reuse) the connection.
+ Done should only be called if the invoke returns successfully
+ (non-exceptionally) to the stub.
+Parameters:
+call
+- object representing remote call
+Throws:
+RemoteException
+- if remote error occurs during call cleanup
+Since:
+1.1
+See Also:
+invoke(Remote,java.lang.reflect.Method,Object[],long)
+getRefClass
+String
+getRefClass
+(
+ObjectOutput
+out)
+Returns the class name of the ref type to be serialized onto
+ the stream 'out'.
+Parameters:
+out
+- the output stream to which the reference will be serialized
+Returns:
+the class name (without package qualification) of the reference
+ type
+Since:
+1.1
+remoteHashCode
+int
+remoteHashCode
+()
+Returns a hashcode for a remote object.  Two remote object stubs
+ that refer to the same remote object will have the same hash code
+ (in order to support remote objects as keys in hash tables).
+Returns:
+remote object hashcode
+Since:
+1.1
+See Also:
+Hashtable
+remoteEquals
+boolean
+remoteEquals
+(
+RemoteRef
+obj)
+Compares two remote objects for equality.
+ Returns a boolean that indicates whether this remote object is
+ equivalent to the specified Object. This method is used when a
+ remote object is stored in a hashtable.
+Parameters:
+obj
+- the Object to compare with
+Returns:
+true if these Objects are equal; false otherwise.
+Since:
+1.1
+See Also:
+Hashtable
+remoteToString
+String
+remoteToString
+()
+Returns a String that represents the reference of this remote
+ object.
+Returns:
+string representing remote object reference
+Since:
+1.1
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

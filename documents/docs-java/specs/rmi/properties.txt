@@ -1,0 +1,96 @@
+Java Remote Method Invocation: B - Properties In RMI
+B Properties In RMI
+Server Properties
+Activation Properties
+Other Properties
+B.1 Server Properties
+The following table contains a list of properties typically used by
+servers for configuration. Note that properties are typically restricted
+from being set from applets.
+java.rmi.server.codebase
+Indicates the codebase URL of classes originating from the JVM. The
+codebase property is used to annotate class descriptors of classes
+originating
+from a JVM so that the class for an object sent as
+a parameter or return value in a remote method call can be loaded at the
+receiver.
+java.rmi.server.disableHttp
+The implementation of RMI calls through firewalls via proxies has
+been removed as of JDK 9.
+java.rmi.server.hostname
+RMI uses IP addresses to indicate the location of a server (embedded
+in a remote reference). If the use of a hostname is desired, this
+property is used to specify the fully-qualified hostname for RMI to use
+for remote objects exported to the local JVM. The property can also be
+set to an IP address. Not set by default.
+java.rmi.dgc.leaseValue
+Sets the lease duration that the RMI runtime grants to clients
+referencing remote objects in the JVM. Defaults to 10 minutes.
+java.rmi.server.logCalls
+If set to
+true
+, server call logging is turned on and
+prints to stderr. Defaults to
+false
+.
+java.rmi.server.useCodebaseOnly
+If set to
+true
+, when RMI loads classes (if not available
+via
+CLASSPATH
+) they are only loaded using the URL specified
+by the property
+java.rmi.server.codebase
+.
+java.rmi.server.useLocalHostname
+If the
+java.rmi.server.hostname
+property is not set and
+this property is set, then RMI will not use an IP address to denote the
+location (embedded in remote references) of remote objects that are
+exported into the JVM. Instead, RMI will use the value of the call to
+the method
+java.net.InetAddress.getLocalHost
+.
+B.2 Activation Properties
+The RMI Activation mechanism has been removed from the system.
+B.3 Other Properties
+These properties are used to locate specific implementation classes
+within implementation packages. Note: all these properties have been
+deprecated as of Java 2 SDK, Standard Edition, v1.2.
+java.rmi.loader.packagePrefix
+Note: this property is deprecated as of Java 2 SDK, Standard
+Edition, v1.2
+The package prefix for the class that implements the interface
+java.rmi.server.LoaderHandler
+. Defaults to
+sun.rmi.server
+.
+java.rmi.registry.packagePrefix
+Note: this property is deprecated as of Java 2 SDK, Standard
+Edition, v1.2
+The package prefix for the class that implements the interface
+java.rmi.registry.RegistryHandler
+. Defaults to
+sun.rmi.registry
+.
+java.rmi.server.packagePrefix
+Note: this property is deprecated as of Java 2 SDK, Standard
+Edition, v1.2
+The server package prefix. Assumes that the implementation of the
+server reference classes (such as
+UnicastRef
+and
+UnicastServerRef
+) are located in the package defined by the
+prefix. Defaults to
+sun.rmi.server
+.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

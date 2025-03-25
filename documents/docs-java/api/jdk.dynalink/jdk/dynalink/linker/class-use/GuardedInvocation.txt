@@ -1,0 +1,361 @@
+Uses of Class jdk.dynalink.linker.GuardedInvocation (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Class
+jdk.dynalink.linker.GuardedInvocation
+Packages that use
+GuardedInvocation
+Package
+Description
+jdk.dynalink
+Contains interfaces and classes that are used to link an
+invokedynamic
+call site.
+jdk.dynalink.beans
+Contains the linker for ordinary Java objects.
+jdk.dynalink.linker
+Contains interfaces and classes needed by language runtimes to implement
+ their own language-specific object models and type conversions.
+jdk.dynalink.linker.support
+Contains classes that make it more convenient for language runtimes to
+ implement their own language-specific object models and type conversions
+ by providing basic implementations of some classes as well as various
+ utilities.
+jdk.dynalink.support
+Contains classes that make using Dynalink more convenient by providing
+ basic implementations of some classes as well as various utilities.
+Uses of
+GuardedInvocation
+in
+jdk.dynalink
+Methods in
+jdk.dynalink
+with parameters of type
+GuardedInvocation
+Modifier and Type
+Method
+Description
+void
+RelinkableCallSite.
+relink
+(
+GuardedInvocation
+guardedInvocation,
+MethodHandle
+relinkAndInvoke)
+This method will be called by the dynamic linker every time the call site
+ is relinked (but see
+RelinkableCallSite.resetAndRelink(GuardedInvocation, MethodHandle)
+for an
+ exception).
+void
+RelinkableCallSite.
+resetAndRelink
+(
+GuardedInvocation
+guardedInvocation,
+MethodHandle
+relinkAndInvoke)
+This method will be called by the dynamic linker every time the call site
+ is relinked
+and
+the linker wishes the call site to throw away any
+ prior linkage state (that is how it differs from
+RelinkableCallSite.relink(GuardedInvocation, MethodHandle)
+).
+Uses of
+GuardedInvocation
+in
+jdk.dynalink.beans
+Methods in
+jdk.dynalink.beans
+that return
+GuardedInvocation
+Modifier and Type
+Method
+Description
+GuardedInvocation
+BeansLinker.
+getGuardedInvocation
+(
+LinkRequest
+request,
+LinkerServices
+linkerServices)
+Uses of
+GuardedInvocation
+in
+jdk.dynalink.linker
+Methods in
+jdk.dynalink.linker
+that return
+GuardedInvocation
+Modifier and Type
+Method
+Description
+GuardedInvocation
+GuardedInvocation.
+addSwitchPoint
+(
+SwitchPoint
+newSwitchPoint)
+Create a new guarded invocation with an added switch point.
+GuardedInvocation
+GuardedInvocation.
+asType
+(
+MethodType
+newType)
+Changes the type of the invocation, as if
+MethodHandle.asType(MethodType)
+was applied to its invocation
+ and its guard, if it has one (with return type changed to boolean, and
+ parameter count potentially truncated for the guard).
+GuardedInvocation
+GuardedInvocation.
+asType
+(
+CallSiteDescriptor
+desc)
+Changes the type of the invocation, as if
+MethodHandle.asType(MethodType)
+was applied to its invocation
+ and its guard, if it has one (with return type changed to boolean for
+ guard).
+GuardedInvocation
+GuardedInvocation.
+asType
+(
+LinkerServices
+linkerServices,
+MethodType
+newType)
+Changes the type of the invocation, as if
+LinkerServices.asType(MethodHandle, MethodType)
+was applied to
+ its invocation and its guard, if it has one (with return type changed to
+ boolean, and parameter count potentially truncated for the guard).
+GuardedInvocation
+GuardedInvocation.
+asTypeSafeReturn
+(
+LinkerServices
+linkerServices,
+MethodType
+newType)
+Changes the type of the invocation, as if
+LinkerServices.asTypeLosslessReturn(MethodHandle, MethodType)
+was
+ applied to its invocation and
+LinkerServices.asType(MethodHandle, MethodType)
+applied to its
+ guard, if it has one (with return type changed to boolean, and parameter
+ count potentially truncated for the guard).
+GuardedInvocation
+GuardingTypeConverterFactory.
+convertToType
+(
+Class
+<?> sourceType,
+Class
+<?> targetType,
+Supplier
+<
+MethodHandles.Lookup
+> lookupSupplier)
+Returns a guarded type conversion that receives a value of the specified
+ source type and returns a value converted to the specified target type.
+GuardedInvocation
+GuardedInvocation.
+dropArguments
+(int pos,
+Class
+<?>... valueTypes)
+Makes an invocation that drops arguments in both the invocation and the
+ guard (if it exists and has at least
+pos
+parameters) with
+MethodHandles.dropArguments(MethodHandle, int, Class...)
+.
+GuardedInvocation
+GuardedInvocation.
+dropArguments
+(int pos,
+List
+<
+Class
+<?>> valueTypes)
+Makes an invocation that drops arguments in both the invocation and the
+ guard (if it exists and has at least
+pos
+parameters) with
+MethodHandles.dropArguments(MethodHandle, int, List)
+.
+GuardedInvocation
+GuardedInvocationTransformer.
+filter
+(
+GuardedInvocation
+inv,
+LinkRequest
+linkRequest,
+LinkerServices
+linkerServices)
+Given a guarded invocation, return either the same or potentially
+ different guarded invocation.
+GuardedInvocation
+GuardedInvocation.
+filterArguments
+(int pos,
+MethodHandle
+... filters)
+Applies argument filters to both the invocation and the guard
+ (if it exists and has at least
+pos + 1
+parameters) with
+MethodHandles.filterArguments(MethodHandle, int, MethodHandle...)
+.
+GuardedInvocation
+GuardingDynamicLinker.
+getGuardedInvocation
+(
+LinkRequest
+linkRequest,
+LinkerServices
+linkerServices)
+Creates a guarded invocation appropriate for a particular invocation with
+ the specified arguments at a call site.
+GuardedInvocation
+LinkerServices.
+getGuardedInvocation
+(
+LinkRequest
+linkRequest)
+Creates a guarded invocation delegating back to the
+DynamicLinker
+that exposes this linker services object.
+GuardedInvocation
+GuardedInvocation.
+replaceMethods
+(
+MethodHandle
+newInvocation,
+MethodHandle
+newGuard)
+Creates a new guarded invocation with different methods, preserving the switch point.
+Methods in
+jdk.dynalink.linker
+with parameters of type
+GuardedInvocation
+Modifier and Type
+Method
+Description
+GuardedInvocation
+GuardedInvocationTransformer.
+filter
+(
+GuardedInvocation
+inv,
+LinkRequest
+linkRequest,
+LinkerServices
+linkerServices)
+Given a guarded invocation, return either the same or potentially
+ different guarded invocation.
+Uses of
+GuardedInvocation
+in
+jdk.dynalink.linker.support
+Methods in
+jdk.dynalink.linker.support
+that return
+GuardedInvocation
+Modifier and Type
+Method
+Description
+GuardedInvocation
+CompositeGuardingDynamicLinker.
+getGuardedInvocation
+(
+LinkRequest
+linkRequest,
+LinkerServices
+linkerServices)
+Delegates the call to its component linkers.
+GuardedInvocation
+CompositeTypeBasedGuardingDynamicLinker.
+getGuardedInvocation
+(
+LinkRequest
+linkRequest,
+LinkerServices
+linkerServices)
+Uses of
+GuardedInvocation
+in
+jdk.dynalink.support
+Methods in
+jdk.dynalink.support
+with parameters of type
+GuardedInvocation
+Modifier and Type
+Method
+Description
+void
+ChainedCallSite.
+relink
+(
+GuardedInvocation
+guardedInvocation,
+MethodHandle
+relinkAndInvoke)
+void
+SimpleRelinkableCallSite.
+relink
+(
+GuardedInvocation
+guardedInvocation,
+MethodHandle
+relinkAndInvoke)
+void
+ChainedCallSite.
+resetAndRelink
+(
+GuardedInvocation
+guardedInvocation,
+MethodHandle
+relinkAndInvoke)
+void
+SimpleRelinkableCallSite.
+resetAndRelink
+(
+GuardedInvocation
+guardedInvocation,
+MethodHandle
+relinkAndInvoke)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

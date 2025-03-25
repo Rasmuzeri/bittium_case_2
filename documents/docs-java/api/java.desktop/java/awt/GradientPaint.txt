@@ -1,0 +1,576 @@
+GradientPaint (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt
+Class GradientPaint
+java.lang.Object
+java.awt.GradientPaint
+All Implemented Interfaces:
+Paint
+,
+Transparency
+public class
+GradientPaint
+extends
+Object
+implements
+Paint
+The
+GradientPaint
+class provides a way to fill
+ a
+Shape
+with a linear color gradient pattern.
+ If
+Point
+P1 with
+Color
+C1 and
+Point
+P2 with
+Color
+C2 are specified in user space, the
+Color
+on the P1, P2 connecting line is proportionally
+ changed from C1 to C2.  Any point P not on the extended P1, P2
+ connecting line has the color of the point P' that is the perpendicular
+ projection of P on the extended P1, P2 connecting line.
+ Points on the extended line outside of the P1, P2 segment can be colored
+ in one of two ways.
+If the gradient is cyclic then the points on the extended P1, P2
+ connecting line cycle back and forth between the colors C1 and C2.
+If the gradient is acyclic then points on the P1 side of the segment
+ have the constant
+Color
+C1 while points on the P2 side
+ have the constant
+Color
+C2.
+See Also:
+Paint
+Graphics2D.setPaint(java.awt.Paint)
+Field Summary
+Fields declared in interface java.awt.
+Transparency
+BITMASK
+,
+OPAQUE
+,
+TRANSLUCENT
+Constructor Summary
+Constructors
+Constructor
+Description
+GradientPaint
+(float x1,
+ float y1,
+Color
+color1,
+ float x2,
+ float y2,
+Color
+color2)
+Constructs a simple acyclic
+GradientPaint
+object.
+GradientPaint
+(float x1,
+ float y1,
+Color
+color1,
+ float x2,
+ float y2,
+Color
+color2,
+ boolean cyclic)
+Constructs either a cyclic or acyclic
+GradientPaint
+object depending on the
+boolean
+parameter.
+GradientPaint
+(
+Point2D
+pt1,
+Color
+color1,
+Point2D
+pt2,
+Color
+color2)
+Constructs a simple acyclic
+GradientPaint
+object.
+GradientPaint
+(
+Point2D
+pt1,
+Color
+color1,
+Point2D
+pt2,
+Color
+color2,
+ boolean cyclic)
+Constructs either a cyclic or acyclic
+GradientPaint
+object depending on the
+boolean
+parameter.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+PaintContext
+createContext
+(
+ColorModel
+cm,
+Rectangle
+deviceBounds,
+Rectangle2D
+userBounds,
+AffineTransform
+xform,
+RenderingHints
+hints)
+Creates and returns a
+PaintContext
+used to
+ generate a linear color gradient pattern.
+Color
+getColor1
+()
+Returns the color C1 anchored by the point P1.
+Color
+getColor2
+()
+Returns the color C2 anchored by the point P2.
+Point2D
+getPoint1
+()
+Returns a copy of the point P1 that anchors the first color.
+Point2D
+getPoint2
+()
+Returns a copy of the point P2 which anchors the second color.
+int
+getTransparency
+()
+Returns the transparency mode for this
+GradientPaint
+.
+boolean
+isCyclic
+()
+Returns
+true
+if the gradient cycles repeatedly
+ between the two colors C1 and C2.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+GradientPaint
+public
+GradientPaint
+(float x1,
+ float y1,
+Color
+color1,
+ float x2,
+ float y2,
+Color
+color2)
+Constructs a simple acyclic
+GradientPaint
+object.
+Parameters:
+x1
+- x coordinate of the first specified
+Point
+in user space
+y1
+- y coordinate of the first specified
+Point
+in user space
+color1
+-
+Color
+at the first specified
+Point
+x2
+- x coordinate of the second specified
+Point
+in user space
+y2
+- y coordinate of the second specified
+Point
+in user space
+color2
+-
+Color
+at the second specified
+Point
+Throws:
+NullPointerException
+- if either one of colors is null
+GradientPaint
+public
+GradientPaint
+(
+Point2D
+pt1,
+Color
+color1,
+Point2D
+pt2,
+Color
+color2)
+Constructs a simple acyclic
+GradientPaint
+object.
+Parameters:
+pt1
+- the first specified
+Point
+in user space
+color1
+-
+Color
+at the first specified
+Point
+pt2
+- the second specified
+Point
+in user space
+color2
+-
+Color
+at the second specified
+Point
+Throws:
+NullPointerException
+- if either one of colors or points
+ is null
+GradientPaint
+public
+GradientPaint
+(float x1,
+ float y1,
+Color
+color1,
+ float x2,
+ float y2,
+Color
+color2,
+ boolean cyclic)
+Constructs either a cyclic or acyclic
+GradientPaint
+object depending on the
+boolean
+parameter.
+Parameters:
+x1
+- x coordinate of the first specified
+Point
+in user space
+y1
+- y coordinate of the first specified
+Point
+in user space
+color1
+-
+Color
+at the first specified
+Point
+x2
+- x coordinate of the second specified
+Point
+in user space
+y2
+- y coordinate of the second specified
+Point
+in user space
+color2
+-
+Color
+at the second specified
+Point
+cyclic
+-
+true
+if the gradient pattern should cycle
+ repeatedly between the two colors;
+false
+otherwise
+GradientPaint
+@ConstructorProperties
+({"point1","color1","point2","color2","cyclic"})
+public
+GradientPaint
+(
+Point2D
+pt1,
+Color
+color1,
+Point2D
+pt2,
+Color
+color2,
+ boolean cyclic)
+Constructs either a cyclic or acyclic
+GradientPaint
+object depending on the
+boolean
+parameter.
+Parameters:
+pt1
+- the first specified
+Point
+in user space
+color1
+-
+Color
+at the first specified
+Point
+pt2
+- the second specified
+Point
+in user space
+color2
+-
+Color
+at the second specified
+Point
+cyclic
+-
+true
+if the gradient pattern should cycle
+ repeatedly between the two colors;
+false
+otherwise
+Throws:
+NullPointerException
+- if either one of colors or points
+ is null
+Method Details
+getPoint1
+public
+Point2D
+getPoint1
+()
+Returns a copy of the point P1 that anchors the first color.
+Returns:
+a
+Point2D
+object that is a copy of the point
+ that anchors the first color of this
+GradientPaint
+.
+getColor1
+public
+Color
+getColor1
+()
+Returns the color C1 anchored by the point P1.
+Returns:
+a
+Color
+object that is the color
+ anchored by P1.
+getPoint2
+public
+Point2D
+getPoint2
+()
+Returns a copy of the point P2 which anchors the second color.
+Returns:
+a
+Point2D
+object that is a copy of the point
+ that anchors the second color of this
+GradientPaint
+.
+getColor2
+public
+Color
+getColor2
+()
+Returns the color C2 anchored by the point P2.
+Returns:
+a
+Color
+object that is the color
+ anchored by P2.
+isCyclic
+public
+boolean
+isCyclic
+()
+Returns
+true
+if the gradient cycles repeatedly
+ between the two colors C1 and C2.
+Returns:
+true
+if the gradient cycles repeatedly
+ between the two colors;
+false
+otherwise.
+createContext
+public
+PaintContext
+createContext
+(
+ColorModel
+cm,
+Rectangle
+deviceBounds,
+Rectangle2D
+userBounds,
+AffineTransform
+xform,
+RenderingHints
+hints)
+Creates and returns a
+PaintContext
+used to
+ generate a linear color gradient pattern.
+ See the
+specification
+of the
+ method in the
+Paint
+interface for information
+ on null parameter handling.
+Specified by:
+createContext
+in interface
+Paint
+Parameters:
+cm
+- the preferred
+ColorModel
+which represents the most convenient
+           format for the caller to receive the pixel data, or
+null
+if there is no preference.
+deviceBounds
+- the device space bounding box
+                     of the graphics primitive being rendered.
+userBounds
+- the user space bounding box
+                   of the graphics primitive being rendered.
+xform
+- the
+AffineTransform
+from user
+              space into device space.
+hints
+- the set of hints that the context object can use to
+              choose between rendering alternatives.
+Returns:
+the
+PaintContext
+for
+         generating color patterns.
+See Also:
+Paint
+PaintContext
+ColorModel
+Rectangle
+Rectangle2D
+AffineTransform
+RenderingHints
+getTransparency
+public
+int
+getTransparency
+()
+Returns the transparency mode for this
+GradientPaint
+.
+Specified by:
+getTransparency
+in interface
+Transparency
+Returns:
+an integer value representing this
+GradientPaint
+object's transparency mode.
+See Also:
+Transparency
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,312 @@
+Uses of Class java.lang.invoke.CallSite (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Class
+java.lang.invoke.CallSite
+Packages that use
+CallSite
+Package
+Description
+java.lang.constant
+Classes and interfaces to represent
+nominal descriptors
+for run-time
+ entities such as classes or method handles, and classfile entities such as
+ constant pool entries or
+invokedynamic
+call sites.
+java.lang.invoke
+The
+java.lang.invoke
+package provides low-level primitives for interacting
+ with the Java Virtual Machine.
+java.lang.runtime
+The
+java.lang.runtime
+package provides low-level runtime support
+ for the Java language.
+jdk.dynalink.support
+Contains classes that make using Dynalink more convenient by providing
+ basic implementations of some classes as well as various utilities.
+Uses of
+CallSite
+in
+java.lang.constant
+Methods in
+java.lang.constant
+that return
+CallSite
+Modifier and Type
+Method
+Description
+CallSite
+DynamicCallSiteDesc.
+resolveCallSiteDesc
+(
+MethodHandles.Lookup
+lookup)
+Reflectively invokes the bootstrap method with the specified arguments,
+ and return the resulting
+CallSite
+Uses of
+CallSite
+in
+java.lang.invoke
+Subclasses of
+CallSite
+in
+java.lang.invoke
+Modifier and Type
+Class
+Description
+class
+ConstantCallSite
+A
+ConstantCallSite
+is a
+CallSite
+whose target is permanent, and can never be changed.
+class
+MutableCallSite
+A
+MutableCallSite
+is a
+CallSite
+whose target variable
+ behaves like an ordinary field.
+class
+VolatileCallSite
+A
+VolatileCallSite
+is a
+CallSite
+whose target acts like a volatile variable.
+Methods in
+java.lang.invoke
+that return
+CallSite
+Modifier and Type
+Method
+Description
+static
+CallSite
+LambdaMetafactory.
+altMetafactory
+(
+MethodHandles.Lookup
+caller,
+String
+interfaceMethodName,
+MethodType
+factoryType,
+Object
+... args)
+Facilitates the creation of simple "function objects" that implement one
+ or more interfaces by delegation to a provided
+MethodHandle
+,
+ after appropriate type adaptation and partial evaluation of arguments.
+static
+CallSite
+StringConcatFactory.
+makeConcat
+(
+MethodHandles.Lookup
+lookup,
+String
+name,
+MethodType
+concatType)
+Facilitates the creation of optimized String concatenation methods, that
+ can be used to efficiently concatenate a known number of arguments of
+ known types, possibly after type adaptation and partial evaluation of
+ arguments.
+static
+CallSite
+StringConcatFactory.
+makeConcatWithConstants
+(
+MethodHandles.Lookup
+lookup,
+String
+name,
+MethodType
+concatType,
+String
+recipe,
+Object
+... constants)
+Facilitates the creation of optimized String concatenation methods, that
+ can be used to efficiently concatenate a known number of arguments of
+ known types, possibly after type adaptation and partial evaluation of
+ arguments.
+static
+CallSite
+LambdaMetafactory.
+metafactory
+(
+MethodHandles.Lookup
+caller,
+String
+interfaceMethodName,
+MethodType
+factoryType,
+MethodType
+interfaceMethodType,
+MethodHandle
+implementation,
+MethodType
+dynamicMethodType)
+Facilitates the creation of simple "function objects" that implement one
+ or more interfaces by delegation to a provided
+MethodHandle
+,
+ after appropriate type adaptation and partial evaluation of arguments.
+Uses of
+CallSite
+in
+java.lang.runtime
+Methods in
+java.lang.runtime
+that return
+CallSite
+Modifier and Type
+Method
+Description
+static
+CallSite
+SwitchBootstraps.
+enumSwitch
+(
+MethodHandles.Lookup
+lookup,
+String
+invocationName,
+MethodType
+invocationType,
+Object
+... labels)
+Bootstrap method for linking an
+invokedynamic
+call site that
+ implements a
+switch
+on a target of an enum type.
+static
+CallSite
+TemplateRuntime.
+newLargeStringTemplate
+(
+MethodHandles.Lookup
+lookup,
+String
+name,
+MethodType
+type)
+String template bootstrap method for creating large string templates,
+ i.e., when the number of value slots exceeds
+StringConcatFactory.MAX_INDY_CONCAT_ARG_SLOTS
+PREVIEW
+.
+static
+CallSite
+TemplateRuntime.
+newStringTemplate
+(
+MethodHandles.Lookup
+lookup,
+String
+name,
+MethodType
+type,
+String
+... fragments)
+String template bootstrap method for creating string templates.
+static
+CallSite
+TemplateRuntime.
+processStringTemplate
+(
+MethodHandles.Lookup
+lookup,
+String
+name,
+MethodType
+type,
+MethodHandle
+processorGetter,
+String
+... fragments)
+String template bootstrap method for static final processors.
+static
+CallSite
+SwitchBootstraps.
+typeSwitch
+(
+MethodHandles.Lookup
+lookup,
+String
+invocationName,
+MethodType
+invocationType,
+Object
+... labels)
+Bootstrap method for linking an
+invokedynamic
+call site that
+ implements a
+switch
+on a target of a reference type.
+Uses of
+CallSite
+in
+jdk.dynalink.support
+Subclasses of
+CallSite
+in
+jdk.dynalink.support
+Modifier and Type
+Class
+Description
+class
+AbstractRelinkableCallSite
+A basic implementation of the
+RelinkableCallSite
+as a
+MutableCallSite
+.
+class
+ChainedCallSite
+A relinkable call site that implements a polymorphic inline caching strategy.
+class
+SimpleRelinkableCallSite
+A relinkable call site that implements monomorphic inline caching strategy,
+ only being linked to a single
+GuardedInvocation
+at any given time.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

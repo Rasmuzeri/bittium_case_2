@@ -1,0 +1,406 @@
+Registry (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+java.rmi
+Package
+java.rmi.registry
+Interface Registry
+All Superinterfaces:
+Remote
+public interface
+Registry
+extends
+Remote
+Registry
+is a remote interface to a simple remote
+ object registry that provides methods for storing and retrieving
+ remote object references bound with arbitrary string names.  The
+bind
+,
+unbind
+, and
+rebind
+methods are used to alter the name bindings in the registry, and
+ the
+lookup
+and
+list
+methods are used to
+ query the current name bindings.
+In its typical usage, a
+Registry
+enables RMI client
+ bootstrapping: it provides a simple means for a client to obtain an
+ initial reference to a remote object.  Therefore, a registry's
+ remote object implementation is typically exported with a
+ well-known address, such as with a well-known
+ObjID
+and TCP port number
+ (default is
+1099
+).
+The
+LocateRegistry
+class provides a programmatic API for
+ constructing a bootstrap reference to a
+Registry
+at a
+ remote address (see the static
+getRegistry
+methods)
+ and for creating and exporting a
+Registry
+in the
+ current VM on a particular local address (see the static
+createRegistry
+methods).
+A
+Registry
+implementation may choose to restrict
+ access to some or all of its methods (for example, methods that
+ mutate the registry's bindings may be restricted to calls
+ originating from the local host).  If a
+Registry
+method chooses to deny access for a given invocation, its
+ implementation may throw
+AccessException
+, which
+ (because it extends
+RemoteException
+) will be
+ wrapped in a
+ServerException
+when caught by a
+ remote client.
+The names used for bindings in a
+Registry
+are pure
+ strings, not parsed.  A service which stores its remote reference
+ in a
+Registry
+may wish to use a package name as a
+ prefix in the name binding to reduce the likelihood of name
+ collisions in the registry.
+Since:
+1.1
+See Also:
+LocateRegistry
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final int
+REGISTRY_PORT
+Well known port for registry.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+void
+bind
+(
+String
+name,
+Remote
+obj)
+Binds a remote reference to the specified
+name
+in
+ this registry.
+String
+[]
+list
+()
+Returns an array of the names bound in this registry.
+Remote
+lookup
+(
+String
+name)
+Returns the remote reference bound to the specified
+name
+in this registry.
+void
+rebind
+(
+String
+name,
+Remote
+obj)
+Replaces the binding for the specified
+name
+in
+ this registry with the supplied remote reference.
+void
+unbind
+(
+String
+name)
+Removes the binding for the specified
+name
+in
+ this registry.
+Field Details
+REGISTRY_PORT
+static final
+int
+REGISTRY_PORT
+Well known port for registry.
+See Also:
+Constant Field Values
+Method Details
+lookup
+Remote
+lookup
+(
+String
+name)
+throws
+RemoteException
+,
+NotBoundException
+,
+AccessException
+Returns the remote reference bound to the specified
+name
+in this registry.
+Parameters:
+name
+- the name for the remote reference to look up
+Returns:
+a reference to a remote object
+Throws:
+NotBoundException
+- if
+name
+is not currently bound
+RemoteException
+- if remote communication with the
+ registry failed; if exception is a
+ServerException
+containing an
+AccessException
+, then the registry
+ denies the caller access to perform this operation
+AccessException
+- if this registry is local and it denies
+ the caller access to perform this operation
+NullPointerException
+- if
+name
+is
+null
+bind
+void
+bind
+(
+String
+name,
+Remote
+obj)
+throws
+RemoteException
+,
+AlreadyBoundException
+,
+AccessException
+Binds a remote reference to the specified
+name
+in
+ this registry.
+Parameters:
+name
+- the name to associate with the remote reference
+obj
+- a reference to a remote object (usually a stub)
+Throws:
+AlreadyBoundException
+- if
+name
+is already bound
+RemoteException
+- if remote communication with the
+ registry failed; if exception is a
+ServerException
+containing an
+AccessException
+, then the registry
+ denies the caller access to perform this operation (if
+ originating from a non-local host, for example)
+AccessException
+- if this registry is local and it denies
+ the caller access to perform this operation
+NullPointerException
+- if
+name
+is
+null
+, or if
+obj
+is
+null
+unbind
+void
+unbind
+(
+String
+name)
+throws
+RemoteException
+,
+NotBoundException
+,
+AccessException
+Removes the binding for the specified
+name
+in
+ this registry.
+Parameters:
+name
+- the name of the binding to remove
+Throws:
+NotBoundException
+- if
+name
+is not currently bound
+RemoteException
+- if remote communication with the
+ registry failed; if exception is a
+ServerException
+containing an
+AccessException
+, then the registry
+ denies the caller access to perform this operation (if
+ originating from a non-local host, for example)
+AccessException
+- if this registry is local and it denies
+ the caller access to perform this operation
+NullPointerException
+- if
+name
+is
+null
+rebind
+void
+rebind
+(
+String
+name,
+Remote
+obj)
+throws
+RemoteException
+,
+AccessException
+Replaces the binding for the specified
+name
+in
+ this registry with the supplied remote reference.  If there is
+ an existing binding for the specified
+name
+, it is
+ discarded.
+Parameters:
+name
+- the name to associate with the remote reference
+obj
+- a reference to a remote object (usually a stub)
+Throws:
+RemoteException
+- if remote communication with the
+ registry failed; if exception is a
+ServerException
+containing an
+AccessException
+, then the registry
+ denies the caller access to perform this operation (if
+ originating from a non-local host, for example)
+AccessException
+- if this registry is local and it denies
+ the caller access to perform this operation
+NullPointerException
+- if
+name
+is
+null
+, or if
+obj
+is
+null
+list
+String
+[]
+list
+()
+       throws
+RemoteException
+,
+AccessException
+Returns an array of the names bound in this registry.  The
+ array will contain a snapshot of the names bound in this
+ registry at the time of the given invocation of this method.
+Returns:
+an array of the names bound in this registry
+Throws:
+RemoteException
+- if remote communication with the
+ registry failed; if exception is a
+ServerException
+containing an
+AccessException
+, then the registry
+ denies the caller access to perform this operation
+AccessException
+- if this registry is local and it denies
+ the caller access to perform this operation
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

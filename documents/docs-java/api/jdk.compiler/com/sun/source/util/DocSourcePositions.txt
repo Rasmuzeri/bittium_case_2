@@ -1,0 +1,174 @@
+DocSourcePositions (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.compiler
+Package
+com.sun.source.util
+Interface DocSourcePositions
+All Superinterfaces:
+SourcePositions
+public interface
+DocSourcePositions
+extends
+SourcePositions
+Provides methods to obtain the position of a DocTree within a javadoc comment.
+ A position is defined as a simple character offset from the start of a
+ CompilationUnit where the first character is at offset 0.
+Since:
+1.8
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+long
+getEndPosition
+(
+CompilationUnitTree
+file,
+DocCommentTree
+comment,
+DocTree
+tree)
+Returns the ending position of the tree within the comment within the file.
+long
+getStartPosition
+(
+CompilationUnitTree
+file,
+DocCommentTree
+comment,
+DocTree
+tree)
+Returns the starting position of the tree within the comment within the file.
+Methods declared in interface com.sun.source.util.
+SourcePositions
+getEndPosition
+,
+getStartPosition
+Method Details
+getStartPosition
+long
+getStartPosition
+(
+CompilationUnitTree
+file,
+DocCommentTree
+comment,
+DocTree
+tree)
+Returns the starting position of the tree within the comment within the file.  If tree is not found within
+ file, or if the starting position is not available,
+ returns
+Diagnostic.NOPOS
+.
+ The given tree should be under the given comment tree, and the given documentation
+ comment tree should be returned from a
+DocTrees.getDocCommentTree(com.sun.source.util.TreePath)
+for a tree under the given file.
+ The returned position must be at the start of the yield of this tree, that
+ is for any sub-tree of this tree, the following must hold:
+getStartPosition(file, comment, tree) <= getStartPosition(file, comment, subtree)
+or
+getStartPosition(file, comment, tree) == NOPOS
+or
+getStartPosition(file, comment, subtree) == NOPOS
+Parameters:
+file
+- compilation unit in which to find tree
+comment
+- the comment tree that encloses the tree for which the
+                position is being sought
+tree
+- tree for which a position is sought
+Returns:
+the start position of tree
+getEndPosition
+long
+getEndPosition
+(
+CompilationUnitTree
+file,
+DocCommentTree
+comment,
+DocTree
+tree)
+Returns the ending position of the tree within the comment within the file.  If tree is not found within
+ file, or if the ending position is not available,
+ returns
+Diagnostic.NOPOS
+.
+ The given tree should be under the given comment tree, and the given documentation
+ comment tree should be returned from a
+DocTrees.getDocCommentTree(com.sun.source.util.TreePath)
+for a tree under the given file.
+ The returned position must be at the end of the yield of this tree,
+ that is for any sub-tree of this tree, the following must hold:
+getEndPosition(file, comment, tree) >= getEndPosition(file, comment, subtree)
+or
+getEndPosition(file, comment, tree) == NOPOS
+or
+getEndPosition(file, comment, subtree) == NOPOS
+In addition, the following must hold:
+getStartPosition(file, comment, tree) <= getEndPosition(file, comment, tree)
+or
+getStartPosition(file, comment, tree) == NOPOS
+or
+getEndPosition(file, comment, tree) == NOPOS
+Parameters:
+file
+- compilation unit in which to find tree
+comment
+- the comment tree that encloses the tree for which the
+                position is being sought
+tree
+- tree for which a position is sought
+Returns:
+the end position of tree
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

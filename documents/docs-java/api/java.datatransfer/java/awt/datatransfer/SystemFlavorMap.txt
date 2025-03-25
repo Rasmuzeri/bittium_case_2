@@ -1,0 +1,950 @@
+SystemFlavorMap (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.datatransfer
+Package
+java.awt.datatransfer
+Class SystemFlavorMap
+java.lang.Object
+java.awt.datatransfer.SystemFlavorMap
+All Implemented Interfaces:
+FlavorMap
+,
+FlavorTable
+public final class
+SystemFlavorMap
+extends
+Object
+implements
+FlavorMap
+,
+FlavorTable
+The SystemFlavorMap is a configurable map between "natives" (Strings), which
+ correspond to platform-specific data formats, and "flavors" (DataFlavors),
+ which correspond to platform-independent MIME types. This mapping is used by
+ the data transfer subsystem to transfer data between Java and native
+ applications, and between Java applications in separate VMs.
+Since:
+1.2
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+addFlavorForUnencodedNative
+(
+String
+nat,
+DataFlavor
+flav)
+Adds a mapping from a single
+String
+native to a single
+DataFlavor
+.
+void
+addUnencodedNativeForFlavor
+(
+DataFlavor
+flav,
+String
+nat)
+Adds a mapping from the specified
+DataFlavor
+(and all
+DataFlavor
+s equal to the specified
+DataFlavor
+) to the
+ specified
+String
+native.
+static
+DataFlavor
+decodeDataFlavor
+(
+String
+nat)
+Decodes a
+String
+native for use as a
+DataFlavor
+.
+static
+String
+decodeJavaMIMEType
+(
+String
+nat)
+Decodes a
+String
+native for use as a Java MIME type.
+static
+String
+encodeDataFlavor
+(
+DataFlavor
+flav)
+Encodes a
+DataFlavor
+for use as a
+String
+native.
+static
+String
+encodeJavaMIMEType
+(
+String
+mimeType)
+Encodes a MIME type for use as a
+String
+native.
+static
+FlavorMap
+getDefaultFlavorMap
+()
+Returns the default FlavorMap for this thread's ClassLoader.
+List
+<
+DataFlavor
+>
+getFlavorsForNative
+(
+String
+nat)
+Returns a
+List
+of
+DataFlavor
+s to which the specified
+String
+native can be translated by the data transfer subsystem.
+Map
+<
+String
+,
+DataFlavor
+>
+getFlavorsForNatives
+(
+String
+[] natives)
+Returns a
+Map
+of the specified
+String
+natives to their
+ most preferred
+DataFlavor
+.
+List
+<
+String
+>
+getNativesForFlavor
+(
+DataFlavor
+flav)
+Returns a
+List
+of
+String
+natives to which the specified
+DataFlavor
+can be translated by the data transfer subsystem.
+Map
+<
+DataFlavor
+,
+String
+>
+getNativesForFlavors
+(
+DataFlavor
+[] flavors)
+Returns a
+Map
+of the specified
+DataFlavor
+s to their most
+ preferred
+String
+native.
+static boolean
+isJavaMIMEType
+(
+String
+str)
+Returns whether the specified
+String
+is an encoded Java MIME
+ type.
+void
+setFlavorsForNative
+(
+String
+nat,
+DataFlavor
+[] flavors)
+Discards the current mappings for the specified
+String
+native,
+ and creates new mappings to the specified
+DataFlavor
+s.
+void
+setNativesForFlavor
+(
+DataFlavor
+flav,
+String
+[] natives)
+Discards the current mappings for the specified
+DataFlavor
+and
+ all
+DataFlavor
+s equal to the specified
+DataFlavor
+, and
+ creates new mappings to the specified
+String
+natives.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Method Details
+getDefaultFlavorMap
+public static
+FlavorMap
+getDefaultFlavorMap
+()
+Returns the default FlavorMap for this thread's ClassLoader.
+Returns:
+the default FlavorMap for this thread's ClassLoader
+getNativesForFlavor
+public
+List
+<
+String
+>
+getNativesForFlavor
+(
+DataFlavor
+flav)
+Returns a
+List
+of
+String
+natives to which the specified
+DataFlavor
+can be translated by the data transfer subsystem. The
+List
+will be sorted from best native to worst. That is, the first
+ native will best reflect data in the specified flavor to the underlying
+ native platform.
+If the specified
+DataFlavor
+is previously unknown to the data
+ transfer subsystem and the data transfer subsystem is unable to translate
+ this
+DataFlavor
+to any existing native, then invoking this method
+ will establish a mapping in both directions between the specified
+DataFlavor
+and an encoded version of its MIME type as its native.
+Specified by:
+getNativesForFlavor
+in interface
+FlavorTable
+Parameters:
+flav
+- the
+DataFlavor
+whose corresponding natives should be
+         returned. If
+null
+is specified, all natives currently
+         known to the data transfer subsystem are returned in a
+         non-deterministic order.
+Returns:
+a
+java.util.List
+of
+java.lang.String
+objects
+         which are platform-specific representations of platform-specific
+         data formats
+Since:
+1.4
+See Also:
+encodeDataFlavor(java.awt.datatransfer.DataFlavor)
+getFlavorsForNative
+public
+List
+<
+DataFlavor
+>
+getFlavorsForNative
+(
+String
+nat)
+Returns a
+List
+of
+DataFlavor
+s to which the specified
+String
+native can be translated by the data transfer subsystem.
+ The
+List
+will be sorted from best
+DataFlavor
+to worst.
+ That is, the first
+DataFlavor
+will best reflect data in the
+ specified native to a Java application.
+If the specified native is previously unknown to the data transfer
+ subsystem, and that native has been properly encoded, then invoking this
+ method will establish a mapping in both directions between the specified
+ native and a
+DataFlavor
+whose MIME type is a decoded version of
+ the native.
+If the specified native is not a properly encoded native and the mappings
+ for this native have not been altered with
+setFlavorsForNative
+,
+ then the contents of the
+List
+is platform dependent, but
+null
+cannot be returned.
+Specified by:
+getFlavorsForNative
+in interface
+FlavorTable
+Parameters:
+nat
+- the native whose corresponding
+DataFlavor
+s should be
+         returned. If
+null
+is specified, all
+DataFlavor
+s
+         currently known to the data transfer subsystem are returned in a
+         non-deterministic order.
+Returns:
+a
+java.util.List
+of
+DataFlavor
+objects into which
+         platform-specific data in the specified, platform-specific native
+         can be translated
+Since:
+1.4
+See Also:
+encodeJavaMIMEType(java.lang.String)
+getNativesForFlavors
+public
+Map
+<
+DataFlavor
+,
+String
+>
+getNativesForFlavors
+(
+DataFlavor
+[] flavors)
+Returns a
+Map
+of the specified
+DataFlavor
+s to their most
+ preferred
+String
+native. Each native value will be the same as
+ the first native in the List returned by
+getNativesForFlavor
+for
+ the specified flavor.
+If a specified
+DataFlavor
+is previously unknown to the data
+ transfer subsystem, then invoking this method will establish a mapping in
+ both directions between the specified
+DataFlavor
+and an encoded
+ version of its MIME type as its native.
+Specified by:
+getNativesForFlavors
+in interface
+FlavorMap
+Parameters:
+flavors
+- an array of
+DataFlavor
+s which will be the key set
+         of the returned
+Map
+. If
+null
+is specified, a
+         mapping of all
+DataFlavor
+s known to the data transfer
+         subsystem to their most preferred
+String
+natives will be
+         returned.
+Returns:
+a
+java.util.Map
+of
+DataFlavor
+s to
+String
+natives
+See Also:
+getNativesForFlavor(java.awt.datatransfer.DataFlavor)
+encodeDataFlavor(java.awt.datatransfer.DataFlavor)
+getFlavorsForNatives
+public
+Map
+<
+String
+,
+DataFlavor
+>
+getFlavorsForNatives
+(
+String
+[] natives)
+Returns a
+Map
+of the specified
+String
+natives to their
+ most preferred
+DataFlavor
+. Each
+DataFlavor
+value will be
+ the same as the first
+DataFlavor
+in the List returned by
+getFlavorsForNative
+for the specified native.
+If a specified native is previously unknown to the data transfer
+ subsystem, and that native has been properly encoded, then invoking this
+ method will establish a mapping in both directions between the specified
+ native and a
+DataFlavor
+whose MIME type is a decoded version of
+ the native.
+Specified by:
+getFlavorsForNatives
+in interface
+FlavorMap
+Parameters:
+natives
+- an array of
+String
+s which will be the key set of
+         the returned
+Map
+. If
+null
+is specified, a mapping
+         of all supported
+String
+natives to their most preferred
+DataFlavor
+s will be returned.
+Returns:
+a
+java.util.Map
+of
+String
+natives to
+DataFlavor
+s
+See Also:
+getFlavorsForNative(java.lang.String)
+encodeJavaMIMEType(java.lang.String)
+addUnencodedNativeForFlavor
+public
+void
+addUnencodedNativeForFlavor
+(
+DataFlavor
+flav,
+String
+nat)
+Adds a mapping from the specified
+DataFlavor
+(and all
+DataFlavor
+s equal to the specified
+DataFlavor
+) to the
+ specified
+String
+native. Unlike
+getNativesForFlavor
+, the
+ mapping will only be established in one direction, and the native will
+ not be encoded. To establish a two-way mapping, call
+addFlavorForUnencodedNative
+as well. The new mapping will be of
+ lower priority than any existing mapping. This method has no effect if a
+ mapping from the specified or equal
+DataFlavor
+to the specified
+String
+native already exists.
+Parameters:
+flav
+- the
+DataFlavor
+key for the mapping
+nat
+- the
+String
+native value for the mapping
+Throws:
+NullPointerException
+- if flav or nat is
+null
+Since:
+1.4
+See Also:
+addFlavorForUnencodedNative(java.lang.String, java.awt.datatransfer.DataFlavor)
+setNativesForFlavor
+public
+void
+setNativesForFlavor
+(
+DataFlavor
+flav,
+String
+[] natives)
+Discards the current mappings for the specified
+DataFlavor
+and
+ all
+DataFlavor
+s equal to the specified
+DataFlavor
+, and
+ creates new mappings to the specified
+String
+natives. Unlike
+getNativesForFlavor
+, the mappings will only be established in one
+ direction, and the natives will not be encoded. To establish two-way
+ mappings, call
+setFlavorsForNative
+as well. The first native in
+ the array will represent the highest priority mapping. Subsequent natives
+ will represent mappings of decreasing priority.
+If the array contains several elements that reference equal
+String
+natives, this method will establish new mappings for the
+ first of those elements and ignore the rest of them.
+It is recommended that client code not reset mappings established by the
+ data transfer subsystem. This method should only be used for
+ application-level mappings.
+Parameters:
+flav
+- the
+DataFlavor
+key for the mappings
+natives
+- the
+String
+native values for the mappings
+Throws:
+NullPointerException
+- if flav or natives is
+null
+or if
+         natives contains
+null
+elements
+Since:
+1.4
+See Also:
+setFlavorsForNative(java.lang.String, java.awt.datatransfer.DataFlavor[])
+addFlavorForUnencodedNative
+public
+void
+addFlavorForUnencodedNative
+(
+String
+nat,
+DataFlavor
+flav)
+Adds a mapping from a single
+String
+native to a single
+DataFlavor
+. Unlike
+getFlavorsForNative
+, the mapping will
+ only be established in one direction, and the native will not be encoded.
+ To establish a two-way mapping, call
+addUnencodedNativeForFlavor
+as well. The new mapping will be of lower priority than any existing
+ mapping. This method has no effect if a mapping from the specified
+String
+native to the specified or equal
+DataFlavor
+already exists.
+Parameters:
+nat
+- the
+String
+native key for the mapping
+flav
+- the
+DataFlavor
+value for the mapping
+Throws:
+NullPointerException
+- if
+nat
+or
+flav
+is
+null
+Since:
+1.4
+See Also:
+addUnencodedNativeForFlavor(java.awt.datatransfer.DataFlavor, java.lang.String)
+setFlavorsForNative
+public
+void
+setFlavorsForNative
+(
+String
+nat,
+DataFlavor
+[] flavors)
+Discards the current mappings for the specified
+String
+native,
+ and creates new mappings to the specified
+DataFlavor
+s. Unlike
+getFlavorsForNative
+, the mappings will only be established in one
+ direction, and the natives need not be encoded. To establish two-way
+ mappings, call
+setNativesForFlavor
+as well. The first
+DataFlavor
+in the array will represent the highest priority
+ mapping. Subsequent
+DataFlavor
+s will represent mappings of
+ decreasing priority.
+If the array contains several elements that reference equal
+DataFlavor
+s, this method will establish new mappings for the
+ first of those elements and ignore the rest of them.
+It is recommended that client code not reset mappings established by the
+ data transfer subsystem. This method should only be used for
+ application-level mappings.
+Parameters:
+nat
+- the
+String
+native key for the mappings
+flavors
+- the
+DataFlavor
+values for the mappings
+Throws:
+NullPointerException
+- if
+nat
+or
+flavors
+is
+null
+or if
+flavors
+contains
+null
+elements
+Since:
+1.4
+See Also:
+setNativesForFlavor(java.awt.datatransfer.DataFlavor, java.lang.String[])
+encodeJavaMIMEType
+public static
+String
+encodeJavaMIMEType
+(
+String
+mimeType)
+Encodes a MIME type for use as a
+String
+native. The format of an
+ encoded representation of a MIME type is implementation-dependent. The
+ only restrictions are:
+The encoded representation is
+null
+if and only if the MIME
+     type
+String
+is
+null
+The encoded representations for two non-
+null
+MIME type
+String
+s are equal if and only if these
+String
+s are
+     equal according to
+String.equals(Object)
+The reference implementation of this method returns the specified MIME
+ type
+String
+prefixed with
+JAVA_DATAFLAVOR:
+.
+Parameters:
+mimeType
+- the MIME type to encode
+Returns:
+the encoded
+String
+, or
+null
+if
+mimeType
+is
+null
+encodeDataFlavor
+public static
+String
+encodeDataFlavor
+(
+DataFlavor
+flav)
+Encodes a
+DataFlavor
+for use as a
+String
+native. The
+ format of an encoded
+DataFlavor
+is implementation-dependent. The
+ only restrictions are:
+The encoded representation is
+null
+if and only if the
+     specified
+DataFlavor
+is
+null
+or its MIME type
+String
+is
+null
+The encoded representations for two non-
+null
+DataFlavor
+s with non-
+null
+MIME type
+String
+s
+     are equal if and only if the MIME type
+String
+s of these
+DataFlavor
+s are equal according to
+String.equals(Object)
+The reference implementation of this method returns the MIME type
+String
+of the specified
+DataFlavor
+prefixed with
+JAVA_DATAFLAVOR:
+.
+Parameters:
+flav
+- the
+DataFlavor
+to encode
+Returns:
+the encoded
+String
+, or
+null
+if
+flav
+is
+null
+or has a
+null
+MIME type
+isJavaMIMEType
+public static
+boolean
+isJavaMIMEType
+(
+String
+str)
+Returns whether the specified
+String
+is an encoded Java MIME
+ type.
+Parameters:
+str
+- the
+String
+to test
+Returns:
+true
+if the
+String
+is encoded;
+false
+otherwise
+decodeJavaMIMEType
+public static
+String
+decodeJavaMIMEType
+(
+String
+nat)
+Decodes a
+String
+native for use as a Java MIME type.
+Parameters:
+nat
+- the
+String
+to decode
+Returns:
+the decoded Java MIME type, or
+null
+if
+nat
+is not
+         an encoded
+String
+native
+decodeDataFlavor
+public static
+DataFlavor
+decodeDataFlavor
+(
+String
+nat)
+throws
+ClassNotFoundException
+Decodes a
+String
+native for use as a
+DataFlavor
+.
+Parameters:
+nat
+- the
+String
+to decode
+Returns:
+the decoded
+DataFlavor
+, or
+null
+if
+nat
+is
+         not an encoded
+String
+native
+Throws:
+ClassNotFoundException
+- if the class of the data flavor is not
+         loaded
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

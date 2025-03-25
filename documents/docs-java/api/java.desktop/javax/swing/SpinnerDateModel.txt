@@ -1,0 +1,877 @@
+SpinnerDateModel (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing
+Class SpinnerDateModel
+java.lang.Object
+javax.swing.AbstractSpinnerModel
+javax.swing.SpinnerDateModel
+All Implemented Interfaces:
+Serializable
+,
+SpinnerModel
+public class
+SpinnerDateModel
+extends
+AbstractSpinnerModel
+implements
+Serializable
+A
+SpinnerModel
+for sequences of
+Date
+s.
+ The upper and lower bounds of the sequence are defined by properties called
+start
+and
+end
+and the size
+ of the increase or decrease computed by the
+nextValue
+and
+previousValue
+methods is defined by a property
+ called
+calendarField
+.  The
+start
+and
+end
+properties can be
+null
+to
+ indicate that the sequence has no lower or upper limit.
+The value of the
+calendarField
+property must be one of the
+java.util.Calendar
+constants that specify a field
+ within a
+Calendar
+.  The
+getNextValue
+and
+getPreviousValue
+methods change the date forward or backwards by this amount.
+ For example, if
+calendarField
+is
+Calendar.DAY_OF_WEEK
+,
+ then
+nextValue
+produces a
+Date
+that's 24
+ hours after the current
+value
+, and
+previousValue
+produces a
+Date
+that's 24 hours earlier.
+The legal values for
+calendarField
+are:
+Calendar.ERA
+Calendar.YEAR
+Calendar.MONTH
+Calendar.WEEK_OF_YEAR
+Calendar.WEEK_OF_MONTH
+Calendar.DAY_OF_MONTH
+Calendar.DAY_OF_YEAR
+Calendar.DAY_OF_WEEK
+Calendar.DAY_OF_WEEK_IN_MONTH
+Calendar.AM_PM
+Calendar.HOUR
+Calendar.HOUR_OF_DAY
+Calendar.MINUTE
+Calendar.SECOND
+Calendar.MILLISECOND
+However some UIs may set the calendarField before committing the edit
+ to spin the field under the cursor. If you only want one field to
+ spin you can subclass and ignore the setCalendarField calls.
+This model inherits a
+ChangeListener
+.  The
+ChangeListeners
+are notified whenever the models
+value
+,
+calendarField
+,
+start
+, or
+end
+properties changes.
+Since:
+1.4
+See Also:
+JSpinner
+SpinnerModel
+AbstractSpinnerModel
+SpinnerListModel
+SpinnerNumberModel
+Calendar.add(int, int)
+Field Summary
+Fields declared in class javax.swing.
+AbstractSpinnerModel
+listenerList
+Constructor Summary
+Constructors
+Constructor
+Description
+SpinnerDateModel
+()
+Constructs a
+SpinnerDateModel
+whose initial
+value
+is the current date,
+calendarField
+is equal to
+Calendar.DAY_OF_MONTH
+, and for which
+ there are no
+start
+/
+end
+limits.
+SpinnerDateModel
+(
+Date
+value,
+Comparable
+<
+Date
+> start,
+Comparable
+<
+Date
+> end,
+ int calendarField)
+Creates a
+SpinnerDateModel
+that represents a sequence of dates
+ between
+start
+and
+end
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+int
+getCalendarField
+()
+Returns the
+Calendar
+field that is added to or subtracted from
+ by the
+nextValue
+and
+previousValue
+methods.
+Date
+getDate
+()
+Returns the current element in this sequence of
+Date
+s.
+Comparable
+<
+Date
+>
+getEnd
+()
+Returns the last
+Date
+in the sequence.
+Object
+getNextValue
+()
+Returns the next
+Date
+in the sequence, or
+null
+if
+ the next date is after
+end
+.
+Object
+getPreviousValue
+()
+Returns the previous
+Date
+in the sequence, or
+null
+if the previous date is before
+start
+.
+Comparable
+<
+Date
+>
+getStart
+()
+Returns the first
+Date
+in the sequence.
+Object
+getValue
+()
+Returns the current element in this sequence of
+Date
+s.
+void
+setCalendarField
+(int calendarField)
+Changes the size of the date value change computed
+ by the
+nextValue
+and
+previousValue
+methods.
+void
+setEnd
+(
+Comparable
+<
+Date
+> end)
+Changes the upper limit for
+Date
+s in this sequence.
+void
+setStart
+(
+Comparable
+<
+Date
+> start)
+Changes the lower limit for Dates in this sequence.
+void
+setValue
+(
+Object
+value)
+Sets the current
+Date
+for this sequence.
+Methods declared in class javax.swing.
+AbstractSpinnerModel
+addChangeListener
+,
+fireStateChanged
+,
+getChangeListeners
+,
+getListeners
+,
+removeChangeListener
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+SpinnerDateModel
+public
+SpinnerDateModel
+(
+Date
+value,
+Comparable
+<
+Date
+> start,
+Comparable
+<
+Date
+> end,
+ int calendarField)
+Creates a
+SpinnerDateModel
+that represents a sequence of dates
+ between
+start
+and
+end
+.  The
+nextValue
+and
+previousValue
+methods
+ compute elements of the sequence by advancing or reversing
+ the current date
+value
+by the
+calendarField
+time unit.  For a precise description
+ of what it means to increment or decrement a
+Calendar
+field
+, see the
+add
+method in
+java.util.Calendar
+.
+The
+start
+and
+end
+parameters can be
+null
+to indicate that the range doesn't have an
+ upper or lower bound.  If
+value
+or
+calendarField
+is
+null
+, or if both
+start
+and
+end
+are specified and
+minimum > maximum
+then an
+IllegalArgumentException
+is thrown.
+ Similarly if
+(minimum <= value <= maximum)
+is false,
+ an IllegalArgumentException is thrown.
+Parameters:
+value
+- the current (non
+null
+) value of the model
+start
+- the first date in the sequence or
+null
+end
+- the last date in the sequence or
+null
+calendarField
+- one of
+Calendar.ERA
+Calendar.YEAR
+Calendar.MONTH
+Calendar.WEEK_OF_YEAR
+Calendar.WEEK_OF_MONTH
+Calendar.DAY_OF_MONTH
+Calendar.DAY_OF_YEAR
+Calendar.DAY_OF_WEEK
+Calendar.DAY_OF_WEEK_IN_MONTH
+Calendar.AM_PM
+Calendar.HOUR
+Calendar.HOUR_OF_DAY
+Calendar.MINUTE
+Calendar.SECOND
+Calendar.MILLISECOND
+Throws:
+IllegalArgumentException
+- if
+value
+or
+calendarField
+are
+null
+,
+    if
+calendarField
+isn't valid,
+    or if the following expression is
+    false:
+(start <= value <= end)
+.
+See Also:
+Calendar.add(int, int)
+setValue(java.lang.Object)
+setStart(java.lang.Comparable<java.util.Date>)
+setEnd(java.lang.Comparable<java.util.Date>)
+setCalendarField(int)
+SpinnerDateModel
+public
+SpinnerDateModel
+()
+Constructs a
+SpinnerDateModel
+whose initial
+value
+is the current date,
+calendarField
+is equal to
+Calendar.DAY_OF_MONTH
+, and for which
+ there are no
+start
+/
+end
+limits.
+Method Details
+setStart
+public
+void
+setStart
+(
+Comparable
+<
+Date
+> start)
+Changes the lower limit for Dates in this sequence.
+ If
+start
+is
+null
+,
+ then there is no lower limit.  No bounds checking is done here:
+ the new start value may invalidate the
+(start <= value <= end)
+invariant enforced by the constructors.  This is to simplify updating
+ the model.  Naturally one should ensure that the invariant is true
+ before calling the
+nextValue
+,
+previousValue
+,
+ or
+setValue
+methods.
+Typically this property is a
+Date
+however it's possible to use
+ a
+Comparable
+with a
+compareTo
+method for Dates.
+ For example
+start
+might be an instance of a class like this:
+MyStartDate implements Comparable {
+     long t = 12345;
+     public int compareTo(Date d) {
+            return (t < d.getTime() ? -1 : (t == d.getTime() ? 0 : 1));
+     }
+     public int compareTo(Object o) {
+            return compareTo((Date)o);
+     }
+ }
+Note that the above example will throw a
+ClassCastException
+if the
+Object
+passed to
+compareTo(Object)
+is not a
+Date
+.
+This method fires a
+ChangeEvent
+if the
+start
+has changed.
+Parameters:
+start
+- defines the first date in the sequence
+See Also:
+getStart()
+setEnd(java.lang.Comparable<java.util.Date>)
+AbstractSpinnerModel.addChangeListener(javax.swing.event.ChangeListener)
+getStart
+public
+Comparable
+<
+Date
+>
+getStart
+()
+Returns the first
+Date
+in the sequence.
+Returns:
+the value of the
+start
+property
+See Also:
+setStart(java.lang.Comparable<java.util.Date>)
+setEnd
+public
+void
+setEnd
+(
+Comparable
+<
+Date
+> end)
+Changes the upper limit for
+Date
+s in this sequence.
+ If
+start
+is
+null
+, then there is no upper
+ limit.  No bounds checking is done here: the new
+ start value may invalidate the
+(start <= value <= end)
+invariant enforced by the constructors.  This is to simplify updating
+ the model.  Naturally, one should ensure that the invariant is true
+ before calling the
+nextValue
+,
+previousValue
+,
+ or
+setValue
+methods.
+Typically this property is a
+Date
+however it's possible to use
+Comparable
+with a
+compareTo
+method for
+Date
+s.  See
+setStart
+for an example.
+This method fires a
+ChangeEvent
+if the
+end
+has changed.
+Parameters:
+end
+- defines the last date in the sequence
+See Also:
+getEnd()
+setStart(java.lang.Comparable<java.util.Date>)
+AbstractSpinnerModel.addChangeListener(javax.swing.event.ChangeListener)
+getEnd
+public
+Comparable
+<
+Date
+>
+getEnd
+()
+Returns the last
+Date
+in the sequence.
+Returns:
+the value of the
+end
+property
+See Also:
+setEnd(java.lang.Comparable<java.util.Date>)
+setCalendarField
+public
+void
+setCalendarField
+(int calendarField)
+Changes the size of the date value change computed
+ by the
+nextValue
+and
+previousValue
+methods.
+ The
+calendarField
+parameter must be one of the
+Calendar
+field constants like
+Calendar.MONTH
+or
+Calendar.MINUTE
+.
+ The
+nextValue
+and
+previousValue
+methods
+ simply move the specified
+Calendar
+field forward or backward
+ by one unit with the
+Calendar.add
+method.
+ You should use this method with care as some UIs may set the
+ calendarField before committing the edit to spin the field under
+ the cursor. If you only want one field to spin you can subclass
+ and ignore the setCalendarField calls.
+Parameters:
+calendarField
+- one of
+Calendar.ERA
+Calendar.YEAR
+Calendar.MONTH
+Calendar.WEEK_OF_YEAR
+Calendar.WEEK_OF_MONTH
+Calendar.DAY_OF_MONTH
+Calendar.DAY_OF_YEAR
+Calendar.DAY_OF_WEEK
+Calendar.DAY_OF_WEEK_IN_MONTH
+Calendar.AM_PM
+Calendar.HOUR
+Calendar.HOUR_OF_DAY
+Calendar.MINUTE
+Calendar.SECOND
+Calendar.MILLISECOND
+This method fires a
+ChangeEvent
+if the
+calendarField
+has changed.
+See Also:
+getCalendarField()
+getNextValue()
+getPreviousValue()
+Calendar.add(int, int)
+AbstractSpinnerModel.addChangeListener(javax.swing.event.ChangeListener)
+getCalendarField
+public
+int
+getCalendarField
+()
+Returns the
+Calendar
+field that is added to or subtracted from
+ by the
+nextValue
+and
+previousValue
+methods.
+Returns:
+the value of the
+calendarField
+property
+See Also:
+setCalendarField(int)
+getNextValue
+public
+Object
+getNextValue
+()
+Returns the next
+Date
+in the sequence, or
+null
+if
+ the next date is after
+end
+.
+Specified by:
+getNextValue
+in interface
+SpinnerModel
+Returns:
+the next
+Date
+in the sequence, or
+null
+if
+     the next date is after
+end
+.
+See Also:
+SpinnerModel.getNextValue()
+getPreviousValue()
+setCalendarField(int)
+getPreviousValue
+public
+Object
+getPreviousValue
+()
+Returns the previous
+Date
+in the sequence, or
+null
+if the previous date is before
+start
+.
+Specified by:
+getPreviousValue
+in interface
+SpinnerModel
+Returns:
+the previous
+Date
+in the sequence, or
+null
+if the previous date
+     is before
+start
+See Also:
+SpinnerModel.getPreviousValue()
+getNextValue()
+setCalendarField(int)
+getDate
+public
+Date
+getDate
+()
+Returns the current element in this sequence of
+Date
+s.
+ This method is equivalent to
+(Date)getValue
+.
+Returns:
+the
+value
+property
+See Also:
+setValue(java.lang.Object)
+getValue
+public
+Object
+getValue
+()
+Returns the current element in this sequence of
+Date
+s.
+Specified by:
+getValue
+in interface
+SpinnerModel
+Returns:
+the
+value
+property
+See Also:
+setValue(java.lang.Object)
+getDate()
+setValue
+public
+void
+setValue
+(
+Object
+value)
+Sets the current
+Date
+for this sequence.
+ If
+value
+is
+null
+,
+ an
+IllegalArgumentException
+is thrown.  No bounds
+ checking is done here:
+ the new value may invalidate the
+(start <= value < end)
+invariant enforced by the constructors.  Naturally, one should ensure
+ that the
+(start <= value <= maximum)
+invariant is true
+ before calling the
+nextValue
+,
+previousValue
+,
+ or
+setValue
+methods.
+This method fires a
+ChangeEvent
+if the
+value
+has changed.
+Specified by:
+setValue
+in interface
+SpinnerModel
+Parameters:
+value
+- the current (non
+null
+)
+Date
+for this sequence
+Throws:
+IllegalArgumentException
+- if value is
+null
+or not a
+Date
+See Also:
+getDate()
+getValue()
+AbstractSpinnerModel.addChangeListener(javax.swing.event.ChangeListener)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

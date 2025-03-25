@@ -1,0 +1,1433 @@
+SSLSocket (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+javax.net.ssl
+Class SSLSocket
+java.lang.Object
+java.net.Socket
+javax.net.ssl.SSLSocket
+All Implemented Interfaces:
+Closeable
+,
+AutoCloseable
+public abstract class
+SSLSocket
+extends
+Socket
+This class extends
+Socket
+and provides secure
+ sockets using protocols such as the "Secure
+ Sockets Layer" (SSL) or IETF "Transport Layer Security" (TLS) protocols.
+Such sockets are normal stream sockets, but they
+ add a layer of security protections over the underlying network transport
+ protocol, such as TCP.  Those protections include:
+Integrity Protection
+.  SSL protects against
+      modification of messages by an active wiretapper.
+Authentication
+.  In most modes, SSL provides
+      peer authentication.  Servers are usually authenticated,
+      and clients may be authenticated as requested by servers.
+Confidentiality (Privacy Protection)
+.  In most
+      modes, SSL encrypts data being sent between client and server.
+      This protects the confidentiality of data, so that passive
+      wiretappers won't see sensitive data such as financial
+      information or personal information of many kinds.
+These kinds of protection are specified by a "cipher suite", which
+ is a combination of cryptographic algorithms used by a given SSL connection.
+ During the negotiation process, the two endpoints must agree on
+ a ciphersuite that is available in both environments.
+ If there is no such suite in common, no SSL connection can
+ be established, and no data can be exchanged.
+The cipher suite used is established by a negotiation process
+ called "handshaking".  The goal of this
+ process is to create or rejoin a "session", which may protect many
+ connections over time.  After handshaking has completed, you can access
+ session attributes by using the
+getSession
+method.
+ The initial handshake on this connection can be initiated in
+ one of three ways:
+calling
+startHandshake
+which explicitly
+              begins handshakes, or
+any attempt to read or write application data on
+              this socket causes an implicit handshake, or
+a call to
+getSession
+tries to set up a session
+              if there is no currently valid session, and
+              an implicit handshake is done.
+If handshaking fails for any reason, the
+SSLSocket
+is closed, and no further communications can be done.
+There are two groups of cipher suites which you will need to know
+ about when managing cipher suites:
+Supported
+cipher suites:  all the suites which are
+      supported by the SSL implementation.  This list is reported
+      using
+getSupportedCipherSuites
+.
+Enabled
+cipher suites, which may be fewer
+      than the full set of supported suites.  This group is
+      set using the
+setEnabledCipherSuites
+method, and
+      queried using the
+getEnabledCipherSuites
+method.
+      Initially, a default set of cipher suites will be enabled on
+      a new socket that represents the minimum suggested configuration.
+Implementation defaults require that only cipher
+ suites which authenticate servers and provide confidentiality
+ be enabled by default.
+ Only if both sides explicitly agree to unauthenticated and/or
+ non-private (unencrypted) communications will such a ciphersuite be
+ selected.
+When an
+SSLSocket
+is first created, no handshaking
+ is done so that applications may first set their communication
+ preferences:  what cipher suites to use, whether the socket should be
+ in client or server mode, etc.
+ However, security is always provided by the time that application data
+ is sent over the connection.
+You may register to receive event notification of handshake
+ completion.  This involves
+ the use of two additional classes.
+HandshakeCompletedEvent
+objects are passed to
+HandshakeCompletedListener
+instances,
+ which are registered by users of this API.
+
+ An
+SSLSocket
+is created by
+SSLSocketFactory
+,
+ or by
+accept
+ing a connection from a
+SSLServerSocket
+.
+A SSL socket must choose to operate in the client or server mode.
+ This will determine who begins the handshaking process, as well
+ as which messages should be sent by each party.  Each
+ connection must have one client and one server, or handshaking
+ will not progress properly.  Once the initial handshaking has started, a
+ socket can not switch between client and server modes, even when
+ performing renegotiations.
+The ApplicationProtocol
+String
+values returned by the methods
+ in this class are in the network byte representation sent by the peer.
+ The bytes could be directly compared, or converted to its Unicode
+String
+format for comparison.
+String networkString = sslSocket.getHandshakeApplicationProtocol();
+     byte[] bytes = networkString.getBytes(StandardCharsets.ISO_8859_1);
+
+     //
+     // Match using bytes:
+     //
+     //   "http/1.1"                       (7-bit ASCII values same in UTF-8)
+     //   MEETEI MAYEK LETTERS "HUK UN I"  (Unicode 0xabcd->0xabcf)
+     //
+     String HTTP1_1 = "http/1.1";
+     byte[] HTTP1_1_BYTES = HTTP1_1.getBytes(StandardCharsets.UTF_8);
+
+     byte[] HUK_UN_I_BYTES = new byte[] {
+         (byte) 0xab, (byte) 0xcd,
+         (byte) 0xab, (byte) 0xce,
+         (byte) 0xab, (byte) 0xcf};
+
+     if ((Arrays.compare(bytes, HTTP1_1_BYTES) == 0 )
+             || Arrays.compare(bytes, HUK_UN_I_BYTES) == 0) {
+        ...
+     }
+
+     //
+     // Alternatively match using string.equals() if we know the ALPN value
+     // was encoded from a
+String
+using a certain character set,
+     // for example
+UTF-8
+.  The ALPN value must first be properly
+     // decoded to a Unicode
+String
+before use.
+     //
+     String unicodeString = new String(bytes, StandardCharsets.UTF_8);
+     if (unicodeString.equals(HTTP1_1)
+             || unicodeString.equals("\uabcd\uabce\uabcf")) {
+         ...
+     }
+API Note:
+When the connection is no longer needed, the client and server
+ applications should each close both sides of their respective connection.
+ This can be done either in one shot by calling
+Socket.close()
+,
+ or by closing each side individually using
+Socket.shutdownOutput()
+/
+Socket.shutdownInput()
+which is
+ useful for protocol versions that can support half-closed connections.
+Note that in some cases, closing the input stream may depend on the
+ peer's output stream being closed first.  If the connection is not closed
+ in an orderly manner (for example
+Socket.shutdownInput()
+is called
+ before the peer's write closure notification has been received), exceptions
+ may be raised to indicate that an error has occurred.
+Once an
+SSLSocket
+is closed, it is not reusable: a new
+SSLSocket
+must be created.
+Since:
+1.4
+See Also:
+Socket
+SSLServerSocket
+SSLSocketFactory
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+SSLSocket
+()
+Used only by subclasses.
+protected
+SSLSocket
+(
+String
+host,
+ int port)
+Used only by subclasses.
+protected
+SSLSocket
+(
+String
+host,
+ int port,
+InetAddress
+clientAddress,
+ int clientPort)
+Used only by subclasses.
+protected
+SSLSocket
+(
+InetAddress
+address,
+ int port)
+Used only by subclasses.
+protected
+SSLSocket
+(
+InetAddress
+address,
+ int port,
+InetAddress
+clientAddress,
+ int clientPort)
+Used only by subclasses.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+abstract void
+addHandshakeCompletedListener
+(
+HandshakeCompletedListener
+listener)
+Registers an event listener to receive notifications that an
+ SSL handshake has completed on this connection.
+String
+getApplicationProtocol
+()
+Returns the most recent application protocol value negotiated for this
+ connection.
+abstract
+String
+[]
+getEnabledCipherSuites
+()
+Returns the names of the SSL cipher suites which are currently
+ enabled for use on this connection.
+abstract
+String
+[]
+getEnabledProtocols
+()
+Returns the names of the protocol versions which are currently
+ enabled for use on this connection.
+abstract boolean
+getEnableSessionCreation
+()
+Returns true if new SSL sessions may be established by this socket.
+String
+getHandshakeApplicationProtocol
+()
+Returns the application protocol value negotiated on a SSL/TLS
+ handshake currently in progress.
+BiFunction
+<
+SSLSocket
+,
+List
+<
+String
+>,
+String
+>
+getHandshakeApplicationProtocolSelector
+()
+Retrieves the callback function that selects an application protocol
+ value during a SSL/TLS/DTLS handshake.
+SSLSession
+getHandshakeSession
+()
+Returns the
+SSLSession
+being constructed during a SSL/TLS
+ handshake.
+abstract boolean
+getNeedClientAuth
+()
+Returns true if the socket will
+require
+client authentication.
+abstract
+SSLSession
+getSession
+()
+Returns the SSL Session in use by this connection.
+SSLParameters
+getSSLParameters
+()
+Returns the SSLParameters in effect for this SSLSocket.
+abstract
+String
+[]
+getSupportedCipherSuites
+()
+Returns the names of the cipher suites which could be enabled for use
+ on this connection.
+abstract
+String
+[]
+getSupportedProtocols
+()
+Returns the names of the protocols which could be enabled for use
+ on an SSL connection.
+abstract boolean
+getUseClientMode
+()
+Returns true if the socket is set to use client mode when
+ handshaking.
+abstract boolean
+getWantClientAuth
+()
+Returns true if the socket will
+request
+client authentication.
+abstract void
+removeHandshakeCompletedListener
+(
+HandshakeCompletedListener
+listener)
+Removes a previously registered handshake completion listener.
+abstract void
+setEnabledCipherSuites
+(
+String
+[] suites)
+Sets the cipher suites enabled for use on this connection.
+abstract void
+setEnabledProtocols
+(
+String
+[] protocols)
+Sets the protocol versions enabled for use on this connection.
+abstract void
+setEnableSessionCreation
+(boolean flag)
+Controls whether new SSL sessions may be established by this socket.
+void
+setHandshakeApplicationProtocolSelector
+(
+BiFunction
+<
+SSLSocket
+,
+List
+<
+String
+>,
+String
+> selector)
+Registers a callback function that selects an application protocol
+ value for a SSL/TLS/DTLS handshake.
+abstract void
+setNeedClientAuth
+(boolean need)
+Configures the socket to
+require
+client authentication.
+void
+setSSLParameters
+(
+SSLParameters
+params)
+Applies SSLParameters to this socket.
+abstract void
+setUseClientMode
+(boolean mode)
+Configures the socket to use client (or server) mode when
+ handshaking.
+abstract void
+setWantClientAuth
+(boolean want)
+Configures the socket to
+request
+client authentication.
+abstract void
+startHandshake
+()
+Starts an SSL handshake on this connection.
+Methods declared in class java.net.
+Socket
+bind
+,
+close
+,
+connect
+,
+connect
+,
+getChannel
+,
+getInetAddress
+,
+getInputStream
+,
+getKeepAlive
+,
+getLocalAddress
+,
+getLocalPort
+,
+getLocalSocketAddress
+,
+getOOBInline
+,
+getOption
+,
+getOutputStream
+,
+getPort
+,
+getReceiveBufferSize
+,
+getRemoteSocketAddress
+,
+getReuseAddress
+,
+getSendBufferSize
+,
+getSoLinger
+,
+getSoTimeout
+,
+getTcpNoDelay
+,
+getTrafficClass
+,
+isBound
+,
+isClosed
+,
+isConnected
+,
+isInputShutdown
+,
+isOutputShutdown
+,
+sendUrgentData
+,
+setKeepAlive
+,
+setOOBInline
+,
+setOption
+,
+setPerformancePreferences
+,
+setReceiveBufferSize
+,
+setReuseAddress
+,
+setSendBufferSize
+,
+setSocketImplFactory
+,
+setSoLinger
+,
+setSoTimeout
+,
+setTcpNoDelay
+,
+setTrafficClass
+,
+shutdownInput
+,
+shutdownOutput
+,
+supportedOptions
+,
+toString
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+SSLSocket
+protected
+SSLSocket
+()
+Used only by subclasses.
+ Constructs an uninitialized, unconnected TCP socket.
+SSLSocket
+protected
+SSLSocket
+(
+String
+host,
+ int port)
+throws
+IOException
+,
+UnknownHostException
+Used only by subclasses.
+ Constructs a TCP connection to a named host at a specified port.
+ This acts as the SSL client.
+If there is a security manager, its
+checkConnect
+method is called with the host address and
+port
+as its arguments. This could result in a SecurityException.
+Parameters:
+host
+- name of the host with which to connect, or
+null
+for the loopback address.
+port
+- number of the server's port
+Throws:
+IOException
+- if an I/O error occurs when creating the socket
+SecurityException
+- if a security manager exists and its
+checkConnect
+method doesn't allow the operation.
+UnknownHostException
+- if the host is not known
+IllegalArgumentException
+- if the port parameter is outside the
+         specified range of valid port values, which is between 0 and
+         65535, inclusive.
+See Also:
+SecurityManager.checkConnect(java.lang.String, int)
+SSLSocket
+protected
+SSLSocket
+(
+InetAddress
+address,
+ int port)
+throws
+IOException
+Used only by subclasses.
+ Constructs a TCP connection to a server at a specified address
+ and port.  This acts as the SSL client.
+If there is a security manager, its
+checkConnect
+method is called with the host address and
+port
+as its arguments. This could result in a SecurityException.
+Parameters:
+address
+- the server's host
+port
+- its port
+Throws:
+IOException
+- if an I/O error occurs when creating the socket
+SecurityException
+- if a security manager exists and its
+checkConnect
+method doesn't allow the operation.
+IllegalArgumentException
+- if the port parameter is outside the
+         specified range of valid port values, which is between 0 and
+         65535, inclusive.
+NullPointerException
+- if
+address
+is null.
+See Also:
+SecurityManager.checkConnect(java.lang.String, int)
+SSLSocket
+protected
+SSLSocket
+(
+String
+host,
+ int port,
+InetAddress
+clientAddress,
+ int clientPort)
+throws
+IOException
+,
+UnknownHostException
+Used only by subclasses.
+ Constructs an SSL connection to a named host at a specified port,
+ binding the client side of the connection a given address and port.
+ This acts as the SSL client.
+If there is a security manager, its
+checkConnect
+method is called with the host address and
+port
+as its arguments. This could result in a SecurityException.
+Parameters:
+host
+- name of the host with which to connect, or
+null
+for the loopback address.
+port
+- number of the server's port
+clientAddress
+- the client's address the socket is bound to, or
+null
+for the
+anyLocal
+address.
+clientPort
+- the client's port the socket is bound to, or
+zero
+for a system selected free port.
+Throws:
+IOException
+- if an I/O error occurs when creating the socket
+SecurityException
+- if a security manager exists and its
+checkConnect
+method doesn't allow the operation.
+UnknownHostException
+- if the host is not known
+IllegalArgumentException
+- if the port parameter or clientPort
+         parameter is outside the specified range of valid port values,
+         which is between 0 and 65535, inclusive.
+See Also:
+SecurityManager.checkConnect(java.lang.String, int)
+SSLSocket
+protected
+SSLSocket
+(
+InetAddress
+address,
+ int port,
+InetAddress
+clientAddress,
+ int clientPort)
+throws
+IOException
+Used only by subclasses.
+ Constructs an SSL connection to a server at a specified address
+ and TCP port, binding the client side of the connection a given
+ address and port.  This acts as the SSL client.
+If there is a security manager, its
+checkConnect
+method is called with the host address and
+port
+as its arguments. This could result in a SecurityException.
+Parameters:
+address
+- the server's host
+port
+- its port
+clientAddress
+- the client's address the socket is bound to, or
+null
+for the
+anyLocal
+address.
+clientPort
+- the client's port the socket is bound to, or
+zero
+for a system selected free port.
+Throws:
+IOException
+- if an I/O error occurs when creating the socket
+SecurityException
+- if a security manager exists and its
+checkConnect
+method doesn't allow the operation.
+IllegalArgumentException
+- if the port parameter or clientPort
+         parameter is outside the specified range of valid port values,
+         which is between 0 and 65535, inclusive.
+NullPointerException
+- if
+address
+is null.
+See Also:
+SecurityManager.checkConnect(java.lang.String, int)
+Method Details
+getSupportedCipherSuites
+public abstract
+String
+[]
+getSupportedCipherSuites
+()
+Returns the names of the cipher suites which could be enabled for use
+ on this connection.  Normally, only a subset of these will actually
+ be enabled by default, since this list may include cipher suites which
+ do not meet quality of service requirements for those defaults.  Such
+ cipher suites might be useful in specialized applications.
+The returned array includes cipher suites from the list of standard
+ cipher suite names in the
+JSSE Cipher Suite Names
+section of the Java Security Standard
+ Algorithm Names Specification, and may also include other cipher
+ suites that the provider supports.
+Returns:
+an array of cipher suite names
+See Also:
+getEnabledCipherSuites()
+setEnabledCipherSuites(String [])
+getEnabledCipherSuites
+public abstract
+String
+[]
+getEnabledCipherSuites
+()
+Returns the names of the SSL cipher suites which are currently
+ enabled for use on this connection.  When an SSLSocket is first
+ created, all enabled cipher suites support a minimum quality of
+ service.  Thus, in some environments this value might be empty.
+Note that even if a suite is enabled, it may never be used. This
+ can occur if the peer does not support it, or its use is restricted,
+ or the requisite certificates (and private keys) for the suite are
+ not available, or an anonymous suite is enabled but authentication
+ is required.
+The returned array includes cipher suites from the list of standard
+ cipher suite names in the
+JSSE Cipher Suite Names
+section of the Java Security Standard
+ Algorithm Names Specification, and may also include other cipher
+ suites that the provider supports.
+Returns:
+an array of cipher suite names
+See Also:
+getSupportedCipherSuites()
+setEnabledCipherSuites(String [])
+setEnabledCipherSuites
+public abstract
+void
+setEnabledCipherSuites
+(
+String
+[] suites)
+Sets the cipher suites enabled for use on this connection.
+Each cipher suite in the
+suites
+parameter must have
+ been listed by getSupportedCipherSuites(), or the method will
+ fail.  Following a successful call to this method, only suites
+ listed in the
+suites
+parameter are enabled for use.
+Note that the standard list of cipher suite names may be found in the
+JSSE Cipher Suite Names
+section of the Java Security Standard
+ Algorithm Names Specification. Providers may support cipher suite
+ names not found in this list or might not use the recommended name
+ for a certain cipher suite.
+See
+getEnabledCipherSuites()
+for more information
+ on why a specific ciphersuite may never be used on a connection.
+Parameters:
+suites
+- Names of all the cipher suites to enable
+Throws:
+IllegalArgumentException
+- when one or more of the ciphers
+          named by the parameter is not supported, or when the
+          parameter is null.
+See Also:
+getSupportedCipherSuites()
+getEnabledCipherSuites()
+getSupportedProtocols
+public abstract
+String
+[]
+getSupportedProtocols
+()
+Returns the names of the protocols which could be enabled for use
+ on an SSL connection.
+Returns:
+an array of protocols supported
+getEnabledProtocols
+public abstract
+String
+[]
+getEnabledProtocols
+()
+Returns the names of the protocol versions which are currently
+ enabled for use on this connection.
+Note that even if a protocol is enabled, it may never be used.
+ This can occur if the peer does not support the protocol, or its
+ use is restricted, or there are no enabled cipher suites supported
+ by the protocol.
+Returns:
+an array of protocols
+See Also:
+setEnabledProtocols(String [])
+setEnabledProtocols
+public abstract
+void
+setEnabledProtocols
+(
+String
+[] protocols)
+Sets the protocol versions enabled for use on this connection.
+The protocols must have been listed by
+getSupportedProtocols()
+as being supported.
+ Following a successful call to this method, only protocols listed
+ in the
+protocols
+parameter are enabled for use.
+Parameters:
+protocols
+- Names of all the protocols to enable.
+Throws:
+IllegalArgumentException
+- when one or more of
+            the protocols named by the parameter is not supported or
+            when the protocols parameter is null.
+See Also:
+getEnabledProtocols()
+getSession
+public abstract
+SSLSession
+getSession
+()
+Returns the SSL Session in use by this connection.  These can
+ be long-lived, and frequently correspond to an entire login session
+ for some user.  The session specifies a particular cipher suite
+ which is being actively used by all connections in that session,
+ as well as the identities of the session's client and server.
+This method will initiate the initial handshake if
+ necessary and then block until the handshake has been
+ established.
+If an error occurs during the initial handshake, this method
+ returns an invalid session object which reports an invalid
+ cipher suite of "SSL_NULL_WITH_NULL_NULL".
+Returns:
+the
+SSLSession
+getHandshakeSession
+public
+SSLSession
+getHandshakeSession
+()
+Returns the
+SSLSession
+being constructed during a SSL/TLS
+ handshake.
+TLS protocols may negotiate parameters that are needed when using
+ an instance of this class, but before the
+SSLSession
+has
+ been completely initialized and made available via
+getSession
+.
+ For example, the list of valid signature algorithms may restrict
+ the type of certificates that can be used during TrustManager
+ decisions, or the maximum TLS fragment packet sizes can be
+ resized to better support the network environment.
+This method provides early access to the
+SSLSession
+being
+ constructed.  Depending on how far the handshake has progressed,
+ some data may not yet be available for use.  For example, if a
+ remote server will be sending a Certificate chain, but that chain
+ has yet not been processed, the
+getPeerCertificates
+method of
+SSLSession
+will throw a
+ SSLPeerUnverifiedException.  Once that chain has been processed,
+getPeerCertificates
+will return the proper value.
+Unlike
+getSession()
+, this method does not initiate the
+ initial handshake and does not block until handshaking is
+ complete.
+Returns:
+null if this instance is not currently handshaking, or
+         if the current handshake has not progressed far enough to
+         create a basic SSLSession.  Otherwise, this method returns the
+SSLSession
+currently being negotiated.
+Throws:
+UnsupportedOperationException
+- if the underlying provider
+         does not implement the operation.
+Since:
+1.7
+See Also:
+SSLEngine
+SSLSession
+ExtendedSSLSession
+X509ExtendedKeyManager
+X509ExtendedTrustManager
+addHandshakeCompletedListener
+public abstract
+void
+addHandshakeCompletedListener
+(
+HandshakeCompletedListener
+listener)
+Registers an event listener to receive notifications that an
+ SSL handshake has completed on this connection.
+Parameters:
+listener
+- the HandShake Completed event listener
+Throws:
+IllegalArgumentException
+- if the argument is null.
+See Also:
+startHandshake()
+removeHandshakeCompletedListener(HandshakeCompletedListener)
+removeHandshakeCompletedListener
+public abstract
+void
+removeHandshakeCompletedListener
+(
+HandshakeCompletedListener
+listener)
+Removes a previously registered handshake completion listener.
+Parameters:
+listener
+- the HandShake Completed event listener
+Throws:
+IllegalArgumentException
+- if the listener is not registered,
+ or the argument is null.
+See Also:
+addHandshakeCompletedListener(HandshakeCompletedListener)
+startHandshake
+public abstract
+void
+startHandshake
+()
+                             throws
+IOException
+Starts an SSL handshake on this connection.  Common reasons include
+ a need to use new encryption keys, to change cipher suites, or to
+ initiate a new session.  To force complete reauthentication, the
+ current session could be invalidated before starting this handshake.
+If data has already been sent on the connection, it continues
+ to flow during this handshake.  When the handshake completes, this
+ will be signaled with an event.
+
+ This method is synchronous for the initial handshake on a connection
+ and returns when the negotiated handshake is complete. Some
+ protocols may not support multiple handshakes on an existing socket
+ and may throw an IOException.
+Throws:
+IOException
+- on a network level error
+See Also:
+addHandshakeCompletedListener(HandshakeCompletedListener)
+setUseClientMode
+public abstract
+void
+setUseClientMode
+(boolean mode)
+Configures the socket to use client (or server) mode when
+ handshaking.
+This method must be called before any handshaking occurs.
+ Once handshaking has begun, the mode can not be reset for the
+ life of this socket.
+Servers normally authenticate themselves, and clients
+ are not required to do so.
+Parameters:
+mode
+- true if the socket should start its handshaking
+          in "client" mode
+Throws:
+IllegalArgumentException
+- if a mode change is attempted
+          after the initial handshake has begun.
+See Also:
+getUseClientMode()
+getUseClientMode
+public abstract
+boolean
+getUseClientMode
+()
+Returns true if the socket is set to use client mode when
+ handshaking.
+Returns:
+true if the socket should do handshaking
+          in "client" mode
+See Also:
+setUseClientMode(boolean)
+setNeedClientAuth
+public abstract
+void
+setNeedClientAuth
+(boolean need)
+Configures the socket to
+require
+client authentication.  This
+ option is only useful for sockets in the server mode.
+A socket's client authentication setting is one of the following:
+client authentication required
+client authentication requested
+no client authentication desired
+Unlike
+setWantClientAuth(boolean)
+, if this option is set and
+ the client chooses not to provide authentication information
+ about itself,
+the negotiations will stop and the connection
+ will be dropped
+.
+Calling this method overrides any previous setting made by
+ this method or
+setWantClientAuth(boolean)
+.
+Parameters:
+need
+- set to true if client authentication is required,
+          or false if no client authentication is desired.
+See Also:
+getNeedClientAuth()
+setWantClientAuth(boolean)
+getWantClientAuth()
+setUseClientMode(boolean)
+getNeedClientAuth
+public abstract
+boolean
+getNeedClientAuth
+()
+Returns true if the socket will
+require
+client authentication.
+ This option is only useful to sockets in the server mode.
+Returns:
+true if client authentication is required,
+          or false if no client authentication is desired.
+See Also:
+setNeedClientAuth(boolean)
+setWantClientAuth(boolean)
+getWantClientAuth()
+setUseClientMode(boolean)
+setWantClientAuth
+public abstract
+void
+setWantClientAuth
+(boolean want)
+Configures the socket to
+request
+client authentication.
+ This option is only useful for sockets in the server mode.
+A socket's client authentication setting is one of the following:
+client authentication required
+client authentication requested
+no client authentication desired
+Unlike
+setNeedClientAuth(boolean)
+, if this option is set and
+ the client chooses not to provide authentication information
+ about itself,
+the negotiations will continue
+.
+Calling this method overrides any previous setting made by
+ this method or
+setNeedClientAuth(boolean)
+.
+Parameters:
+want
+- set to true if client authentication is requested,
+          or false if no client authentication is desired.
+See Also:
+getWantClientAuth()
+setNeedClientAuth(boolean)
+getNeedClientAuth()
+setUseClientMode(boolean)
+getWantClientAuth
+public abstract
+boolean
+getWantClientAuth
+()
+Returns true if the socket will
+request
+client authentication.
+ This option is only useful for sockets in the server mode.
+Returns:
+true if client authentication is requested,
+          or false if no client authentication is desired.
+See Also:
+setNeedClientAuth(boolean)
+getNeedClientAuth()
+setWantClientAuth(boolean)
+setUseClientMode(boolean)
+setEnableSessionCreation
+public abstract
+void
+setEnableSessionCreation
+(boolean flag)
+Controls whether new SSL sessions may be established by this socket.
+ If session creations are not allowed, and there are no
+ existing sessions to resume, there will be no successful
+ handshaking.
+Parameters:
+flag
+- true indicates that sessions may be created; this
+          is the default.  false indicates that an existing session
+          must be resumed
+See Also:
+getEnableSessionCreation()
+getEnableSessionCreation
+public abstract
+boolean
+getEnableSessionCreation
+()
+Returns true if new SSL sessions may be established by this socket.
+Returns:
+true indicates that sessions may be created; this
+          is the default.  false indicates that an existing session
+          must be resumed
+See Also:
+setEnableSessionCreation(boolean)
+getSSLParameters
+public
+SSLParameters
+getSSLParameters
+()
+Returns the SSLParameters in effect for this SSLSocket.
+ The ciphersuites and protocols of the returned SSLParameters
+ are always non-null.
+Returns:
+the SSLParameters in effect for this SSLSocket.
+Since:
+1.6
+setSSLParameters
+public
+void
+setSSLParameters
+(
+SSLParameters
+params)
+Applies SSLParameters to this socket.
+This means:
+If
+params.getCipherSuites()
+is non-null,
+setEnabledCipherSuites()
+is called with that value.
+If
+params.getProtocols()
+is non-null,
+setEnabledProtocols()
+is called with that value.
+If
+params.getNeedClientAuth()
+or
+params.getWantClientAuth()
+return
+true
+,
+setNeedClientAuth(true)
+and
+setWantClientAuth(true)
+are called, respectively;
+   otherwise
+setWantClientAuth(false)
+is called.
+If
+params.getServerNames()
+is non-null, the socket will
+   configure its server names with that value.
+If
+params.getSNIMatchers()
+is non-null, the socket will
+   configure its SNI matchers with that value.
+Parameters:
+params
+- the parameters
+Throws:
+IllegalArgumentException
+- if the setEnabledCipherSuites() or
+    the setEnabledProtocols() call fails
+Since:
+1.6
+getApplicationProtocol
+public
+String
+getApplicationProtocol
+()
+Returns the most recent application protocol value negotiated for this
+ connection.
+If supported by the underlying SSL/TLS/DTLS implementation,
+ application name negotiation mechanisms such as
+RFC 7301
+, the
+ Application-Layer Protocol Negotiation (ALPN), can negotiate
+ application-level values between peers.
+Implementation Requirements:
+The implementation in this class throws
+UnsupportedOperationException
+and performs no other action.
+Returns:
+null if it has not yet been determined if application
+         protocols might be used for this connection, an empty
+String
+if application protocols values will not
+         be used, or a non-empty application protocol
+String
+if a value was successfully negotiated.
+Throws:
+UnsupportedOperationException
+- if the underlying provider
+         does not implement the operation.
+Since:
+9
+getHandshakeApplicationProtocol
+public
+String
+getHandshakeApplicationProtocol
+()
+Returns the application protocol value negotiated on a SSL/TLS
+ handshake currently in progress.
+Like
+getHandshakeSession()
+,
+ a connection may be in the middle of a handshake. The
+ application protocol may or may not yet be available.
+Implementation Requirements:
+The implementation in this class throws
+UnsupportedOperationException
+and performs no other action.
+Returns:
+null if it has not yet been determined if application
+         protocols might be used for this handshake, an empty
+String
+if application protocols values will not
+         be used, or a non-empty application protocol
+String
+if a value was successfully negotiated.
+Throws:
+UnsupportedOperationException
+- if the underlying provider
+         does not implement the operation.
+Since:
+9
+setHandshakeApplicationProtocolSelector
+public
+void
+setHandshakeApplicationProtocolSelector
+(
+BiFunction
+<
+SSLSocket
+,
+List
+<
+String
+>,
+String
+> selector)
+Registers a callback function that selects an application protocol
+ value for a SSL/TLS/DTLS handshake.
+ The function overrides any values supplied using
+SSLParameters.setApplicationProtocols
+and it supports the following
+ type parameters:
+SSLSocket
+The function's first argument allows the current
+SSLSocket
+to be inspected, including the handshake session and configuration
+      settings.
+List<String>
+The function's second argument lists the application protocol names
+      advertised by the TLS peer.
+String
+The function's result is an application protocol name, or null to
+      indicate that none of the advertised names are acceptable.
+      If the return value is an empty
+String
+then application
+      protocol indications will not be used.
+      If the return value is null (no value chosen) or is a value that
+      was not advertised by the peer, the underlying protocol will
+      determine what action to take. (For example, ALPN will send a
+      "no_application_protocol" alert and terminate the connection.)
+For example, the following call registers a callback function that
+ examines the TLS handshake parameters and selects an application protocol
+ name:
+serverSocket.setHandshakeApplicationProtocolSelector(
+         (serverSocket, clientProtocols) -> {
+             SSLSession session = serverSocket.getHandshakeSession();
+             return chooseApplicationProtocol(
+                 serverSocket,
+                 clientProtocols,
+                 session.getProtocol(),
+                 session.getCipherSuite());
+         });
+API Note:
+This method should be called by TLS server applications before the TLS
+ handshake begins. Also, this
+SSLSocket
+should be configured with
+ parameters that are compatible with the application protocol selected by
+ the callback function. For example, enabling a poor choice of cipher
+ suites could result in no suitable application protocol.
+ See
+SSLParameters
+.
+Implementation Requirements:
+The implementation in this class throws
+UnsupportedOperationException
+and performs no other action.
+Parameters:
+selector
+- the callback function, or null to de-register.
+Throws:
+UnsupportedOperationException
+- if the underlying provider
+         does not implement the operation.
+Since:
+9
+getHandshakeApplicationProtocolSelector
+public
+BiFunction
+<
+SSLSocket
+,
+List
+<
+String
+>,
+String
+>
+getHandshakeApplicationProtocolSelector
+()
+Retrieves the callback function that selects an application protocol
+ value during a SSL/TLS/DTLS handshake.
+ See
+setHandshakeApplicationProtocolSelector
+for the function's type parameters.
+Implementation Requirements:
+The implementation in this class throws
+UnsupportedOperationException
+and performs no other action.
+Returns:
+the callback function, or null if none has been set.
+Throws:
+UnsupportedOperationException
+- if the underlying provider
+         does not implement the operation.
+Since:
+9
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

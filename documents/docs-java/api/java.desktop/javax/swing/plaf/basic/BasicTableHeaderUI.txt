@@ -1,0 +1,487 @@
+BasicTableHeaderUI (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.plaf.basic
+Class BasicTableHeaderUI
+java.lang.Object
+javax.swing.plaf.ComponentUI
+javax.swing.plaf.TableHeaderUI
+javax.swing.plaf.basic.BasicTableHeaderUI
+Direct Known Subclasses:
+SynthTableHeaderUI
+public class
+BasicTableHeaderUI
+extends
+TableHeaderUI
+BasicTableHeaderUI implementation
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+class
+BasicTableHeaderUI.MouseInputHandler
+This class should be treated as a "protected" inner class.
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected
+JTableHeader
+header
+The
+JTableHeader
+that is delegating the painting to this UI.
+protected
+MouseInputListener
+mouseInputListener
+Listeners that are attached to the
+JTable
+protected
+CellRendererPane
+rendererPane
+The instance of
+CellRendererPane
+.
+Constructor Summary
+Constructors
+Constructor
+Description
+BasicTableHeaderUI
+()
+Constructs a
+BasicTableHeaderUI
+.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+protected
+MouseInputListener
+createMouseInputListener
+()
+Creates the mouse listener for the
+JTableHeader
+.
+static
+ComponentUI
+createUI
+(
+JComponent
+h)
+Returns a new instance of
+BasicTableHeaderUI
+.
+int
+getBaseline
+(
+JComponent
+c,
+ int width,
+ int height)
+Returns the baseline.
+Dimension
+getMaximumSize
+(
+JComponent
+c)
+Return the maximum size of the header.
+Dimension
+getMinimumSize
+(
+JComponent
+c)
+Return the minimum size of the header.
+Dimension
+getPreferredSize
+(
+JComponent
+c)
+Return the preferred size of the header.
+protected int
+getRolloverColumn
+()
+Returns the index of the column header over which the mouse
+ currently is.
+protected void
+installDefaults
+()
+Initializes JTableHeader properties such as font, foreground, and background.
+protected void
+installKeyboardActions
+()
+Register all keyboard actions on the JTableHeader.
+protected void
+installListeners
+()
+Attaches listeners to the JTableHeader.
+protected void
+rolloverColumnUpdated
+(int oldColumn,
+ int newColumn)
+This method gets called every time when a rollover column in the table
+ header is updated.
+protected void
+uninstallDefaults
+()
+Uninstalls default properties
+protected void
+uninstallKeyboardActions
+()
+Unregisters default key actions.
+protected void
+uninstallListeners
+()
+Unregisters listeners.
+Methods declared in class javax.swing.plaf.
+ComponentUI
+contains
+,
+getAccessibleChild
+,
+getAccessibleChildrenCount
+,
+getBaselineResizeBehavior
+,
+installUI
+,
+paint
+,
+uninstallUI
+,
+update
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+header
+protected
+JTableHeader
+header
+The
+JTableHeader
+that is delegating the painting to this UI.
+rendererPane
+protected
+CellRendererPane
+rendererPane
+The instance of
+CellRendererPane
+.
+mouseInputListener
+protected
+MouseInputListener
+mouseInputListener
+Listeners that are attached to the
+JTable
+Constructor Details
+BasicTableHeaderUI
+public
+BasicTableHeaderUI
+()
+Constructs a
+BasicTableHeaderUI
+.
+Method Details
+createMouseInputListener
+protected
+MouseInputListener
+createMouseInputListener
+()
+Creates the mouse listener for the
+JTableHeader
+.
+Returns:
+the mouse listener for the
+JTableHeader
+createUI
+public static
+ComponentUI
+createUI
+(
+JComponent
+h)
+Returns a new instance of
+BasicTableHeaderUI
+.
+Parameters:
+h
+- a component.
+Returns:
+a new instance of
+BasicTableHeaderUI
+installDefaults
+protected
+void
+installDefaults
+()
+Initializes JTableHeader properties such as font, foreground, and background.
+ The font, foreground, and background properties are only set if their
+ current value is either null or a UIResource, other properties are set
+ if the current value is null.
+See Also:
+ComponentUI.installUI(javax.swing.JComponent)
+installListeners
+protected
+void
+installListeners
+()
+Attaches listeners to the JTableHeader.
+installKeyboardActions
+protected
+void
+installKeyboardActions
+()
+Register all keyboard actions on the JTableHeader.
+uninstallDefaults
+protected
+void
+uninstallDefaults
+()
+Uninstalls default properties
+uninstallListeners
+protected
+void
+uninstallListeners
+()
+Unregisters listeners.
+uninstallKeyboardActions
+protected
+void
+uninstallKeyboardActions
+()
+Unregisters default key actions.
+getRolloverColumn
+protected
+int
+getRolloverColumn
+()
+Returns the index of the column header over which the mouse
+ currently is. When the mouse is not over the table header,
+ -1 is returned.
+Returns:
+the index of the current rollover column
+Since:
+1.6
+See Also:
+rolloverColumnUpdated(int, int)
+rolloverColumnUpdated
+protected
+void
+rolloverColumnUpdated
+(int oldColumn,
+ int newColumn)
+This method gets called every time when a rollover column in the table
+ header is updated. Every look and feel that supports a rollover effect
+ in a table header should override this method and repaint the header.
+Parameters:
+oldColumn
+- the index of the previous rollover column or -1 if the
+ mouse was not over a column
+newColumn
+- the index of the new rollover column or -1 if the mouse
+ is not over a column
+Since:
+1.6
+See Also:
+getRolloverColumn()
+JTableHeader.getHeaderRect(int)
+getBaseline
+public
+int
+getBaseline
+(
+JComponent
+c,
+ int width,
+ int height)
+Returns the baseline.
+Overrides:
+getBaseline
+in class
+ComponentUI
+Parameters:
+c
+-
+JComponent
+baseline is being requested for
+width
+- the width to get the baseline for
+height
+- the height to get the baseline for
+Returns:
+baseline or a value < 0 indicating there is no reasonable
+                  baseline
+Throws:
+NullPointerException
+- if
+c
+is
+null
+IllegalArgumentException
+- if width or height is < 0
+Since:
+1.6
+See Also:
+JComponent.getBaseline(int, int)
+getMinimumSize
+public
+Dimension
+getMinimumSize
+(
+JComponent
+c)
+Return the minimum size of the header. The minimum width is the sum
+ of the minimum widths of each column (plus inter-cell spacing).
+Overrides:
+getMinimumSize
+in class
+ComponentUI
+Parameters:
+c
+- the component whose minimum size is being queried;
+          this argument is often ignored,
+          but might be used if the UI object is stateless
+          and shared by multiple components
+Returns:
+a
+Dimension
+object or
+null
+See Also:
+JComponent.getMinimumSize()
+LayoutManager.minimumLayoutSize(java.awt.Container)
+ComponentUI.getPreferredSize(javax.swing.JComponent)
+getPreferredSize
+public
+Dimension
+getPreferredSize
+(
+JComponent
+c)
+Return the preferred size of the header. The preferred height is the
+ maximum of the preferred heights of all of the components provided
+ by the header renderers. The preferred width is the sum of the
+ preferred widths of each column (plus inter-cell spacing).
+Overrides:
+getPreferredSize
+in class
+ComponentUI
+Parameters:
+c
+- the component whose preferred size is being queried;
+          this argument is often ignored,
+          but might be used if the UI object is stateless
+          and shared by multiple components
+Returns:
+a
+Dimension
+object containing given component's preferred
+         size appropriate for the look and feel
+See Also:
+JComponent.getPreferredSize()
+LayoutManager.preferredLayoutSize(java.awt.Container)
+getMaximumSize
+public
+Dimension
+getMaximumSize
+(
+JComponent
+c)
+Return the maximum size of the header. The maximum width is the sum
+ of the maximum widths of each column (plus inter-cell spacing).
+Overrides:
+getMaximumSize
+in class
+ComponentUI
+Parameters:
+c
+- the component whose maximum size is being queried;
+          this argument is often ignored,
+          but might be used if the UI object is stateless
+          and shared by multiple components
+Returns:
+a
+Dimension
+object or
+null
+See Also:
+JComponent.getMaximumSize()
+LayoutManager2.maximumLayoutSize(java.awt.Container)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,186 @@
+ParameterizedType (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang.reflect
+Interface ParameterizedType
+All Superinterfaces:
+Type
+public interface
+ParameterizedType
+extends
+Type
+ParameterizedType represents a parameterized type such as
+Collection<String>
+.
+A parameterized type is created the first time it is needed by a
+ reflective method, as specified in this package. When a
+ parameterized type p is created, the generic class or interface declaration
+ that p instantiates is resolved, and all type arguments of p are created
+ recursively. See
+TypeVariable
+for details on the creation process for type
+ variables. Repeated creation of a parameterized type has no effect.
+Instances of classes that implement this interface must implement
+ an equals() method that equates any two instances that share the
+ same generic class or interface declaration and have equal type parameters.
+See
+Java Language Specification
+:
+4.5 Parameterized Types
+Since:
+1.5
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+Type
+[]
+getActualTypeArguments
+()
+Returns an array of
+Type
+objects representing the actual type
+ arguments to this type.
+Type
+getOwnerType
+()
+Returns a
+Type
+object representing the type that this type
+ is a member of.
+Type
+getRawType
+()
+Returns the
+Type
+object representing the class or interface
+ that declared this type.
+Methods declared in interface java.lang.reflect.
+Type
+getTypeName
+Method Details
+getActualTypeArguments
+Type
+[]
+getActualTypeArguments
+()
+Returns an array of
+Type
+objects representing the actual type
+ arguments to this type.
+Note that in some cases, the returned array be empty. This can occur
+ if this type represents a non-parameterized type nested within
+ a parameterized type.
+Returns:
+an array of
+Type
+objects representing the actual type
+     arguments to this type
+Throws:
+TypeNotPresentException
+- if any of the actual type arguments
+     refers to a non-existent class or interface declaration
+MalformedParameterizedTypeException
+- if any of the
+     actual type parameters refer to a parameterized type that cannot
+     be instantiated for any reason
+Since:
+1.5
+getRawType
+Type
+getRawType
+()
+Returns the
+Type
+object representing the class or interface
+ that declared this type.
+Returns:
+the
+Type
+object representing the class or interface
+     that declared this type
+Since:
+1.5
+getOwnerType
+Type
+getOwnerType
+()
+Returns a
+Type
+object representing the type that this type
+ is a member of.  For example, if this type is
+O<T>.I<S>
+,
+ return a representation of
+O<T>
+.
+If this type is a top-level type,
+null
+is returned.
+Returns:
+a
+Type
+object representing the type that
+     this type is a member of. If this type is a top-level type,
+null
+is returned
+Throws:
+TypeNotPresentException
+- if the owner type
+     refers to a non-existent class or interface declaration
+MalformedParameterizedTypeException
+- if the owner type
+     refers to a parameterized type that cannot be instantiated
+     for any reason
+Since:
+1.5
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

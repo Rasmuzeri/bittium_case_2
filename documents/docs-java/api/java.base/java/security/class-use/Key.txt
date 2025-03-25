@@ -1,0 +1,848 @@
+Uses of Interface java.security.Key (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Interface
+java.security.Key
+Packages that use
+Key
+Package
+Description
+java.security
+Provides the classes and interfaces for the security framework.
+java.security.interfaces
+Provides interfaces for generating RSA (Rivest, Shamir and
+ Adleman AsymmetricCipher algorithm)
+ keys as defined in the RSA Laboratory Technical Note
+ PKCS#1, and DSA (Digital Signature
+ Algorithm) keys as defined in NIST's FIPS-186.
+javax.crypto
+Provides the classes and interfaces for cryptographic
+ operations.
+javax.crypto.interfaces
+Provides interfaces for Diffie-Hellman keys as defined in RSA
+ Laboratories' PKCS #3.
+javax.crypto.spec
+Provides classes and interfaces for key specifications and
+ algorithm parameter specifications.
+javax.security.auth.kerberos
+This package contains utility classes related to the Kerberos network
+ authentication protocol.
+javax.xml.crypto
+Common classes for XML cryptography.
+javax.xml.crypto.dsig.dom
+DOM-specific classes for the
+javax.xml.crypto.dsig
+package.
+Uses of
+Key
+in
+java.security
+Subinterfaces of
+Key
+in
+java.security
+Modifier and Type
+Interface
+Description
+interface
+PrivateKey
+A private key.
+interface
+PublicKey
+A public key.
+Methods in
+java.security
+that return
+Key
+Modifier and Type
+Method
+Description
+abstract
+Key
+KeyStoreSpi.
+engineGetKey
+(
+String
+alias,
+ char[] password)
+Returns the key associated with the given alias, using the given
+ password to recover it.
+protected abstract
+Key
+KeyFactorySpi.
+engineTranslateKey
+(
+Key
+key)
+Translates a key object, whose provider may be unknown or
+ potentially untrusted, into a corresponding key object of this key
+ factory.
+final
+Key
+KeyStore.
+getKey
+(
+String
+alias,
+ char[] password)
+Returns the key associated with the given alias, using the given
+ password to recover it.
+final
+Key
+KeyFactory.
+translateKey
+(
+Key
+key)
+Translates a key object, whose provider may be unknown or potentially
+ untrusted, into a corresponding key object of this key factory.
+Methods in
+java.security
+with parameters of type
+Key
+Modifier and Type
+Method
+Description
+protected abstract <T extends
+KeySpec
+>
+T
+KeyFactorySpi.
+engineGetKeySpec
+(
+Key
+key,
+Class
+<T> keySpec)
+Returns a specification (key material) of the given key
+ object.
+abstract void
+KeyStoreSpi.
+engineSetKeyEntry
+(
+String
+alias,
+Key
+key,
+ char[] password,
+Certificate
+[] chain)
+Assigns the given key to the given alias, protecting it with the given
+ password.
+protected abstract
+Key
+KeyFactorySpi.
+engineTranslateKey
+(
+Key
+key)
+Translates a key object, whose provider may be unknown or
+ potentially untrusted, into a corresponding key object of this key
+ factory.
+final <T extends
+KeySpec
+>
+T
+KeyFactory.
+getKeySpec
+(
+Key
+key,
+Class
+<T> keySpec)
+Returns a specification (key material) of the given key object.
+boolean
+AlgorithmConstraints.
+permits
+(
+Set
+<
+CryptoPrimitive
+> primitives,
+String
+algorithm,
+Key
+key,
+AlgorithmParameters
+parameters)
+Determines whether an algorithm and the corresponding key are granted
+ permission for the specified cryptographic primitives.
+boolean
+AlgorithmConstraints.
+permits
+(
+Set
+<
+CryptoPrimitive
+> primitives,
+Key
+key)
+Determines whether a key is granted permission for the specified
+ cryptographic primitives.
+final void
+KeyStore.
+setKeyEntry
+(
+String
+alias,
+Key
+key,
+ char[] password,
+Certificate
+[] chain)
+Assigns the given key to the given alias, protecting it with the given
+ password.
+final
+Key
+KeyFactory.
+translateKey
+(
+Key
+key)
+Translates a key object, whose provider may be unknown or potentially
+ untrusted, into a corresponding key object of this key factory.
+Uses of
+Key
+in
+java.security.interfaces
+Subinterfaces of
+Key
+in
+java.security.interfaces
+Modifier and Type
+Interface
+Description
+interface
+DSAPrivateKey
+The standard interface to a DSA private key.
+interface
+DSAPublicKey
+The interface to a DSA public key.
+interface
+ECPrivateKey
+The interface to an elliptic curve (EC) private key.
+interface
+ECPublicKey
+The interface to an elliptic curve (EC) public key.
+interface
+EdECPrivateKey
+An interface for an elliptic curve private key as defined by
+RFC 8032: Edwards-Curve
+ Digital Signature Algorithm (EdDSA)
+.
+interface
+EdECPublicKey
+An interface for an elliptic curve public key as defined by
+RFC 8032: Edwards-Curve
+ Digital Signature Algorithm (EdDSA)
+.
+interface
+RSAMultiPrimePrivateCrtKey
+The interface to an RSA multi-prime private key, as defined in the
+PKCS#1 v2.2
+standard,
+ using the
+Chinese Remainder Theorem
+(CRT) information values.
+interface
+RSAPrivateCrtKey
+The interface to an RSA private key, as defined in the
+PKCS#1 v2.2
+standard,
+ using the
+Chinese Remainder Theorem
+(CRT) information values.
+interface
+RSAPrivateKey
+The interface to an RSA private key.
+interface
+RSAPublicKey
+The interface to an RSA public key.
+interface
+XECPrivateKey
+An interface for an elliptic curve private key as defined by RFC 7748.
+interface
+XECPublicKey
+An interface for an elliptic curve public key as defined by RFC 7748.
+Uses of
+Key
+in
+javax.crypto
+Subinterfaces of
+Key
+in
+javax.crypto
+Modifier and Type
+Interface
+Description
+interface
+SecretKey
+A secret (symmetric) key.
+Methods in
+javax.crypto
+that return
+Key
+Modifier and Type
+Method
+Description
+final
+Key
+KeyAgreement.
+doPhase
+(
+Key
+key,
+ boolean lastPhase)
+Executes the next phase of this key agreement with the given
+ key that was received from one of the other parties involved in this key
+ agreement.
+protected abstract
+Key
+KeyAgreementSpi.
+engineDoPhase
+(
+Key
+key,
+ boolean lastPhase)
+Executes the next phase of this key agreement with the given
+ key that was received from one of the other parties involved in this key
+ agreement.
+protected
+Key
+CipherSpi.
+engineUnwrap
+(byte[] wrappedKey,
+String
+wrappedKeyAlgorithm,
+ int wrappedKeyType)
+Unwrap a previously wrapped key.
+final
+Key
+Cipher.
+unwrap
+(byte[] wrappedKey,
+String
+wrappedKeyAlgorithm,
+ int wrappedKeyType)
+Unwrap a previously wrapped key.
+Methods in
+javax.crypto
+with parameters of type
+Key
+Modifier and Type
+Method
+Description
+final
+Key
+KeyAgreement.
+doPhase
+(
+Key
+key,
+ boolean lastPhase)
+Executes the next phase of this key agreement with the given
+ key that was received from one of the other parties involved in this key
+ agreement.
+protected abstract
+Key
+KeyAgreementSpi.
+engineDoPhase
+(
+Key
+key,
+ boolean lastPhase)
+Executes the next phase of this key agreement with the given
+ key that was received from one of the other parties involved in this key
+ agreement.
+protected int
+CipherSpi.
+engineGetKeySize
+(
+Key
+key)
+Returns the key size of the given key object in bits.
+protected abstract void
+CipherSpi.
+engineInit
+(int opmode,
+Key
+key,
+AlgorithmParameters
+params,
+SecureRandom
+random)
+Initializes this
+CipherSpi
+object with a key, a set of
+ algorithm parameters, and a source of randomness.
+protected abstract void
+CipherSpi.
+engineInit
+(int opmode,
+Key
+key,
+SecureRandom
+random)
+Initializes this
+CipherSpi
+object with a key and a source
+ of randomness.
+protected abstract void
+CipherSpi.
+engineInit
+(int opmode,
+Key
+key,
+AlgorithmParameterSpec
+params,
+SecureRandom
+random)
+Initializes this
+CipherSpi
+object with a key, a set of
+ algorithm parameters, and a source of randomness.
+protected abstract void
+ExemptionMechanismSpi.
+engineInit
+(
+Key
+key)
+Initializes this exemption mechanism with a key.
+protected abstract void
+ExemptionMechanismSpi.
+engineInit
+(
+Key
+key,
+AlgorithmParameters
+params)
+Initializes this exemption mechanism with a key and a set of algorithm
+ parameters.
+protected abstract void
+ExemptionMechanismSpi.
+engineInit
+(
+Key
+key,
+AlgorithmParameterSpec
+params)
+Initializes this exemption mechanism with a key and a set of algorithm
+ parameters.
+protected abstract void
+KeyAgreementSpi.
+engineInit
+(
+Key
+key,
+SecureRandom
+random)
+Initializes this key agreement with the given key and source of
+ randomness.
+protected abstract void
+KeyAgreementSpi.
+engineInit
+(
+Key
+key,
+AlgorithmParameterSpec
+params,
+SecureRandom
+random)
+Initializes this key agreement with the given key, set of
+ algorithm parameters, and source of randomness.
+protected abstract void
+MacSpi.
+engineInit
+(
+Key
+key,
+AlgorithmParameterSpec
+params)
+Initializes the MAC with the given (secret) key and algorithm
+ parameters.
+protected byte[]
+CipherSpi.
+engineWrap
+(
+Key
+key)
+Wrap a key.
+PKCS8EncodedKeySpec
+EncryptedPrivateKeyInfo.
+getKeySpec
+(
+Key
+decryptKey)
+Extract the enclosed PKCS8EncodedKeySpec object from the
+ encrypted data and return it.
+PKCS8EncodedKeySpec
+EncryptedPrivateKeyInfo.
+getKeySpec
+(
+Key
+decryptKey,
+String
+providerName)
+Extract the enclosed PKCS8EncodedKeySpec object from the
+ encrypted data and return it.
+PKCS8EncodedKeySpec
+EncryptedPrivateKeyInfo.
+getKeySpec
+(
+Key
+decryptKey,
+Provider
+provider)
+Extract the enclosed PKCS8EncodedKeySpec object from the
+ encrypted data and return it.
+final
+Object
+SealedObject.
+getObject
+(
+Key
+key)
+Retrieves the original (encapsulated) object.
+final
+Object
+SealedObject.
+getObject
+(
+Key
+key,
+String
+provider)
+Retrieves the original (encapsulated) object.
+final void
+Cipher.
+init
+(int opmode,
+Key
+key)
+Initializes this
+Cipher
+object with a key.
+final void
+Cipher.
+init
+(int opmode,
+Key
+key,
+AlgorithmParameters
+params)
+Initializes this
+Cipher
+object with a key and a set of algorithm
+ parameters.
+final void
+Cipher.
+init
+(int opmode,
+Key
+key,
+AlgorithmParameters
+params,
+SecureRandom
+random)
+Initializes this
+Cipher
+object with a key, a set of algorithm
+ parameters, and a source of randomness.
+final void
+Cipher.
+init
+(int opmode,
+Key
+key,
+SecureRandom
+random)
+Initializes this
+Cipher
+object with a key and a
+ source of randomness.
+final void
+Cipher.
+init
+(int opmode,
+Key
+key,
+AlgorithmParameterSpec
+params)
+Initializes this
+Cipher
+object with a key and a set of algorithm
+ parameters.
+final void
+Cipher.
+init
+(int opmode,
+Key
+key,
+AlgorithmParameterSpec
+params,
+SecureRandom
+random)
+Initializes this
+Cipher
+object with a key, a set of algorithm
+ parameters, and a source of randomness.
+final void
+ExemptionMechanism.
+init
+(
+Key
+key)
+Initializes this exemption mechanism with a key.
+final void
+ExemptionMechanism.
+init
+(
+Key
+key,
+AlgorithmParameters
+params)
+Initializes this exemption mechanism with a key and a set of algorithm
+ parameters.
+final void
+ExemptionMechanism.
+init
+(
+Key
+key,
+AlgorithmParameterSpec
+params)
+Initializes this exemption mechanism with a key and a set of algorithm
+ parameters.
+final void
+KeyAgreement.
+init
+(
+Key
+key)
+Initializes this key agreement with the given key, which is required to
+ contain all the algorithm parameters required for this key agreement.
+final void
+KeyAgreement.
+init
+(
+Key
+key,
+SecureRandom
+random)
+Initializes this key agreement with the given key and source of
+ randomness.
+final void
+KeyAgreement.
+init
+(
+Key
+key,
+AlgorithmParameterSpec
+params)
+Initializes this key agreement with the given key and set of
+ algorithm parameters.
+final void
+KeyAgreement.
+init
+(
+Key
+key,
+AlgorithmParameterSpec
+params,
+SecureRandom
+random)
+Initializes this key agreement with the given key, set of
+ algorithm parameters, and source of randomness.
+final void
+Mac.
+init
+(
+Key
+key)
+Initializes this
+Mac
+object with the given key.
+final void
+Mac.
+init
+(
+Key
+key,
+AlgorithmParameterSpec
+params)
+Initializes this
+Mac
+object with the given key and
+ algorithm parameters.
+final boolean
+ExemptionMechanism.
+isCryptoAllowed
+(
+Key
+key)
+Returns whether the result blob has been generated successfully by this
+ exemption mechanism.
+final byte[]
+Cipher.
+wrap
+(
+Key
+key)
+Wrap a key.
+Uses of
+Key
+in
+javax.crypto.interfaces
+Subinterfaces of
+Key
+in
+javax.crypto.interfaces
+Modifier and Type
+Interface
+Description
+interface
+DHPrivateKey
+The interface to a Diffie-Hellman private key.
+interface
+DHPublicKey
+The interface to a Diffie-Hellman public key.
+interface
+PBEKey
+The interface to a PBE key.
+Uses of
+Key
+in
+javax.crypto.spec
+Classes in
+javax.crypto.spec
+that implement
+Key
+Modifier and Type
+Class
+Description
+class
+SecretKeySpec
+This class specifies a secret key in a provider-independent fashion.
+Uses of
+Key
+in
+javax.security.auth.kerberos
+Classes in
+javax.security.auth.kerberos
+that implement
+Key
+Modifier and Type
+Class
+Description
+final class
+EncryptionKey
+This class encapsulates an EncryptionKey used in Kerberos.
+class
+KerberosKey
+This class encapsulates a long term secret key for a Kerberos
+ principal.
+Uses of
+Key
+in
+javax.xml.crypto
+Methods in
+javax.xml.crypto
+that return
+Key
+Modifier and Type
+Method
+Description
+Key
+KeySelectorResult.
+getKey
+()
+Returns the selected key.
+Methods in
+javax.xml.crypto
+with parameters of type
+Key
+Modifier and Type
+Method
+Description
+static
+KeySelector
+KeySelector.
+singletonKeySelector
+(
+Key
+key)
+Returns a
+KeySelector
+that always selects the specified
+ key, regardless of the
+KeyInfo
+passed to it.
+Uses of
+Key
+in
+javax.xml.crypto.dsig.dom
+Constructors in
+javax.xml.crypto.dsig.dom
+with parameters of type
+Key
+Modifier
+Constructor
+Description
+DOMSignContext
+(
+Key
+signingKey,
+Node
+parent)
+Creates a
+DOMSignContext
+with the specified signing key
+ and parent node.
+DOMSignContext
+(
+Key
+signingKey,
+Node
+parent,
+Node
+nextSibling)
+Creates a
+DOMSignContext
+with the specified signing key,
+ parent and next sibling nodes.
+DOMValidateContext
+(
+Key
+validatingKey,
+Node
+node)
+Creates a
+DOMValidateContext
+containing the specified key
+ and node.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

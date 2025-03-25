@@ -1,0 +1,660 @@
+URLStreamHandler (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.net
+Class URLStreamHandler
+java.lang.Object
+java.net.URLStreamHandler
+public abstract class
+URLStreamHandler
+extends
+Object
+The abstract class
+URLStreamHandler
+is the common
+ superclass for all stream protocol handlers. A stream protocol
+ handler knows how to make a connection for a particular protocol
+ type, such as
+http
+or
+https
+.
+In most cases, an instance of a
+URLStreamHandler
+subclass is not created directly by an application. Rather, the
+ first time a protocol name is encountered when constructing a
+URL
+, the appropriate stream protocol handler is
+ automatically loaded.
+Since:
+1.0
+See Also:
+URL(java.lang.String, java.lang.String, int, java.lang.String)
+Constructor Summary
+Constructors
+Constructor
+Description
+URLStreamHandler
+()
+Constructor for subclasses to call.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+protected boolean
+equals
+(
+URL
+u1,
+URL
+u2)
+Provides the default equals calculation.
+protected int
+getDefaultPort
+()
+Returns the default port for a URL parsed by this handler.
+protected
+InetAddress
+getHostAddress
+(
+URL
+u)
+Get the IP address of our host.
+protected int
+hashCode
+(
+URL
+u)
+Provides the default hash calculation.
+protected boolean
+hostsEqual
+(
+URL
+u1,
+URL
+u2)
+Compares the host components of two URLs.
+protected abstract
+URLConnection
+openConnection
+(
+URL
+u)
+Opens a connection to the object referenced by the
+URL
+argument.
+protected
+URLConnection
+openConnection
+(
+URL
+u,
+Proxy
+p)
+Same as openConnection(URL), except that the connection will be
+ made through the specified proxy; Protocol handlers that do not
+ support proxying will ignore the proxy parameter and make a
+ normal connection.
+protected void
+parseURL
+(
+URL
+u,
+String
+spec,
+ int start,
+ int limit)
+Parses the string representation of a
+URL
+into a
+URL
+object.
+protected boolean
+sameFile
+(
+URL
+u1,
+URL
+u2)
+Compare two urls to see whether they refer to the same file,
+ i.e., having the same protocol, host, port, and path.
+protected void
+setURL
+(
+URL
+u,
+String
+protocol,
+String
+host,
+ int port,
+String
+file,
+String
+ref)
+Deprecated.
+Use setURL(URL, String, String, int, String, String, String,
+             String);
+protected void
+setURL
+(
+URL
+u,
+String
+protocol,
+String
+host,
+ int port,
+String
+authority,
+String
+userInfo,
+String
+path,
+String
+query,
+String
+ref)
+Sets the fields of the
+URL
+argument to the indicated values.
+protected
+String
+toExternalForm
+(
+URL
+u)
+Converts a
+URL
+of a specific protocol to a
+String
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+URLStreamHandler
+public
+URLStreamHandler
+()
+Constructor for subclasses to call.
+Method Details
+openConnection
+protected abstract
+URLConnection
+openConnection
+(
+URL
+u)
+throws
+IOException
+Opens a connection to the object referenced by the
+URL
+argument.
+ This method should be overridden by a subclass.
+If for the handler's protocol (such as HTTP or JAR), there
+ exists a public, specialized URLConnection subclass belonging
+ to one of the following packages or one of their subpackages:
+ java.lang, java.io, java.util, java.net, the connection
+ returned will be of that subclass. For example, for HTTP an
+ HttpURLConnection will be returned, and for JAR a
+ JarURLConnection will be returned.
+Parameters:
+u
+- the URL that this connects to.
+Returns:
+a
+URLConnection
+object for the
+URL
+.
+Throws:
+IOException
+- if an I/O error occurs while opening the
+               connection.
+openConnection
+protected
+URLConnection
+openConnection
+(
+URL
+u,
+Proxy
+p)
+throws
+IOException
+Same as openConnection(URL), except that the connection will be
+ made through the specified proxy; Protocol handlers that do not
+ support proxying will ignore the proxy parameter and make a
+ normal connection.
+Calling this method preempts the system's default
+ProxySelector
+settings.
+Implementation Requirements:
+The default implementation of this method first checks that the given
+URL
+and
+Proxy
+are not null, then throws
+UnsupportedOperationException
+. Subclasses should override this method
+ with an appropriate implementation.
+Parameters:
+u
+- the URL that this connects to.
+p
+- the proxy through which the connection will be made.
+                 If direct connection is desired, Proxy.NO_PROXY
+                 should be specified.
+Returns:
+a
+URLConnection
+object for the
+URL
+.
+Throws:
+IOException
+- if an I/O error occurs while opening the
+               connection.
+IllegalArgumentException
+- if either u or p is null,
+               or p has the wrong type.
+UnsupportedOperationException
+- if the subclass that
+               implements the protocol doesn't support this method.
+Since:
+1.5
+parseURL
+protected
+void
+parseURL
+(
+URL
+u,
+String
+spec,
+ int start,
+ int limit)
+Parses the string representation of a
+URL
+into a
+URL
+object.
+If there is any inherited context, then it has already been
+ copied into the
+URL
+argument.
+The
+parseURL
+method of
+URLStreamHandler
+parses the string representation as if it were an
+http
+specification. Most URL protocol families have a
+ similar parsing. A stream protocol handler for a protocol that has
+ a different syntax must override this routine.
+Parameters:
+u
+- the
+URL
+to receive the result of parsing
+                  the spec.
+spec
+- the
+String
+representing the URL that
+                  must be parsed.
+start
+- the character index at which to begin parsing. This is
+                  just past the '
+:
+' (if there is one) that
+                  specifies the determination of the protocol name.
+limit
+- the character position to stop parsing at. This is the
+                  end of the string or the position of the
+                  "
+#
+" character, if present. All information
+                  after the sharp sign indicates an anchor.
+Throws:
+IllegalArgumentException
+- if the implementation of the protocol
+                  handler rejects any of the given parameters
+NullPointerException
+- if
+u
+is
+null
+,
+                  or if
+start < limit
+and
+spec
+is
+null
+getDefaultPort
+protected
+int
+getDefaultPort
+()
+Returns the default port for a URL parsed by this handler. This method
+ is meant to be overridden by handlers with default port numbers.
+Returns:
+the default port for a
+URL
+parsed by this handler.
+Since:
+1.3
+equals
+protected
+boolean
+equals
+(
+URL
+u1,
+URL
+u2)
+Provides the default equals calculation. May be overridden by handlers
+ for other protocols that have different requirements for equals().
+ This method requires that none of its arguments is null. This is
+ guaranteed by the fact that it is only called by java.net.URL class.
+Parameters:
+u1
+- a URL object
+u2
+- a URL object
+Returns:
+true
+if the two urls are
+ considered equal, i.e. they refer to the same
+ fragment in the same file.
+Since:
+1.3
+hashCode
+protected
+int
+hashCode
+(
+URL
+u)
+Provides the default hash calculation. May be overridden by handlers for
+ other protocols that have different requirements for hashCode
+ calculation.
+Parameters:
+u
+- a URL object
+Returns:
+an
+int
+suitable for hash table indexing
+Since:
+1.3
+sameFile
+protected
+boolean
+sameFile
+(
+URL
+u1,
+URL
+u2)
+Compare two urls to see whether they refer to the same file,
+ i.e., having the same protocol, host, port, and path.
+ This method requires that none of its arguments is null. This is
+ guaranteed by the fact that it is only called indirectly
+ by java.net.URL class.
+Parameters:
+u1
+- a URL object
+u2
+- a URL object
+Returns:
+true if u1 and u2 refer to the same file
+Since:
+1.3
+getHostAddress
+protected
+InetAddress
+getHostAddress
+(
+URL
+u)
+Get the IP address of our host. An empty host field or a DNS failure
+ will result in a null return.
+Parameters:
+u
+- a URL object
+Returns:
+an
+InetAddress
+representing the host
+ IP address.
+Since:
+1.3
+hostsEqual
+protected
+boolean
+hostsEqual
+(
+URL
+u1,
+URL
+u2)
+Compares the host components of two URLs.
+Parameters:
+u1
+- the URL of the first host to compare
+u2
+- the URL of the second host to compare
+Returns:
+true
+if and only if they
+ are equal,
+false
+otherwise.
+Since:
+1.3
+toExternalForm
+protected
+String
+toExternalForm
+(
+URL
+u)
+Converts a
+URL
+of a specific protocol to a
+String
+.
+Parameters:
+u
+- the URL.
+Returns:
+a string representation of the
+URL
+argument.
+setURL
+protected
+void
+setURL
+(
+URL
+u,
+String
+protocol,
+String
+host,
+ int port,
+String
+authority,
+String
+userInfo,
+String
+path,
+String
+query,
+String
+ref)
+Sets the fields of the
+URL
+argument to the indicated values.
+ Only classes derived from URLStreamHandler are able
+ to use this method to set the values of the URL fields.
+Parameters:
+u
+- the URL to modify.
+protocol
+- the protocol name.
+host
+- the remote host value for the URL.
+port
+- the port on the remote machine.
+authority
+- the authority part for the URL.
+userInfo
+- the userInfo part of the URL.
+path
+- the path component of the URL.
+query
+- the query part for the URL.
+ref
+- the reference.
+Throws:
+SecurityException
+- if the protocol handler of the URL is
+                                  different from this one
+IllegalArgumentException
+- if the implementation of the protocol
+                    handler rejects any of the given parameters
+NullPointerException
+- if
+u
+is
+null
+Since:
+1.3
+setURL
+@Deprecated
+protected
+void
+setURL
+(
+URL
+u,
+String
+protocol,
+String
+host,
+ int port,
+String
+file,
+String
+ref)
+Deprecated.
+Use setURL(URL, String, String, int, String, String, String,
+             String);
+Sets the fields of the
+URL
+argument to the indicated values.
+ Only classes derived from URLStreamHandler are able
+ to use this method to set the values of the URL fields.
+Parameters:
+u
+- the URL to modify.
+protocol
+- the protocol name. This value is ignored since 1.2.
+host
+- the remote host value for the URL.
+port
+- the port on the remote machine.
+file
+- the file.
+ref
+- the reference.
+Throws:
+SecurityException
+- if the protocol handler of the URL is
+                                  different from this one
+IllegalArgumentException
+- if the implementation of the protocol
+                    handler rejects any of the given parameters
+NullPointerException
+- if
+u
+is
+null
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,1776 @@
+Documentation Comment Specification for the Standard Doclet (JDK 21)
+Java SE 21 & JDK 21
+API
+OTHER SPECIFICATIONS
+TOOL GUIDES
+Documentation Comment Specification for the Standard
+Doclet (JDK 21)
+This document specifies the form of documentation comments recognized
+by the standard doclet for the
+javadoc
+tool in JDK 21, used
+to generate HTML documentation for an API.
+In the context of the
+javadoc
+tool, the interpretation
+of the content of a documentation comment is up to doclet that is used
+to process the comment. Other doclets may accept the same syntax as the
+standard doclet, or they may support an alternate syntax. However, due
+to support in many tools, the syntax supported by the standard doclet
+has become a
+de facto
+standard.
+General Syntax
+Documentation comments are recognized only when placed immediately
+before module, package, class, interface, constructor, method, enum
+member, or field declarations. Documentation comments placed in the body
+of a method are ignored. Only one documentation comment per declaration
+statement is recognized.
+The overall form of a documentation comment is an initial
+main description
+, followed by a series of
+block tags
+, which provide additional
+information about the declaration to which the comment applies.
+Descriptive text may include
+inline tags
+and
+HTML content
+, as described below.
+Leading asterisks
+at the beginning of each
+line, and any preceding whitespace, are ignored.
+It is possible to have a comment with only block tags and no main
+description.
+For historical reasons, the documentation comment for a package may
+instead be provided in a file called
+package.html
+in a source
+directory for the package. In this case, the documentation comment is
+the content of the
+<body>
+tag, and all references to
+Java types (for example, in
+@see
+tags) must be fully
+qualified. The standard doclet also allows additional documentation to
+be provided in files such as
+overview.html
+. The rules for such
+content are the same as for
+package.html
+.
+Main Description
+The main description in a documentation comment is the content from
+the beginning of the comment, up to the first block tag, if there are
+any, or to the end of the comment, if there are none. Leading and
+trailing whitespace is ignored. If there is no such content, the main
+description is said to be missing.
+The main description cannot continue after any block tags.
+The first sentence of the main description should be a summary
+sentence that contains a concise but complete description of the
+declared entity.
+Block Tags
+Block tags are of the form
+@
+identifier
+content
+and give additional details to be incorporated into the
+generated documentation. Each block tag must appear at the beginning of
+a line, ignoring leading asterisks, whitespace characters, and the
+initial comment delimiter (
+/**
+). This means you can use the
+@
+character elsewhere in the text and it will not be
+interpreted as the start of a tag. If you want to start a line with the
+@
+character and not have it be interpreted, then use the
+HTML entity
+&#064;
+. The content of a block tag is any
+text following the tag up to, but not including, either the next block
+tag, or the end of the documentation comment. The content can span
+multiple lines.
+There can be any number of block tags; some types of tags can be
+repeated while others cannot.
+Inline Tags
+Inline tags are of the form
+{@
+identifier
+content
+}
+and provide details within the context of
+the enclosing description. They may generally appear wherever
+descriptive text and HTML is permitted, although some inline tags may
+only be used at the beginning of the main description.
+Some inline tags may contain free-form text. When such text
+explicitly contains braces, the braces must be "balanced", implying an
+equal number of appropriately nested left brace and right brace
+characters, so that the closing brace of the inline tag can be
+determined. No other lexical analysis of the text is performed; in
+particular, there is no special consideration of characters like
+'
+,
+"
+,
+\
+, and
+@
+.
+Lines beginning with
+@
+that are enclosed within an
+inline tag are not considered as beginning a block tag.
+When the text content is HTML, it may be possible to use entities
+&lbrace;
+and
+&rbrace;
+to represent
+unbalanced braces.
+HTML Content
+HTML content is not formally checked, although some tools may provide
+some amount of checking to help catch common errors.
+In order to be able to generate documentation that conforms to the
+appropriate standards, the following considerations should be taken into
+account when using HTML constructs in a documentation comment:
+HTML constructs should be written in
+HTML 5
+.
+To support properly structured headings within the pages of
+generated documentation, headings in the documentation comments for
+module, package, and type declarations (including nested types) should
+start at
+<h2>
+and increase accordingly as needed;
+likewise, headings in the documentation comments for constructors,
+methods, fields and other members should start at
+<h4>
+. In standalone HTML files, such as in a
+doc-files
+subdirectory, headings
+should start at
+<h1>
+.
+To avoid the possibility of a conflict with the unique
+identifiers used to identify positions within the generated
+documentation for the declaration of program elements, the values of
+user-defined
+id
+attributes should contain a character (such
+as
+-
+) that is not a valid character in a Java
+identifier.
+Leading Asterisks
+When a documentation comment is read, leading asterisks
+(
+*
+) on each line are discarded, and blanks and tabs that
+precede the initial asterisks (
+*
+) are also discarded. If
+you omit the leading asterisk on a line, then the leading whitespace is
+no longer removed so that you can paste code examples directly into a
+documentation comment inside a
+<pre>
+tag with its
+indentation preserved. Spaces are interpreted by browsers more uniformly
+than tabs. Indentation is relative to the left margin (rather than the
+separator
+/**
+or
+<pre>
+tag).
+Escape Sequences
+The following escape sequences are supported wherever text, entities
+and HTML may appear, to represent characters that would otherwise be
+inconvenient or difficult to represent:
+@@
+, to represent
+@
+, to prevent it from
+being interpreted as part of the introduction of a
+block
+or
+inline
+tag,
+@/
+, to represent
+/
+, as part of
+*@/
+to represent
+*/
+, to avoid prematurely
+terminating the enclosing comment,
+@*
+, to represent
+*
+, where it would
+otherwise be
+discarded
+at the beginning
+of a line.
+Escape sequences are context-sensitive, and can only be used where
+the use of the escaped character by itself would have a different
+syntactic interpretation. In other situations, these character sequences
+are taken literally, without additional interpretation.
+Escape sequences cannot be used in inline tags that contain literal
+text; this includes
+{@code}
+,
+{@literal}
+,
+{@snippet}
+, and user-defined tags.
+References
+References are the constructs in a documentation comment that refer
+to elements in the surrounding declarations. Depending on the context,
+they may refer to modules, packages, classes and interfaces,
+constructors, methods, annotation members, fields, enum members,
+parameters, record components and the names of exceptions that may be
+thrown by a method or constructor.
+The most general form of a reference is:
+module
+/
+package
+.
+class
+#
+member
+This form is used by the
+@see
+,
+{@link}
+and
+{@linkplain}
+tags.
+Leading components can be omitted when they can be inferred from the
+surrounding context. Trailing components can be omitted when they are
+not required. Generally, the reference is evaluated in the scope in
+which the documentation comment exists. In particular,
+import
+statements for the compilation unit are taken into
+account when evaluating class and interface names.
+The
+class
+may be any top-level or nested class or
+interface.
+The
+member
+may be any constructor, method, annotation
+member, field or enum member, but not a nested class or interface. As in
+Java source code, a constructor is identified by using the name of its
+class. The name of a constructor or method should normally be followed
+by the list of its parameter types, enclosed in parentheses, although
+the parameter types and parentheses can be omitted if the method or
+constructor is not overloaded and the name is not also that of a field
+or enum member in the same class or interface. When a parameter list is
+given, whitespace characters may appear between tokens in the parameter
+list; whitespace characters may not appear elsewhere in the reference.
+When the reference is to a member of the same class as that containing
+the documentation comment, all parts of the reference up to and
+including the
+#
+may be omitted, although the '#' may be
+retained for clarity.
+Parameterized types may be used in the class and member parts of the
+reference; annotations may not be used anywhere in the reference.
+Whitespace characters may occur between tokens within the parameter list
+for a constructor or method. A trailing
+/
+can be added to a
+name to refer to a module in the presence of a package or class with the
+same name.
+Note:
+you cannot refer to the declaration of a specific
+parameter or record component with this form.
+An alternative form is provided to generate references to arbitrary
+URI fragments in the generated documentation such as headings in
+documentation comments. This form uses a double hash mark
+(
+##
+) as separator:
+module
+/
+package
+.
+class
+##
+fragment
+fragment
+is interpreted as URI fragment within the page
+documenting the specified program element.
+Other tags, such as
+@param
+,
+@throws
+, and
+@serialField
+may only provide
+support for the specific kinds of references that are relevant to each
+tag. See the description of individual tags for more details.
+Comment Inheritance
+Class and Interface
+Inheritance
+Comment inheritance occurs in all possible cases of inheritance from
+classes and interfaces:
+When a method in a class overrides a method in a superclass
+When a method in an interface overrides a method in a
+superinterface
+When a method in a class implements a method in an interface
+In the first two cases, the standard doclet generates the subheading
+"Overrides" in the documentation for the overriding method. A link to
+the method being overridden is included, whether or not the comment is
+inherited.
+In the third case, when a method in a specified class implements a
+method in an interface, the standard doclet generates the subheading
+"Specified by" in the documentation for the overriding method. A link to
+the method being implemented is included, whether or not the comment is
+inherited.
+Method Comment Inheritance
+The standard doclet allows method comment inheritance in classes and
+interfaces to fill in missing text or to explicitly inherit method
+comments. Constructors, fields, and nested classes do not inherit
+documentation comments.
+Note: The source file for an inherited method must be on the path
+specified by the
+-sourcepath
+option for the documentation
+comment to be available to copy. Neither the class nor its package needs
+to be passed in on the command line.
+Fill in Missing Text
+When a main description, or
+@return
+,
+@param
+, or
+@throws
+tag is missing from a
+method comment, the information is copied from the method it overrides
+or implements (if any).
+When an
+@param
+tag for a particular parameter is
+missing, the comment for that parameter is copied from the method
+further up the inheritance hierarchy. When an
+@throws
+tag
+for a particular exception is missing, the
+@throws
+tag is
+copied only when that exception is declared.
+Explicit Inheritance
+Insert the
+{@inheritDoc}
+inline tag in a method main
+description or
+@return
+,
+@param
+, or
+@throws
+tag comment. The corresponding inherited main
+description or tag comment is copied into that spot.
+Method Comments Algorithm
+If a method does not have a documentation comment, or has an
+{@inheritDoc}
+tag, then the standard doclet uses the
+following algorithm to search for an applicable comment. The algorithm
+is designed to find the most specific applicable documentation comment,
+and to give preference to interfaces over superclasses:
+Look in each directly implemented (or extended) interface in the
+order they appear following the word
+implements
+(or
+extends
+) in the type declaration. Use the first
+documentation comment found for this method.
+If Step 1 failed to find a documentation comment, then recursively
+apply this entire algorithm to each directly implemented (or extended)
+interface in the same order they were examined in Step 1.
+When Step 2 fails to find a documentation comment and this is a
+class other than the Object class, but not an interface:
+If the superclass has a documentation comment for this method, then
+use it.
+If Step 3a failed to find a documentation comment, then recursively
+apply this entire algorithm to the superclass.
+Standard Tags
+The following sections describe the standard block and inline tags
+supported by the standard doclet.
+Note: The standard doclet also supports user-defined tags conforming
+to the same general syntactic rules.
+@author
+@author
+name-text
+Adds an "Author" entry with the specified name text to the generated
+documents when the
+-author
+option is used. A documentation
+comment can contain multiple
+@author
+tags. You can specify
+one name per
+@author
+tag or multiple names per tag. In the former case, the standard doclet
+inserts a comma (
+,
+) and a space between names. In the
+latter case, the entire text is copied to the generated document without
+being parsed. Therefore, you can use multiple names per line if you want
+a localized name separator other than a comma.
+Introduced in JDK 1.0.
+{
+@code
+}
+{@code
+text
+}
+Equivalent to
+<code>{@literal
+text
+}</code>
+.
+Displays
+text
+in code font without interpreting the text as
+HTML markup or nested Javadoc tags. This enables you to use regular
+angle brackets (
+<
+and
+>
+) instead of the
+HTML entities (
+&lt;
+and
+&gt;
+) in
+documentation comments, such as in parameter types
+(
+<Object>
+), inequalities (
+3 < 4
+), or
+arrows (
+->
+). For example, the documentation comment text
+{@code A<B>C}
+displayed in the generated HTML page
+unchanged as
+A<B>C
+. This means that the
+<B>
+is not interpreted as bold and is in code font.
+If you want the same functionality without the code font, then use the
+{@literal}
+tag.
+Introduced in JDK 1.5.
+@deprecated
+@deprecated
+deprecated-text
+This tag is used in conjunction with the
+@Deprecated
+annotation to indicate that this API should no longer be used (even
+though it may continue to work). The standard doclet moves deprecated
+text ahead of the main description, placing it in italics and preceding
+it with a bold warning.
+The first sentence of deprecated text should tell the user when the
+API was deprecated and what to use as a replacement. The standard doclet
+copies the first sentence to the summary section and index. Subsequent
+sentences can also explain why it was deprecated. You should include an
+{@link}
+tag that points to the replacement API.
+Introduced in JDK 1.0.
+{
+@docRoot
+}
+{@docRoot}
+Represents the relative path to the generated document's
+(destination) root directory from any generated page. This tag is useful
+when you want to include a file, such as a copyright page or company
+logo, that you want to reference from all generated pages. Linking to
+the copyright page from the bottom of each page is common.
+This
+{@docRoot}
+tag can be used both on the command line
+and in a documentation comment. This tag is valid in all documentation
+comments: overview, module, package, class, interface, constructor,
+method and field, including the text portion of any tag (such as the
+@return
+,
+@param
+and
+@deprecated
+tags).
+For example, on the command line, where the header, footer, or bottom
+are defined:
+javadoc -bottom '<a href="{@docRoot}/copyright.html">Copyright</a>'.
+When you use the
+{@docRoot}
+tag this way in a make file,
+some makefile programs require a special way to escape for the brace
+{}
+characters. For example, the Inprise MAKE version 5.2
+running on Windows requires double braces:
+{{@docRoot}}
+. It
+also requires double (rather than single) quotation marks to enclose
+arguments to options such as the
+-bottom
+option (with the
+quotation marks around the
+href
+argument omitted).
+For example, in a documentation comment:
+/**
+ * See the <a href="{@docRoot}/copyright.html">Copyright</a>.
+ */
+This tag is needed because the generated documents are in
+hierarchical directories, as deep as the number of subpackages. The
+expression
+<a href="{@docRoot}/copyright.html">
+resolves to
+<a href="../../copyright.html">
+for
+java/lang/Object.java
+and
+<a href="../../../copyright.html">
+for
+java/lang/ref/Reference.java
+.
+Introduced in JDK 1.3.
+@exception
+@exception
+exception-name
+description
+This tag is equivalent to the
+@throws
+tag, which is now the
+recommended form.
+Introduced in JDK 1.0.
+@hidden
+@hidden
+Hides a program element from the generated API documentation. This
+tag may be used when it is not otherwise possible to design the API in a
+way that such items do not appear at all.
+Introduced in JDK 9.
+{
+@index
+}
+{@index
+word
+description
+}
+{@index "
+phrase
+"
+description
+}
+Declares that a word or phrase, together with an optional short
+description, should appear in the index files generated by the standard
+doclet. The index entry will be linked to the word or phrase that will
+appear at this point in the generated documentation. The description may
+be used when the word or phrase to be indexed is not clear by itself,
+such as for an acronym.
+Introduced in JDK 9.
+{
+@inheritDoc
+}
+{@inheritDoc}
+Inherits (copies) documentation from the nearest inheritable class or
+implementable interface into the current documentation comment at this
+tag's location. This enables you to write more general comments higher
+up the inheritance tree and to write around the copied text.
+This tag is valid only in these places in a documentation
+comment:
+In the main description of a method. In this case, the main
+description is copied from a class or interface up the hierarchy.
+In the text arguments of the
+@return
+,
+@param
+, and
+@throws
+tags of a method. In this
+case, the tag text is copied from the corresponding tag up the
+hierarchy.
+See
+Method Comment
+Inheritance
+for a description of how comments are found in the
+inheritance hierarchy. Note that if this tag is missing, then the
+comment is or is not automatically inherited according to rules
+described in that section.
+Introduced in JDK 1.4.
+{
+@link
+}
+{@link
+reference
+label
+}
+Inserts an inline link with a visible text label that points to the
+documentation for the specified module, package, class, or member name
+of a referenced class. This tag is valid in all documentation comments:
+overview, module, package, class, interface, constructor, method and
+field, including the description part of any tag, such as the
+@return
+,
+@param
+and
+@deprecated
+tags.
+This tag is similar to the
+third form
+of the
+@see
+tag. The main difference is that the
+{@link}
+tag generates an inline link rather than placing
+the link in the "See Also" section. The
+{@link}
+tag begins
+and ends with braces to separate it from the rest of the inline text. If
+you need to use the right brace (
+}
+) inside the label, then
+use the HTML entity notation
+&#125;
+.
+There is no limit to the number of
+{@link}
+tags allowed
+in a sentence.
+For example, here is a comment that refers to the
+getComponentAt(int, int)
+method:
+Use the {@link #getComponentAt(int, int) getComponentAt} method.
+From this code, the standard doclet generates the following HTML
+(assuming it refers to another class in the same package):
+Use the <a href="Component.html#getComponentAt(int,int)">getComponentAt</a> method.
+The previous line appears on the web page as:
+Use the
+getComponentAt
+method.
+Introduced in JDK 1.2.
+{
+@linkplain
+}
+{@linkplain
+reference
+label
+}
+Behaves the same as the
+{@link}
+tag, except the link
+label is displayed in plain text rather than code font. Useful when the
+label is plain text. For example,
+Refer to {@linkplain #add() the overridden method}.
+is displayed as:
+Refer to
+the overridden method
+.
+Introduced in JDK 1.4.
+{
+@literal
+}
+{@literal
+text
+}
+Displays text without interpreting the text as HTML markup or nested
+Javadoc tags. This enables you to use angle brackets (
+<
+and
+>
+) instead of the HTML entities
+(
+&lt;
+and
+&gt;
+) in documentation
+comments, such as in parameter types (
+<Object>
+),
+inequalities (
+3 < 4
+), or arrows (
+->
+).
+For example, the documentation comment text
+{@literal A<B>C}
+displays unchanged in the generated
+HTML page in your browser, as
+A<B>C
+. The
+<B>
+is not interpreted as bold (and it is not in code
+font). If you want the same functionality with the text in code font,
+then use the
+{@code}
+tag.
+Introduced in JDK 1.5.
+@param
+@param
+parameter-name
+description
+@param
+<
+type-parameter-name
+>
+description
+Adds a parameter with the specified parameter name followed by the
+specified description to the "Parameters" section. The description may
+continue onto multiple lines. This tag is valid only in a documentation
+comment for a method, constructor, or class. The parameter name can be
+the name of a parameter in a method or constructor, or the name of a
+type parameter of a class, method, or constructor. Use angle brackets
+(
+< >
+) around such a parameter name to indicate the
+use of a type parameter.
+Example of a type parameter of a class:
+/**
+ * @param <E> Type of element stored in a list
+ */
+public interface List<E> extends Collection<E> { ... }
+Example of parameters, including type parameters, of a method:
+/**
+ * @param string  the string to be converted
+ * @param type    the type to convert the string to
+ * @param <T>     the type of the element
+ * @param <V>     the value of the element
+ */
+<T, V extends T> V convert(String string, Class<T> type) { ... }
+Introduced in JDK 1.0.
+@provides
+@provides
+service-type
+description
+This tag may only appear in the documentation comment for a module
+declaration, and serves to document an implementation of a service
+provided by the module. The description may be used to specify how to
+obtain an instance of this service provider, and any important
+characteristics of the provider.
+Introduced in JDK 9.
+@return
+@return
+description
+{@return
+description
+}
+As a block tag, adds a "Returns" section with the given description,
+providing details about the values that may be returned by the
+method.
+As an inline tag, provides content for the first sentence of a
+method's main description, and a "Returns" section, as if
+@return
+description
+were also present. In the
+default English locale, the first sentence is
+Returns
+description
+.
+This tag is valid only in a documentation comment for a method. As an
+inline tag, it may only occur at the beginning of a method's main
+description.
+Introduced as a block tag in JDK 1.0, and as an inline tag in JDK
+16.
+@see
+Adds a "See Also" heading with a link or text entry that points to a
+reference. A documentation comment can contain any number of
+@see
+tags, which are all grouped under the same heading.
+The
+@see
+tag has three variations. The form to reference
+other program elements is the most common. This tag is valid in all
+documentation comments. For inserting an inline link within a sentence
+to a package, class, or member, see
+{@link}
+.
+@see
+"
+string
+"
+Adds a text entry for
+string
+. No link is generated. The
+string may be a reference to information which is not available by URL.
+The standard doclet distinguishes this from the other cases by searching
+for a double quotation mark (
+"
+) as the first character.
+@see
+<a href="
+url
+">
+label
+</a>
+Adds a link as defined by the
+url
+. The URL may be a relative
+or absolute URL. The standard doclet distinguishes this from other cases
+by searching for a less-than symbol (
+<
+) as the first
+character.
+@see
+reference
+label
+Adds a link with a visible text label that points to the
+documentation for the specified program element that is referenced.
+reference
+can
+refer
+to any valid
+program element. If this element is in the documented classes, then the
+standard doclet creates a link to it.
+To create links to external referenced classes, use the
+-link
+option. External referenced classes are classes that
+are not passed into the
+javadoc
+tool on the command line.
+Links in the generated documentation to external referenced classes are
+called external references or external links. For example, if you run
+the standard doclet on only the
+java.awt
+package, then any
+class in
+java.lang
+, such as
+Object
+, is an
+external referenced class. Use the
+-link
+and
+-linkoffline
+options to link to external referenced
+classes. The source comments of external referenced classes are not
+available to the
+javadoc
+command run.
+Use either of the other two
+@see
+tag forms to refer to
+the documentation of a name that does not belong to a referenced
+class.
+label
+is text to be used as the link label and is optional
+for references to program elements. If no label is provided for an
+element reference, a default is generated, based on the target of the
+reference. Use the label when you want the text to be different from the
+auto-generated text. For references to URI fragments a label must be
+provided. The label can contain whitespace characters.
+Introduced in JDK 1.0.
+@serial
+@serial
+field-description
+@serial
+include
+@serial
+exclude
+Used in the documentation comment for a default serializable field.
+See
+Documenting
+Serializable Fields and Data for a Class
+.
+See also Oracle's
+Criteria
+for Including Classes in the Serialized Form Specification
+.
+An optional field description should explain the meaning of the field
+and list the acceptable values. When needed, the description can span
+multiple lines. The standard doclet adds this information to the
+serialized form page.
+If a serializable field was added to a class after the class was made
+serializable, then a statement should be added to its main description
+to identify at which version it was added.
+The include and exclude arguments identify whether a class or package
+should be included or excluded from the serialized form page. They work
+as follows:
+A public or protected class that implements
+Serializable
+is included unless that class (or its package)
+is marked with the
+@serial exclude
+tag.
+A private or package-private class that implements
+Serializable
+is excluded unless that class (or its package)
+is marked with the
+@serial include
+tag.
+For example, the
+javax.swing
+package is marked with the
+@serial exclude
+tag in
+package-info.java
+. The
+public class
+java.security.BasicPermission
+is marked with
+the
+@serial
+exclude tag. The package-private class
+java.util.PropertyPermissionCollection
+is marked with the
+@serial include
+tag.
+The
+@serial
+tag at the class level overrides the
+@serial
+tag at the package level.
+Introduced in JDK 1.2.
+@serialData
+@serialData
+data-description
+Uses the data description value to document the types and order of
+data in the serialized form. This data includes the optional data
+written by the
+writeObject
+method and all data (including
+base classes) written by the
+Externalizable.writeExternal
+method.
+The
+@serialData
+tag can be used in the documentation
+comment for the
+readObject
+,
+writeObject
+,
+readExternal
+,
+writeExternal
+,
+readResolve
+, and
+writeReplace
+methods.
+Introduced in JDK 1.2.
+@serialField
+@serialField
+field-name
+field-type
+field-description
+Documents an
+ObjectStreamField
+component of the
+serialPersistentFields
+member of a
+Serializable class
+. Use one
+@serialField
+tag
+for each
+ObjectStreamField
+component.
+Introduced in JDK 1.2.
+@since
+@since
+since-text
+Adds a "Since" heading with the specified
+since-text
+value
+to the generated documentation. The text has no special internal
+structure. This tag is valid in any documentation comment: overview,
+module, package, class, interface, constructor, method, or field. This
+tag means that this change or feature has existed since the software
+release specified by the
+since-text
+value, for example:
+@since 1.5
+.
+For Java platform source code, the
+@since
+tag indicates
+the version of the Java platform API specification, which is not
+necessarily when the source code was added to the reference
+implementation. Multiple
+@since
+tags are allowed and are
+treated like multiple
+@author
+tags.
+You could use multiple tags when the program element is used by more
+than one API.
+Introduced in JDK 1.1.
+@snippet
+{@snippet
+attributes
+}
+{@snippet
+attributes
+:
+body
+}
+Includes a fragment, or "snippet", of example code in the generated
+documentation. The code may be provided inline within the tag by
+specifying a
+body
+and
+/or in an
+external file, specified in the
+attributes
+. Within the content,
+markup tags
+can be placed in line comments to
+identify regions within the text and instruct how to present the text in
+these regions.
+Additional details about the snippet can be given as
+attributes
+, in the form of
+name
+=
+value
+pairs, placed after the
+initial tag name. An attribute name is always a simple identifier. An
+attribute value may be an identifier, unsigned integer, or enclosed in
+either single or double quote characters; no escape characters are
+supported. An attribute value and the preceding
+=
+may be
+omitted when the presence of the attribute name is sufficient.
+Attributes are separated from the tag name and from each other by
+whitespace characters, such as space and newline.
+A snippet may specify an
+id
+attribute, which can be used
+to identify the snippet in both the API and the generated HTML, and
+which may be used to create a link to the snippet. In the generated
+HTML, the id will be placed on the outermost element that is generated
+to represent the snippet.
+Code fragments are typically Java source code, but they may also be
+fragments of properties files, source code in other languages, or plain
+text. A snippet may specify a
+lang
+attribute, which
+identifies the kind of content in the snippet. For an inline snippet,
+the default value is
+java
+. For an external snippet, the
+default value is derived from the extension of the name of the file
+containing the snippet's content.
+Inline snippets
+An inline snippet contains the content of the snippet within the tag
+itself.
+The content of the snippet, which is included in the generated
+documentation, is the text between the first newline after the colon
+(
+:
+) and the closing curly brace (
+}
+).
+There is no need to escape characters such as
+<
+,
+>
+, and
+&
+with HTML entities, nor is
+there any need to escape documentation comment tags.
+Surrounding whitespace is stripped from the content using
+String::stripIndent
+.
+There are two limitations on the content of inline snippets:
+The character sequence
+*/
+cannot be used anywhere
+within the content, because the
+*/
+would terminate the
+enclosing documentation comment. This includes use of
+/* ... */
+comments, or within a
+//
+comment, or
+within string literals, such as those used to represent regular
+expressions. This restriction applies to all content in documentation
+comments; it is not specific to the
+@snippet
+tag.
+The content of an inline snippet can only contain balanced pairs
+of curly-brace characters. The overall inline tag is terminated by the
+first right brace that matches the opening brace. This restriction
+applies to all inline tags; it is not specific to the
+@snippet
+tag.
+External snippets
+An external snippet refers to a separate class or file that contains
+the content of the snippet.
+In an external snippet the colon, newline, and subsequent content can
+be omitted.
+Unlike inline snippets, external snippets have no limitations on
+their content. In particular, they may contain
+/* ... */
+comments.
+The location of the external code can be specified either by class
+name, using the
+class
+attribute, or by a short relative
+file path, using the
+file
+attribute. In either case the
+file can be placed in a package hierarchy rooted in a
+snippet-files
+subdirectory of the directory containing the
+source code with the
+{@snippet ...}
+tag. Alternatively, the
+file can be placed on an auxiliary search path, specified by the
+--snippet-path
+option to the
+javadoc
+tool. The
+use of
+snippet-files
+subdirectories is similar to the use
+of
+doc-files
+subdirectories for auxiliary documentation
+files.
+The file for an external snippet may contain multiple regions, to be
+referenced in different snippet tags, appearing in different parts of
+the documentation.
+Hybrid snippets
+A hybrid snippet is both an internal snippet and an external snippet.
+It contains the content of the snippet within the tag itself, for the
+convenience of anyone reading the source code for the class being
+documented, and it also refers to a separate file that contains the
+content of the snippet.
+It is an error if the result of processing a hybrid snippet as an
+inline snippet does not match the result of processing it as an external
+snippet.
+Markup tags
+Markup tags define regions within the content of a snippet. They also
+control the presentation of the content, for example highlighting parts
+of the text, modifying the text, or linking to elsewhere in the
+documentation. They can be used in internal, external, and hybrid
+snippets.
+Markup tags begin with
+@
+name
+, followed by any
+required arguments. They are placed in
+//
+comments (or the
+equivalent in other languages or formats), so as not to unduly interfere
+with the body of the source code, and also because
+/* ... */
+comments cannot be used in inline snippets. Such
+comments are referred to as
+markup comments
+.
+Multiple markup tags can be placed in the same markup comment. The
+markup tags apply to the source line containing the comment unless the
+comment is terminated with a colon (
+:
+), in which case it is
+as if the tags were present on the immediately following line. The
+latter syntax may be useful if the markup comment is particularly long,
+or if the syntactic format of the content of a snippet does not permit
+comments to appear on the same line as non-comment source. Markup
+comments do not appear in the generated output.
+Because some other systems use meta-comments similar to markup
+comments, comments that begin with
+@
+followed by an
+unrecognized name are ignored as markup comments and will appear in the
+generated output. If the name is recognized, but there are subsequent
+errors in the markup comment, then an error is reported. The generated
+output in such cases is undefined, with respect to the output generated
+from the snippet.
+Regions
+A region is an optionally-named range of lines that identifies the
+text to be displayed by a snippet. They also define the scope of actions
+such as highlighting or modifying the text.
+The beginning of a region is marked by either
+@start region=
+name
+, or
+an
+@highlight
+,
+@replace
+, or
+@link
+tag that specifies
+region
+or
+region=
+name
+. You can omit the name if it is not
+needed by the matching
+@end
+tag.
+The end of a region is marked by
+@end
+or
+@end region=
+name
+. If a name is given then the tag
+ends the region started with that name. If no name is given then the tag
+ends the most recently started region that does not already have a
+matching
+@end
+tag.
+There are no constraints on the regions created by different pairs of
+matching
+@start
+and
+@end
+tags. Regions can
+even overlap, although we do not expect such usage to be common.
+Highlighting
+@highlight
+— highlight text within a line or region
+substring
+— the literal text to be highlighted
+regex
+— a regular expression for the text to be
+highlighted
+region
+— a region to define the scope in which to find
+the text to be highlighted
+type
+— the type of highlighting, such as
+bold
+,
+italic
+, or
+highlighted
+To highlight content on a line or in a range of lines, use
+@highlight
+followed by arguments that specify the scope of
+the text to be considered, the text within that scope to be highlighted,
+and the type of the highlighting.
+If
+region
+or
+region=
+name
+is
+specified then the scope is that region, up to the corresponding
+@end
+tag. Otherwise, the scope is just the current
+line.
+To highlight each instance of a literal string within the scope,
+specify the string with
+substring=
+string
+where
+string
+can be an identifier or text enclosed in single or
+double quotes. To highlight each instance of text matched by a regular
+expression within the scope, use
+regex=
+string
+. If
+neither of these attributes are specified then the entire scope is
+highlighted.
+The type of highlighting can be specified with the
+type
+parameter. Valid type names are
+bold
+,
+italic
+,
+and
+highlighted
+. The name of the type is converted to a CSS
+class name whose properties can be defined in the system stylesheet or
+overridden in a user-defined stylesheet.
+Modifying the
+displayed text
+@replace
+— replace text within a line or region
+substring
+— the literal text to be replaced
+regex
+— a regular expression for the text to be
+replaced
+region
+— a region to define the scope in which to find
+the text to be replaced
+replacement
+— the replacement text
+It is often convenient to write the content of a snippet as code that
+can be accessed and validated by external tools, but to display it in a
+form that does not compile. For example, it may be desirable to include
+import
+statements for illustrative purposes along with code
+that uses the imported types. Or, it may be desirable to display code
+with an ellipsis or some other marker to indicate that additional code
+should be inserted at that point. This can be done by replacing parts of
+the content of the snippet with some replacement text.
+To replace some text with replacement text, use
+@replace
+followed by arguments that specify the scope of the text to be
+considered, the text within that scope to be replaced, and the
+replacement text.
+If
+region
+or
+region=
+name
+is
+specified then the scope is that region, up to the corresponding
+@end
+tag. Otherwise, the scope is just the current
+line.
+To replace each instance of a literal string within the scope,
+specify the string with
+substring=
+string
+where
+string
+can be an identifier or text enclosed in single or
+double quotes. To replace each instance of text matched by a regular
+expression within the scope, use
+regex=
+string
+. If
+neither of these attributes are specified then the entire scope is
+replaced.
+Specify the replacement text with the
+replacement
+parameter. If a regular expression is used to specify the text to be
+replaced then
+$
+number
+or
+$
+name
+can be used to substitute groups found in
+the regular expression, as defined by
+String::replaceAll
+.
+To delete text, use
+@replace
+with an empty replacement
+string. To insert text, use
+@replace
+to replace some no-op
+text placed where the replacement text should be inserted. The no-op
+text might be a '//' marker, or an empty statement (
+;
+).
+Linking text
+@link
+— link text within a line or region
+substring
+— the literal text to be linked
+regex
+— a regular expression for the text to be
+linked
+region
+— a region to define the scope in which to find
+the text to be linked
+target
+— the target of the link, expressed in one of
+the forms suitable for an
+{@link ...}
+tag
+type
+— the type of link: one of
+link
+(the
+default) or
+linkplain
+To link text to declarations elsewhere in the API, use
+@link
+followed by arguments that specify the scope of the
+text to be considered, the text within that scope to be linked, and the
+target of the link.
+If
+region
+or
+region=
+name
+is
+specified then the scope is that region, up to the corresponding
+@end
+tag. Otherwise, the scope is just the current
+line.
+To link each instance of a literal string within the scope, specify
+the string with
+substring=
+string
+where
+string
+can be an identifier or text enclosed in single or
+double quotes. To link each instance of text matched by a regular
+expression within the scope, use
+regex=
+string
+. If
+neither of these attributes are specified then the entire scope is
+linked.
+Specify the target with the
+target
+parameter. The form
+of its value is the same as used by the standard inline
+{@link ...}
+tag.
+Introduced in JDK 18.
+@spec
+@spec
+URL
+title
+Identifies an external specification in terms of its URL and title.
+The URL may be absolute or relative. Relative URLs will be evaluated
+against a "base URL".
+All tags specifying the same URL must provide the same corresponding
+title; conversely, tags with different URLs must have different
+titles.
+Introduced in JDK 20.
+{
+@summary
+}
+{@summary
+text
+}
+Identify the summary of an API description, as an alternative to the
+default policy to identify and use the first sentence of the API
+description. The tag only has significance when used at the beginning of
+a main description. In all cases, the tag is rendered by simply
+rendering its content.
+Introduced in JDK 10.
+{
+@systemProperty
+}
+{@systemProperty
+property-name
+}
+Identify
+property-name
+as the name of a system property. The
+name should be a "dotted identifier". In particular, it must not contain
+whitespace characters, or characters such as
+}
+. No other
+content is permitted in the tag; the possibility of additional content
+is reserved for future use. The tag can be used in all documentation
+comments.
+Introduced in JDK 12.
+@throws
+@throws
+exception-name
+description
+Adds an exception with the specified name followed by the specified
+description to the "Throws" section.
+exception-name
+should
+refer
+to an
+exception that might be thrown by the method, and should either be the
+name of an exception class or a type variable. This tag is valid only in
+the documentation comment for a method or constructor.
+A documentation comment may use multiple
+@throws
+tags
+for the same or different exceptions.
+To ensure that all checked exceptions are documented, when an
+@throws
+tag does not exist for an exception in the throws
+clause, the standard doclet adds that exception to the generated output
+(with no description) as if it were documented with the
+@throws
+tag.
+The
+@throws
+documentation is copied from an overridden
+method to a subclass only when the exception is explicitly declared in
+the overridden method. The same is true for copying from an interface
+method to an implementing method. You can use the
+{@inheritDoc}
+tag to force the
+@throws
+tag to
+inherit documentation.
+The
+@exception
+tag is
+equivalent to this tag, although the
+@throws
+form is now
+recommended.
+Introduced in JDK 1.2.
+@uses
+@uses
+service-type
+description
+This tag may only appear in the documentation comment for a module
+declaration, and serves to document that a service may be used by the
+module. The description may be used to specify the characteristics of
+the service that may be required, and what the module will do if no
+provider for the service is available.
+Introduced in JDK 9.
+{
+@value
+}
+{@value
+format
+field-reference
+}
+Displays the value of a static field with a compile-time constant
+value.
+The format string may be omitted, in which case a default format will
+be used, appropriate to the type of the field. If the format string is
+given, it must either begin with a percent character (%) or be enclosed
+in double-quote characters ("). It must contain exactly one percent
+character. The string must conform to the definition of a format string,
+as specified in the documentation for
+java.util.Formatter
+.
+The conversion specified in the format string must be appropriate for
+the type of the constant value.
+When the
+{@value}
+tag is used without a
+field_reference
+argument in the documentation comment of a
+static field, it displays the value of that constant:
+/**
+ * The value of this constant is {@value}.
+ */
+public static final String SCRIPT_START = "<script>"
+When used with a
+field-reference
+argument in any documentation comment, the
+{@value}
+tag
+displays the value of the specified constant:
+/**
+ * Evaluates the script starting with {@value #SCRIPT_START}.
+ */
+public String evalScript(String script) {}
+Introduced in JDK 1.4;
+format
+added in JDK 20.
+@version
+@version
+version-text
+Adds a "Version" subheading with the specified
+version-text
+value to the generated documents when the -version option is used. This
+tag is intended to hold the current release number of the software that
+this code is part of, as opposed to the
+@since
+tag, which
+holds the release number where this code was introduced. The
+version-text
+value has no special internal structure.
+A documentation comment can contain multiple
+@version
+tags. When it makes sense, you can specify one release number per
+@version
+tag or multiple release numbers per tag. In the
+former case, the standard doclet inserts a comma (
+,
+) and a
+space between the names. In the latter case, the entire text is copied
+to the generated document without being parsed. Therefore, you can use
+multiple names per line when you want a localized separator other than a
+comma.
+Introduced in JDK 1.0.
+Where Tags Can Be Used
+The following table summarizes which tags can be used in which
+contexts.
+Contexts in which tags may be used
+Tag
+Module
+Package
+Type
+Constructor
+Method
+Field
+Other
+@author
+✓
+✓
+✓
+✓
+{@code}
+✓
+✓
+✓
+✓
+✓
+✓
+✓
+@deprecated
+✓
+✓
+✓
+✓
+✓
+{@docRoot}
+✓
+✓
+✓
+✓
+✓
+✓
+✓
+@exception
+✓
+✓
+@hidden
+✓
+✓
+✓
+{@index}
+✓
+✓
+✓
+✓
+✓
+✓
+✓
+{@inheritDoc}
+✓
+{@link}
+✓
+✓
+✓
+✓
+✓
+✓
+✓
+{@linkplain}
+✓
+✓
+✓
+✓
+✓
+✓
+✓
+{@literal}
+✓
+✓
+✓
+✓
+✓
+✓
+✓
+@param
+✓
+✓
+✓
+@provides
+✓
+@return
+✓
+@see
+✓
+✓
+✓
+✓
+✓
+✓
+✓
+@serial
+✓
+✓
+✓
+@serialData
+*
+@serialField
+*
+@since
+✓
+✓
+✓
+✓
+✓
+✓
+✓
+{@snippet}
+✓
+✓
+✓
+✓
+✓
+✓
+✓
+{@summary}
+✓
+✓
+✓
+✓
+✓
+✓
+✓
+{@systemProperty}
+✓
+✓
+✓
+✓
+✓
+✓
+✓
+@throws
+✓
+✓
+@uses
+✓
+{@value}
+✓
+✓
+✓
+✓
+✓
+✓
+✓
+@version
+✓
+✓
+✓
+✓
+Notes:
+Methods
+includes members of annotation interfaces.
+Fields
+includes members of enum classes.
+Other
+includes the Overview page, which is not tied to any
+declaration, and HTML files in
+doc-files
+subdirectories of
+a package directory. The Overview page is typically specified with an
+option to the
+javadoc
+command.
+@serialData
+can only be used in the documentation
+comment for the
+readObject
+,
+writeObject
+,
+readExternal
+,
+writeExternal
+,
+readResolve
+and
+writeReplace
+methods.
+@serialField
+can only be used in the documentation
+comment for the
+serialPersistentFields
+field.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,708 @@
+ProcessHandle (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang
+Interface ProcessHandle
+All Superinterfaces:
+Comparable
+<
+ProcessHandle
+>
+public interface
+ProcessHandle
+extends
+Comparable
+<
+ProcessHandle
+>
+ProcessHandle identifies and provides control of native processes. Each
+ individual process can be monitored for liveness, list its children,
+ get information about the process or destroy it.
+ By comparison,
+Process
+instances were started
+ by the current process and additionally provide access to the process
+ input, output, and error streams.
+The native process ID is an identification number that the
+ operating system assigns to the process.
+ The range for process id values is dependent on the operating system.
+ For example, an embedded system might use a 16-bit value.
+ Status information about a process is retrieved from the native system
+ and may change asynchronously; processes may be created or terminate
+ spontaneously.
+ The time between when a process terminates and the process id
+ is reused for a new process is unpredictable.
+ Race conditions can exist between checking the status of a process and
+ acting upon it. When using ProcessHandles avoid assumptions
+ about the liveness or identity of the underlying process.
+Each ProcessHandle identifies and allows control of a process in the native
+ system. ProcessHandles are returned from the factory methods
+current()
+,
+of(long)
+,
+children()
+,
+descendants()
+,
+parent()
+and
+allProcesses()
+.
+The
+Process
+instances created by
+ProcessBuilder
+can be queried
+ for a ProcessHandle that provides information about the Process.
+ ProcessHandle references should not be freely distributed.
+A
+CompletableFuture
+available from
+onExit()
+can be used to wait for process termination, and possibly trigger dependent
+ actions.
+The factory methods limit access to ProcessHandles using the
+ SecurityManager checking the
+RuntimePermission("manageProcess")
+.
+ The ability to control processes is also restricted by the native system,
+ ProcessHandle provides no more access to, or control over, the native process
+ than would be allowed by a native application.
+Implementation Requirements:
+In the case where ProcessHandles cannot be supported then the factory
+ methods must consistently throw
+UnsupportedOperationException
+.
+ The methods of this class throw
+UnsupportedOperationException
+if the operating system does not allow access to query or kill a process.
+The
+ProcessHandle
+static factory methods return instances that are
+value-based
+,
+ immutable and thread-safe. Programmers should treat instances that are
+equal
+as interchangeable and should not
+ use instances for synchronization, or unpredictable behavior may occur.
+ For example, in a future release, synchronization may fail.
+ Use the
+equals
+or
+compareTo
+methods
+ to compare ProcessHandles.
+Since:
+9
+See Also:
+Process
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Interface
+Description
+static interface
+ProcessHandle.Info
+Information snapshot about the process.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+static
+Stream
+<
+ProcessHandle
+>
+allProcesses
+()
+Returns a snapshot of all processes visible to the current process.
+Stream
+<
+ProcessHandle
+>
+children
+()
+Returns a snapshot of the current direct children of the process.
+int
+compareTo
+(
+ProcessHandle
+other)
+Compares this ProcessHandle with the specified ProcessHandle for order.
+static
+ProcessHandle
+current
+()
+Returns a ProcessHandle for the current process.
+Stream
+<
+ProcessHandle
+>
+descendants
+()
+Returns a snapshot of the descendants of the process.
+boolean
+destroy
+()
+Requests the process to be killed.
+boolean
+destroyForcibly
+()
+Requests the process to be killed forcibly.
+boolean
+equals
+(
+Object
+other)
+Returns
+true
+if
+other
+object is non-null, is of the
+ same implementation, and represents the same system process;
+ otherwise it returns
+false
+.
+int
+hashCode
+()
+Returns a hash code value for this ProcessHandle.
+ProcessHandle.Info
+info
+()
+Returns a snapshot of information about the process.
+boolean
+isAlive
+()
+Tests whether the process represented by this
+ProcessHandle
+is alive.
+static
+Optional
+<
+ProcessHandle
+>
+of
+(long pid)
+Returns an
+Optional<ProcessHandle>
+for an existing native process.
+CompletableFuture
+<
+ProcessHandle
+>
+onExit
+()
+Returns a
+CompletableFuture<ProcessHandle>
+for the termination
+ of the process.
+Optional
+<
+ProcessHandle
+>
+parent
+()
+Returns an
+Optional<ProcessHandle>
+for the parent process.
+long
+pid
+()
+Returns the native process ID of the process.
+boolean
+supportsNormalTermination
+()
+Returns
+true
+if the implementation of
+destroy()
+normally terminates the process.
+Method Details
+pid
+long
+pid
+()
+Returns the native process ID of the process. The native process ID is an
+ identification number that the operating system assigns to the process.
+ The operating system may reuse the process ID after a process terminates.
+ Use
+equals
+or
+compareTo
+to compare ProcessHandles.
+Returns:
+the native process ID of the process
+Throws:
+UnsupportedOperationException
+- if the implementation
+         does not support this operation
+of
+static
+Optional
+<
+ProcessHandle
+>
+of
+(long pid)
+Returns an
+Optional<ProcessHandle>
+for an existing native process.
+Parameters:
+pid
+- a native process ID
+Returns:
+an
+Optional<ProcessHandle>
+of the PID for the process;
+         the
+Optional
+is empty if the process does not exist
+Throws:
+SecurityException
+- if a security manager has been installed and
+         it denies RuntimePermission("manageProcess")
+UnsupportedOperationException
+- if the implementation
+         does not support this operation
+current
+static
+ProcessHandle
+current
+()
+Returns a ProcessHandle for the current process. The ProcessHandle cannot be
+ used to destroy the current process, use
+System.exit
+instead.
+Returns:
+a ProcessHandle for the current process
+Throws:
+SecurityException
+- if a security manager has been installed and
+         it denies RuntimePermission("manageProcess")
+UnsupportedOperationException
+- if the implementation
+         does not support this operation
+parent
+Optional
+<
+ProcessHandle
+>
+parent
+()
+Returns an
+Optional<ProcessHandle>
+for the parent process.
+ Note that Processes in a zombie state usually don't have a parent.
+Returns:
+an
+Optional<ProcessHandle>
+of the parent process;
+         the
+Optional
+is empty if the child process does not have a parent
+         or if the parent is not available, possibly due to operating system limitations
+Throws:
+SecurityException
+- if a security manager has been installed and
+         it denies RuntimePermission("manageProcess")
+children
+Stream
+<
+ProcessHandle
+>
+children
+()
+Returns a snapshot of the current direct children of the process.
+ The
+parent()
+of a direct child process is the process.
+ Typically, a process that is
+not alive
+has no children.
+Note that processes are created and terminate asynchronously.
+ There is no guarantee that a process is
+alive
+.
+Returns:
+a sequential Stream of ProcessHandles for processes that are
+         direct children of the process
+Throws:
+SecurityException
+- if a security manager has been installed and
+         it denies RuntimePermission("manageProcess")
+descendants
+Stream
+<
+ProcessHandle
+>
+descendants
+()
+Returns a snapshot of the descendants of the process.
+ The descendants of a process are the children of the process
+ plus the descendants of those children, recursively.
+ Typically, a process that is
+not alive
+has no children.
+Note that processes are created and terminate asynchronously.
+ There is no guarantee that a process is
+alive
+.
+Returns:
+a sequential Stream of ProcessHandles for processes that
+         are descendants of the process
+Throws:
+SecurityException
+- if a security manager has been installed and
+         it denies RuntimePermission("manageProcess")
+allProcesses
+static
+Stream
+<
+ProcessHandle
+>
+allProcesses
+()
+Returns a snapshot of all processes visible to the current process.
+Note that processes are created and terminate asynchronously. There
+ is no guarantee that a process in the stream is alive or that no other
+ processes may have been created since the inception of the snapshot.
+Returns:
+a Stream of ProcessHandles for all processes
+Throws:
+SecurityException
+- if a security manager has been installed and
+         it denies RuntimePermission("manageProcess")
+UnsupportedOperationException
+- if the implementation
+         does not support this operation
+info
+ProcessHandle.Info
+info
+()
+Returns a snapshot of information about the process.
+A
+ProcessHandle.Info
+instance has accessor methods that return
+ information about the process if it is available.
+Returns:
+a snapshot of information about the process, always non-null
+onExit
+CompletableFuture
+<
+ProcessHandle
+>
+onExit
+()
+Returns a
+CompletableFuture<ProcessHandle>
+for the termination
+ of the process.
+ The
+CompletableFuture
+provides the ability
+ to trigger dependent functions or actions that may be run synchronously
+ or asynchronously upon process termination.
+ When the process has terminated the CompletableFuture is
+completed
+regardless
+ of the exit status of the process.
+ The
+onExit
+method can be called multiple times to invoke
+ independent actions when the process exits.
+Calling
+onExit().get()
+waits for the process to terminate and returns
+ the ProcessHandle. The future can be used to check if the process is
+done
+or to
+wait
+for it to terminate.
+Cancelling
+the CompleteableFuture does not affect the Process.
+API Note:
+The process may be observed to have terminated with
+isAlive()
+before the ComputableFuture is completed and dependent actions are invoked.
+Returns:
+a new
+CompletableFuture<ProcessHandle>
+for the ProcessHandle
+Throws:
+IllegalStateException
+- if the process is the current process
+supportsNormalTermination
+boolean
+supportsNormalTermination
+()
+Returns
+true
+if the implementation of
+destroy()
+normally terminates the process.
+ Returns
+false
+if the implementation of
+destroy
+forcibly and immediately terminates the process.
+Returns:
+true
+if the implementation of
+destroy()
+normally terminates the process;
+         otherwise,
+destroy()
+forcibly terminates the process
+destroy
+boolean
+destroy
+()
+Requests the process to be killed.
+ Whether the process represented by this
+ProcessHandle
+object is
+normally terminated
+or not is
+ implementation dependent.
+ Forcible process destruction is defined as the immediate termination of the
+ process, whereas normal termination allows the process to shut down cleanly.
+ If the process is not alive, no action is taken.
+ The operating system access controls may prevent the process
+ from being killed.
+The
+CompletableFuture
+from
+onExit()
+is
+completed
+when the process has terminated.
+Note: The process may not terminate immediately.
+ For example,
+isAlive()
+may return true for a brief period
+ after
+destroy()
+is called.
+Returns:
+true
+if termination was successfully requested,
+         otherwise
+false
+Throws:
+IllegalStateException
+- if the process is the current process
+destroyForcibly
+boolean
+destroyForcibly
+()
+Requests the process to be killed forcibly.
+ The process represented by this
+ProcessHandle
+object is
+ forcibly terminated.
+ Forcible process destruction is defined as the immediate termination of the
+ process, whereas normal termination allows the process to shut down cleanly.
+ If the process is not alive, no action is taken.
+ The operating system access controls may prevent the process
+ from being killed.
+The
+CompletableFuture
+from
+onExit()
+is
+completed
+when the process has terminated.
+Note: The process may not terminate immediately.
+ For example,
+isAlive()
+may return true for a brief period
+ after
+destroyForcibly()
+is called.
+Returns:
+true
+if termination was successfully requested,
+         otherwise
+false
+Throws:
+IllegalStateException
+- if the process is the current process
+isAlive
+boolean
+isAlive
+()
+Tests whether the process represented by this
+ProcessHandle
+is alive.
+ Process termination is implementation and operating system specific.
+ The process is considered alive as long as the PID is valid.
+Returns:
+true
+if the process represented by this
+ProcessHandle
+object has not yet terminated
+hashCode
+int
+hashCode
+()
+Returns a hash code value for this ProcessHandle.
+ The hashcode value follows the general contract for
+Object.hashCode()
+.
+ The value is a function of the
+pid()
+value and
+ may be a function of additional information to uniquely identify the process.
+ If two ProcessHandles are equal according to the
+equals
+method, then calling the hashCode method on each of the two objects
+ must produce the same integer result.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+a hash code value for this object
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+equals
+boolean
+equals
+(
+Object
+other)
+Returns
+true
+if
+other
+object is non-null, is of the
+ same implementation, and represents the same system process;
+ otherwise it returns
+false
+.
+Overrides:
+equals
+in class
+Object
+Implementation Note:
+It is implementation specific whether ProcessHandles with the same PID
+ represent the same system process. ProcessHandle implementations
+ should contain additional information to uniquely identify the process.
+ For example, the start time of the process could be used
+ to determine if the PID has been re-used.
+ The implementation of
+equals
+should return
+true
+for two
+ ProcessHandles with the same PID unless there is information to
+ distinguish them.
+Parameters:
+other
+- another object
+Returns:
+true
+if the
+other
+object is non-null,
+         is of the same implementation class and represents
+         the same system process; otherwise returns
+false
+See Also:
+Object.hashCode()
+HashMap
+compareTo
+int
+compareTo
+(
+ProcessHandle
+other)
+Compares this ProcessHandle with the specified ProcessHandle for order.
+ The order is not specified, but is consistent with
+Object.equals(java.lang.Object)
+,
+ which returns
+true
+if and only if two instances of ProcessHandle
+ are of the same implementation and represent the same system process.
+ Comparison is only supported among objects of same implementation.
+ If attempt is made to mutually compare two different implementations
+ of
+ProcessHandle
+s,
+ClassCastException
+is thrown.
+Specified by:
+compareTo
+in interface
+Comparable
+<
+ProcessHandle
+>
+Parameters:
+other
+- the ProcessHandle to be compared
+Returns:
+a negative integer, zero, or a positive integer as this object
+ is less than, equal to, or greater than the specified object.
+Throws:
+NullPointerException
+- if the specified object is null
+ClassCastException
+- if the specified object is not of same class
+         as this object
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

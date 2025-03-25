@@ -1,0 +1,932 @@
+StandardJavaFileManager (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.tools
+Interface StandardJavaFileManager
+All Superinterfaces:
+AutoCloseable
+,
+Closeable
+,
+Flushable
+,
+JavaFileManager
+,
+OptionChecker
+public interface
+StandardJavaFileManager
+extends
+JavaFileManager
+File manager based on
+java.io.File
+and
+java.nio.file.Path
+.
+
+ A common way to obtain an instance of this class is using
+getStandardFileManager
+, for example:
+JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+DiagnosticCollector<JavaFileObject>
+diagnostics =
+       new
+DiagnosticCollector<JavaFileObject>()
+;
+   StandardJavaFileManager fm = compiler.getStandardFileManager(diagnostics, null, null);
+This file manager creates file objects representing regular
+files
+,
+zip file entries
+, or entries in
+ similar file system based containers.  Any file object returned
+ from a file manager implementing this interface must observe the
+ following behavior:
+File names need not be canonical.
+For file objects representing regular files
+the method
+FileObject.delete()
+is equivalent to
+File.delete()
+,
+the method
+FileObject.getLastModified()
+is equivalent to
+File.lastModified()
+,
+the methods
+FileObject.getCharContent(boolean)
+,
+FileObject.openInputStream()
+, and
+FileObject.openReader(boolean)
+must succeed if the following would succeed (ignoring
+         encoding issues):
+Copy
+new
+FileInputStream
+(new
+File
+(
+fileObject
+.
+toUri
+()))
+and the methods
+FileObject.openOutputStream()
+, and
+FileObject.openWriter()
+must
+         succeed if the following would succeed (ignoring encoding
+         issues):
+Copy
+new
+FileOutputStream
+(new
+File
+(
+fileObject
+.
+toUri
+()))
+The
+URI
+returned from
+FileObject.toUri()
+must be
+absolute
+(have a schema), and
+must have a
+normalized
+path component
+which
+         can be resolved without any process-specific context such
+         as the current directory (file names must be absolute).
+According to these rules, the following URIs, for example, are
+ allowed:
+file:///C:/Documents%20and%20Settings/UncleBob/BobsApp/Test.java
+jar:///C:/Documents%20and%20Settings/UncleBob/lib/vendorA.jar!/com/vendora/LibraryClass.class
+Whereas these are not (reason in parentheses):
+file:BobsApp/Test.java
+(the file name is relative
+     and depend on the current directory)
+jar:lib/vendorA.jar!/com/vendora/LibraryClass.class
+(the first half of the path depends on the current directory,
+     whereas the component after ! is legal)
+Test.java
+(this URI depends on the current
+     directory and does not have a schema)
+jar:///C:/Documents%20and%20Settings/UncleBob/BobsApp/../lib/vendorA.jar!com/vendora/LibraryClass.class
+(the path is not normalized)
+All implementations of this interface must support Path objects representing
+ files in the
+default file system.
+It is recommended that implementations should support Path objects from any filesystem.
+API Note:
+Some methods on this interface take a
+Collection<? extends Path>
+instead of
+Iterable<? extends Path>
+.
+ This is to prevent the possibility of accidentally calling the method
+ with a single
+Path
+as such an argument, because although
+Path
+implements
+Iterable<Path>
+, it would almost never be
+ correct to call these methods with a single
+Path
+and have it be treated as
+ an
+Iterable
+of its components.
+Since:
+1.6
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Interface
+Description
+static interface
+StandardJavaFileManager.PathFactory
+Factory to create
+Path
+objects from strings.
+Nested classes/interfaces declared in interface javax.tools.
+JavaFileManager
+JavaFileManager.Location
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+default
+Path
+asPath
+(
+FileObject
+file)
+Returns the path, if any, underlying this file object (optional operation).
+Iterable
+<? extends
+JavaFileObject
+>
+getJavaFileObjects
+(
+File
+... files)
+Returns file objects representing the given files.
+Iterable
+<? extends
+JavaFileObject
+>
+getJavaFileObjects
+(
+String
+... names)
+Returns file objects representing the given file names.
+default
+Iterable
+<? extends
+JavaFileObject
+>
+getJavaFileObjects
+(
+Path
+... paths)
+Returns file objects representing the given paths.
+Iterable
+<? extends
+JavaFileObject
+>
+getJavaFileObjectsFromFiles
+(
+Iterable
+<? extends
+File
+> files)
+Returns file objects representing the given files.
+default
+Iterable
+<? extends
+JavaFileObject
+>
+getJavaFileObjectsFromPaths
+(
+Iterable
+<? extends
+Path
+> paths)
+Deprecated.
+use
+getJavaFileObjectsFromPaths(Collection)
+instead,
+ to prevent the possibility of accidentally calling the method with a
+ single
+Path
+as such an argument.
+default
+Iterable
+<? extends
+JavaFileObject
+>
+getJavaFileObjectsFromPaths
+(
+Collection
+<? extends
+Path
+> paths)
+Returns file objects representing the given paths.
+Iterable
+<? extends
+JavaFileObject
+>
+getJavaFileObjectsFromStrings
+(
+Iterable
+<
+String
+> names)
+Returns file objects representing the given file names.
+Iterable
+<? extends
+File
+>
+getLocation
+(
+JavaFileManager.Location
+location)
+Returns the search path associated with the given location.
+default
+Iterable
+<? extends
+Path
+>
+getLocationAsPaths
+(
+JavaFileManager.Location
+location)
+Returns the search path associated with the given location.
+boolean
+isSameFile
+(
+FileObject
+a,
+FileObject
+b)
+Compares two file objects and return true if they represent the
+ same canonical file, zip file entry, or entry in any file
+ system based container.
+void
+setLocation
+(
+JavaFileManager.Location
+location,
+Iterable
+<? extends
+File
+> files)
+Associates the given search path with the given location.
+default void
+setLocationForModule
+(
+JavaFileManager.Location
+location,
+String
+moduleName,
+Collection
+<? extends
+Path
+> paths)
+Associates the given search path with the given module and location,
+ which must be a module-oriented or output location.
+default void
+setLocationFromPaths
+(
+JavaFileManager.Location
+location,
+Collection
+<? extends
+Path
+> paths)
+Associates the given search path with the given location.
+default void
+setPathFactory
+(
+StandardJavaFileManager.PathFactory
+f)
+Specify a factory that can be used to generate a path from a string, or series of strings.
+Methods declared in interface javax.tools.
+JavaFileManager
+close
+,
+contains
+,
+flush
+,
+getClassLoader
+,
+getFileForInput
+,
+getFileForOutput
+,
+getFileForOutputForOriginatingFiles
+,
+getJavaFileForInput
+,
+getJavaFileForOutput
+,
+getJavaFileForOutputForOriginatingFiles
+,
+getLocationForModule
+,
+getLocationForModule
+,
+getServiceLoader
+,
+handleOption
+,
+hasLocation
+,
+inferBinaryName
+,
+inferModuleName
+,
+list
+,
+listLocationsForModules
+Methods declared in interface javax.tools.
+OptionChecker
+isSupportedOption
+Method Details
+isSameFile
+boolean
+isSameFile
+(
+FileObject
+a,
+FileObject
+b)
+Compares two file objects and return true if they represent the
+ same canonical file, zip file entry, or entry in any file
+ system based container.
+Specified by:
+isSameFile
+in interface
+JavaFileManager
+Parameters:
+a
+- a file object
+b
+- a file object
+Returns:
+true if the given file objects represent the same
+ canonical file, zip file entry or path; false otherwise
+Throws:
+IllegalArgumentException
+- if either of the arguments
+ were created with another file manager implementation
+getJavaFileObjectsFromFiles
+Iterable
+<? extends
+JavaFileObject
+>
+getJavaFileObjectsFromFiles
+(
+Iterable
+<? extends
+File
+> files)
+Returns file objects representing the given files.
+Parameters:
+files
+- a list of files
+Returns:
+a list of file objects
+Throws:
+IllegalArgumentException
+- if the list of files includes
+ a directory
+getJavaFileObjectsFromPaths
+default
+Iterable
+<? extends
+JavaFileObject
+>
+getJavaFileObjectsFromPaths
+(
+Collection
+<? extends
+Path
+> paths)
+Returns file objects representing the given paths.
+Implementation Requirements:
+The default implementation lazily converts each path to a file and calls
+getJavaFileObjectsFromFiles
+.
+IllegalArgumentException
+will be thrown
+ if any of the paths cannot be converted to a file at the point the conversion happens.
+Parameters:
+paths
+- a list of paths
+Returns:
+a list of file objects
+Throws:
+IllegalArgumentException
+- if the list of paths includes
+ a directory or if this file manager does not support any of the
+ given paths
+Since:
+13
+getJavaFileObjectsFromPaths
+@Deprecated
+(
+since
+="13")
+default
+Iterable
+<? extends
+JavaFileObject
+>
+getJavaFileObjectsFromPaths
+(
+Iterable
+<? extends
+Path
+> paths)
+Deprecated.
+use
+getJavaFileObjectsFromPaths(Collection)
+instead,
+ to prevent the possibility of accidentally calling the method with a
+ single
+Path
+as such an argument. Although
+Path
+implements
+Iterable<Path>
+, it would almost never be correct to pass a single
+Path
+and have it be treated as an
+Iterable
+of its
+ components.
+Returns file objects representing the given paths.
+Implementation Requirements:
+The default implementation lazily converts each path to a file and calls
+getJavaFileObjectsFromPaths
+.
+IllegalArgumentException
+will be thrown
+ if any of the paths cannot be converted to a file at the point the conversion happens.
+Parameters:
+paths
+- a list of paths
+Returns:
+a list of file objects
+Throws:
+IllegalArgumentException
+- if the list of paths includes
+ a directory or if this file manager does not support any of the
+ given paths.
+Since:
+9
+getJavaFileObjects
+Iterable
+<? extends
+JavaFileObject
+>
+getJavaFileObjects
+(
+File
+... files)
+Returns file objects representing the given files.
+ Convenience method equivalent to:
+Copy
+getJavaFileObjectsFromFiles(
+Arrays.asList
+(files))
+Parameters:
+files
+- an array of files
+Returns:
+a list of file objects
+Throws:
+IllegalArgumentException
+- if the array of files includes
+ a directory or if this file manager does not support any of the
+ given paths
+NullPointerException
+- if the given array contains null
+ elements
+getJavaFileObjects
+default
+Iterable
+<? extends
+JavaFileObject
+>
+getJavaFileObjects
+(
+Path
+... paths)
+Returns file objects representing the given paths.
+ Convenience method equivalent to:
+Copy
+getJavaFileObjectsFromPaths(
+Arrays.asList
+(paths))
+Implementation Requirements:
+The default implementation will only throw
+NullPointerException
+if
+getJavaFileObjectsFromPaths(Collection)
+throws it.
+Parameters:
+paths
+- an array of paths
+Returns:
+a list of file objects
+Throws:
+IllegalArgumentException
+- if the array of files includes
+ a directory or if this file manager does not support any of the
+ given paths
+NullPointerException
+- if the given array contains null
+ elements
+Since:
+9
+getJavaFileObjectsFromStrings
+Iterable
+<? extends
+JavaFileObject
+>
+getJavaFileObjectsFromStrings
+(
+Iterable
+<
+String
+> names)
+Returns file objects representing the given file names.
+Parameters:
+names
+- a list of file names
+Returns:
+a list of file objects
+Throws:
+IllegalArgumentException
+- if the list of file names
+ includes a directory
+getJavaFileObjects
+Iterable
+<? extends
+JavaFileObject
+>
+getJavaFileObjects
+(
+String
+... names)
+Returns file objects representing the given file names.
+ Convenience method equivalent to:
+Copy
+getJavaFileObjectsFromStrings(
+Arrays.asList
+(names))
+Parameters:
+names
+- a list of file names
+Returns:
+a list of file objects
+Throws:
+IllegalArgumentException
+- if the array of file names
+ includes a directory
+NullPointerException
+- if the given array contains null
+ elements
+setLocation
+void
+setLocation
+(
+JavaFileManager.Location
+location,
+Iterable
+<? extends
+File
+> files)
+throws
+IOException
+Associates the given search path with the given location.  Any
+ previous value will be discarded.
+
+ If the location is a module-oriented or output location, any module-specific
+ associations set up by
+setLocationForModule
+will be cancelled.
+Parameters:
+location
+- a location
+files
+- a list of files, if
+null
+use the default
+ search path for this location
+Throws:
+IllegalArgumentException
+- if
+location
+is an output
+ location and
+files
+does not contain exactly one element
+IOException
+- if
+location
+is an output location and
+ does not represent an existing directory
+See Also:
+getLocation(javax.tools.JavaFileManager.Location)
+setLocationFromPaths
+default
+void
+setLocationFromPaths
+(
+JavaFileManager.Location
+location,
+Collection
+<? extends
+Path
+> paths)
+throws
+IOException
+Associates the given search path with the given location.
+ Any previous value will be discarded.
+
+ If the location is a module-oriented or output location, any module-specific
+ associations set up by
+setLocationForModule
+will be cancelled.
+Implementation Requirements:
+The default implementation lazily converts each path to a file and calls
+setLocation
+.
+IllegalArgumentException
+will be thrown if any of the paths cannot
+ be converted to a file at the point the conversion happens.
+Parameters:
+location
+- a location
+paths
+- a list of paths, if
+null
+use the default
+ search path for this location
+Throws:
+IllegalArgumentException
+- if
+location
+is an output
+ location and
+paths
+does not contain exactly one element
+ or if this file manager does not support any of the given paths
+IOException
+- if
+location
+is an output location and
+paths
+does not represent an existing directory
+Since:
+9
+See Also:
+getLocation(javax.tools.JavaFileManager.Location)
+setLocationForModule
+default
+void
+setLocationForModule
+(
+JavaFileManager.Location
+location,
+String
+moduleName,
+Collection
+<? extends
+Path
+> paths)
+throws
+IOException
+Associates the given search path with the given module and location,
+ which must be a module-oriented or output location.
+ Any previous value will be discarded.
+ This overrides any default association derived from the search path
+ associated with the location itself.
+
+ All such module-specific associations will be cancelled if a
+ new search path is associated with the location by calling
+setLocation
+or
+setLocationFromPaths
+.
+Implementation Requirements:
+The default implementation throws
+UnsupportedOperationException
+.
+Parameters:
+location
+- the location
+moduleName
+- the name of the module
+paths
+- the search path to associate with the location and module.
+Throws:
+IllegalStateException
+- if the location is not a module-oriented
+  or output location.
+UnsupportedOperationException
+- if this operation is not supported by
+  this file manager.
+IOException
+- if
+location
+is an output location and
+paths
+does not represent an existing directory
+Since:
+9
+See Also:
+setLocation(javax.tools.JavaFileManager.Location, java.lang.Iterable<? extends java.io.File>)
+setLocationFromPaths(javax.tools.JavaFileManager.Location, java.util.Collection<? extends java.nio.file.Path>)
+getLocation
+Iterable
+<? extends
+File
+>
+getLocation
+(
+JavaFileManager.Location
+location)
+Returns the search path associated with the given location.
+Parameters:
+location
+- a location
+Returns:
+a list of files or
+null
+if this location has no
+ associated search path
+Throws:
+IllegalStateException
+- if any element of the search path
+ cannot be converted to a
+File
+, or if the search path
+ cannot be represented as a simple series of files.
+See Also:
+setLocation(javax.tools.JavaFileManager.Location, java.lang.Iterable<? extends java.io.File>)
+Path.toFile()
+getLocationAsPaths
+default
+Iterable
+<? extends
+Path
+>
+getLocationAsPaths
+(
+JavaFileManager.Location
+location)
+Returns the search path associated with the given location.
+Implementation Requirements:
+The default implementation calls
+getLocation
+and then returns an
+Iterable
+formed by calling
+toPath()
+on each
+File
+returned from
+getLocation
+.
+Parameters:
+location
+- a location
+Returns:
+a list of paths or
+null
+if this location has no
+ associated search path
+Throws:
+IllegalStateException
+- if the search path cannot be represented
+ as a simple series of paths.
+Since:
+9
+See Also:
+setLocationFromPaths(javax.tools.JavaFileManager.Location, java.util.Collection<? extends java.nio.file.Path>)
+asPath
+default
+Path
+asPath
+(
+FileObject
+file)
+Returns the path, if any, underlying this file object (optional operation).
+ File objects derived from a
+FileSystem
+,
+ including the default file system, typically have a corresponding underlying
+Path
+object. In such cases, this method may be
+ used to access that object.
+Implementation Requirements:
+The default implementation throws
+UnsupportedOperationException
+for all files.
+Parameters:
+file
+- a file object
+Returns:
+a path representing the same underlying file system artifact
+Throws:
+IllegalArgumentException
+- if the file object does not have an underlying path
+UnsupportedOperationException
+- if the operation is not supported by this file manager
+Since:
+9
+setPathFactory
+default
+void
+setPathFactory
+(
+StandardJavaFileManager.PathFactory
+f)
+Specify a factory that can be used to generate a path from a string, or series of strings.
+
+ If this method is not called, a factory whose
+getPath
+method is
+ equivalent to calling
+java.nio.file.Paths.get(first, more)
+will be used.
+Implementation Requirements:
+The default implementation of this method ignores the factory that is provided.
+Parameters:
+f
+- the factory
+Since:
+9
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

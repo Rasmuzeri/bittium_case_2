@@ -1,0 +1,476 @@
+RoleInfo (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.management
+Package
+javax.management.relation
+Class RoleInfo
+java.lang.Object
+javax.management.relation.RoleInfo
+All Implemented Interfaces:
+Serializable
+public class
+RoleInfo
+extends
+Object
+implements
+Serializable
+A RoleInfo object summarises a role in a relation type.
+The
+serialVersionUID
+of this class is
+2504952983494636987L
+.
+Since:
+1.5
+See Also:
+Serialized Form
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final int
+ROLE_CARDINALITY_INFINITY
+To specify an unlimited cardinality.
+Constructor Summary
+Constructors
+Constructor
+Description
+RoleInfo
+(
+String
+roleName,
+String
+mbeanClassName)
+Constructor.
+RoleInfo
+(
+String
+roleName,
+String
+mbeanClassName,
+ boolean read,
+ boolean write)
+Constructor.
+RoleInfo
+(
+String
+roleName,
+String
+mbeanClassName,
+ boolean read,
+ boolean write,
+ int min,
+ int max,
+String
+descr)
+Constructor.
+RoleInfo
+(
+RoleInfo
+roleInfo)
+Copy constructor.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+checkMaxDegree
+(int value)
+Returns true if the
+value
+parameter is lower than or equal to
+ the expected maximum degree, false otherwise.
+boolean
+checkMinDegree
+(int value)
+Returns true if the
+value
+parameter is greater than or equal to
+ the expected minimum degree, false otherwise.
+String
+getDescription
+()
+Returns description text for the role.
+int
+getMaxDegree
+()
+Returns maximum degree for corresponding role reference.
+int
+getMinDegree
+()
+Returns minimum degree for corresponding role reference.
+String
+getName
+()
+Returns the name of the role.
+String
+getRefMBeanClassName
+()
+Returns name of type of MBean expected to be referenced in
+ corresponding role.
+boolean
+isReadable
+()
+Returns read access mode for the role (true if it is readable).
+boolean
+isWritable
+()
+Returns write access mode for the role (true if it is writable).
+String
+toString
+()
+Returns a string describing the role info.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Field Details
+ROLE_CARDINALITY_INFINITY
+public static final
+int
+ROLE_CARDINALITY_INFINITY
+To specify an unlimited cardinality.
+See Also:
+Constant Field Values
+Constructor Details
+RoleInfo
+public
+RoleInfo
+(
+String
+roleName,
+String
+mbeanClassName,
+ boolean read,
+ boolean write,
+ int min,
+ int max,
+String
+descr)
+throws
+IllegalArgumentException
+,
+InvalidRoleInfoException
+,
+ClassNotFoundException
+,
+NotCompliantMBeanException
+Constructor.
+Parameters:
+roleName
+- name of the role.
+mbeanClassName
+- name of the class of MBean(s) expected to
+ be referenced in corresponding role.  If an MBean
+M
+is in
+ this role, then the MBean server must return true for
+isInstanceOf(M, mbeanClassName)
+.
+read
+- flag to indicate if the corresponding role
+ can be read
+write
+- flag to indicate if the corresponding role
+ can be set
+min
+- minimum degree for role, i.e. minimum number of
+ MBeans to provide in corresponding role
+ Must be less than or equal to
+max
+.
+ (ROLE_CARDINALITY_INFINITY for unlimited)
+max
+- maximum degree for role, i.e. maximum number of
+ MBeans to provide in corresponding role
+ Must be greater than or equal to
+min
+(ROLE_CARDINALITY_INFINITY for unlimited)
+descr
+- description of the role (can be null)
+Throws:
+IllegalArgumentException
+- if null parameter
+InvalidRoleInfoException
+- if the minimum degree is
+ greater than the maximum degree.
+ClassNotFoundException
+- As of JMX 1.2, this exception
+ can no longer be thrown.  It is retained in the declaration of
+ this class for compatibility with existing code.
+NotCompliantMBeanException
+- if the class mbeanClassName
+ is not a MBean class.
+RoleInfo
+public
+RoleInfo
+(
+String
+roleName,
+String
+mbeanClassName,
+ boolean read,
+ boolean write)
+throws
+IllegalArgumentException
+,
+ClassNotFoundException
+,
+NotCompliantMBeanException
+Constructor.
+Parameters:
+roleName
+- name of the role
+mbeanClassName
+- name of the class of MBean(s) expected to
+ be referenced in corresponding role.  If an MBean
+M
+is in
+ this role, then the MBean server must return true for
+isInstanceOf(M, mbeanClassName)
+.
+read
+- flag to indicate if the corresponding role
+ can be read
+write
+- flag to indicate if the corresponding role
+ can be set
+Minimum and maximum degrees defaulted to 1.
+Description of role defaulted to null.
+Throws:
+IllegalArgumentException
+- if null parameter
+ClassNotFoundException
+- As of JMX 1.2, this exception
+ can no longer be thrown.  It is retained in the declaration of
+ this class for compatibility with existing code.
+NotCompliantMBeanException
+- As of JMX 1.2, this
+ exception can no longer be thrown.  It is retained in the
+ declaration of this class for compatibility with existing code.
+RoleInfo
+public
+RoleInfo
+(
+String
+roleName,
+String
+mbeanClassName)
+throws
+IllegalArgumentException
+,
+ClassNotFoundException
+,
+NotCompliantMBeanException
+Constructor.
+Parameters:
+roleName
+- name of the role
+mbeanClassName
+- name of the class of MBean(s) expected to
+ be referenced in corresponding role.  If an MBean
+M
+is in
+ this role, then the MBean server must return true for
+isInstanceOf(M, mbeanClassName)
+.
+IsReadable and IsWritable defaulted to true.
+Minimum and maximum degrees defaulted to 1.
+Description of role defaulted to null.
+Throws:
+IllegalArgumentException
+- if null parameter
+ClassNotFoundException
+- As of JMX 1.2, this exception
+ can no longer be thrown.  It is retained in the declaration of
+ this class for compatibility with existing code.
+NotCompliantMBeanException
+- As of JMX 1.2, this
+ exception can no longer be thrown.  It is retained in the
+ declaration of this class for compatibility with existing code.
+RoleInfo
+public
+RoleInfo
+(
+RoleInfo
+roleInfo)
+throws
+IllegalArgumentException
+Copy constructor.
+Parameters:
+roleInfo
+- the
+RoleInfo
+instance to be copied.
+Throws:
+IllegalArgumentException
+- if null parameter
+Method Details
+getName
+public
+String
+getName
+()
+Returns the name of the role.
+Returns:
+the name of the role.
+isReadable
+public
+boolean
+isReadable
+()
+Returns read access mode for the role (true if it is readable).
+Returns:
+true if the role is readable.
+isWritable
+public
+boolean
+isWritable
+()
+Returns write access mode for the role (true if it is writable).
+Returns:
+true if the role is writable.
+getDescription
+public
+String
+getDescription
+()
+Returns description text for the role.
+Returns:
+the description of the role.
+getMinDegree
+public
+int
+getMinDegree
+()
+Returns minimum degree for corresponding role reference.
+Returns:
+the minimum degree.
+getMaxDegree
+public
+int
+getMaxDegree
+()
+Returns maximum degree for corresponding role reference.
+Returns:
+the maximum degree.
+getRefMBeanClassName
+public
+String
+getRefMBeanClassName
+()
+Returns name of type of MBean expected to be referenced in
+ corresponding role.
+Returns:
+the name of the referenced type.
+checkMinDegree
+public
+boolean
+checkMinDegree
+(int value)
+Returns true if the
+value
+parameter is greater than or equal to
+ the expected minimum degree, false otherwise.
+Parameters:
+value
+- the value to be checked
+Returns:
+true if greater than or equal to minimum degree, false otherwise.
+checkMaxDegree
+public
+boolean
+checkMaxDegree
+(int value)
+Returns true if the
+value
+parameter is lower than or equal to
+ the expected maximum degree, false otherwise.
+Parameters:
+value
+- the value to be checked
+Returns:
+true if lower than or equal to maximum degree, false otherwise.
+toString
+public
+String
+toString
+()
+Returns a string describing the role info.
+Overrides:
+toString
+in class
+Object
+Returns:
+a description of the role info.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

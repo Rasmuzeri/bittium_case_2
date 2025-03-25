@@ -1,0 +1,194 @@
+DrbgParameters.Instantiation (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.security
+Class DrbgParameters.Instantiation
+java.lang.Object
+java.security.DrbgParameters.Instantiation
+All Implemented Interfaces:
+SecureRandomParameters
+Enclosing class:
+DrbgParameters
+public static final class
+DrbgParameters.Instantiation
+extends
+Object
+implements
+SecureRandomParameters
+DRBG parameters for instantiation.
+When used in
+SecureRandom.getInstance(String, SecureRandomParameters)
+or one of the other similar
+getInstance
+calls that take a
+SecureRandomParameters
+parameter, it means the
+ requested instantiate parameters the newly created
+SecureRandom
+object must minimally support. When used as the return value of the
+SecureRandom.getParameters()
+method, it means the effective
+ instantiate parameters of the
+SecureRandom
+object.
+Since:
+9
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+DrbgParameters.Capability
+getCapability
+()
+Returns the capability.
+byte[]
+getPersonalizationString
+()
+Returns the personalization string as a byte array.
+int
+getStrength
+()
+Returns the security strength in bits.
+String
+toString
+()
+Returns a Human-readable string representation of this
+Instantiation
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Method Details
+getStrength
+public
+int
+getStrength
+()
+Returns the security strength in bits.
+Returns:
+If used in
+getInstance
+, returns the minimum strength
+ requested, or -1 if there is no specific request on the strength.
+ If used in
+getParameters
+, returns the effective strength.
+ The effective strength must be greater than or equal to the minimum
+ strength requested.
+getCapability
+public
+DrbgParameters.Capability
+getCapability
+()
+Returns the capability.
+Returns:
+If used in
+getInstance
+, returns the minimum
+ capability requested. If used in
+getParameters
+, returns
+ information on the effective prediction resistance flag and
+ whether it supports reseeding.
+getPersonalizationString
+public
+byte[]
+getPersonalizationString
+()
+Returns the personalization string as a byte array.
+Returns:
+If used in
+getInstance
+, returns the requested
+ personalization string as a newly allocated array, or
+null
+if no personalization string is requested. The same string should
+ be returned in
+getParameters
+as a new copy, or
+null
+if no personalization string is requested in
+getInstance
+.
+toString
+public
+String
+toString
+()
+Returns a Human-readable string representation of this
+Instantiation
+.
+Overrides:
+toString
+in class
+Object
+Returns:
+the string representation
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

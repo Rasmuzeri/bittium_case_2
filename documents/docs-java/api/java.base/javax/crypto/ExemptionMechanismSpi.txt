@@ -1,0 +1,353 @@
+ExemptionMechanismSpi (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+javax.crypto
+Class ExemptionMechanismSpi
+java.lang.Object
+javax.crypto.ExemptionMechanismSpi
+public abstract class
+ExemptionMechanismSpi
+extends
+Object
+This class defines the
+Service Provider Interface
+(
+SPI
+)
+ for the
+ExemptionMechanism
+class.
+ All the abstract methods in this class must be implemented by each
+ cryptographic service provider who wishes to supply the implementation
+ of a particular exemption mechanism.
+Since:
+1.4
+Constructor Summary
+Constructors
+Constructor
+Description
+ExemptionMechanismSpi
+()
+Constructor for subclasses to call.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+protected abstract byte[]
+engineGenExemptionBlob
+()
+Generates the exemption mechanism key blob.
+protected abstract int
+engineGenExemptionBlob
+(byte[] output,
+ int outputOffset)
+Generates the exemption mechanism key blob, and stores the result in
+ the
+output
+buffer, starting at
+outputOffset
+inclusive.
+protected abstract int
+engineGetOutputSize
+(int inputLen)
+Returns the length in bytes that an output buffer would need to be in
+ order to hold the result of the next
+engineGenExemptionBlob
+operation, given the input length
+inputLen
+(in bytes).
+protected abstract void
+engineInit
+(
+Key
+key)
+Initializes this exemption mechanism with a key.
+protected abstract void
+engineInit
+(
+Key
+key,
+AlgorithmParameters
+params)
+Initializes this exemption mechanism with a key and a set of algorithm
+ parameters.
+protected abstract void
+engineInit
+(
+Key
+key,
+AlgorithmParameterSpec
+params)
+Initializes this exemption mechanism with a key and a set of algorithm
+ parameters.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+ExemptionMechanismSpi
+public
+ExemptionMechanismSpi
+()
+Constructor for subclasses to call.
+Method Details
+engineGetOutputSize
+protected abstract
+int
+engineGetOutputSize
+(int inputLen)
+Returns the length in bytes that an output buffer would need to be in
+ order to hold the result of the next
+engineGenExemptionBlob
+operation, given the input length
+inputLen
+(in bytes).
+The actual output length of the next
+engineGenExemptionBlob
+call may be smaller than the length returned by this method.
+Parameters:
+inputLen
+- the input length (in bytes)
+Returns:
+the required output buffer size (in bytes)
+engineInit
+protected abstract
+void
+engineInit
+(
+Key
+key)
+throws
+InvalidKeyException
+,
+ExemptionMechanismException
+Initializes this exemption mechanism with a key.
+If this exemption mechanism requires any algorithm parameters
+ that cannot be derived from the given
+key
+, the underlying
+ exemption mechanism implementation is supposed to generate the required
+ parameters itself (using provider-specific default values); in the case
+ that algorithm parameters must be specified by the caller, an
+InvalidKeyException
+is raised.
+Parameters:
+key
+- the key for this exemption mechanism
+Throws:
+InvalidKeyException
+- if the given key is inappropriate for
+ this exemption mechanism.
+ExemptionMechanismException
+- if problem(s) encountered in the
+ process of initializing.
+engineInit
+protected abstract
+void
+engineInit
+(
+Key
+key,
+AlgorithmParameterSpec
+params)
+throws
+InvalidKeyException
+,
+InvalidAlgorithmParameterException
+,
+ExemptionMechanismException
+Initializes this exemption mechanism with a key and a set of algorithm
+ parameters.
+If this exemption mechanism requires any algorithm parameters and
+params
+is null, the underlying exemption mechanism
+ implementation is supposed to generate the required parameters
+ itself (using provider-specific default values); in the case that
+ algorithm parameters must be specified by the caller, an
+InvalidAlgorithmParameterException
+is raised.
+Parameters:
+key
+- the key for this exemption mechanism
+params
+- the algorithm parameters
+Throws:
+InvalidKeyException
+- if the given key is inappropriate for
+ this exemption mechanism.
+InvalidAlgorithmParameterException
+- if the given algorithm
+ parameters are inappropriate for this exemption mechanism.
+ExemptionMechanismException
+- if problem(s) encountered in the
+ process of initializing.
+engineInit
+protected abstract
+void
+engineInit
+(
+Key
+key,
+AlgorithmParameters
+params)
+throws
+InvalidKeyException
+,
+InvalidAlgorithmParameterException
+,
+ExemptionMechanismException
+Initializes this exemption mechanism with a key and a set of algorithm
+ parameters.
+If this exemption mechanism requires any algorithm parameters
+ and
+params
+is null, the underlying exemption mechanism
+ implementation is supposed to generate the required parameters
+ itself (using provider-specific default values); in the case that
+ algorithm parameters must be specified by the caller, an
+InvalidAlgorithmParameterException
+is raised.
+Parameters:
+key
+- the key for this exemption mechanism
+params
+- the algorithm parameters
+Throws:
+InvalidKeyException
+- if the given key is inappropriate for
+ this exemption mechanism.
+InvalidAlgorithmParameterException
+- if the given algorithm
+ parameters are inappropriate for this exemption mechanism.
+ExemptionMechanismException
+- if problem(s) encountered in the
+ process of initializing.
+engineGenExemptionBlob
+protected abstract
+byte[]
+engineGenExemptionBlob
+()
+                                          throws
+ExemptionMechanismException
+Generates the exemption mechanism key blob.
+Returns:
+the new buffer with the result key blob.
+Throws:
+ExemptionMechanismException
+- if problem(s) encountered in the
+ process of generating.
+engineGenExemptionBlob
+protected abstract
+int
+engineGenExemptionBlob
+(byte[] output,
+ int outputOffset)
+throws
+ShortBufferException
+,
+ExemptionMechanismException
+Generates the exemption mechanism key blob, and stores the result in
+ the
+output
+buffer, starting at
+outputOffset
+inclusive.
+If the
+output
+buffer is too small to hold the result,
+ a
+ShortBufferException
+is thrown. In this case, repeat this
+ call with a larger output buffer. Use
+engineGetOutputSize
+to determine
+ how big the output buffer should be.
+Parameters:
+output
+- the buffer for the result
+outputOffset
+- the offset in
+output
+where the result
+ is stored
+Returns:
+the number of bytes stored in
+output
+Throws:
+ShortBufferException
+- if the given output buffer is too small
+ to hold the result.
+ExemptionMechanismException
+- if problem(s) encountered in the
+ process of generating.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

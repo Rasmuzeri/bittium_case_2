@@ -1,0 +1,413 @@
+ParameterMetaData (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+java.sql
+Package
+java.sql
+Interface ParameterMetaData
+All Superinterfaces:
+Wrapper
+public interface
+ParameterMetaData
+extends
+Wrapper
+An object that can be used to get information about the types
+ and properties for each parameter marker in a
+PreparedStatement
+object. For some queries and driver
+ implementations, the data that would be returned by a
+ParameterMetaData
+object may not be available until the
+PreparedStatement
+has
+ been executed.
+Some driver implementations may not be able to provide information about the
+types and properties for each parameter marker in a
+CallableStatement
+object.
+Since:
+1.4
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final int
+parameterModeIn
+The constant indicating that the parameter's mode is IN.
+static final int
+parameterModeInOut
+The constant indicating that the parameter's mode is INOUT.
+static final int
+parameterModeOut
+The constant indicating that the parameter's mode is  OUT.
+static final int
+parameterModeUnknown
+The constant indicating that the mode of the parameter is unknown.
+static final int
+parameterNoNulls
+The constant indicating that a
+ parameter will not allow
+NULL
+values.
+static final int
+parameterNullable
+The constant indicating that a
+ parameter will allow
+NULL
+values.
+static final int
+parameterNullableUnknown
+The constant indicating that the
+ nullability of a parameter is unknown.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+String
+getParameterClassName
+(int param)
+Retrieves the fully-qualified name of the Java class whose instances
+ should be passed to the method
+PreparedStatement.setObject
+.
+int
+getParameterCount
+()
+Retrieves the number of parameters in the
+PreparedStatement
+object for which this
+ParameterMetaData
+object contains
+ information.
+int
+getParameterMode
+(int param)
+Retrieves the designated parameter's mode.
+int
+getParameterType
+(int param)
+Retrieves the designated parameter's SQL type.
+String
+getParameterTypeName
+(int param)
+Retrieves the designated parameter's database-specific type name.
+int
+getPrecision
+(int param)
+Retrieves the designated parameter's specified column size.
+int
+getScale
+(int param)
+Retrieves the designated parameter's number of digits to right of the decimal point.
+ 0 is returned for data types where the scale is not applicable.
+int
+isNullable
+(int param)
+Retrieves whether null values are allowed in the designated parameter.
+boolean
+isSigned
+(int param)
+Retrieves whether values for the designated parameter can be signed numbers.
+Methods declared in interface java.sql.
+Wrapper
+isWrapperFor
+,
+unwrap
+Field Details
+parameterNoNulls
+static final
+int
+parameterNoNulls
+The constant indicating that a
+ parameter will not allow
+NULL
+values.
+See Also:
+Constant Field Values
+parameterNullable
+static final
+int
+parameterNullable
+The constant indicating that a
+ parameter will allow
+NULL
+values.
+See Also:
+Constant Field Values
+parameterNullableUnknown
+static final
+int
+parameterNullableUnknown
+The constant indicating that the
+ nullability of a parameter is unknown.
+See Also:
+Constant Field Values
+parameterModeUnknown
+static final
+int
+parameterModeUnknown
+The constant indicating that the mode of the parameter is unknown.
+See Also:
+Constant Field Values
+parameterModeIn
+static final
+int
+parameterModeIn
+The constant indicating that the parameter's mode is IN.
+See Also:
+Constant Field Values
+parameterModeInOut
+static final
+int
+parameterModeInOut
+The constant indicating that the parameter's mode is INOUT.
+See Also:
+Constant Field Values
+parameterModeOut
+static final
+int
+parameterModeOut
+The constant indicating that the parameter's mode is  OUT.
+See Also:
+Constant Field Values
+Method Details
+getParameterCount
+int
+getParameterCount
+()
+               throws
+SQLException
+Retrieves the number of parameters in the
+PreparedStatement
+object for which this
+ParameterMetaData
+object contains
+ information.
+Returns:
+the number of parameters
+Throws:
+SQLException
+- if a database access error occurs
+Since:
+1.4
+isNullable
+int
+isNullable
+(int param)
+throws
+SQLException
+Retrieves whether null values are allowed in the designated parameter.
+Parameters:
+param
+- the first parameter is 1, the second is 2, ...
+Returns:
+the nullability status of the given parameter; one of
+ParameterMetaData.parameterNoNulls
+,
+ParameterMetaData.parameterNullable
+, or
+ParameterMetaData.parameterNullableUnknown
+Throws:
+SQLException
+- if a database access error occurs
+Since:
+1.4
+isSigned
+boolean
+isSigned
+(int param)
+throws
+SQLException
+Retrieves whether values for the designated parameter can be signed numbers.
+Parameters:
+param
+- the first parameter is 1, the second is 2, ...
+Returns:
+true
+if so;
+false
+otherwise
+Throws:
+SQLException
+- if a database access error occurs
+Since:
+1.4
+getPrecision
+int
+getPrecision
+(int param)
+throws
+SQLException
+Retrieves the designated parameter's specified column size.
+The returned value represents the maximum column size for the given parameter.
+ For numeric data, this is the maximum precision.  For character data, this is the length in characters.
+ For datetime datatypes, this is the length in characters of the String representation (assuming the
+ maximum allowed precision of the fractional seconds component). For binary data, this is the length in bytes.  For the ROWID datatype,
+ this is the length in bytes. 0 is returned for data types where the
+ column size is not applicable.
+Parameters:
+param
+- the first parameter is 1, the second is 2, ...
+Returns:
+precision
+Throws:
+SQLException
+- if a database access error occurs
+Since:
+1.4
+getScale
+int
+getScale
+(int param)
+throws
+SQLException
+Retrieves the designated parameter's number of digits to right of the decimal point.
+ 0 is returned for data types where the scale is not applicable.
+Parameters:
+param
+- the first parameter is 1, the second is 2, ...
+Returns:
+scale
+Throws:
+SQLException
+- if a database access error occurs
+Since:
+1.4
+getParameterType
+int
+getParameterType
+(int param)
+throws
+SQLException
+Retrieves the designated parameter's SQL type.
+Parameters:
+param
+- the first parameter is 1, the second is 2, ...
+Returns:
+SQL type from
+java.sql.Types
+Throws:
+SQLException
+- if a database access error occurs
+Since:
+1.4
+See Also:
+Types
+getParameterTypeName
+String
+getParameterTypeName
+(int param)
+throws
+SQLException
+Retrieves the designated parameter's database-specific type name.
+Parameters:
+param
+- the first parameter is 1, the second is 2, ...
+Returns:
+type the name used by the database. If the parameter type is
+ a user-defined type, then a fully-qualified type name is returned.
+Throws:
+SQLException
+- if a database access error occurs
+Since:
+1.4
+getParameterClassName
+String
+getParameterClassName
+(int param)
+throws
+SQLException
+Retrieves the fully-qualified name of the Java class whose instances
+ should be passed to the method
+PreparedStatement.setObject
+.
+Parameters:
+param
+- the first parameter is 1, the second is 2, ...
+Returns:
+the fully-qualified name of the class in the Java programming
+         language that would be used by the method
+PreparedStatement.setObject
+to set the value
+         in the specified parameter. This is the class name used
+         for custom mapping.
+Throws:
+SQLException
+- if a database access error occurs
+Since:
+1.4
+getParameterMode
+int
+getParameterMode
+(int param)
+throws
+SQLException
+Retrieves the designated parameter's mode.
+Parameters:
+param
+- the first parameter is 1, the second is 2, ...
+Returns:
+mode of the parameter; one of
+ParameterMetaData.parameterModeIn
+,
+ParameterMetaData.parameterModeOut
+, or
+ParameterMetaData.parameterModeInOut
+ParameterMetaData.parameterModeUnknown
+.
+Throws:
+SQLException
+- if a database access error occurs
+Since:
+1.4
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

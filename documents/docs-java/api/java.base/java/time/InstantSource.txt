@@ -1,0 +1,356 @@
+InstantSource (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.time
+Interface InstantSource
+All Known Implementing Classes:
+Clock
+public interface
+InstantSource
+Provides access to the current instant.
+Instances of this interface are used to access a pluggable representation of the current instant.
+ For example,
+InstantSource
+can be used instead of
+System.currentTimeMillis()
+.
+The primary purpose of this abstraction is to allow alternate instant sources to be
+ plugged in as and when required. Applications use an object to obtain the
+ current time rather than a static method. This can simplify testing.
+As such, this interface does not guarantee the result actually represents the current instant
+ on the time-line. Instead, it allows the application to provide a controlled view as to what
+ the current instant is.
+Best practice for applications is to pass an
+InstantSource
+into any method
+ that requires the current instant. A dependency injection framework is one
+ way to achieve this:
+public class MyBean {
+    private InstantSource source;  // dependency inject
+    ...
+    public void process(Instant endInstant) {
+      if (source.instant().isAfter(endInstant) {
+        ...
+      }
+    }
+  }
+This approach allows an alternative source, such as
+fixed
+or
+offset
+to be used during testing.
+The
+system
+factory method provides a source based on the best available
+ system clock. This may use
+System.currentTimeMillis()
+, or a higher
+ resolution clock if one is available.
+Implementation Requirements:
+This interface must be implemented with care to ensure other classes operate correctly.
+ All implementations must be thread-safe - a single instance must be capable of be invoked
+ from multiple threads without negative consequences such as race conditions.
+The principal methods are defined to allow the throwing of an exception.
+ In normal use, no exceptions will be thrown, however one possible implementation would be to
+ obtain the time from a central time server across the network. Obviously, in this case the
+ lookup could fail, and so the method is permitted to throw an exception.
+The returned instants from
+InstantSource
+work on a time-scale that ignores leap seconds,
+ as described in
+Instant
+. If the implementation wraps a source that provides leap
+ second information, then a mechanism should be used to "smooth" the leap second.
+ The Java Time-Scale mandates the use of UTC-SLS, however implementations may choose
+ how accurate they are with the time-scale so long as they document how they work.
+ Implementations are therefore not required to actually perform the UTC-SLS slew or to
+ otherwise be aware of leap seconds.
+Implementations should implement
+Serializable
+wherever possible and must
+ document whether or not they do support serialization.
+Implementation Note:
+The implementation provided here is based on the same underlying system clock
+ as
+System.currentTimeMillis()
+, but may have a precision finer than
+ milliseconds if available.
+ However, little to no guarantee is provided about the accuracy of the
+ underlying system clock. Applications requiring a more accurate system clock must
+ implement this abstract class themselves using a different external system clock,
+ such as an NTP server.
+Since:
+17
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+static
+InstantSource
+fixed
+(
+Instant
+fixedInstant)
+Obtains a source that always returns the same instant.
+Instant
+instant
+()
+Gets the current instant of the source.
+default long
+millis
+()
+Gets the current millisecond instant of the source.
+static
+InstantSource
+offset
+(
+InstantSource
+baseSource,
+Duration
+offsetDuration)
+Obtains a source that returns instants from the specified source with the
+ specified duration added.
+static
+InstantSource
+system
+()
+Obtains a source that returns the current instant using the best available
+ system clock.
+static
+InstantSource
+tick
+(
+InstantSource
+baseSource,
+Duration
+tickDuration)
+Obtains a source that returns instants from the specified source truncated to
+ the nearest occurrence of the specified duration.
+default
+Clock
+withZone
+(
+ZoneId
+zone)
+Returns a clock with the specified time-zone.
+Method Details
+system
+static
+InstantSource
+system
+()
+Obtains a source that returns the current instant using the best available
+ system clock.
+This source is based on the best available system clock. This may use
+System.currentTimeMillis()
+, or a higher resolution system clock if
+ one is available.
+The returned implementation is immutable, thread-safe and
+Serializable
+.
+Returns:
+a source that uses the best available system clock, not null
+tick
+static
+InstantSource
+tick
+(
+InstantSource
+baseSource,
+Duration
+tickDuration)
+Obtains a source that returns instants from the specified source truncated to
+ the nearest occurrence of the specified duration.
+This source will only tick as per the specified duration. Thus, if the
+ duration is half a second, the source will return instants truncated to the
+ half second.
+The tick duration must be positive. If it has a part smaller than a whole
+ millisecond, then the whole duration must divide into one second without
+ leaving a remainder. All normal tick durations will match these criteria,
+ including any multiple of hours, minutes, seconds and milliseconds, and
+ sensible nanosecond durations, such as 20ns, 250,000ns and 500,000ns.
+A duration of zero or one nanosecond would have no truncation effect. Passing
+ one of these will return the underlying source.
+Implementations may use a caching strategy for performance reasons. As such,
+ it is possible that the start of the requested duration observed via this
+ source will be later than that observed directly via the underlying source.
+The returned implementation is immutable, thread-safe and
+Serializable
+providing that the base source is.
+Parameters:
+baseSource
+- the base source to base the ticking source on, not null
+tickDuration
+- the duration of each visible tick, not negative, not null
+Returns:
+a source that ticks in whole units of the duration, not null
+Throws:
+IllegalArgumentException
+- if the duration is negative, or has a
+  part smaller than a whole millisecond such that the whole duration is not
+  divisible into one second
+ArithmeticException
+- if the duration is too large to be represented as nanos
+fixed
+static
+InstantSource
+fixed
+(
+Instant
+fixedInstant)
+Obtains a source that always returns the same instant.
+This source simply returns the specified instant.
+ As such, it is not a source that represents the current instant.
+ The main use case for this is in testing, where the fixed source ensures
+ tests are not dependent on the current source.
+The returned implementation is immutable, thread-safe and
+Serializable
+.
+Parameters:
+fixedInstant
+- the instant to use, not null
+Returns:
+a source that always returns the same instant, not null
+offset
+static
+InstantSource
+offset
+(
+InstantSource
+baseSource,
+Duration
+offsetDuration)
+Obtains a source that returns instants from the specified source with the
+ specified duration added.
+This source wraps another source, returning instants that are later by the
+ specified duration. If the duration is negative, the instants will be
+ earlier than the current date and time.
+ The main use case for this is to simulate running in the future or in the past.
+A duration of zero would have no offsetting effect.
+ Passing zero will return the underlying source.
+The returned implementation is immutable, thread-safe and
+Serializable
+providing that the base source is.
+Parameters:
+baseSource
+- the base source to add the duration to, not null
+offsetDuration
+- the duration to add, not null
+Returns:
+a source based on the base source with the duration added, not null
+instant
+Instant
+instant
+()
+Gets the current instant of the source.
+This returns an instant representing the current instant as defined by the source.
+Returns:
+the current instant from this source, not null
+Throws:
+DateTimeException
+- if the instant cannot be obtained, not thrown by most implementations
+millis
+default
+long
+millis
+()
+Gets the current millisecond instant of the source.
+This returns the millisecond-based instant, measured from 1970-01-01T00:00Z (UTC).
+ This is equivalent to the definition of
+System.currentTimeMillis()
+.
+Most applications should avoid this method and use
+Instant
+to represent
+ an instant on the time-line rather than a raw millisecond value.
+ This method is provided to allow the use of the source in high performance use cases
+ where the creation of an object would be unacceptable.
+Implementation Requirements:
+The default implementation calls
+instant()
+.
+Returns:
+the current millisecond instant from this source, measured from
+  the Java epoch of 1970-01-01T00:00Z (UTC), not null
+Throws:
+DateTimeException
+- if the instant cannot be obtained, not thrown by most implementations
+withZone
+default
+Clock
+withZone
+(
+ZoneId
+zone)
+Returns a clock with the specified time-zone.
+This returns a
+Clock
+, which is an extension of this interface
+ that combines this source and the specified time-zone.
+The returned implementation is immutable, thread-safe and
+Serializable
+providing that this source is.
+Implementation Requirements:
+The default implementation returns an immutable, thread-safe and
+Serializable
+subclass of
+Clock
+that combines this
+ source and the specified zone.
+Parameters:
+zone
+- the time-zone to use, not null
+Returns:
+a clock based on this source with the specified time-zone, not null
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

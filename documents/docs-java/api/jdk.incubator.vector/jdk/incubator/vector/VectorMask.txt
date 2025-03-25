@@ -1,0 +1,1339 @@
+VectorMask (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.incubator.vector
+Package
+jdk.incubator.vector
+Class VectorMask<E>
+java.lang.Object
+jdk.incubator.vector.VectorMask<E>
+Type Parameters:
+E
+- the boxed version of
+ETYPE
+,
+           the element type of a vector
+Value-based classes and identity operations
+VectorMask
+, along with
+Vector
+, is a
+value-based
+class.
+
+ With
+VectorMask
+, identity-sensitive operations such as
+==
+may yield unpredictable results, or reduced performance.  Oddly
+ enough,
+v.equals(w)
+is likely to be
+ faster than
+v==w
+, since
+equals
+is
+not
+an identity sensitive method.  (Neither is
+toString
+nor
+hashCode
+.)
+
+ Also, vector mask objects can be stored in locals and parameters and as
+static final
+constants, but storing them in other Java
+ fields or in array elements, while semantically valid, may incur
+ performance penalties.
+public abstract class
+VectorMask<E>
+extends
+Object
+A
+VectorMask
+represents an ordered immutable sequence of
+boolean
+values.
+A
+VectorMask
+and
+Vector
+of the same
+element type
+(
+ETYPE
+) and
+shape
+have the same number of lanes,
+ and are therefore compatible (specifically, their
+vector species
+are compatible).
+Some vector operations accept (compatible) masks to control the
+ selection and operation of lane elements of input vectors.
+The number of values in the sequence is referred to as the
+VectorMask
+length
+. The length also corresponds to the number of
+ VectorMask lanes.  The lane element at lane index
+N
+(from
+0
+,
+ inclusive, to length, exclusive) corresponds to the
+N + 1
+'th
+ value in the sequence.
+A lane is said to be
+set
+if the lane element is
+true
+,
+ otherwise a lane is said to be
+unset
+if the lane element is
+false
+.
+VectorMask declares a limited set of unary, binary and reduction operations.
+A lane-wise unary operation operates on one input mask and produces a
+ result mask.
+ For each lane of the input mask the
+ lane element is operated on using the specified scalar unary operation and
+ the boolean result is placed into the mask result at the same lane.
+ The following pseudocode illustrates the behavior of this operation category:
+VectorMask<E> a = ...;
+ boolean[] ar = new boolean[a.length()];
+ for (int i = 0; i < a.length(); i++) {
+     ar[i] = scalar_unary_op(a.laneIsSet(i));
+ }
+ VectorMask<E> r = VectorMask.fromArray(a.vectorSpecies(), ar, 0);
+A lane-wise binary operation operates on two input
+ masks to produce a result mask.
+ For each lane of the two input masks a and b,
+ the corresponding lane elements from a and b are operated on
+ using the specified scalar binary operation and the boolean result is placed
+ into the mask result at the same lane.
+ The following pseudocode illustrates the behavior of this operation category:
+VectorMask<E> a = ...;
+ VectorMask<E> b = ...;
+ boolean[] ar = new boolean[a.length()];
+ for (int i = 0; i < a.length(); i++) {
+     ar[i] = scalar_binary_op(a.laneIsSet(i), b.laneIsSet(i));
+ }
+ VectorMask<E> r = VectorMask.fromArray(a.vectorSpecies(), ar, 0);
+A cross-lane reduction operation accepts an input mask and produces a scalar result.
+ For each lane of the input mask the lane element is operated on, together with a scalar accumulation value,
+ using the specified scalar binary operation.  The scalar result is the final value of the accumulator. The
+ following pseudocode illustrates the behaviour of this operation category:
+Mask<E> a = ...;
+ int acc = zero_for_scalar_binary_op;  // 0, or 1 for &
+ for (int i = 0; i < a.length(); i++) {
+      acc = scalar_binary_op(acc, a.laneIsSet(i) ? 1 : 0);  // & | +
+ }
+ return acc;  // maybe boolean (acc != 0)
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+abstract boolean
+allTrue
+()
+Returns
+true
+if all of the mask lanes are set.
+abstract
+VectorMask
+<
+E
+>
+and
+(
+VectorMask
+<
+E
+> m)
+Computes the logical intersection (as
+a&b
+)
+ between this mask and a second input mask.
+abstract
+VectorMask
+<
+E
+>
+andNot
+(
+VectorMask
+<
+E
+> m)
+Logically subtracts a second input mask
+ from this mask (as
+a&~b
+).
+abstract boolean
+anyTrue
+()
+Returns
+true
+if any of the mask lanes are set.
+abstract <F>
+VectorMask
+<F>
+cast
+(
+VectorSpecies
+<F> species)
+Converts this mask to a mask of the given species of
+ element type
+F
+.
+abstract <F>
+VectorMask
+<F>
+check
+(
+Class
+<F> elementType)
+Checks that this mask applies to vectors with the given element type,
+ and returns this mask unchanged.
+abstract <F>
+VectorMask
+<F>
+check
+(
+VectorSpecies
+<F> species)
+Checks that this mask has the given species,
+ and returns this mask unchanged.
+abstract
+VectorMask
+<
+E
+>
+compress
+()
+Compresses set lanes from this mask.
+abstract
+VectorMask
+<
+E
+>
+eq
+(
+VectorMask
+<
+E
+> m)
+Determines logical equivalence of this mask
+ to a second input mask (as boolean
+a==b
+or
+a^~b
+).
+final boolean
+equals
+(
+Object
+obj)
+Indicates whether this mask is identical to some other object.
+abstract int
+firstTrue
+()
+Returns the index of the first mask lane that is set.
+static <E>
+VectorMask
+<E>
+fromArray
+(
+VectorSpecies
+<E> species,
+ boolean[] bits,
+ int offset)
+Loads a mask from a
+boolean
+array starting at an offset.
+static <E>
+VectorMask
+<E>
+fromLong
+(
+VectorSpecies
+<E> species,
+ long bits)
+Returns a mask where each lane is set or unset according to
+ the bits in the given bitmask, starting with the least
+ significant bit, and continuing up to the sign bit.
+static <E>
+VectorMask
+<E>
+fromValues
+(
+VectorSpecies
+<E> species,
+ boolean... bits)
+Returns a mask where each lane is set or unset according to given
+boolean
+values.
+protected final
+Object
+getPayload
+()
+final int
+hashCode
+()
+Returns a hash code value for the mask,
+ based on the mask bit settings and the vector species.
+abstract
+VectorMask
+<
+E
+>
+indexInRange
+(int offset,
+ int limit)
+Removes lanes numbered
+N
+from this mask where the
+ adjusted index
+N+offset
+, is not in the range
+[0..limit-1]
+.
+abstract
+VectorMask
+<
+E
+>
+indexInRange
+(long offset,
+ long limit)
+Removes lanes numbered
+N
+from this mask where the
+ adjusted index
+N+offset
+, is not in the range
+[0..limit-1]
+.
+abstract void
+intoArray
+(boolean[] a,
+ int offset)
+Stores this mask into a
+boolean
+array starting at offset.
+abstract boolean
+laneIsSet
+(int i)
+Tests if the lane at index
+i
+is set
+abstract int
+lastTrue
+()
+Returns the index of the last mask lane that is set.
+final int
+length
+()
+Returns the number of mask lanes.
+abstract
+VectorMask
+<
+E
+>
+not
+()
+Logically negates this mask.
+abstract
+VectorMask
+<
+E
+>
+or
+(
+VectorMask
+<
+E
+> m)
+Computes the logical union (as
+a|b
+) of this mask
+ and a second input mask.
+abstract boolean[]
+toArray
+()
+Returns an
+boolean
+array containing the lane elements of this
+ mask.
+abstract long
+toLong
+()
+Returns the lane elements of this mask packed into a
+long
+value for at most the first 64 lane elements.
+final
+String
+toString
+()
+Returns a string representation of this mask, of the form
+"Mask[T.TT...]"
+, reporting the mask bit
+ settings (as 'T' or '.' characters) in lane order.
+abstract
+Vector
+<
+E
+>
+toVector
+()
+Returns a vector representation of this mask, the
+ lane bits of which are set or unset in correspondence
+ to the mask bits.
+abstract int
+trueCount
+()
+Returns the number of mask lanes that are set.
+abstract
+VectorSpecies
+<
+E
+>
+vectorSpecies
+()
+Returns the vector species to which this mask applies.
+abstract
+VectorMask
+<
+E
+>
+xor
+(
+VectorMask
+<
+E
+> m)
+Determines logical symmetric difference
+ (as
+a^b
+) of this mask and a second input mask.
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Method Details
+vectorSpecies
+public abstract
+VectorSpecies
+<
+E
+>
+vectorSpecies
+()
+Returns the vector species to which this mask applies.
+ This mask applies to vectors of the same species,
+ and the same number of lanes.
+Returns:
+the vector species of this mask
+length
+public final
+int
+length
+()
+Returns the number of mask lanes.
+ This mask applies to vectors of the same number of lanes,
+ and the same species.
+Returns:
+the number of mask lanes
+fromValues
+public static
+<E>
+VectorMask
+<E>
+fromValues
+(
+VectorSpecies
+<E> species,
+ boolean... bits)
+Returns a mask where each lane is set or unset according to given
+boolean
+values.
+For each mask lane, where
+N
+is the mask lane index,
+ if the given
+boolean
+value at index
+N
+is
+true
+then the mask lane at index
+N
+is set, otherwise it is unset.
+The given species must have a number of lanes that is compatible
+ with the given array.
+Type Parameters:
+E
+- the boxed element type
+Parameters:
+species
+- vector species for the desired mask
+bits
+- the given
+boolean
+values
+Returns:
+a mask where each lane is set or unset according to the given
+boolean
+value
+Throws:
+IllegalArgumentException
+- if
+bits.length != species.length()
+See Also:
+fromLong(VectorSpecies, long)
+fromArray(VectorSpecies, boolean[], int)
+fromArray
+public static
+<E>
+VectorMask
+<E>
+fromArray
+(
+VectorSpecies
+<E> species,
+ boolean[] bits,
+ int offset)
+Loads a mask from a
+boolean
+array starting at an offset.
+For each mask lane, where
+N
+is the mask lane index,
+ if the array element at index
+offset + N
+is
+true
+then the
+ mask lane at index
+N
+is set, otherwise it is unset.
+Type Parameters:
+E
+- the boxed element type
+Parameters:
+species
+- vector species for the desired mask
+bits
+- the
+boolean
+array
+offset
+- the offset into the array
+Returns:
+the mask loaded from the
+boolean
+array
+Throws:
+IndexOutOfBoundsException
+- if
+offset < 0
+, or
+offset > bits.length - species.length()
+See Also:
+fromLong(VectorSpecies, long)
+fromValues(VectorSpecies, boolean...)
+fromLong
+public static
+<E>
+VectorMask
+<E>
+fromLong
+(
+VectorSpecies
+<E> species,
+ long bits)
+Returns a mask where each lane is set or unset according to
+ the bits in the given bitmask, starting with the least
+ significant bit, and continuing up to the sign bit.
+For each mask lane, where
+N
+is the mask lane index,
+ if the expression
+(bits>>min(63,N))&1
+is non-zero,
+ then the mask lane at index
+N
+is set, otherwise it is unset.
+If the given species has fewer than 64 lanes, the high
+64-VLENGTH
+bits of the bit-mask are ignored.
+ If the given species has more than 64 lanes, the sign
+ bit is replicated into lane 64 and beyond.
+Type Parameters:
+E
+- the boxed element type
+Parameters:
+species
+- vector species for the desired mask
+bits
+- the given mask bits, as a 64-bit signed integer
+Returns:
+a mask where each lane is set or unset according to
+         the bits in the given integer value
+See Also:
+fromValues(VectorSpecies, boolean...)
+fromArray(VectorSpecies, boolean[], int)
+cast
+public abstract
+<F>
+VectorMask
+<F>
+cast
+(
+VectorSpecies
+<F> species)
+Converts this mask to a mask of the given species of
+ element type
+F
+.
+ The
+species.length()
+must be equal to the
+ mask length.
+ The various mask lane bits are unmodified.
+For each mask lane, where
+N
+is the lane index, if the
+ mask lane at index
+N
+is set, then the mask lane at index
+N
+of the resulting mask is set, otherwise that mask lane is
+ not set.
+Type Parameters:
+F
+- the boxed element type of the species
+Parameters:
+species
+- vector species for the desired mask
+Returns:
+a mask converted by shape and element type
+Throws:
+IllegalArgumentException
+- if this mask length and the species
+         length differ
+toLong
+public abstract
+long
+toLong
+()
+Returns the lane elements of this mask packed into a
+long
+value for at most the first 64 lane elements.
+The lane elements are packed in the order of least significant bit
+ to most significant bit.
+ For each mask lane where
+N
+is the mask lane index, if the
+ mask lane is set then the
+N
+th bit is set to one in the
+ resulting
+long
+value, otherwise the
+N
+th bit is set
+ to zero.
+ The mask must have no more than 64 lanes.
+Returns:
+the lane elements of this mask packed into a
+long
+value.
+Throws:
+UnsupportedOperationException
+- if there are more than 64 lanes
+         in this mask
+toArray
+public abstract
+boolean[]
+toArray
+()
+Returns an
+boolean
+array containing the lane elements of this
+ mask.
+This method behaves as if it stores
+ this mask into an allocated array
+ (using
+intoArray(boolean[], int)
+)
+ and returns that array as
+ follows:
+boolean[] a = new boolean[this.length()];
+ this.intoArray(a, 0);
+ return a;
+Returns:
+an array containing the lane elements of this vector
+intoArray
+public abstract
+void
+intoArray
+(boolean[] a,
+ int offset)
+Stores this mask into a
+boolean
+array starting at offset.
+For each mask lane, where
+N
+is the mask lane index,
+ the lane element at index
+N
+is stored into the array
+ element
+a[offset+N]
+.
+Parameters:
+a
+- the array, of type boolean[]
+offset
+- the offset into the array
+Throws:
+IndexOutOfBoundsException
+- if
+offset < 0
+or
+offset > a.length - this.length()
+anyTrue
+public abstract
+boolean
+anyTrue
+()
+Returns
+true
+if any of the mask lanes are set.
+Returns:
+true
+if any of the mask lanes are set, otherwise
+false
+.
+allTrue
+public abstract
+boolean
+allTrue
+()
+Returns
+true
+if all of the mask lanes are set.
+Returns:
+true
+if all of the mask lanes are set, otherwise
+false
+.
+trueCount
+public abstract
+int
+trueCount
+()
+Returns the number of mask lanes that are set.
+Returns:
+the number of mask lanes that are set.
+firstTrue
+public abstract
+int
+firstTrue
+()
+Returns the index of the first mask lane that is set.
+ Returns
+VLENGTH
+if none of them are set.
+Returns:
+the index of the first mask lane that is set, or
+VLENGTH
+lastTrue
+public abstract
+int
+lastTrue
+()
+Returns the index of the last mask lane that is set.
+ Returns
+-1
+if none of them are set.
+Returns:
+the index of the last mask lane that is set, or
+-1
+and
+public abstract
+VectorMask
+<
+E
+>
+and
+(
+VectorMask
+<
+E
+> m)
+Computes the logical intersection (as
+a&b
+)
+ between this mask and a second input mask.
+This is a lane-wise binary operation which applies
+ the logical
+AND
+operation
+ (
+&
+) to each corresponding pair of mask bits.
+Parameters:
+m
+- the second input mask
+Returns:
+the result of logically conjoining the two input masks
+or
+public abstract
+VectorMask
+<
+E
+>
+or
+(
+VectorMask
+<
+E
+> m)
+Computes the logical union (as
+a|b
+) of this mask
+ and a second input mask.
+This is a lane-wise binary operation which applies
+ the logical
+OR
+operation
+ (
+|
+) to each corresponding pair of mask bits.
+Parameters:
+m
+- the input mask
+Returns:
+the result of logically disjoining the two input masks
+xor
+public abstract
+VectorMask
+<
+E
+>
+xor
+(
+VectorMask
+<
+E
+> m)
+Determines logical symmetric difference
+ (as
+a^b
+) of this mask and a second input mask.
+This is a lane-wise binary operation which applies
+ the logical
+XOR
+operation
+ (
+^
+) to each corresponding pair of mask bits.
+Parameters:
+m
+- the input mask
+Returns:
+the result of logically disjunctively disjoining the two
+ input masks
+andNot
+public abstract
+VectorMask
+<
+E
+>
+andNot
+(
+VectorMask
+<
+E
+> m)
+Logically subtracts a second input mask
+ from this mask (as
+a&~b
+).
+This is a lane-wise binary operation which applies
+ the logical
+ANDC
+operation
+ (
+&~
+) to each corresponding pair of mask bits.
+Parameters:
+m
+- the second input mask
+Returns:
+the result of logically subtracting the second mask from this mask
+eq
+public abstract
+VectorMask
+<
+E
+>
+eq
+(
+VectorMask
+<
+E
+> m)
+Determines logical equivalence of this mask
+ to a second input mask (as boolean
+a==b
+or
+a^~b
+).
+This is a lane-wise binary operation tests each
+ corresponding pair of mask bits for equality.
+ It is also equivalent to the logical
+XNOR
+operation (
+^~
+) to each corresponding pair
+ of mask bits.
+Parameters:
+m
+- the input mask
+Returns:
+a mask showing where the two input masks were equal
+See Also:
+equals(java.lang.Object)
+not
+public abstract
+VectorMask
+<
+E
+>
+not
+()
+Logically negates this mask.
+This is a lane-wise binary operation which applies
+ the logical
+NOT
+operation
+ (
+~
+) to each mask bit.
+Returns:
+the result of logically negating this mask
+indexInRange
+public abstract
+VectorMask
+<
+E
+>
+indexInRange
+(int offset,
+ int limit)
+Removes lanes numbered
+N
+from this mask where the
+ adjusted index
+N+offset
+, is not in the range
+[0..limit-1]
+.
+In all cases the series of set and unset lanes is assigned
+ as if by using infinite precision or
+VLENGTH-
+saturating
+ additions or subtractions, without overflow or wrap-around.
+API Note:
+This method performs a SIMD emulation of the check performed by
+Objects.checkIndex(int,int)
+, on the index numbers in
+ the range
+[offset..offset+VLENGTH-1]
+.  If an exception
+ is desired, the resulting mask can be compared with the
+ original mask; if they are not equal, then at least one lane
+ was out of range, and exception processing can be performed.
+A mask which is a series of
+N
+set lanes followed by
+ a series of unset lanes can be obtained by calling
+allTrue.indexInRange(0, N)
+, where
+allTrue
+is a
+ mask of all true bits.  A mask of
+N1
+unset lanes
+ followed by
+N2
+set lanes can be obtained by calling
+allTrue.indexInRange(-N1, N2)
+.
+Parameters:
+offset
+- the starting index
+limit
+- the upper-bound (exclusive) of index range
+Returns:
+the original mask, with out-of-range lanes unset
+See Also:
+VectorSpecies.indexInRange(int, int)
+indexInRange
+public abstract
+VectorMask
+<
+E
+>
+indexInRange
+(long offset,
+ long limit)
+Removes lanes numbered
+N
+from this mask where the
+ adjusted index
+N+offset
+, is not in the range
+[0..limit-1]
+.
+In all cases the series of set and unset lanes is assigned
+ as if by using infinite precision or
+VLENGTH-
+saturating
+ additions or subtractions, without overflow or wrap-around.
+API Note:
+This method performs a SIMD emulation of the check performed by
+Objects.checkIndex(long,long)
+, on the index numbers in
+ the range
+[offset..offset+VLENGTH-1]
+.  If an exception
+ is desired, the resulting mask can be compared with the
+ original mask; if they are not equal, then at least one lane
+ was out of range, and exception processing can be performed.
+A mask which is a series of
+N
+set lanes followed by
+ a series of unset lanes can be obtained by calling
+allTrue.indexInRange(0, N)
+, where
+allTrue
+is a
+ mask of all true bits.  A mask of
+N1
+unset lanes
+ followed by
+N2
+set lanes can be obtained by calling
+allTrue.indexInRange(-N1, N2)
+.
+Parameters:
+offset
+- the starting index
+limit
+- the upper-bound (exclusive) of index range
+Returns:
+the original mask, with out-of-range lanes unset
+Since:
+19
+See Also:
+VectorSpecies.indexInRange(long, long)
+toVector
+public abstract
+Vector
+<
+E
+>
+toVector
+()
+Returns a vector representation of this mask, the
+ lane bits of which are set or unset in correspondence
+ to the mask bits.
+
+ For each mask lane, where
+N
+is the mask lane index, if
+ the mask lane is set at
+N
+then the specific non-default
+ value
+-1
+is placed into the resulting vector at lane
+ index
+N
+.  Otherwise the default element value
+0
+is placed into the resulting vector at lane index
+N
+.
+
+ Whether the element type (
+ETYPE
+) of this mask is
+ floating point or integral, the lane value, as selected by the
+ mask, will be one of the two arithmetic values
+0
+or
+-1
+.  For every
+ETYPE
+the most significant bit
+ of the vector lane is set if and only if the mask lane is set.
+ In addition, for integral types,
+all
+lane bits are set
+ in lanes where the mask is set.
+The vector returned is the same as would be computed by
+ZERO.blend(MINUS_ONE, this)
+, where
+ZERO
+and
+MINUS_ONE
+are vectors which replicate the default
+ETYPE
+value and the
+ETYPE
+value representing
+-1
+, respectively.
+API Note:
+For the sake of static type checking, users may wish
+ to check the resulting vector against the expected integral
+ lane type or species.  If the mask is for a float-point
+ species, then the resulting vector will have the same shape and
+ lane size, but an integral type.  If the mask is for an
+ integral species, the resulting vector will be of exactly that
+ species.
+Returns:
+a vector representation of this mask
+See Also:
+Vector.check(Class)
+Vector.check(VectorSpecies)
+laneIsSet
+public abstract
+boolean
+laneIsSet
+(int i)
+Tests if the lane at index
+i
+is set
+Parameters:
+i
+- the lane index
+Returns:
+true if the lane at index
+i
+is set, otherwise false
+Throws:
+IndexOutOfBoundsException
+- if the index is out of range
+ (
+< 0 || >= length()
+)
+check
+public abstract
+<F>
+VectorMask
+<F>
+check
+(
+Class
+<F> elementType)
+Checks that this mask applies to vectors with the given element type,
+ and returns this mask unchanged.
+ The effect is similar to this pseudocode:
+elementType == vectorSpecies().elementType()
+        ? this
+        : throw new ClassCastException()
+.
+Type Parameters:
+F
+- the boxed element type of the required lane type
+Parameters:
+elementType
+- the required lane type
+Returns:
+the same mask
+Throws:
+ClassCastException
+- if the element type is wrong
+See Also:
+Vector.check(Class)
+check(VectorSpecies)
+check
+public abstract
+<F>
+VectorMask
+<F>
+check
+(
+VectorSpecies
+<F> species)
+Checks that this mask has the given species,
+ and returns this mask unchanged.
+ The effect is similar to this pseudocode:
+species == vectorSpecies()
+        ? this
+        : throw new ClassCastException()
+.
+Type Parameters:
+F
+- the boxed element type of the required species
+Parameters:
+species
+- vector species required for this mask
+Returns:
+the same mask
+Throws:
+ClassCastException
+- if the species is wrong
+See Also:
+Vector.check(Class)
+Vector.check(VectorSpecies)
+toString
+public final
+String
+toString
+()
+Returns a string representation of this mask, of the form
+"Mask[T.TT...]"
+, reporting the mask bit
+ settings (as 'T' or '.' characters) in lane order.
+Overrides:
+toString
+in class
+Object
+Returns:
+a string of the form
+"Mask[T.TT...]"
+equals
+public final
+boolean
+equals
+(
+Object
+obj)
+Indicates whether this mask is identical to some other object.
+ Two masks are identical only if they have the same species
+ and same source indexes, in the same order.
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- the reference object with which to compare.
+Returns:
+whether this vector is identical to some other object
+See Also:
+eq(jdk.incubator.vector.VectorMask<E>)
+hashCode
+public final
+int
+hashCode
+()
+Returns a hash code value for the mask,
+ based on the mask bit settings and the vector species.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+a hash code value for this mask
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+compress
+public abstract
+VectorMask
+<
+E
+>
+compress
+()
+Compresses set lanes from this mask.
+
+ Returns a mask which is a series of
+N
+set lanes
+ followed by a series of unset lanes, where
+N
+is
+ the true count of this mask.
+Returns:
+the compressed mask of this mask
+Since:
+19
+getPayload
+protected final
+Object
+getPayload
+()
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

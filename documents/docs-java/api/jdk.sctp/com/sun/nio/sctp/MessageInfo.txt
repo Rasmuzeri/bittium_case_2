@@ -1,0 +1,564 @@
+MessageInfo (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.sctp
+Package
+com.sun.nio.sctp
+Class MessageInfo
+java.lang.Object
+com.sun.nio.sctp.MessageInfo
+public abstract class
+MessageInfo
+extends
+Object
+The
+MessageInfo
+class provides additional ancillary information about
+ messages.
+Received SCTP messages, returned by
+SctpChannel.receive
+and
+SctpMultiChannel.receive
+,
+ return a
+MessageInfo
+instance that can be queried to determine
+ ancillary information about the received message. Messages being sent should
+ use one of the
+createOutgoing
+methods to provide ancillary data for the message being
+ sent, and may use the appropriate setter methods to override the default
+ values provided for
+unordered
+,
+timeToLive
+,
+complete
+and
+payloadProtocolID
+, before sending the message.
+For out going messages the
+timeToLive
+parameter is a time period
+ that the sending side SCTP stack may expire the message if it has not been
+ sent. This time period is an indication to the stack that the message is no
+ longer required to be sent after the time period expires. It is not a hard
+ timeout and may be influenced by whether the association supports the partial
+ reliability extension,
+RFC 3758
+.
+MessageInfo
+instances are not safe for use by multiple concurrent
+ threads. If a MessageInfo is to be used by more than one thread then access
+ to the MessageInfo should be controlled by appropriate synchronization.
+Since:
+1.7
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+MessageInfo
+()
+Initializes a new instance of this class.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+abstract
+SocketAddress
+address
+()
+Returns the source socket address if the message has been received,
+ otherwise the preferred destination of the message to be sent.
+abstract
+Association
+association
+()
+Returns the association that the message was received on, if the message
+ has been received, otherwise the association that the message is to be
+ sent on.
+abstract int
+bytes
+()
+Returns the number of bytes read for the received message.
+abstract
+MessageInfo
+complete
+(boolean complete)
+Sets whether or not the message is complete.
+static
+MessageInfo
+createOutgoing
+(
+Association
+association,
+SocketAddress
+address,
+ int streamNumber)
+Creates a
+MessageInfo
+instance suitable for use when
+ sending a message to a given association.
+static
+MessageInfo
+createOutgoing
+(
+SocketAddress
+address,
+ int streamNumber)
+Creates a
+MessageInfo
+instance suitable for use when
+ sending a message.
+abstract boolean
+isComplete
+()
+Tells whether or not the message is complete.
+abstract boolean
+isUnordered
+()
+Tells whether or not the message is unordered.
+abstract int
+payloadProtocolID
+()
+Returns the payload protocol Identifier.
+abstract
+MessageInfo
+payloadProtocolID
+(int ppid)
+Sets the payload protocol Identifier.
+abstract int
+streamNumber
+()
+Returns the stream number that the message was received on, if the
+ message has been received, otherwise the stream number that the message
+ is to be sent on.
+abstract
+MessageInfo
+streamNumber
+(int streamNumber)
+Sets the stream number that the message is to be sent on.
+abstract long
+timeToLive
+()
+The time period that the sending side may expire the message if it has
+ not been sent, or
+0
+to indicate that no timeout should occur.
+abstract
+MessageInfo
+timeToLive
+(long millis)
+Sets the time period that the sending side may expire the message if it
+ has not been sent.
+abstract
+MessageInfo
+unordered
+(boolean unordered)
+Sets whether or not the message is unordered.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+MessageInfo
+protected
+MessageInfo
+()
+Initializes a new instance of this class.
+Method Details
+createOutgoing
+public static
+MessageInfo
+createOutgoing
+(
+SocketAddress
+address,
+ int streamNumber)
+Creates a
+MessageInfo
+instance suitable for use when
+ sending a message.
+The returned instance will have its
+unordered
+value set to
+false
+, its
+timeToLive
+value
+ set to
+0
+, its
+complete
+value set
+ to
+true
+, and its
+payloadProtocolID
+value set to
+0
+. These values, if required, can be set through
+ the appropriate setter method before sending the message.
+Parameters:
+address
+- For a connected
+SctpChannel
+the address is the
+         preferred peer address of the association to send the message
+         to, or
+null
+to use the peer primary address. For an
+SctpMultiChannel
+the address is used to determine
+         the association, or if no association exists with a peer of that
+         address then one is setup.
+streamNumber
+- The stream number that the message will be sent on
+Returns:
+The outgoing message info
+Throws:
+IllegalArgumentException
+- If the streamNumber is negative or greater than
+65536
+createOutgoing
+public static
+MessageInfo
+createOutgoing
+(
+Association
+association,
+SocketAddress
+address,
+ int streamNumber)
+Creates a
+MessageInfo
+instance suitable for use when
+ sending a message to a given association. Typically used for
+SctpMultiChannel
+when an association has already been setup.
+The returned instance will have its
+unordered
+value set to
+false
+, its
+timeToLive
+value
+ set to
+0
+, its
+complete
+value set
+ to
+true
+, and its
+payloadProtocolID
+value set to
+0
+. These values, if required, can be set through
+ the appropriate setter method before sending the message.
+Parameters:
+association
+- The association to send the message on
+address
+- The preferred peer address of the association to send the message
+         to, or
+null
+to use the peer primary address
+streamNumber
+- The stream number that the message will be sent on.
+Returns:
+The outgoing message info
+Throws:
+IllegalArgumentException
+- If
+association
+is
+null
+, or the streamNumber is
+          negative or greater than
+65536
+address
+public abstract
+SocketAddress
+address
+()
+Returns the source socket address if the message has been received,
+ otherwise the preferred destination of the message to be sent.
+Returns:
+The socket address, or
+null
+if this instance is to be
+          used for sending a message and has been construced without
+          specifying a preferred destination address
+association
+public abstract
+Association
+association
+()
+Returns the association that the message was received on, if the message
+ has been received, otherwise the association that the message is to be
+ sent on.
+Returns:
+The association, or
+null
+if this instance is to be
+         used for sending a message and has been construced using the
+         the
+createOutgoing(SocketAddress,int)
+static factory method
+bytes
+public abstract
+int
+bytes
+()
+Returns the number of bytes read for the received message.
+This method is only appicable for received messages, it has no
+ meaning for messages being sent.
+Returns:
+The number of bytes read,
+-1
+if the channel is an
+SctpChannel
+that has reached end-of-stream, otherwise
+0
+isComplete
+public abstract
+boolean
+isComplete
+()
+Tells whether or not the message is complete.
+For received messages
+true
+indicates that the message was
+ completely received. For messages being sent
+true
+indicates that
+ the message is complete,
+false
+indicates that the message is not
+ complete. How the send channel interprets this value depends on the value
+ of its
+SCTP_EXPLICIT_COMPLETE
+socket option.
+Returns:
+true
+if, and only if, the message is complete
+complete
+public abstract
+MessageInfo
+complete
+(boolean complete)
+Sets whether or not the message is complete.
+For messages being sent
+true
+indicates that
+ the message is complete,
+false
+indicates that the message is not
+ complete. How the send channel interprets this value depends on the value
+ of its
+SCTP_EXPLICIT_COMPLETE
+socket option.
+Parameters:
+complete
+-
+true
+if, and only if, the message is complete
+Returns:
+This MessageInfo
+See Also:
+isComplete()
+isUnordered
+public abstract
+boolean
+isUnordered
+()
+Tells whether or not the message is unordered. For received messages
+true
+indicates that the message was sent non-ordered. For
+ messages being sent
+true
+requests the un-ordered delivery of the
+ message,
+false
+indicates that the message is ordered.
+Returns:
+true
+if the message is unordered, otherwise
+false
+unordered
+public abstract
+MessageInfo
+unordered
+(boolean unordered)
+Sets whether or not the message is unordered.
+Parameters:
+unordered
+-
+true
+requests the un-ordered delivery of the message,
+false
+indicates that the message is ordered.
+Returns:
+This MessageInfo
+See Also:
+isUnordered()
+payloadProtocolID
+public abstract
+int
+payloadProtocolID
+()
+Returns the payload protocol Identifier.
+A value indicating the type of payload protocol data being
+ transmitted/received. This value is passed as opaque data by SCTP.
+0
+indicates an unspecified payload protocol identifier.
+Returns:
+The Payload Protocol Identifier
+payloadProtocolID
+public abstract
+MessageInfo
+payloadProtocolID
+(int ppid)
+Sets the payload protocol Identifier.
+A value indicating the type of payload protocol data being
+ transmitted. This value is passed as opaque data by SCTP.
+Parameters:
+ppid
+- The Payload Protocol Identifier, or
+0
+indicate an
+         unspecified payload protocol identifier.
+Returns:
+This MessageInfo
+See Also:
+payloadProtocolID()
+streamNumber
+public abstract
+int
+streamNumber
+()
+Returns the stream number that the message was received on, if the
+ message has been received, otherwise the stream number that the message
+ is to be sent on.
+Returns:
+The stream number
+streamNumber
+public abstract
+MessageInfo
+streamNumber
+(int streamNumber)
+Sets the stream number that the message is to be sent on.
+Parameters:
+streamNumber
+- The stream number
+Returns:
+This MessageInfo
+Throws:
+IllegalArgumentException
+- If the streamNumber is negative or greater than
+65536
+timeToLive
+public abstract
+long
+timeToLive
+()
+The time period that the sending side may expire the message if it has
+ not been sent, or
+0
+to indicate that no timeout should occur. This
+ value is only applicable for messages being sent, it has no meaning for
+ received messages.
+Returns:
+The time period in milliseconds, or
+0
+timeToLive
+public abstract
+MessageInfo
+timeToLive
+(long millis)
+Sets the time period that the sending side may expire the message if it
+ has not been sent.
+Parameters:
+millis
+- The time period in milliseconds, or
+0
+to indicate that no
+         timeout should occur
+Returns:
+This MessageInfo
+See Also:
+timeToLive()
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

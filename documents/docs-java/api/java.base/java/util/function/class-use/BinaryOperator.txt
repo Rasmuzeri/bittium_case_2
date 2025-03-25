@@ -1,0 +1,608 @@
+Uses of Interface java.util.function.BinaryOperator (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Interface
+java.util.function.BinaryOperator
+Packages that use
+BinaryOperator
+Package
+Description
+java.io
+Provides for system input and output through data streams,
+ serialization and the file system.
+java.util
+Contains the collections framework, some internationalization support classes,
+ a service loader, properties, random number generation, string parsing
+ and scanning classes, base64 encoding and decoding, a bit array, and
+ several miscellaneous utility classes.
+java.util.concurrent.atomic
+A small toolkit of classes that support lock-free thread-safe
+ programming on single variables.
+java.util.function
+Functional interfaces
+provide target types for lambda expressions
+ and method references.
+java.util.stream
+Classes to support functional-style operations on streams of elements, such
+ as map-reduce transformations on collections.
+Uses of
+BinaryOperator
+in
+java.io
+Methods in
+java.io
+that return
+BinaryOperator
+Modifier and Type
+Method
+Description
+static
+BinaryOperator
+<
+ObjectInputFilter
+>
+ObjectInputFilter.Config.
+getSerialFilterFactory
+()
+Returns the JVM-wide deserialization filter factory.
+Methods in
+java.io
+with parameters of type
+BinaryOperator
+Modifier and Type
+Method
+Description
+static void
+ObjectInputFilter.Config.
+setSerialFilterFactory
+(
+BinaryOperator
+<
+ObjectInputFilter
+> filterFactory)
+Set the
+JVM-wide deserialization filter factory
+.
+Uses of
+BinaryOperator
+in
+java.util
+Methods in
+java.util
+with parameters of type
+BinaryOperator
+Modifier and Type
+Method
+Description
+static <T> void
+Arrays.
+parallelPrefix
+(T[] array,
+ int fromIndex,
+ int toIndex,
+BinaryOperator
+<T> op)
+Performs
+Arrays.parallelPrefix(Object[], BinaryOperator)
+for the given subrange of the array.
+static <T> void
+Arrays.
+parallelPrefix
+(T[] array,
+BinaryOperator
+<T> op)
+Cumulates, in parallel, each element of the given array in place,
+ using the supplied function.
+Uses of
+BinaryOperator
+in
+java.util.concurrent.atomic
+Methods in
+java.util.concurrent.atomic
+with parameters of type
+BinaryOperator
+Modifier and Type
+Method
+Description
+final
+V
+AtomicReference.
+accumulateAndGet
+(
+V
+x,
+BinaryOperator
+<
+V
+> accumulatorFunction)
+Atomically updates (with memory effects as specified by
+VarHandle.compareAndSet(java.lang.Object...)
+) the current value with the results of
+ applying the given function to the current and given values,
+ returning the updated value.
+final
+E
+AtomicReferenceArray.
+accumulateAndGet
+(int i,
+E
+x,
+BinaryOperator
+<
+E
+> accumulatorFunction)
+Atomically updates (with memory effects as specified by
+VarHandle.compareAndSet(java.lang.Object...)
+) the element at index
+i
+with
+ the results of applying the given function to the current and
+ given values, returning the updated value.
+final
+V
+AtomicReferenceFieldUpdater.
+accumulateAndGet
+(
+T
+obj,
+V
+x,
+BinaryOperator
+<
+V
+> accumulatorFunction)
+Atomically updates (with memory effects as specified by
+VarHandle.compareAndSet(java.lang.Object...)
+) the field of the given object managed
+ by this updater with the results of applying the given function
+ to the current and given values, returning the updated value.
+final
+V
+AtomicReference.
+getAndAccumulate
+(
+V
+x,
+BinaryOperator
+<
+V
+> accumulatorFunction)
+Atomically updates (with memory effects as specified by
+VarHandle.compareAndSet(java.lang.Object...)
+) the current value with the results of
+ applying the given function to the current and given values,
+ returning the previous value.
+final
+E
+AtomicReferenceArray.
+getAndAccumulate
+(int i,
+E
+x,
+BinaryOperator
+<
+E
+> accumulatorFunction)
+Atomically updates (with memory effects as specified by
+VarHandle.compareAndSet(java.lang.Object...)
+) the element at index
+i
+with
+ the results of applying the given function to the current and
+ given values, returning the previous value.
+final
+V
+AtomicReferenceFieldUpdater.
+getAndAccumulate
+(
+T
+obj,
+V
+x,
+BinaryOperator
+<
+V
+> accumulatorFunction)
+Atomically updates (with memory effects as specified by
+VarHandle.compareAndSet(java.lang.Object...)
+) the field of the given object managed
+ by this updater with the results of applying the given function
+ to the current and given values, returning the previous value.
+Uses of
+BinaryOperator
+in
+java.util.function
+Methods in
+java.util.function
+that return
+BinaryOperator
+Modifier and Type
+Method
+Description
+static <T>
+BinaryOperator
+<T>
+BinaryOperator.
+maxBy
+(
+Comparator
+<? super T> comparator)
+Returns a
+BinaryOperator
+which returns the greater of two elements
+ according to the specified
+Comparator
+.
+static <T>
+BinaryOperator
+<T>
+BinaryOperator.
+minBy
+(
+Comparator
+<? super T> comparator)
+Returns a
+BinaryOperator
+which returns the lesser of two elements
+ according to the specified
+Comparator
+.
+Uses of
+BinaryOperator
+in
+java.util.stream
+Methods in
+java.util.stream
+that return
+BinaryOperator
+Modifier and Type
+Method
+Description
+BinaryOperator
+<
+A
+>
+Collector.
+combiner
+()
+A function that accepts two partial results and merges them.
+Methods in
+java.util.stream
+with parameters of type
+BinaryOperator
+Modifier and Type
+Method
+Description
+static <T,
+A,
+R>
+Collector
+<T,
+A,
+R>
+Collector.
+of
+(
+Supplier
+<A> supplier,
+BiConsumer
+<A,
+T> accumulator,
+BinaryOperator
+<A> combiner,
+Function
+<A,
+R> finisher,
+Collector.Characteristics
+... characteristics)
+Returns a new
+Collector
+described by the given
+supplier
+,
+accumulator
+,
+combiner
+, and
+finisher
+functions.
+static <T,
+R>
+Collector
+<T,
+R,
+R>
+Collector.
+of
+(
+Supplier
+<R> supplier,
+BiConsumer
+<R,
+T> accumulator,
+BinaryOperator
+<R> combiner,
+Collector.Characteristics
+... characteristics)
+Returns a new
+Collector
+described by the given
+supplier
+,
+accumulator
+, and
+combiner
+functions.
+Optional
+<
+T
+>
+Stream.
+reduce
+(
+BinaryOperator
+<
+T
+> accumulator)
+Performs a
+reduction
+on the
+ elements of this stream, using an
+associative
+accumulation
+ function, and returns an
+Optional
+describing the reduced value,
+ if any.
+T
+Stream.
+reduce
+(
+T
+identity,
+BinaryOperator
+<
+T
+> accumulator)
+Performs a
+reduction
+on the
+ elements of this stream, using the provided identity value and an
+associative
+accumulation function, and returns the reduced value.
+<U> U
+Stream.
+reduce
+(U identity,
+BiFunction
+<U,
+? super
+T
+,
+U> accumulator,
+BinaryOperator
+<U> combiner)
+Performs a
+reduction
+on the
+ elements of this stream, using the provided identity, accumulation and
+ combining functions.
+static <T>
+Collector
+<T,
+?,
+Optional
+<T>>
+Collectors.
+reducing
+(
+BinaryOperator
+<T> op)
+Returns a
+Collector
+which performs a reduction of its
+ input elements under a specified
+BinaryOperator
+.
+static <T>
+Collector
+<T,
+?,
+T>
+Collectors.
+reducing
+(T identity,
+BinaryOperator
+<T> op)
+Returns a
+Collector
+which performs a reduction of its
+ input elements under a specified
+BinaryOperator
+using the
+ provided identity.
+static <T,
+U>
+Collector
+<T,
+?,
+U>
+Collectors.
+reducing
+(U identity,
+Function
+<? super T,
+? extends U> mapper,
+BinaryOperator
+<U> op)
+Returns a
+Collector
+which performs a reduction of its
+ input elements under a specified mapping function and
+BinaryOperator
+.
+static <T,
+K,
+U>
+Collector
+<T,
+?,
+ConcurrentMap
+<K,
+U>>
+Collectors.
+toConcurrentMap
+(
+Function
+<? super T,
+? extends K> keyMapper,
+Function
+<? super T,
+? extends U> valueMapper,
+BinaryOperator
+<U> mergeFunction)
+Returns a concurrent
+Collector
+that accumulates elements into a
+ConcurrentMap
+whose keys and values are the result of applying
+ the provided mapping functions to the input elements.
+static <T,
+K,
+U,
+M extends
+ConcurrentMap
+<K,
+U>>
+Collector
+<T,
+?,
+M>
+Collectors.
+toConcurrentMap
+(
+Function
+<? super T,
+? extends K> keyMapper,
+Function
+<? super T,
+? extends U> valueMapper,
+BinaryOperator
+<U> mergeFunction,
+Supplier
+<M> mapFactory)
+Returns a concurrent
+Collector
+that accumulates elements into a
+ConcurrentMap
+whose keys and values are the result of applying
+ the provided mapping functions to the input elements.
+static <T,
+K,
+U>
+Collector
+<T,
+?,
+Map
+<K,
+U>>
+Collectors.
+toMap
+(
+Function
+<? super T,
+? extends K> keyMapper,
+Function
+<? super T,
+? extends U> valueMapper,
+BinaryOperator
+<U> mergeFunction)
+Returns a
+Collector
+that accumulates elements into a
+Map
+whose keys and values are the result of applying the provided
+ mapping functions to the input elements.
+static <T,
+K,
+U,
+M extends
+Map
+<K,
+U>>
+Collector
+<T,
+?,
+M>
+Collectors.
+toMap
+(
+Function
+<? super T,
+? extends K> keyMapper,
+Function
+<? super T,
+? extends U> valueMapper,
+BinaryOperator
+<U> mergeFunction,
+Supplier
+<M> mapFactory)
+Returns a
+Collector
+that accumulates elements into a
+Map
+whose keys and values are the result of applying the provided
+ mapping functions to the input elements.
+static <T,
+K,
+U>
+Collector
+<T,
+?,
+Map
+<K,
+U>>
+Collectors.
+toUnmodifiableMap
+(
+Function
+<? super T,
+? extends K> keyMapper,
+Function
+<? super T,
+? extends U> valueMapper,
+BinaryOperator
+<U> mergeFunction)
+Returns a
+Collector
+that accumulates the input elements into an
+unmodifiable Map
+,
+ whose keys and values are the result of applying the provided
+ mapping functions to the input elements.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

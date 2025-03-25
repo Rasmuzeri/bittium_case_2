@@ -1,0 +1,496 @@
+MethodHandleDesc (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang.constant
+Interface MethodHandleDesc
+All Superinterfaces:
+ConstantDesc
+All Known Subinterfaces:
+DirectMethodHandleDesc
+public sealed interface
+MethodHandleDesc
+extends
+ConstantDesc
+permits
+DirectMethodHandleDesc
+(not exhaustive)
+A
+nominal descriptor
+for a
+MethodHandle
+constant.
+Since:
+12
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+default
+MethodHandleDesc
+asType
+(
+MethodTypeDesc
+type)
+Returns a
+MethodHandleDesc
+that describes this method handle
+ adapted to a different type, as if by
+MethodHandle.asType(MethodType)
+.
+boolean
+equals
+(
+Object
+o)
+Compares the specified object with this descriptor for equality.
+MethodTypeDesc
+invocationType
+()
+Returns a
+MethodTypeDesc
+describing the invocation type of the
+ method handle described by this nominal descriptor.
+static
+DirectMethodHandleDesc
+of
+(
+DirectMethodHandleDesc.Kind
+kind,
+ClassDesc
+owner,
+String
+name,
+String
+lookupDescriptor)
+Creates a
+MethodHandleDesc
+corresponding to an invocation of a
+ declared method, invocation of a constructor, or access to a field.
+static
+DirectMethodHandleDesc
+ofConstructor
+(
+ClassDesc
+owner,
+ClassDesc
+... paramTypes)
+Returns a
+MethodHandleDesc
+corresponding to invocation of a constructor
+static
+DirectMethodHandleDesc
+ofField
+(
+DirectMethodHandleDesc.Kind
+kind,
+ClassDesc
+owner,
+String
+fieldName,
+ClassDesc
+fieldType)
+Creates a
+MethodHandleDesc
+corresponding to a method handle
+ that accesses a field.
+static
+DirectMethodHandleDesc
+ofMethod
+(
+DirectMethodHandleDesc.Kind
+kind,
+ClassDesc
+owner,
+String
+name,
+MethodTypeDesc
+lookupMethodType)
+Creates a
+MethodHandleDesc
+corresponding to an invocation of a
+ declared method or constructor.
+MethodHandle
+resolveConstantDesc
+(
+MethodHandles.Lookup
+lookup)
+Resolves this descriptor reflectively, emulating the resolution behavior
+ of JVMS
+5.4.3
+and the access control behavior of JVMS
+5.4.4
+.
+Method Details
+of
+static
+DirectMethodHandleDesc
+of
+(
+DirectMethodHandleDesc.Kind
+kind,
+ClassDesc
+owner,
+String
+name,
+String
+lookupDescriptor)
+Creates a
+MethodHandleDesc
+corresponding to an invocation of a
+ declared method, invocation of a constructor, or access to a field.
+The lookup descriptor string has the same format as for the various
+ variants of
+CONSTANT_MethodHandle_info
+and for the lookup
+ methods on
+MethodHandles.Lookup
+.  For a method or constructor
+ invocation, it is interpreted as a method type descriptor; for field
+ access, it is interpreted as a field descriptor.  If
+kind
+is
+CONSTRUCTOR
+, the
+name
+parameter is ignored and the return
+ type of the lookup descriptor must be
+void
+.  If
+kind
+corresponds to a virtual method invocation, the lookup type includes the
+ method parameters but not the receiver type.
+Parameters:
+kind
+- The kind of method handle to be described
+owner
+- a
+ClassDesc
+describing the class containing the
+              method, constructor, or field
+name
+- the unqualified name of the method or field (ignored if
+kind
+is
+CONSTRUCTOR
+)
+lookupDescriptor
+- a method descriptor string the lookup type,
+                         if the request is for a method invocation, or
+                         describing the invocation type, if the request is
+                         for a field or constructor
+Returns:
+the
+MethodHandleDesc
+Throws:
+NullPointerException
+- if any of the non-ignored arguments are null
+IllegalArgumentException
+- if the descriptor string is not a valid
+ method or field descriptor
+See
+Java Virtual Machine Specification
+:
+4.4.8 The CONSTANT_MethodHandle_info Structure
+4.2.2 Unqualified Names
+4.3.2 Field Descriptors
+4.3.3 Method Descriptors
+ofMethod
+static
+DirectMethodHandleDesc
+ofMethod
+(
+DirectMethodHandleDesc.Kind
+kind,
+ClassDesc
+owner,
+String
+name,
+MethodTypeDesc
+lookupMethodType)
+Creates a
+MethodHandleDesc
+corresponding to an invocation of a
+ declared method or constructor.
+The lookup descriptor string has the same format as for the lookup
+ methods on
+MethodHandles.Lookup
+.  If
+kind
+is
+CONSTRUCTOR
+, the name is ignored and the return type of the lookup
+ type must be
+void
+.  If
+kind
+corresponds to a virtual method
+ invocation, the lookup type includes the method parameters but not the
+ receiver type.
+Parameters:
+kind
+- The kind of method handle to be described; must be one of
+SPECIAL, VIRTUAL, STATIC, INTERFACE_SPECIAL,
+             INTERFACE_VIRTUAL, INTERFACE_STATIC, CONSTRUCTOR
+owner
+- a
+ClassDesc
+describing the class containing the
+              method or constructor
+name
+- the unqualified name of the method (ignored if
+kind
+is
+CONSTRUCTOR
+)
+lookupMethodType
+- a
+MethodTypeDesc
+describing the lookup type
+Returns:
+the
+MethodHandleDesc
+Throws:
+NullPointerException
+- if any non-ignored arguments are null
+IllegalArgumentException
+- if the
+name
+has the incorrect
+ format, or the kind is invalid
+See
+Java Virtual Machine Specification
+:
+4.2.2 Unqualified Names
+ofField
+static
+DirectMethodHandleDesc
+ofField
+(
+DirectMethodHandleDesc.Kind
+kind,
+ClassDesc
+owner,
+String
+fieldName,
+ClassDesc
+fieldType)
+Creates a
+MethodHandleDesc
+corresponding to a method handle
+ that accesses a field.
+Parameters:
+kind
+- the kind of the method handle to be described; must be one of
+GETTER
+,
+SETTER
+,
+STATIC_GETTER
+, or
+STATIC_SETTER
+owner
+- a
+ClassDesc
+describing the class containing the field
+fieldName
+- the unqualified name of the field
+fieldType
+- a
+ClassDesc
+describing the type of the field
+Returns:
+the
+MethodHandleDesc
+Throws:
+NullPointerException
+- if any of the arguments are null
+IllegalArgumentException
+- if the
+kind
+is not one of the
+ valid values or if the field name is not valid
+See
+Java Virtual Machine Specification
+:
+4.2.2 Unqualified Names
+ofConstructor
+static
+DirectMethodHandleDesc
+ofConstructor
+(
+ClassDesc
+owner,
+ClassDesc
+... paramTypes)
+Returns a
+MethodHandleDesc
+corresponding to invocation of a constructor
+Parameters:
+owner
+- a
+ClassDesc
+describing the class containing the
+              constructor
+paramTypes
+-
+ClassDesc
+s describing the parameter types of
+                   the constructor
+Returns:
+the
+MethodHandleDesc
+Throws:
+NullPointerException
+- if any argument or its contents is
+null
+asType
+default
+MethodHandleDesc
+asType
+(
+MethodTypeDesc
+type)
+Returns a
+MethodHandleDesc
+that describes this method handle
+ adapted to a different type, as if by
+MethodHandle.asType(MethodType)
+.
+Parameters:
+type
+- a
+MethodHandleDesc
+describing the new method type
+Returns:
+a
+MethodHandleDesc
+for the adapted method handle
+Throws:
+NullPointerException
+- if the argument is
+null
+invocationType
+MethodTypeDesc
+invocationType
+()
+Returns a
+MethodTypeDesc
+describing the invocation type of the
+ method handle described by this nominal descriptor.  The invocation type
+ describes the full set of stack values that are consumed by the invocation
+ (including the receiver, if any).
+Returns:
+a
+MethodHandleDesc
+describing the method handle type
+resolveConstantDesc
+MethodHandle
+resolveConstantDesc
+(
+MethodHandles.Lookup
+lookup)
+throws
+ReflectiveOperationException
+Description copied from interface:
+ConstantDesc
+Resolves this descriptor reflectively, emulating the resolution behavior
+ of JVMS
+5.4.3
+and the access control behavior of JVMS
+5.4.4
+.  The resolution
+ and access control context is provided by the
+MethodHandles.Lookup
+parameter.  No caching of the resulting value is performed.
+Specified by:
+resolveConstantDesc
+in interface
+ConstantDesc
+Parameters:
+lookup
+- The
+MethodHandles.Lookup
+to provide name resolution
+               and access control context
+Returns:
+the resolved constant value
+Throws:
+ReflectiveOperationException
+- if a class, method, or field
+ could not be reflectively resolved in the course of resolution
+equals
+boolean
+equals
+(
+Object
+o)
+Compares the specified object with this descriptor for equality.  Returns
+true
+if and only if the specified object is also a
+MethodHandleDesc
+, and both encode the same nominal description
+ of a method handle.
+Overrides:
+equals
+in class
+Object
+Parameters:
+o
+- the other object
+Returns:
+whether this descriptor is equal to the other object
+See Also:
+Object.hashCode()
+HashMap
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,1212 @@
+VectorShuffle (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.incubator.vector
+Package
+jdk.incubator.vector
+Class VectorShuffle<E>
+java.lang.Object
+jdk.incubator.vector.VectorShuffle<E>
+Type Parameters:
+E
+- the boxed version of
+ETYPE
+,
+           the element type of a vector
+public abstract class
+VectorShuffle<E>
+extends
+Object
+A
+VectorShuffle
+represents an ordered immutable sequence of
+int
+values called
+source indexes
+, where each source
+ index numerically selects a source lane from a compatible
+Vector
+.
+A
+VectorShuffle
+and
+Vector
+of the same
+element type
+(
+ETYPE
+) and
+shape
+have the same number of lanes,
+ and are therefore compatible (specifically, their
+vector species
+are compatible).
+A shuffle is applied to a (compatible) source vector with the
+rearrange
+method.
+A shuffle has a lane structure derived from its vector
+ species, but it stores lane indexes, as
+int
+s,
+ rather than lane values.
+This method gathers lane values by random access to the source
+ vector, selecting lanes by consulting the source indexes.  If a
+ source index appears more than once in a shuffle, then the selected
+ lane's value is copied more than once into the result.  If a
+ particular lane is never selected by a source index, that lane's
+ value is ignored.  The resulting vector contains all the source
+ lane values selected by the source indexes of the shuffle.  The
+ resulting lane values are ordered according to the shuffle's source
+ indexes, not according to the original vector's lane order.
+Each shuffle has a
+vectorSpecies()
+property which determines the compatibility of vectors the shuffle
+ operates on.  This ensures that the
+length()
+of a
+ shuffle is always equal to the
+VLENGTH
+of any vector it operates on.
+
+ The element type and shape of the shuffle's species are not
+ directly relevant to the behavior of the shuffle.  Shuffles can
+ easily be
+converted
+to other lane
+ types, as long as the lane count stays constant.
+In its internal state, a shuffle always holds integral values
+ in a narrow range from
+[-VLENGTH..VLENGTH-1]
+.
+ The positive numbers are self-explanatory; they are lane
+ numbers applied to any source vector.  The negative numbers,
+ when present, are a sign that the shuffle was created from
+ a raw integer value which was not a valid lane index.
+An invalid source index, represented in a shuffle by a
+ negative number, is called an
+exceptional index
+.
+Exceptional indexes are processed in a variety of ways:
+Unless documented otherwise, shuffle-using methods will throw
+ArrayIndexOutOfBoundsException
+when a lane is processed by
+ an exceptional index.
+When an invalid source index (negative or not) is first loaded
+ into a shuffle, it is partially normalized to the negative range of
+[-VLENGTH..-1]
+as if by
+wrapIndex()
+.
+
+ This treatment of exceptional indexes is called
+partial
+ wrapping
+, because it preserves the distinction between normal
+ and exceptional indexes, while wrapping them into adjacent ranges
+ of positive and non-positive numbers.  A partially wrapped index
+ can later on be fully wrapped into the positive range by adding
+ a final offset of
+VLENGTH
+.
+In some applications, exceptional indexes used to "steer"
+ access to a second source vector.  In those cases, the exception
+ index values, which are in the range
+[-VLENGTH..-1]
+, are
+ cycled up to the valid range
+[0..VLENGTH-1]
+and used on the
+ second source vector.
+When a shuffle is cast from another shuffle species with a
+ smaller
+VLENGTH
+, all indexes are re-validated against the
+ new
+VLENGTH
+, and some may be converted to exceptional
+ indexes.  In any case, shuffle casting never converts exceptional
+ indexes to normal ones.
+Value-based classes and identity operations
+VectorShuffle
+, along with
+Vector
+is a
+value-based
+class.  Identity-sensitive operations such as
+==
+may yield unpredictable results, or reduced performance.
+
+ Also, vector shuffle objects can be stored in locals and parameters and as
+static final
+constants, but storing them in other Java
+ fields or in array elements, while semantically valid, may incur
+ performance penalties.
+
+ Finally, vector shuffles should not be computed in loops, when
+ possible, but instead should be stored in loop-invariant locals or
+ as
+static final
+constants.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+abstract <F>
+VectorShuffle
+<F>
+cast
+(
+VectorSpecies
+<F> species)
+Converts this shuffle to a shuffle of the given species of
+ element type
+F
+.
+abstract <F>
+VectorShuffle
+<F>
+check
+(
+VectorSpecies
+<F> species)
+Checks that this shuffle has the given species,
+ and returns this shuffle unchanged.
+abstract int
+checkIndex
+(int index)
+Validation function for lane indexes which may be out of the
+ valid range of
+[0..VLENGTH-1]
+.
+abstract
+VectorShuffle
+<
+E
+>
+checkIndexes
+()
+Apply the
+checkIndex()
+validation
+ function to all lanes, throwing
+IndexOutOfBoundsException
+if there are any exceptional
+ indexes in this shuffle.
+final boolean
+equals
+(
+Object
+obj)
+Indicates whether this shuffle is identical to some other object.
+static <E>
+VectorShuffle
+<E>
+fromArray
+(
+VectorSpecies
+<E> species,
+ int[] sourceIndexes,
+ int offset)
+Creates a shuffle for a given species from
+ an
+int
+array starting at an offset.
+static <E>
+VectorShuffle
+<E>
+fromOp
+(
+VectorSpecies
+<E> species,
+IntUnaryOperator
+fn)
+Creates a shuffle for a given species from
+ the successive values of an operator applied to
+ the range
+[0..VLENGTH-1]
+.
+static <E>
+VectorShuffle
+<E>
+fromValues
+(
+VectorSpecies
+<E> species,
+ int... sourceIndexes)
+Creates a shuffle for a given species from
+ a series of source indexes.
+protected final
+Object
+getPayload
+()
+final int
+hashCode
+()
+Returns a hash code value for the shuffle,
+ based on the lane source indexes and the vector species.
+abstract void
+intoArray
+(int[] a,
+ int offset)
+Stores this shuffle into an
+int
+array starting at offset.
+static <E>
+VectorShuffle
+<E>
+iota
+(
+VectorSpecies
+<E> species,
+ int start,
+ int step,
+ boolean wrap)
+Creates a shuffle using source indexes set to sequential
+ values starting from
+start
+and stepping
+ by the given
+step
+.
+abstract
+VectorMask
+<
+E
+>
+laneIsValid
+()
+Find all lanes containing valid indexes (non-negative values)
+ and return a mask where exactly those lanes are set.
+int
+laneSource
+(int i)
+Gets the
+int
+lane element at lane index
+i
+final int
+length
+()
+Returns the number of lanes processed by this shuffle.
+static <E>
+VectorShuffle
+<E>
+makeUnzip
+(
+VectorSpecies
+<E> species,
+ int part)
+Creates a shuffle which will unzip the concatenation of two
+ vectors, alternatively storing input lanes into one or the
+ other output vector.
+static <E>
+VectorShuffle
+<E>
+makeZip
+(
+VectorSpecies
+<E> species,
+ int part)
+Creates a shuffle which will zip together two vectors,
+ alternatively selecting lanes from one or the other.
+abstract
+VectorShuffle
+<
+E
+>
+rearrange
+(
+VectorShuffle
+<
+E
+> s)
+Rearranges the lane elements of this shuffle selecting lane indexes
+ controlled by another shuffle.
+abstract int[]
+toArray
+()
+Returns an
+int
+array containing the lane
+ source indexes of this shuffle.
+final
+String
+toString
+()
+Returns a string representation of this shuffle, of the form
+"Shuffle[0,1,2...]"
+, reporting the source indexes
+ in lane order.
+abstract
+Vector
+<
+E
+>
+toVector
+()
+Converts this shuffle into a vector, creating a vector
+ of integral values corresponding to the lane source
+ indexes of the shuffle.
+abstract
+VectorSpecies
+<
+E
+>
+vectorSpecies
+()
+Returns the species of this shuffle.
+abstract int
+wrapIndex
+(int index)
+Validation function for lane indexes which may be out of the
+ valid range of
+[0..VLENGTH-1]
+.
+abstract
+VectorShuffle
+<
+E
+>
+wrapIndexes
+()
+Apply the
+wrapIndex()
+validation
+ function to all lanes, replacing any exceptional indexes
+ with wrapped normal indexes.
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Method Details
+vectorSpecies
+public abstract
+VectorSpecies
+<
+E
+>
+vectorSpecies
+()
+Returns the species of this shuffle.
+Returns:
+the species of this shuffle
+length
+public final
+int
+length
+()
+Returns the number of lanes processed by this shuffle.
+ This is the same as the
+VLENGTH
+of any vector
+ it operates on.
+Returns:
+the number of shuffle lanes
+cast
+public abstract
+<F>
+VectorShuffle
+<F>
+cast
+(
+VectorSpecies
+<F> species)
+Converts this shuffle to a shuffle of the given species of
+ element type
+F
+.
+
+ The various lane source indexes are unmodified.  Exceptional
+ source indexes remain exceptional and valid indexes remain
+ valid.
+Type Parameters:
+F
+- the boxed element type of the species
+Parameters:
+species
+- the species of desired shuffle
+Returns:
+a shuffle converted by shape and element type
+Throws:
+IllegalArgumentException
+- if this shuffle length and the
+         species length differ
+check
+public abstract
+<F>
+VectorShuffle
+<F>
+check
+(
+VectorSpecies
+<F> species)
+Checks that this shuffle has the given species,
+ and returns this shuffle unchanged.
+ The effect is similar to this pseudocode:
+species == vectorSpecies()
+        ? this
+        : throw new ClassCastException()
+.
+Type Parameters:
+F
+- the boxed element type of the required species
+Parameters:
+species
+- the required species
+Returns:
+the same shuffle
+Throws:
+ClassCastException
+- if the shuffle species is wrong
+See Also:
+Vector.check(Class)
+Vector.check(VectorSpecies)
+checkIndex
+public abstract
+int
+checkIndex
+(int index)
+Validation function for lane indexes which may be out of the
+ valid range of
+[0..VLENGTH-1]
+.  If
+index
+is in
+ this range, it is returned unchanged.
+
+ Otherwise, an
+IndexOutOfBoundsException
+is thrown.
+Parameters:
+index
+- the lane index
+Returns:
+index
+Throws:
+IndexOutOfBoundsException
+- if the
+index
+is
+         not less than
+VLENGTH
+, or is negative
+See Also:
+wrapIndex(int)
+checkIndexes()
+wrapIndex
+public abstract
+int
+wrapIndex
+(int index)
+Validation function for lane indexes which may be out of the
+ valid range of
+[0..VLENGTH-1]
+.
+
+ The
+index
+is forced into this range by adding or
+ subtracting a suitable multiple of
+VLENGTH
+.
+ Specifically, the index is reduced into the required range
+ by computing the value of
+length-floor
+, where
+floor=vectorSpecies().loopBound(length)
+is the
+ next lower multiple of
+VLENGTH
+.
+ As long as
+VLENGTH
+is a power of two, then the
+ reduced index also equal to
+index & (VLENGTH - 1)
+.
+Parameters:
+index
+- the lane index
+Returns:
+index
+, adjusted to the range
+[0..VLENGTH-1
+}
+         by an appropriate multiple of
+VLENGTH
+See Also:
+VectorSpecies.loopBound(int)
+checkIndex(int)
+wrapIndexes()
+checkIndexes
+public abstract
+VectorShuffle
+<
+E
+>
+checkIndexes
+()
+Apply the
+checkIndex()
+validation
+ function to all lanes, throwing
+IndexOutOfBoundsException
+if there are any exceptional
+ indexes in this shuffle.
+Returns:
+the current shuffle, unchanged
+Throws:
+IndexOutOfBoundsException
+- if any lanes in this shuffle
+         contain exceptional indexes
+See Also:
+checkIndex(int)
+wrapIndexes()
+wrapIndexes
+public abstract
+VectorShuffle
+<
+E
+>
+wrapIndexes
+()
+Apply the
+wrapIndex()
+validation
+ function to all lanes, replacing any exceptional indexes
+ with wrapped normal indexes.
+Returns:
+the current shuffle, with all exceptional indexes wrapped
+See Also:
+wrapIndex(int)
+checkIndexes()
+laneIsValid
+public abstract
+VectorMask
+<
+E
+>
+laneIsValid
+()
+Find all lanes containing valid indexes (non-negative values)
+ and return a mask where exactly those lanes are set.
+Returns:
+a mask of lanes containing valid source indexes
+See Also:
+checkIndexes()
+fromValues
+public static
+<E>
+VectorShuffle
+<E>
+fromValues
+(
+VectorSpecies
+<E> species,
+ int... sourceIndexes)
+Creates a shuffle for a given species from
+ a series of source indexes.
+For each shuffle lane, where
+N
+is the shuffle lane
+ index, the
+N
+th index value is validated
+ against the species
+VLENGTH
+, and (if invalid)
+ is partially wrapped to an exceptional index in the
+ range
+[-VLENGTH..-1]
+.
+Type Parameters:
+E
+- the boxed element type
+Parameters:
+species
+- shuffle species
+sourceIndexes
+- the source indexes which the shuffle will draw from
+Returns:
+a shuffle where each lane's source index is set to the given
+int
+value, partially wrapped if exceptional
+Throws:
+IndexOutOfBoundsException
+- if
+sourceIndexes.length != VLENGTH
+See Also:
+VectorSpecies.shuffleFromValues(int...)
+fromArray
+public static
+<E>
+VectorShuffle
+<E>
+fromArray
+(
+VectorSpecies
+<E> species,
+ int[] sourceIndexes,
+ int offset)
+Creates a shuffle for a given species from
+ an
+int
+array starting at an offset.
+For each shuffle lane, where
+N
+is the shuffle lane
+ index, the array element at index
+offset + N
+is validated
+ against the species
+VLENGTH
+, and (if invalid)
+ is partially wrapped to an exceptional index in the
+ range
+[-VLENGTH..-1]
+.
+Type Parameters:
+E
+- the boxed element type
+Parameters:
+species
+- shuffle species
+sourceIndexes
+- the source indexes which the shuffle will draw from
+offset
+- the offset into the array
+Returns:
+a shuffle where each lane's source index is set to the given
+int
+value, partially wrapped if exceptional
+Throws:
+IndexOutOfBoundsException
+- if
+offset < 0
+, or
+offset > sourceIndexes.length - VLENGTH
+See Also:
+VectorSpecies.shuffleFromArray(int[], int)
+fromOp
+public static
+<E>
+VectorShuffle
+<E>
+fromOp
+(
+VectorSpecies
+<E> species,
+IntUnaryOperator
+fn)
+Creates a shuffle for a given species from
+ the successive values of an operator applied to
+ the range
+[0..VLENGTH-1]
+.
+For each shuffle lane, where
+N
+is the shuffle lane
+ index, the
+N
+th index value is validated
+ against the species
+VLENGTH
+, and (if invalid)
+ is partially wrapped to an exceptional index in the
+ range
+[-VLENGTH..-1]
+.
+Care should be taken to ensure
+VectorShuffle
+values
+ produced from this method are consumed as constants to ensure
+ optimal generation of code.  For example, shuffle values can be
+ held in
+static final
+fields or loop-invariant local variables.
+This method behaves as if a shuffle is created from an array of
+ mapped indexes as follows:
+int[] a = new int[species.length()];
+   for (int i = 0; i < a.length; i++) {
+       a[i] = fn.applyAsInt(i);
+   }
+   return VectorShuffle.fromArray(a, 0);
+Type Parameters:
+E
+- the boxed element type
+Parameters:
+species
+- shuffle species
+fn
+- the lane index mapping function
+Returns:
+a shuffle of mapped indexes
+See Also:
+VectorSpecies.shuffleFromOp(IntUnaryOperator)
+iota
+public static
+<E>
+VectorShuffle
+<E>
+iota
+(
+VectorSpecies
+<E> species,
+ int start,
+ int step,
+ boolean wrap)
+Creates a shuffle using source indexes set to sequential
+ values starting from
+start
+and stepping
+ by the given
+step
+.
+This method returns the value of the expression
+VectorShuffle.fromOp(species, i -> R(start + i * step))
+,
+ where
+R
+is
+wrapIndex
+if
+wrap
+is true, and is the identity function otherwise.
+If
+wrap
+is false each index is validated
+ against the species
+VLENGTH
+, and (if invalid)
+ is partially wrapped to an exceptional index in the
+ range
+[-VLENGTH..-1]
+.
+ Otherwise, if
+wrap
+is true, also reduce each index, as if
+ by
+wrapIndex
+,
+ to the valid range
+[0..VLENGTH-1]
+.
+API Note:
+The
+wrap
+parameter should be set to
+true
+if invalid source indexes should be wrapped.  Otherwise,
+ setting it to
+false
+allows invalid source indexes to be
+ range-checked by later operations such as
+unary rearrange
+.
+Type Parameters:
+E
+- the boxed element type
+Parameters:
+species
+- shuffle species
+start
+- the starting value of the source index sequence
+step
+- the difference between adjacent source indexes
+wrap
+- whether to wrap resulting indexes
+Returns:
+a shuffle of sequential lane indexes, possibly wrapped
+See Also:
+VectorSpecies.iotaShuffle(int,int,boolean)
+makeZip
+public static
+<E>
+VectorShuffle
+<E>
+makeZip
+(
+VectorSpecies
+<E> species,
+ int part)
+Creates a shuffle which will zip together two vectors,
+ alternatively selecting lanes from one or the other.
+ The logical result of a zip is twice the size of either
+ input, and so the
+expanded result
+is broken into two physical parts, selected by
+ a part number.
+ For example, zipping two vectors
+[a,b,c,d]
+and
+[1,2,3,4]
+will yield the expanded logical result
+[a,1,b,2,c,3,d,4]
+which must be obtained in two
+ parts,
+[a,1,b,2]
+and
+[c,3,d,4]
+.
+This method returns the value of the expression
+VectorShuffle.fromOp(species, i -> i/2 + (i%2)*VLENGTH + P
+,
+ where
+P
+is
+part*VLENGTH/2
+.
+s
+ Note that the source indexes in the odd lanes of the shuffle
+ will be invalid indexes (
+>= VLENGTH
+, or
+< 0
+after partial normalization), which will select from the second
+ vector.
+Type Parameters:
+E
+- the boxed element type
+Parameters:
+species
+- the shuffle species
+part
+- the part number of the result (either zero or one)
+Returns:
+a shuffle which zips two vectors into
+2*VLENGTH
+lanes, returning the selected part
+Throws:
+ArrayIndexOutOfBoundsException
+- if
+part
+is not zero or one
+See Also:
+makeUnzip(VectorSpecies, int)
+Vector.rearrange(VectorShuffle,Vector)
+makeUnzip
+public static
+<E>
+VectorShuffle
+<E>
+makeUnzip
+(
+VectorSpecies
+<E> species,
+ int part)
+Creates a shuffle which will unzip the concatenation of two
+ vectors, alternatively storing input lanes into one or the
+ other output vector.
+ Since the logical result of an unzip is twice the size of
+ either input, the
+expanded result
+is broken into two physical parts, selected by
+ a part number.
+ For example, unzipping two vectors
+[a,1,b,2][c,3,d,4]
+will yield a result in two parts,
+[a,b,c,d]
+and
+[1,2,3,4]
+.
+This method returns the value of the expression
+VectorShuffle.fromOp(species, i -> i*2+part
+.
+Note that the source indexes in upper half of the shuffle will
+ be invalid indexes (
+>= VLENGTH
+, or
+< 0
+after
+ partial normalization), which will select from the second
+ vector.
+Type Parameters:
+E
+- the boxed element type
+Parameters:
+species
+- the shuffle species
+part
+- the part number of the result (either zero or one)
+Returns:
+a shuffle which unzips
+2*VLENGTH
+lanes into two vectors, returning the selected part
+Throws:
+ArrayIndexOutOfBoundsException
+- if
+part
+is not zero or one
+See Also:
+makeZip(VectorSpecies,int)
+Vector.rearrange(VectorShuffle,Vector)
+toArray
+public abstract
+int[]
+toArray
+()
+Returns an
+int
+array containing the lane
+ source indexes of this shuffle.
+This method behaves as if it stores
+ this shuffle into an allocated array
+ (using
+intoArray
+)
+ and returns that array as
+ follows:
+int[] a = new int[this.length()];
+   VectorShuffle.intoArray(a, 0);
+   return a;
+API Note:
+Shuffle source indexes are always in the
+ range from
+-VLENGTH
+to
+VLENGTH-1
+.
+ A source index is exceptional if and only if it is
+ negative.
+Returns:
+an array containing the lane source indexes
+         of this shuffle
+intoArray
+public abstract
+void
+intoArray
+(int[] a,
+ int offset)
+Stores this shuffle into an
+int
+array starting at offset.
+For each shuffle lane
+N
+, the lane source index
+ stored for that lane element is stored into the array
+ element
+a[offset+N]
+.
+API Note:
+Shuffle source indexes are always in the
+ range from
+-VLENGTH
+to
+VLENGTH-1
+.
+Parameters:
+a
+- the array, of type
+int[]
+offset
+- the offset into the array
+Throws:
+IndexOutOfBoundsException
+- if
+offset < 0
+or
+offset > a.length - this.length()
+toVector
+public abstract
+Vector
+<
+E
+>
+toVector
+()
+Converts this shuffle into a vector, creating a vector
+ of integral values corresponding to the lane source
+ indexes of the shuffle.
+This method behaves as if it returns the result of creating a
+ vector given an
+int
+array obtained from this shuffle's
+ lane elements, as follows:
+int[] sa = this.toArray();
+   $type$[] va = new $type$[a.length];
+   for (int i = 0; i < a.length; i++) {
+       va[i] = ($type$) sa[i];
+   }
+   return IntVector.fromArray(va, 0);
+API Note:
+Shuffle source indexes are always in the
+ range from
+-VLENGTH
+to
+VLENGTH-1
+.
+ These values are converted to the
+ETYPE
+of the resulting vector, even if it is a floating
+ point type.
+Returns:
+a vector representation of this shuffle
+laneSource
+public
+int
+laneSource
+(int i)
+Gets the
+int
+lane element at lane index
+i
+Parameters:
+i
+- the lane index
+Returns:
+the
+int
+lane element at lane index
+i
+rearrange
+public abstract
+VectorShuffle
+<
+E
+>
+rearrange
+(
+VectorShuffle
+<
+E
+> s)
+Rearranges the lane elements of this shuffle selecting lane indexes
+ controlled by another shuffle.
+For each lane of the specified shuffle, at lane index
+N
+with lane
+ element
+I
+, the lane element at
+I
+from this shuffle is
+ selected and placed into the resulting shuffle at
+N
+.
+Parameters:
+s
+- the shuffle controlling lane index selection
+Returns:
+the rearrangement of the lane elements of this shuffle
+toString
+public final
+String
+toString
+()
+Returns a string representation of this shuffle, of the form
+"Shuffle[0,1,2...]"
+, reporting the source indexes
+ in lane order.
+Overrides:
+toString
+in class
+Object
+Returns:
+a string of the form
+"Shuffle[0,1,2...]"
+equals
+public final
+boolean
+equals
+(
+Object
+obj)
+Indicates whether this shuffle is identical to some other object.
+ Two shuffles are identical only if they have the same species
+ and same source indexes, in the same order.
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- the reference object with which to compare.
+Returns:
+whether this vector is identical to some other object
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+public final
+int
+hashCode
+()
+Returns a hash code value for the shuffle,
+ based on the lane source indexes and the vector species.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+a hash code value for this shuffle
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+getPayload
+protected final
+Object
+getPayload
+()
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

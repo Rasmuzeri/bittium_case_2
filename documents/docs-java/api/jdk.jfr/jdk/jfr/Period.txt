@@ -1,0 +1,181 @@
+Period (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Field
+Required
+Optional
+Detail:
+Field
+Element
+Summary:
+Field
+|
+Required |
+Optional
+Detail:
+Field
+|
+Element
+SEARCH
+Module
+jdk.jfr
+Package
+jdk.jfr
+Annotation Interface Period
+@Retention
+(
+RUNTIME
+)
+@Inherited
+@Target
+(
+TYPE
+)
+public @interface
+Period
+Event annotation, specifies the default setting value for a periodic event.
+The following example shows how the
+Period
+annotation can be used
+ to emit events at different intervals.
+Copy
+@Period("1 s")
+@Name("Counter")
+class CountEvent extends Event {
+    int count;
+}
+@Period("3 s")
+@Name("Fizz")
+class FizzEvent extends Event {
+}
+@Period("5 s")
+@Name("Buzz")
+class BuzzEvent extends Event {
+}
+
+var counter = new AtomicInteger();
+FlightRecorder.addPeriodicEvent(CountEvent.class, () -> {
+    CountEvent event = new CountEvent();
+    event.count = counter.incrementAndGet();
+    event.commit();
+});
+FlightRecorder.addPeriodicEvent(FizzEvent.class, () -> {
+    new FizzEvent().commit();
+});
+FlightRecorder.addPeriodicEvent(BuzzEvent.class, () -> {
+    new BuzzEvent().commit();
+});
+
+var sb = new StringBuilder();
+var last = new AtomicInteger();
+var current = new AtomicInteger();
+try (var r = new RecordingStream()) {
+    r.onEvent("Counter", e -> current.set(e.getValue("count")));
+    r.onEvent("Fizz", e -> sb.append("Fizz"));
+    r.onEvent("Buzz", e -> sb.append("Buzz"));
+    r.onFlush(() -> {
+        if (current.get() != last.get()) {
+            System.out.println(sb.isEmpty() ? current : sb);
+            last.set(current.get());
+            sb.setLength(0);
+        }
+    });
+    r.start();
+}
+Since:
+9
+Optional Element Summary
+Optional Elements
+Modifier and Type
+Optional Element
+Description
+String
+value
+Returns the default setting value for a periodic setting.
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+String
+NAME
+Settings name
+"period"
+for configuring periodic events
+Field Details
+NAME
+static final
+String
+NAME
+Settings name
+"period"
+for configuring periodic events
+See Also:
+Constant Field Values
+Element Details
+value
+String
+value
+Returns the default setting value for a periodic setting.
+String representation of a positive
+Long
+value followed by an empty
+ space and one of the following units:
+"ns"
+(nanoseconds)
+"us"
+(microseconds)
+"ms"
+(milliseconds)
+"s"
+(seconds)
+"m"
+(minutes)
+"h"
+(hours)
+"d"
+(days)
+Example values:
+"0 ns"
+,
+"10 ms"
+, and
+"1 s"
+.
+A period may also be
+"everyChunk"
+to specify that it occurs at
+ least once for every recording file. The number of events that are emitted
+ depends on how many times the file rotations occur when data is recorded.
+Returns:
+the default setting value, not
+null
+Default:
+"everyChunk"
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

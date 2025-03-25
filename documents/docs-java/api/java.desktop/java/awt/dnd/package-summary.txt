@@ -1,0 +1,354 @@
+java.awt.dnd (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages
+|
+Classes and Interfaces
+SEARCH
+Module
+java.desktop
+Package java.awt.dnd
+package
+java.awt.dnd
+Drag and Drop is a direct manipulation gesture found in many Graphical User
+ Interface systems that provides a mechanism to transfer information between
+ two entities logically associated with presentation elements in the GUI.
+ Normally driven by a physical gesture of a human user using an appropriate
+ input device, Drag and Drop provides both a mechanism to enable continuous
+ feedback regarding the possible outcome of any subsequent data transfer to
+ the user during navigation over the presentation elements in the GUI, and the
+ facilities to provide for any subsequent data negotiation and transfer.
+This package defines the classes and interfaces necessary to perform Drag and
+ Drop operations in Java. It defines classes for the drag-source and the
+ drop-target, as well as events for transferring the data being dragged. This
+ package also provides a means for giving visual feedback to the user
+ throughout the duration of the Drag and Drop operation.
+A typical Drag and Drop operation can be decomposed into the following states
+ (not entirely sequentially):
+A
+DragSource
+comes into existence, associated with some
+     presentation element (
+Component
+) in the GUI, to initiate a Drag
+     and Drop of some potentially
+Transferable
+data.
+1 or more
+DropTarget
+(s) come into/go out of existence,
+     associated with presentation elements in the GUI (Components),
+     potentially capable of consuming
+Transferable
+data types.
+A
+DragGestureRecognizer
+is obtained from the
+DragSource
+and is associated with a
+Component
+in order to
+     track and identify any Drag initiating gesture by the user over the
+Component
+.
+A user makes a Drag gesture over the
+Component
+, which the
+     registered
+DragGestureRecognizer
+detects, and notifies its
+DragGestureListener
+of.
+Note: Although this API consistently refers to the stimulus for a drag
+     and drop operation being a physical gesture by a human user, this does
+     not preclude a programmatically driven DnD operation given the
+     appropriate implementation of a
+DragSource
+. This package
+     contains the abstract class
+MouseDragGestureRecognizer
+for
+     recognizing mouse device gestures. Other abstract subclasses may be
+     provided by the platform to support other input devices or particular
+Component
+class semantics.
+The
+DragGestureListener
+causes the
+DragSource
+to
+     initiate the Drag and Drop operation on behalf of the user, perhaps
+     animating the GUI Cursor and/or rendering an
+Image
+of the item(s)
+     that are the subject of the operation.
+As the user gestures navigate over
+Component
+(s) in the GUI
+     with associated
+DropTarget
+(s), the
+DragSource
+receives
+     notifications in order to provide "Drag Over" feedback effects, and the
+DropTarget
+(s) receive notifications in order to provide
+     "Drag Under" feedback effects based upon the operation(s) supported and
+     the data type(s) involved.
+The gesture itself moves a logical cursor across the GUI hierarchy,
+ intersecting the geometry of GUI Component(s), possibly resulting in the
+ logical "Drag" cursor entering, crossing, and subsequently leaving
+Component
+(s) and associated
+DropTarget
+(s).
+The
+DragSource
+object manifests "Drag Over" feedback to the user, in
+ the typical case by animating the GUI
+Cursor
+associated with the
+ logical cursor.
+DropTarget
+objects manifest "Drag Under" feedback to the user, in the
+ typical case, by rendering animations into their associated GUI
+Component
+(s) under the GUI Cursor.
+The determination of the feedback effects, and the ultimate success or
+ failure of the data transfer, should one occur, is parameterized as follows:
+By the transfer "operation" selected by the user, and supported by
+     both the
+DragSource
+and
+DropTarget
+: Copy, Move or
+     Reference(link).
+By the intersection of the set of data types provided by the
+DragSource
+and the set of data types comprehensible by the
+DropTarget
+.
+When the user terminates the drag operation, normally resulting in a
+     successful Drop, both the
+DragSource
+and
+DropTarget
+receive notifications that include, and result in the type negotiation
+     and transfer of, the information associated with the
+DragSource
+via a
+Transferable
+object.
+Since:
+1.2
+Related Packages
+Package
+Description
+java.awt
+Contains all of the classes for creating user interfaces and for painting
+ graphics and images.
+All Classes and Interfaces
+Interfaces
+Classes
+Exception Classes
+Class
+Description
+Autoscroll
+During DnD operations it is possible that a user may wish to drop the
+ subject of the operation on a region of a scrollable GUI control that is
+ not currently visible to the user.
+DnDConstants
+This class contains constant values representing
+ the type of action(s) to be performed by a Drag and Drop operation.
+DragGestureEvent
+A
+DragGestureEvent
+is passed
+ to
+DragGestureListener
+'s
+ dragGestureRecognized() method
+ when a particular
+DragGestureRecognizer
+detects that a
+ platform dependent drag initiating gesture has occurred
+ on the
+Component
+that it is tracking.
+DragGestureListener
+The listener interface for receiving drag gesture events.
+DragGestureRecognizer
+The
+DragGestureRecognizer
+is an
+ abstract base class for the specification
+ of a platform-dependent listener that can be associated with a particular
+Component
+in order to
+ identify platform-dependent drag initiating gestures.
+DragSource
+The
+DragSource
+is the entity responsible
+ for the initiation of the Drag
+ and Drop operation, and may be used in a number of scenarios:
+ 
+ 1 default instance per JVM for the lifetime of that JVM.
+DragSourceAdapter
+An abstract adapter class for receiving drag source events.
+DragSourceContext
+The
+DragSourceContext
+class is responsible for managing the
+ initiator side of the Drag and Drop protocol.
+DragSourceDragEvent
+The
+DragSourceDragEvent
+is
+ delivered from the
+DragSourceContextPeer
+,
+ via the
+DragSourceContext
+, to the
+DragSourceListener
+registered with that
+DragSourceContext
+and with its associated
+DragSource
+.
+DragSourceDropEvent
+The
+DragSourceDropEvent
+is delivered
+ from the
+DragSourceContextPeer
+,
+ via the
+DragSourceContext
+, to the
+dragDropEnd
+method of
+DragSourceListener
+s registered with that
+DragSourceContext
+and with its associated
+DragSource
+.
+DragSourceEvent
+This class is the base class for
+DragSourceDragEvent
+and
+DragSourceDropEvent
+.
+DragSourceListener
+The
+DragSourceListener
+defines the
+ event interface for originators of
+ Drag and Drop operations to track the state of the user's gesture, and to
+ provide appropriate "drag over"
+ feedback to the user throughout the
+ Drag and Drop operation.
+DragSourceMotionListener
+A listener interface for receiving mouse motion events during a drag
+ operation.
+DropTarget
+The
+DropTarget
+is associated
+ with a
+Component
+when that
+Component
+wishes
+ to accept drops during Drag and Drop operations.
+DropTarget.DropTargetAutoScroller
+this protected nested class implements autoscrolling
+DropTargetAdapter
+An abstract adapter class for receiving drop target events.
+DropTargetContext
+A
+DropTargetContext
+is created
+ whenever the logical cursor associated
+ with a Drag and Drop operation coincides with the visible geometry of
+ a
+Component
+associated with a
+DropTarget
+.
+DropTargetDragEvent
+The
+DropTargetDragEvent
+is delivered to a
+DropTargetListener
+via its
+ dragEnter() and dragOver() methods.
+DropTargetDropEvent
+The
+DropTargetDropEvent
+is delivered
+ via the
+DropTargetListener
+drop() method.
+DropTargetEvent
+The
+DropTargetEvent
+is the base
+ class for both the
+DropTargetDragEvent
+and the
+DropTargetDropEvent
+.
+DropTargetListener
+The
+DropTargetListener
+interface
+ is the callback interface used by the
+DropTarget
+class to provide
+ notification of DnD operations that involve
+ the subject
+DropTarget
+.
+InvalidDnDOperationException
+This exception is thrown by various methods in the java.awt.dnd package.
+MouseDragGestureRecognizer
+This abstract subclass of
+DragGestureRecognizer
+defines a
+DragGestureRecognizer
+for mouse-based gestures.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

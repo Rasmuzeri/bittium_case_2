@@ -1,0 +1,395 @@
+HyperlinkEvent (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.event
+Class HyperlinkEvent
+java.lang.Object
+java.util.EventObject
+javax.swing.event.HyperlinkEvent
+All Implemented Interfaces:
+Serializable
+Direct Known Subclasses:
+HTMLFrameHyperlinkEvent
+public class
+HyperlinkEvent
+extends
+EventObject
+HyperlinkEvent is used to notify interested parties that
+ something has happened with respect to a hypertext link.
+Warning:
+Serialized objects of this class will not be compatible with
+ future Swing releases. The current serialization support is
+ appropriate for short term storage or RMI between applications running
+ the same version of Swing.  As of 1.4, support for long term storage
+ of all JavaBeans
+ has been added to the
+java.beans
+package.
+ Please see
+XMLEncoder
+.
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+static final class
+HyperlinkEvent.EventType
+Defines the ENTERED, EXITED, and ACTIVATED event types, along
+ with their string representations, returned by toString().
+Field Summary
+Fields declared in class java.util.
+EventObject
+source
+Constructor Summary
+Constructors
+Constructor
+Description
+HyperlinkEvent
+(
+Object
+source,
+HyperlinkEvent.EventType
+type,
+URL
+u)
+Creates a new object representing a hypertext link event.
+HyperlinkEvent
+(
+Object
+source,
+HyperlinkEvent.EventType
+type,
+URL
+u,
+String
+desc)
+Creates a new object representing a hypertext link event.
+HyperlinkEvent
+(
+Object
+source,
+HyperlinkEvent.EventType
+type,
+URL
+u,
+String
+desc,
+Element
+sourceElement)
+Creates a new object representing a hypertext link event.
+HyperlinkEvent
+(
+Object
+source,
+HyperlinkEvent.EventType
+type,
+URL
+u,
+String
+desc,
+Element
+sourceElement,
+InputEvent
+inputEvent)
+Creates a new object representing a hypertext link event.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+String
+getDescription
+()
+Get the description of the link as a string.
+HyperlinkEvent.EventType
+getEventType
+()
+Gets the type of event.
+InputEvent
+getInputEvent
+()
+Returns the
+InputEvent
+that triggered the hyperlink event.
+Element
+getSourceElement
+()
+Returns the
+Element
+that corresponds to the source of the
+ event.
+URL
+getURL
+()
+Gets the URL that the link refers to.
+Methods declared in class java.util.
+EventObject
+getSource
+,
+toString
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+HyperlinkEvent
+public
+HyperlinkEvent
+(
+Object
+source,
+HyperlinkEvent.EventType
+type,
+URL
+u)
+Creates a new object representing a hypertext link event.
+ The other constructor is preferred, as it provides more
+ information if a URL could not be formed.  This constructor
+ is primarily for backward compatibility.
+Parameters:
+source
+- the object responsible for the event
+type
+- the event type
+u
+- the affected URL
+HyperlinkEvent
+public
+HyperlinkEvent
+(
+Object
+source,
+HyperlinkEvent.EventType
+type,
+URL
+u,
+String
+desc)
+Creates a new object representing a hypertext link event.
+Parameters:
+source
+- the object responsible for the event
+type
+- the event type
+u
+- the affected URL.  This may be null if a valid URL
+   could not be created.
+desc
+- the description of the link.  This may be useful
+   when attempting to form a URL resulted in a MalformedURLException.
+   The description provides the text used when attempting to form the
+   URL.
+HyperlinkEvent
+public
+HyperlinkEvent
+(
+Object
+source,
+HyperlinkEvent.EventType
+type,
+URL
+u,
+String
+desc,
+Element
+sourceElement)
+Creates a new object representing a hypertext link event.
+Parameters:
+source
+- the object responsible for the event
+type
+- the event type
+u
+- the affected URL.  This may be null if a valid URL
+   could not be created.
+desc
+- the description of the link.  This may be useful
+   when attempting to form a URL resulted in a MalformedURLException.
+   The description provides the text used when attempting to form the
+   URL.
+sourceElement
+- Element in the Document representing the
+   anchor
+Since:
+1.4
+HyperlinkEvent
+public
+HyperlinkEvent
+(
+Object
+source,
+HyperlinkEvent.EventType
+type,
+URL
+u,
+String
+desc,
+Element
+sourceElement,
+InputEvent
+inputEvent)
+Creates a new object representing a hypertext link event.
+Parameters:
+source
+- the object responsible for the event
+type
+- the event type
+u
+- the affected URL.  This may be null if a valid URL
+   could not be created.
+desc
+- the description of the link.  This may be useful
+   when attempting to form a URL resulted in a MalformedURLException.
+   The description provides the text used when attempting to form the
+   URL.
+sourceElement
+- Element in the Document representing the
+   anchor
+inputEvent
+- InputEvent that triggered the hyperlink event
+Since:
+1.7
+Method Details
+getEventType
+public
+HyperlinkEvent.EventType
+getEventType
+()
+Gets the type of event.
+Returns:
+the type
+getDescription
+public
+String
+getDescription
+()
+Get the description of the link as a string.
+ This may be useful if a URL can't be formed
+ from the description, in which case the associated
+ URL would be null.
+Returns:
+the description of this link as a
+String
+getURL
+public
+URL
+getURL
+()
+Gets the URL that the link refers to.
+Returns:
+the URL
+getSourceElement
+public
+Element
+getSourceElement
+()
+Returns the
+Element
+that corresponds to the source of the
+ event. This will typically be an
+Element
+representing
+ an anchor. If a constructor that is used that does not specify a source
+Element
+, or null was specified as the source
+Element
+, this will return null.
+Returns:
+Element indicating source of event, or null
+Since:
+1.4
+getInputEvent
+public
+InputEvent
+getInputEvent
+()
+Returns the
+InputEvent
+that triggered the hyperlink event.
+ This will typically be a
+MouseEvent
+.  If a constructor is used
+ that does not specify an
+InputEvent
+, or
+null
+was specified as the
+InputEvent
+, this returns
+null
+.
+Returns:
+InputEvent that triggered the hyperlink event, or null
+Since:
+1.7
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

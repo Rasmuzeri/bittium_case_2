@@ -1,0 +1,390 @@
+ProgressMonitorInputStream (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing
+Class ProgressMonitorInputStream
+java.lang.Object
+java.io.InputStream
+java.io.FilterInputStream
+javax.swing.ProgressMonitorInputStream
+All Implemented Interfaces:
+Closeable
+,
+AutoCloseable
+public class
+ProgressMonitorInputStream
+extends
+FilterInputStream
+Monitors the progress of reading from some InputStream. This ProgressMonitor
+ is normally invoked in roughly this form:
+InputStream in = new BufferedInputStream(
+                          new ProgressMonitorInputStream(
+                                  parentComponent,
+                                  "Reading " + fileName,
+                                  new FileInputStream(fileName)));
+This creates a progress monitor to monitor the progress of reading
+ the input stream.  If it's taking a while, a ProgressDialog will
+ be popped up to inform the user.  If the user hits the Cancel button
+ an InterruptedIOException will be thrown on the next read.
+ All the right cleanup is done when the stream is closed.
+For further documentation and examples see
+How to Monitor Progress
+,
+ a section in
+The Java Tutorial.
+Since:
+1.2
+See Also:
+ProgressMonitor
+JOptionPane
+Field Summary
+Fields declared in class java.io.
+FilterInputStream
+in
+Constructor Summary
+Constructors
+Constructor
+Description
+ProgressMonitorInputStream
+(
+Component
+parentComponent,
+Object
+message,
+InputStream
+in)
+Constructs an object to monitor the progress of an input stream.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+close
+()
+Overrides
+FilterInputStream.close
+to close the progress monitor as well as the stream.
+ProgressMonitor
+getProgressMonitor
+()
+Get the ProgressMonitor object being used by this stream.
+int
+read
+()
+Overrides
+FilterInputStream.read
+to update the progress monitor after the read.
+int
+read
+(byte[] b)
+Overrides
+FilterInputStream.read
+to update the progress monitor after the read.
+int
+read
+(byte[] b,
+ int off,
+ int len)
+Overrides
+FilterInputStream.read
+to update the progress monitor after the read.
+void
+reset
+()
+Overrides
+FilterInputStream.reset
+to reset the progress monitor as well as the stream.
+long
+skip
+(long n)
+Overrides
+FilterInputStream.skip
+to update the progress monitor after the skip.
+Methods declared in class java.io.
+FilterInputStream
+available
+,
+mark
+,
+markSupported
+Methods declared in class java.io.
+InputStream
+nullInputStream
+,
+readAllBytes
+,
+readNBytes
+,
+readNBytes
+,
+skipNBytes
+,
+transferTo
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+ProgressMonitorInputStream
+public
+ProgressMonitorInputStream
+(
+Component
+parentComponent,
+Object
+message,
+InputStream
+in)
+Constructs an object to monitor the progress of an input stream.
+Parameters:
+parentComponent
+- The component triggering the operation
+                        being monitored.
+message
+- Descriptive text to be placed in the dialog box
+                if one is popped up.
+in
+- The input stream to be monitored.
+Method Details
+getProgressMonitor
+public
+ProgressMonitor
+getProgressMonitor
+()
+Get the ProgressMonitor object being used by this stream. Normally
+ this isn't needed unless you want to do something like change the
+ descriptive text partway through reading the file.
+Returns:
+the ProgressMonitor object used by this object
+read
+public
+int
+read
+()
+         throws
+IOException
+Overrides
+FilterInputStream.read
+to update the progress monitor after the read.
+Overrides:
+read
+in class
+FilterInputStream
+Returns:
+the next byte of data, or
+-1
+if the end of the
+             stream is reached.
+Throws:
+IOException
+- if an I/O error occurs.
+See Also:
+FilterInputStream.in
+read
+public
+int
+read
+(byte[] b)
+throws
+IOException
+Overrides
+FilterInputStream.read
+to update the progress monitor after the read.
+Overrides:
+read
+in class
+FilterInputStream
+Parameters:
+b
+- the buffer into which the data is read.
+Returns:
+the total number of bytes read into the buffer, or
+-1
+if there is no more data because the end of
+             the stream has been reached.
+Throws:
+IOException
+- if an I/O error occurs.
+See Also:
+FilterInputStream.read(byte[], int, int)
+read
+public
+int
+read
+(byte[] b,
+ int off,
+ int len)
+throws
+IOException
+Overrides
+FilterInputStream.read
+to update the progress monitor after the read.
+Overrides:
+read
+in class
+FilterInputStream
+Parameters:
+b
+- the buffer into which the data is read.
+off
+- the start offset in array
+b
+at which the data is written.
+len
+- the maximum number of bytes to read.
+Returns:
+the total number of bytes read into the buffer, or
+-1
+if there is no more data because the end of
+             the stream has been reached.
+Throws:
+IOException
+- if an I/O error occurs.
+See Also:
+FilterInputStream.in
+skip
+public
+long
+skip
+(long n)
+throws
+IOException
+Overrides
+FilterInputStream.skip
+to update the progress monitor after the skip.
+Overrides:
+skip
+in class
+FilterInputStream
+Parameters:
+n
+- the number of bytes to be skipped.
+Returns:
+the actual number of bytes skipped.
+Throws:
+IOException
+- if
+in.skip(n)
+throws an IOException.
+See Also:
+InputStream.skipNBytes(long)
+close
+public
+void
+close
+()
+           throws
+IOException
+Overrides
+FilterInputStream.close
+to close the progress monitor as well as the stream.
+Specified by:
+close
+in interface
+AutoCloseable
+Specified by:
+close
+in interface
+Closeable
+Overrides:
+close
+in class
+FilterInputStream
+Throws:
+IOException
+- if an I/O error occurs.
+See Also:
+FilterInputStream.in
+reset
+public
+void
+reset
+()
+           throws
+IOException
+Overrides
+FilterInputStream.reset
+to reset the progress monitor as well as the stream.
+Overrides:
+reset
+in class
+FilterInputStream
+Throws:
+IOException
+- if this stream has not been marked or if the
+          mark has been invalidated.
+See Also:
+FilterInputStream.in
+FilterInputStream.mark(int)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

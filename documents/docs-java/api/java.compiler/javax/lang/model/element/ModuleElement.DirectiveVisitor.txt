@@ -1,0 +1,352 @@
+ModuleElement.DirectiveVisitor (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.lang.model.element
+Interface ModuleElement.DirectiveVisitor<R,
+P>
+Type Parameters:
+R
+- the return type of this visitor's methods.  Use
+Void
+for visitors that do not need to return results.
+P
+- the type of the additional parameter to this visitor's
+            methods.  Use
+Void
+for visitors that do not need an
+            additional parameter.
+Enclosing interface:
+ModuleElement
+public static interface
+ModuleElement.DirectiveVisitor<R,
+P>
+A visitor of module directives, in the style of the visitor design
+ pattern.  Classes implementing this interface are used to operate
+ on a directive when the kind of directive is unknown at compile time.
+ When a visitor is passed to a directive's
+accept
+method, the
+visit
+Xyz
+method applicable
+ to that directive is invoked.
+Classes implementing this interface may or may not throw a
+NullPointerException
+if the additional parameter
+p
+is
+null
+; see documentation of the implementing class for
+ details.
+WARNING:
+It is possible that methods will be added to
+ this interface to accommodate new, currently unknown, language
+ structures added to future versions of the Java programming
+ language. Methods to accommodate new language constructs will
+ be added in a source
+compatible
+way using
+default methods
+.
+Since:
+9
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+default
+R
+visit
+(
+ModuleElement.Directive
+d)
+Visits any directive as if by passing itself to that
+ directive's
+accept
+method and passing
+null
+for the additional parameter.
+default
+R
+visit
+(
+ModuleElement.Directive
+d,
+P
+p)
+Visits any directive as if by passing itself to that
+ directive's
+accept
+method.
+R
+visitExports
+(
+ModuleElement.ExportsDirective
+d,
+P
+p)
+Visits an
+exports
+directive.
+R
+visitOpens
+(
+ModuleElement.OpensDirective
+d,
+P
+p)
+Visits an
+opens
+directive.
+R
+visitProvides
+(
+ModuleElement.ProvidesDirective
+d,
+P
+p)
+Visits a
+provides
+directive.
+R
+visitRequires
+(
+ModuleElement.RequiresDirective
+d,
+P
+p)
+Visits a
+requires
+directive.
+default
+R
+visitUnknown
+(
+ModuleElement.Directive
+d,
+P
+p)
+Visits an unknown directive.
+R
+visitUses
+(
+ModuleElement.UsesDirective
+d,
+P
+p)
+Visits a
+uses
+directive.
+Method Details
+visit
+default
+R
+visit
+(
+ModuleElement.Directive
+d)
+Visits any directive as if by passing itself to that
+ directive's
+accept
+method and passing
+null
+for the additional parameter.
+Implementation Requirements:
+The default implementation is
+d.accept(v, null)
+.
+Parameters:
+d
+- the directive to visit
+Returns:
+a visitor-specified result
+visit
+default
+R
+visit
+(
+ModuleElement.Directive
+d,
+P
+p)
+Visits any directive as if by passing itself to that
+ directive's
+accept
+method.
+Implementation Requirements:
+The default implementation is
+d.accept(v, p)
+.
+Parameters:
+d
+- the directive to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+visitRequires
+R
+visitRequires
+(
+ModuleElement.RequiresDirective
+d,
+P
+p)
+Visits a
+requires
+directive.
+Parameters:
+d
+- the directive to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+visitExports
+R
+visitExports
+(
+ModuleElement.ExportsDirective
+d,
+P
+p)
+Visits an
+exports
+directive.
+Parameters:
+d
+- the directive to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+visitOpens
+R
+visitOpens
+(
+ModuleElement.OpensDirective
+d,
+P
+p)
+Visits an
+opens
+directive.
+Parameters:
+d
+- the directive to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+visitUses
+R
+visitUses
+(
+ModuleElement.UsesDirective
+d,
+P
+p)
+Visits a
+uses
+directive.
+Parameters:
+d
+- the directive to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+visitProvides
+R
+visitProvides
+(
+ModuleElement.ProvidesDirective
+d,
+P
+p)
+Visits a
+provides
+directive.
+Parameters:
+d
+- the directive to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+visitUnknown
+default
+R
+visitUnknown
+(
+ModuleElement.Directive
+d,
+P
+p)
+Visits an unknown directive.
+ This can occur if the language evolves and new kinds of directive are added.
+Implementation Requirements:
+The default implementation throws
+new UnknownDirectiveException(d, p)
+.
+Parameters:
+d
+- the directive to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+Throws:
+UnknownDirectiveException
+- a visitor implementation may optionally throw this exception
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

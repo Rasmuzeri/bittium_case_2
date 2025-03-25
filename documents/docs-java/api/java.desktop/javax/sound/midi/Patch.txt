@@ -1,0 +1,183 @@
+Patch (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.sound.midi
+Class Patch
+java.lang.Object
+javax.sound.midi.Patch
+public class
+Patch
+extends
+Object
+A
+Patch
+object represents a location, on a MIDI synthesizer, into
+ which a single instrument is stored (loaded). Every
+Instrument
+object
+ has its own
+Patch
+object that specifies the memory location into
+ which that instrument should be loaded. The location is specified abstractly
+ by a bank index and a program number (not by any scheme that directly refers
+ to a specific address or offset in RAM). This is a hierarchical indexing
+ scheme: MIDI provides for up to 16384 banks, each of which contains up to 128
+ program locations. For example, a minimal sort of synthesizer might have only
+ one bank of instruments, and only 32 instruments (programs) in that bank.
+To select what instrument should play the notes on a particular MIDI channel,
+ two kinds of MIDI message are used that specify a patch location: a
+ bank-select command, and a program-change channel command. The Java Sound
+ equivalent is the
+programChange(int, int)
+method of
+MidiChannel
+.
+See Also:
+Instrument
+Instrument.getPatch()
+MidiChannel.programChange(int, int)
+Synthesizer.loadInstruments(Soundbank, Patch[])
+Soundbank
+Sequence.getPatchList()
+Constructor Summary
+Constructors
+Constructor
+Description
+Patch
+(int bank,
+ int program)
+Constructs a new patch object from the specified bank and program
+ numbers.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+int
+getBank
+()
+Returns the number of the bank that contains the instrument whose
+ location this
+Patch
+specifies.
+int
+getProgram
+()
+Returns the index, within a bank, of the instrument whose location this
+Patch
+specifies.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+Patch
+public
+Patch
+(int bank,
+ int program)
+Constructs a new patch object from the specified bank and program
+ numbers.
+Parameters:
+bank
+- the bank index (in the range from 0 to 16383)
+program
+- the program index (in the range from 0 to 127)
+Method Details
+getBank
+public
+int
+getBank
+()
+Returns the number of the bank that contains the instrument whose
+ location this
+Patch
+specifies.
+Returns:
+the bank number, whose range is from 0 to 16383
+See Also:
+MidiChannel.programChange(int, int)
+getProgram
+public
+int
+getProgram
+()
+Returns the index, within a bank, of the instrument whose location this
+Patch
+specifies.
+Returns:
+the instrument's program number, whose range is from 0 to 127
+See Also:
+MidiChannel.getProgram()
+MidiChannel.programChange(int)
+MidiChannel.programChange(int, int)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

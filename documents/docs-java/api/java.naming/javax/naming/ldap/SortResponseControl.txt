@@ -1,0 +1,264 @@
+SortResponseControl (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.naming
+Package
+javax.naming.ldap
+Class SortResponseControl
+java.lang.Object
+javax.naming.ldap.BasicControl
+javax.naming.ldap.SortResponseControl
+All Implemented Interfaces:
+Serializable
+,
+Control
+public final class
+SortResponseControl
+extends
+BasicControl
+Indicates whether the requested sort of search results was successful or not.
+ When the result code indicates success then the results have been sorted as
+ requested. Otherwise the sort was unsuccessful and additional details
+ regarding the cause of the error may have been provided by the server.
+The code sample in
+SortControl
+shows how this class may be used.
+This class implements the LDAPv3 Response Control for server-side sorting
+ as defined in
+RFC 2891
+.
+
+ The control's value has the following ASN.1 definition:
+SortResult ::= SEQUENCE {
+        sortResult  ENUMERATED {
+            success                   (0), -- results are sorted
+            operationsError           (1), -- server internal failure
+            timeLimitExceeded         (3), -- timelimit reached before
+                                           -- sorting was completed
+            strongAuthRequired        (8), -- refused to return sorted
+                                           -- results via insecure
+                                           -- protocol
+            adminLimitExceeded       (11), -- too many matching entries
+                                           -- for the server to sort
+            noSuchAttribute          (16), -- unrecognized attribute
+                                           -- type in sort key
+            inappropriateMatching    (18), -- unrecognized or inappro-
+                                           -- priate matching rule in
+                                           -- sort key
+            insufficientAccessRights (50), -- refused to return sorted
+                                           -- results to this client
+            busy                     (51), -- too busy to process
+            unwillingToPerform       (53), -- unable to sort
+            other                    (80)
+            },
+      attributeType [0] AttributeType OPTIONAL }
+Since:
+1.5
+See Also:
+SortControl
+Serialized Form
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+String
+OID
+The server-side sort response control's assigned object identifier
+ is 1.2.840.113556.1.4.474.
+Fields declared in class javax.naming.ldap.
+BasicControl
+criticality
+,
+id
+,
+value
+Fields declared in interface javax.naming.ldap.
+Control
+CRITICAL
+,
+NONCRITICAL
+Constructor Summary
+Constructors
+Constructor
+Description
+SortResponseControl
+(
+String
+id,
+ boolean criticality,
+ byte[] value)
+Constructs a control to indicate the outcome of a sort request.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+String
+getAttributeID
+()
+Retrieves the ID of the attribute that caused the sort to fail.
+NamingException
+getException
+()
+Retrieves the NamingException appropriate for the result code.
+int
+getResultCode
+()
+Retrieves the LDAP result code of the sort operation.
+boolean
+isSorted
+()
+Determines if the search results have been successfully sorted.
+Methods declared in class javax.naming.ldap.
+BasicControl
+getEncodedValue
+,
+getID
+,
+isCritical
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+OID
+public static final
+String
+OID
+The server-side sort response control's assigned object identifier
+ is 1.2.840.113556.1.4.474.
+See Also:
+Constant Field Values
+Constructor Details
+SortResponseControl
+public
+SortResponseControl
+(
+String
+id,
+ boolean criticality,
+ byte[] value)
+throws
+IOException
+Constructs a control to indicate the outcome of a sort request.
+Parameters:
+id
+- The control's object identifier string.
+criticality
+- The control's criticality.
+value
+- The control's ASN.1 BER encoded value.
+                          It is not cloned - any changes to value
+                          will affect the contents of the control.
+Throws:
+IOException
+- if an error is encountered
+                          while decoding the control's value.
+Method Details
+isSorted
+public
+boolean
+isSorted
+()
+Determines if the search results have been successfully sorted.
+ If an error occurred during sorting a NamingException is thrown.
+Returns:
+true if the search results have been sorted.
+getResultCode
+public
+int
+getResultCode
+()
+Retrieves the LDAP result code of the sort operation.
+Returns:
+The result code. A zero value indicates success.
+getAttributeID
+public
+String
+getAttributeID
+()
+Retrieves the ID of the attribute that caused the sort to fail.
+ Returns null if no ID was returned by the server.
+Returns:
+The possibly null ID of the bad attribute.
+getException
+public
+NamingException
+getException
+()
+Retrieves the NamingException appropriate for the result code.
+Returns:
+A NamingException or null if the result code indicates
+         success.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

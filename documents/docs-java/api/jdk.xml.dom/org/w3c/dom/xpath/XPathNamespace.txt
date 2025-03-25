@@ -1,0 +1,280 @@
+XPathNamespace (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+jdk.xml.dom
+Package
+org.w3c.dom.xpath
+Interface XPathNamespace
+All Superinterfaces:
+Node
+public interface
+XPathNamespace
+extends
+Node
+The
+XPathNamespace
+interface is returned by
+XPathResult
+interfaces to represent the XPath namespace node
+ type that DOM lacks. There is no public constructor for this node type.
+ Attempts to place it into a hierarchy or a NamedNodeMap result in a
+DOMException
+with the code
+HIERARCHY_REQUEST_ERR
+. This node is read only, so methods or setting of attributes that would
+ mutate the node result in a DOMException with the code
+NO_MODIFICATION_ALLOWED_ERR
+.
+The core specification describes attributes of the
+Node
+interface that are different for different node node types but does not
+ describe
+XPATH_NAMESPACE_NODE
+, so here is a description of
+ those attributes for this node type. All attributes of
+Node
+not described in this section have a
+null
+or
+false
+value.
+ownerDocument
+matches the
+ownerDocument
+of the
+ownerElement
+even if the element is later adopted.
+prefix
+is the prefix of the namespace represented by the
+ node.
+nodeName
+is the same as
+prefix
+.
+nodeType
+is equal to
+XPATH_NAMESPACE_NODE
+.
+namespaceURI
+is the namespace URI of the namespace
+ represented by the node.
+adoptNode
+,
+cloneNode
+, and
+importNode
+fail on this node type by raising a
+DOMException
+with the code
+NOT_SUPPORTED_ERR
+.In
+ future versions of the XPath specification, the definition of a namespace
+ node may be changed incomatibly, in which case incompatible changes to
+ field values may be required to implement versions beyond XPath 1.0.
+See also the
+Document Object Model (DOM) Level 3 XPath Specification
+.
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final short
+XPATH_NAMESPACE_NODE
+The node is a
+Namespace
+.
+Fields declared in interface org.w3c.dom.
+Node
+ATTRIBUTE_NODE
+,
+CDATA_SECTION_NODE
+,
+COMMENT_NODE
+,
+DOCUMENT_FRAGMENT_NODE
+,
+DOCUMENT_NODE
+,
+DOCUMENT_POSITION_CONTAINED_BY
+,
+DOCUMENT_POSITION_CONTAINS
+,
+DOCUMENT_POSITION_DISCONNECTED
+,
+DOCUMENT_POSITION_FOLLOWING
+,
+DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC
+,
+DOCUMENT_POSITION_PRECEDING
+,
+DOCUMENT_TYPE_NODE
+,
+ELEMENT_NODE
+,
+ENTITY_NODE
+,
+ENTITY_REFERENCE_NODE
+,
+NOTATION_NODE
+,
+PROCESSING_INSTRUCTION_NODE
+,
+TEXT_NODE
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+Element
+getOwnerElement
+()
+The
+Element
+on which the namespace was in scope when it
+ was requested.
+Methods declared in interface org.w3c.dom.
+Node
+appendChild
+,
+cloneNode
+,
+compareDocumentPosition
+,
+getAttributes
+,
+getBaseURI
+,
+getChildNodes
+,
+getFeature
+,
+getFirstChild
+,
+getLastChild
+,
+getLocalName
+,
+getNamespaceURI
+,
+getNextSibling
+,
+getNodeName
+,
+getNodeType
+,
+getNodeValue
+,
+getOwnerDocument
+,
+getParentNode
+,
+getPrefix
+,
+getPreviousSibling
+,
+getTextContent
+,
+getUserData
+,
+hasAttributes
+,
+hasChildNodes
+,
+insertBefore
+,
+isDefaultNamespace
+,
+isEqualNode
+,
+isSameNode
+,
+isSupported
+,
+lookupNamespaceURI
+,
+lookupPrefix
+,
+normalize
+,
+removeChild
+,
+replaceChild
+,
+setNodeValue
+,
+setPrefix
+,
+setTextContent
+,
+setUserData
+Field Details
+XPATH_NAMESPACE_NODE
+static final
+short
+XPATH_NAMESPACE_NODE
+The node is a
+Namespace
+.
+See Also:
+Constant Field Values
+Method Details
+getOwnerElement
+Element
+getOwnerElement
+()
+The
+Element
+on which the namespace was in scope when it
+ was requested. This does not change on a returned namespace node even
+ if the document changes such that the namespace goes out of scope on
+ that element and this node is no longer found there by XPath.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,697 @@
+DirectExecutionControl (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.jshell
+Package
+jdk.jshell.execution
+Class DirectExecutionControl
+java.lang.Object
+jdk.jshell.execution.DirectExecutionControl
+All Implemented Interfaces:
+AutoCloseable
+,
+ExecutionControl
+Direct Known Subclasses:
+LocalExecutionControl
+,
+RemoteExecutionControl
+public class
+DirectExecutionControl
+extends
+Object
+implements
+ExecutionControl
+An
+ExecutionControl
+implementation that runs in the current process.
+ May be used directly, or over a channel with
+Util.forwardExecutionControl(ExecutionControl, java.io.ObjectInput, java.io.ObjectOutput)
+.
+Since:
+9
+Nested Class Summary
+Nested classes/interfaces declared in interface jdk.jshell.spi.
+ExecutionControl
+ExecutionControl.ClassBytecodes
+,
+ExecutionControl.ClassInstallException
+,
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.ExecutionControlException
+,
+ExecutionControl.InternalException
+,
+ExecutionControl.NotImplementedException
+,
+ExecutionControl.ResolutionException
+,
+ExecutionControl.RunException
+,
+ExecutionControl.StoppedException
+,
+ExecutionControl.UserException
+Constructor Summary
+Constructors
+Constructor
+Description
+DirectExecutionControl
+()
+Create an instance using the default class loading.
+DirectExecutionControl
+(
+LoaderDelegate
+loaderDelegate)
+Creates an instance, delegating loader operations to the specified
+ delegate.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+addToClasspath
+(
+String
+cp)
+Adds the path to the execution class path.
+protected void
+classesRedefined
+(
+ExecutionControl.ClassBytecodes
+[] cbcs)
+Notify that classes have been redefined.
+protected void
+clientCodeEnter
+()
+Marks entry into user code.
+protected void
+clientCodeLeave
+()
+Marks departure from user code.
+void
+close
+()
+Shuts down this execution engine.
+Object
+extensionCommand
+(
+String
+command,
+Object
+arg)
+Run a non-standard command (or a standard command from a newer version).
+protected
+Class
+<?>
+findClass
+(
+String
+name)
+Finds the class with the specified binary name.
+protected
+String
+invoke
+(
+Method
+doitMethod)
+Invoke the specified "doit-method", a static method with no parameters.
+String
+invoke
+(
+String
+className,
+String
+methodName)
+Invokes an executable Snippet by calling a method on the specified
+ wrapper class.
+void
+load
+(
+ExecutionControl.ClassBytecodes
+[] cbcs)
+Attempts to load new classes.
+void
+redefine
+(
+ExecutionControl.ClassBytecodes
+[] cbcs)
+Attempts to redefine previously loaded classes.
+void
+stop
+()
+Interrupts a running invoke.
+protected
+String
+throwConvertedInvocationException
+(
+Throwable
+cause)
+Converts incoming exceptions in user code into instances of subtypes of
+ExecutionControl.ExecutionControlException
+and throws the
+ converted exception.
+protected
+String
+throwConvertedOtherException
+(
+Throwable
+ex)
+Converts incoming exceptions in agent code into instances of subtypes of
+ExecutionControl.ExecutionControlException
+and throws the
+ converted exception.
+protected static
+String
+valueString
+(
+Object
+value)
+Converts the
+Object
+value from
+ExecutionControl.invoke(String, String)
+or
+ExecutionControl.varValue(String, String)
+to
+String
+.
+String
+varValue
+(
+String
+className,
+String
+varName)
+Returns the value of a variable.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+DirectExecutionControl
+public
+DirectExecutionControl
+(
+LoaderDelegate
+loaderDelegate)
+Creates an instance, delegating loader operations to the specified
+ delegate.
+Parameters:
+loaderDelegate
+- the delegate to handle loading classes
+DirectExecutionControl
+public
+DirectExecutionControl
+()
+Create an instance using the default class loading.
+Method Details
+load
+public
+void
+load
+(
+ExecutionControl.ClassBytecodes
+[] cbcs)
+throws
+ExecutionControl.ClassInstallException
+,
+ExecutionControl.NotImplementedException
+,
+ExecutionControl.EngineTerminationException
+Description copied from interface:
+ExecutionControl
+Attempts to load new classes.
+Specified by:
+load
+in interface
+ExecutionControl
+Parameters:
+cbcs
+- the class name and bytecodes to load
+Throws:
+ExecutionControl.ClassInstallException
+- exception occurred loading the classes,
+ some or all were not loaded
+ExecutionControl.NotImplementedException
+- if not implemented
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+redefine
+public
+void
+redefine
+(
+ExecutionControl.ClassBytecodes
+[] cbcs)
+throws
+ExecutionControl.ClassInstallException
+,
+ExecutionControl.NotImplementedException
+,
+ExecutionControl.EngineTerminationException
+Description copied from interface:
+ExecutionControl
+Attempts to redefine previously loaded classes.
+Specified by:
+redefine
+in interface
+ExecutionControl
+Parameters:
+cbcs
+- the class name and bytecodes to redefine
+Throws:
+ExecutionControl.ClassInstallException
+- exception occurred redefining the classes,
+ some or all were not redefined
+ExecutionControl.NotImplementedException
+- if not implemented
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+classesRedefined
+protected
+void
+classesRedefined
+(
+ExecutionControl.ClassBytecodes
+[] cbcs)
+throws
+ExecutionControl.NotImplementedException
+,
+ExecutionControl.EngineTerminationException
+Notify that classes have been redefined.
+Parameters:
+cbcs
+- the class name and bytecodes to redefine
+Throws:
+ExecutionControl.NotImplementedException
+- if not implemented
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+invoke
+public
+String
+invoke
+(
+String
+className,
+String
+methodName)
+throws
+ExecutionControl.RunException
+,
+ExecutionControl.InternalException
+,
+ExecutionControl.EngineTerminationException
+Description copied from interface:
+ExecutionControl
+Invokes an executable Snippet by calling a method on the specified
+ wrapper class. The method must have no arguments and return String.
+Specified by:
+invoke
+in interface
+ExecutionControl
+Parameters:
+className
+- the class whose method should be invoked
+methodName
+- the name of method to invoke
+Returns:
+the result of the execution or null if no result
+Throws:
+ExecutionControl.UserException
+- the invoke raised a user exception
+ExecutionControl.ResolutionException
+- the invoke attempted to directly or
+ indirectly invoke an unresolved snippet
+ExecutionControl.StoppedException
+- if the
+invoke()
+was canceled by
+ExecutionControl.stop()
+ExecutionControl.InternalException
+- an internal problem occurred
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+ExecutionControl.RunException
+varValue
+public
+String
+varValue
+(
+String
+className,
+String
+varName)
+throws
+ExecutionControl.RunException
+,
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.InternalException
+Description copied from interface:
+ExecutionControl
+Returns the value of a variable.
+Specified by:
+varValue
+in interface
+ExecutionControl
+Parameters:
+className
+- the name of the wrapper class of the variable
+varName
+- the name of the variable
+Returns:
+the value of the variable
+Throws:
+ExecutionControl.UserException
+- formatting the value raised a user exception
+ExecutionControl.ResolutionException
+- formatting the value attempted to directly or
+ indirectly invoke an unresolved snippet
+ExecutionControl.StoppedException
+- if the formatting the value was canceled by
+ExecutionControl.stop()
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+ExecutionControl.InternalException
+- an internal problem occurred
+ExecutionControl.RunException
+addToClasspath
+public
+void
+addToClasspath
+(
+String
+cp)
+throws
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.InternalException
+Description copied from interface:
+ExecutionControl
+Adds the path to the execution class path.
+Specified by:
+addToClasspath
+in interface
+ExecutionControl
+Parameters:
+cp
+- the path to add
+Throws:
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+ExecutionControl.InternalException
+- an internal problem occurred
+stop
+public
+void
+stop
+()
+          throws
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.InternalException
+Interrupts a running invoke.
+Not supported.
+Specified by:
+stop
+in interface
+ExecutionControl
+Throws:
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+ExecutionControl.InternalException
+- an internal problem occurred
+extensionCommand
+public
+Object
+extensionCommand
+(
+String
+command,
+Object
+arg)
+throws
+ExecutionControl.RunException
+,
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.InternalException
+Description copied from interface:
+ExecutionControl
+Run a non-standard command (or a standard command from a newer version).
+Specified by:
+extensionCommand
+in interface
+ExecutionControl
+Parameters:
+command
+- the non-standard command
+arg
+- the commands argument
+Returns:
+the commands return value
+Throws:
+ExecutionControl.UserException
+- the command raised a user exception
+ExecutionControl.ResolutionException
+- the command attempted to directly or
+ indirectly invoke an unresolved snippet
+ExecutionControl.StoppedException
+- if the command was canceled by
+ExecutionControl.stop()
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+ExecutionControl.NotImplementedException
+- if not implemented
+ExecutionControl.InternalException
+- an internal problem occurred
+ExecutionControl.RunException
+close
+public
+void
+close
+()
+Description copied from interface:
+ExecutionControl
+Shuts down this execution engine. Implementation should free all
+ resources held by this execution engine.
+No calls to methods on this interface should be made after close.
+Specified by:
+close
+in interface
+AutoCloseable
+Specified by:
+close
+in interface
+ExecutionControl
+findClass
+protected
+Class
+<?>
+findClass
+(
+String
+name)
+throws
+ClassNotFoundException
+Finds the class with the specified binary name.
+Parameters:
+name
+- the binary name of the class
+Returns:
+the Class Object
+Throws:
+ClassNotFoundException
+- if the class could not be found
+invoke
+protected
+String
+invoke
+(
+Method
+doitMethod)
+throws
+Exception
+Invoke the specified "doit-method", a static method with no parameters.
+ The
+invoke(java.lang.String, java.lang.String)
+in this class will call this to invoke.
+Parameters:
+doitMethod
+- the Method to invoke
+Returns:
+the value or null
+Throws:
+Exception
+- any exceptions thrown by
+Method.invoke(Object, Object...)
+or any
+ExecutionControl.ExecutionControlException
+to pass-through.
+valueString
+protected static
+String
+valueString
+(
+Object
+value)
+Converts the
+Object
+value from
+ExecutionControl.invoke(String, String)
+or
+ExecutionControl.varValue(String, String)
+to
+String
+.
+Parameters:
+value
+- the value to convert
+Returns:
+the
+String
+representation
+throwConvertedInvocationException
+protected
+String
+throwConvertedInvocationException
+(
+Throwable
+cause)
+throws
+ExecutionControl.RunException
+,
+ExecutionControl.InternalException
+Converts incoming exceptions in user code into instances of subtypes of
+ExecutionControl.ExecutionControlException
+and throws the
+ converted exception.
+Parameters:
+cause
+- the exception to convert
+Returns:
+never returns as it always throws
+Throws:
+ExecutionControl.RunException
+- for normal exception occurrences
+ExecutionControl.InternalException
+- for internal problems
+throwConvertedOtherException
+protected
+String
+throwConvertedOtherException
+(
+Throwable
+ex)
+throws
+ExecutionControl.RunException
+,
+ExecutionControl.InternalException
+Converts incoming exceptions in agent code into instances of subtypes of
+ExecutionControl.ExecutionControlException
+and throws the
+ converted exception.
+Parameters:
+ex
+- the exception to convert
+Returns:
+never returns as it always throws
+Throws:
+ExecutionControl.RunException
+- for normal exception occurrences
+ExecutionControl.InternalException
+- for internal problems
+clientCodeEnter
+protected
+void
+clientCodeEnter
+()
+                        throws
+ExecutionControl.InternalException
+Marks entry into user code.
+Throws:
+ExecutionControl.InternalException
+- in unexpected failure cases
+clientCodeLeave
+protected
+void
+clientCodeLeave
+()
+                        throws
+ExecutionControl.InternalException
+Marks departure from user code.
+Throws:
+ExecutionControl.InternalException
+- in unexpected failure cases
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

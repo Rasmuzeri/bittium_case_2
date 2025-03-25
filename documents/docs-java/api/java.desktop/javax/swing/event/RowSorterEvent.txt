@@ -1,0 +1,276 @@
+RowSorterEvent (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.event
+Class RowSorterEvent
+java.lang.Object
+java.util.EventObject
+javax.swing.event.RowSorterEvent
+All Implemented Interfaces:
+Serializable
+public class
+RowSorterEvent
+extends
+EventObject
+RowSorterEvent
+provides notification of changes to
+ a
+RowSorter
+.  Two types of notification are possible:
+Type.SORT_ORDER_CHANGED
+: indicates the sort order has
+     changed.  This is typically followed by a notification of:
+Type.SORTED
+: indicates the contents of the model have
+     been transformed in some way.  For example, the contents may have
+     been sorted or filtered.
+Since:
+1.6
+See Also:
+RowSorter
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+static enum
+RowSorterEvent.Type
+Enumeration of the types of
+RowSorterEvent
+s.
+Field Summary
+Fields declared in class java.util.
+EventObject
+source
+Constructor Summary
+Constructors
+Constructor
+Description
+RowSorterEvent
+(
+RowSorter
+<?> source)
+Creates a
+RowSorterEvent
+of type
+SORT_ORDER_CHANGED
+.
+RowSorterEvent
+(
+RowSorter
+<?> source,
+RowSorterEvent.Type
+type,
+ int[] previousRowIndexToModel)
+Creates a
+RowSorterEvent
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+int
+convertPreviousRowIndexToModel
+(int index)
+Returns the location of
+index
+in terms of the
+ model prior to the sort.
+int
+getPreviousRowCount
+()
+Returns the number of rows before the sort.
+RowSorter
+<?>
+getSource
+()
+Returns the source of the event as a
+RowSorter
+.
+RowSorterEvent.Type
+getType
+()
+Returns the type of event.
+Methods declared in class java.util.
+EventObject
+toString
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+RowSorterEvent
+public
+RowSorterEvent
+(
+RowSorter
+<?> source)
+Creates a
+RowSorterEvent
+of type
+SORT_ORDER_CHANGED
+.
+Parameters:
+source
+- the source of the change
+Throws:
+IllegalArgumentException
+- if
+source
+is
+null
+RowSorterEvent
+public
+RowSorterEvent
+(
+RowSorter
+<?> source,
+RowSorterEvent.Type
+type,
+ int[] previousRowIndexToModel)
+Creates a
+RowSorterEvent
+.
+Parameters:
+source
+- the source of the change
+type
+- the type of event
+previousRowIndexToModel
+- the mapping from model indices to
+        view indices prior to the sort, may be
+null
+Throws:
+IllegalArgumentException
+- if source or
+type
+is
+null
+Method Details
+getSource
+public
+RowSorter
+<?>
+getSource
+()
+Returns the source of the event as a
+RowSorter
+.
+Overrides:
+getSource
+in class
+EventObject
+Returns:
+the source of the event as a
+RowSorter
+getType
+public
+RowSorterEvent.Type
+getType
+()
+Returns the type of event.
+Returns:
+the type of event
+convertPreviousRowIndexToModel
+public
+int
+convertPreviousRowIndexToModel
+(int index)
+Returns the location of
+index
+in terms of the
+ model prior to the sort.  This method is only useful for events
+ of type
+SORTED
+.  This method will return -1 if the
+ index is not valid, or the locations prior to the sort have not
+ been provided.
+Parameters:
+index
+- the index in terms of the view
+Returns:
+the index in terms of the model prior to the sort, or -1 if
+         the location is not valid or the mapping was not provided.
+getPreviousRowCount
+public
+int
+getPreviousRowCount
+()
+Returns the number of rows before the sort.  This method is only
+ useful for events of type
+SORTED
+and if the
+ last locations have not been provided will return 0.
+Returns:
+the number of rows in terms of the view prior to the sort
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,672 @@
+Krb5LoginModule (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.security.auth
+Package
+com.sun.security.auth.module
+Class Krb5LoginModule
+java.lang.Object
+com.sun.security.auth.module.Krb5LoginModule
+All Implemented Interfaces:
+LoginModule
+public class
+Krb5LoginModule
+extends
+Object
+implements
+LoginModule
+This
+LoginModule
+authenticates users using
+ Kerberos protocols.
+The configuration entry for
+Krb5LoginModule
+has
+ several options that control the authentication process and
+ additions to the
+Subject
+'s private credential
+ set. Irrespective of these options, the
+Subject
+'s
+ principal set and private credentials set are updated only when
+commit
+is called.
+ When
+commit
+is called, the
+KerberosPrincipal
+is added to the
+Subject
+'s principal set (unless the
+principal
+is specified as "*"). If
+isInitiator
+is true, the
+KerberosTicket
+is
+ added to the
+Subject
+'s private credentials.
+If the configuration entry for
+KerberosLoginModule
+has the option
+storeKey
+set to true, then
+KerberosKey
+or
+KeyTab
+will also be added to the
+ subject's private credentials.
+KerberosKey
+, the principal's
+ key(s) will be derived from user's password, and
+KeyTab
+is
+ the keytab used when
+useKeyTab
+is set to true. The
+KeyTab
+object is restricted to be used by the specified
+ principal unless the principal value is "*".
+This
+LoginModule
+recognizes the
+doNotPrompt
+option. If set to true the user will not be prompted for the password.
+The user can  specify the location of the ticket cache by using
+ the option
+ticketCache
+in the configuration entry.
+The user can specify the keytab location by using
+ the option
+keyTab
+in the configuration entry.
+The principal name can be specified in the configuration entry
+ by using the option
+principal
+. The principal name
+ can either be a simple user name, a service name such as
+host/mission.eng.sun.com
+, or "*". The principal can also
+ be set using the system property
+sun.security.krb5.principal
+.
+ This property is checked during login. If this property is not set, then
+ the principal name from the configuration is used. In the
+ case where the principal property is not set and the principal
+ entry also does not exist, the user is prompted for the name.
+ When this property of entry is set, and
+useTicketCache
+is set to true, only TGT belonging to this principal is used.
+The following is a list of configuration options supported
+ for
+Krb5LoginModule
+:
+refreshKrb5Config
+:
+Set this to true, if you want the configuration
+ to be refreshed before the
+login
+method is called.
+useTicketCache
+:
+Set this to true, if you want the
+ TGT to be obtained from the ticket cache. Set this option
+ to false if you do not want this module to use the ticket cache.
+ (Default is False).
+ This module will search for the ticket
+ cache in the following locations: On Linux
+ it will look for the ticket cache in /tmp/krb5cc_
+uid
+where the uid is numeric user identifier. If the ticket cache is
+ not available in the above location, or if we are on a
+ Windows platform, it will look for the cache as
+ {user.home}{file.separator}krb5cc_{user.name}.
+ You can override the ticket cache location by using
+ticketCache
+.
+ For Windows, if a ticket cannot be retrieved from the file ticket cache,
+ it will use Local Security Authority (LSA) API to get the TGT.
+ticketCache
+:
+Set this to the name of the ticket
+ cache that  contains user's TGT.
+ If this is set,
+useTicketCache
+must also be set to true; Otherwise a configuration error will
+ be returned.
+renewTGT
+:
+Set this to true, if you want to renew the TGT when it's more than
+ half-way expired (the time until expiration is less than the time
+ since start time). If this is set,
+useTicketCache
+must also be
+ set to true; otherwise a configuration error will be returned.
+doNotPrompt
+:
+Set this to true if you do not want to be
+ prompted for the password
+ if credentials can not be obtained from the cache, the keytab,
+ or through shared state.(Default is false)
+ If set to true, credential must be obtained through cache, keytab,
+ or shared state. Otherwise, authentication will fail.
+useKeyTab
+:
+Set this to true if you
+ want the module to get the principal's key from the
+ the keytab.(default value is False)
+ If
+keytab
+is not set then
+ the module will locate the keytab from the
+ Kerberos configuration file.
+ If it is not specified in the Kerberos configuration file
+ then it will look for the file
+{user.home}{file.separator}
+krb5.keytab.
+keyTab
+:
+Set this to the file name of the
+ keytab to get principal's secret key.
+storeKey
+:
+Set this to true to if you want the keytab or the
+ principal's key to be stored in the Subject's private credentials.
+ For
+isInitiator
+being false, if
+principal
+is "*", the
+KeyTab
+stored can be used by anyone, otherwise,
+ it's restricted to be used by the specified principal only.
+principal
+:
+The name of the principal that should
+ be used. The principal can be a simple username such as
+ "
+testuser
+" or a service name such as
+ "
+host/testhost.eng.sun.com
+". You can use the
+principal
+option to set the principal when there are
+ credentials for multiple principals in the
+keyTab
+or when you want a specific ticket cache only.
+ The principal can also be set using the system property
+sun.security.krb5.principal
+. In addition, if this
+ system property is defined, then it will be used. If this property
+ is not set, then the principal name from the configuration will be
+ used.
+ The principal name can be set to "*" when
+isInitiator
+is false.
+ In this case, the acceptor is not bound to a single principal. It can
+ act as any principal an initiator requests if keys for that principal
+ can be found. When
+isInitiator
+is true, the principal name
+ cannot be set to "*".
+isInitiator
+:
+Set this to true, if initiator. Set this to false, if acceptor only.
+ (Default is true).
+ Note: Do not set this value to false for initiators.
+This
+LoginModule
+also recognizes the following additional
+Configuration
+options that enable you to share username and passwords across different
+ authentication modules:
+useFirstPass
+:
+if, true, this LoginModule retrieves the
+                   username and password from the module's shared state,
+                   using "javax.security.auth.login.name" and
+                   "javax.security.auth.login.password" as the respective
+                   keys. The retrieved values are used for authentication.
+                   If authentication fails, no attempt for a retry
+                   is made, and the failure is reported back to the
+                   calling application.
+tryFirstPass
+:
+if, true, this LoginModule retrieves the
+                   the username and password from the module's shared
+                   state using "javax.security.auth.login.name" and
+                   "javax.security.auth.login.password" as the respective
+                   keys.  The retrieved values are used for
+                   authentication.
+                   If authentication fails, the module uses the
+                   CallbackHandler to retrieve a new username
+                   and password, and another attempt to authenticate
+                   is made. If the authentication fails,
+                   the failure is reported back to the calling application
+storePass
+:
+if, true, this LoginModule stores the username and
+                   password obtained from the CallbackHandler in the
+                   modules shared state, using
+                   "javax.security.auth.login.name" and
+                   "javax.security.auth.login.password" as the respective
+                   keys.  This is not performed if existing values already
+                   exist for the username and password in the shared
+                   state, or if authentication fails.
+clearPass
+:
+if, true, this LoginModule clears the
+                   username and password stored in the module's shared
+                   state  after both phases of authentication
+                   (login and commit) have completed.
+If the principal system property or key is already provided, the value of
+ "javax.security.auth.login.name" in the shared state is ignored.
+When multiple mechanisms to retrieve a ticket or key is provided, the
+ preference order is:
+ticket cache
+keytab
+shared state
+user prompt
+Note that if any step fails, it will fallback to the next step.
+ There's only one exception, if the shared state step fails and
+useFirstPass = true
+, no user prompt is made.
+Examples of some configuration values for Krb5LoginModule in
+ JAAS config file and the results are:
+doNotPrompt = true
+This is an illegal combination since none of
+useTicketCache,
+ useKeyTab, useFirstPass
+and
+tryFirstPass
+is set and the user can not be prompted for the password.
+ticketCache = <filename>
+This is an illegal combination since
+useTicketCache
+is not set to true and the ticketCache is set. A configuration error
+ will occur.
+renewTGT = true
+This is an illegal combination since
+useTicketCache
+is
+ not set to true and renewTGT is set. A configuration error will occur.
+storeKey = true  useTicketCache = true  doNotPrompt = true
+This is an illegal combination since
+storeKey
+is set to
+ true but the key can not be obtained either by prompting the user or from
+ the keytab, or from the shared state. A configuration error will occur.
+keyTab = <filename>  doNotPrompt = true
+This is an illegal combination since useKeyTab is not set to true and
+ the keyTab is set. A configuration error will occur.
+debug = true
+Prompt the user for the principal name and the password.
+ Use the authentication exchange to get TGT from the KDC and
+ populate the
+Subject
+with the principal and TGT.
+ Output debug messages.
+useTicketCache = true  doNotPrompt = true
+Check the default cache for TGT and populate the
+Subject
+with the principal and TGT. If the TGT is not available,
+ do not prompt the user, instead fail the authentication.
+principal = <name>  useTicketCache = true  doNotPrompt = true
+Get the TGT from the default cache for the principal and populate the
+ Subject's principal and private creds set. If ticket cache is
+ not available or does not contain the principal's TGT
+ authentication will fail.
+useTicketCache = true
+ ticketCache = <file name>
+ useKeyTab = true
+ keyTab = <keytab filename>
+ principal = <principal name>
+ doNotPrompt = true
+Search the cache for the principal's TGT. If it is not available
+ use the key in the keytab to perform authentication exchange with the
+ KDC and acquire the TGT.
+ The Subject will be populated with the principal and the TGT.
+ If the key is not available or valid then authentication will fail.
+useTicketCache = true  ticketCache = <filename>
+The TGT will be obtained from the cache specified.
+ The Kerberos principal name used will be the principal name in
+ the Ticket cache. If the TGT is not available in the
+ ticket cache the user will be prompted for the principal name
+ and the password. The TGT will be obtained using the authentication
+ exchange with the KDC.
+ The Subject will be populated with the TGT.
+useKeyTab = true  keyTab=<keytab filename>  principal = <principal name>  storeKey = true
+The key for the principal will be retrieved from the keytab.
+ If the key is not available in the keytab the user will be prompted
+ for the principal's password. The Subject will be populated
+ with the principal's key either from the keytab or derived from the
+ password entered.
+useKeyTab = true  keyTab = <keytabname>  storeKey = true  doNotPrompt = false
+The user will be prompted for the service principal name.
+ If the principal's
+ longterm key is available in the keytab , it will be added to the
+ Subject's private credentials. An authentication exchange will be
+ attempted with the principal name and the key from the Keytab.
+ If successful the TGT will be added to the
+ Subject's private credentials set. Otherwise the authentication will fail.
+isInitiator = false  useKeyTab = true  keyTab = <keytabname>  storeKey = true  principal = *
+The acceptor will be an unbound acceptor and it can act as any principal
+ as long that principal has keys in the keytab.
+useTicketCache = true
+ ticketCache = <file name>
+ useKeyTab = true
+ keyTab = <file name>
+ storeKey = true
+ principal = <principal name>
+The client's TGT will be retrieved from the ticket cache and added to the
+Subject
+'s private credentials. If the TGT is not available
+ in the ticket cache, or the TGT's client name does not match the principal
+ name, Java will use a secret key to obtain the TGT using the authentication
+ exchange and added to the Subject's private credentials.
+ This secret key will be first retrieved from the keytab. If the key
+ is not available, the user will be prompted for the password. In either
+ case, the key derived from the password will be added to the
+ Subject's private credentials set.
+isInitiator = false
+Configured to act as acceptor only, credentials are not acquired
+ via AS exchange. For acceptors only, set this value to false.
+ For initiators, do not set this value to false.
+isInitiator = true
+Configured to act as initiator, credentials are acquired
+ via AS exchange. For initiators, set this value to true, or leave this
+ option unset, in which case default value (true) will be used.
+Constructor Summary
+Constructors
+Constructor
+Description
+Krb5LoginModule
+()
+Creates a
+Krb5LoginModule
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+abort
+()
+This method is called if the LoginContext's
+ overall authentication failed.
+boolean
+commit
+()
+This method is called if the LoginContext's
+ overall authentication succeeded
+ (the relevant REQUIRED, REQUISITE, SUFFICIENT and OPTIONAL
+ LoginModules succeeded).
+void
+initialize
+(
+Subject
+subject,
+CallbackHandler
+callbackHandler,
+Map
+<
+String
+,
+?> sharedState,
+Map
+<
+String
+,
+?> options)
+Initialize this
+LoginModule
+.
+boolean
+login
+()
+Authenticate the user
+boolean
+logout
+()
+Logout the user.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+Krb5LoginModule
+public
+Krb5LoginModule
+()
+Creates a
+Krb5LoginModule
+.
+Method Details
+initialize
+public
+void
+initialize
+(
+Subject
+subject,
+CallbackHandler
+callbackHandler,
+Map
+<
+String
+,
+?> sharedState,
+Map
+<
+String
+,
+?> options)
+Initialize this
+LoginModule
+.
+Specified by:
+initialize
+in interface
+LoginModule
+Parameters:
+subject
+- the
+Subject
+to be authenticated.
+callbackHandler
+- a
+CallbackHandler
+for
+                  communication with the end user (prompting for
+                  usernames and passwords, for example).
+sharedState
+- shared
+LoginModule
+state.
+options
+- options specified in the login
+Configuration
+for this particular
+LoginModule
+.
+login
+public
+boolean
+login
+()
+              throws
+LoginException
+Authenticate the user
+Specified by:
+login
+in interface
+LoginModule
+Returns:
+true in all cases since this
+LoginModule
+should not be ignored.
+Throws:
+FailedLoginException
+- if the authentication fails.
+LoginException
+- if this
+LoginModule
+is unable to perform the authentication.
+commit
+public
+boolean
+commit
+()
+               throws
+LoginException
+This method is called if the LoginContext's
+ overall authentication succeeded
+ (the relevant REQUIRED, REQUISITE, SUFFICIENT and OPTIONAL
+ LoginModules succeeded).
+If this LoginModule's own authentication attempt
+ succeeded (checked by retrieving the private state saved by the
+login
+method), then this method associates a
+Krb5Principal
+with the
+Subject
+located in the
+LoginModule
+. It adds Kerberos Credentials to the
+  the Subject's private credentials set. If this LoginModule's own
+ authentication attempted failed, then this method removes
+ any state that was originally saved.
+Specified by:
+commit
+in interface
+LoginModule
+Returns:
+true if this LoginModule's own login and commit
+          attempts succeeded, or false otherwise.
+Throws:
+LoginException
+- if the commit fails.
+abort
+public
+boolean
+abort
+()
+              throws
+LoginException
+This method is called if the LoginContext's
+ overall authentication failed.
+ (the relevant REQUIRED, REQUISITE, SUFFICIENT and OPTIONAL
+ LoginModules did not succeed).
+If this LoginModule's own authentication attempt
+ succeeded (checked by retrieving the private state saved by the
+login
+and
+commit
+methods),
+ then this method cleans up any state that was originally saved.
+Specified by:
+abort
+in interface
+LoginModule
+Returns:
+false if this LoginModule's own login and/or commit attempts
+          failed, and true otherwise.
+Throws:
+LoginException
+- if the abort fails.
+logout
+public
+boolean
+logout
+()
+               throws
+LoginException
+Logout the user.
+This method removes the
+Krb5Principal
+that was added by the
+commit
+method.
+Specified by:
+logout
+in interface
+LoginModule
+Returns:
+true in all cases since this
+LoginModule
+should not be ignored.
+Throws:
+LoginException
+- if the logout fails.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

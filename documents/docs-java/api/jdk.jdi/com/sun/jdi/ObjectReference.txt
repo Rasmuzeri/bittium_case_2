@@ -1,0 +1,815 @@
+ObjectReference (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+jdk.jdi
+Package
+com.sun.jdi
+Interface ObjectReference
+All Superinterfaces:
+Mirror
+,
+Value
+All Known Subinterfaces:
+ArrayReference
+,
+ClassLoaderReference
+,
+ClassObjectReference
+,
+ModuleReference
+,
+StringReference
+,
+ThreadGroupReference
+,
+ThreadReference
+public interface
+ObjectReference
+extends
+Value
+An object that currently exists in the target VM. An ObjectReference
+ mirrors only the object itself and is not specific to any
+Field
+or
+LocalVariable
+to which it is currently
+ assigned. An ObjectReference can have 0 or more references from
+ field(s) and/or variable(s).
+Any method on
+ObjectReference
+which directly or indirectly
+ takes
+ObjectReference
+as a parameter may throw
+VMDisconnectedException
+if the target VM is disconnected and the
+VMDisconnectEvent
+has been or is available to be read from the
+EventQueue
+.
+Any method on
+ObjectReference
+which directly or indirectly
+ takes
+ObjectReference
+as a parameter may throw
+VMOutOfMemoryException
+if the target VM has run out of memory.
+Any method on
+ObjectReference
+or which directly or indirectly
+ takes
+ObjectReference
+as parameter may throw
+ObjectCollectedException
+if the mirrored object has been
+ garbage collected.
+Since:
+1.3
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final int
+INVOKE_NONVIRTUAL
+Perform non-virtual method invocation
+static final int
+INVOKE_SINGLE_THREADED
+Perform method invocation with only the invoking thread resumed
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+void
+disableCollection
+()
+Prevents garbage collection for this object.
+void
+enableCollection
+()
+Permits garbage collection for this object.
+int
+entryCount
+()
+Returns the number times this object's monitor has been
+ entered by the current owning thread.
+boolean
+equals
+(
+Object
+obj)
+Compares the specified Object with this ObjectReference for equality.
+Value
+getValue
+(
+Field
+sig)
+Gets the value of a given instance or static field in this object.
+Map
+<
+Field
+,
+Value
+>
+getValues
+(
+List
+<? extends
+Field
+> fields)
+Gets the value of multiple instance and/or static fields in this object.
+int
+hashCode
+()
+Returns the hash code value for this ObjectReference.
+Value
+invokeMethod
+(
+ThreadReference
+thread,
+Method
+method,
+List
+<? extends
+Value
+> arguments,
+ int options)
+Invokes the specified
+Method
+on this object in the
+ target VM.
+boolean
+isCollected
+()
+Determines if this object has been garbage collected in the target
+ VM.
+ThreadReference
+owningThread
+()
+Returns an
+ThreadReference
+for the thread, if any,
+ which currently owns this object's monitor.
+ReferenceType
+referenceType
+()
+Gets the
+ReferenceType
+that mirrors the type
+ of this object.
+List
+<
+ObjectReference
+>
+referringObjects
+(long maxReferrers)
+Returns objects that directly reference this object.
+void
+setValue
+(
+Field
+field,
+Value
+value)
+Sets the value of a given instance or static field in this object.
+long
+uniqueID
+()
+Returns a unique identifier for this ObjectReference.
+List
+<
+ThreadReference
+>
+waitingThreads
+()
+Returns a List containing a
+ThreadReference
+for
+ each thread currently waiting for this object's monitor.
+Methods declared in interface com.sun.jdi.
+Mirror
+toString
+,
+virtualMachine
+Methods declared in interface com.sun.jdi.
+Value
+type
+Field Details
+INVOKE_SINGLE_THREADED
+static final
+int
+INVOKE_SINGLE_THREADED
+Perform method invocation with only the invoking thread resumed
+See Also:
+Constant Field Values
+INVOKE_NONVIRTUAL
+static final
+int
+INVOKE_NONVIRTUAL
+Perform non-virtual method invocation
+See Also:
+Constant Field Values
+Method Details
+referenceType
+ReferenceType
+referenceType
+()
+Gets the
+ReferenceType
+that mirrors the type
+ of this object. The type may be a subclass or implementor of the
+ declared type of any field or variable which currently holds it.
+ For example, right after the following statement.
+Object obj = new String("Hello, world!");
+The ReferenceType of obj will mirror java.lang.String and not
+ java.lang.Object.
+The type of an object never changes, so this method will
+ always return the same ReferenceType over the lifetime of the
+ mirrored object.
+The returned ReferenceType will be a
+ClassType
+or
+ArrayType
+and never an
+InterfaceType
+.
+Returns:
+the
+ReferenceType
+for this object.
+getValue
+Value
+getValue
+(
+Field
+sig)
+Gets the value of a given instance or static field in this object.
+ The Field must be valid for this ObjectReference;
+ that is, it must be from
+ the mirrored object's class or a superclass of that class.
+Parameters:
+sig
+- the field containing the requested value
+Returns:
+the
+Value
+of the instance field.
+Throws:
+IllegalArgumentException
+- if the field is not valid for
+ this object's class.
+getValues
+Map
+<
+Field
+,
+Value
+>
+getValues
+(
+List
+<? extends
+Field
+> fields)
+Gets the value of multiple instance and/or static fields in this object.
+ The Fields must be valid for this ObjectReference;
+ that is, they must be from
+ the mirrored object's class or a superclass of that class.
+Parameters:
+fields
+- a list of
+Field
+objects containing the
+ requested values.
+Returns:
+a Map of the requested
+Field
+objects with
+ their
+Value
+.
+Throws:
+IllegalArgumentException
+- if any field is not valid for
+ this object's class.
+setValue
+void
+setValue
+(
+Field
+field,
+Value
+value)
+throws
+InvalidTypeException
+,
+ClassNotLoadedException
+Sets the value of a given instance or static field in this object.
+ The
+Field
+must be valid for this ObjectReference; that is,
+ it must be from the mirrored object's class or a superclass of that class.
+ The field must not be final.
+Object values must be assignment compatible with the field type
+ (This implies that the field type must be loaded through the
+ enclosing class's class loader). Primitive values must be
+ either assignment compatible with the field type or must be
+ convertible to the field type without loss of information.
+ See section 5.2 of
+The Java Language Specification
+for more information on assignment
+ compatibility.
+Parameters:
+field
+- the field containing the requested value
+value
+- the new value to assign
+Throws:
+IllegalArgumentException
+- if the field is not valid for
+ this object's class or the field is final.
+InvalidTypeException
+- if the value's type does not match
+ the field's type.
+ClassNotLoadedException
+- if 'value' is not null, and the field
+ type has not yet been loaded through the appropriate class loader.
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only - see
+VirtualMachine.canBeModified()
+.
+invokeMethod
+Value
+invokeMethod
+(
+ThreadReference
+thread,
+Method
+method,
+List
+<? extends
+Value
+> arguments,
+ int options)
+throws
+InvalidTypeException
+,
+ClassNotLoadedException
+,
+IncompatibleThreadStateException
+,
+InvocationException
+Invokes the specified
+Method
+on this object in the
+ target VM. The
+ specified method can be defined in this object's class,
+ in a superclass of this object's class, or in an interface
+ implemented by this object. The method may be a static method
+ or an instance method, but not a static initializer or constructor.
+ Use
+ClassType.newInstance(com.sun.jdi.ThreadReference, com.sun.jdi.Method, java.util.List<? extends com.sun.jdi.Value>, int)
+to create a new object and
+ run its constructor.
+The method invocation will occur in the specified thread.
+ Method invocation can occur only if the specified thread
+ has been suspended by an event which occurred in that thread.
+ Method invocation is not supported
+ when the target VM has been suspended through
+VirtualMachine.suspend()
+or when the specified thread
+ is suspended through
+ThreadReference.suspend()
+.
+The specified method is invoked with the arguments in the specified
+ argument list.  The method invocation is synchronous; this method
+ does not return until the invoked method returns in the target VM.
+ If the invoked method throws an exception, this method
+ will throw an
+InvocationException
+which contains
+ a mirror to the exception object thrown.
+Object arguments must be assignment compatible with the argument type
+ (This implies that the argument type must be loaded through the
+ enclosing class's class loader). Primitive arguments must be
+ either assignment compatible with the argument type or must be
+ convertible to the argument type without loss of information.
+ If the method being called accepts a variable number of arguments,
+ then the last argument type is an array of some component type.
+ The argument in the matching position can be omitted, or can be null,
+ an array of the same component type, or an argument of the
+ component type followed by any number of other arguments of the same
+ type. If the argument is omitted, then a 0 length array of the
+ component type is passed.  The component type can be a primitive type.
+ Autoboxing is not supported.
+
+ See section 5.2 of
+The Java Language Specification
+for more information on assignment compatibility.
+By default, the method is invoked using dynamic lookup as
+ documented in section 15.12.4.4 of
+The Java Language Specification
+in particular, overriding based on the runtime type of the object
+ mirrored by this
+ObjectReference
+will occur. This
+ behavior can be changed by specifying the
+INVOKE_NONVIRTUAL
+bit flag in the
+options
+argument. If this flag is set, the specified method is invoked
+ whether or not it is overridden for this object's runtime type.
+ The method, in this case, must have an implementation, either in a class
+ or an interface. This option is useful for performing method invocations
+ like those done with the
+super
+keyword in the Java programming
+ language.
+By default, all threads in the target VM are resumed while
+ the method is being invoked if they were previously
+ suspended by an event or by
+VirtualMachine.suspend()
+or
+ThreadReference.suspend()
+. This is done to prevent the deadlocks
+ that will occur if any of the threads own monitors
+ that will be needed by the invoked method.
+ Note, however, that this implicit resume acts exactly like
+ThreadReference.resume()
+, so if the thread's suspend
+ count is greater than 1, it will remain in a suspended state
+ during the invocation and thus a deadlock could still occur.
+ By default, when the invocation completes,
+ all threads in the target VM are suspended, regardless their state
+ before the invocation.
+ It is possible that
+ breakpoints or other events might occur during the invocation.
+ This can cause deadlocks as described above. It can also cause a deadlock
+ if invokeMethod is called from the client's event handler thread.  In this
+ case, this thread will be waiting for the invokeMethod to complete and
+ won't read the EventSet that comes in for the new event.  If this
+ new EventSet is SUSPEND_ALL, then a deadlock will occur because no
+ one will resume the EventSet.  To avoid this, all EventRequests should
+ be disabled before doing the invokeMethod, or the invokeMethod should
+ not be done from the client's event handler thread.
+The resumption of other threads during the invocation can be prevented
+ by specifying the
+INVOKE_SINGLE_THREADED
+bit flag in the
+options
+argument; however,
+ there is no protection against or recovery from the deadlocks
+ described above, so this option should be used with great caution.
+ Only the specified thread will be resumed (as described for all
+ threads above). Upon completion of a single threaded invoke, the invoking thread
+ will be suspended once again. Note that any threads started during
+ the single threaded invocation will not be suspended when the
+ invocation completes.
+If the target VM is disconnected during the invoke (for example, through
+VirtualMachine.dispose()
+) the method invocation continues.
+Parameters:
+thread
+- the thread in which to invoke.
+method
+- the
+Method
+to invoke.
+arguments
+- the list of
+Value
+arguments bound to the
+ invoked method. Values from the list are assigned to arguments
+ in the order they appear in the method signature.
+options
+- the integer bit flag options.
+Returns:
+a
+Value
+mirror of the invoked method's return value.
+Throws:
+IllegalArgumentException
+- if the method is not
+ a member of this object's class, if the size of the argument list
+ does not match the number of declared arguments for the method,
+ if the method is a constructor or static initializer, or
+ if
+INVOKE_NONVIRTUAL
+is specified and the method is
+ abstract.
+ClassNotLoadedException
+- if any argument type has not yet been loaded
+ through the appropriate class loader.
+IncompatibleThreadStateException
+- if the specified thread has not
+ been suspended by an event.
+InvocationException
+- if the method invocation resulted in
+ an exception in the target VM.
+InvalidTypeException
+- If the arguments do not meet this requirement --
+         Object arguments must be assignment compatible with the argument
+         type.  This implies that the argument type must be
+         loaded through the enclosing class's class loader.
+         Primitive arguments must be either assignment compatible with the
+         argument type or must be convertible to the argument type without loss
+         of information. See JLS section 5.2 for more information on assignment
+         compatibility.
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only - see
+VirtualMachine.canBeModified()
+.
+disableCollection
+void
+disableCollection
+()
+Prevents garbage collection for this object. By default all
+ObjectReference
+values returned by JDI may be collected
+ at any time the target VM is running. A call to this method
+ guarantees that the object will not be collected.
+enableCollection()
+can be used to allow collection once
+ again.
+Calls to this method are counted. Every call to this method
+ requires a corresponding call to
+enableCollection()
+before
+ garbage collection is re-enabled.
+Note that while the target VM is suspended, no garbage collection
+ will occur because all threads are suspended. The typical
+ examination of variables, fields, and arrays during the suspension
+ is safe without explicitly disabling garbage collection.
+This method should be used sparingly, as it alters the
+ pattern of garbage collection in the target VM and,
+ consequently, may result in application behavior under the
+ debugger that differs from its non-debugged behavior.
+Throws:
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only
+ -see
+VirtualMachine.canBeModified()
+.
+enableCollection
+void
+enableCollection
+()
+Permits garbage collection for this object. By default all
+ObjectReference
+values returned by JDI may be collected
+ at any time the target VM is running. A call to this method
+ is necessary only if garbage collection was previously disabled
+ with
+disableCollection()
+.
+Throws:
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only
+ -see
+VirtualMachine.canBeModified()
+.
+isCollected
+boolean
+isCollected
+()
+Determines if this object has been garbage collected in the target
+ VM.
+Returns:
+true
+if this
+ObjectReference
+has been collected;
+false
+otherwise.
+Throws:
+VMCannotBeModifiedException
+- if the VirtualMachine is read-only
+ -see
+VirtualMachine.canBeModified()
+.
+uniqueID
+long
+uniqueID
+()
+Returns a unique identifier for this ObjectReference.
+ It is guaranteed to be unique among all
+ ObjectReferences from the same VM that have not yet been disposed.
+ The guarantee applies as long
+ as this ObjectReference has not yet been disposed.
+Returns:
+a long unique ID
+waitingThreads
+List
+<
+ThreadReference
+>
+waitingThreads
+()
+                              throws
+IncompatibleThreadStateException
+Returns a List containing a
+ThreadReference
+for
+ each thread currently waiting for this object's monitor.
+ See
+ThreadReference.currentContendedMonitor()
+for
+ information about when a thread is considered to be waiting
+ for a monitor.
+Not all target VMs support this operation. See
+ VirtualMachine#canGetMonitorInfo to determine if the
+ operation is supported.
+Returns:
+a List of
+ThreadReference
+objects. The list
+ has zero length if no threads are waiting for the monitor.
+Throws:
+UnsupportedOperationException
+- if the
+ target VM does not support this operation.
+IncompatibleThreadStateException
+- if any
+ waiting thread is not suspended
+ in the target VM
+owningThread
+ThreadReference
+owningThread
+()
+                      throws
+IncompatibleThreadStateException
+Returns an
+ThreadReference
+for the thread, if any,
+ which currently owns this object's monitor.
+ See
+ThreadReference.ownedMonitors()
+for a definition
+ of ownership.
+Not all target VMs support this operation. See
+ VirtualMachine#canGetMonitorInfo to determine if the
+ operation is supported.
+Returns:
+the
+ThreadReference
+which currently owns the
+ monitor, or null if it is unowned.
+Throws:
+UnsupportedOperationException
+- if the
+ target VM does not support this operation.
+IncompatibleThreadStateException
+- if the owning thread is
+ not suspended in the target VM
+entryCount
+int
+entryCount
+()
+        throws
+IncompatibleThreadStateException
+Returns the number times this object's monitor has been
+ entered by the current owning thread.
+ See
+ThreadReference.ownedMonitors()
+for a definition
+ of ownership.
+Not all target VMs support this operation. See
+ VirtualMachine#canGetMonitorInfo to determine if the
+ operation is supported.
+Returns:
+the integer count of the number of entries.
+Throws:
+UnsupportedOperationException
+- if the
+ target VM does not support this operation.
+IncompatibleThreadStateException
+- if the owning thread is
+ not suspended in the target VM
+See Also:
+owningThread()
+referringObjects
+List
+<
+ObjectReference
+>
+referringObjects
+(long maxReferrers)
+Returns objects that directly reference this object.
+ Only objects that are reachable for the purposes of garbage collection
+ are returned.  Note that an object can also be referenced in other ways,
+ such as from a local variable in a stack frame, or from a JNI global
+ reference.  Such non-object referrers are not returned by this method.
+Not all target virtual machines support this operation.
+ Use
+VirtualMachine.canGetInstanceInfo()
+to determine if the operation is supported.
+Parameters:
+maxReferrers
+- The maximum number of referring objects to return.
+                      Must be non-negative.  If zero, all referring
+                      objects are returned.
+Returns:
+a of List of
+ObjectReference
+objects. If there are
+  no objects that reference this object, a zero-length list is returned..
+Throws:
+UnsupportedOperationException
+- if
+ the target virtual machine does not support this
+ operation - see
+canGetInstanceInfo()
+IllegalArgumentException
+- if maxReferrers is less
+         than zero.
+Since:
+1.6
+See Also:
+VirtualMachine.instanceCounts(List)
+ReferenceType.instances(long)
+equals
+boolean
+equals
+(
+Object
+obj)
+Compares the specified Object with this ObjectReference for equality.
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- the reference object with which to compare.
+Returns:
+true if the Object is an ObjectReference, if the
+ ObjectReferences belong to the same VM, and if applying the
+ "==" operator on the mirrored objects in that VM evaluates to true.
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+int
+hashCode
+()
+Returns the hash code value for this ObjectReference.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+the integer hash code
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

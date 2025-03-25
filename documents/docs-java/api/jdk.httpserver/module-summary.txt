@@ -1,0 +1,148 @@
+jdk.httpserver (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Module:
+Description
+Modules
+Packages
+Services
+Module:
+Description
+|
+Modules |
+Packages
+|
+Services
+SEARCH
+Module jdk.httpserver
+module
+jdk.httpserver
+Defines the JDK-specific HTTP server API, and provides the jwebserver tool
+ for running a minimal HTTP server.
+The
+com.sun.net.httpserver
+package defines a high-level API for
+ building servers that support HTTP and HTTPS. The SimpleFileServer class
+ implements a simple HTTP-only file server intended for testing, development
+ and debugging purposes. A default implementation is provided via the
+jwebserver
+tool and the main entry point of the module, which can
+ also be invoked with
+java -m jdk.httpserver
+.
+The
+com.sun.net.httpserver.spi
+package specifies a Service Provider
+ Interface (SPI) for locating HTTP server implementations based on the
+com.sun.net.httpserver
+API.
+System properties used by the HTTP server API
+The following is a list of JDK specific system properties used by the default HTTP
+ server implementation in the JDK. Any properties below that take a numeric value
+ assume the default value if given a string that does not parse as a number.
+sun.net.httpserver.idleInterval
+(default: 30 sec)
+Maximum duration in seconds which an idle connection is kept open. This timer
+ has an implementation specific granularity that may mean that idle connections are
+ closed later than the specified interval. Values less than or equal to zero are mapped
+ to the default setting.
+jdk.httpserver.maxConnections
+(default: -1)
+The maximum number of open connections at a time. This includes active and idle connections.
+ If zero or negative, then no limit is enforced.
+sun.net.httpserver.maxIdleConnections
+(default: 200)
+The maximum number of idle connections at a time. If set to zero or a negative value
+ then connections are closed after use.
+sun.net.httpserver.drainAmount
+(default: 65536)
+The maximum number of bytes that will be automatically read and discarded from a
+ request body that has not been completely consumed by its
+HttpHandler
+. If the number of remaining
+ unread bytes are less than this limit then the connection will be put in the idle connection
+ cache. If not, then it will be closed.
+sun.net.httpserver.maxReqHeaders
+(default: 200)
+The maxiumum number of header fields accepted in a request. If this limit is exceeded
+ while the headers are being read, then the connection is terminated and the request ignored.
+ If the value is less than or equal to zero, then the default value is used.
+sun.net.httpserver.maxReqHeaderSize
+(default: 393216 or 384kB)
+The maximum header field section size that the server is prepared to accept.
+  This is computed as the sum of the size of the header name, plus
+  the size of the header value, plus an overhead of 32 bytes for
+  each field section line. The request line counts as a first field section line,
+  where the name is empty and the value is the whole line.
+  If this limit is exceeded while the headers are being read, then the connection
+  is terminated and the request ignored.
+  If the value is less than or equal to zero, there is no limit.
+sun.net.httpserver.maxReqTime
+(default: -1)
+The maximum time in milliseconds allowed to receive a request headers and body.
+ In practice, the actual time is a function of request size, network speed, and handler
+ processing delays. A value less than or equal to zero means the time is not limited.
+ If the limit is exceeded then the connection is terminated and the handler will receive a
+IOException
+. This timer has an implementation specific granularity
+ that may mean requests are aborted later than the specified interval.
+sun.net.httpserver.maxRspTime
+(default: -1)
+The maximum time in milliseconds allowed to receive a response headers and body.
+ In practice, the actual time is a function of response size, network speed, and handler
+ processing delays. A value less than or equal to zero means the time is not limited.
+ If the limit is exceeded then the connection is terminated and the handler will receive a
+IOException
+. This timer has an implementation specific granularity
+ that may mean responses are aborted later than the specified interval.
+sun.net.httpserver.nodelay
+(default: false)
+Boolean value, which if true, sets the
+TCP_NODELAY
+socket option on all incoming connections.
+Module Graph:
+Tool Guides:
+jwebserver
+Since:
+9
+Packages
+Exports
+Package
+Description
+com.sun.net.httpserver
+Provides a simple high-level Http server API, which can be used to build
+   embedded HTTP servers.
+com.sun.net.httpserver.spi
+Provides a pluggable service provider interface, which allows the HTTP server
+ implementation to be replaced with other implementations.
+Services
+Uses
+Type
+Description
+HttpServerProvider
+Service provider class for HttpServer.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

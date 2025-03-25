@@ -1,0 +1,132 @@
+XPathFunctionResolver (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.xml
+Package
+javax.xml.xpath
+Interface XPathFunctionResolver
+public interface
+XPathFunctionResolver
+XPathFunctionResolver
+provides access to the set of user defined
+XPathFunction
+s.
+XPath functions are resolved by name and arity.
+ The resolver is not needed for XPath built-in functions and the resolver
+cannot
+be used to override those functions.
+In particular, the resolver is only called for functions in an another
+ namespace (functions with an explicit prefix). This means that you cannot
+ use the
+XPathFunctionResolver
+to implement specifications
+ like
+XML-Signature Syntax
+ and Processing
+which extend the function library of XPath 1.0 in the
+ same namespace. This is a consequence of the design of the resolver.
+If you wish to implement additional built-in functions, you will have to
+ extend the underlying implementation directly.
+Since:
+1.5
+See Also:
+XML Path Language (XPath) Version 1.0, Core Function Library
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+XPathFunction
+resolveFunction
+(
+QName
+functionName,
+ int arity)
+Find a function in the set of available functions.
+Method Details
+resolveFunction
+XPathFunction
+resolveFunction
+(
+QName
+functionName,
+ int arity)
+Find a function in the set of available functions.
+If
+functionName
+or
+arity
+is
+null
+, then a
+NullPointerException
+is thrown.
+Parameters:
+functionName
+- The function name.
+arity
+- The number of arguments that the returned function must accept.
+Returns:
+The function or
+null
+if no function named
+functionName
+with
+arity
+arguments exists.
+Throws:
+NullPointerException
+- If
+functionName
+or
+arity
+is
+null
+.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

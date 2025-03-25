@@ -1,0 +1,883 @@
+AbstractDocument.AbstractElement (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.text
+Class AbstractDocument.AbstractElement
+java.lang.Object
+javax.swing.text.AbstractDocument.AbstractElement
+All Implemented Interfaces:
+Serializable
+,
+AttributeSet
+,
+Element
+,
+MutableAttributeSet
+,
+TreeNode
+Direct Known Subclasses:
+AbstractDocument.BranchElement
+,
+AbstractDocument.LeafElement
+Enclosing class:
+AbstractDocument
+public abstract class
+AbstractDocument.AbstractElement
+extends
+Object
+implements
+Element
+,
+MutableAttributeSet
+,
+Serializable
+,
+TreeNode
+Implements the abstract part of an element.  By default elements
+ support attributes by having a field that represents the immutable
+ part of the current attribute set for the element.  The element itself
+ implements MutableAttributeSet which can be used to modify the set
+ by fetching a new immutable set.  The immutable sets are provided
+ by the AttributeContext associated with the document.
+Warning:
+Serialized objects of this class will not be compatible with
+ future Swing releases. The current serialization support is
+ appropriate for short term storage or RMI between applications running
+ the same version of Swing.  As of 1.4, support for long term storage
+ of all JavaBeans
+ has been added to the
+java.beans
+package.
+ Please see
+XMLEncoder
+.
+Nested Class Summary
+Nested classes/interfaces declared in interface javax.swing.text.
+AttributeSet
+AttributeSet.CharacterAttribute
+,
+AttributeSet.ColorAttribute
+,
+AttributeSet.FontAttribute
+,
+AttributeSet.ParagraphAttribute
+Field Summary
+Fields declared in interface javax.swing.text.
+AttributeSet
+NameAttribute
+,
+ResolveAttribute
+Constructor Summary
+Constructors
+Constructor
+Description
+AbstractElement
+(
+Element
+parent,
+AttributeSet
+a)
+Creates a new AbstractElement.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+addAttribute
+(
+Object
+name,
+Object
+value)
+Adds an attribute to the element.
+void
+addAttributes
+(
+AttributeSet
+attr)
+Adds a set of attributes to the element.
+abstract
+Enumeration
+<
+TreeNode
+>
+children
+()
+Returns the children of the receiver as an
+Enumeration
+.
+boolean
+containsAttribute
+(
+Object
+name,
+Object
+value)
+Checks whether a given attribute name/value is defined.
+boolean
+containsAttributes
+(
+AttributeSet
+attrs)
+Checks whether the element contains all the attributes.
+AttributeSet
+copyAttributes
+()
+Copies a set of attributes.
+void
+dump
+(
+PrintStream
+psOut,
+ int indentAmount)
+Dumps a debugging representation of the element hierarchy.
+abstract boolean
+getAllowsChildren
+()
+Returns true if the receiver allows children.
+Object
+getAttribute
+(
+Object
+attrName)
+Gets the value of an attribute.
+int
+getAttributeCount
+()
+Gets the number of attributes that are defined.
+Enumeration
+<?>
+getAttributeNames
+()
+Gets the names of all attributes.
+AttributeSet
+getAttributes
+()
+Gets the attributes for the element.
+TreeNode
+getChildAt
+(int childIndex)
+Returns the child
+TreeNode
+at index
+childIndex
+.
+int
+getChildCount
+()
+Returns the number of children
+TreeNode
+'s
+ receiver contains.
+Document
+getDocument
+()
+Retrieves the underlying model.
+abstract
+Element
+getElement
+(int index)
+Gets a child element.
+abstract int
+getElementCount
+()
+Gets the number of children for the element.
+abstract int
+getElementIndex
+(int offset)
+Gets the child element index closest to the given model offset.
+abstract int
+getEndOffset
+()
+Gets the ending offset in the model for the element.
+int
+getIndex
+(
+TreeNode
+node)
+Returns the index of
+node
+in the receivers children.
+String
+getName
+()
+Gets the name of the element.
+TreeNode
+getParent
+()
+Returns the parent
+TreeNode
+of the receiver.
+Element
+getParentElement
+()
+Gets the parent of the element.
+AttributeSet
+getResolveParent
+()
+Gets the resolving parent.
+abstract int
+getStartOffset
+()
+Gets the starting offset in the model for the element.
+boolean
+isDefined
+(
+Object
+attrName)
+Checks whether a given attribute is defined.
+boolean
+isEqual
+(
+AttributeSet
+attr)
+Checks whether two attribute sets are equal.
+abstract boolean
+isLeaf
+()
+Checks whether the element is a leaf.
+void
+removeAttribute
+(
+Object
+name)
+Removes an attribute from the set.
+void
+removeAttributes
+(
+Enumeration
+<?> names)
+Removes a set of attributes for the element.
+void
+removeAttributes
+(
+AttributeSet
+attrs)
+Removes a set of attributes for the element.
+void
+setResolveParent
+(
+AttributeSet
+parent)
+Sets the resolving parent.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+AbstractElement
+public
+AbstractElement
+(
+Element
+parent,
+AttributeSet
+a)
+Creates a new AbstractElement.
+Parameters:
+parent
+- the parent element
+a
+- the attributes for the element
+Since:
+1.4
+Method Details
+dump
+public
+void
+dump
+(
+PrintStream
+psOut,
+ int indentAmount)
+Dumps a debugging representation of the element hierarchy.
+Parameters:
+psOut
+- the output stream
+indentAmount
+- the indentation level >= 0
+getAttributeCount
+public
+int
+getAttributeCount
+()
+Gets the number of attributes that are defined.
+Specified by:
+getAttributeCount
+in interface
+AttributeSet
+Returns:
+the number of attributes >= 0
+See Also:
+AttributeSet.getAttributeCount()
+isDefined
+public
+boolean
+isDefined
+(
+Object
+attrName)
+Checks whether a given attribute is defined.
+Specified by:
+isDefined
+in interface
+AttributeSet
+Parameters:
+attrName
+- the non-null attribute name
+Returns:
+true if the attribute is defined
+See Also:
+AttributeSet.isDefined(java.lang.Object)
+isEqual
+public
+boolean
+isEqual
+(
+AttributeSet
+attr)
+Checks whether two attribute sets are equal.
+Specified by:
+isEqual
+in interface
+AttributeSet
+Parameters:
+attr
+- the attribute set to check against
+Returns:
+true if the same
+See Also:
+AttributeSet.isEqual(javax.swing.text.AttributeSet)
+copyAttributes
+public
+AttributeSet
+copyAttributes
+()
+Copies a set of attributes.
+Specified by:
+copyAttributes
+in interface
+AttributeSet
+Returns:
+the copy
+See Also:
+AttributeSet.copyAttributes()
+getAttribute
+public
+Object
+getAttribute
+(
+Object
+attrName)
+Gets the value of an attribute.
+Specified by:
+getAttribute
+in interface
+AttributeSet
+Parameters:
+attrName
+- the non-null attribute name
+Returns:
+the attribute value
+See Also:
+AttributeSet.getAttribute(java.lang.Object)
+getAttributeNames
+public
+Enumeration
+<?>
+getAttributeNames
+()
+Gets the names of all attributes.
+Specified by:
+getAttributeNames
+in interface
+AttributeSet
+Returns:
+the attribute names as an enumeration
+See Also:
+AttributeSet.getAttributeNames()
+containsAttribute
+public
+boolean
+containsAttribute
+(
+Object
+name,
+Object
+value)
+Checks whether a given attribute name/value is defined.
+Specified by:
+containsAttribute
+in interface
+AttributeSet
+Parameters:
+name
+- the non-null attribute name
+value
+- the attribute value
+Returns:
+true if the name/value is defined
+See Also:
+AttributeSet.containsAttribute(java.lang.Object, java.lang.Object)
+containsAttributes
+public
+boolean
+containsAttributes
+(
+AttributeSet
+attrs)
+Checks whether the element contains all the attributes.
+Specified by:
+containsAttributes
+in interface
+AttributeSet
+Parameters:
+attrs
+- the attributes to check
+Returns:
+true if the element contains all the attributes
+See Also:
+AttributeSet.containsAttributes(javax.swing.text.AttributeSet)
+getResolveParent
+public
+AttributeSet
+getResolveParent
+()
+Gets the resolving parent.
+ If not overridden, the resolving parent defaults to
+ the parent element.
+Specified by:
+getResolveParent
+in interface
+AttributeSet
+Returns:
+the attributes from the parent,
+null
+if none
+See Also:
+AttributeSet.getResolveParent()
+addAttribute
+public
+void
+addAttribute
+(
+Object
+name,
+Object
+value)
+Adds an attribute to the element.
+Specified by:
+addAttribute
+in interface
+MutableAttributeSet
+Parameters:
+name
+- the non-null attribute name
+value
+- the attribute value
+See Also:
+MutableAttributeSet.addAttribute(java.lang.Object, java.lang.Object)
+addAttributes
+public
+void
+addAttributes
+(
+AttributeSet
+attr)
+Adds a set of attributes to the element.
+Specified by:
+addAttributes
+in interface
+MutableAttributeSet
+Parameters:
+attr
+- the attributes to add
+See Also:
+MutableAttributeSet.addAttribute(java.lang.Object, java.lang.Object)
+removeAttribute
+public
+void
+removeAttribute
+(
+Object
+name)
+Removes an attribute from the set.
+Specified by:
+removeAttribute
+in interface
+MutableAttributeSet
+Parameters:
+name
+- the non-null attribute name
+See Also:
+MutableAttributeSet.removeAttribute(java.lang.Object)
+removeAttributes
+public
+void
+removeAttributes
+(
+Enumeration
+<?> names)
+Removes a set of attributes for the element.
+Specified by:
+removeAttributes
+in interface
+MutableAttributeSet
+Parameters:
+names
+- the attribute names
+See Also:
+MutableAttributeSet.removeAttributes(java.util.Enumeration<?>)
+removeAttributes
+public
+void
+removeAttributes
+(
+AttributeSet
+attrs)
+Removes a set of attributes for the element.
+Specified by:
+removeAttributes
+in interface
+MutableAttributeSet
+Parameters:
+attrs
+- the attributes
+See Also:
+MutableAttributeSet.removeAttributes(java.util.Enumeration<?>)
+setResolveParent
+public
+void
+setResolveParent
+(
+AttributeSet
+parent)
+Sets the resolving parent.
+Specified by:
+setResolveParent
+in interface
+MutableAttributeSet
+Parameters:
+parent
+- the parent, null if none
+See Also:
+MutableAttributeSet.setResolveParent(javax.swing.text.AttributeSet)
+getDocument
+public
+Document
+getDocument
+()
+Retrieves the underlying model.
+Specified by:
+getDocument
+in interface
+Element
+Returns:
+the model
+getParentElement
+public
+Element
+getParentElement
+()
+Gets the parent of the element.
+Specified by:
+getParentElement
+in interface
+Element
+Returns:
+the parent
+getAttributes
+public
+AttributeSet
+getAttributes
+()
+Gets the attributes for the element.
+Specified by:
+getAttributes
+in interface
+Element
+Returns:
+the attribute set
+getName
+public
+String
+getName
+()
+Gets the name of the element.
+Specified by:
+getName
+in interface
+Element
+Returns:
+the name, null if none
+getStartOffset
+public abstract
+int
+getStartOffset
+()
+Gets the starting offset in the model for the element.
+Specified by:
+getStartOffset
+in interface
+Element
+Returns:
+the offset >= 0
+See Also:
+Document
+AbstractDocument
+getEndOffset
+public abstract
+int
+getEndOffset
+()
+Gets the ending offset in the model for the element.
+Specified by:
+getEndOffset
+in interface
+Element
+Returns:
+the offset >= 0
+See Also:
+Document
+AbstractDocument
+getElement
+public abstract
+Element
+getElement
+(int index)
+Gets a child element.
+Specified by:
+getElement
+in interface
+Element
+Parameters:
+index
+- the child index, >= 0 && < getElementCount()
+Returns:
+the child element
+getElementCount
+public abstract
+int
+getElementCount
+()
+Gets the number of children for the element.
+Specified by:
+getElementCount
+in interface
+Element
+Returns:
+the number of children >= 0
+getElementIndex
+public abstract
+int
+getElementIndex
+(int offset)
+Gets the child element index closest to the given model offset.
+Specified by:
+getElementIndex
+in interface
+Element
+Parameters:
+offset
+- the offset >= 0
+Returns:
+the element index >= 0
+isLeaf
+public abstract
+boolean
+isLeaf
+()
+Checks whether the element is a leaf.
+Specified by:
+isLeaf
+in interface
+Element
+Specified by:
+isLeaf
+in interface
+TreeNode
+Returns:
+true if a leaf
+getChildAt
+public
+TreeNode
+getChildAt
+(int childIndex)
+Returns the child
+TreeNode
+at index
+childIndex
+.
+Specified by:
+getChildAt
+in interface
+TreeNode
+Parameters:
+childIndex
+- index of child
+Returns:
+the child node at given index
+getChildCount
+public
+int
+getChildCount
+()
+Returns the number of children
+TreeNode
+'s
+ receiver contains.
+Specified by:
+getChildCount
+in interface
+TreeNode
+Returns:
+the number of children
+TreeNodews
+'s
+ receiver contains
+getParent
+public
+TreeNode
+getParent
+()
+Returns the parent
+TreeNode
+of the receiver.
+Specified by:
+getParent
+in interface
+TreeNode
+Returns:
+the parent
+TreeNode
+of the receiver
+getIndex
+public
+int
+getIndex
+(
+TreeNode
+node)
+Returns the index of
+node
+in the receivers children.
+ If the receiver does not contain
+node
+, -1 will be
+ returned.
+Specified by:
+getIndex
+in interface
+TreeNode
+Parameters:
+node
+- the location of interest
+Returns:
+the index of
+node
+in the receiver's
+ children, or -1 if absent
+getAllowsChildren
+public abstract
+boolean
+getAllowsChildren
+()
+Returns true if the receiver allows children.
+Specified by:
+getAllowsChildren
+in interface
+TreeNode
+Returns:
+true if the receiver allows children, otherwise false
+children
+public abstract
+Enumeration
+<
+TreeNode
+>
+children
+()
+Returns the children of the receiver as an
+Enumeration
+.
+Specified by:
+children
+in interface
+TreeNode
+Returns:
+the children of the receiver as an
+Enumeration
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

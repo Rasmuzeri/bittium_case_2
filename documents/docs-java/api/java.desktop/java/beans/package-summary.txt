@@ -1,0 +1,355 @@
+java.beans (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages
+|
+Classes and Interfaces
+SEARCH
+Module
+java.desktop
+Package java.beans
+package
+java.beans
+Contains classes related to developing
+beans
+-- components based on
+ the JavaBeans architecture. A few of the classes are used by beans
+ while they run in an application. For example, the event classes are used by
+ beans that fire property and vetoable change events (see
+PropertyChangeEvent
+). However, most of the classes in this
+ package are meant to be used by a bean editor (that is, a development
+ environment for customizing and putting together beans to create an
+ application). In particular, these classes help the bean editor create a user
+ interface that the user can use to customize the bean. For example, a bean
+ may contain a property of a special type that a bean editor may not know how
+ to handle. By using the
+PropertyEditor
+interface, a bean developer
+ can provide an editor for this special type.
+To minimize the resources used by a bean, the classes used by bean editors
+ are loaded only when the bean is being edited. They are not needed while the
+ bean is running in an application and therefore not loaded. This information
+ is kept in what's called a bean-info (see
+BeanInfo
+).
+Unless explicitly stated, null values or empty Strings are not valid
+ parameters for the methods in this package. You may expect to see exceptions
+ if these parameters are used.
+Long-Term Persistence
+As of v1.4, the
+java.beans
+package provides support for
+long-term
+ persistence
+-- reading and writing a bean as a textual representation of
+ its property values. The property values are treated as beans, and are
+ recursively read or written to capture their publicly available state. This
+ approach is suitable for long-term storage because it relies only on public
+ API, rather than the likely-to-change private implementation.
+Note:
+The persistence scheme cannot automatically
+ instantiate custom inner classes, such as you might use for event handlers.
+ By using the
+EventHandler
+class instead of inner classes
+ for custom event handlers, you can avoid this problem.
+You read and write beans in XML format using the
+XMLDecoder
+and
+XMLEncoder
+classes,
+ respectively. One notable feature of the persistence scheme is that reading
+ in a bean requires no special knowledge of the bean.
+Writing out a bean, on the other hand, sometimes requires special knowledge
+ of the bean's type. If the bean's state can be expressed using only the
+ no-argument constructor and public getter and setter methods for properties,
+ no special knowledge is required. Otherwise, the bean requires a custom
+persistence delegate
+-- an object that is in charge of writing out
+ beans of a particular type. All classes provided in the JDK that descend from
+java.awt.Component
+, as well as all their properties, automatically
+ have persistence delegates.
+If you need (or choose) to provide a persistence delegate for a bean, you can
+ do so either by using a
+DefaultPersistenceDelegate
+instance or by creating your own subclass of
+PersistenceDelegate
+. If
+ the only reason a bean needs a persistence delegate is because you want to
+ invoke the bean's constructor with property values as arguments, you can
+ create the bean's persistence delegate with the one-argument
+DefaultPersistenceDelegate
+constructor. Otherwise, you need to
+ implement your own persistence delegate, for which you're likely to need the
+ following classes:
+PersistenceDelegate
+The abstract class from which all persistence delegates descend. Your
+     subclass should use its knowledge of the bean's type to provide whatever
+Statement
+s and
+Expression
+s are necessary to create the
+     bean and restore its state.
+Statement
+Represents the invocation of a single method on an object. Includes
+     a set of arguments to the method.
+Expression
+A subclass of
+Statement
+used for methods that return a
+     value.
+Once you create a persistence delegate, you register it using the
+setPersistenceDelegate
+method of
+XMLEncoder
+.
+Related Documentation
+For overview, architecture, and tutorial documentation, please see:
+JavaBeans
+, a trail in
+The Java Tutorial
+.
+Long-Term Persistence
+, an article in
+The Swing Connection
+.
+Related Packages
+Package
+Description
+java.beans.beancontext
+Provides classes and interfaces relating to bean context.
+All Classes and Interfaces
+Interfaces
+Classes
+Exception Classes
+Annotation Interfaces
+Class
+Description
+AppletInitializer
+Deprecated, for removal: This API element is subject to removal in a future version.
+The Applet API is deprecated.
+BeanDescriptor
+A BeanDescriptor provides global information about a "bean",
+ including its Java class, its displayName, etc.
+BeanInfo
+Use the
+BeanInfo
+interface
+ to create a
+BeanInfo
+class
+ and provide explicit information about the methods,
+ properties, events, and other features of your beans.
+BeanProperty
+An annotation used to specify some property-related information for the
+ automatically generated
+BeanInfo
+classes.
+Beans
+This class provides some general purpose beans control methods.
+ConstructorProperties
+An annotation on a constructor that shows how the parameters of
+   that constructor correspond to the constructed object's getter
+   methods.
+Customizer
+A customizer class provides a complete custom GUI for customizing
+ a target Java Bean.
+DefaultPersistenceDelegate
+The
+DefaultPersistenceDelegate
+is a concrete implementation of
+ the abstract
+PersistenceDelegate
+class and
+ is the delegate used by default for classes about
+ which no information is available.
+DesignMode
+This interface is intended to be implemented by, or delegated from, instances
+ of java.beans.beancontext.BeanContext, in order to propagate to its nested hierarchy
+ of java.beans.beancontext.BeanContextChild instances, the current "designTime" property.
+Encoder
+An
+Encoder
+is a class which can be used to create
+ files or streams that encode the state of a collection of
+ JavaBeans in terms of their public APIs.
+EventHandler
+The
+EventHandler
+class provides
+ support for dynamically generating event listeners whose methods
+ execute a simple statement involving an incoming event object
+ and a target object.
+EventSetDescriptor
+An EventSetDescriptor describes a group of events that a given Java
+ bean fires.
+ExceptionListener
+An ExceptionListener is notified of internal exceptions.
+Expression
+An
+Expression
+object represents a primitive expression
+ in which a single method is applied to a target and a set of
+ arguments to return a result - as in
+"a.getFoo()"
+.
+FeatureDescriptor
+The FeatureDescriptor class is the common baseclass for PropertyDescriptor,
+ EventSetDescriptor, and MethodDescriptor, etc.
+IndexedPropertyChangeEvent
+An "IndexedPropertyChange" event gets delivered whenever a component that
+ conforms to the JavaBeans specification (a "bean") changes a bound
+ indexed property.
+IndexedPropertyDescriptor
+An IndexedPropertyDescriptor describes a property that acts like an
+ array and has an indexed read and/or indexed write method to access
+ specific elements of the array.
+IntrospectionException
+Thrown when an exception happens during Introspection.
+Introspector
+The Introspector class provides a standard way for tools to learn about
+ the properties, events, and methods supported by a target Java Bean.
+JavaBean
+An annotation used to specify some class-related information
+ for the automatically generated
+BeanInfo
+classes.
+MethodDescriptor
+A MethodDescriptor describes a particular method that a Java Bean
+ supports for external access from other components.
+ParameterDescriptor
+The ParameterDescriptor class allows bean implementors to provide
+ additional information on each of their parameters, beyond the
+ low level type information provided by the java.lang.reflect.Method
+ class.
+PersistenceDelegate
+The PersistenceDelegate class takes the responsibility
+ for expressing the state of an instance of a given class
+ in terms of the methods in the class's public API.
+PropertyChangeEvent
+A "PropertyChange" event gets delivered whenever a bean changes a "bound"
+ or "constrained" property.
+PropertyChangeListener
+A "PropertyChange" event gets fired whenever a bean changes a "bound"
+ property.
+PropertyChangeListenerProxy
+A class which extends the
+EventListenerProxy
+specifically for adding a
+PropertyChangeListener
+with a "bound" property.
+PropertyChangeSupport
+This is a utility class that can be used by beans that support bound
+ properties.
+PropertyDescriptor
+A PropertyDescriptor describes one property that a Java Bean
+ exports via a pair of accessor methods.
+PropertyEditor
+A PropertyEditor class provides support for GUIs that want to
+ allow users to edit a property value of a given type.
+PropertyEditorManager
+The PropertyEditorManager can be used to locate a property editor for
+ any given type name.
+PropertyEditorSupport
+This is a support class to help build property editors.
+PropertyVetoException
+A PropertyVetoException is thrown when a proposed change to a
+ property represents an unacceptable value.
+SimpleBeanInfo
+This is a support class to make it easier for people to provide
+ BeanInfo classes.
+Statement
+A
+Statement
+object represents a primitive statement
+ in which a single method is applied to a target and
+ a set of arguments - as in
+"a.setFoo(b)"
+.
+Transient
+Indicates that an attribute called "transient"
+ should be declared with the given
+value
+when the
+Introspector
+constructs
+ a
+PropertyDescriptor
+or
+EventSetDescriptor
+classes associated with the annotated code element.
+VetoableChangeListener
+A VetoableChange event gets fired whenever a bean changes a "constrained"
+ property.
+VetoableChangeListenerProxy
+A class which extends the
+EventListenerProxy
+specifically for adding a
+VetoableChangeListener
+with a "constrained" property.
+VetoableChangeSupport
+This is a utility class that can be used by beans that support constrained
+ properties.
+Visibility
+Under some circumstances a bean may be run on servers where a GUI
+ is not available.
+XMLDecoder
+The
+XMLDecoder
+class is used to read XML documents
+ created using the
+XMLEncoder
+and is used just like
+ the
+ObjectInputStream
+.
+XMLEncoder
+The
+XMLEncoder
+class is a complementary alternative to
+ the
+ObjectOutputStream
+and can used to generate
+ a textual representation of a
+JavaBean
+in the same
+ way that the
+ObjectOutputStream
+can
+ be used to create binary representation of
+Serializable
+objects.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

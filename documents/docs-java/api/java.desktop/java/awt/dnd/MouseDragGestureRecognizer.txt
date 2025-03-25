@@ -1,0 +1,540 @@
+MouseDragGestureRecognizer (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt.dnd
+Class MouseDragGestureRecognizer
+java.lang.Object
+java.awt.dnd.DragGestureRecognizer
+java.awt.dnd.MouseDragGestureRecognizer
+All Implemented Interfaces:
+MouseListener
+,
+MouseMotionListener
+,
+Serializable
+,
+EventListener
+public abstract class
+MouseDragGestureRecognizer
+extends
+DragGestureRecognizer
+implements
+MouseListener
+,
+MouseMotionListener
+This abstract subclass of
+DragGestureRecognizer
+defines a
+DragGestureRecognizer
+for mouse-based gestures.
+
+ Each platform implements its own concrete subclass of this class,
+ available via the Toolkit.createDragGestureRecognizer() method,
+ to encapsulate
+ the recognition of the platform dependent mouse gesture(s) that initiate
+ a Drag and Drop operation.
+Mouse drag gesture recognizers should honor the
+ drag gesture motion threshold, available through
+DragSource.getDragThreshold()
+.
+ A drag gesture should be recognized only when the distance
+ in either the horizontal or vertical direction between
+ the location of the latest mouse dragged event and the
+ location of the corresponding mouse button pressed event
+ is greater than the drag gesture motion threshold.
+Drag gesture recognizers created with
+DragSource.createDefaultDragGestureRecognizer(java.awt.Component, int, java.awt.dnd.DragGestureListener)
+follow this convention.
+See Also:
+DragGestureListener
+DragGestureEvent
+DragSource
+Serialized Form
+Field Summary
+Fields declared in class java.awt.dnd.
+DragGestureRecognizer
+component
+,
+dragGestureListener
+,
+dragSource
+,
+events
+,
+sourceActions
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+MouseDragGestureRecognizer
+(
+DragSource
+ds)
+Construct a new
+MouseDragGestureRecognizer
+given the
+DragSource
+for the
+Component
+.
+protected
+MouseDragGestureRecognizer
+(
+DragSource
+ds,
+Component
+c)
+Construct a new
+MouseDragGestureRecognizer
+given the
+DragSource
+for the
+Component
+c, and the
+Component
+to observe.
+protected
+MouseDragGestureRecognizer
+(
+DragSource
+ds,
+Component
+c,
+ int act)
+Construct a new
+MouseDragGestureRecognizer
+given the
+DragSource
+for
+ the
+Component
+c,
+ the
+Component
+to observe, and the action(s)
+ permitted for this drag operation.
+protected
+MouseDragGestureRecognizer
+(
+DragSource
+ds,
+Component
+c,
+ int act,
+DragGestureListener
+dgl)
+Construct a new
+MouseDragGestureRecognizer
+given the
+DragSource
+for the
+Component
+c, the
+Component
+to observe, the action(s)
+ permitted for this drag operation, and
+ the
+DragGestureListener
+to
+ notify when a drag gesture is detected.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+mouseClicked
+(
+MouseEvent
+e)
+Invoked when the mouse has been clicked on a component.
+void
+mouseDragged
+(
+MouseEvent
+e)
+Invoked when a mouse button is pressed on a component.
+void
+mouseEntered
+(
+MouseEvent
+e)
+Invoked when the mouse enters a component.
+void
+mouseExited
+(
+MouseEvent
+e)
+Invoked when the mouse exits a component.
+void
+mouseMoved
+(
+MouseEvent
+e)
+Invoked when the mouse button has been moved on a component
+ (with no buttons no down).
+void
+mousePressed
+(
+MouseEvent
+e)
+Invoked when a mouse button has been
+ pressed on a
+Component
+.
+void
+mouseReleased
+(
+MouseEvent
+e)
+Invoked when a mouse button has been released on a component.
+protected void
+registerListeners
+()
+register this DragGestureRecognizer's Listeners with the Component
+protected void
+unregisterListeners
+()
+unregister this DragGestureRecognizer's Listeners with the Component
+
+ subclasses must override this method
+Methods declared in class java.awt.dnd.
+DragGestureRecognizer
+addDragGestureListener
+,
+appendEvent
+,
+fireDragGestureRecognized
+,
+getComponent
+,
+getDragSource
+,
+getSourceActions
+,
+getTriggerEvent
+,
+removeDragGestureListener
+,
+resetRecognizer
+,
+setComponent
+,
+setSourceActions
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+MouseDragGestureRecognizer
+protected
+MouseDragGestureRecognizer
+(
+DragSource
+ds,
+Component
+c,
+ int act,
+DragGestureListener
+dgl)
+Construct a new
+MouseDragGestureRecognizer
+given the
+DragSource
+for the
+Component
+c, the
+Component
+to observe, the action(s)
+ permitted for this drag operation, and
+ the
+DragGestureListener
+to
+ notify when a drag gesture is detected.
+Parameters:
+ds
+- The DragSource for the Component c
+c
+- The Component to observe
+act
+- The actions permitted for this Drag
+dgl
+- The DragGestureListener to notify when a gesture is detected
+MouseDragGestureRecognizer
+protected
+MouseDragGestureRecognizer
+(
+DragSource
+ds,
+Component
+c,
+ int act)
+Construct a new
+MouseDragGestureRecognizer
+given the
+DragSource
+for
+ the
+Component
+c,
+ the
+Component
+to observe, and the action(s)
+ permitted for this drag operation.
+Parameters:
+ds
+- The DragSource for the Component c
+c
+- The Component to observe
+act
+- The actions permitted for this drag
+MouseDragGestureRecognizer
+protected
+MouseDragGestureRecognizer
+(
+DragSource
+ds,
+Component
+c)
+Construct a new
+MouseDragGestureRecognizer
+given the
+DragSource
+for the
+Component
+c, and the
+Component
+to observe.
+Parameters:
+ds
+- The DragSource for the Component c
+c
+- The Component to observe
+MouseDragGestureRecognizer
+protected
+MouseDragGestureRecognizer
+(
+DragSource
+ds)
+Construct a new
+MouseDragGestureRecognizer
+given the
+DragSource
+for the
+Component
+.
+Parameters:
+ds
+- The DragSource for the Component
+Method Details
+registerListeners
+protected
+void
+registerListeners
+()
+register this DragGestureRecognizer's Listeners with the Component
+Specified by:
+registerListeners
+in class
+DragGestureRecognizer
+unregisterListeners
+protected
+void
+unregisterListeners
+()
+unregister this DragGestureRecognizer's Listeners with the Component
+
+ subclasses must override this method
+Specified by:
+unregisterListeners
+in class
+DragGestureRecognizer
+mouseClicked
+public
+void
+mouseClicked
+(
+MouseEvent
+e)
+Invoked when the mouse has been clicked on a component.
+Specified by:
+mouseClicked
+in interface
+MouseListener
+Parameters:
+e
+- the
+MouseEvent
+mousePressed
+public
+void
+mousePressed
+(
+MouseEvent
+e)
+Invoked when a mouse button has been
+ pressed on a
+Component
+.
+Specified by:
+mousePressed
+in interface
+MouseListener
+Parameters:
+e
+- the
+MouseEvent
+mouseReleased
+public
+void
+mouseReleased
+(
+MouseEvent
+e)
+Invoked when a mouse button has been released on a component.
+Specified by:
+mouseReleased
+in interface
+MouseListener
+Parameters:
+e
+- the
+MouseEvent
+mouseEntered
+public
+void
+mouseEntered
+(
+MouseEvent
+e)
+Invoked when the mouse enters a component.
+Specified by:
+mouseEntered
+in interface
+MouseListener
+Parameters:
+e
+- the
+MouseEvent
+mouseExited
+public
+void
+mouseExited
+(
+MouseEvent
+e)
+Invoked when the mouse exits a component.
+Specified by:
+mouseExited
+in interface
+MouseListener
+Parameters:
+e
+- the
+MouseEvent
+mouseDragged
+public
+void
+mouseDragged
+(
+MouseEvent
+e)
+Invoked when a mouse button is pressed on a component.
+Specified by:
+mouseDragged
+in interface
+MouseMotionListener
+Parameters:
+e
+- the
+MouseEvent
+mouseMoved
+public
+void
+mouseMoved
+(
+MouseEvent
+e)
+Invoked when the mouse button has been moved on a component
+ (with no buttons no down).
+Specified by:
+mouseMoved
+in interface
+MouseMotionListener
+Parameters:
+e
+- the
+MouseEvent
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

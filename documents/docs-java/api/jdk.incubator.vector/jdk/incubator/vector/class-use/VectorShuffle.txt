@@ -1,0 +1,581 @@
+Uses of Class jdk.incubator.vector.VectorShuffle (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Class
+jdk.incubator.vector.VectorShuffle
+Packages that use
+VectorShuffle
+Package
+Description
+jdk.incubator.vector
+Incubating Feature.
+Will be removed in a future release.
+Uses of
+VectorShuffle
+in
+jdk.incubator.vector
+Methods in
+jdk.incubator.vector
+that return
+VectorShuffle
+Modifier and Type
+Method
+Description
+abstract <F>
+VectorShuffle
+<F>
+VectorShuffle.
+cast
+(
+VectorSpecies
+<F> species)
+Converts this shuffle to a shuffle of the given species of
+ element type
+F
+.
+abstract <F>
+VectorShuffle
+<F>
+VectorShuffle.
+check
+(
+VectorSpecies
+<F> species)
+Checks that this shuffle has the given species,
+ and returns this shuffle unchanged.
+abstract
+VectorShuffle
+<
+E
+>
+VectorShuffle.
+checkIndexes
+()
+Apply the
+checkIndex()
+validation
+ function to all lanes, throwing
+IndexOutOfBoundsException
+if there are any exceptional
+ indexes in this shuffle.
+static <E>
+VectorShuffle
+<E>
+VectorShuffle.
+fromArray
+(
+VectorSpecies
+<E> species,
+ int[] sourceIndexes,
+ int offset)
+Creates a shuffle for a given species from
+ an
+int
+array starting at an offset.
+static <E>
+VectorShuffle
+<E>
+VectorShuffle.
+fromOp
+(
+VectorSpecies
+<E> species,
+IntUnaryOperator
+fn)
+Creates a shuffle for a given species from
+ the successive values of an operator applied to
+ the range
+[0..VLENGTH-1]
+.
+static <E>
+VectorShuffle
+<E>
+VectorShuffle.
+fromValues
+(
+VectorSpecies
+<E> species,
+ int... sourceIndexes)
+Creates a shuffle for a given species from
+ a series of source indexes.
+static <E>
+VectorShuffle
+<E>
+VectorShuffle.
+iota
+(
+VectorSpecies
+<E> species,
+ int start,
+ int step,
+ boolean wrap)
+Creates a shuffle using source indexes set to sequential
+ values starting from
+start
+and stepping
+ by the given
+step
+.
+VectorShuffle
+<
+E
+>
+VectorSpecies.
+iotaShuffle
+(int start,
+ int step,
+ boolean wrap)
+Creates a shuffle using source indexes set to sequential
+ values starting from
+start
+and stepping
+ by the given
+step
+.
+static <E>
+VectorShuffle
+<E>
+VectorShuffle.
+makeUnzip
+(
+VectorSpecies
+<E> species,
+ int part)
+Creates a shuffle which will unzip the concatenation of two
+ vectors, alternatively storing input lanes into one or the
+ other output vector.
+static <E>
+VectorShuffle
+<E>
+VectorShuffle.
+makeZip
+(
+VectorSpecies
+<E> species,
+ int part)
+Creates a shuffle which will zip together two vectors,
+ alternatively selecting lanes from one or the other.
+abstract
+VectorShuffle
+<
+E
+>
+VectorShuffle.
+rearrange
+(
+VectorShuffle
+<
+E
+> s)
+Rearranges the lane elements of this shuffle selecting lane indexes
+ controlled by another shuffle.
+VectorShuffle
+<
+E
+>
+VectorSpecies.
+shuffleFromArray
+(int[] sourceIndexes,
+ int offset)
+Creates a shuffle for this species from
+ an
+int
+array starting at an offset.
+VectorShuffle
+<
+E
+>
+VectorSpecies.
+shuffleFromOp
+(
+IntUnaryOperator
+fn)
+Creates a shuffle for this species from
+ the successive values of an operator applied to
+ the range
+[0..VLENGTH-1]
+.
+VectorShuffle
+<
+E
+>
+VectorSpecies.
+shuffleFromValues
+(int... sourceIndexes)
+Creates a shuffle for this species from
+ a series of source indexes.
+abstract
+VectorShuffle
+<
+E
+>
+Vector.
+toShuffle
+()
+Converts this vector into a shuffle, converting the lane values
+ to
+int
+and regarding them as source indexes.
+abstract
+VectorShuffle
+<
+E
+>
+VectorShuffle.
+wrapIndexes
+()
+Apply the
+wrapIndex()
+validation
+ function to all lanes, replacing any exceptional indexes
+ with wrapped normal indexes.
+Methods in
+jdk.incubator.vector
+with parameters of type
+VectorShuffle
+Modifier and Type
+Method
+Description
+abstract
+ByteVector
+ByteVector.
+rearrange
+(
+VectorShuffle
+<
+Byte
+> m)
+Rearranges the lane elements of this vector, selecting lanes
+ under the control of a specific shuffle.
+abstract
+ByteVector
+ByteVector.
+rearrange
+(
+VectorShuffle
+<
+Byte
+> s,
+Vector
+<
+Byte
+> v)
+Rearranges the lane elements of two vectors, selecting lanes
+ under the control of a specific shuffle, using both normal and
+ exceptional indexes in the shuffle to steer data.
+abstract
+ByteVector
+ByteVector.
+rearrange
+(
+VectorShuffle
+<
+Byte
+> s,
+VectorMask
+<
+Byte
+> m)
+Rearranges the lane elements of this vector, selecting lanes
+ under the control of a specific shuffle and a mask.
+abstract
+DoubleVector
+DoubleVector.
+rearrange
+(
+VectorShuffle
+<
+Double
+> m)
+Rearranges the lane elements of this vector, selecting lanes
+ under the control of a specific shuffle.
+abstract
+DoubleVector
+DoubleVector.
+rearrange
+(
+VectorShuffle
+<
+Double
+> s,
+Vector
+<
+Double
+> v)
+Rearranges the lane elements of two vectors, selecting lanes
+ under the control of a specific shuffle, using both normal and
+ exceptional indexes in the shuffle to steer data.
+abstract
+DoubleVector
+DoubleVector.
+rearrange
+(
+VectorShuffle
+<
+Double
+> s,
+VectorMask
+<
+Double
+> m)
+Rearranges the lane elements of this vector, selecting lanes
+ under the control of a specific shuffle and a mask.
+abstract
+FloatVector
+FloatVector.
+rearrange
+(
+VectorShuffle
+<
+Float
+> m)
+Rearranges the lane elements of this vector, selecting lanes
+ under the control of a specific shuffle.
+abstract
+FloatVector
+FloatVector.
+rearrange
+(
+VectorShuffle
+<
+Float
+> s,
+Vector
+<
+Float
+> v)
+Rearranges the lane elements of two vectors, selecting lanes
+ under the control of a specific shuffle, using both normal and
+ exceptional indexes in the shuffle to steer data.
+abstract
+FloatVector
+FloatVector.
+rearrange
+(
+VectorShuffle
+<
+Float
+> s,
+VectorMask
+<
+Float
+> m)
+Rearranges the lane elements of this vector, selecting lanes
+ under the control of a specific shuffle and a mask.
+abstract
+IntVector
+IntVector.
+rearrange
+(
+VectorShuffle
+<
+Integer
+> m)
+Rearranges the lane elements of this vector, selecting lanes
+ under the control of a specific shuffle.
+abstract
+IntVector
+IntVector.
+rearrange
+(
+VectorShuffle
+<
+Integer
+> s,
+Vector
+<
+Integer
+> v)
+Rearranges the lane elements of two vectors, selecting lanes
+ under the control of a specific shuffle, using both normal and
+ exceptional indexes in the shuffle to steer data.
+abstract
+IntVector
+IntVector.
+rearrange
+(
+VectorShuffle
+<
+Integer
+> s,
+VectorMask
+<
+Integer
+> m)
+Rearranges the lane elements of this vector, selecting lanes
+ under the control of a specific shuffle and a mask.
+abstract
+LongVector
+LongVector.
+rearrange
+(
+VectorShuffle
+<
+Long
+> m)
+Rearranges the lane elements of this vector, selecting lanes
+ under the control of a specific shuffle.
+abstract
+LongVector
+LongVector.
+rearrange
+(
+VectorShuffle
+<
+Long
+> s,
+Vector
+<
+Long
+> v)
+Rearranges the lane elements of two vectors, selecting lanes
+ under the control of a specific shuffle, using both normal and
+ exceptional indexes in the shuffle to steer data.
+abstract
+LongVector
+LongVector.
+rearrange
+(
+VectorShuffle
+<
+Long
+> s,
+VectorMask
+<
+Long
+> m)
+Rearranges the lane elements of this vector, selecting lanes
+ under the control of a specific shuffle and a mask.
+abstract
+ShortVector
+ShortVector.
+rearrange
+(
+VectorShuffle
+<
+Short
+> m)
+Rearranges the lane elements of this vector, selecting lanes
+ under the control of a specific shuffle.
+abstract
+ShortVector
+ShortVector.
+rearrange
+(
+VectorShuffle
+<
+Short
+> s,
+Vector
+<
+Short
+> v)
+Rearranges the lane elements of two vectors, selecting lanes
+ under the control of a specific shuffle, using both normal and
+ exceptional indexes in the shuffle to steer data.
+abstract
+ShortVector
+ShortVector.
+rearrange
+(
+VectorShuffle
+<
+Short
+> s,
+VectorMask
+<
+Short
+> m)
+Rearranges the lane elements of this vector, selecting lanes
+ under the control of a specific shuffle and a mask.
+abstract
+Vector
+<
+E
+>
+Vector.
+rearrange
+(
+VectorShuffle
+<
+E
+> s)
+Rearranges the lane elements of this vector, selecting lanes
+ under the control of a specific shuffle.
+abstract
+Vector
+<
+E
+>
+Vector.
+rearrange
+(
+VectorShuffle
+<
+E
+> s,
+Vector
+<
+E
+> v)
+Rearranges the lane elements of two vectors, selecting lanes
+ under the control of a specific shuffle, using both normal and
+ exceptional indexes in the shuffle to steer data.
+abstract
+Vector
+<
+E
+>
+Vector.
+rearrange
+(
+VectorShuffle
+<
+E
+> s,
+VectorMask
+<
+E
+> m)
+Rearranges the lane elements of this vector, selecting lanes
+ under the control of a specific shuffle and a mask.
+abstract
+VectorShuffle
+<
+E
+>
+VectorShuffle.
+rearrange
+(
+VectorShuffle
+<
+E
+> s)
+Rearranges the lane elements of this shuffle selecting lane indexes
+ controlled by another shuffle.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,773 @@
+XPathFactory (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.xml
+Package
+javax.xml.xpath
+Class XPathFactory
+java.lang.Object
+javax.xml.xpath.XPathFactory
+public abstract class
+XPathFactory
+extends
+Object
+An
+XPathFactory
+instance can be used to create
+XPath
+objects.
+See
+newInstance(String uri)
+for lookup mechanism.
+The
+XPathFactory
+class is not thread-safe. In other words,
+ it is the application's responsibility to ensure that at most
+ one thread is using a
+XPathFactory
+object at any
+ given moment. Implementations are encouraged to mark methods
+ as
+synchronized
+to protect themselves from broken clients.
+XPathFactory
+is not re-entrant. While one of the
+newInstance
+methods is being invoked, applications
+ may not attempt to recursively invoke a
+newInstance
+method,
+ even from the same thread.
+Since:
+1.5
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+String
+DEFAULT_OBJECT_MODEL_URI
+Default Object Model URI.
+static final
+String
+DEFAULT_PROPERTY_NAME
+The default property name according to the JAXP spec.
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+XPathFactory
+()
+Protected constructor as
+newInstance()
+or
+newInstance(String uri)
+or
+newInstance(String uri, String factoryClassName, ClassLoader classLoader)
+should be used to create a new instance of an
+XPathFactory
+.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+abstract boolean
+getFeature
+(
+String
+name)
+Get the state of the named feature.
+String
+getProperty
+(
+String
+name)
+Returns the value of the specified property.
+abstract boolean
+isObjectModelSupported
+(
+String
+objectModel)
+Is specified object model supported by this
+XPathFactory
+?
+static
+XPathFactory
+newDefaultInstance
+()
+Creates a new instance of the
+XPathFactory
+builtin
+ system-default implementation.
+static
+XPathFactory
+newInstance
+()
+Get a new
+XPathFactory
+instance using the default object model,
+DEFAULT_OBJECT_MODEL_URI
+,
+ the W3C DOM.
+static
+XPathFactory
+newInstance
+(
+String
+uri)
+Obtains a new
+XPathFactory
+instance using the specified object model.
+static
+XPathFactory
+newInstance
+(
+String
+uri,
+String
+factoryClassName,
+ClassLoader
+classLoader)
+Obtain a new instance of a
+XPathFactory
+from a factory class name.
+abstract
+XPath
+newXPath
+()
+Return a new
+XPath
+using the underlying object
+ model determined when the
+XPathFactory
+was instantiated.
+abstract void
+setFeature
+(
+String
+name,
+ boolean value)
+Sets a feature for this
+XPathFactory
+.
+void
+setProperty
+(
+String
+name,
+String
+value)
+Sets a property for this
+XPathFactory
+.
+abstract void
+setXPathFunctionResolver
+(
+XPathFunctionResolver
+resolver)
+Establish a default function resolver.
+abstract void
+setXPathVariableResolver
+(
+XPathVariableResolver
+resolver)
+Establish a default variable resolver.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+DEFAULT_PROPERTY_NAME
+public static final
+String
+DEFAULT_PROPERTY_NAME
+The default property name according to the JAXP spec.
+See Also:
+Constant Field Values
+DEFAULT_OBJECT_MODEL_URI
+public static final
+String
+DEFAULT_OBJECT_MODEL_URI
+Default Object Model URI.
+See Also:
+Constant Field Values
+Constructor Details
+XPathFactory
+protected
+XPathFactory
+()
+Protected constructor as
+newInstance()
+or
+newInstance(String uri)
+or
+newInstance(String uri, String factoryClassName, ClassLoader classLoader)
+should be used to create a new instance of an
+XPathFactory
+.
+Method Details
+newDefaultInstance
+public static
+XPathFactory
+newDefaultInstance
+()
+Creates a new instance of the
+XPathFactory
+builtin
+ system-default implementation.
+Implementation Requirements:
+The
+XPathFactory
+builtin
+ system-default implementation is only required to support the
+default object model
+, the
+W3C DOM
+, but may support additional
+ object models.
+Returns:
+A new instance of the
+XPathFactory
+builtin
+         system-default implementation.
+Since:
+9
+newInstance
+public static
+XPathFactory
+newInstance
+()
+Get a new
+XPathFactory
+instance using the default object model,
+DEFAULT_OBJECT_MODEL_URI
+,
+ the W3C DOM.
+This method is functionally equivalent to:
+newInstance(DEFAULT_OBJECT_MODEL_URI)
+Since the implementation for the W3C DOM is always available, this method will never fail.
+Returns:
+Instance of an
+XPathFactory
+.
+Throws:
+RuntimeException
+- When there is a failure in creating an
+XPathFactory
+for the default object model.
+newInstance
+public static
+XPathFactory
+newInstance
+(
+String
+uri)
+throws
+XPathFactoryConfigurationException
+Obtains a new
+XPathFactory
+instance using the specified object model.
+ This method uses the
+JAXP Lookup Mechanism
+to determine and load the
+XPathFactory
+implementation that supports
+ the specified object model.
+Tip for Trouble-shooting:
+See
+Properties.load(java.io.InputStream)
+for exactly how a property file is parsed.
+ In particular, colons ':' need to be escaped in a property file, so make sure the URIs are properly escaped in it.
+ For example:
+http\://java.sun.com/jaxp/xpath/dom=org.acme.DomXPathFactory
+Parameters:
+uri
+- Identifies the underlying object model.
+   The specification only defines the URI
+DEFAULT_OBJECT_MODEL_URI
+,
+http://java.sun.com/jaxp/xpath/dom
+for the W3C DOM,
+   the org.w3c.dom package, and implementations are free to introduce other URIs for other object models.
+Returns:
+Instance of an
+XPathFactory
+.
+Throws:
+XPathFactoryConfigurationException
+- If the specified object model
+      is unavailable, or if there is a configuration error.
+NullPointerException
+- If
+uri
+is
+null
+.
+IllegalArgumentException
+- If
+uri
+is
+null
+or
+uri.length() == 0
+.
+newInstance
+public static
+XPathFactory
+newInstance
+(
+String
+uri,
+String
+factoryClassName,
+ClassLoader
+classLoader)
+throws
+XPathFactoryConfigurationException
+Obtain a new instance of a
+XPathFactory
+from a factory class name.
+XPathFactory
+is returned if specified factory class supports the specified object model.
+ This function is useful when there are multiple providers in the classpath.
+ It gives more control to the application as it can specify which provider
+ should be loaded.
+Tip for Trouble-shooting
+Setting the
+jaxp.debug
+system property will cause
+ this method to print a lot of debug messages
+ to
+System.err
+about what it is doing and where it is looking at.
+If you have problems try:
+java -Djaxp.debug=1 YourProgram ....
+Parameters:
+uri
+- Identifies the underlying object model. The specification only defines the URI
+DEFAULT_OBJECT_MODEL_URI
+,
+http://java.sun.com/jaxp/xpath/dom
+for the W3C DOM, the org.w3c.dom package, and implementations are free to introduce
+                    other URIs for other object models.
+factoryClassName
+- fully qualified factory class name that provides implementation of
+javax.xml.xpath.XPathFactory
+.
+classLoader
+-
+ClassLoader
+used to load the factory class. If
+null
+current
+Thread
+'s context classLoader is used to load the factory class.
+Returns:
+New instance of a
+XPathFactory
+Throws:
+XPathFactoryConfigurationException
+- if
+factoryClassName
+is
+null
+, or
+                   the factory class cannot be loaded, instantiated
+                   or the factory class does not support the object model specified
+                   in the
+uri
+parameter.
+NullPointerException
+- If
+uri
+is
+null
+.
+IllegalArgumentException
+- If
+uri
+is
+null
+or
+uri.length() == 0
+.
+Since:
+1.6
+See Also:
+newInstance()
+newInstance(String uri)
+isObjectModelSupported
+public abstract
+boolean
+isObjectModelSupported
+(
+String
+objectModel)
+Is specified object model supported by this
+XPathFactory
+?
+Parameters:
+objectModel
+- Specifies the object model which the returned
+XPathFactory
+will understand.
+Returns:
+true
+if
+XPathFactory
+supports
+objectModel
+, else
+false
+.
+Throws:
+NullPointerException
+- If
+objectModel
+is
+null
+.
+IllegalArgumentException
+- If
+objectModel.length() == 0
+.
+setFeature
+public abstract
+void
+setFeature
+(
+String
+name,
+ boolean value)
+throws
+XPathFactoryConfigurationException
+Sets a feature for this
+XPathFactory
+. The feature applies to
+XPath
+objects that the
+XPathFactory
+creates. It has no
+ impact on
+XPath
+objects that are already created.
+Feature names are fully qualified
+URI
+s.
+ Implementations may define their own features.
+ An
+XPathFactoryConfigurationException
+is thrown if this
+XPathFactory
+or the
+XPath
+s
+ it creates cannot support the feature.
+ It is possible for an
+XPathFactory
+to expose a feature value
+ but be unable to change its state.
+All implementations are required to support the
+XMLConstants.FEATURE_SECURE_PROCESSING
+feature.
+ When the feature is
+true
+, any reference to  an external function is an error.
+ Under these conditions, the implementation must not call the
+XPathFunctionResolver
+and must throw an
+XPathFunctionException
+.
+Parameters:
+name
+- Feature name.
+value
+- Is feature state
+true
+or
+false
+.
+Throws:
+XPathFactoryConfigurationException
+- if this
+XPathFactory
+or the
+XPath
+s
+   it creates cannot support this feature.
+NullPointerException
+- if
+name
+is
+null
+.
+getFeature
+public abstract
+boolean
+getFeature
+(
+String
+name)
+throws
+XPathFactoryConfigurationException
+Get the state of the named feature.
+Feature names are fully qualified
+URI
+s.
+ Implementations may define their own features.
+ An
+XPathFactoryConfigurationException
+is thrown if this
+XPathFactory
+or the
+XPath
+s
+ it creates cannot support the feature.
+ It is possible for an
+XPathFactory
+to expose a feature value
+ but be unable to change its state.
+Parameters:
+name
+- Feature name.
+Returns:
+State of the named feature.
+Throws:
+XPathFactoryConfigurationException
+- if this
+XPathFactory
+or the
+XPath
+s
+   it creates cannot support this feature.
+NullPointerException
+- if
+name
+is
+null
+.
+setXPathVariableResolver
+public abstract
+void
+setXPathVariableResolver
+(
+XPathVariableResolver
+resolver)
+Establish a default variable resolver.
+Any
+XPath
+objects constructed from this factory will use
+ the specified resolver by default.
+A
+NullPointerException
+is thrown if
+resolver
+is
+null
+.
+Parameters:
+resolver
+- Variable resolver.
+Throws:
+NullPointerException
+- If
+resolver
+is
+null
+.
+setXPathFunctionResolver
+public abstract
+void
+setXPathFunctionResolver
+(
+XPathFunctionResolver
+resolver)
+Establish a default function resolver.
+Any
+XPath
+objects constructed from this factory will
+ use the specified resolver by default.
+A
+NullPointerException
+is thrown if
+resolver
+is
+null
+.
+Parameters:
+resolver
+- XPath function resolver.
+Throws:
+NullPointerException
+- If
+resolver
+is
+null
+.
+newXPath
+public abstract
+XPath
+newXPath
+()
+Return a new
+XPath
+using the underlying object
+ model determined when the
+XPathFactory
+was instantiated.
+Returns:
+New instance of an
+XPath
+.
+setProperty
+public
+void
+setProperty
+(
+String
+name,
+String
+value)
+Sets a property for this
+XPathFactory
+. The property applies to
+XPath
+objects that the
+XPathFactory
+creates. It has no
+ impact on
+XPath
+objects that are already created.
+A property can either be defined in this
+XPathFactory
+, or by the
+ underlying implementation.
+Implementation Requirements:
+The default implementation throws
+UnsupportedOperationException
+.
+Parameters:
+name
+- the property name
+value
+- the value for the property
+Throws:
+IllegalArgumentException
+- if the property name is not recognized,
+ or the value can not be assigned
+UnsupportedOperationException
+- if the implementation does not
+ support the method
+NullPointerException
+- if the
+name
+is
+null
+Since:
+18
+getProperty
+public
+String
+getProperty
+(
+String
+name)
+Returns the value of the specified property.
+Implementation Requirements:
+The default implementation throws
+UnsupportedOperationException
+.
+Parameters:
+name
+- the property name
+Returns:
+the value of the property.
+Throws:
+IllegalArgumentException
+- if the property name is not recognized
+UnsupportedOperationException
+- if the implementation does not
+ support the method
+NullPointerException
+- if the
+name
+is
+null
+Since:
+18
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

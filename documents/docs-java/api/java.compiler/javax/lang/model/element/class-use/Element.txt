@@ -1,0 +1,1243 @@
+Uses of Interface javax.lang.model.element.Element (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Interface
+javax.lang.model.element.Element
+Packages that use
+Element
+Package
+Description
+com.sun.source.tree
+Provides interfaces to represent source code as abstract syntax
+ trees (AST).
+com.sun.source.util
+Provides utilities for operations on abstract syntax trees (AST).
+javax.annotation.processing
+Facilities for declaring annotation processors and for
+ allowing annotation processors to communicate with an annotation processing
+ tool environment.
+javax.lang.model.element
+Interfaces used to model elements of the Java programming language.
+javax.lang.model.type
+Interfaces used to model Java programming language types.
+javax.lang.model.util
+Utilities to assist in the processing of
+program elements
+and
+types
+.
+jdk.javadoc.doclet
+The Doclet API provides an environment which, in conjunction with
+ the Language Model API and Compiler Tree API, allows clients
+ to inspect the source-level structures of programs and
+ libraries, including API comments embedded in the source.
+Uses of
+Element
+in
+com.sun.source.tree
+Methods in
+com.sun.source.tree
+that return types with arguments of type
+Element
+Modifier and Type
+Method
+Description
+Iterable
+<? extends
+Element
+>
+Scope.
+getLocalElements
+()
+Returns the elements directly contained in this scope.
+Uses of
+Element
+in
+com.sun.source.util
+Methods in
+com.sun.source.util
+that return
+Element
+Modifier and Type
+Method
+Description
+abstract
+Element
+DocTrees.
+getElement
+(
+DocTreePath
+path)
+Returns the language model element referred to by the leaf node of the given
+DocTreePath
+, or
+null
+if unknown.
+abstract
+Element
+Trees.
+getElement
+(
+TreePath
+path)
+Returns the
+Element
+for the
+Tree
+node identified by a given
+TreePath
+.
+Methods in
+com.sun.source.util
+that return types with arguments of type
+Element
+Modifier and Type
+Method
+Description
+abstract
+Iterable
+<? extends
+Element
+>
+JavacTask.
+analyze
+()
+Completes all analysis.
+Methods in
+com.sun.source.util
+with parameters of type
+Element
+Modifier and Type
+Method
+Description
+abstract
+DocCommentTree
+DocTrees.
+getDocCommentTree
+(
+Element
+e)
+Returns the doc comment tree of the given element.
+abstract
+DocCommentTree
+DocTrees.
+getDocCommentTree
+(
+Element
+e,
+String
+relativePath)
+Returns the doc comment tree of the given file whose path is
+ specified relative to the given element.
+abstract
+TreePath
+Trees.
+getPath
+(
+Element
+e)
+Returns the
+TreePath
+node for a given
+Element
+.
+abstract
+TreePath
+Trees.
+getPath
+(
+Element
+e,
+AnnotationMirror
+a)
+Returns the
+TreePath
+node for an
+AnnotationMirror
+on a given
+Element
+.
+abstract
+TreePath
+Trees.
+getPath
+(
+Element
+e,
+AnnotationMirror
+a,
+AnnotationValue
+v)
+Returns the
+TreePath
+node for an
+AnnotationValue
+for an
+AnnotationMirror
+on a given
+Element
+.
+abstract
+Tree
+Trees.
+getTree
+(
+Element
+element)
+Returns the
+Tree
+node for a given
+Element
+.
+abstract
+Tree
+Trees.
+getTree
+(
+Element
+e,
+AnnotationMirror
+a)
+Returns the
+Tree
+node for an
+AnnotationMirror
+on a given
+Element
+.
+abstract
+Tree
+Trees.
+getTree
+(
+Element
+e,
+AnnotationMirror
+a,
+AnnotationValue
+v)
+Returns the
+Tree
+node for an
+AnnotationValue
+for an
+AnnotationMirror
+on a given
+Element
+.
+abstract boolean
+Trees.
+isAccessible
+(
+Scope
+scope,
+Element
+member,
+DeclaredType
+type)
+Checks whether the given element is accessible as a member of the given
+ type in a given scope.
+Uses of
+Element
+in
+javax.annotation.processing
+Methods in
+javax.annotation.processing
+that return types with arguments of type
+Element
+Modifier and Type
+Method
+Description
+Set
+<? extends
+Element
+>
+RoundEnvironment.
+getElementsAnnotatedWith
+(
+Class
+<? extends
+Annotation
+> a)
+Returns the elements annotated with the given annotation interface.
+Set
+<? extends
+Element
+>
+RoundEnvironment.
+getElementsAnnotatedWith
+(
+TypeElement
+a)
+Returns the elements annotated with the given annotation interface.
+default
+Set
+<? extends
+Element
+>
+RoundEnvironment.
+getElementsAnnotatedWithAny
+(
+Set
+<
+Class
+<? extends
+Annotation
+>> annotations)
+Returns the elements annotated with one or more of the given
+ annotation interfaces.
+default
+Set
+<? extends
+Element
+>
+RoundEnvironment.
+getElementsAnnotatedWithAny
+(
+TypeElement
+... annotations)
+Returns the elements annotated with one or more of the given
+ annotation interfaces.
+Set
+<? extends
+Element
+>
+RoundEnvironment.
+getRootElements
+()
+Returns the
+root elements
+for annotation
+ processing
+generated
+by the prior round.
+Methods in
+javax.annotation.processing
+with parameters of type
+Element
+Modifier and Type
+Method
+Description
+JavaFileObject
+Filer.
+createClassFile
+(
+CharSequence
+name,
+Element
+... originatingElements)
+Creates a new class file, and returns an object to allow
+ writing to it.
+FileObject
+Filer.
+createResource
+(
+JavaFileManager.Location
+location,
+CharSequence
+moduleAndPkg,
+CharSequence
+relativeName,
+Element
+... originatingElements)
+Creates a new auxiliary resource file for writing and returns a
+ file object for it.
+JavaFileObject
+Filer.
+createSourceFile
+(
+CharSequence
+name,
+Element
+... originatingElements)
+Creates a new source file and returns an object to allow
+ writing to it.
+Iterable
+<? extends
+Completion
+>
+AbstractProcessor.
+getCompletions
+(
+Element
+element,
+AnnotationMirror
+annotation,
+ExecutableElement
+member,
+String
+userText)
+Returns an empty iterable of completions.
+Iterable
+<? extends
+Completion
+>
+Processor.
+getCompletions
+(
+Element
+element,
+AnnotationMirror
+annotation,
+ExecutableElement
+member,
+String
+userText)
+Returns to the tool infrastructure an iterable of suggested
+ completions to an annotation.
+default void
+Messager.
+printError
+(
+CharSequence
+msg,
+Element
+e)
+Prints an error at the location of the element.
+void
+Messager.
+printMessage
+(
+Diagnostic.Kind
+kind,
+CharSequence
+msg,
+Element
+e)
+Prints a message of the specified kind at the location of the
+ element.
+void
+Messager.
+printMessage
+(
+Diagnostic.Kind
+kind,
+CharSequence
+msg,
+Element
+e,
+AnnotationMirror
+a)
+Prints a message of the specified kind at the location of the
+ annotation mirror of the annotated element.
+void
+Messager.
+printMessage
+(
+Diagnostic.Kind
+kind,
+CharSequence
+msg,
+Element
+e,
+AnnotationMirror
+a,
+AnnotationValue
+v)
+Prints a message of the specified kind at the location of the
+ annotation value inside the annotation mirror of the annotated
+ element.
+default void
+Messager.
+printNote
+(
+CharSequence
+msg,
+Element
+e)
+Prints a note at the location of the element.
+default void
+Messager.
+printWarning
+(
+CharSequence
+msg,
+Element
+e)
+Prints a warning at the location of the element.
+Uses of
+Element
+in
+javax.lang.model.element
+Subinterfaces of
+Element
+in
+javax.lang.model.element
+Modifier and Type
+Interface
+Description
+interface
+ExecutableElement
+Represents a method, constructor, or initializer (static or
+ instance) of a class or interface, including annotation interface
+ elements.
+interface
+ModuleElement
+Represents a module program element.
+interface
+PackageElement
+Represents a package program element.
+interface
+Parameterizable
+A mixin interface for an element that has type parameters.
+interface
+QualifiedNameable
+A mixin interface for an element that has a qualified name.
+interface
+RecordComponentElement
+Represents a record component.
+interface
+TypeElement
+Represents a class or interface program element.
+interface
+TypeParameterElement
+Represents a formal type parameter of a generic class, interface, method,
+ or constructor element.
+interface
+VariableElement
+Represents a field,
+enum
+constant, method or constructor
+ parameter, local variable, resource variable, or exception
+ parameter.
+Methods in
+javax.lang.model.element
+that return
+Element
+Modifier and Type
+Method
+Description
+Element
+Element.
+getEnclosingElement
+()
+Returns the innermost element
+ within which this element is, loosely speaking, enclosed.
+Element
+ExecutableElement.
+getEnclosingElement
+()
+Returns the class or interface defining the executable.
+Element
+ModuleElement.
+getEnclosingElement
+()
+Returns
+null
+since a module is not enclosed by another
+ element.
+Element
+PackageElement.
+getEnclosingElement
+()
+Returns the enclosing module if such a module exists; otherwise
+null
+.
+Element
+RecordComponentElement.
+getEnclosingElement
+()
+Returns the enclosing element of this record component.
+Element
+TypeElement.
+getEnclosingElement
+()
+Returns the package of a top-level class or interface and
+ returns the immediately lexically enclosing element for a
+nested
+class or interface.
+Element
+TypeParameterElement.
+getEnclosingElement
+()
+Returns the
+generic element
+of this type parameter.
+Element
+VariableElement.
+getEnclosingElement
+()
+Returns the enclosing element of this variable.
+Element
+TypeParameterElement.
+getGenericElement
+()
+Returns the generic class, interface, method, or constructor that is
+ parameterized by this type parameter.
+Element
+UnknownElementException.
+getUnknownElement
+()
+Returns the unknown element.
+Methods in
+javax.lang.model.element
+that return types with arguments of type
+Element
+Modifier and Type
+Method
+Description
+List
+<? extends
+Element
+>
+Element.
+getEnclosedElements
+()
+Returns the elements that are, loosely speaking, directly
+ enclosed by this element.
+List
+<? extends
+Element
+>
+ModuleElement.
+getEnclosedElements
+()
+Returns the packages within this module.
+List
+<? extends
+Element
+>
+PackageElement.
+getEnclosedElements
+()
+Returns the
+top-level
+classes and interfaces within this package.
+List
+<? extends
+Element
+>
+TypeElement.
+getEnclosedElements
+()
+Returns the fields, methods, constructors, record components,
+ and member classes and interfaces that are directly declared in
+ this class or interface.
+Methods in
+javax.lang.model.element
+with parameters of type
+Element
+Modifier and Type
+Method
+Description
+default
+R
+ElementVisitor.
+visit
+(
+Element
+e)
+A convenience method equivalent to
+visit(e, null)
+.
+R
+ElementVisitor.
+visit
+(
+Element
+e,
+P
+p)
+Visits an element.
+R
+ElementVisitor.
+visitUnknown
+(
+Element
+e,
+P
+p)
+Visits an unknown kind of element.
+Constructors in
+javax.lang.model.element
+with parameters of type
+Element
+Modifier
+Constructor
+Description
+UnknownElementException
+(
+Element
+e,
+Object
+p)
+Creates a new
+UnknownElementException
+.
+Uses of
+Element
+in
+javax.lang.model.type
+Methods in
+javax.lang.model.type
+that return
+Element
+Modifier and Type
+Method
+Description
+Element
+DeclaredType.
+asElement
+()
+Returns the element corresponding to this type.
+Element
+TypeVariable.
+asElement
+()
+Returns the element corresponding to this type variable.
+Uses of
+Element
+in
+javax.lang.model.util
+Methods in
+javax.lang.model.util
+that return
+Element
+Modifier and Type
+Method
+Description
+Element
+Types.
+asElement
+(
+TypeMirror
+t)
+Returns the element corresponding to a type.
+Methods in
+javax.lang.model.util
+that return types with arguments of type
+Element
+Modifier and Type
+Method
+Description
+List
+<? extends
+Element
+>
+Elements.
+getAllMembers
+(
+TypeElement
+type)
+Returns all members of a type element, whether inherited or
+ declared directly.
+Methods in
+javax.lang.model.util
+with parameters of type
+Element
+Modifier and Type
+Method
+Description
+TypeMirror
+Types.
+asMemberOf
+(
+DeclaredType
+containing,
+Element
+element)
+Returns the type of an element when that element is viewed as
+ a member of, or otherwise directly contained by, a given type.
+protected
+R
+SimpleElementVisitor6.
+defaultAction
+(
+Element
+e,
+P
+p)
+The default action for visit methods.
+List
+<? extends
+AnnotationMirror
+>
+Elements.
+getAllAnnotationMirrors
+(
+Element
+e)
+Returns all annotations
+present
+on an element, whether
+ directly present or present via inheritance.
+String
+Elements.
+getDocComment
+(
+Element
+e)
+Returns the text of the documentation ("Javadoc")
+ comment of an element.
+default
+JavaFileObject
+Elements.
+getFileObjectOf
+(
+Element
+e)
+Returns the file object for this element or
+null
+if
+ there is no such file object.
+default
+ModuleElement
+Elements.
+getModuleOf
+(
+Element
+e)
+Returns the module of an element.
+default
+Elements.Origin
+Elements.
+getOrigin
+(
+Element
+e)
+Returns the
+origin
+of the given element.
+default
+TypeElement
+Elements.
+getOutermostTypeElement
+(
+Element
+e)
+Returns the outermost type element an element is contained in
+ if such a containing element exists; otherwise returns
+null
+.
+PackageElement
+Elements.
+getPackageOf
+(
+Element
+e)
+Returns the package of an element.
+boolean
+Elements.
+hides
+(
+Element
+hider,
+Element
+hidden)
+Tests whether one type, method, or field hides another.
+boolean
+Elements.
+isDeprecated
+(
+Element
+e)
+Returns
+true
+if the element is deprecated,
+false
+otherwise.
+void
+Elements.
+printElements
+(
+Writer
+w,
+Element
+... elements)
+Prints a representation of the elements to the given writer in
+ the specified order.
+final
+R
+ElementScanner6.
+scan
+(
+Element
+e)
+Convenience method equivalent to
+v.scan(e, null)
+.
+R
+ElementScanner6.
+scan
+(
+Element
+e,
+P
+p)
+Processes an element by calling
+e.accept(this, p)
+;
+ this method may be overridden by subclasses.
+final
+R
+AbstractElementVisitor6.
+visit
+(
+Element
+e)
+Visits any program element as if by passing itself to that
+ element's
+accept
+method and passing
+null
+for the additional parameter.
+final
+R
+AbstractElementVisitor6.
+visit
+(
+Element
+e,
+P
+p)
+Visits any program element as if by passing itself to that
+ element's
+accept
+method.
+R
+AbstractElementVisitor6.
+visitUnknown
+(
+Element
+e,
+P
+p)
+Visits an unknown kind of element.
+Method parameters in
+javax.lang.model.util
+with type arguments of type
+Element
+Modifier and Type
+Method
+Description
+static
+List
+<
+ExecutableElement
+>
+ElementFilter.
+constructorsIn
+(
+Iterable
+<? extends
+Element
+> elements)
+Returns a list of constructors in
+elements
+.
+static
+Set
+<
+ExecutableElement
+>
+ElementFilter.
+constructorsIn
+(
+Set
+<? extends
+Element
+> elements)
+Returns a set of constructors in
+elements
+.
+static
+List
+<
+VariableElement
+>
+ElementFilter.
+fieldsIn
+(
+Iterable
+<? extends
+Element
+> elements)
+Returns a list of fields in
+elements
+.
+static
+Set
+<
+VariableElement
+>
+ElementFilter.
+fieldsIn
+(
+Set
+<? extends
+Element
+> elements)
+Returns a set of fields in
+elements
+.
+static
+List
+<
+ExecutableElement
+>
+ElementFilter.
+methodsIn
+(
+Iterable
+<? extends
+Element
+> elements)
+Returns a list of methods in
+elements
+.
+static
+Set
+<
+ExecutableElement
+>
+ElementFilter.
+methodsIn
+(
+Set
+<? extends
+Element
+> elements)
+Returns a set of methods in
+elements
+.
+static
+List
+<
+ModuleElement
+>
+ElementFilter.
+modulesIn
+(
+Iterable
+<? extends
+Element
+> elements)
+Returns a list of modules in
+elements
+.
+static
+Set
+<
+ModuleElement
+>
+ElementFilter.
+modulesIn
+(
+Set
+<? extends
+Element
+> elements)
+Returns a set of modules in
+elements
+.
+static
+List
+<
+PackageElement
+>
+ElementFilter.
+packagesIn
+(
+Iterable
+<? extends
+Element
+> elements)
+Returns a list of packages in
+elements
+.
+static
+Set
+<
+PackageElement
+>
+ElementFilter.
+packagesIn
+(
+Set
+<? extends
+Element
+> elements)
+Returns a set of packages in
+elements
+.
+static
+List
+<
+RecordComponentElement
+>
+ElementFilter.
+recordComponentsIn
+(
+Iterable
+<? extends
+Element
+> elements)
+Returns a list of record components in
+elements
+.
+static
+Set
+<
+RecordComponentElement
+>
+ElementFilter.
+recordComponentsIn
+(
+Set
+<? extends
+Element
+> elements)
+Returns a set of record components in
+elements
+.
+final
+R
+ElementScanner6.
+scan
+(
+Iterable
+<? extends
+Element
+> iterable,
+P
+p)
+Iterates over the given elements and calls
+scan(Element, P)
+on each one.
+static
+List
+<
+TypeElement
+>
+ElementFilter.
+typesIn
+(
+Iterable
+<? extends
+Element
+> elements)
+Returns a list of classes and interfaces in
+elements
+.
+static
+Set
+<
+TypeElement
+>
+ElementFilter.
+typesIn
+(
+Set
+<? extends
+Element
+> elements)
+Returns a set of types in
+elements
+.
+Uses of
+Element
+in
+jdk.javadoc.doclet
+Methods in
+jdk.javadoc.doclet
+that return types with arguments of type
+Element
+Modifier and Type
+Method
+Description
+Set
+<? extends
+Element
+>
+DocletEnvironment.
+getIncludedElements
+()
+Returns the module, package and type elements that should be
+included
+in the
+ documentation.
+Set
+<? extends
+Element
+>
+DocletEnvironment.
+getSpecifiedElements
+()
+Returns the elements
+specified
+when the tool is invoked.
+Methods in
+jdk.javadoc.doclet
+with parameters of type
+Element
+Modifier and Type
+Method
+Description
+boolean
+DocletEnvironment.
+isIncluded
+(
+Element
+e)
+Returns true if an element should be
+included
+in the
+ documentation.
+boolean
+DocletEnvironment.
+isSelected
+(
+Element
+e)
+Returns true if the element is
+selected
+.
+void
+Reporter.
+print
+(
+Diagnostic.Kind
+kind,
+Element
+element,
+String
+message)
+Prints a diagnostic message related to an element.
+String
+Taglet.
+toString
+(
+List
+<? extends
+DocTree
+> tags,
+Element
+element)
+Returns the string representation of a series of instances of
+ this tag to be included in the generated output.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

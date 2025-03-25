@@ -1,0 +1,361 @@
+RemoteExecutionControl (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.jshell
+Package
+jdk.jshell.execution
+Class RemoteExecutionControl
+java.lang.Object
+jdk.jshell.execution.DirectExecutionControl
+jdk.jshell.execution.RemoteExecutionControl
+All Implemented Interfaces:
+AutoCloseable
+,
+ExecutionControl
+public class
+RemoteExecutionControl
+extends
+DirectExecutionControl
+implements
+ExecutionControl
+The remote agent runs in the execution process (separate from the main JShell
+ process). This agent loads code over a socket from the main JShell process,
+ executes the code, and other misc, Specialization of
+DirectExecutionControl
+which adds stop support controlled by
+ an external process. Designed to work with
+JdiDefaultExecutionControl
+.
+Since:
+9
+Nested Class Summary
+Nested classes/interfaces declared in interface jdk.jshell.spi.
+ExecutionControl
+ExecutionControl.ClassBytecodes
+,
+ExecutionControl.ClassInstallException
+,
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.ExecutionControlException
+,
+ExecutionControl.InternalException
+,
+ExecutionControl.NotImplementedException
+,
+ExecutionControl.ResolutionException
+,
+ExecutionControl.RunException
+,
+ExecutionControl.StoppedException
+,
+ExecutionControl.UserException
+Constructor Summary
+Constructors
+Constructor
+Description
+RemoteExecutionControl
+()
+Create an instance using the default class loading.
+RemoteExecutionControl
+(
+LoaderDelegate
+loaderDelegate)
+Creates an instance, delegating loader operations to the specified
+ delegate.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+protected void
+clientCodeEnter
+()
+Marks entry into user code.
+static void
+main
+(
+String
+[] args)
+Launch the agent, connecting to the JShell-core over the socket specified
+ in the command-line argument.
+void
+redefine
+(
+ExecutionControl.ClassBytecodes
+[] cbcs)
+Redefine processing on the remote end is only to register the redefined classes
+void
+stop
+()
+Interrupts a running invoke.
+String
+varValue
+(
+String
+className,
+String
+varName)
+Returns the value of a variable.
+Methods declared in class jdk.jshell.execution.
+DirectExecutionControl
+addToClasspath
+,
+classesRedefined
+,
+clientCodeLeave
+,
+close
+,
+extensionCommand
+,
+findClass
+,
+invoke
+,
+invoke
+,
+load
+,
+stop
+,
+throwConvertedInvocationException
+,
+throwConvertedOtherException
+,
+valueString
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface jdk.jshell.spi.
+ExecutionControl
+addToClasspath
+,
+close
+,
+extensionCommand
+,
+invoke
+,
+load
+Constructor Details
+RemoteExecutionControl
+public
+RemoteExecutionControl
+(
+LoaderDelegate
+loaderDelegate)
+Creates an instance, delegating loader operations to the specified
+ delegate.
+Parameters:
+loaderDelegate
+- the delegate to handle loading classes
+RemoteExecutionControl
+public
+RemoteExecutionControl
+()
+Create an instance using the default class loading.
+Method Details
+main
+public static
+void
+main
+(
+String
+[] args)
+throws
+Exception
+Launch the agent, connecting to the JShell-core over the socket specified
+ in the command-line argument.
+Parameters:
+args
+- standard command-line arguments, expectation is the socket
+ number is the only argument
+Throws:
+Exception
+- any unexpected exception
+redefine
+public
+void
+redefine
+(
+ExecutionControl.ClassBytecodes
+[] cbcs)
+throws
+ExecutionControl.ClassInstallException
+,
+ExecutionControl.NotImplementedException
+,
+ExecutionControl.EngineTerminationException
+Redefine processing on the remote end is only to register the redefined classes
+Specified by:
+redefine
+in interface
+ExecutionControl
+Parameters:
+cbcs
+- the class name and bytecodes to redefine
+Throws:
+ExecutionControl.ClassInstallException
+- exception occurred redefining the classes,
+ some or all were not redefined
+ExecutionControl.NotImplementedException
+- if not implemented
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+stop
+public
+void
+stop
+()
+          throws
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.InternalException
+Description copied from class:
+DirectExecutionControl
+Interrupts a running invoke.
+Not supported.
+Specified by:
+stop
+in interface
+ExecutionControl
+Overrides:
+stop
+in class
+DirectExecutionControl
+Throws:
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+ExecutionControl.InternalException
+- an internal problem occurred
+varValue
+public
+String
+varValue
+(
+String
+className,
+String
+varName)
+throws
+ExecutionControl.RunException
+,
+ExecutionControl.EngineTerminationException
+,
+ExecutionControl.InternalException
+Description copied from interface:
+ExecutionControl
+Returns the value of a variable.
+Specified by:
+varValue
+in interface
+ExecutionControl
+Overrides:
+varValue
+in class
+DirectExecutionControl
+Parameters:
+className
+- the name of the wrapper class of the variable
+varName
+- the name of the variable
+Returns:
+the value of the variable
+Throws:
+ExecutionControl.UserException
+- formatting the value raised a user exception
+ExecutionControl.ResolutionException
+- formatting the value attempted to directly or
+ indirectly invoke an unresolved snippet
+ExecutionControl.StoppedException
+- if the formatting the value was canceled by
+ExecutionControl.stop()
+ExecutionControl.EngineTerminationException
+- the execution engine has terminated
+ExecutionControl.InternalException
+- an internal problem occurred
+ExecutionControl.RunException
+clientCodeEnter
+protected
+void
+clientCodeEnter
+()
+Description copied from class:
+DirectExecutionControl
+Marks entry into user code.
+Overrides:
+clientCodeEnter
+in class
+DirectExecutionControl
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

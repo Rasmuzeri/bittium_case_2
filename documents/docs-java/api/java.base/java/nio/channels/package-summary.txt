@@ -1,0 +1,628 @@
+java.nio.channels (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages
+|
+Classes and Interfaces
+SEARCH
+Module
+java.base
+Package java.nio.channels
+package
+java.nio.channels
+Defines channels, which represent connections to entities that are capable of
+ performing I/O operations, such as files and sockets; defines selectors, for
+ multiplexed, non-blocking I/O operations.
+Lists channels and their descriptions
+Channels
+Description
+Channel
+A nexus for I/O operations
+ReadableByteChannel
+Can read into a buffer
+ScatteringByteChannel
+Can read into a sequence of buffers
+WritableByteChannel
+Can write from a buffer
+GatheringByteChannel
+Can write from a sequence of buffers
+ByteChannel
+Can read/write to/from a buffer
+SeekableByteChannel
+A
+ByteChannel
+connected to an entity that contains a variable-length
+         sequence of bytes
+AsynchronousChannel
+Supports asynchronous I/O operations.
+AsynchronousByteChannel
+Can read and write bytes asynchronously
+NetworkChannel
+A channel to a network socket
+MulticastChannel
+Can join Internet Protocol (IP) multicast groups
+Channels
+Utility methods for channel/stream interoperation
+A
+channel
+represents an open connection to an entity such as a
+ hardware device, a file, a network socket, or a program component that is
+ capable of performing one or more distinct I/O operations, for example reading
+ or writing.  As specified in the
+Channel
+interface,
+ channels are either open or closed, and they are both
+asynchronously
+ closeable
+and
+interruptible
+.
+The
+Channel
+interface is extended by several
+ other interfaces.
+The
+ReadableByteChannel
+interface specifies a
+read
+method that reads bytes
+ from the channel into a buffer; similarly, the
+WritableByteChannel
+interface specifies a
+write
+method that writes bytes
+ from a buffer to the channel. The
+ByteChannel
+interface unifies these two interfaces for the common case of channels that can
+ both read and write bytes. The
+SeekableByteChannel
+interface extends the
+ByteChannel
+interface with methods to
+query
+and
+modify
+the channel's
+ current position, and its
+size
+.
+The
+ScatteringByteChannel
+and
+GatheringByteChannel
+interfaces extend the
+ReadableByteChannel
+and
+WritableByteChannel
+interfaces, respectively, adding
+read
+and
+write
+methods that take a
+ sequence of buffers rather than a single buffer.
+The
+NetworkChannel
+interface specifies methods
+ to
+bind
+the channel's socket,
+ obtain the address to which the socket is bound, and methods to
+get
+and
+set
+socket options. The
+MulticastChannel
+interface specifies methods to join
+ Internet Protocol (IP) multicast groups.
+The
+Channels
+utility class defines static methods
+ that support the interoperation of the stream classes of the
+java.io
+package with the channel classes of this package.  An appropriate
+ channel can be constructed from an
+InputStream
+or an
+OutputStream
+, and conversely an
+InputStream
+or an
+OutputStream
+can be constructed from a channel.  A
+Reader
+can be constructed that uses a given charset to decode bytes
+ from a given readable byte channel, and conversely a
+Writer
+can
+ be constructed that uses a given charset to encode characters into bytes and
+ write them to a given writable byte channel.
+Lists file channels and their descriptions
+File channels
+Description
+FileChannel
+Reads, writes, maps, and manipulates files
+FileLock
+A lock on a (region of a) file
+MappedByteBuffer
+A direct byte buffer mapped to a region of a file
+The
+FileChannel
+class supports the usual
+ operations of reading bytes from, and writing bytes to, a channel connected to
+ a file, as well as those of querying and modifying the current file position
+ and truncating the file to a specific size.  It defines methods for acquiring
+ locks on the whole file or on a specific region of a file; these methods return
+ instances of the
+FileLock
+class.  Finally, it defines
+ methods for forcing updates to the file to be written to the storage device that
+ contains it, for efficiently transferring bytes between the file and other
+ channels, and for mapping a region of the file directly into memory.
+A
+FileChannel
+is created by invoking one of its static
+open
+methods, or by invoking the
+getChannel
+method of a
+FileInputStream
+,
+FileOutputStream
+, or
+RandomAccessFile
+to return a
+ file channel connected to the same underlying file as the
+java.io
+class.
+Lists multiplexed, non-blocking channels and their descriptions
+Multiplexed, non-blocking I/O
+Description
+SelectableChannel
+A channel that can be multiplexed
+DatagramChannel
+A channel to a datagram-oriented socket
+Pipe.SinkChannel
+The write end of a pipe
+Pipe.SourceChannel
+The read end of a pipe
+ServerSocketChannel
+A channel to a stream-oriented listening socket
+SocketChannel
+A channel for a stream-oriented connecting socket
+Selector
+A multiplexor of selectable channels
+SelectionKey
+A token representing the registration of a channel
+     with a selector
+Pipe
+Two channels that form a unidirectional pipe
+Multiplexed, non-blocking I/O, which is much more scalable than
+ thread-oriented, blocking I/O, is provided by
+selectors
+,
+selectable
+ channels
+, and
+selection keys
+.
+A
+selector
+is a multiplexor of
+selectable channels
+, which in turn are
+ a special type of channel that can be put into
+non-blocking mode
+.  To perform
+ multiplexed I/O operations, one or more selectable channels are first created,
+ put into non-blocking mode, and
+registered
+with a selector.  Registering a channel specifies the set of I/O operations
+ that will be tested for readiness by the selector, and returns a
+selection key
+that represents the
+ registration.
+Once some channels have been registered with a selector, a
+selection operation
+can be performed in
+ order to discover which channels, if any, have become ready to perform one or
+ more of the operations in which interest was previously declared.  If a channel
+ is ready then the key returned when it was registered will be added to the
+ selector's
+selected-key set
+.  The key set, and the keys within it, can
+ be examined in order to determine the operations for which each channel is
+ ready.  From each key one can retrieve the corresponding channel in order to
+ perform whatever I/O operations are required.
+That a selection key indicates that its channel is ready for some operation
+ is a hint, but not a guarantee, that such an operation can be performed by a
+ thread without causing the thread to block.  It is imperative that code that
+ performs multiplexed I/O be written so as to ignore these hints when they prove
+ to be incorrect.
+This package defines selectable-channel classes corresponding to the
+DatagramSocket
+,
+ServerSocket
+, and
+Socket
+classes defined in the
+java.net
+package.
+ Minor changes to these classes have been made in order to support sockets that
+ are associated with channels.  This package also defines a simple class that
+ implements unidirectional pipes.  In all cases, a new selectable channel is
+ created by invoking the static
+open
+method of the corresponding class.
+ If a channel needs an associated socket then a socket will be created as a side
+ effect of this operation.
+DatagramChannel
+,
+SocketChannel
+and
+ServerSocketChannel
+s can be created
+ with different
+protocol families
+. The standard
+ family types are specified in
+StandardProtocolFamily
+.
+Channels for
+Internet Protocol
+sockets are created using the
+INET
+or
+INET6
+protocol families.
+Internet
+ Protocol
+sockets support network communication using TCP and UDP and are
+ addressed using
+InetSocketAddress
+es which encapsulate an IP
+ address and port number.
+Internet Protocol
+sockets are also the default
+ type created, when a protocol family is not specified in the channel factory
+ creation method.
+Channels for
+Unix Domain
+sockets are created
+ using the
+UNIX
+protocol family.
+Unix Domain
+sockets support local inter-process
+ communication on the same host, and are addressed using
+UnixDomainSocketAddress
+es which encapsulate a filesystem pathname
+ on the local system.
+The implementation of selectors, selectable channels, and selection keys
+ can be replaced by "plugging in" an alternative definition or instance of the
+SelectorProvider
+class defined in the
+java.nio.channels.spi
+package.  It is not expected that many developers
+ will actually make use of this facility; it is provided primarily so that
+ sophisticated users can take advantage of operating-system-specific
+ I/O-multiplexing mechanisms when very high performance is required.
+Much of the bookkeeping and synchronization required to implement the
+ multiplexed-I/O abstractions is performed by the
+AbstractInterruptibleChannel
+,
+AbstractSelectableChannel
+,
+AbstractSelectionKey
+, and
+AbstractSelector
+classes in the
+java.nio.channels.spi
+package.  When defining a custom selector provider,
+ only the
+AbstractSelector
+and
+AbstractSelectionKey
+classes should be subclassed
+ directly; custom channel classes should extend the appropriate
+SelectableChannel
+subclasses defined in this package.
+Lists asynchronous channels and their descriptions
+Asynchronous I/O
+Description
+AsynchronousFileChannel
+An asynchronous channel for reading, writing, and manipulating a file
+AsynchronousSocketChannel
+An asynchronous channel to a stream-oriented connecting socket
+AsynchronousServerSocketChannel
+An asynchronous channel to a stream-oriented listening socket
+CompletionHandler
+A handler for consuming the result of an asynchronous operation
+AsynchronousChannelGroup
+A grouping of asynchronous channels for the purpose of resource sharing
+Asynchronous channels
+are a
+ special type of channel capable of asynchronous I/O operations. Asynchronous
+ channels are non-blocking and define methods to initiate asynchronous
+ operations, returning a
+Future
+representing the
+ pending result of each operation. The
+Future
+can be used to poll or
+ wait for the result of the operation. Asynchronous I/O operations can also
+ specify a
+CompletionHandler
+to invoke when the
+ operation completes. A completion handler is user provided code that is executed
+ to consume the result of I/O operation.
+This package defines asynchronous-channel classes that are connected to
+ a stream-oriented connecting or listening socket, or a datagram-oriented socket.
+ It also defines the
+AsynchronousFileChannel
+class
+ for asynchronous reading, writing, and manipulating a file. As with the
+FileChannel
+it supports operations to truncate the file
+ to a specific size, force updates to the file to be written to the storage
+ device, or acquire locks on the whole file or on a specific region of the file.
+ Unlike the
+FileChannel
+it does not define methods for mapping a
+ region of the file directly into memory. Where memory mapped I/O is required,
+ then a
+FileChannel
+can be used.
+Asynchronous channels are bound to an asynchronous channel group for the
+ purpose of resource sharing. A group has an associated
+ExecutorService
+to which tasks are submitted to handle
+ I/O events and dispatch to completion handlers that consume the result of
+ asynchronous operations performed on channels in the group. The group can
+ optionally be specified when creating the channel or the channel can be bound
+ to a
+default group
+. Sophisticated users may wish to create their
+ own asynchronous channel groups or configure the
+ExecutorService
+that will be used for the default group.
+As with selectors, the implementation of asynchronous channels can be
+ replaced by "plugging in" an alternative definition or instance of the
+AsynchronousChannelProvider
+class defined in the
+java.nio.channels.spi
+package.  It is not expected that many
+ developers will actually make use of this facility; it is provided primarily
+ so that sophisticated users can take advantage of operating-system-specific
+ asynchronous I/O mechanisms when very high performance is required.
+Unless otherwise noted, passing a
+null
+argument to a constructor
+ or method in any class or interface in this package will cause a
+NullPointerException
+to be thrown.
+Since:
+1.4
+Related Packages
+Package
+Description
+java.nio
+Defines buffers, which are containers for data, and provides an
+ overview of the other NIO packages.
+java.nio.channels.spi
+Service-provider classes for the
+java.nio.channels
+package.
+java.nio.charset
+Defines charsets, decoders, and encoders, for translating between
+ bytes and Unicode characters.
+java.nio.file
+Defines interfaces and classes for the Java virtual machine to access files,
+ file attributes, and file systems.
+All Classes and Interfaces
+Interfaces
+Classes
+Exception Classes
+Class
+Description
+AcceptPendingException
+Unchecked exception thrown when an attempt is made to initiate an accept
+ operation on a channel and a previous accept operation has not completed.
+AlreadyBoundException
+Unchecked exception thrown when an attempt is made to bind the socket a
+ network oriented channel that is already bound.
+AlreadyConnectedException
+Unchecked exception thrown when an attempt is made to connect a
+SocketChannel
+that is already connected.
+AsynchronousByteChannel
+An asynchronous channel that can read and write bytes.
+AsynchronousChannel
+A channel that supports asynchronous I/O operations.
+AsynchronousChannelGroup
+A grouping of asynchronous channels for the purpose of resource sharing.
+AsynchronousCloseException
+Checked exception received by a thread when another thread closes the
+ channel or the part of the channel upon which it is blocked in an I/O
+ operation.
+AsynchronousFileChannel
+An asynchronous channel for reading, writing, and manipulating a file.
+AsynchronousServerSocketChannel
+An asynchronous channel for stream-oriented listening sockets.
+AsynchronousSocketChannel
+An asynchronous channel for stream-oriented connecting sockets.
+ByteChannel
+A channel that can read and write bytes.
+CancelledKeyException
+Unchecked exception thrown when an attempt is made to use
+ a selection key that is no longer valid.
+Channel
+A nexus for I/O operations.
+Channels
+Utility methods for channels and streams.
+ClosedByInterruptException
+Checked exception received by a thread when another thread interrupts it
+ while it is blocked in an I/O operation upon a channel.
+ClosedChannelException
+Checked exception thrown when an attempt is made to invoke or complete an
+ I/O operation upon channel that is closed, or at least closed to that
+ operation.
+ClosedSelectorException
+Unchecked exception thrown when an attempt is made to invoke an I/O
+ operation upon a closed selector.
+CompletionHandler
+<V,
+A>
+A handler for consuming the result of an asynchronous I/O operation.
+ConnectionPendingException
+Unchecked exception thrown when an attempt is made to connect a
+SocketChannel
+for which a non-blocking connection operation is already in
+ progress.
+DatagramChannel
+A selectable channel for datagram-oriented sockets.
+FileChannel
+A channel for reading, writing, mapping, and manipulating a file.
+FileChannel.MapMode
+A file-mapping mode.
+FileLock
+A token representing a lock on a region of a file.
+FileLockInterruptionException
+Checked exception received by a thread when another thread interrupts it
+ while it is waiting to acquire a file lock.
+GatheringByteChannel
+A channel that can write bytes from a sequence of buffers.
+IllegalBlockingModeException
+Unchecked exception thrown when a blocking-mode-specific operation
+ is invoked upon a channel in the incorrect blocking mode.
+IllegalChannelGroupException
+Unchecked exception thrown when an attempt is made to open a channel
+ in a group that was not created by the same provider.
+IllegalSelectorException
+Unchecked exception thrown when an attempt is made to register a channel
+ with a selector that was not created by the provider that created the
+ channel.
+InterruptedByTimeoutException
+Checked exception received by a thread when a timeout elapses before an
+ asynchronous operation completes.
+InterruptibleChannel
+A channel that can be asynchronously closed and interrupted.
+MembershipKey
+A token representing the membership of an Internet Protocol (IP) multicast
+ group.
+MulticastChannel
+A network channel that supports Internet Protocol (IP) multicasting.
+NetworkChannel
+A channel to a network socket.
+NoConnectionPendingException
+Unchecked exception thrown when the
+finishConnect
+method of a
+SocketChannel
+is invoked without first
+ successfully invoking its
+connect
+method.
+NonReadableChannelException
+Unchecked exception thrown when an attempt is made to read
+ from a channel that was not originally opened for reading.
+NonWritableChannelException
+Unchecked exception thrown when an attempt is made to write
+ to a channel that was not originally opened for writing.
+NotYetBoundException
+Unchecked exception thrown when an attempt is made to invoke an I/O
+ operation upon a server socket channel that is not yet bound.
+NotYetConnectedException
+Unchecked exception thrown when an attempt is made to invoke an I/O
+ operation upon a socket channel that is not yet connected.
+OverlappingFileLockException
+Unchecked exception thrown when an attempt is made to acquire a lock on a
+ region of a file that overlaps a region already locked by the same Java
+ virtual machine, or when another thread is already waiting to lock an
+ overlapping region of the same file.
+Pipe
+A pair of channels that implements a unidirectional pipe.
+Pipe.SinkChannel
+A channel representing the writable end of a
+Pipe
+.
+Pipe.SourceChannel
+A channel representing the readable end of a
+Pipe
+.
+ReadableByteChannel
+A channel that can read bytes.
+ReadPendingException
+Unchecked exception thrown when an attempt is made to read from an
+ asynchronous socket channel and a previous read has not completed.
+ScatteringByteChannel
+A channel that can read bytes into a sequence of buffers.
+SeekableByteChannel
+A byte channel that maintains a current
+position
+and allows the
+ position to be changed.
+SelectableChannel
+A channel that can be multiplexed via a
+Selector
+.
+SelectionKey
+A token representing the registration of a
+SelectableChannel
+with a
+Selector
+.
+Selector
+A multiplexor of
+SelectableChannel
+objects.
+ServerSocketChannel
+A selectable channel for stream-oriented listening sockets.
+ShutdownChannelGroupException
+Unchecked exception thrown when an attempt is made to construct a channel in 
+ a group that is shutdown or the completion handler for an I/O operation 
+ cannot be invoked because the channel group has terminated.
+SocketChannel
+A selectable channel for stream-oriented connecting sockets.
+UnresolvedAddressException
+Unchecked exception thrown when an attempt is made to invoke a network
+ operation upon an unresolved socket address.
+UnsupportedAddressTypeException
+Unchecked exception thrown when an attempt is made to bind or connect
+ to a socket address of a type that is not supported.
+WritableByteChannel
+A channel that can write bytes.
+WritePendingException
+Unchecked exception thrown when an attempt is made to write to an
+ asynchronous socket channel and a previous write has not completed.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

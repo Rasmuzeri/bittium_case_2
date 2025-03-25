@@ -1,0 +1,330 @@
+TypeInfoProvider (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.xml
+Package
+javax.xml.validation
+Class TypeInfoProvider
+java.lang.Object
+javax.xml.validation.TypeInfoProvider
+public abstract class
+TypeInfoProvider
+extends
+Object
+This class provides access to the type information determined
+ by
+ValidatorHandler
+.
+Some schema languages, such as W3C XML Schema, encourages a validator
+ to report the "type" it assigns to each attribute/element.
+ Those applications who wish to access this type information can invoke
+ methods defined on this "interface" to access such type information.
+Implementation of this "interface" can be obtained through the
+ValidatorHandler.getTypeInfoProvider()
+method.
+Since:
+1.5
+See Also:
+TypeInfo
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+TypeInfoProvider
+()
+Constructor for the derived class.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+abstract
+TypeInfo
+getAttributeTypeInfo
+(int index)
+Returns the immutable
+TypeInfo
+object for the specified
+ attribute of the current element.
+abstract
+TypeInfo
+getElementTypeInfo
+()
+Returns the immutable
+TypeInfo
+object for the current
+ element.
+abstract boolean
+isIdAttribute
+(int index)
+Returns
+true
+if the specified attribute is determined
+ to be ID.
+abstract boolean
+isSpecified
+(int index)
+Returns
+false
+if the attribute was added by the validator.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+TypeInfoProvider
+protected
+TypeInfoProvider
+()
+Constructor for the derived class.
+The constructor does nothing.
+Method Details
+getElementTypeInfo
+public abstract
+TypeInfo
+getElementTypeInfo
+()
+Returns the immutable
+TypeInfo
+object for the current
+ element.
+The method may only be called by the startElement event
+ or the endElement event
+ of the
+ContentHandler
+that the application sets to
+ the
+ValidatorHandler
+.
+When W3C XML Schema validation is being performed, in the
+ case where an element has a union type, the
+TypeInfo
+returned by a call to
+getElementTypeInfo()
+from the
+ startElement
+ event will be the union type. The
+TypeInfo
+returned by a call
+ from the endElement event will be the actual member type used
+ to validate the element.
+Returns:
+An immutable
+TypeInfo
+object that represents the
+      type of the current element.
+      Note that the caller can keep references to the obtained
+TypeInfo
+longer than the callback scope.
+
+      Otherwise, this method returns
+      null if the validator is unable to
+      determine the type of the current element for some reason
+      (for example, if the validator is recovering from
+      an earlier error.)
+Throws:
+IllegalStateException
+- If this method is called from other
+ContentHandler
+methods.
+getAttributeTypeInfo
+public abstract
+TypeInfo
+getAttributeTypeInfo
+(int index)
+Returns the immutable
+TypeInfo
+object for the specified
+ attribute of the current element.
+The method may only be called by the startElement event of
+ the
+ContentHandler
+that the application sets to the
+ValidatorHandler
+.
+Parameters:
+index
+- The index of the attribute. The same index for
+      the
+Attributes
+object passed to the
+startElement
+callback.
+Returns:
+An immutable
+TypeInfo
+object that represents the
+      type of the specified attribute.
+      Note that the caller can keep references to the obtained
+TypeInfo
+longer than the callback scope.
+
+      Otherwise, this method returns
+      null if the validator is unable to
+      determine the type.
+Throws:
+IndexOutOfBoundsException
+- If the index is invalid.
+IllegalStateException
+- If this method is called from other
+ContentHandler
+methods.
+isIdAttribute
+public abstract
+boolean
+isIdAttribute
+(int index)
+Returns
+true
+if the specified attribute is determined
+ to be ID.
+Exactly how an attribute is "determined to be ID" is up to the
+ schema language. In case of W3C XML Schema, this means
+ that the actual type of the attribute is the built-in ID type
+ or its derived type.
+A
+DocumentBuilder
+uses this information
+ to properly implement
+Attr.isId()
+.
+The method may only be called by the startElement event of
+ the
+ContentHandler
+that the application sets to the
+ValidatorHandler
+.
+Parameters:
+index
+- The index of the attribute. The same index for
+      the
+Attributes
+object passed to the
+startElement
+callback.
+Returns:
+true
+      if the type of the specified attribute is ID.
+Throws:
+IndexOutOfBoundsException
+- If the index is invalid.
+IllegalStateException
+- If this method is called from other
+ContentHandler
+methods.
+isSpecified
+public abstract
+boolean
+isSpecified
+(int index)
+Returns
+false
+if the attribute was added by the validator.
+This method provides information necessary for
+ a
+DocumentBuilder
+to determine what
+ the DOM tree should return from the
+Attr.getSpecified()
+method.
+The method may only be called by the startElement event of
+ the
+ContentHandler
+that the application sets to the
+ValidatorHandler
+.
+A general guideline for validators is to return true if
+ the attribute was originally present in the pipeline, and
+ false if it was added by the validator.
+Parameters:
+index
+- The index of the attribute. The same index for
+      the
+Attributes
+object passed to the
+startElement
+callback.
+Returns:
+true
+if the attribute was present before the validator
+      processes input.
+false
+if the attribute was added
+      by the validator.
+Throws:
+IndexOutOfBoundsException
+- If the index is invalid.
+IllegalStateException
+- If this method is called from other
+ContentHandler
+methods.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

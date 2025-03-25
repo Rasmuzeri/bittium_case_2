@@ -1,0 +1,297 @@
+ProxySelector (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.net
+Class ProxySelector
+java.lang.Object
+java.net.ProxySelector
+public abstract class
+ProxySelector
+extends
+Object
+Selects the proxy server to use, if any, when connecting to the
+ network resource referenced by a URL. A proxy selector is a
+ concrete sub-class of this class and is registered by invoking the
+setDefault
+method. The
+ currently registered proxy selector can be retrieved by calling
+getDefault
+method.
+When a proxy selector is registered, for instance, a subclass
+ of URLConnection class should call the
+select
+method for each URL request so that the proxy selector can decide
+ if a direct, or proxied connection should be used. The
+select
+method returns an iterator over a collection with
+ the preferred connection approach.
+If a connection cannot be established to a proxy (PROXY or
+ SOCKS) servers then the caller should call the proxy selector's
+connectFailed
+method to notify the proxy
+ selector that the proxy server is unavailable.
+The default proxy selector does enforce a
+set of System Properties
+related to proxy settings.
+Since:
+1.5
+Constructor Summary
+Constructors
+Constructor
+Description
+ProxySelector
+()
+Constructor for subclasses to call.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+abstract void
+connectFailed
+(
+URI
+uri,
+SocketAddress
+sa,
+IOException
+ioe)
+Called to indicate that a connection could not be established
+ to a proxy/socks server.
+static
+ProxySelector
+getDefault
+()
+Gets the system-wide proxy selector.
+static
+ProxySelector
+of
+(
+InetSocketAddress
+proxyAddress)
+Returns a ProxySelector which uses the given proxy address for all HTTP
+ and HTTPS requests.
+abstract
+List
+<
+Proxy
+>
+select
+(
+URI
+uri)
+Selects all the applicable proxies based on the protocol to
+ access the resource with and a destination address to access
+ the resource at.
+static void
+setDefault
+(
+ProxySelector
+ps)
+Sets (or unsets) the system-wide proxy selector.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+ProxySelector
+public
+ProxySelector
+()
+Constructor for subclasses to call.
+Method Details
+getDefault
+public static
+ProxySelector
+getDefault
+()
+Gets the system-wide proxy selector.
+Returns:
+the system-wide
+ProxySelector
+Throws:
+SecurityException
+- If a security manager has been installed and it denies
+NetPermission
+("getProxySelector")
+Since:
+1.5
+See Also:
+setDefault(ProxySelector)
+setDefault
+public static
+void
+setDefault
+(
+ProxySelector
+ps)
+Sets (or unsets) the system-wide proxy selector.
+
+ Note: non-standard protocol handlers may ignore this setting.
+Parameters:
+ps
+- The HTTP proxy selector, or
+null
+to unset the proxy selector.
+Throws:
+SecurityException
+- If a security manager has been installed and it denies
+NetPermission
+("setProxySelector")
+Since:
+1.5
+See Also:
+getDefault()
+select
+public abstract
+List
+<
+Proxy
+>
+select
+(
+URI
+uri)
+Selects all the applicable proxies based on the protocol to
+ access the resource with and a destination address to access
+ the resource at.
+ The format of the URI is defined as follows:
+http URI for http connections
+https URI for https connections
+socket://host:port
+for tcp client sockets connections
+Parameters:
+uri
+- The URI that a connection is required to
+Returns:
+a List of Proxies. Each element in
+          the List is of type
+Proxy
+;
+          when no proxy is available, the list will
+          contain one element of type
+Proxy
+that represents a direct connection.
+Throws:
+IllegalArgumentException
+- if the argument is null or if
+         the protocol or host cannot be determined from the provided
+uri
+connectFailed
+public abstract
+void
+connectFailed
+(
+URI
+uri,
+SocketAddress
+sa,
+IOException
+ioe)
+Called to indicate that a connection could not be established
+ to a proxy/socks server. An implementation of this method can
+ temporarily remove the proxies or reorder the sequence of
+ proxies returned by
+select(URI)
+, using the address
+ and the IOException caught when trying to connect.
+Parameters:
+uri
+- The URI that the proxy at sa failed to serve.
+sa
+- The socket address of the proxy/SOCKS server
+ioe
+- The I/O exception thrown when the connect failed.
+Throws:
+IllegalArgumentException
+- if either argument is null
+of
+public static
+ProxySelector
+of
+(
+InetSocketAddress
+proxyAddress)
+Returns a ProxySelector which uses the given proxy address for all HTTP
+ and HTTPS requests. If proxy is
+null
+then proxying is disabled.
+Parameters:
+proxyAddress
+- The address of the proxy
+Returns:
+a ProxySelector
+Since:
+9
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

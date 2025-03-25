@@ -1,0 +1,233 @@
+AttributeChangeNotificationFilter (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.management
+Package
+javax.management
+Class AttributeChangeNotificationFilter
+java.lang.Object
+javax.management.AttributeChangeNotificationFilter
+All Implemented Interfaces:
+Serializable
+,
+NotificationFilter
+public class
+AttributeChangeNotificationFilter
+extends
+Object
+implements
+NotificationFilter
+This class implements of the
+NotificationFilter
+interface for the
+attribute change notification
+.
+ The filtering is performed on the name of the observed attribute.
+It manages a list of enabled attribute names.
+ A method allows users to enable/disable as many attribute names as required.
+Since:
+1.5
+See Also:
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+AttributeChangeNotificationFilter
+()
+Constructs an
+AttributeChangeNotificationFilter
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+disableAllAttributes
+()
+Disables all the attribute names.
+void
+disableAttribute
+(
+String
+name)
+Disables all the attribute change notifications the attribute name of which equals
+ the specified attribute name to be sent to the listener.
+void
+enableAttribute
+(
+String
+name)
+Enables all the attribute change notifications the attribute name of which equals
+ the specified name to be sent to the listener.
+Vector
+<
+String
+>
+getEnabledAttributes
+()
+Gets all the enabled attribute names for this filter.
+boolean
+isNotificationEnabled
+(
+Notification
+notification)
+Invoked before sending the specified notification to the listener.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+AttributeChangeNotificationFilter
+public
+AttributeChangeNotificationFilter
+()
+Constructs an
+AttributeChangeNotificationFilter
+.
+Method Details
+isNotificationEnabled
+public
+boolean
+isNotificationEnabled
+(
+Notification
+notification)
+Invoked before sending the specified notification to the listener.
+This filter compares the attribute name of the specified attribute change notification
+ with each enabled attribute name.
+ If the attribute name equals one of the enabled attribute names,
+ the notification must be sent to the listener and this method returns
+true
+.
+Specified by:
+isNotificationEnabled
+in interface
+NotificationFilter
+Parameters:
+notification
+- The attribute change notification to be sent.
+Returns:
+true
+if the notification has to be sent to the listener,
+false
+otherwise.
+enableAttribute
+public
+void
+enableAttribute
+(
+String
+name)
+throws
+IllegalArgumentException
+Enables all the attribute change notifications the attribute name of which equals
+ the specified name to be sent to the listener.
+If the specified name is already in the list of enabled attribute names,
+ this method has no effect.
+Parameters:
+name
+- The attribute name.
+Throws:
+IllegalArgumentException
+- The attribute name parameter is null.
+disableAttribute
+public
+void
+disableAttribute
+(
+String
+name)
+Disables all the attribute change notifications the attribute name of which equals
+ the specified attribute name to be sent to the listener.
+If the specified name is not in the list of enabled attribute names,
+ this method has no effect.
+Parameters:
+name
+- The attribute name.
+disableAllAttributes
+public
+void
+disableAllAttributes
+()
+Disables all the attribute names.
+getEnabledAttributes
+public
+Vector
+<
+String
+>
+getEnabledAttributes
+()
+Gets all the enabled attribute names for this filter.
+Returns:
+The list containing all the enabled attribute names.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

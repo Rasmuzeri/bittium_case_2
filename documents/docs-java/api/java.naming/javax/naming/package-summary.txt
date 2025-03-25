@@ -1,0 +1,315 @@
+javax.naming (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages
+|
+Classes and Interfaces
+SEARCH
+Module
+java.naming
+Package javax.naming
+package
+javax.naming
+Provides the classes and interfaces for accessing naming services.
+This package defines the naming operations of the Java Naming and
+Directory Interface (JNDI).  
+JNDI provides naming and directory functionality to applications
+written in the Java programming language.  It is designed to be
+independent of any specific naming or directory service
+implementation.  Thus a variety of services--new, emerging, and
+already deployed ones--can be accessed in a common way.
+Context
+This package defines the notion of a
+context
+, represented
+by the
+Context
+interface.
+A context consists of a set of name-to-object
+bindings
+.
+Context
+is the core interface for looking up, binding, unbinding,
+and renaming objects, and for creating and destroying subcontexts.
+lookup()
+is the most commonly used operation.
+You supply
+lookup()
+the name of the object you want
+to look up, and it returns the object bound to that name.
+For example, the following code fragment looks up 
+a printer and sends a document to the printer object
+to be printed:
+Printer printer = (Printer)ctx.lookup("treekiller");
+printer.print(report);
+Names
+Every naming method in the
+Context
+interface has two
+overloads: one that accepts a
+Name
+argument and one that accepts a string name.
+Name
+is an interface that represents a generic 
+name--an ordered sequence of zero of more components.
+For these methods,
+Name
+can be used to represent a
+composite name
+(
+CompositeName
+)
+so that you can name an object using a name which spans multiple namespaces.
+The overloads that accept
+Name
+are useful for applications that need to manipulate names: composing
+them, comparing components, and so on.
+The overloads that accept string names are likely to be more useful
+for simple applications, such as those that simply read in a name
+and look up the corresponding object.
+Bindings
+The
+Binding
+class represents a name-to-object binding.
+It is a tuple containing the name of the bound object,
+the name of the object's class, and the object itself.
+The
+Binding
+class is actually a subclass of
+NameClassPair
+, which consists
+simply of the object's name and the object's class name.
+The
+NameClassPair
+is useful when you only want
+information about the object's class and do not want to
+pay the extra cost of getting the object.
+References
+Objects are stored in naming and directory services in different ways.
+If an object store supports storing Java objects, 
+it might support storing an object in its serialized form.
+However, some naming and directory services do not support the
+storing of Java objects. Furthermore, for some
+objects in the directory, Java programs are but one group of applications 
+that access them. In this case, a serialized Java object might
+not be the most appropriate representation.
+JNDI defines a
+reference
+, represented by the
+Reference
+class, which contains information on how to construct a copy of the object.
+JNDI will attempt to turn references looked up from the directory
+into the Java objects they represent, so that
+JNDI clients have the illusion that what
+is stored in the directory are Java objects.
+The Initial Context
+In JNDI, all naming and directory operations are performed relative
+to a context. There are no absolute roots.
+Therefore JNDI defines an
+initial context
+,
+InitialContext
+,
+which provides a starting point for naming and directory operations.
+Once you have an initial context, you can use it to
+look up other contexts and objects.
+Exceptions
+JNDI defines a class hierarchy for exceptions that can be thrown in
+the course of performing naming and directory operations.  The root of
+this class hierarchy is
+NamingException
+.
+Programs interested in dealing with a particular exception
+can catch the corresponding subclass of the exception.
+Otherwise, programs should catch
+NamingException
+.
+Package Specification
+The JNDI API Specification and related documents can be found in the
+JNDI documentation
+.
+Since:
+1.3
+Related Packages
+Package
+Description
+javax.naming.directory
+Extends the
+javax.naming
+package to provide functionality
+for accessing directory services.
+javax.naming.event
+Provides support for event notification when accessing naming and
+directory services.
+javax.naming.ldap
+Provides support for LDAPv3 extended operations and controls.
+javax.naming.spi
+Provides the means for dynamically plugging in support for accessing
+naming and directory services through the
+javax.naming
+and related packages.
+All Classes and Interfaces
+Interfaces
+Classes
+Exception Classes
+Class
+Description
+AuthenticationException
+This exception is thrown when an authentication error occurs while
+ accessing the naming or directory service.
+AuthenticationNotSupportedException
+This exception is thrown when
+ the particular flavor of authentication requested is not supported.
+BinaryRefAddr
+This class represents the binary form of the address of
+ a communications end-point.
+Binding
+This class represents a name-to-object binding found in a context.
+CannotProceedException
+This exception is thrown to indicate that the operation reached
+ a point in the name where the operation cannot proceed any further.
+CommunicationException
+This exception is thrown when the client is
+ unable to communicate with the directory or naming service.
+CompositeName
+This class represents a composite name -- a sequence of
+ component names spanning multiple namespaces.
+CompoundName
+This class represents a compound name -- a name from
+ a hierarchical name space.
+ConfigurationException
+This exception is thrown when there is a configuration problem.
+Context
+This interface represents a naming context, which
+ consists of a set of name-to-object bindings.
+ContextNotEmptyException
+This exception is thrown when attempting to destroy a context that
+ is not empty.
+InitialContext
+This class is the starting context for performing naming operations.
+InsufficientResourcesException
+This exception is thrown when resources are not available to complete
+ the requested operation.
+InterruptedNamingException
+This exception is thrown when the naming operation
+ being invoked has been interrupted.
+InvalidNameException
+This exception indicates that the name being specified does
+ not conform to the naming syntax of a naming system.
+LimitExceededException
+This exception is thrown when a method
+ terminates abnormally due to a user or system specified limit.
+LinkException
+This exception is used to describe problems encountered while resolving links.
+LinkLoopException
+This exception is thrown when
+ a loop was detected while attempting to resolve a link, or an implementation
+ specific limit on link counts has been reached.
+LinkRef
+This class represents a Reference whose contents is a name, called the link name,
+ that is bound to an atomic name in a context.
+MalformedLinkException
+This exception is thrown when a malformed link was encountered while
+ resolving or constructing a link.
+Name
+The
+Name
+interface represents a generic name -- an ordered
+ sequence of components.
+NameAlreadyBoundException
+This exception is thrown by methods to indicate that
+ a binding cannot be added because the name is already bound to
+ another object.
+NameClassPair
+This class represents the object name and class name pair of a binding
+ found in a context.
+NameNotFoundException
+This exception is thrown when a component of the name cannot be resolved
+ because it is not bound.
+NameParser
+This interface is used for parsing names from a hierarchical
+ namespace.
+NamingEnumeration
+<T>
+This interface is for enumerating lists returned by
+ methods in the javax.naming and javax.naming.directory packages.
+NamingException
+This is the superclass of all exceptions thrown by
+ operations in the Context and DirContext interfaces.
+NamingSecurityException
+This is the superclass of security-related exceptions
+ thrown by operations in the Context and DirContext interfaces.
+NoInitialContextException
+This exception is thrown when no initial context implementation
+ can be created.
+NoPermissionException
+This exception is thrown when attempting to perform an operation
+ for which the client has no permission.
+NotContextException
+This exception is thrown when a naming operation proceeds to a point
+ where a context is required to continue the operation, but the
+ resolved object is not a context.
+OperationNotSupportedException
+This exception is thrown when a context implementation does not support
+ the operation being invoked.
+PartialResultException
+This exception is thrown to indicate that the result being returned
+ or returned so far is partial, and that the operation cannot
+ be completed.
+RefAddr
+This class represents the address of a communications end-point.
+Reference
+This class represents a reference to an object that is found outside of
+ the naming/directory system.
+Referenceable
+This interface is implemented by an object that can provide a
+ Reference to itself.
+ReferralException
+This abstract class is used to represent a referral exception,
+ which is generated in response to a
+referral
+such as that returned by LDAP v3 servers.
+ServiceUnavailableException
+This exception is thrown when attempting to communicate with a
+ directory or naming service and that service is not available.
+SizeLimitExceededException
+This exception is thrown when a method
+ produces a result that exceeds a size-related limit.
+StringRefAddr
+This class represents the string form of the address of
+ a communications end-point.
+TimeLimitExceededException
+This exception is thrown when a method
+ does not terminate within the specified time limit.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

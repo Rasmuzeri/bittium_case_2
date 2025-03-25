@@ -1,0 +1,270 @@
+PrintJobEvent (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.print.event
+Class PrintJobEvent
+java.lang.Object
+java.util.EventObject
+javax.print.event.PrintEvent
+javax.print.event.PrintJobEvent
+All Implemented Interfaces:
+Serializable
+public class
+PrintJobEvent
+extends
+PrintEvent
+Class
+PrintJobEvent
+encapsulates common events a print job reports to
+ let a listener know of progress in the processing of the
+DocPrintJob
+.
+See Also:
+Serialized Form
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final int
+DATA_TRANSFER_COMPLETE
+The job is not necessarily printed yet, but the data has been transferred
+ successfully from the client to the print service.
+static final int
+JOB_CANCELED
+The job was canceled by the
+PrintService
+.
+static final int
+JOB_COMPLETE
+The document is completely printed.
+static final int
+JOB_FAILED
+The print service reports that the job cannot be completed.
+static final int
+NO_MORE_EVENTS
+Not all print services may be capable of delivering interesting events,
+ or even telling when a job is complete.
+static final int
+REQUIRES_ATTENTION
+The print service indicates that a - possibly transient - problem may
+ require external intervention before the print service can continue.
+Fields declared in class java.util.
+EventObject
+source
+Constructor Summary
+Constructors
+Constructor
+Description
+PrintJobEvent
+(
+DocPrintJob
+source,
+ int reason)
+Constructs a
+PrintJobEvent
+object.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+int
+getPrintEventType
+()
+Gets the reason for this event.
+DocPrintJob
+getPrintJob
+()
+Determines the
+DocPrintJob
+to which this print job event
+ pertains.
+Methods declared in class javax.print.event.
+PrintEvent
+toString
+Methods declared in class java.util.
+EventObject
+getSource
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Field Details
+JOB_CANCELED
+public static final
+int
+JOB_CANCELED
+The job was canceled by the
+PrintService
+.
+See Also:
+Constant Field Values
+JOB_COMPLETE
+public static final
+int
+JOB_COMPLETE
+The document is completely printed.
+See Also:
+Constant Field Values
+JOB_FAILED
+public static final
+int
+JOB_FAILED
+The print service reports that the job cannot be completed. The
+ application must resubmit the job.
+See Also:
+Constant Field Values
+REQUIRES_ATTENTION
+public static final
+int
+REQUIRES_ATTENTION
+The print service indicates that a - possibly transient - problem may
+ require external intervention before the print service can continue. One
+ example of an event that can generate this message is when the printer
+ runs out of paper.
+See Also:
+Constant Field Values
+NO_MORE_EVENTS
+public static final
+int
+NO_MORE_EVENTS
+Not all print services may be capable of delivering interesting events,
+ or even telling when a job is complete. This message indicates the print
+ job has no further information or communication with the print service.
+ This message should always be delivered if a terminal event
+ (completed/failed/canceled) is not delivered. For example, if messages
+ such as
+JOB_COMPLETE
+have NOT been received before receiving this
+ message, the only inference that should be drawn is that the print
+ service does not support delivering such an event.
+See Also:
+Constant Field Values
+DATA_TRANSFER_COMPLETE
+public static final
+int
+DATA_TRANSFER_COMPLETE
+The job is not necessarily printed yet, but the data has been transferred
+ successfully from the client to the print service. The client may free
+ data resources.
+See Also:
+Constant Field Values
+Constructor Details
+PrintJobEvent
+public
+PrintJobEvent
+(
+DocPrintJob
+source,
+ int reason)
+Constructs a
+PrintJobEvent
+object.
+Parameters:
+source
+- a
+DocPrintJob
+object
+reason
+- an int specifying the reason
+Throws:
+IllegalArgumentException
+- if
+source
+is
+null
+Method Details
+getPrintEventType
+public
+int
+getPrintEventType
+()
+Gets the reason for this event.
+Returns:
+reason int
+getPrintJob
+public
+DocPrintJob
+getPrintJob
+()
+Determines the
+DocPrintJob
+to which this print job event
+ pertains.
+Returns:
+the
+DocPrintJob
+object that represents the print job that
+         reports the events encapsulated by this
+PrintJobEvent
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

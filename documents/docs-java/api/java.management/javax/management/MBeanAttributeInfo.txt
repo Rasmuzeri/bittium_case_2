@@ -1,0 +1,429 @@
+MBeanAttributeInfo (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.management
+Package
+javax.management
+Class MBeanAttributeInfo
+java.lang.Object
+javax.management.MBeanFeatureInfo
+javax.management.MBeanAttributeInfo
+All Implemented Interfaces:
+Serializable
+,
+Cloneable
+,
+DescriptorRead
+Direct Known Subclasses:
+ModelMBeanAttributeInfo
+,
+OpenMBeanAttributeInfoSupport
+public class
+MBeanAttributeInfo
+extends
+MBeanFeatureInfo
+implements
+Cloneable
+Describes an MBean attribute exposed for management.  Instances of
+ this class are immutable.  Subclasses may be mutable but this is
+ not recommended.
+Since:
+1.5
+See Also:
+Serialized Form
+Field Summary
+Fields declared in class javax.management.
+MBeanFeatureInfo
+description
+,
+name
+Constructor Summary
+Constructors
+Constructor
+Description
+MBeanAttributeInfo
+(
+String
+name,
+String
+description,
+Method
+getter,
+Method
+setter)
+This constructor takes the name of a simple attribute, and Method
+ objects for reading and writing the attribute.
+MBeanAttributeInfo
+(
+String
+name,
+String
+type,
+String
+description,
+ boolean isReadable,
+ boolean isWritable,
+ boolean isIs)
+Constructs an
+MBeanAttributeInfo
+object.
+MBeanAttributeInfo
+(
+String
+name,
+String
+type,
+String
+description,
+ boolean isReadable,
+ boolean isWritable,
+ boolean isIs,
+Descriptor
+descriptor)
+Constructs an
+MBeanAttributeInfo
+object.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Object
+clone
+()
+Returns a shallow clone of this instance.
+boolean
+equals
+(
+Object
+o)
+Compare this MBeanAttributeInfo to another.
+String
+getType
+()
+Returns the class name of the attribute.
+boolean
+isIs
+()
+Indicates if this attribute has an "is" getter.
+boolean
+isReadable
+()
+Whether the value of the attribute can be read.
+boolean
+isWritable
+()
+Whether new values can be written to the attribute.
+Methods declared in class javax.management.
+MBeanFeatureInfo
+getDescription
+,
+getDescriptor
+,
+getName
+Methods declared in class java.lang.
+Object
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+MBeanAttributeInfo
+public
+MBeanAttributeInfo
+(
+String
+name,
+String
+type,
+String
+description,
+ boolean isReadable,
+ boolean isWritable,
+ boolean isIs)
+Constructs an
+MBeanAttributeInfo
+object.
+Parameters:
+name
+- The name of the attribute.
+type
+- The type or class name of the attribute.
+description
+- A human readable description of the attribute.
+isReadable
+- True if the attribute has a getter method, false otherwise.
+isWritable
+- True if the attribute has a setter method, false otherwise.
+isIs
+- True if this attribute has an "is" getter, false otherwise.
+Throws:
+IllegalArgumentException
+- if
+isIs
+is true but
+isReadable
+is not, or if
+isIs
+is true and
+type
+is not
+boolean
+or
+java.lang.Boolean
+.
+ (New code should always use
+boolean
+rather than
+java.lang.Boolean
+.)
+MBeanAttributeInfo
+public
+MBeanAttributeInfo
+(
+String
+name,
+String
+type,
+String
+description,
+ boolean isReadable,
+ boolean isWritable,
+ boolean isIs,
+Descriptor
+descriptor)
+Constructs an
+MBeanAttributeInfo
+object.
+Parameters:
+name
+- The name of the attribute.
+type
+- The type or class name of the attribute.
+description
+- A human readable description of the attribute.
+isReadable
+- True if the attribute has a getter method, false otherwise.
+isWritable
+- True if the attribute has a setter method, false otherwise.
+isIs
+- True if this attribute has an "is" getter, false otherwise.
+descriptor
+- The descriptor for the attribute.  This may be null
+ which is equivalent to an empty descriptor.
+Throws:
+IllegalArgumentException
+- if
+isIs
+is true but
+isReadable
+is not, or if
+isIs
+is true and
+type
+is not
+boolean
+or
+java.lang.Boolean
+.
+ (New code should always use
+boolean
+rather than
+java.lang.Boolean
+.)
+Since:
+1.6
+MBeanAttributeInfo
+public
+MBeanAttributeInfo
+(
+String
+name,
+String
+description,
+Method
+getter,
+Method
+setter)
+throws
+IntrospectionException
+This constructor takes the name of a simple attribute, and Method
+ objects for reading and writing the attribute.  The
+Descriptor
+of the constructed object will include fields contributed by any
+ annotations on the
+Method
+objects that contain the
+DescriptorKey
+meta-annotation.
+Parameters:
+name
+- The programmatic name of the attribute.
+description
+- A human readable description of the attribute.
+getter
+- The method used for reading the attribute value.
+          May be null if the property is write-only.
+setter
+- The method used for writing the attribute value.
+          May be null if the attribute is read-only.
+Throws:
+IntrospectionException
+- There is a consistency
+ problem in the definition of this attribute.
+Method Details
+clone
+public
+Object
+clone
+()
+Returns a shallow clone of this instance.
+ The clone is obtained by simply calling
+super.clone()
+,
+ thus calling the default native shallow cloning mechanism
+ implemented by
+Object.clone()
+.
+ No deeper cloning of any internal field is made.
+Since this class is immutable, cloning is chiefly of
+ interest to subclasses.
+Overrides:
+clone
+in class
+Object
+Returns:
+a clone of this instance.
+See Also:
+Cloneable
+getType
+public
+String
+getType
+()
+Returns the class name of the attribute.
+Returns:
+the class name.
+isReadable
+public
+boolean
+isReadable
+()
+Whether the value of the attribute can be read.
+Returns:
+True if the attribute can be read, false otherwise.
+isWritable
+public
+boolean
+isWritable
+()
+Whether new values can be written to the attribute.
+Returns:
+True if the attribute can be written to, false otherwise.
+isIs
+public
+boolean
+isIs
+()
+Indicates if this attribute has an "is" getter.
+Returns:
+true if this attribute has an "is" getter.
+equals
+public
+boolean
+equals
+(
+Object
+o)
+Compare this MBeanAttributeInfo to another.
+Overrides:
+equals
+in class
+MBeanFeatureInfo
+Parameters:
+o
+- the object to compare to.
+Returns:
+true if and only if
+o
+is an MBeanAttributeInfo such
+ that its
+MBeanFeatureInfo.getName()
+,
+getType()
+,
+MBeanFeatureInfo.getDescription()
+,
+isReadable()
+,
+isWritable()
+, and
+isIs()
+values are equal (not
+ necessarily identical) to those of this MBeanAttributeInfo.
+See Also:
+Object.hashCode()
+HashMap
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

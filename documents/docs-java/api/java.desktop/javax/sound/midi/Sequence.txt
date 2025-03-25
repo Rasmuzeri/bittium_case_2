@@ -1,0 +1,498 @@
+Sequence (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.sound.midi
+Class Sequence
+java.lang.Object
+javax.sound.midi.Sequence
+public class
+Sequence
+extends
+Object
+A
+Sequence
+is a data structure containing musical information (often
+ an entire song or composition) that can be played back by a
+Sequencer
+object. Specifically, the
+Sequence
+contains timing information and
+ one or more tracks. Each
+track
+consists of a series of MIDI
+ events (such as note-ons, note-offs, program changes, and meta-events). The
+ sequence's timing information specifies the type of unit that is used to
+ time-stamp the events in the sequence.
+A
+Sequence
+can be created from a MIDI file by reading the file into
+ an input stream and invoking one of the
+getSequence
+methods of
+MidiSystem
+. A sequence can also be built from scratch by adding new
+Tracks
+to an empty
+Sequence
+, and adding
+MidiEvent
+objects to these
+Tracks
+.
+See Also:
+Sequencer.setSequence(java.io.InputStream stream)
+Sequencer.setSequence(Sequence sequence)
+Track.add(MidiEvent)
+MidiFileFormat
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected float
+divisionType
+The timing division type of the sequence.
+static final float
+PPQ
+The tempo-based timing type, for which the resolution is expressed in
+ pulses (ticks) per quarter note.
+protected int
+resolution
+The timing resolution of the sequence.
+static final float
+SMPTE_24
+The SMPTE-based timing type with 24 frames per second (resolution is
+ expressed in ticks per frame).
+static final float
+SMPTE_25
+The SMPTE-based timing type with 25 frames per second (resolution is
+ expressed in ticks per frame).
+static final float
+SMPTE_30
+The SMPTE-based timing type with 30 frames per second (resolution is
+ expressed in ticks per frame).
+static final float
+SMPTE_30DROP
+The SMPTE-based timing type with 29.97 frames per second (resolution is
+ expressed in ticks per frame).
+protected
+Vector
+<
+Track
+>
+tracks
+The MIDI tracks in this sequence.
+Constructor Summary
+Constructors
+Constructor
+Description
+Sequence
+(float divisionType,
+ int resolution)
+Constructs a new MIDI sequence with the specified timing division type
+ and timing resolution.
+Sequence
+(float divisionType,
+ int resolution,
+ int numTracks)
+Constructs a new MIDI sequence with the specified timing division type,
+ timing resolution, and number of tracks.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Track
+createTrack
+()
+Creates a new, initially empty track as part of this sequence.
+boolean
+deleteTrack
+(
+Track
+track)
+Removes the specified track from the sequence.
+float
+getDivisionType
+()
+Obtains the timing division type for this sequence.
+long
+getMicrosecondLength
+()
+Obtains the duration of this sequence, expressed in microseconds.
+Patch
+[]
+getPatchList
+()
+Obtains a list of patches referenced in this sequence.
+int
+getResolution
+()
+Obtains the timing resolution for this sequence.
+long
+getTickLength
+()
+Obtains the duration of this sequence, expressed in MIDI ticks.
+Track
+[]
+getTracks
+()
+Obtains an array containing all the tracks in this sequence.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+PPQ
+public static final
+float
+PPQ
+The tempo-based timing type, for which the resolution is expressed in
+ pulses (ticks) per quarter note.
+See Also:
+Sequence(float, int)
+Constant Field Values
+SMPTE_24
+public static final
+float
+SMPTE_24
+The SMPTE-based timing type with 24 frames per second (resolution is
+ expressed in ticks per frame).
+See Also:
+Sequence(float, int)
+Constant Field Values
+SMPTE_25
+public static final
+float
+SMPTE_25
+The SMPTE-based timing type with 25 frames per second (resolution is
+ expressed in ticks per frame).
+See Also:
+Sequence(float, int)
+Constant Field Values
+SMPTE_30DROP
+public static final
+float
+SMPTE_30DROP
+The SMPTE-based timing type with 29.97 frames per second (resolution is
+ expressed in ticks per frame).
+See Also:
+Sequence(float, int)
+Constant Field Values
+SMPTE_30
+public static final
+float
+SMPTE_30
+The SMPTE-based timing type with 30 frames per second (resolution is
+ expressed in ticks per frame).
+See Also:
+Sequence(float, int)
+Constant Field Values
+divisionType
+protected
+float
+divisionType
+The timing division type of the sequence.
+See Also:
+PPQ
+SMPTE_24
+SMPTE_25
+SMPTE_30DROP
+SMPTE_30
+getDivisionType()
+resolution
+protected
+int
+resolution
+The timing resolution of the sequence.
+See Also:
+getResolution()
+tracks
+protected
+Vector
+<
+Track
+>
+tracks
+The MIDI tracks in this sequence.
+See Also:
+getTracks()
+Constructor Details
+Sequence
+public
+Sequence
+(float divisionType,
+ int resolution)
+throws
+InvalidMidiDataException
+Constructs a new MIDI sequence with the specified timing division type
+ and timing resolution. The division type must be one of the recognized
+ MIDI timing types. For tempo-based timing,
+divisionType
+is PPQ
+ (pulses per quarter note) and the resolution is specified in ticks per
+ beat. For SMTPE timing,
+divisionType
+specifies the number of
+ frames per second and the resolution is specified in ticks per frame. The
+ sequence will contain no initial tracks. Tracks may be added to or
+ removed from the sequence using
+createTrack()
+and
+deleteTrack(javax.sound.midi.Track)
+.
+Parameters:
+divisionType
+- the timing division type (PPQ or one of the SMPTE
+         types)
+resolution
+- the timing resolution
+Throws:
+InvalidMidiDataException
+- if
+divisionType
+is not valid
+See Also:
+PPQ
+SMPTE_24
+SMPTE_25
+SMPTE_30DROP
+SMPTE_30
+getDivisionType()
+getResolution()
+getTracks()
+Sequence
+public
+Sequence
+(float divisionType,
+ int resolution,
+ int numTracks)
+throws
+InvalidMidiDataException
+Constructs a new MIDI sequence with the specified timing division type,
+ timing resolution, and number of tracks. The division type must be one of
+ the recognized MIDI timing types. For tempo-based timing,
+divisionType
+is PPQ (pulses per quarter note) and the resolution
+ is specified in ticks per beat. For SMTPE timing,
+divisionType
+specifies the number of frames per second and the resolution is specified
+ in ticks per frame. The sequence will be initialized with the number of
+ tracks specified by
+numTracks
+. These tracks are initially empty
+ (i.e. they contain only the meta-event End of Track). The tracks may be
+ retrieved for editing using the
+getTracks()
+method. Additional
+ tracks may be added, or existing tracks removed, using
+createTrack()
+and
+deleteTrack(javax.sound.midi.Track)
+.
+Parameters:
+divisionType
+- the timing division type (PPQ or one of the SMPTE
+         types)
+resolution
+- the timing resolution
+numTracks
+- the initial number of tracks in the sequence
+Throws:
+InvalidMidiDataException
+- if
+divisionType
+is not valid
+See Also:
+PPQ
+SMPTE_24
+SMPTE_25
+SMPTE_30DROP
+SMPTE_30
+getDivisionType()
+getResolution()
+Method Details
+getDivisionType
+public
+float
+getDivisionType
+()
+Obtains the timing division type for this sequence.
+Returns:
+the division type (PPQ or one of the SMPTE types)
+See Also:
+PPQ
+SMPTE_24
+SMPTE_25
+SMPTE_30DROP
+SMPTE_30
+Sequence(float, int)
+MidiFileFormat.getDivisionType()
+getResolution
+public
+int
+getResolution
+()
+Obtains the timing resolution for this sequence. If the sequence's
+ division type is PPQ, the resolution is specified in ticks per beat. For
+ SMTPE timing, the resolution is specified in ticks per frame.
+Returns:
+the number of ticks per beat (PPQ) or per frame (SMPTE)
+See Also:
+getDivisionType()
+Sequence(float, int)
+MidiFileFormat.getResolution()
+createTrack
+public
+Track
+createTrack
+()
+Creates a new, initially empty track as part of this sequence. The track
+ initially contains the meta-event End of Track. The newly created track
+ is returned. All tracks in the sequence may be retrieved using
+getTracks()
+. Tracks may be removed from the sequence using
+deleteTrack(javax.sound.midi.Track)
+.
+Returns:
+the newly created track
+deleteTrack
+public
+boolean
+deleteTrack
+(
+Track
+track)
+Removes the specified track from the sequence.
+Parameters:
+track
+- the track to remove
+Returns:
+true
+if the track existed in the track and was removed,
+         otherwise
+false
+See Also:
+createTrack()
+getTracks()
+getTracks
+public
+Track
+[]
+getTracks
+()
+Obtains an array containing all the tracks in this sequence. If the
+ sequence contains no tracks, an array of length 0 is returned.
+Returns:
+the array of tracks
+See Also:
+createTrack()
+deleteTrack(javax.sound.midi.Track)
+getMicrosecondLength
+public
+long
+getMicrosecondLength
+()
+Obtains the duration of this sequence, expressed in microseconds.
+Returns:
+this sequence's duration in microseconds
+getTickLength
+public
+long
+getTickLength
+()
+Obtains the duration of this sequence, expressed in MIDI ticks.
+Returns:
+this sequence's length in ticks
+See Also:
+getMicrosecondLength()
+getPatchList
+public
+Patch
+[]
+getPatchList
+()
+Obtains a list of patches referenced in this sequence. This patch list
+ may be used to load the required
+Instrument
+objects into a
+Synthesizer
+.
+Returns:
+an array of
+Patch
+objects used in this sequence
+See Also:
+Synthesizer.loadInstruments(Soundbank, Patch[])
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

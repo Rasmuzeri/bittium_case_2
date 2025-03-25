@@ -1,0 +1,363 @@
+EventQueueMonitor (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.accessibility
+Package
+com.sun.java.accessibility.util
+Class EventQueueMonitor
+java.lang.Object
+com.sun.java.accessibility.util.EventQueueMonitor
+All Implemented Interfaces:
+AWTEventListener
+,
+EventListener
+public class
+EventQueueMonitor
+extends
+Object
+implements
+AWTEventListener
+The
+EventQueueMonitor
+class provides key core functionality for Assistive
+ Technologies (and other system-level technologies that need some of the same
+ things that Assistive Technology needs).
+See Also:
+AWTEventMonitor
+SwingEventMonitor
+Constructor Summary
+Constructors
+Constructor
+Description
+EventQueueMonitor
+()
+Create a new
+EventQueueMonitor
+instance.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static void
+addGUIInitializedListener
+(
+GUIInitializedListener
+l)
+Adds the specified listener to be notified when the GUI subsystem
+ is initialized.
+static void
+addTopLevelWindowListener
+(
+TopLevelWindowListener
+l)
+Adds the specified listener to be notified when a top level window
+ is created or destroyed.
+void
+eventDispatched
+(
+AWTEvent
+theEvent)
+Handle events as a result of registering a listener
+ on the
+EventQueue
+in
+maybeInitialize()
+.
+static
+Accessible
+getAccessibleAt
+(
+Point
+p)
+Obtain the
+Accessible
+object at the given point on the Screen.
+static
+Point
+getCurrentMousePosition
+()
+Return the last recorded position of the mouse in screen coordinates.
+static
+Window
+[]
+getTopLevelWindows
+()
+Return the list of top level Windows in use in the Java Virtual Machine.
+static
+Window
+getTopLevelWindowWithFocus
+()
+Return the top level
+Window
+that currently has keyboard focus.
+static boolean
+isGUIInitialized
+()
+Says whether the GUI subsystem has been initialized or not.
+static void
+maybeInitialize
+()
+Tell the
+EventQueueMonitor
+to start listening for events.
+static void
+removeGUIInitializedListener
+(
+GUIInitializedListener
+l)
+Removes the specified listener to be notified when the GUI subsystem
+ is initialized.
+static void
+removeTopLevelWindowListener
+(
+TopLevelWindowListener
+l)
+Removes the specified listener to be notified when a top level window
+ is created or destroyed.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+EventQueueMonitor
+public
+EventQueueMonitor
+()
+Create a new
+EventQueueMonitor
+instance.  Normally, this will
+ be called only by the AWT Toolkit during initialization time.
+ Assistive technologies should not create instances of
+ EventQueueMonitor by themselves.  Instead, they should either
+ refer to it directly via the static methods in this class, e.g.,
+getCurrentMousePosition()
+or obtain the instance by asking the
+ Toolkit, e.g.,
+Toolkit.getSystemEventQueue()
+.
+Method Details
+maybeInitialize
+public static
+void
+maybeInitialize
+()
+Tell the
+EventQueueMonitor
+to start listening for events.
+eventDispatched
+public
+void
+eventDispatched
+(
+AWTEvent
+theEvent)
+Handle events as a result of registering a listener
+ on the
+EventQueue
+in
+maybeInitialize()
+.
+Specified by:
+eventDispatched
+in interface
+AWTEventListener
+Parameters:
+theEvent
+- the event to be processed
+getAccessibleAt
+public static
+Accessible
+getAccessibleAt
+(
+Point
+p)
+Obtain the
+Accessible
+object at the given point on the Screen.
+ The return value may be null if an
+Accessible
+object cannot be
+ found at the particular point.
+Parameters:
+p
+- the point to be accessed
+Returns:
+the
+Accessible
+at the specified point
+isGUIInitialized
+public static
+boolean
+isGUIInitialized
+()
+Says whether the GUI subsystem has been initialized or not.
+ If this returns true, the assistive technology can freely
+ create GUI component instances.  If the return value is false,
+ the assistive technology should register a
+GUIInitializedListener
+and wait to create GUI component instances until the listener is
+ called.
+Returns:
+true if the GUI subsystem has been initialized
+See Also:
+addGUIInitializedListener(com.sun.java.accessibility.util.GUIInitializedListener)
+addGUIInitializedListener
+public static
+void
+addGUIInitializedListener
+(
+GUIInitializedListener
+l)
+Adds the specified listener to be notified when the GUI subsystem
+ is initialized.  Assistive technologies should get the results of
+isGUIInitialized()
+before calling this method.
+Parameters:
+l
+- the listener to add
+See Also:
+isGUIInitialized()
+removeTopLevelWindowListener(com.sun.java.accessibility.util.TopLevelWindowListener)
+removeGUIInitializedListener
+public static
+void
+removeGUIInitializedListener
+(
+GUIInitializedListener
+l)
+Removes the specified listener to be notified when the GUI subsystem
+ is initialized.
+Parameters:
+l
+- the listener to remove
+See Also:
+addGUIInitializedListener(com.sun.java.accessibility.util.GUIInitializedListener)
+addTopLevelWindowListener
+public static
+void
+addTopLevelWindowListener
+(
+TopLevelWindowListener
+l)
+Adds the specified listener to be notified when a top level window
+ is created or destroyed.
+Parameters:
+l
+- the listener to add
+See Also:
+removeTopLevelWindowListener(com.sun.java.accessibility.util.TopLevelWindowListener)
+removeTopLevelWindowListener
+public static
+void
+removeTopLevelWindowListener
+(
+TopLevelWindowListener
+l)
+Removes the specified listener to be notified when a top level window
+ is created or destroyed.
+Parameters:
+l
+- the listener to remove
+See Also:
+addTopLevelWindowListener(com.sun.java.accessibility.util.TopLevelWindowListener)
+getCurrentMousePosition
+public static
+Point
+getCurrentMousePosition
+()
+Return the last recorded position of the mouse in screen coordinates.
+Returns:
+the last recorded position of the mouse in screen coordinates
+getTopLevelWindows
+public static
+Window
+[]
+getTopLevelWindows
+()
+Return the list of top level Windows in use in the Java Virtual Machine.
+Returns:
+an array of top level
+Window
+s in use in the Java Virtual Machine
+getTopLevelWindowWithFocus
+public static
+Window
+getTopLevelWindowWithFocus
+()
+Return the top level
+Window
+that currently has keyboard focus.
+Returns:
+the top level
+Window
+that currently has keyboard focus
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

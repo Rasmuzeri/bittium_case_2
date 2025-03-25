@@ -1,0 +1,272 @@
+AttributeChangeNotification (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.management
+Package
+javax.management
+Class AttributeChangeNotification
+java.lang.Object
+java.util.EventObject
+javax.management.Notification
+javax.management.AttributeChangeNotification
+All Implemented Interfaces:
+Serializable
+public class
+AttributeChangeNotification
+extends
+Notification
+Provides definitions of the attribute change notifications sent by MBeans.
+It's up to the MBean owning the attribute of interest to create and send
+ attribute change notifications when the attribute change occurs.
+ So the
+NotificationBroadcaster
+interface has to be implemented
+ by any MBean for which an attribute change is of interest.
+Example:
+ If an MBean called
+myMbean
+needs to notify registered listeners
+ when its attribute:
+String myString
+is modified,
+myMbean
+creates and emits the following notification:
+new AttributeChangeNotification(myMbean, sequenceNumber, timeStamp, msg,
+                                 "myString", "String", oldValue, newValue);
+Since:
+1.5
+See Also:
+Serialized Form
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+String
+ATTRIBUTE_CHANGE
+Notification type which indicates that the observed MBean attribute value has changed.
+Fields declared in class javax.management.
+Notification
+source
+Constructor Summary
+Constructors
+Constructor
+Description
+AttributeChangeNotification
+(
+Object
+source,
+ long sequenceNumber,
+ long timeStamp,
+String
+msg,
+String
+attributeName,
+String
+attributeType,
+Object
+oldValue,
+Object
+newValue)
+Constructs an attribute change notification object.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+String
+getAttributeName
+()
+Gets the name of the attribute which has changed.
+String
+getAttributeType
+()
+Gets the type of the attribute which has changed.
+Object
+getNewValue
+()
+Gets the new value of the attribute which has changed.
+Object
+getOldValue
+()
+Gets the old value of the attribute which has changed.
+Methods declared in class javax.management.
+Notification
+getMessage
+,
+getSequenceNumber
+,
+getTimeStamp
+,
+getType
+,
+getUserData
+,
+setSequenceNumber
+,
+setSource
+,
+setTimeStamp
+,
+setUserData
+,
+toString
+Methods declared in class java.util.
+EventObject
+getSource
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Field Details
+ATTRIBUTE_CHANGE
+public static final
+String
+ATTRIBUTE_CHANGE
+Notification type which indicates that the observed MBean attribute value has changed.
+The value of this type string is
+jmx.attribute.change
+.
+See Also:
+Constant Field Values
+Constructor Details
+AttributeChangeNotification
+public
+AttributeChangeNotification
+(
+Object
+source,
+ long sequenceNumber,
+ long timeStamp,
+String
+msg,
+String
+attributeName,
+String
+attributeType,
+Object
+oldValue,
+Object
+newValue)
+Constructs an attribute change notification object.
+ In addition to the information common to all notification, the caller must supply the name and type
+ of the attribute, as well as its old and new values.
+Parameters:
+source
+- The notification producer, that is, the MBean the attribute belongs to.
+sequenceNumber
+- The notification sequence number within the source object.
+timeStamp
+- The date at which the notification is being sent.
+msg
+- A String containing the message of the notification.
+attributeName
+- A String giving the name of the attribute.
+attributeType
+- A String containing the type of the attribute.
+oldValue
+- An object representing value of the attribute before the change.
+newValue
+- An object representing value of the attribute after the change.
+Method Details
+getAttributeName
+public
+String
+getAttributeName
+()
+Gets the name of the attribute which has changed.
+Returns:
+A String containing the name of the attribute.
+getAttributeType
+public
+String
+getAttributeType
+()
+Gets the type of the attribute which has changed.
+Returns:
+A String containing the type of the attribute.
+getOldValue
+public
+Object
+getOldValue
+()
+Gets the old value of the attribute which has changed.
+Returns:
+An Object containing the old value of the attribute.
+getNewValue
+public
+Object
+getNewValue
+()
+Gets the new value of the attribute which has changed.
+Returns:
+An Object containing the new value of the attribute.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

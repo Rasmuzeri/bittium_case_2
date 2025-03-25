@@ -1,0 +1,182 @@
+FileOwnerAttributeView (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.nio.file.attribute
+Interface FileOwnerAttributeView
+All Superinterfaces:
+AttributeView
+,
+FileAttributeView
+All Known Subinterfaces:
+AclFileAttributeView
+,
+PosixFileAttributeView
+public interface
+FileOwnerAttributeView
+extends
+FileAttributeView
+A file attribute view that supports reading or updating the owner of a file.
+ This file attribute view is intended for file system implementations that
+ support a file attribute that represents an identity that is the owner of
+ the file. Often the owner of a file is the identity of the entity that
+ created the file.
+The
+getOwner
+or
+setOwner
+methods may
+ be used to read or update the owner of the file.
+The
+getAttribute
+and
+setAttribute
+methods may also be
+ used to read or update the owner. In that case, the owner attribute is
+ identified by the name
+"owner"
+, and the value of the attribute is
+ a
+UserPrincipal
+.
+Since:
+1.7
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+UserPrincipal
+getOwner
+()
+Read the file owner.
+String
+name
+()
+Returns the name of the attribute view.
+void
+setOwner
+(
+UserPrincipal
+owner)
+Updates the file owner.
+Method Details
+name
+String
+name
+()
+Returns the name of the attribute view. Attribute views of this type
+ have the name
+"owner"
+.
+Specified by:
+name
+in interface
+AttributeView
+Returns:
+the name of the attribute view
+getOwner
+UserPrincipal
+getOwner
+()
+                throws
+IOException
+Read the file owner.
+It is implementation specific if the file owner can be a
+group
+.
+Returns:
+the file owner
+Throws:
+IOException
+- if an I/O error occurs
+SecurityException
+- In the case of the default provider, a security manager is
+          installed, and it denies
+RuntimePermission
+("accessUserInformation")
+or its
+checkRead
+method
+          denies read access to the file.
+setOwner
+void
+setOwner
+(
+UserPrincipal
+owner)
+throws
+IOException
+Updates the file owner.
+It is implementation specific if the file owner can be a
+group
+. To ensure consistent and correct behavior
+ across platforms it is recommended that this method should only be used
+ to set the file owner to a user principal that is not a group.
+Parameters:
+owner
+- the new file owner
+Throws:
+IOException
+- if an I/O error occurs, or the
+owner
+parameter is a
+          group and this implementation does not support setting the owner
+          to a group
+SecurityException
+- In the case of the default provider, a security manager is
+          installed, and it denies
+RuntimePermission
+("accessUserInformation")
+or its
+checkWrite
+method
+          denies write access to the file.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

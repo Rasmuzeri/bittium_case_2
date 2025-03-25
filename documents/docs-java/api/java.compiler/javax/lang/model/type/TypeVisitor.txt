@@ -1,0 +1,567 @@
+TypeVisitor (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.lang.model.type
+Interface TypeVisitor<R,
+P>
+Type Parameters:
+R
+- the return type of this visitor's methods.  Use
+Void
+for visitors that do not need to return results.
+P
+- the type of the additional parameter to this visitor's
+            methods.  Use
+Void
+for visitors that do not need an
+            additional parameter.
+All Known Implementing Classes:
+AbstractTypeVisitor14
+,
+AbstractTypeVisitor6
+,
+AbstractTypeVisitor7
+,
+AbstractTypeVisitor8
+,
+AbstractTypeVisitor9
+,
+SimpleTypeVisitor14
+,
+SimpleTypeVisitor6
+,
+SimpleTypeVisitor7
+,
+SimpleTypeVisitor8
+,
+SimpleTypeVisitor9
+,
+TypeKindVisitor14
+,
+TypeKindVisitor6
+,
+TypeKindVisitor7
+,
+TypeKindVisitor8
+,
+TypeKindVisitor9
+public interface
+TypeVisitor<R,
+P>
+A visitor of types, in the style of the
+ visitor design pattern.  Classes implementing this
+ interface are used to operate on a type when the kind of
+ type is unknown at compile time.  When a visitor is passed to a
+ type's
+accept
+method, the
+visit
+Xyz
+method most applicable to that type is invoked.
+Classes implementing this interface may or may not throw a
+NullPointerException
+if the additional parameter
+p
+is
+null
+; see documentation of the implementing class for
+ details.
+API Note:
+WARNING:
+It is possible that methods will be added
+ to this interface to accommodate new, currently unknown, language
+ structures added to future versions of the Java programming
+ language.
+
+ Such additions have already occurred to support language features
+ added after this API was introduced.
+
+ Visitor classes directly implementing this interface may be source
+ incompatible with future versions of the platform.  To avoid this
+ source incompatibility, visitor implementations are encouraged to
+ instead extend the appropriate abstract visitor class that
+ implements this interface.  However, an API should generally use
+ this visitor interface as the type for parameters, return type,
+ etc. rather than one of the abstract classes.
+Methods to accommodate new language constructs are expected to
+ be added as default methods to provide strong source
+ compatibility. The implementations of the default methods will in
+ turn call
+visitUnknown
+, behavior that will be
+ overridden in concrete visitors supporting the source version with
+ the new language construct.
+There are several families of classes implementing this visitor
+ interface in the
+util
+ package
+. The families follow a naming pattern along the lines of
+FooVisitor
+N
+where
+N
+indicates the
+source version
+the
+ visitor is appropriate for.
+
+ In particular, a
+FooVisitor
+N
+is expected to handle
+ all language constructs present in source version
+N
+. If
+ there are no new language constructs added in version
+N
++ 1 (or subsequent releases),
+FooVisitor
+N
+may also handle that later source version; in
+ that case, the
+SupportedSourceVersion
+annotation on the
+FooVisitor
+N
+class will indicate a later version.
+
+ When visiting a type representing a language construct
+ introduced
+after
+source version
+N
+, a
+FooVisitor
+N
+will throw an
+UnknownTypeException
+unless that behavior is overridden.
+When choosing which member of a visitor family to subclass,
+ subclassing the most recent one increases the range of source
+ versions covered. When choosing which visitor family to subclass,
+ consider their built-in capabilities:
+AbstractTypeVisitor
+s:
+ Skeletal visitor implementations.
+SimpleTypeVisitor
+s: Support
+ default actions and a default return value.
+TypeKindVisitor
+s: Visit methods
+ provided on a
+per-kind
+granularity
+ as some categories of types can have more than one kind.
+Since:
+1.6
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+default
+R
+visit
+(
+TypeMirror
+t)
+A convenience method equivalent to
+visit(t, null)
+.
+R
+visit
+(
+TypeMirror
+t,
+P
+p)
+Visits a type.
+R
+visitArray
+(
+ArrayType
+t,
+P
+p)
+Visits an array type.
+R
+visitDeclared
+(
+DeclaredType
+t,
+P
+p)
+Visits a declared type.
+R
+visitError
+(
+ErrorType
+t,
+P
+p)
+Visits an error type.
+R
+visitExecutable
+(
+ExecutableType
+t,
+P
+p)
+Visits an executable type.
+R
+visitIntersection
+(
+IntersectionType
+t,
+P
+p)
+Visits an intersection type.
+R
+visitNoType
+(
+NoType
+t,
+P
+p)
+Visits a
+NoType
+instance.
+R
+visitNull
+(
+NullType
+t,
+P
+p)
+Visits the null type.
+R
+visitPrimitive
+(
+PrimitiveType
+t,
+P
+p)
+Visits a primitive type.
+R
+visitTypeVariable
+(
+TypeVariable
+t,
+P
+p)
+Visits a type variable.
+R
+visitUnion
+(
+UnionType
+t,
+P
+p)
+Visits a union type.
+R
+visitUnknown
+(
+TypeMirror
+t,
+P
+p)
+Visits an unknown kind of type.
+R
+visitWildcard
+(
+WildcardType
+t,
+P
+p)
+Visits a wildcard type.
+Method Details
+visit
+R
+visit
+(
+TypeMirror
+t,
+P
+p)
+Visits a type.
+Parameters:
+t
+- the type to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+visit
+default
+R
+visit
+(
+TypeMirror
+t)
+A convenience method equivalent to
+visit(t, null)
+.
+Implementation Requirements:
+The default implementation is
+visit(t, null)
+.
+Parameters:
+t
+- the element to visit
+Returns:
+a visitor-specified result
+visitPrimitive
+R
+visitPrimitive
+(
+PrimitiveType
+t,
+P
+p)
+Visits a primitive type.
+Parameters:
+t
+- the type to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+visitNull
+R
+visitNull
+(
+NullType
+t,
+P
+p)
+Visits the null type.
+Parameters:
+t
+- the type to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+visitArray
+R
+visitArray
+(
+ArrayType
+t,
+P
+p)
+Visits an array type.
+Parameters:
+t
+- the type to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+visitDeclared
+R
+visitDeclared
+(
+DeclaredType
+t,
+P
+p)
+Visits a declared type.
+Parameters:
+t
+- the type to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+visitError
+R
+visitError
+(
+ErrorType
+t,
+P
+p)
+Visits an error type.
+Parameters:
+t
+- the type to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+visitTypeVariable
+R
+visitTypeVariable
+(
+TypeVariable
+t,
+P
+p)
+Visits a type variable.
+Parameters:
+t
+- the type to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+visitWildcard
+R
+visitWildcard
+(
+WildcardType
+t,
+P
+p)
+Visits a wildcard type.
+Parameters:
+t
+- the type to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+visitExecutable
+R
+visitExecutable
+(
+ExecutableType
+t,
+P
+p)
+Visits an executable type.
+Parameters:
+t
+- the type to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+visitNoType
+R
+visitNoType
+(
+NoType
+t,
+P
+p)
+Visits a
+NoType
+instance.
+Parameters:
+t
+- the type to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+visitUnknown
+R
+visitUnknown
+(
+TypeMirror
+t,
+P
+p)
+Visits an unknown kind of type.
+ This can occur if the language evolves and new kinds
+ of types are added to the
+TypeMirror
+hierarchy.
+Parameters:
+t
+- the type to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+Throws:
+UnknownTypeException
+- a visitor implementation may optionally throw this exception
+visitUnion
+R
+visitUnion
+(
+UnionType
+t,
+P
+p)
+Visits a union type.
+Parameters:
+t
+- the type to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+Since:
+1.7
+visitIntersection
+R
+visitIntersection
+(
+IntersectionType
+t,
+P
+p)
+Visits an intersection type.
+Parameters:
+t
+- the type to visit
+p
+- a visitor-specified parameter
+Returns:
+a visitor-specified result
+Since:
+1.8
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

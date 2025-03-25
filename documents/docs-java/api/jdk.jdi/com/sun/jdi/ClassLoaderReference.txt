@@ -1,0 +1,228 @@
+ClassLoaderReference (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.jdi
+Package
+com.sun.jdi
+Interface ClassLoaderReference
+All Superinterfaces:
+Mirror
+,
+ObjectReference
+,
+Value
+public interface
+ClassLoaderReference
+extends
+ObjectReference
+A class loader object from the target VM.
+ A ClassLoaderReference is an
+ObjectReference
+with additional
+ access to classloader-specific information from the target VM. Instances
+ ClassLoaderReference are obtained through calls to
+ReferenceType.classLoader()
+Since:
+1.3
+See Also:
+ObjectReference
+Field Summary
+Fields declared in interface com.sun.jdi.
+ObjectReference
+INVOKE_NONVIRTUAL
+,
+INVOKE_SINGLE_THREADED
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+List
+<
+ReferenceType
+>
+definedClasses
+()
+Returns a list of all classes defined by this class loader.
+List
+<
+ReferenceType
+>
+visibleClasses
+()
+Returns a list of all classes which this class loader
+ can find by name via
+ClassLoader::loadClass
+,
+Class::forName
+and bytecode linkage in the target VM.
+Methods declared in interface com.sun.jdi.
+Mirror
+toString
+,
+virtualMachine
+Methods declared in interface com.sun.jdi.
+ObjectReference
+disableCollection
+,
+enableCollection
+,
+entryCount
+,
+equals
+,
+getValue
+,
+getValues
+,
+hashCode
+,
+invokeMethod
+,
+isCollected
+,
+owningThread
+,
+referenceType
+,
+referringObjects
+,
+setValue
+,
+uniqueID
+,
+waitingThreads
+Methods declared in interface com.sun.jdi.
+Value
+type
+Method Details
+definedClasses
+List
+<
+ReferenceType
+>
+definedClasses
+()
+Returns a list of all classes defined by this class loader.
+ No ordering of this list guaranteed.
+ The returned list will include all reference types, including
+hidden classes or interfaces
+, loaded
+ at least to the point of preparation, and types (like array)
+ for which preparation is not defined.
+Returns:
+a
+List
+of
+ReferenceType
+objects mirroring types
+ defined by this class loader. The list has length 0 if no types
+ have been defined by this classloader.
+visibleClasses
+List
+<
+ReferenceType
+>
+visibleClasses
+()
+Returns a list of all classes which this class loader
+ can find by name via
+ClassLoader::loadClass
+,
+Class::forName
+and bytecode linkage in the target VM.  That is, all classes for
+ which this class loader has been recorded as an initiating loader.
+Each class in the returned list was created by this class loader
+ either by defining it directly or by delegation to another class loader
+ (see JVMS
+5.3
+).
+The returned list does not include
+hidden classes or interfaces
+or array classes whose
+element type
+is a
+hidden class or interface
+.
+ as they cannot be discovered by any class loader
+The visible class list has useful properties with respect to
+ the type namespace. A particular type name will occur at most
+ once in the list. Each field or variable declared with that
+ type name in a class defined by
+ this class loader must be resolved to that single type.
+No ordering of the returned list is guaranteed.
+Note that unlike
+definedClasses()
+and
+VirtualMachine.allClasses()
+,
+ some of the returned reference types may not be prepared.
+ Attempts to perform some operations on unprepared reference types
+ (e.g.
+fields()
+) will throw
+ a
+ClassNotPreparedException
+.
+ Use
+ReferenceType.isPrepared()
+to determine if
+ a reference type is prepared.
+Returns:
+a
+List
+of
+ReferenceType
+objects mirroring
+ classes which this class loader can find by name. The list
+ has length 0 if no classes are visible to this classloader.
+See Also:
+JVM TI GetClassLoaderClasses
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

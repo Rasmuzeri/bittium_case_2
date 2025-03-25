@@ -1,0 +1,357 @@
+Component.BltBufferStrategy (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt
+Class Component.BltBufferStrategy
+java.lang.Object
+java.awt.image.BufferStrategy
+java.awt.Component.BltBufferStrategy
+Enclosing class:
+Component
+protected class
+Component.BltBufferStrategy
+extends
+BufferStrategy
+Inner class for blitting offscreen surfaces to a component.
+Since:
+1.4
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected
+VolatileImage
+[]
+backBuffers
+The back buffers
+protected
+BufferCapabilities
+caps
+The buffering capabilities
+protected int
+height
+Height of the back buffers
+protected boolean
+validatedContents
+Whether or not the drawing buffer has been recently restored from
+ a lost state.
+protected int
+width
+Width of the back buffers
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+BltBufferStrategy
+(int numBuffers,
+BufferCapabilities
+caps)
+Creates a new blt buffer strategy around a component
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+contentsLost
+()
+Returns whether the drawing buffer was lost since the last call to
+getDrawGraphics
+.
+boolean
+contentsRestored
+()
+Returns whether the drawing buffer was recently restored from a lost
+ state and reinitialized to the default background color (white).
+protected void
+createBackBuffers
+(int numBuffers)
+Creates the back buffers
+void
+dispose
+()
+Releases system resources currently consumed by this
+BufferStrategy
+and
+ removes it from the associated Component.
+BufferCapabilities
+getCapabilities
+()
+Returns the
+BufferCapabilities
+for this
+BufferStrategy
+.
+Graphics
+getDrawGraphics
+()
+Creates a graphics context for the drawing buffer.
+protected void
+revalidate
+()
+Restore the drawing buffer if it has been lost
+void
+show
+()
+Makes the next available buffer visible.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+caps
+protected
+BufferCapabilities
+caps
+The buffering capabilities
+backBuffers
+protected
+VolatileImage
+[]
+backBuffers
+The back buffers
+validatedContents
+protected
+boolean
+validatedContents
+Whether or not the drawing buffer has been recently restored from
+ a lost state.
+width
+protected
+int
+width
+Width of the back buffers
+height
+protected
+int
+height
+Height of the back buffers
+Constructor Details
+BltBufferStrategy
+protected
+BltBufferStrategy
+(int numBuffers,
+BufferCapabilities
+caps)
+Creates a new blt buffer strategy around a component
+Parameters:
+numBuffers
+- number of buffers to create, including the
+ front buffer
+caps
+- the capabilities of the buffers
+Method Details
+dispose
+public
+void
+dispose
+()
+Releases system resources currently consumed by this
+BufferStrategy
+and
+ removes it from the associated Component.  After invoking this
+ method,
+getBufferStrategy
+will return null.  Trying
+ to use a
+BufferStrategy
+after it has been disposed will
+ result in undefined behavior.
+Overrides:
+dispose
+in class
+BufferStrategy
+Since:
+1.6
+See Also:
+Window.createBufferStrategy(int)
+Canvas.createBufferStrategy(int)
+Window.getBufferStrategy()
+Canvas.getBufferStrategy()
+createBackBuffers
+protected
+void
+createBackBuffers
+(int numBuffers)
+Creates the back buffers
+Parameters:
+numBuffers
+- the number of buffers to create
+getCapabilities
+public
+BufferCapabilities
+getCapabilities
+()
+Description copied from class:
+BufferStrategy
+Returns the
+BufferCapabilities
+for this
+BufferStrategy
+.
+Specified by:
+getCapabilities
+in class
+BufferStrategy
+Returns:
+the buffering capabilities of this strategy
+getDrawGraphics
+public
+Graphics
+getDrawGraphics
+()
+Description copied from class:
+BufferStrategy
+Creates a graphics context for the drawing buffer.  This method may not
+ be synchronized for performance reasons; use of this method by multiple
+ threads should be handled at the application level.  Disposal of the
+ graphics object obtained must be handled by the application.
+Specified by:
+getDrawGraphics
+in class
+BufferStrategy
+Returns:
+the draw graphics
+show
+public
+void
+show
+()
+Makes the next available buffer visible.
+Specified by:
+show
+in class
+BufferStrategy
+revalidate
+protected
+void
+revalidate
+()
+Restore the drawing buffer if it has been lost
+contentsLost
+public
+boolean
+contentsLost
+()
+Description copied from class:
+BufferStrategy
+Returns whether the drawing buffer was lost since the last call to
+getDrawGraphics
+.  Since the buffers in a buffer strategy
+ are usually type
+VolatileImage
+, they may become lost.
+ For a discussion on lost buffers, see
+VolatileImage
+.
+Specified by:
+contentsLost
+in class
+BufferStrategy
+Returns:
+whether the drawing buffer was lost since the last call to
+getDrawGraphics
+See Also:
+VolatileImage
+contentsRestored
+public
+boolean
+contentsRestored
+()
+Description copied from class:
+BufferStrategy
+Returns whether the drawing buffer was recently restored from a lost
+ state and reinitialized to the default background color (white).
+ Since the buffers in a buffer strategy are usually type
+VolatileImage
+, they may become lost.  If a surface has
+ been recently restored from a lost state since the last call to
+getDrawGraphics
+, it may require repainting.
+ For a discussion on lost buffers, see
+VolatileImage
+.
+Specified by:
+contentsRestored
+in class
+BufferStrategy
+Returns:
+whether the drawing buffer was recently restored from a lost
+ state and reinitialized to the default background color (white)
+See Also:
+VolatileImage
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

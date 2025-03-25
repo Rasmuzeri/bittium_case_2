@@ -1,0 +1,1555 @@
+Elements (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.lang.model.util
+Interface Elements
+public interface
+Elements
+Utility methods for operating on program elements.
+Compatibility Note:
+Methods may be added to this interface
+ in future releases of the platform.
+Since:
+1.6
+See Also:
+ProcessingEnvironment.getElementUtils()
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Interface
+Description
+static enum
+Elements.Origin
+The
+origin
+of an element or other language model
+ item.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+List
+<? extends
+AnnotationMirror
+>
+getAllAnnotationMirrors
+(
+Element
+e)
+Returns all annotations
+present
+on an element, whether
+ directly present or present via inheritance.
+List
+<? extends
+Element
+>
+getAllMembers
+(
+TypeElement
+type)
+Returns all members of a type element, whether inherited or
+ declared directly.
+default
+Set
+<? extends
+ModuleElement
+>
+getAllModuleElements
+()
+Returns all module elements in the current environment.
+default
+Set
+<? extends
+PackageElement
+>
+getAllPackageElements
+(
+CharSequence
+name)
+Returns all package elements with the given canonical name.
+default
+Set
+<? extends
+TypeElement
+>
+getAllTypeElements
+(
+CharSequence
+name)
+Returns all type elements with the given canonical name.
+Name
+getBinaryName
+(
+TypeElement
+type)
+Returns the
+binary name
+of a type element.
+String
+getConstantExpression
+(
+Object
+value)
+Returns the text of a
+constant expression
+representing a
+ primitive value or a string.
+String
+getDocComment
+(
+Element
+e)
+Returns the text of the documentation ("Javadoc")
+ comment of an element.
+Map
+<? extends
+ExecutableElement
+,
+? extends
+AnnotationValue
+>
+getElementValuesWithDefaults
+(
+AnnotationMirror
+a)
+Returns the values of an annotation's elements, including defaults.
+default
+JavaFileObject
+getFileObjectOf
+(
+Element
+e)
+Returns the file object for this element or
+null
+if
+ there is no such file object.
+default
+ModuleElement
+getModuleElement
+(
+CharSequence
+name)
+Returns a module element given its fully qualified name.
+default
+ModuleElement
+getModuleOf
+(
+Element
+e)
+Returns the module of an element.
+Name
+getName
+(
+CharSequence
+cs)
+Returns a name with the same sequence of characters as the
+ argument.
+default
+Elements.Origin
+getOrigin
+(
+AnnotatedConstruct
+c,
+AnnotationMirror
+a)
+Returns the
+origin
+of the given annotation mirror.
+default
+Elements.Origin
+getOrigin
+(
+Element
+e)
+Returns the
+origin
+of the given element.
+default
+Elements.Origin
+getOrigin
+(
+ModuleElement
+m,
+ModuleElement.Directive
+directive)
+Returns the
+origin
+of the given module directive.
+default
+TypeElement
+getOutermostTypeElement
+(
+Element
+e)
+Returns the outermost type element an element is contained in
+ if such a containing element exists; otherwise returns
+null
+.
+PackageElement
+getPackageElement
+(
+CharSequence
+name)
+Returns a package given its fully qualified name if the package is uniquely
+ determinable in the environment.
+default
+PackageElement
+getPackageElement
+(
+ModuleElement
+module,
+CharSequence
+name)
+Returns a package given its fully qualified name, as seen from the given module.
+PackageElement
+getPackageOf
+(
+Element
+e)
+Returns the package of an element.
+TypeElement
+getTypeElement
+(
+CharSequence
+name)
+Returns a type element given its canonical name if the type element is uniquely
+ determinable in the environment.
+default
+TypeElement
+getTypeElement
+(
+ModuleElement
+module,
+CharSequence
+name)
+Returns a type element given its canonical name, as seen from the given module.
+boolean
+hides
+(
+Element
+hider,
+Element
+hidden)
+Tests whether one type, method, or field hides another.
+default boolean
+isAutomaticModule
+(
+ModuleElement
+module)
+Returns
+true
+if the module element is an automatic
+ module,
+false
+otherwise.
+default boolean
+isBridge
+(
+ExecutableElement
+e)
+Returns
+true
+if the executable element is a bridge
+ method,
+false
+otherwise.
+default boolean
+isCanonicalConstructor
+(
+ExecutableElement
+e)
+Returns
+true
+if the executable element can be
+ determined to be a canonical constructor of a record,
+false
+otherwise.
+default boolean
+isCompactConstructor
+(
+ExecutableElement
+e)
+Returns
+true
+if the executable element can be
+ determined to be a compact constructor of a record,
+false
+otherwise.
+boolean
+isDeprecated
+(
+Element
+e)
+Returns
+true
+if the element is deprecated,
+false
+otherwise.
+boolean
+isFunctionalInterface
+(
+TypeElement
+type)
+Returns
+true
+if the type element is a functional
+ interface,
+false
+otherwise.
+boolean
+overrides
+(
+ExecutableElement
+overrider,
+ExecutableElement
+overridden,
+TypeElement
+type)
+Tests whether one method, as a member of a given class or interface,
+ overrides another method.
+void
+printElements
+(
+Writer
+w,
+Element
+... elements)
+Prints a representation of the elements to the given writer in
+ the specified order.
+default
+RecordComponentElement
+recordComponentFor
+(
+ExecutableElement
+accessor)
+Returns the record component for the given accessor.
+Method Details
+getPackageElement
+PackageElement
+getPackageElement
+(
+CharSequence
+name)
+Returns a package given its fully qualified name if the package is uniquely
+ determinable in the environment.
+
+ If running with modules, packages of the given name are searched in a
+ two-stage process:
+find non-empty packages with the given name returned by
+getPackageElement(ModuleElement, CharSequence)
+,
+         where the provided ModuleSymbol is any
+root module
+,
+if the above yields an empty list, search
+all modules
+for observable
+         packages with the given name
+If this process leads to a list with a single element, the
+ single element is returned, otherwise
+null
+is returned.
+Parameters:
+name
+- fully qualified package name,
+             or an empty string for an unnamed package
+Returns:
+the specified package,
+         or
+null
+if no package can be uniquely determined.
+getPackageElement
+default
+PackageElement
+getPackageElement
+(
+ModuleElement
+module,
+CharSequence
+name)
+Returns a package given its fully qualified name, as seen from the given module.
+Implementation Requirements:
+The default implementation of this method returns
+null
+.
+Parameters:
+module
+- module relative to which the lookup should happen
+name
+- fully qualified package name, or an empty string for an unnamed package
+Returns:
+the specified package, or
+null
+if it cannot be found
+Since:
+9
+See Also:
+getAllPackageElements(java.lang.CharSequence)
+getAllPackageElements
+default
+Set
+<? extends
+PackageElement
+>
+getAllPackageElements
+(
+CharSequence
+name)
+Returns all package elements with the given canonical name.
+
+ There may be more than one package element with the same canonical
+ name if the package elements are in different modules.
+Implementation Requirements:
+The default implementation of this method calls
+getAllModuleElements
+and stores
+ the result. If the set of modules is empty,
+getPackageElement(name)
+is
+ called passing through the name argument. If
+getPackageElement(name)
+is
+null
+, an empty set of
+ package elements is returned; otherwise, a single-element set
+ with the found package element is returned. If the set of
+ modules is nonempty, the modules are iterated over and any
+ non-
+null
+results of
+getPackageElement(module, name)
+are accumulated into a
+ set. The set is then returned.
+Parameters:
+name
+- the canonical name
+Returns:
+the package elements, or an empty set if no package with the name can be found
+Since:
+9
+See Also:
+getPackageElement(ModuleElement, CharSequence)
+getTypeElement
+TypeElement
+getTypeElement
+(
+CharSequence
+name)
+Returns a type element given its canonical name if the type element is uniquely
+ determinable in the environment.
+
+ If running with modules, type elements of the given name are
+ searched in a two-stage process:
+find type elements with the given name returned by
+getTypeElement(ModuleElement, CharSequence)
+,
+         where the provided ModuleSymbol is any
+root module
+,
+if the above yields an empty list, search
+all modules
+for observable
+         type elements with the given name
+If this process leads to a list with a single element, the
+ single element is returned, otherwise
+null
+is returned.
+Parameters:
+name
+- the canonical name
+Returns:
+the named type element,
+         or
+null
+if no type element can be uniquely determined.
+getTypeElement
+default
+TypeElement
+getTypeElement
+(
+ModuleElement
+module,
+CharSequence
+name)
+Returns a type element given its canonical name, as seen from the given module.
+Implementation Requirements:
+The default implementation of this method returns
+null
+.
+Parameters:
+module
+- module relative to which the lookup should happen
+name
+- the canonical name
+Returns:
+the named type element, or
+null
+if it cannot be found
+Since:
+9
+See Also:
+getAllTypeElements(java.lang.CharSequence)
+getAllTypeElements
+default
+Set
+<? extends
+TypeElement
+>
+getAllTypeElements
+(
+CharSequence
+name)
+Returns all type elements with the given canonical name.
+
+ There may be more than one type element with the same canonical
+ name if the type elements are in different modules.
+Implementation Requirements:
+The default implementation of this method calls
+getAllModuleElements
+and stores
+ the result. If the set of modules is empty,
+getTypeElement(name)
+is called
+ passing through the name argument. If
+getTypeElement(name)
+is
+null
+, an empty set of type
+ elements is returned; otherwise, a single-element set with the
+ found type element is returned. If the set of modules is
+ nonempty, the modules are iterated over and any non-
+null
+results of
+getTypeElement(module, name)
+are accumulated
+ into a set. The set is then returned.
+Parameters:
+name
+- the canonical name
+Returns:
+the type elements, or an empty set if no type with the name can be found
+Since:
+9
+See Also:
+getTypeElement(ModuleElement, CharSequence)
+getModuleElement
+default
+ModuleElement
+getModuleElement
+(
+CharSequence
+name)
+Returns a module element given its fully qualified name.
+
+ If the requested module cannot be found,
+null
+is
+ returned. One situation where a module cannot be found is if
+ the environment does not include modules, such as an annotation
+ processing environment configured for a
+source version
+without modules.
+Implementation Requirements:
+The default implementation of this method returns
+null
+.
+Parameters:
+name
+- the name, or an empty string for an unnamed module
+Returns:
+the named module element, or
+null
+if it cannot be found
+Since:
+9
+See Also:
+getAllModuleElements()
+getAllModuleElements
+default
+Set
+<? extends
+ModuleElement
+>
+getAllModuleElements
+()
+Returns all module elements in the current environment.
+
+ If no modules are present, an empty set is returned. One
+ situation where no modules are present occurs when the
+ environment does not include modules, such as an annotation
+ processing environment configured for a
+source version
+without modules.
+API Note:
+When an environment includes modules, both named modules and
+unnamed modules
+may be
+ returned.
+Implementation Requirements:
+The default implementation of this method returns
+ an empty set.
+Returns:
+the known module elements, or an empty set if there are no modules
+Since:
+9
+See Also:
+getModuleElement(CharSequence)
+getElementValuesWithDefaults
+Map
+<? extends
+ExecutableElement
+,
+? extends
+AnnotationValue
+>
+getElementValuesWithDefaults
+(
+AnnotationMirror
+a)
+Returns the values of an annotation's elements, including defaults.
+Parameters:
+a
+- annotation to examine
+Returns:
+the values of an annotation's elements, including defaults
+See Also:
+AnnotationMirror.getElementValues()
+getDocComment
+String
+getDocComment
+(
+Element
+e)
+Returns the text of the documentation ("Javadoc")
+ comment of an element.
+A documentation comment of an element is a comment that
+ begins with "
+/**
+", ends with a separate
+ "
+*/
+", and immediately precedes the element,
+ ignoring white space.  Therefore, a documentation comment
+ contains at least three "
+*
+" characters.  The text
+ returned for the documentation comment is a processed form of
+ the comment as it appears in source code.  The leading "
+/**
+"
+ and trailing "
+*/
+" are removed.  For lines
+ of the comment starting after the initial "
+/**
+",
+ leading white space characters are discarded as are any
+ consecutive "
+*
+" characters appearing after the white
+ space or starting the line.  The processed lines are then
+ concatenated together (including line terminators) and
+ returned.
+Parameters:
+e
+- the element being examined
+Returns:
+the documentation comment of the element, or
+null
+if there is none
+See
+Java Language Specification
+:
+3.6 White Space
+isDeprecated
+boolean
+isDeprecated
+(
+Element
+e)
+Returns
+true
+if the element is deprecated,
+false
+otherwise.
+Parameters:
+e
+- the element being examined
+Returns:
+true
+if the element is deprecated,
+false
+otherwise
+getOrigin
+default
+Elements.Origin
+getOrigin
+(
+Element
+e)
+Returns the
+origin
+of the given element.
+Note that if this method returns
+EXPLICIT
+and the element was created from a class file, then
+ the element may not, in fact, correspond to an explicitly
+ declared construct in source code. This is due to limitations
+ of the fidelity of the class file format in preserving
+ information from source code. For example, at least some
+ versions of the class file format do not preserve whether a
+ constructor was explicitly declared by the programmer or was
+ implicitly declared as the
+default constructor
+.
+Implementation Requirements:
+The default implementation of this method returns
+EXPLICIT
+.
+Parameters:
+e
+- the element being examined
+Returns:
+the
+origin
+of the given element
+Since:
+9
+getOrigin
+default
+Elements.Origin
+getOrigin
+(
+AnnotatedConstruct
+c,
+AnnotationMirror
+a)
+Returns the
+origin
+of the given annotation mirror.
+
+ An annotation mirror is
+mandated
+if it is an implicitly declared
+container annotation
+used to hold repeated annotations of a repeatable annotation
+ interface.
+Note that if this method returns
+EXPLICIT
+and the annotation mirror was created from a class
+ file, then the element may not, in fact, correspond to an
+ explicitly declared construct in source code. This is due to
+ limitations of the fidelity of the class file format in
+ preserving information from source code. For example, at least
+ some versions of the class file format do not preserve whether
+ an annotation was explicitly declared by the programmer or was
+ implicitly declared as a
+container annotation
+.
+Implementation Requirements:
+The default implementation of this method returns
+EXPLICIT
+.
+Parameters:
+c
+- the construct the annotation mirror modifies
+a
+- the annotation mirror being examined
+Returns:
+the
+origin
+of the given annotation mirror
+See
+Java Language Specification
+:
+9.6.3 Repeatable Annotation Interfaces
+9.7.5 Multiple Annotations of the Same Interface
+Since:
+9
+getOrigin
+default
+Elements.Origin
+getOrigin
+(
+ModuleElement
+m,
+ModuleElement.Directive
+directive)
+Returns the
+origin
+of the given module directive.
+Note that if this method returns
+EXPLICIT
+and the module directive was created from a class
+ file, then the module directive may not, in fact, correspond to
+ an explicitly declared construct in source code. This is due to
+ limitations of the fidelity of the class file format in
+ preserving information from source code. For example, at least
+ some versions of the class file format do not preserve whether
+ a
+uses
+directive was explicitly declared by the
+ programmer or was added as a synthetic construct.
+Note that an implementation may not be able to reliably
+ determine the origin status of the directive if the directive
+ is created from a class file due to limitations of the fidelity
+ of the class file format in preserving information from source
+ code.
+Implementation Requirements:
+The default implementation of this method returns
+EXPLICIT
+.
+Parameters:
+m
+- the module of the directive
+directive
+- the module directive being examined
+Returns:
+the
+origin
+of the given module directive
+Since:
+9
+isBridge
+default
+boolean
+isBridge
+(
+ExecutableElement
+e)
+Returns
+true
+if the executable element is a bridge
+ method,
+false
+otherwise.
+Implementation Requirements:
+The default implementation of this method returns
+false
+.
+Parameters:
+e
+- the executable being examined
+Returns:
+true
+if the executable element is a bridge
+ method,
+false
+otherwise
+Since:
+9
+getBinaryName
+Name
+getBinaryName
+(
+TypeElement
+type)
+Returns the
+binary name
+of a type element.
+Parameters:
+type
+- the type element being examined
+Returns:
+the
+binary name
+of a type element
+See
+Java Language Specification
+:
+13.1 The Form of a Binary
+See Also:
+TypeElement.getQualifiedName()
+getPackageOf
+PackageElement
+getPackageOf
+(
+Element
+e)
+Returns the package of an element.  The package of a package is
+ itself.
+ The package of a module is
+null
+.
+
+ The package of a top-level class or interface is its
+enclosing package
+. Otherwise,
+ the package of an element is equal to the package of the
+enclosing element
+.
+Parameters:
+e
+- the element being examined
+Returns:
+the package of an element
+getModuleOf
+default
+ModuleElement
+getModuleOf
+(
+Element
+e)
+Returns the module of an element.  The module of a module is
+ itself.
+
+ If a package has a module as its
+enclosing element
+, that
+ module is the module of the package. If the enclosing element
+ of a package is
+null
+,
+null
+is returned for the
+ package's module.
+
+ (One situation where a package may have a
+null
+module
+ is if the environment does not include modules, such as an
+ annotation processing environment configured for a
+source version
+without modules.)
+
+ Otherwise, the module of an element is equal to the module
+of the package
+of the
+ element.
+Implementation Requirements:
+The default implementation of this method returns
+null
+.
+Parameters:
+e
+- the element being examined
+Returns:
+the module of an element
+Since:
+9
+getAllMembers
+List
+<? extends
+Element
+>
+getAllMembers
+(
+TypeElement
+type)
+Returns all members of a type element, whether inherited or
+ declared directly.  For a class the result also includes its
+ constructors, but not local or anonymous classes.
+API Note:
+Elements of certain kinds can be isolated using
+ methods in
+ElementFilter
+.
+Parameters:
+type
+- the type being examined
+Returns:
+all members of the type
+See Also:
+Element.getEnclosedElements()
+getOutermostTypeElement
+default
+TypeElement
+getOutermostTypeElement
+(
+Element
+e)
+Returns the outermost type element an element is contained in
+ if such a containing element exists; otherwise returns
+null
+.
+Modules
+and
+packages
+do
+not
+have a containing type
+ element and therefore
+null
+is returned for those kinds
+ of elements.
+
+ A
+top-level
+class or
+ interface is its own outermost type element.
+Implementation Requirements:
+The default implementation of this method first checks the kind
+ of the argument. For elements of kind
+PACKAGE
+,
+MODULE
+, and
+OTHER
+,
+null
+is returned. For
+ elements of other kinds, the element is examined to see if it
+ is a top-level class or interface. If so, that element is
+ returned; otherwise, the
+enclosing element
+chain is
+ followed until a top-level class or interface is found. The
+ element for the eventual top-level class or interface is
+ returned.
+Parameters:
+e
+- the element being examined
+Returns:
+the outermost type element an element is contained in
+ if such a containing element exists; otherwise returns
+null
+Since:
+18
+See Also:
+Element.getEnclosingElement()
+getAllAnnotationMirrors
+List
+<? extends
+AnnotationMirror
+>
+getAllAnnotationMirrors
+(
+Element
+e)
+Returns all annotations
+present
+on an element, whether
+ directly present or present via inheritance.
+Note that any annotations returned by this method are
+ declaration annotations.
+Parameters:
+e
+- the element being examined
+Returns:
+all annotations of the element
+See Also:
+Element.getAnnotationMirrors()
+AnnotatedConstruct
+hides
+boolean
+hides
+(
+Element
+hider,
+Element
+hidden)
+Tests whether one type, method, or field hides another.
+Parameters:
+hider
+- the first element
+hidden
+- the second element
+Returns:
+true
+if and only if the first element hides
+          the second
+See
+Java Language Specification
+:
+8.4.8 Inheritance, Overriding, and Hiding
+overrides
+boolean
+overrides
+(
+ExecutableElement
+overrider,
+ExecutableElement
+overridden,
+TypeElement
+type)
+Tests whether one method, as a member of a given class or interface,
+ overrides another method.
+ When a non-abstract method overrides an abstract one, the
+ former is also said to
+implement
+the latter.
+ As implied by JLS
+8.4.8.1
+, a method does
+not
+override itself. The overrides relation is
+irreflexive
+.
+In the simplest and most typical usage, the value of the
+type
+parameter will simply be the class or interface
+ directly enclosing
+overrider
+(the possibly-overriding
+ method).  For example, suppose
+m1
+represents the method
+String.hashCode
+and
+m2
+represents
+Object.hashCode
+.  We can then ask whether
+m1
+overrides
+m2
+within the class
+String
+(it does):
+assert elements.overrides(m1, m2,
+          elements.getTypeElement("java.lang.String"));
+A more interesting case can be illustrated by the following example
+ in which a method in class
+A
+does not override a
+ like-named method in interface
+B
+:
+class A { public void m() {} }
+interface B { void m(); }
+...
+m1 = ...;  // A.m
+m2 = ...;  // B.m
+assert ! elements.overrides(m1, m2,
+          elements.getTypeElement("A"));
+When viewed as a member of a third class
+C
+, however,
+ the method in
+A
+does override the one in
+B
+:
+class C extends A implements B {}
+...
+assert elements.overrides(m1, m2,
+          elements.getTypeElement("C"));
+Parameters:
+overrider
+- the first method, possible overrider
+overridden
+- the second method, possibly being overridden
+type
+- the class or interface of which the first method is a member
+Returns:
+true
+if and only if the first method overrides
+          the second
+See
+Java Language Specification
+:
+8.4.8 Inheritance, Overriding, and Hiding
+9.4.1 Inheritance and Overriding
+getConstantExpression
+String
+getConstantExpression
+(
+Object
+value)
+Returns the text of a
+constant expression
+representing a
+ primitive value or a string.
+ The text returned is in a form suitable for representing the value
+ in source code.
+Parameters:
+value
+- a primitive value or string
+Returns:
+the text of a constant expression
+Throws:
+IllegalArgumentException
+- if the argument is not a primitive
+          value or string
+See Also:
+VariableElement.getConstantValue()
+printElements
+void
+printElements
+(
+Writer
+w,
+Element
+... elements)
+Prints a representation of the elements to the given writer in
+ the specified order.  The main purpose of this method is for
+ diagnostics.  The exact format of the output is
+not
+specified and is subject to change.
+Parameters:
+w
+- the writer to print the output to
+elements
+- the elements to print
+getName
+Name
+getName
+(
+CharSequence
+cs)
+Returns a name with the same sequence of characters as the
+ argument.
+Parameters:
+cs
+- the character sequence to return as a name
+Returns:
+a name with the same sequence of characters as the
+ argument
+isFunctionalInterface
+boolean
+isFunctionalInterface
+(
+TypeElement
+type)
+Returns
+true
+if the type element is a functional
+ interface,
+false
+otherwise.
+Parameters:
+type
+- the type element being examined
+Returns:
+true
+if the type element is a functional
+ interface,
+false
+otherwise
+See
+Java Language Specification
+:
+9.8 Functional Interfaces
+Since:
+1.8
+isAutomaticModule
+default
+boolean
+isAutomaticModule
+(
+ModuleElement
+module)
+Returns
+true
+if the module element is an automatic
+ module,
+false
+otherwise.
+Implementation Requirements:
+The default implementation of this method returns
+false
+.
+Parameters:
+module
+- the module element being examined
+Returns:
+true
+if the module element is an automatic
+ module,
+false
+otherwise
+See
+Java Language Specification
+:
+7.7.1 Dependences
+Since:
+17
+recordComponentFor
+default
+RecordComponentElement
+recordComponentFor
+(
+ExecutableElement
+accessor)
+Returns the record component for the given accessor. Returns
+null
+if the given method is not a record component
+ accessor.
+Implementation Requirements:
+The default implementation of this method checks if the element
+ enclosing the accessor has kind
+RECORD
+if that is
+ the case, then all the record components on the accessor's enclosing element
+ are retrieved by invoking
+ElementFilter.recordComponentsIn(Iterable)
+.
+ If the accessor of at least one of the record components retrieved happen to
+ be equal to the accessor passed as a parameter to this method, then that
+ record component is returned, in any other case
+null
+is returned.
+Parameters:
+accessor
+- the method for which the record component should be found.
+Returns:
+the record component, or
+null
+if the given
+ method is not a record component accessor
+Since:
+16
+isCanonicalConstructor
+default
+boolean
+isCanonicalConstructor
+(
+ExecutableElement
+e)
+Returns
+true
+if the executable element can be
+ determined to be a canonical constructor of a record,
+false
+otherwise.
+ Note that in some cases there may be insufficient information
+ to determine if a constructor is a canonical constructor, such
+ as if the executable element is built backed by a class
+ file. In such cases,
+false
+is returned.
+Implementation Requirements:
+The default implementation of this method unconditionally
+ returns
+false
+.
+Parameters:
+e
+- the executable being examined
+Returns:
+true
+if the executable element can be
+ determined to be a canonical constructor of a record,
+false
+otherwise
+See
+Java Language Specification
+:
+8.10.4.1 Normal Canonical Constructors
+Since:
+20
+isCompactConstructor
+default
+boolean
+isCompactConstructor
+(
+ExecutableElement
+e)
+Returns
+true
+if the executable element can be
+ determined to be a compact constructor of a record,
+false
+otherwise.
+ By definition, a compact constructor is also a
+canonical
+ constructor
+.
+ Note that in some cases there may be insufficient information
+ to determine if a constructor is a compact constructor, such as
+ if the executable element is built backed by a class file. In
+ such cases,
+false
+is returned.
+Implementation Requirements:
+The default implementation of this method unconditionally
+ returns
+false
+.
+Parameters:
+e
+- the executable being examined
+Returns:
+true
+if the executable element can be
+ determined to be a compact constructor of a record,
+false
+otherwise
+See
+Java Language Specification
+:
+8.10.4.2 Compact Canonical Constructors
+Since:
+20
+getFileObjectOf
+default
+JavaFileObject
+getFileObjectOf
+(
+Element
+e)
+Returns the file object for this element or
+null
+if
+ there is no such file object.
+The returned file object is for the
+reference
+ representation
+of the information used to construct the
+ element. For example, if during compilation or annotation
+ processing, a source file for class
+Foo
+is compiled
+ into a class file, the file object returned for the element
+ representing
+Foo
+would be for the source file and
+not
+for the class file.
+An implementation may choose to not support the
+ functionality of this method, in which case
+UnsupportedOperationException
+is thrown.
+In the context of annotation processing, a non-
+null
+value is returned if the element was included as part of the
+ initial inputs or the containing file was created during the
+ run of the annotation processing tool. Otherwise, a
+null
+may be returned. In annotation processing, if a
+class file is created
+, that class file can serve as the
+ reference representation for elements.
+If it has a file object, the file object for a package will
+ be a
+package-info
+file. A package may exist and not
+ have any
+package-info
+file even if the package is
+ (implicitly) created during an annotation processing run from
+ the creation of source or class files in that package.  An
+unnamed package
+will have
+ a
+null
+file since it cannot be declared in a
+ compilation unit.
+If it has a file object, the file object for a module will
+ be a
+module-info
+file.  An
+unnamed module
+will have a
+null
+file since it cannot be declared in a compilation unit.
+ An
+automatic module
+will have a
+null
+file since it is implicitly declared.
+If it has a file object, the file object for a top-level
+public
+class or interface will be a source or class
+ file corresponding to that class or interface. In this case,
+ typically the leading portion of the name of the file will
+ match the name of the class or interface. A single compilation
+ unit can define multiple top-level classes and interfaces, such
+ as a primary
+public
+class or interfaces whose name
+ corresponds to the file name and one or more
+auxiliary
+classes or interfaces whose names do not correspond to the file
+ name. If a source file is providing the reference
+ representation of an auxiliary class or interface, the file for
+ the primary class is returned. (An auxiliary class or interface
+ can also be defined in a
+package-info
+source file, in
+ which case the file for the
+package-info
+file is
+ returned.)  If a class file is providing the reference
+ representation of an auxiliary class or interface, the separate
+ class file for the auxiliary class is returned.
+For a nested class or interface, if it has a file object:
+if a source file is providing the reference representation,
+ the file object will be that of the
+outermost enclosing
+class or
+ interface
+if a class file is providing the reference representation,
+ the file object will be that of the nested class or interface
+ itself
+For other lexically enclosed elements, such as
+variables
+,
+methods, and
+ constructors
+, if they have a file object, the file object will
+ be the object associated with the
+enclosing element
+of the
+ lexically enclosed element.
+Implementation Requirements:
+The default implementation unconditionally throws
+UnsupportedOperationException
+.
+Parameters:
+e
+- the element to find a file object for
+Returns:
+the file object for this element or
+null
+if
+ there is no such file object
+Throws:
+UnsupportedOperationException
+- if this functionality is
+ not supported
+Since:
+18
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

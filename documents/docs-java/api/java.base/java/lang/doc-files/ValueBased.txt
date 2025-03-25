@@ -1,0 +1,85 @@
+Value-based Classes (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Value-based Classes
+Some classes, such as
+java.lang.Integer
+and
+java.time.LocalDate
+, are
+value-based
+.
+A value-based class has the following properties:
+the class declares only final instance fields (though these may contain references
+        to mutable objects);
+the class's implementations of
+equals
+,
+hashCode
+,
+        and
+toString
+compute their results solely from the values
+        of the class's instance fields (and the members of the objects they
+        reference), not from the instance's identity;
+the class's methods treat instances as
+freely substitutable
+when equal, meaning that interchanging any two instances
+x
+and
+y
+that are equal according to
+equals()
+produces no
+        visible change in the behavior of the class's methods;
+the class performs no synchronization using an instance's monitor;
+the class does not declare (or has deprecated any) accessible constructors;
+the class does not provide any instance creation mechanism that promises
+        a unique identity on each method call—in particular, any factory
+        method's contract must allow for the possibility that if two independently-produced
+        instances are equal according to
+equals()
+, they may also be
+        equal according to
+==
+;
+the class is final, and extends either
+Object
+or a hierarchy of
+        abstract classes that declare no instance fields or instance initializers
+        and whose constructors are empty.
+When two instances of a value-based class are equal (according to `equals`), a program
+    should not attempt to distinguish between their identities, whether directly via reference
+    equality or indirectly via an appeal to synchronization, identity hashing,
+    serialization, or any other identity-sensitive mechanism.
+Synchronization on instances of value-based classes is strongly discouraged,
+    because the programmer cannot guarantee exclusive ownership of the
+    associated monitor.
+Identity-related behavior of value-based classes may change in a future release.
+    For example, synchronization may fail.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

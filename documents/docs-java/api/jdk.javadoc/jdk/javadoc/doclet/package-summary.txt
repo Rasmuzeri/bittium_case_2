@@ -1,0 +1,452 @@
+jdk.javadoc.doclet (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages |
+Classes and Interfaces
+SEARCH
+Module
+jdk.javadoc
+Package jdk.javadoc.doclet
+package
+jdk.javadoc.doclet
+The Doclet API provides an environment which, in conjunction with
+ the Language Model API and Compiler Tree API, allows clients
+ to inspect the source-level structures of programs and
+ libraries, including API comments embedded in the source.
+The
+standard doclet
+can be used to
+ generate HTML-formatted documentation. It supports user-defined
+taglets
+, which can be used to generate customized
+ output for user-defined tags in documentation comments.
+Note:
+The declarations in this package supersede those
+ in the older package
+com.sun.javadoc
+. For details on the
+ mapping of old types to new types, see the
+Migration Guide
+.
+Doclets are invoked by javadoc and this API can be used to write out
+ program information to files.  For example, the standard doclet is
+ invoked by default, to generate HTML documentation.
+The invocation is defined by the interface
+Doclet
+-- the
+run
+interface
+ method, defines the entry point.
+Copy
+public boolean
+run
+(DocletEnvironment environment)
+The
+DocletEnvironment
+instance holds the
+ environment that the doclet will be initialized with. From this environment
+ all other information can be extracted, in the form of
+elements
+. One can further use the APIs and utilities
+ described by
+Language Model API
+to query Elements and Types.
+Terminology
+Selected
+An element is considered to be
+selected
+, if the
+selection controls
+allow
+it
+         to be documented. (Note that synthetic elements are never
+         selected.)
+Specified
+The set of elements specified by the user are considered to be
+specified
+       elements
+. Specified elements provide the starting points
+       for determining the
+included elements
+to be documented.
+Included
+An element is considered to be
+included
+, if it is
+selected
+and any of the following is true:
+the element is
+specified
+, or
+the element contains a
+specified
+element, or
+the element is enclosed in a
+specified
+element.
+Included elements will be documented.
+Options
+Javadoc
+selection control
+can be specified with these options
+ as follows:
+--show-members:value
+and
+--show-types:value
+can
+       be used to filter the members, with the following values:
+public    -- considers only public elements
+protected -- considers public and protected elements
+package   -- considers public, protected and package private elements
+private   -- considers all elements
+--show-packages:value
+"exported" or "all" can be used
+       to consider only exported packages or all packages within a module.
+--show-module-contents:value
+can be used to specify the level at
+       module declarations could be documented. A value of "api" indicates API
+       level documentation, and "all" indicates detailed documentation.
+The following options can be used to specify the elements to be documented:
+--module
+documents the specified modules.
+--expand-requires:value
+expand the set of modules to be documented
+        by including some or all of the modules dependencies. The value may be
+        one of:
+transitive -- each module specified explicitly on the command line is
+          expanded to include the closure of its transitive dependencies
+all    -- each module specified explicitly on the command line
+          is expanded to include the closure of its transitive dependencies,
+          and also all of its direct dependencies
+By default, only the specified modules will be considered, without expansion
+   of the module dependencies.
+packagenames
+can be used to specify packages.
+-subpackages
+can be used to recursively load packages.
+-exclude
+can be used exclude package directories.
+sourcefilenames
+can be used to specify source file names.
+Interactions with older options.
+The new
+--show-*
+options provide a more detailed replacement
+ for the older options
+-public
+,
+-protected
+,
+-package
+,
+-private
+.
+ Alternatively, the older options can continue to be used as shorter
+ forms for combinations of the new options, as described below:
+Short form options mapping
+Older option
+Equivalent to these values with the new option
+--show-members
+--show-types
+--show-packages
+--show-module-contents
+-public
+public
+public
+exported
+api
+-protected
+protected
+protected
+exported
+api
+-package
+package
+package
+all
+all
+-private
+private
+private
+all
+all
+A
+qualified
+element name is one that has its package
+ name prepended to it, such as
+java.lang.String
+.  A non-qualified
+ name has no package name, such as
+String
+.
+Example
+The following is an example doclet that displays information of a class
+ and its members, supporting an option.
+Copy
+// Note: imports deleted for clarity
+
+public class Example implements Doclet {
+    private Reporter reporter;
+    private PrintWriter stdout;
+
+    @Override
+    public void init(Locale locale, Reporter reporter) {
+        reporter.print(Kind.NOTE, "Doclet using locale: " + locale);
+        this.reporter = reporter;
+        stdout = reporter.getStandardWriter();
+    }
+
+    public void printElement(DocTrees trees, Element e) {
+        DocCommentTree docCommentTree = trees.getDocCommentTree(e);
+        if (docCommentTree != null) {
+            stdout.println("Element (" + e.getKind() + ": "
+                    + e + ") has the following comments:");
+            stdout.println("Entire body: " + docCommentTree.getFullBody());
+            stdout.println("Block tags: " + docCommentTree.getBlockTags());
+        }
+    }
+
+    @Override
+    public boolean run(DocletEnvironment docEnv) {
+        reporter.print(Kind.NOTE, "overviewFile: " + overviewFile);
+
+        // get the DocTrees utility class to access document comments
+        DocTrees docTrees = docEnv.getDocTrees();
+
+        // location of an element in the same directory as overview.html
+        try {
+            Element e = ElementFilter.typesIn(docEnv.getSpecifiedElements()).iterator().next();
+            DocCommentTree docCommentTree
+                    = docTrees.getDocCommentTree(e, overviewFile);
+            if (docCommentTree != null) {
+                stdout.println("Overview html: " + docCommentTree.getFullBody());
+            }
+        } catch (IOException missing) {
+            reporter.print(Kind.ERROR, "No overview.html found.");
+        }
+
+        for (TypeElement t : ElementFilter.typesIn(docEnv.getIncludedElements())) {
+            stdout.println(t.getKind() + ":" + t);
+            for (Element e : t.getEnclosedElements()) {
+                printElement(docTrees, e);
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public String getName() {
+        return "Example";
+    }
+
+    private String overviewFile;
+
+    @Override
+    public Set<? extends Option> getSupportedOptions() {
+        Option[] options = {
+            new Option() {
+                private final List<String> someOption = List.of(
+                        "--overview-file",
+                        "-overviewfile",
+                        "-o"
+                );
+
+                @Override
+                public int getArgumentCount() {
+                    return 1;
+                }
+
+                @Override
+                public String getDescription() {
+                    return "an option with aliases";
+                }
+
+                @Override
+                public Option.Kind getKind() {
+                    return Option.Kind.STANDARD;
+                }
+
+                @Override
+                public List<String> getNames() {
+                    return someOption;
+                }
+
+                @Override
+                public String getParameters() {
+                    return "file";
+                }
+
+                @Override
+                public boolean process(String opt, List<String> arguments) {
+                    overviewFile = arguments.get(0);
+                    return true;
+                }
+            }
+        };
+
+        return Set.of(options);
+    }
+
+    @Override
+    public SourceVersion getSupportedSourceVersion() {
+        // support the latest release
+        return SourceVersion.latest();
+    }
+}
+This doclet can be invoked with a command line, such as:
+Copy
+javadoc -docletpath
+doclet-classes
+\
+  -doclet Example \
+  --overview-file overview.html \
+  --source-path
+source-location
+\
+source-location
+/Example.java
+Migration Guide
+Many of the types in the old
+com.sun.javadoc
+API do not have equivalents in this
+ package. Instead, types in the
+javax.lang.model
+and
+com.sun.source
+APIs
+ are used instead.
+The following table gives a guide to the mapping from old types to their replacements.
+ In some cases, there is no direct equivalent.
+Guide for mapping old types to new types
+Old Type
+New Type
+AnnotatedType
+javax.lang.model.type.TypeMirror
+AnnotationDesc
+javax.lang.model.element.AnnotationMirror
+AnnotationDesc.ElementValuePair
+javax.lang.model.element.AnnotationValue
+AnnotationTypeDoc
+javax.lang.model.element.TypeElement
+AnnotationTypeElementDoc
+javax.lang.model.element.ExecutableElement
+AnnotationValue
+javax.lang.model.element.AnnotationValue
+ClassDoc
+javax.lang.model.element.TypeElement
+ConstructorDoc
+javax.lang.model.element.ExecutableElement
+Doc
+javax.lang.model.element.Element
+DocErrorReporter
+jdk.javadoc.doclet.Reporter
+Doclet
+jdk.javadoc.doclet.Doclet
+ExecutableMemberDoc
+javax.lang.model.element.ExecutableElement
+FieldDoc
+javax.lang.model.element.VariableElement
+LanguageVersion
+javax.lang.model.SourceVersion
+MemberDoc
+javax.lang.model.element.Element
+MethodDoc
+javax.lang.model.element.ExecutableElement
+PackageDoc
+javax.lang.model.element.PackageElement
+Parameter
+javax.lang.model.element.VariableElement
+ParameterizedType
+javax.lang.model.type.DeclaredType
+ParamTag
+com.sun.source.doctree.ParamTree
+ProgramElementDoc
+javax.lang.model.element.Element
+RootDoc
+jdk.javadoc.doclet.DocletEnvironment
+SeeTag
+com.sun.source.doctree.LinkTree
+com.sun.source.doctree.SeeTree
+SerialFieldTag
+com.sun.source.doctree.SerialFieldTree
+SourcePosition
+com.sun.source.util.SourcePositions
+Tag
+com.sun.source.doctree.DocTree
+ThrowsTag
+com.sun.source.doctree.ThrowsTree
+Type
+javax.lang.model.type.TypeMirror
+TypeVariable
+javax.lang.model.type.TypeVariable
+WildcardType
+javax.lang.model.type.WildcardType
+Since:
+9
+See Also:
+Doclet
+DocletEnvironment
+All Classes and Interfaces
+Interfaces
+Classes
+Enum Classes
+Class
+Description
+Doclet
+The user doclet must implement this interface, as described in the
+package description
+.
+Doclet.Option
+An encapsulation of option name, aliases, parameters and descriptions
+ as used by the Doclet.
+Doclet.Option.Kind
+The kind of an option.
+DocletEnvironment
+Represents the operating environment of a single invocation
+ of the doclet.
+DocletEnvironment.ModuleMode
+The mode specifying the level of detail of module documentation.
+Reporter
+Interface for reporting diagnostics and other messages.
+StandardDoclet
+This doclet generates HTML-formatted documentation for the specified modules,
+ packages and types.
+Taglet
+The interface for a custom taglet supported by doclets such as
+ the
+standard doclet
+.
+Taglet.Location
+The kind of location in which a tag may be used.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

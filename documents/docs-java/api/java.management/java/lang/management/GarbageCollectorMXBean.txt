@@ -1,0 +1,154 @@
+GarbageCollectorMXBean (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.management
+Package
+java.lang.management
+Interface GarbageCollectorMXBean
+All Superinterfaces:
+MemoryManagerMXBean
+,
+PlatformManagedObject
+All Known Subinterfaces:
+GarbageCollectorMXBean
+public interface
+GarbageCollectorMXBean
+extends
+MemoryManagerMXBean
+The management interface for the garbage collection of
+ the Java virtual machine.  Garbage collection is the process
+ that the Java virtual machine uses to find and reclaim unreachable
+ objects to free up memory space.  A garbage collector is one type of
+memory manager
+.
+A Java virtual machine may have one or more instances of
+ the implementation class of this interface.
+ An instance implementing this interface is
+ an
+MXBean
+that can be obtained by calling
+ the
+ManagementFactory.getGarbageCollectorMXBeans()
+method or
+ from the
+platform MBeanServer
+method.
+The
+ObjectName
+for uniquely identifying the MXBean for
+ a garbage collector within an MBeanServer is:
+java.lang:type=GarbageCollector
+,name=
+collector's name
+It can be obtained by calling the
+PlatformManagedObject.getObjectName()
+method.
+
+ A platform usually includes additional platform-dependent information
+ specific to a garbage collection algorithm for monitoring.
+Since:
+1.5
+See Also:
+ManagementFactory.getPlatformMXBeans(Class)
+MemoryMXBean
+JMX Specification.
+Ways to Access MXBeans
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+long
+getCollectionCount
+()
+Returns the total number of collections that have occurred.
+long
+getCollectionTime
+()
+Returns the approximate accumulated collection elapsed time
+ in milliseconds.
+Methods declared in interface java.lang.management.
+MemoryManagerMXBean
+getMemoryPoolNames
+,
+getName
+,
+isValid
+Methods declared in interface java.lang.management.
+PlatformManagedObject
+getObjectName
+Method Details
+getCollectionCount
+long
+getCollectionCount
+()
+Returns the total number of collections that have occurred.
+ This method returns
+-1
+if the collection count is undefined for
+ this collector.
+Returns:
+the total number of collections that have occurred.
+getCollectionTime
+long
+getCollectionTime
+()
+Returns the approximate accumulated collection elapsed time
+ in milliseconds.  This method returns
+-1
+if the collection
+ elapsed time is undefined for this collector.
+The Java virtual machine implementation may use a high resolution
+ timer to measure the elapsed time.  This method may return the
+ same value even if the collection count has been incremented
+ if the collection elapsed time is very short.
+Returns:
+the approximate accumulated collection elapsed time
+ in milliseconds.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

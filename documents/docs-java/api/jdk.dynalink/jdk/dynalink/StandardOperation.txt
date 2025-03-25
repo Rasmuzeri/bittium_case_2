@@ -1,0 +1,313 @@
+StandardOperation (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Enum Constants
+Field
+Method
+Detail:
+Enum Constants
+Field
+Method
+Summary:
+Nested
+|
+Enum Constants
+|
+Field |
+Method
+Detail:
+Enum Constants
+|
+Field |
+Method
+SEARCH
+Module
+jdk.dynalink
+Package
+jdk.dynalink
+Enum Class StandardOperation
+java.lang.Object
+java.lang.Enum
+<
+StandardOperation
+>
+jdk.dynalink.StandardOperation
+All Implemented Interfaces:
+Serializable
+,
+Comparable
+<
+StandardOperation
+>
+,
+Constable
+,
+Operation
+public enum
+StandardOperation
+extends
+Enum
+<
+StandardOperation
+>
+implements
+Operation
+Defines the standard dynamic operations. The operations
+GET
+and
+SET
+must
+ be used as part of a
+NamespaceOperation
+.
+NamedOperation
+can then be further used on these
+NamespaceOperation
+s to bind the name parameter of
+GET
+and
+SET
+operations, in which case it
+ disappears from their type signature.
+NamedOperation
+can also be used to decorate
+CALL
+and
+NEW
+operations with a
+ diagnostic name, and as such it does not affect their type signature.
+Nested Class Summary
+Nested classes/interfaces declared in class java.lang.
+Enum
+Enum.EnumDesc
+<
+E
+extends
+Enum
+<
+E
+>>
+Enum Constant Summary
+Enum Constants
+Enum Constant
+Description
+CALL
+Call a callable object.
+GET
+Get the value from a namespace defined on an object.
+NEW
+Call a constructor object.
+REMOVE
+Removes the value from a namespace defined on an object.
+SET
+Set the value in a namespace defined on an object.
+Method Summary
+All Methods
+Static Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+StandardOperation
+valueOf
+(
+String
+name)
+Returns the enum constant of this class with the specified name.
+static
+StandardOperation
+[]
+values
+()
+Returns an array containing the constants of this enum class, in
+the order they are declared.
+Methods declared in class java.lang.
+Enum
+clone
+,
+compareTo
+,
+describeConstable
+,
+equals
+,
+finalize
+,
+getDeclaringClass
+,
+hashCode
+,
+name
+,
+ordinal
+,
+toString
+,
+valueOf
+Methods declared in class java.lang.
+Object
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface jdk.dynalink.
+Operation
+named
+,
+withNamespace
+,
+withNamespaces
+Enum Constant Details
+GET
+public static final
+StandardOperation
+GET
+Get the value from a namespace defined on an object. Call sites with this
+ operation should have a signature of
+(receiver, name)→value
+or
+(receiver)→value
+when used with
+NamedOperation
+, with
+ all parameters and return type being of any type (either primitive or
+ reference). This operation must always be used as part of a
+NamespaceOperation
+.
+SET
+public static final
+StandardOperation
+SET
+Set the value in a namespace defined on an object. Call sites with this
+ operation should have a signature of
+(receiver, name, value)→void
+or
+(receiver, value)→void
+when used with
+NamedOperation
+,
+ with all parameters and return type being of any type (either primitive
+ or reference). This operation must always be used as part of a
+NamespaceOperation
+.
+REMOVE
+public static final
+StandardOperation
+REMOVE
+Removes the value from a namespace defined on an object. Call sites with this
+ operation should have a signature of
+(receiver, name)→void
+or
+(receiver)→void
+when used with
+NamedOperation
+,
+ with all parameters being of any type (either primitive
+ or reference). This operation must always be used as part of a
+NamespaceOperation
+.
+CALL
+public static final
+StandardOperation
+CALL
+Call a callable object. Call sites with this operation should have a
+ signature of
+(callable, receiver, arguments...)→value
+,
+ with all parameters and return type being of any type (either primitive or
+ reference). Typically, the callables are presumed to be methods of an object, so
+ an explicit receiver value is always passed to the callable before the arguments.
+ If a callable has no concept of a receiver, it is free to ignore the value of the
+ receiver argument.
+ The
+CALL
+operation is allowed to be used with a
+NamedOperation
+even though it does not take a name. Using it with
+ a named operation won't affect its signature; the name is solely meant to
+ be used as a diagnostic description for error messages.
+NEW
+public static final
+StandardOperation
+NEW
+Call a constructor object. Call sites with this operation should have a
+ signature of
+(constructor, arguments...)→value
+, with all
+ parameters and return type being of any type (either primitive or
+ reference). The
+NEW
+operation is allowed to be used with a
+NamedOperation
+even though it does not take a name. Using it with
+ a named operation won't affect its signature; the name is solely meant to
+ be used as a diagnostic description for error messages.
+Method Details
+values
+public static
+StandardOperation
+[]
+values
+()
+Returns an array containing the constants of this enum class, in
+the order they are declared.
+Returns:
+an array containing the constants of this enum class, in the order they are declared
+valueOf
+public static
+StandardOperation
+valueOf
+(
+String
+name)
+Returns the enum constant of this class with the specified name.
+The string must match
+exactly
+an identifier used to declare an
+enum constant in this class.  (Extraneous whitespace characters are 
+not permitted.)
+Parameters:
+name
+- the name of the enum constant to be returned.
+Returns:
+the enum constant with the specified name
+Throws:
+IllegalArgumentException
+- if this enum class has no constant with the specified name
+NullPointerException
+- if the argument is null
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

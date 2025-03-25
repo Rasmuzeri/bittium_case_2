@@ -1,0 +1,450 @@
+ImageConsumer (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt.image
+Interface ImageConsumer
+All Known Implementing Classes:
+AreaAveragingScaleFilter
+,
+BufferedImageFilter
+,
+CropImageFilter
+,
+GrayFilter
+,
+ImageFilter
+,
+PixelGrabber
+,
+ReplicateScaleFilter
+,
+RGBImageFilter
+public interface
+ImageConsumer
+The interface for objects expressing interest in image data through
+ the ImageProducer interfaces.  When a consumer is added to an image
+ producer, the producer delivers all of the data about the image
+ using the method calls defined in this interface.
+See Also:
+ImageProducer
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final int
+COMPLETESCANLINES
+The pixels will be delivered in (multiples of) complete scanlines
+ at a time.
+static final int
+IMAGEABORTED
+The image creation process was deliberately aborted.
+static final int
+IMAGEERROR
+An error was encountered while producing the image.
+static final int
+RANDOMPIXELORDER
+The pixels will be delivered in a random order.
+static final int
+SINGLEFRAME
+The image contain a single static image.
+static final int
+SINGLEFRAMEDONE
+One frame of the image is complete but there are more frames
+ to be delivered.
+static final int
+SINGLEPASS
+The pixels will be delivered in a single pass.
+static final int
+STATICIMAGEDONE
+The image is complete and there are no more pixels or frames
+ to be delivered.
+static final int
+TOPDOWNLEFTRIGHT
+The pixels will be delivered in top-down, left-to-right order.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+void
+imageComplete
+(int status)
+The imageComplete method is called when the ImageProducer is
+ finished delivering all of the pixels that the source image
+ contains, or when a single frame of a multi-frame animation has
+ been completed, or when an error in loading or producing the
+ image has occurred.
+void
+setColorModel
+(
+ColorModel
+model)
+Sets the ColorModel object used for the majority of
+ the pixels reported using the setPixels method
+ calls.
+void
+setDimensions
+(int width,
+ int height)
+The dimensions of the source image are reported using the
+ setDimensions method call.
+void
+setHints
+(int hintflags)
+Sets the hints that the ImageConsumer uses to process the
+ pixels delivered by the ImageProducer.
+void
+setPixels
+(int x,
+ int y,
+ int w,
+ int h,
+ColorModel
+model,
+ byte[] pixels,
+ int off,
+ int scansize)
+Delivers the pixels of the image with one or more calls
+ to this method.
+void
+setPixels
+(int x,
+ int y,
+ int w,
+ int h,
+ColorModel
+model,
+ int[] pixels,
+ int off,
+ int scansize)
+The pixels of the image are delivered using one or more calls
+ to the setPixels method.
+void
+setProperties
+(
+Hashtable
+<?,
+?> props)
+Sets the extensible list of properties associated with this image.
+Field Details
+RANDOMPIXELORDER
+static final
+int
+RANDOMPIXELORDER
+The pixels will be delivered in a random order.  This tells the
+ ImageConsumer not to use any optimizations that depend on the
+ order of pixel delivery, which should be the default assumption
+ in the absence of any call to the setHints method.
+See Also:
+setHints(int)
+Constant Field Values
+TOPDOWNLEFTRIGHT
+static final
+int
+TOPDOWNLEFTRIGHT
+The pixels will be delivered in top-down, left-to-right order.
+See Also:
+setHints(int)
+Constant Field Values
+COMPLETESCANLINES
+static final
+int
+COMPLETESCANLINES
+The pixels will be delivered in (multiples of) complete scanlines
+ at a time.
+See Also:
+setHints(int)
+Constant Field Values
+SINGLEPASS
+static final
+int
+SINGLEPASS
+The pixels will be delivered in a single pass.  Each pixel will
+ appear in only one call to any of the setPixels methods.  An
+ example of an image format which does not meet this criterion
+ is a progressive JPEG image which defines pixels in multiple
+ passes, each more refined than the previous.
+See Also:
+setHints(int)
+Constant Field Values
+SINGLEFRAME
+static final
+int
+SINGLEFRAME
+The image contain a single static image.  The pixels will be defined
+ in calls to the setPixels methods and then the imageComplete method
+ will be called with the STATICIMAGEDONE flag after which no more
+ image data will be delivered.  An example of an image type which
+ would not meet these criteria would be the output of a video feed,
+ or the representation of a 3D rendering being manipulated
+ by the user.  The end of each frame in those types of images will
+ be indicated by calling imageComplete with the SINGLEFRAMEDONE flag.
+See Also:
+setHints(int)
+imageComplete(int)
+Constant Field Values
+IMAGEERROR
+static final
+int
+IMAGEERROR
+An error was encountered while producing the image.
+See Also:
+imageComplete(int)
+Constant Field Values
+SINGLEFRAMEDONE
+static final
+int
+SINGLEFRAMEDONE
+One frame of the image is complete but there are more frames
+ to be delivered.
+See Also:
+imageComplete(int)
+Constant Field Values
+STATICIMAGEDONE
+static final
+int
+STATICIMAGEDONE
+The image is complete and there are no more pixels or frames
+ to be delivered.
+See Also:
+imageComplete(int)
+Constant Field Values
+IMAGEABORTED
+static final
+int
+IMAGEABORTED
+The image creation process was deliberately aborted.
+See Also:
+imageComplete(int)
+Constant Field Values
+Method Details
+setDimensions
+void
+setDimensions
+(int width,
+ int height)
+The dimensions of the source image are reported using the
+ setDimensions method call.
+Parameters:
+width
+- the width of the source image
+height
+- the height of the source image
+setProperties
+void
+setProperties
+(
+Hashtable
+<?,
+?> props)
+Sets the extensible list of properties associated with this image.
+Parameters:
+props
+- the list of properties to be associated with this
+        image
+setColorModel
+void
+setColorModel
+(
+ColorModel
+model)
+Sets the ColorModel object used for the majority of
+ the pixels reported using the setPixels method
+ calls.  Note that each set of pixels delivered using setPixels
+ contains its own ColorModel object, so no assumption should
+ be made that this model will be the only one used in delivering
+ pixel values.  A notable case where multiple ColorModel objects
+ may be seen is a filtered image when for each set of pixels
+ that it filters, the filter
+ determines  whether the
+ pixels can be sent on untouched, using the original ColorModel,
+ or whether the pixels should be modified (filtered) and passed
+ on using a ColorModel more convenient for the filtering process.
+Parameters:
+model
+- the specified
+ColorModel
+See Also:
+ColorModel
+setHints
+void
+setHints
+(int hintflags)
+Sets the hints that the ImageConsumer uses to process the
+ pixels delivered by the ImageProducer.
+ The ImageProducer can deliver the pixels in any order, but
+ the ImageConsumer may be able to scale or convert the pixels
+ to the destination ColorModel more efficiently or with higher
+ quality if it knows some information about how the pixels will
+ be delivered up front.  The setHints method should be called
+ before any calls to any of the setPixels methods with a bit mask
+ of hints about the manner in which the pixels will be delivered.
+ If the ImageProducer does not follow the guidelines for the
+ indicated hint, the results are undefined.
+Parameters:
+hintflags
+- a set of hints that the ImageConsumer uses to
+        process the pixels
+setPixels
+void
+setPixels
+(int x,
+ int y,
+ int w,
+ int h,
+ColorModel
+model,
+ byte[] pixels,
+ int off,
+ int scansize)
+Delivers the pixels of the image with one or more calls
+ to this method.  Each call specifies the location and
+ size of the rectangle of source pixels that are contained in
+ the array of pixels.  The specified ColorModel object should
+ be used to convert the pixels into their corresponding color
+ and alpha components.  Pixel (m,n) is stored in the pixels array
+ at index (n * scansize + m + off).  The pixels delivered using
+ this method are all stored as bytes.
+Parameters:
+x
+- the X coordinate of the upper-left corner of the
+        area of pixels to be set
+y
+- the Y coordinate of the upper-left corner of the
+        area of pixels to be set
+w
+- the width of the area of pixels
+h
+- the height of the area of pixels
+model
+- the specified
+ColorModel
+pixels
+- the array of pixels
+off
+- the offset into the
+pixels
+array
+scansize
+- the distance from one row of pixels to the next in
+ the
+pixels
+array
+See Also:
+ColorModel
+setPixels
+void
+setPixels
+(int x,
+ int y,
+ int w,
+ int h,
+ColorModel
+model,
+ int[] pixels,
+ int off,
+ int scansize)
+The pixels of the image are delivered using one or more calls
+ to the setPixels method.  Each call specifies the location and
+ size of the rectangle of source pixels that are contained in
+ the array of pixels.  The specified ColorModel object should
+ be used to convert the pixels into their corresponding color
+ and alpha components.  Pixel (m,n) is stored in the pixels array
+ at index (n * scansize + m + off).  The pixels delivered using
+ this method are all stored as ints.
+ this method are all stored as ints.
+Parameters:
+x
+- the X coordinate of the upper-left corner of the
+        area of pixels to be set
+y
+- the Y coordinate of the upper-left corner of the
+        area of pixels to be set
+w
+- the width of the area of pixels
+h
+- the height of the area of pixels
+model
+- the specified
+ColorModel
+pixels
+- the array of pixels
+off
+- the offset into the
+pixels
+array
+scansize
+- the distance from one row of pixels to the next in
+ the
+pixels
+array
+See Also:
+ColorModel
+imageComplete
+void
+imageComplete
+(int status)
+The imageComplete method is called when the ImageProducer is
+ finished delivering all of the pixels that the source image
+ contains, or when a single frame of a multi-frame animation has
+ been completed, or when an error in loading or producing the
+ image has occurred.  The ImageConsumer should remove itself from the
+ list of consumers registered with the ImageProducer at this time,
+ unless it is interested in successive frames.
+Parameters:
+status
+- the status of image loading
+See Also:
+ImageProducer.removeConsumer(java.awt.image.ImageConsumer)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

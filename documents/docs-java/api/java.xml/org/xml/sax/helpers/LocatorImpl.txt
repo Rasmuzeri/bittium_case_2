@@ -1,0 +1,305 @@
+LocatorImpl (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.xml
+Package
+org.xml.sax.helpers
+Class LocatorImpl
+java.lang.Object
+org.xml.sax.helpers.LocatorImpl
+All Implemented Interfaces:
+Locator
+Direct Known Subclasses:
+Locator2Impl
+public class
+LocatorImpl
+extends
+Object
+implements
+Locator
+Provide an optional convenience implementation of Locator.
+This class is available mainly for application writers, who
+ can use it to make a persistent snapshot of a locator at any
+ point during a document parse:
+Locator locator;
+ Locator startloc;
+
+ public void setLocator (Locator locator)
+ {
+         // note the locator
+   this.locator = locator;
+ }
+
+ public void startDocument ()
+ {
+         // save the location of the start of the document
+         // for future use.
+   Locator startloc = new LocatorImpl(locator);
+ }
+Normally, parser writers will not use this class, since it
+ is more efficient to provide location information only when
+ requested, rather than constantly updating a Locator object.
+Since:
+1.4, SAX 1.0
+See Also:
+Locator
+Constructor Summary
+Constructors
+Constructor
+Description
+LocatorImpl
+()
+Zero-argument constructor.
+LocatorImpl
+(
+Locator
+locator)
+Copy constructor.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+int
+getColumnNumber
+()
+Return the saved column number (1-based).
+int
+getLineNumber
+()
+Return the saved line number (1-based).
+String
+getPublicId
+()
+Return the saved public identifier.
+String
+getSystemId
+()
+Return the saved system identifier.
+void
+setColumnNumber
+(int columnNumber)
+Set the column number for this locator (1-based).
+void
+setLineNumber
+(int lineNumber)
+Set the line number for this locator (1-based).
+void
+setPublicId
+(
+String
+publicId)
+Set the public identifier for this locator.
+void
+setSystemId
+(
+String
+systemId)
+Set the system identifier for this locator.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+LocatorImpl
+public
+LocatorImpl
+()
+Zero-argument constructor.
+This will not normally be useful, since the main purpose
+ of this class is to make a snapshot of an existing Locator.
+LocatorImpl
+public
+LocatorImpl
+(
+Locator
+locator)
+Copy constructor.
+Create a persistent copy of the current state of a locator.
+ When the original locator changes, this copy will still keep
+ the original values (and it can be used outside the scope of
+ DocumentHandler methods).
+Parameters:
+locator
+- The locator to copy.
+Method Details
+getPublicId
+public
+String
+getPublicId
+()
+Return the saved public identifier.
+Specified by:
+getPublicId
+in interface
+Locator
+Returns:
+The public identifier as a string, or null if none
+         is available.
+See Also:
+Locator.getPublicId()
+setPublicId(java.lang.String)
+getSystemId
+public
+String
+getSystemId
+()
+Return the saved system identifier.
+Specified by:
+getSystemId
+in interface
+Locator
+Returns:
+The system identifier as a string, or null if none
+         is available.
+See Also:
+Locator.getSystemId()
+setSystemId(java.lang.String)
+getLineNumber
+public
+int
+getLineNumber
+()
+Return the saved line number (1-based).
+Specified by:
+getLineNumber
+in interface
+Locator
+Returns:
+The line number as an integer, or -1 if none is available.
+See Also:
+Locator.getLineNumber()
+setLineNumber(int)
+getColumnNumber
+public
+int
+getColumnNumber
+()
+Return the saved column number (1-based).
+Specified by:
+getColumnNumber
+in interface
+Locator
+Returns:
+The column number as an integer, or -1 if none is available.
+See Also:
+Locator.getColumnNumber()
+setColumnNumber(int)
+setPublicId
+public
+void
+setPublicId
+(
+String
+publicId)
+Set the public identifier for this locator.
+Parameters:
+publicId
+- The new public identifier, or null
+        if none is available.
+See Also:
+getPublicId()
+setSystemId
+public
+void
+setSystemId
+(
+String
+systemId)
+Set the system identifier for this locator.
+Parameters:
+systemId
+- The new system identifier, or null
+        if none is available.
+See Also:
+getSystemId()
+setLineNumber
+public
+void
+setLineNumber
+(int lineNumber)
+Set the line number for this locator (1-based).
+Parameters:
+lineNumber
+- The line number, or -1 if none is available.
+See Also:
+getLineNumber()
+setColumnNumber
+public
+void
+setColumnNumber
+(int columnNumber)
+Set the column number for this locator (1-based).
+Parameters:
+columnNumber
+- The column number, or -1 if none is available.
+See Also:
+getColumnNumber()
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

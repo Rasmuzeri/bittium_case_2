@@ -1,0 +1,129 @@
+XECPrivateKey (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.security.interfaces
+Interface XECPrivateKey
+All Superinterfaces:
+Destroyable
+,
+Key
+,
+PrivateKey
+,
+Serializable
+,
+XECKey
+public interface
+XECPrivateKey
+extends
+XECKey
+,
+PrivateKey
+An interface for an elliptic curve private key as defined by RFC 7748.
+ These keys are distinct from the keys represented by
+ECPrivateKey
+,
+ and they are intended for use with algorithms based on RFC 7748 such as the
+ XDH
+KeyAgreement
+algorithm.
+
+ An XEC private key is an encoded scalar value as described in RFC 7748.
+ The decoding procedure defined in this RFC includes an operation that forces
+ certain bits of the key to either 1 or 0. This operation is known as
+ "pruning" or "clamping" the private key. Arrays returned by this interface
+ are unpruned, and implementations will need to prune the array before
+ using it in any numerical operations.
+Since:
+11
+Field Summary
+Fields declared in interface java.security.
+PrivateKey
+serialVersionUID
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+Optional
+<byte[]>
+getScalar
+()
+Get the scalar value encoded as an unpruned byte array.
+Methods declared in interface javax.security.auth.
+Destroyable
+destroy
+,
+isDestroyed
+Methods declared in interface java.security.
+Key
+getAlgorithm
+,
+getEncoded
+,
+getFormat
+Methods declared in interface java.security.interfaces.
+XECKey
+getParams
+Method Details
+getScalar
+Optional
+<byte[]>
+getScalar
+()
+Get the scalar value encoded as an unpruned byte array. A new copy of
+ the array is returned each time this method is called.
+Returns:
+the unpruned encoded scalar value, or an empty Optional if the
+     scalar cannot be extracted (e.g. if the provider is a hardware token
+     and the private key is not allowed to leave the crypto boundary).
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

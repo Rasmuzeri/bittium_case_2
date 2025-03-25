@@ -1,0 +1,244 @@
+Element (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.text
+Interface Element
+All Known Implementing Classes:
+AbstractDocument.AbstractElement
+,
+AbstractDocument.BranchElement
+,
+AbstractDocument.LeafElement
+,
+DefaultStyledDocument.SectionElement
+,
+HTMLDocument.BlockElement
+,
+HTMLDocument.RunElement
+public interface
+Element
+Interface to describe a structural piece of a document.  It
+ is intended to capture the spirit of an SGML element.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+AttributeSet
+getAttributes
+()
+Fetches the collection of attributes this element contains.
+Document
+getDocument
+()
+Fetches the document associated with this element.
+Element
+getElement
+(int index)
+Fetches the child element at the given index.
+int
+getElementCount
+()
+Gets the number of child elements contained by this element.
+int
+getElementIndex
+(int offset)
+Gets the child element index closest to the given offset.
+int
+getEndOffset
+()
+Fetches the offset from the beginning of the document
+ that this element ends at.
+String
+getName
+()
+Fetches the name of the element.
+Element
+getParentElement
+()
+Fetches the parent element.
+int
+getStartOffset
+()
+Fetches the offset from the beginning of the document
+ that this element begins at.
+boolean
+isLeaf
+()
+Is this element a leaf element?
+Method Details
+getDocument
+Document
+getDocument
+()
+Fetches the document associated with this element.
+Returns:
+the document
+getParentElement
+Element
+getParentElement
+()
+Fetches the parent element.  If the element is a root level
+ element returns
+null
+.
+Returns:
+the parent element
+getName
+String
+getName
+()
+Fetches the name of the element.  If the element is used to
+ represent some type of structure, this would be the type
+ name.
+Returns:
+the element name
+getAttributes
+AttributeSet
+getAttributes
+()
+Fetches the collection of attributes this element contains.
+Returns:
+the attributes for the element
+getStartOffset
+int
+getStartOffset
+()
+Fetches the offset from the beginning of the document
+ that this element begins at.  If this element has
+ children, this will be the offset of the first child.
+ As a document position, there is an implied forward bias.
+Returns:
+the starting offset >= 0 and < getEndOffset();
+See Also:
+Document
+AbstractDocument
+getEndOffset
+int
+getEndOffset
+()
+Fetches the offset from the beginning of the document
+ that this element ends at.  If this element has
+ children, this will be the end offset of the last child.
+ As a document position, there is an implied backward bias.
+All the default
+Document
+implementations
+ descend from
+AbstractDocument
+.
+AbstractDocument
+models an implied break at the end of
+ the document. As a result of this, it is possible for this to
+ return a value greater than the length of the document.
+Returns:
+the ending offset > getStartOffset() and
+     <= getDocument().getLength() + 1
+See Also:
+Document
+AbstractDocument
+getElementIndex
+int
+getElementIndex
+(int offset)
+Gets the child element index closest to the given offset.
+ The offset is specified relative to the beginning of the
+ document.  Returns
+-1
+if the
+Element
+is a leaf, otherwise returns
+ the index of the
+Element
+that best represents
+ the given location.  Returns
+0
+if the location
+ is less than the start offset. Returns
+getElementCount() - 1
+if the location is
+ greater than or equal to the end offset.
+Parameters:
+offset
+- the specified offset >= 0
+Returns:
+the element index >= 0
+getElementCount
+int
+getElementCount
+()
+Gets the number of child elements contained by this element.
+ If this element is a leaf, a count of zero is returned.
+Returns:
+the number of child elements >= 0
+getElement
+Element
+getElement
+(int index)
+Fetches the child element at the given index.
+Parameters:
+index
+- the specified index >= 0
+Returns:
+the child element
+isLeaf
+boolean
+isLeaf
+()
+Is this element a leaf element? An element that
+may
+have children, even if it currently
+ has no children, would return
+false
+.
+Returns:
+true if a leaf element else false
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

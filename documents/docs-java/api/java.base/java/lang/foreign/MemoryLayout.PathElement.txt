@@ -1,0 +1,282 @@
+MemoryLayout.PathElement (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang.foreign
+Interface MemoryLayout.PathElement
+Enclosing interface:
+MemoryLayout
+PREVIEW
+public static sealed interface
+MemoryLayout.PathElement
+PathElement
+is a preview API of the Java platform.
+Programs can only use
+PathElement
+when preview features are enabled.
+Preview features may be removed in a future release, or upgraded to permanent features of the Java platform.
+An element in a
+layout path
+. There
+ are three kinds of path elements:
+group path elements
+, used to select a member layout within a
+GroupLayout
+PREVIEW
+, either by name or by index;
+sequence path elements
+, used to select one or more sequence element layouts within a
+SequenceLayout
+PREVIEW
+; and
+dereference path elements
+, used to
+dereference
+an address layout as its target layout.
+Sequence path elements selecting more than one sequence element layout are called
+open path elements
+.
+Implementation Requirements:
+Implementations of this interface are immutable, thread-safe and
+value-based
+.
+Since:
+19
+Method Summary
+Static Methods
+Modifier and Type
+Method
+Description
+static
+MemoryLayout.PathElement
+PREVIEW
+dereferenceElement
+()
+Returns a path element which dereferences an address layout as its
+target layout
+PREVIEW
+(where set).
+static
+MemoryLayout.PathElement
+PREVIEW
+groupElement
+(long index)
+Returns a path element which selects a member layout with the given index in a group layout.
+static
+MemoryLayout.PathElement
+PREVIEW
+groupElement
+(
+String
+name)
+Returns a path element which selects a member layout with the given name in a group layout.
+static
+MemoryLayout.PathElement
+PREVIEW
+sequenceElement
+()
+Returns an
+open path element
+which selects an unspecified
+ element layout in a sequence layout.
+static
+MemoryLayout.PathElement
+PREVIEW
+sequenceElement
+(long index)
+Returns a path element which selects the element layout at the specified position in a sequence layout.
+static
+MemoryLayout.PathElement
+PREVIEW
+sequenceElement
+(long start,
+ long step)
+Returns an
+open path element
+which selects the element
+ layout in a
+range
+of positions in a sequence layout.
+Method Details
+groupElement
+static
+MemoryLayout.PathElement
+PREVIEW
+groupElement
+(
+String
+name)
+Returns a path element which selects a member layout with the given name in a group layout.
+Implementation Requirements:
+in case multiple group elements with a matching name exist, the path element returned by this
+ method will select the first one; that is, the group element with the lowest offset from current path is selected.
+ In such cases, using
+groupElement(long)
+might be preferable.
+Parameters:
+name
+- the name of the member layout to be selected.
+Returns:
+a path element which selects the group member layout with the given name.
+groupElement
+static
+MemoryLayout.PathElement
+PREVIEW
+groupElement
+(long index)
+Returns a path element which selects a member layout with the given index in a group layout.
+Parameters:
+index
+- the index of the member layout element to be selected.
+Returns:
+a path element which selects the group member layout with the given index.
+Throws:
+IllegalArgumentException
+- if
+index < 0
+.
+sequenceElement
+static
+MemoryLayout.PathElement
+PREVIEW
+sequenceElement
+(long index)
+Returns a path element which selects the element layout at the specified position in a sequence layout.
+Parameters:
+index
+- the index of the sequence element to be selected.
+Returns:
+a path element which selects the sequence element layout with the given index.
+Throws:
+IllegalArgumentException
+- if
+index < 0
+.
+sequenceElement
+static
+MemoryLayout.PathElement
+PREVIEW
+sequenceElement
+(long start,
+ long step)
+Returns an
+open path element
+which selects the element
+ layout in a
+range
+of positions in a sequence layout. The range is expressed as a pair of starting
+ index (inclusive)
+S
+and step factor (which can also be negative)
+F
+.
+The exact sequence element selected by this layout is expressed as an index
+I
+. If
+C
+is the
+ sequence element count, it follows that
+0 <= I < B
+, where
+B
+is computed as follows:
+if
+F > 0
+, then
+B = ceilDiv(C - S, F)
+if
+F < 0
+, then
+B = ceilDiv(-(S + 1), -F)
+Parameters:
+start
+- the index of the first sequence element to be selected.
+step
+- the step factor at which subsequence sequence elements are to be selected.
+Returns:
+a path element which selects the sequence element layout with the given index.
+Throws:
+IllegalArgumentException
+- if
+start < 0
+, or
+step == 0
+.
+sequenceElement
+static
+MemoryLayout.PathElement
+PREVIEW
+sequenceElement
+()
+Returns an
+open path element
+which selects an unspecified
+ element layout in a sequence layout.
+The exact sequence element selected by this layout is expressed as an index
+I
+. If
+C
+is the
+ sequence element count, it follows that
+0 <= I < C
+.
+Returns:
+a path element which selects an unspecified sequence element layout.
+dereferenceElement
+static
+MemoryLayout.PathElement
+PREVIEW
+dereferenceElement
+()
+Returns a path element which dereferences an address layout as its
+target layout
+PREVIEW
+(where set).
+Returns:
+a path element which dereferences an address layout.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

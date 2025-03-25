@@ -1,0 +1,651 @@
+SimpleScriptContext (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.scripting
+Package
+javax.script
+Class SimpleScriptContext
+java.lang.Object
+javax.script.SimpleScriptContext
+All Implemented Interfaces:
+ScriptContext
+public class
+SimpleScriptContext
+extends
+Object
+implements
+ScriptContext
+Simple implementation of ScriptContext.
+Since:
+1.6
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected
+Bindings
+engineScope
+This is the engine scope bindings.
+protected
+Writer
+errorWriter
+This is the writer to be used to output errors from scripts.
+protected
+Bindings
+globalScope
+This is the global scope bindings.
+protected
+Reader
+reader
+This is the reader to be used for input from scripts.
+protected
+Writer
+writer
+This is the writer to be used to output from scripts.
+Fields declared in interface javax.script.
+ScriptContext
+ENGINE_SCOPE
+,
+GLOBAL_SCOPE
+Constructor Summary
+Constructors
+Constructor
+Description
+SimpleScriptContext
+()
+Create a
+SimpleScriptContext
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Object
+getAttribute
+(
+String
+name)
+Retrieves the value of the attribute with the given name in
+ the scope occurring earliest in the search order.
+Object
+getAttribute
+(
+String
+name,
+ int scope)
+Gets the value of an attribute in a given scope.
+int
+getAttributesScope
+(
+String
+name)
+Get the lowest scope in which an attribute is defined.
+Bindings
+getBindings
+(int scope)
+Returns the value of the
+engineScope
+field if specified scope is
+ENGINE_SCOPE
+.
+Writer
+getErrorWriter
+()
+Returns the
+Writer
+used to display error output.
+Reader
+getReader
+()
+Returns a
+Reader
+to be used by the script to read
+ input.
+List
+<
+Integer
+>
+getScopes
+()
+Returns immutable
+List
+of all the valid values for
+ scope in the ScriptContext.
+Writer
+getWriter
+()
+Returns the
+Writer
+for scripts to use when displaying output.
+Object
+removeAttribute
+(
+String
+name,
+ int scope)
+Remove an attribute in a given scope.
+void
+setAttribute
+(
+String
+name,
+Object
+value,
+ int scope)
+Sets the value of an attribute in a given scope.
+void
+setBindings
+(
+Bindings
+bindings,
+ int scope)
+Sets a
+Bindings
+of attributes for the given scope.
+void
+setErrorWriter
+(
+Writer
+writer)
+Sets the
+Writer
+used to display error output.
+void
+setReader
+(
+Reader
+reader)
+Sets the
+Reader
+for scripts to read input
+ .
+void
+setWriter
+(
+Writer
+writer)
+Sets the
+Writer
+for scripts to use when displaying output.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+writer
+protected
+Writer
+writer
+This is the writer to be used to output from scripts.
+ By default, a
+PrintWriter
+based on
+System.out
+is used. Accessor methods getWriter, setWriter are used to manage
+ this field.
+See Also:
+System.out
+PrintWriter
+errorWriter
+protected
+Writer
+errorWriter
+This is the writer to be used to output errors from scripts.
+ By default, a
+PrintWriter
+based on
+System.err
+is
+ used. Accessor methods getErrorWriter, setErrorWriter are used to manage
+ this field.
+See Also:
+System.err
+PrintWriter
+reader
+protected
+Reader
+reader
+This is the reader to be used for input from scripts.
+ By default, a
+InputStreamReader
+based on
+System.in
+is used and default charset is used by this reader. Accessor methods
+ getReader, setReader are used to manage this field.
+See Also:
+System.in
+InputStreamReader
+engineScope
+protected
+Bindings
+engineScope
+This is the engine scope bindings.
+ By default, a
+SimpleBindings
+is used. Accessor
+ methods setBindings, getBindings are used to manage this field.
+See Also:
+SimpleBindings
+globalScope
+protected
+Bindings
+globalScope
+This is the global scope bindings.
+ By default, a null value (which means no global scope) is used. Accessor
+ methods setBindings, getBindings are used to manage this field.
+Constructor Details
+SimpleScriptContext
+public
+SimpleScriptContext
+()
+Create a
+SimpleScriptContext
+.
+Method Details
+setBindings
+public
+void
+setBindings
+(
+Bindings
+bindings,
+ int scope)
+Sets a
+Bindings
+of attributes for the given scope.  If the value
+ of scope is
+ENGINE_SCOPE
+the given
+Bindings
+replaces the
+engineScope
+field.  If the value
+ of scope is
+GLOBAL_SCOPE
+the given
+Bindings
+replaces the
+globalScope
+field.
+Specified by:
+setBindings
+in interface
+ScriptContext
+Parameters:
+bindings
+- The
+Bindings
+of attributes to set.
+scope
+- The value of the scope in which the attributes are set.
+Throws:
+IllegalArgumentException
+- if scope is invalid.
+NullPointerException
+- if the value of scope is
+ENGINE_SCOPE
+and
+ the specified
+Bindings
+is null.
+getAttribute
+public
+Object
+getAttribute
+(
+String
+name)
+Retrieves the value of the attribute with the given name in
+ the scope occurring earliest in the search order.  The order
+ is determined by the numeric value of the scope parameter (lowest
+ scope values first.)
+Specified by:
+getAttribute
+in interface
+ScriptContext
+Parameters:
+name
+- The name of the attribute to retrieve.
+Returns:
+The value of the attribute in the lowest scope for
+ which an attribute with the given name is defined.  Returns
+ null if no attribute with the name exists in any scope.
+Throws:
+NullPointerException
+- if the name is null.
+IllegalArgumentException
+- if the name is empty.
+getAttribute
+public
+Object
+getAttribute
+(
+String
+name,
+ int scope)
+Gets the value of an attribute in a given scope.
+Specified by:
+getAttribute
+in interface
+ScriptContext
+Parameters:
+name
+- The name of the attribute to retrieve.
+scope
+- The scope in which to retrieve the attribute.
+Returns:
+The value of the attribute. Returns
+null
+is the name
+ does not exist in the given scope.
+Throws:
+IllegalArgumentException
+- if the name is empty or if the value of scope is invalid.
+NullPointerException
+- if the name is null.
+removeAttribute
+public
+Object
+removeAttribute
+(
+String
+name,
+ int scope)
+Remove an attribute in a given scope.
+Specified by:
+removeAttribute
+in interface
+ScriptContext
+Parameters:
+name
+- The name of the attribute to remove
+scope
+- The scope in which to remove the attribute
+Returns:
+The removed value.
+Throws:
+IllegalArgumentException
+- if the name is empty or if the scope is invalid.
+NullPointerException
+- if the name is null.
+setAttribute
+public
+void
+setAttribute
+(
+String
+name,
+Object
+value,
+ int scope)
+Sets the value of an attribute in a given scope. If the scope is
+GLOBAL_SCOPE
+and no Bindings is set for
+GLOBAL_SCOPE
+, then setAttribute call is a no-op.
+Specified by:
+setAttribute
+in interface
+ScriptContext
+Parameters:
+name
+- The name of the attribute to set
+value
+- The value of the attribute
+scope
+- The scope in which to set the attribute
+Throws:
+IllegalArgumentException
+- if the name is empty or if the scope is invalid.
+NullPointerException
+- if the name is null.
+getWriter
+public
+Writer
+getWriter
+()
+Returns the
+Writer
+for scripts to use when displaying output.
+Specified by:
+getWriter
+in interface
+ScriptContext
+Returns:
+The
+Writer
+.
+getReader
+public
+Reader
+getReader
+()
+Returns a
+Reader
+to be used by the script to read
+ input.
+Specified by:
+getReader
+in interface
+ScriptContext
+Returns:
+The
+Reader
+.
+setReader
+public
+void
+setReader
+(
+Reader
+reader)
+Sets the
+Reader
+for scripts to read input
+ .
+Specified by:
+setReader
+in interface
+ScriptContext
+Parameters:
+reader
+- The new
+Reader
+.
+setWriter
+public
+void
+setWriter
+(
+Writer
+writer)
+Sets the
+Writer
+for scripts to use when displaying output.
+Specified by:
+setWriter
+in interface
+ScriptContext
+Parameters:
+writer
+- The new
+Writer
+.
+getErrorWriter
+public
+Writer
+getErrorWriter
+()
+Returns the
+Writer
+used to display error output.
+Specified by:
+getErrorWriter
+in interface
+ScriptContext
+Returns:
+The
+Writer
+setErrorWriter
+public
+void
+setErrorWriter
+(
+Writer
+writer)
+Sets the
+Writer
+used to display error output.
+Specified by:
+setErrorWriter
+in interface
+ScriptContext
+Parameters:
+writer
+- The
+Writer
+.
+getAttributesScope
+public
+int
+getAttributesScope
+(
+String
+name)
+Get the lowest scope in which an attribute is defined.
+Specified by:
+getAttributesScope
+in interface
+ScriptContext
+Parameters:
+name
+- Name of the attribute
+ .
+Returns:
+The lowest scope.  Returns -1 if no attribute with the given
+ name is defined in any scope.
+Throws:
+NullPointerException
+- if name is null.
+IllegalArgumentException
+- if name is empty.
+getBindings
+public
+Bindings
+getBindings
+(int scope)
+Returns the value of the
+engineScope
+field if specified scope is
+ENGINE_SCOPE
+.  Returns the value of the
+globalScope
+field if the specified scope is
+GLOBAL_SCOPE
+.
+Specified by:
+getBindings
+in interface
+ScriptContext
+Parameters:
+scope
+- The specified scope
+Returns:
+The value of either the
+engineScope
+or
+globalScope
+field.
+Throws:
+IllegalArgumentException
+- if the value of scope is invalid.
+getScopes
+public
+List
+<
+Integer
+>
+getScopes
+()
+Returns immutable
+List
+of all the valid values for
+ scope in the ScriptContext.
+Specified by:
+getScopes
+in interface
+ScriptContext
+Returns:
+list of scope values
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

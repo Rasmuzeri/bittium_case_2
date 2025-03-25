@@ -1,0 +1,300 @@
+CollectionCertStoreParameters (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.security.cert
+Class CollectionCertStoreParameters
+java.lang.Object
+java.security.cert.CollectionCertStoreParameters
+All Implemented Interfaces:
+Cloneable
+,
+CertStoreParameters
+public class
+CollectionCertStoreParameters
+extends
+Object
+implements
+CertStoreParameters
+Parameters used as input for the Collection
+CertStore
+algorithm.
+This class is used to provide necessary configuration parameters
+ to implementations of the Collection
+CertStore
+algorithm. The only parameter included in this class is the
+Collection
+from which the
+CertStore
+will
+ retrieve certificates and CRLs.
+Concurrent Access
+Unless otherwise specified, the methods defined in this class are not
+ thread-safe. Multiple threads that need to access a single
+ object concurrently should synchronize amongst themselves and
+ provide the necessary locking. Multiple threads each manipulating
+ separate objects need not synchronize.
+Since:
+1.4
+See Also:
+Collection
+CertStore
+Constructor Summary
+Constructors
+Constructor
+Description
+CollectionCertStoreParameters
+()
+Creates an instance of
+CollectionCertStoreParameters
+with
+ the default parameter values (an empty and immutable
+Collection
+).
+CollectionCertStoreParameters
+(
+Collection
+<?> collection)
+Creates an instance of
+CollectionCertStoreParameters
+which will allow certificates and CRLs to be retrieved from the
+ specified
+Collection
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Object
+clone
+()
+Returns a copy of this object.
+Collection
+<?>
+getCollection
+()
+Returns the
+Collection
+from which
+Certificate
+s
+ and
+CRL
+s are retrieved.
+String
+toString
+()
+Returns a formatted string describing the parameters.
+Methods declared in class java.lang.
+Object
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+CollectionCertStoreParameters
+public
+CollectionCertStoreParameters
+(
+Collection
+<?> collection)
+Creates an instance of
+CollectionCertStoreParameters
+which will allow certificates and CRLs to be retrieved from the
+ specified
+Collection
+. If the specified
+Collection
+contains an object that is not a
+Certificate
+or
+CRL
+, that object will be
+ ignored by the Collection
+CertStore
+.
+The
+Collection
+is
+not
+copied. Instead, a
+ reference is used. This allows the caller to subsequently add or
+ remove
+Certificates
+or
+CRL
+s from the
+Collection
+, thus changing the set of
+Certificates
+or
+CRL
+s available to the
+ Collection
+CertStore
+. The Collection
+CertStore
+will not modify the contents of the
+Collection
+.
+If the
+Collection
+will be modified by one thread while
+ another thread is calling a method of a Collection
+CertStore
+that has been initialized with this
+Collection
+, the
+Collection
+must have fail-fast iterators.
+Parameters:
+collection
+- a
+Collection
+of
+Certificate
+s and
+CRL
+s
+Throws:
+NullPointerException
+- if
+collection
+is
+null
+CollectionCertStoreParameters
+public
+CollectionCertStoreParameters
+()
+Creates an instance of
+CollectionCertStoreParameters
+with
+ the default parameter values (an empty and immutable
+Collection
+).
+Method Details
+getCollection
+public
+Collection
+<?>
+getCollection
+()
+Returns the
+Collection
+from which
+Certificate
+s
+ and
+CRL
+s are retrieved. This is
+not
+a copy of the
+Collection
+, it is a reference. This allows the caller to
+ subsequently add or remove
+Certificates
+or
+CRL
+s from the
+Collection
+.
+Returns:
+the
+Collection
+(never null)
+clone
+public
+Object
+clone
+()
+Returns a copy of this object. Note that only a reference to the
+Collection
+is copied, and not the contents.
+Specified by:
+clone
+in interface
+CertStoreParameters
+Overrides:
+clone
+in class
+Object
+Returns:
+the copy
+See Also:
+Cloneable
+toString
+public
+String
+toString
+()
+Returns a formatted string describing the parameters.
+Overrides:
+toString
+in class
+Object
+Returns:
+a formatted string describing the parameters
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,293 @@
+HttpHandlers (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.httpserver
+Package
+com.sun.net.httpserver
+Class HttpHandlers
+java.lang.Object
+com.sun.net.httpserver.HttpHandlers
+public final class
+HttpHandlers
+extends
+Object
+Implementations of
+HttpHandler
+that implement various useful handlers, such as a static response handler,
+ or a conditional handler that complements one handler with another.
+The factory method
+of(int, Headers, String)
+provides a
+ means to create handlers with pre-set static response state. For example, a
+jsonHandler
+that always returns
+200
+with the same json:
+HttpHandlers.of(200,
+                    Headers.of("Content-Type", "application/json"),
+                    Files.readString(Path.of("some.json")));
+or a
+notAllowedHandler
+that always replies with
+405
+-
+ Method Not Allowed, and indicates the set of methods that are allowed:
+HttpHandlers.of(405, Headers.of("Allow", "GET"), "");
+The functionality of a handler can be extended or enhanced through the
+ use of
+handleOrElse
+,
+ which allows to complement a given handler. For example, complementing a
+jsonHandler
+with
+notAllowedHandler
+:
+Predicate<Request> IS_GET = r -> r.getRequestMethod().equals("GET");
+    var handler = HttpHandlers.handleOrElse(IS_GET, jsonHandler, notAllowedHandler);
+The above
+handleOrElse
+handler
+offers an if-else like construct;
+ if the request method is "GET" then handling of the exchange is delegated to
+ the
+jsonHandler
+, otherwise handling of the exchange is delegated to
+ the
+notAllowedHandler
+.
+Since:
+18
+Method Summary
+All Methods
+Static Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+HttpHandler
+handleOrElse
+(
+Predicate
+<
+Request
+> handlerTest,
+HttpHandler
+handler,
+HttpHandler
+fallbackHandler)
+Complements a conditional
+HttpHandler
+with another handler.
+static
+HttpHandler
+of
+(int statusCode,
+Headers
+headers,
+String
+body)
+Returns an
+HttpHandler
+that sends a response comprising the given
+statusCode
+,
+headers
+, and
+body
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Method Details
+handleOrElse
+public static
+HttpHandler
+handleOrElse
+(
+Predicate
+<
+Request
+> handlerTest,
+HttpHandler
+handler,
+HttpHandler
+fallbackHandler)
+Complements a conditional
+HttpHandler
+with another handler.
+This method creates a
+handleOrElse
+handler; an if-else like
+ construct. Exchanges who's request matches the
+handlerTest
+predicate are handled by the
+handler
+. All remaining exchanges
+ are handled by the
+fallbackHandler
+.
+Example of a nested handleOrElse handler:
+Predicate<Request> IS_GET = r -> r.getRequestMethod().equals("GET");
+    Predicate<Request> WANTS_DIGEST =  r -> r.getRequestHeaders().containsKey("Want-Digest");
+
+    var h1 = new SomeHandler();
+    var h2 = HttpHandlers.handleOrElse(IS_GET, new SomeGetHandler(), h1);
+    var h3 = HttpHandlers.handleOrElse(WANTS_DIGEST.and(IS_GET), new SomeDigestHandler(), h2);
+The
+h3
+handleOrElse handler delegates handling of the exchange to
+SomeDigestHandler
+if the "Want-Digest" request header is present
+ and the request method is
+GET
+, otherwise it delegates handling of
+ the exchange to the
+h2
+handler. The
+h2
+handleOrElse
+ handler, in turn, delegates handling of the exchange to
+SomeGetHandler
+if the request method is
+GET
+, otherwise it
+ delegates handling of the exchange to the
+h1
+handler. The
+h1
+handler handles all exchanges that are not previously delegated to
+ either
+SomeGetHandler
+or
+SomeDigestHandler
+.
+Parameters:
+handlerTest
+- a request predicate
+handler
+- a conditional handler
+fallbackHandler
+- a fallback handler
+Returns:
+a handler
+Throws:
+NullPointerException
+- if any argument is null
+of
+public static
+HttpHandler
+of
+(int statusCode,
+Headers
+headers,
+String
+body)
+Returns an
+HttpHandler
+that sends a response comprising the given
+statusCode
+,
+headers
+, and
+body
+.
+This method creates a handler that reads and discards the request
+ body before it sets the response state and sends the response.
+headers
+are the effective headers of the response. The
+ response
+body bytes
+are a
+UTF-8
+encoded byte sequence of
+body
+. The response headers
+are sent
+with
+ the given
+statusCode
+and the body bytes' length (or
+-1
+if the body is empty). The body bytes are then sent as response body,
+ unless the body is empty, in which case no response body is sent.
+Parameters:
+statusCode
+- a response status code
+headers
+- a headers
+body
+- a response body string
+Returns:
+a handler
+Throws:
+IllegalArgumentException
+- if statusCode is not a positive 3-digit
+                                  integer, as per rfc2616, section 6.1.1
+NullPointerException
+- if headers or body are null
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

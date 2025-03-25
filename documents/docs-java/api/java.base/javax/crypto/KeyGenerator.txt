@@ -1,0 +1,616 @@
+KeyGenerator (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+javax.crypto
+Class KeyGenerator
+java.lang.Object
+javax.crypto.KeyGenerator
+public class
+KeyGenerator
+extends
+Object
+This class provides the functionality of a secret (symmetric) key generator.
+Key generators are constructed using one of the
+getInstance
+class methods of this class.
+KeyGenerator
+objects are reusable, i.e., after a key has been
+ generated, the same
+KeyGenerator
+object can be re-used
+ to generate further keys.
+There are two ways to generate a key: in an algorithm-independent
+ manner, and in an algorithm-specific manner.
+ The only difference between the two is the initialization of the object:
+Algorithm-Independent Initialization
+All key generators share the concepts of a
+keysize
+and a
+source of randomness
+.
+ There is an
+init
+method in this
+KeyGenerator
+class that takes these two universally
+ shared types of arguments. There is also one that takes just a
+keysize
+argument, and uses the
+SecureRandom
+implementation
+ of the highest-priority installed provider as the source of randomness
+ (or a system-provided source of randomness if none of the installed
+ providers supply a SecureRandom implementation), and one that takes just a
+ source of randomness.
+Since no other parameters are specified when you call the above
+ algorithm-independent
+init
+methods, it is up to the
+ provider what to do about the algorithm-specific parameters (if any) to be
+ associated with each of the keys.
+Algorithm-Specific Initialization
+For situations where a set of algorithm-specific parameters already
+ exists, there are two
+init
+methods that have an
+AlgorithmParameterSpec
+argument. One also has a
+SecureRandom
+argument, while the
+ other uses the SecureRandom implementation
+ of the highest-priority installed provider as the source of randomness
+ (or a system-provided source of randomness if none of the installed
+ providers supply a SecureRandom implementation).
+In case the client does not explicitly initialize the
+KeyGenerator
+(via a call to an
+init
+method), each provider must
+ supply (and document) a default initialization.
+ See the Keysize Restriction sections of the
+JDK Providers
+document for information on the
+KeyGenerator
+defaults used by
+ JDK providers.
+ However, note that defaults may vary across different providers.
+ Additionally, the default value for a provider may change in a future
+ version. Therefore, it is recommended to explicitly initialize the
+KeyGenerator
+instead of relying on provider-specific defaults.
+Every implementation of the Java platform is required to support the
+ following standard
+KeyGenerator
+algorithms with the keysizes in
+ parentheses:
+AES
+(128)
+DESede
+(168)
+HmacSHA1
+HmacSHA256
+These algorithms are described in the
+KeyGenerator section
+of the
+ Java Security Standard Algorithm Names Specification.
+ Consult the release documentation for your implementation to see if any
+ other algorithms are supported.
+Since:
+1.4
+See Also:
+SecretKey
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+KeyGenerator
+(
+KeyGeneratorSpi
+keyGenSpi,
+Provider
+provider,
+String
+algorithm)
+Creates a
+KeyGenerator
+object.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+final
+SecretKey
+generateKey
+()
+Generates a secret key.
+final
+String
+getAlgorithm
+()
+Returns the algorithm name of this
+KeyGenerator
+object.
+static final
+KeyGenerator
+getInstance
+(
+String
+algorithm)
+Returns a
+KeyGenerator
+object that generates secret keys
+ for the specified algorithm.
+static final
+KeyGenerator
+getInstance
+(
+String
+algorithm,
+String
+provider)
+Returns a
+KeyGenerator
+object that generates secret keys
+ for the specified algorithm.
+static final
+KeyGenerator
+getInstance
+(
+String
+algorithm,
+Provider
+provider)
+Returns a
+KeyGenerator
+object that generates secret keys
+ for the specified algorithm.
+final
+Provider
+getProvider
+()
+Returns the provider of this
+KeyGenerator
+object.
+final void
+init
+(int keysize)
+Initializes this key generator for a certain keysize.
+final void
+init
+(int keysize,
+SecureRandom
+random)
+Initializes this key generator for a certain keysize, using a
+ user-provided source of randomness.
+final void
+init
+(
+SecureRandom
+random)
+Initializes this key generator.
+final void
+init
+(
+AlgorithmParameterSpec
+params)
+Initializes this key generator with the specified parameter set.
+final void
+init
+(
+AlgorithmParameterSpec
+params,
+SecureRandom
+random)
+Initializes this key generator with the specified parameter
+ set and a user-provided source of randomness.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+KeyGenerator
+protected
+KeyGenerator
+(
+KeyGeneratorSpi
+keyGenSpi,
+Provider
+provider,
+String
+algorithm)
+Creates a
+KeyGenerator
+object.
+Parameters:
+keyGenSpi
+- the delegate
+provider
+- the provider
+algorithm
+- the algorithm
+Method Details
+getAlgorithm
+public final
+String
+getAlgorithm
+()
+Returns the algorithm name of this
+KeyGenerator
+object.
+This is the same name that was specified in one of the
+getInstance
+calls that created this
+KeyGenerator
+object.
+Returns:
+the algorithm name of this
+KeyGenerator
+object.
+getInstance
+public static final
+KeyGenerator
+getInstance
+(
+String
+algorithm)
+throws
+NoSuchAlgorithmException
+Returns a
+KeyGenerator
+object that generates secret keys
+ for the specified algorithm.
+This method traverses the list of registered security providers,
+ starting with the most preferred provider.
+ A new
+KeyGenerator
+object encapsulating the
+KeyGeneratorSpi
+implementation from the first
+ provider that supports the specified algorithm is returned.
+Note that the list of registered providers may be retrieved via
+ the
+Security.getProviders()
+method.
+Implementation Note:
+The JDK Reference Implementation additionally uses the
+jdk.security.provider.preferred
+Security
+property to determine
+ the preferred provider order for the specified algorithm. This
+ may be different from the order of providers returned by
+Security.getProviders()
+.
+Parameters:
+algorithm
+- the standard name of the requested key algorithm.
+ See the KeyGenerator section in the
+Java Security Standard Algorithm Names Specification
+for information about standard algorithm names.
+Returns:
+the new
+KeyGenerator
+object
+Throws:
+NoSuchAlgorithmException
+- if no
+Provider
+supports a
+KeyGeneratorSpi
+implementation for the
+         specified algorithm
+NullPointerException
+- if
+algorithm
+is
+null
+See Also:
+Provider
+getInstance
+public static final
+KeyGenerator
+getInstance
+(
+String
+algorithm,
+String
+provider)
+throws
+NoSuchAlgorithmException
+,
+NoSuchProviderException
+Returns a
+KeyGenerator
+object that generates secret keys
+ for the specified algorithm.
+A new
+KeyGenerator
+object encapsulating the
+KeyGeneratorSpi
+implementation from the specified provider
+ is returned.  The specified provider must be registered
+ in the security provider list.
+Note that the list of registered providers may be retrieved via
+ the
+Security.getProviders()
+method.
+Parameters:
+algorithm
+- the standard name of the requested key algorithm.
+ See the KeyGenerator section in the
+Java Security Standard Algorithm Names Specification
+for information about standard algorithm names.
+provider
+- the name of the provider.
+Returns:
+the new
+KeyGenerator
+object
+Throws:
+IllegalArgumentException
+- if the
+provider
+is
+null
+or empty
+NoSuchAlgorithmException
+- if a
+KeyGeneratorSpi
+implementation for the specified algorithm is not
+         available from the specified provider
+NoSuchProviderException
+- if the specified provider is not
+         registered in the security provider list
+NullPointerException
+- if
+algorithm
+is
+null
+See Also:
+Provider
+getInstance
+public static final
+KeyGenerator
+getInstance
+(
+String
+algorithm,
+Provider
+provider)
+throws
+NoSuchAlgorithmException
+Returns a
+KeyGenerator
+object that generates secret keys
+ for the specified algorithm.
+A new
+KeyGenerator
+object encapsulating the
+KeyGeneratorSpi
+implementation from the specified provider
+ object is returned.  Note that the specified provider object
+ does not have to be registered in the provider list.
+Parameters:
+algorithm
+- the standard name of the requested key algorithm.
+ See the KeyGenerator section in the
+Java Security Standard Algorithm Names Specification
+for information about standard algorithm names.
+provider
+- the provider.
+Returns:
+the new
+KeyGenerator
+object
+Throws:
+IllegalArgumentException
+- if the
+provider
+is
+null
+NoSuchAlgorithmException
+- if a
+KeyGeneratorSpi
+implementation for the specified algorithm is not available
+         from the specified
+Provider
+object
+NullPointerException
+- if
+algorithm
+is
+null
+See Also:
+Provider
+getProvider
+public final
+Provider
+getProvider
+()
+Returns the provider of this
+KeyGenerator
+object.
+Returns:
+the provider of this
+KeyGenerator
+object
+init
+public final
+void
+init
+(
+SecureRandom
+random)
+Initializes this key generator.
+Parameters:
+random
+- the source of randomness for this generator
+init
+public final
+void
+init
+(
+AlgorithmParameterSpec
+params)
+throws
+InvalidAlgorithmParameterException
+Initializes this key generator with the specified parameter set.
+If this key generator requires any random bytes, it will get them
+ using the
+SecureRandom
+implementation of the highest-priority installed
+ provider as the source of randomness.
+ (If none of the installed providers supply an implementation of
+ SecureRandom, a system-provided source of randomness will be used.)
+Parameters:
+params
+- the key generation parameters
+Throws:
+InvalidAlgorithmParameterException
+- if the given parameters
+ are inappropriate for this key generator
+init
+public final
+void
+init
+(
+AlgorithmParameterSpec
+params,
+SecureRandom
+random)
+throws
+InvalidAlgorithmParameterException
+Initializes this key generator with the specified parameter
+ set and a user-provided source of randomness.
+Parameters:
+params
+- the key generation parameters
+random
+- the source of randomness for this key generator
+Throws:
+InvalidAlgorithmParameterException
+- if
+params
+is
+ inappropriate for this key generator
+init
+public final
+void
+init
+(int keysize)
+Initializes this key generator for a certain keysize.
+If this key generator requires any random bytes, it will get them
+ using the
+SecureRandom
+implementation of the highest-priority installed
+ provider as the source of randomness.
+ (If none of the installed providers supply an implementation of
+ SecureRandom, a system-provided source of randomness will be used.)
+Parameters:
+keysize
+- the keysize. This is an algorithm-specific metric,
+ specified in number of bits.
+Throws:
+InvalidParameterException
+- if the keysize is wrong or not
+ supported.
+init
+public final
+void
+init
+(int keysize,
+SecureRandom
+random)
+Initializes this key generator for a certain keysize, using a
+ user-provided source of randomness.
+Parameters:
+keysize
+- the keysize. This is an algorithm-specific metric,
+ specified in number of bits.
+random
+- the source of randomness for this key generator
+Throws:
+InvalidParameterException
+- if the keysize is wrong or not
+ supported.
+generateKey
+public final
+SecretKey
+generateKey
+()
+Generates a secret key.
+Returns:
+the new key
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

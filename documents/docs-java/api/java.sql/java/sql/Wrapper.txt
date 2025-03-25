@@ -1,0 +1,192 @@
+Wrapper (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.sql
+Package
+java.sql
+Interface Wrapper
+All Known Subinterfaces:
+CachedRowSet
+,
+CallableStatement
+,
+Connection
+,
+DatabaseMetaData
+,
+DataSource
+,
+FilteredRowSet
+,
+JdbcRowSet
+,
+JoinRowSet
+,
+ParameterMetaData
+,
+PreparedStatement
+,
+ResultSet
+,
+ResultSetMetaData
+,
+RowSet
+,
+RowSetMetaData
+,
+Statement
+,
+SyncResolver
+,
+WebRowSet
+All Known Implementing Classes:
+RowSetMetaDataImpl
+public interface
+Wrapper
+Interface for JDBC classes which provide the ability to retrieve the delegate instance when the instance
+ in question is in fact a proxy class.
+The wrapper pattern is employed by many JDBC driver implementations to provide extensions beyond
+ the traditional JDBC API that are specific to a data source. Developers may wish to gain access to
+ these resources that are wrapped (the delegates) as  proxy class instances representing the
+ the actual resources. This interface describes a standard mechanism to access
+ these wrapped resources
+ represented by their proxy, to permit direct access to the resource delegates.
+Since:
+1.6
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+boolean
+isWrapperFor
+(
+Class
+<?> iface)
+Returns true if this either implements the interface argument or is directly or indirectly a wrapper
+ for an object that does.
+<T> T
+unwrap
+(
+Class
+<T> iface)
+Returns an object that implements the given interface to allow access to
+ non-standard methods, or standard methods not exposed by the proxy.
+Method Details
+unwrap
+<T>
+T
+unwrap
+(
+Class
+<T> iface)
+throws
+SQLException
+Returns an object that implements the given interface to allow access to
+ non-standard methods, or standard methods not exposed by the proxy.
+
+ If the receiver implements the interface then the result is the receiver
+ or a proxy for the receiver. If the receiver is a wrapper
+ and the wrapped object implements the interface then the result is the
+ wrapped object or a proxy for the wrapped object. Otherwise return the
+ the result of calling
+unwrap
+recursively on the wrapped object
+ or a proxy for that result. If the receiver is not a
+ wrapper and does not implement the interface, then an
+SQLException
+is thrown.
+Type Parameters:
+T
+- the type of the class modeled by this Class object
+Parameters:
+iface
+- A Class defining an interface that the result must implement.
+Returns:
+an object that implements the interface. May be a proxy for the actual implementing object.
+Throws:
+SQLException
+- If no object found that implements the interface
+Since:
+1.6
+isWrapperFor
+boolean
+isWrapperFor
+(
+Class
+<?> iface)
+throws
+SQLException
+Returns true if this either implements the interface argument or is directly or indirectly a wrapper
+ for an object that does. Returns false otherwise. If this implements the interface then return true,
+ else if this is a wrapper then return the result of recursively calling
+isWrapperFor
+on the wrapped
+ object. If this does not implement the interface and is not a wrapper, return false.
+ This method should be implemented as a low-cost operation compared to
+unwrap
+so that
+ callers can use this method to avoid expensive
+unwrap
+calls that may fail. If this method
+ returns true then calling
+unwrap
+with the same argument should succeed.
+Parameters:
+iface
+- a Class defining an interface.
+Returns:
+true if this implements the interface or directly or indirectly wraps an object that does.
+Throws:
+SQLException
+- if an error occurs while determining whether this is a wrapper
+ for an object with the given interface.
+Since:
+1.6
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,602 @@
+DocumentBuilder (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.xml
+Package
+javax.xml.parsers
+Class DocumentBuilder
+java.lang.Object
+javax.xml.parsers.DocumentBuilder
+public abstract class
+DocumentBuilder
+extends
+Object
+Defines the API to obtain DOM Document instances from an XML
+ document. Using this class, an application programmer can obtain a
+Document
+from XML.
+An instance of this class can be obtained from the
+DocumentBuilderFactory.newDocumentBuilder()
+method. Once
+ an instance of this class is obtained, XML can be parsed from a
+ variety of input sources. These input sources are InputStreams,
+ Files, URLs, and SAX InputSources.
+Note that this class reuses several classes from the SAX API. This
+ does not require that the implementor of the underlying DOM
+ implementation use a SAX parser to parse XML document into a
+Document
+. It merely requires that the implementation
+ communicate with the application using these existing APIs.
+Since:
+1.4
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+DocumentBuilder
+()
+Protected constructor
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+abstract
+DOMImplementation
+getDOMImplementation
+()
+Obtain an instance of a
+DOMImplementation
+object.
+Schema
+getSchema
+()
+Get a reference to the
+Schema
+being used by
+ the XML processor.
+abstract boolean
+isNamespaceAware
+()
+Indicates whether or not this parser is configured to
+ understand namespaces.
+abstract boolean
+isValidating
+()
+Indicates whether or not this parser is configured to
+ validate XML documents.
+boolean
+isXIncludeAware
+()
+Get the XInclude processing mode for this parser.
+abstract
+Document
+newDocument
+()
+Obtain a new instance of a DOM
+Document
+object
+ to build a DOM tree with.
+Document
+parse
+(
+File
+f)
+Parse the content of the given file as an XML document
+ and return a new DOM
+Document
+object.
+Document
+parse
+(
+InputStream
+is)
+Parse the content of the given
+InputStream
+as an XML
+ document and return a new DOM
+Document
+object.
+Document
+parse
+(
+InputStream
+is,
+String
+systemId)
+Parse the content of the given
+InputStream
+as an
+ XML document and return a new DOM
+Document
+object.
+Document
+parse
+(
+String
+uri)
+Parse the content of the given URI as an XML document
+ and return a new DOM
+Document
+object.
+abstract
+Document
+parse
+(
+InputSource
+is)
+Parse the content of the given input source as an XML document
+ and return a new DOM
+Document
+object.
+void
+reset
+()
+Reset this
+DocumentBuilder
+to its original configuration.
+abstract void
+setEntityResolver
+(
+EntityResolver
+er)
+Specify the
+EntityResolver
+to be used to resolve
+ entities present in the XML document to be parsed.
+abstract void
+setErrorHandler
+(
+ErrorHandler
+eh)
+Specify the
+ErrorHandler
+to be used by the parser.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+DocumentBuilder
+protected
+DocumentBuilder
+()
+Protected constructor
+Method Details
+reset
+public
+void
+reset
+()
+Reset this
+DocumentBuilder
+to its original configuration.
+DocumentBuilder
+is reset to the same state as when it was created with
+DocumentBuilderFactory.newDocumentBuilder()
+.
+reset()
+is designed to allow the reuse of existing
+DocumentBuilder
+s
+ thus saving resources associated with the creation of new
+DocumentBuilder
+s.
+The reset
+DocumentBuilder
+is not guaranteed to have the same
+EntityResolver
+or
+ErrorHandler
+Object
+s, e.g.
+Object.equals(Object obj)
+.  It is guaranteed to have a functionally equal
+EntityResolver
+and
+ErrorHandler
+.
+Throws:
+UnsupportedOperationException
+- When implementation does not
+   override this method.
+Since:
+1.5
+parse
+public
+Document
+parse
+(
+InputStream
+is)
+throws
+SAXException
+,
+IOException
+Parse the content of the given
+InputStream
+as an XML
+ document and return a new DOM
+Document
+object.
+ An
+IllegalArgumentException
+is thrown if the
+InputStream
+is null.
+Parameters:
+is
+- InputStream containing the content to be parsed.
+Returns:
+Document
+result of parsing the
+InputStream
+Throws:
+IOException
+- If any IO errors occur.
+SAXException
+- If any parse errors occur.
+IllegalArgumentException
+- When
+is
+is
+null
+See Also:
+DocumentHandler
+parse
+public
+Document
+parse
+(
+InputStream
+is,
+String
+systemId)
+throws
+SAXException
+,
+IOException
+Parse the content of the given
+InputStream
+as an
+ XML document and return a new DOM
+Document
+object.
+ An
+IllegalArgumentException
+is thrown if the
+InputStream
+is null.
+Parameters:
+is
+- InputStream containing the content to be parsed.
+systemId
+- Provide a base for resolving relative URIs.
+Returns:
+A new DOM Document object.
+Throws:
+IOException
+- If any IO errors occur.
+SAXException
+- If any parse errors occur.
+IllegalArgumentException
+- When
+is
+is
+null
+See Also:
+DocumentHandler
+parse
+public
+Document
+parse
+(
+String
+uri)
+throws
+SAXException
+,
+IOException
+Parse the content of the given URI as an XML document
+ and return a new DOM
+Document
+object.
+ An
+IllegalArgumentException
+is thrown if the
+ URI is
+null
+.
+Parameters:
+uri
+- The location of the content to be parsed.
+Returns:
+A new DOM Document object.
+Throws:
+IOException
+- If any IO errors occur.
+SAXException
+- If any parse errors occur.
+IllegalArgumentException
+- When
+uri
+is
+null
+See Also:
+DocumentHandler
+parse
+public
+Document
+parse
+(
+File
+f)
+throws
+SAXException
+,
+IOException
+Parse the content of the given file as an XML document
+ and return a new DOM
+Document
+object.
+ An
+IllegalArgumentException
+is thrown if the
+File
+is
+null
+.
+Parameters:
+f
+- The file containing the XML to parse.
+Returns:
+A new DOM Document object.
+Throws:
+IOException
+- If any IO errors occur.
+SAXException
+- If any parse errors occur.
+IllegalArgumentException
+- When
+f
+is
+null
+See Also:
+DocumentHandler
+parse
+public abstract
+Document
+parse
+(
+InputSource
+is)
+throws
+SAXException
+,
+IOException
+Parse the content of the given input source as an XML document
+ and return a new DOM
+Document
+object.
+ An
+IllegalArgumentException
+is thrown if the
+InputSource
+is
+null
+.
+Parameters:
+is
+- InputSource containing the content to be parsed.
+Returns:
+A new DOM Document object.
+Throws:
+IOException
+- If any IO errors occur.
+SAXException
+- If any parse errors occur.
+IllegalArgumentException
+- When
+is
+is
+null
+See Also:
+DocumentHandler
+isNamespaceAware
+public abstract
+boolean
+isNamespaceAware
+()
+Indicates whether or not this parser is configured to
+ understand namespaces.
+Returns:
+true if this parser is configured to understand
+         namespaces; false otherwise.
+isValidating
+public abstract
+boolean
+isValidating
+()
+Indicates whether or not this parser is configured to
+ validate XML documents.
+Returns:
+true if this parser is configured to validate
+         XML documents; false otherwise.
+setEntityResolver
+public abstract
+void
+setEntityResolver
+(
+EntityResolver
+er)
+Specify the
+EntityResolver
+to be used to resolve
+ entities present in the XML document to be parsed. Setting
+ this to
+null
+will result in the underlying
+ implementation using it's own default implementation and
+ behavior.
+Parameters:
+er
+- The
+EntityResolver
+to be used to resolve entities
+           present in the XML document to be parsed.
+setErrorHandler
+public abstract
+void
+setErrorHandler
+(
+ErrorHandler
+eh)
+Specify the
+ErrorHandler
+to be used by the parser.
+ Setting this to
+null
+will result in the underlying
+ implementation using it's own default implementation and
+ behavior.
+Parameters:
+eh
+- The
+ErrorHandler
+to be used by the parser.
+newDocument
+public abstract
+Document
+newDocument
+()
+Obtain a new instance of a DOM
+Document
+object
+ to build a DOM tree with.
+Returns:
+A new instance of a DOM Document object.
+getDOMImplementation
+public abstract
+DOMImplementation
+getDOMImplementation
+()
+Obtain an instance of a
+DOMImplementation
+object.
+Returns:
+A new instance of a
+DOMImplementation
+.
+getSchema
+public
+Schema
+getSchema
+()
+Get a reference to the
+Schema
+being used by
+ the XML processor.
+If no schema is being used,
+null
+is returned.
+Returns:
+Schema
+being used or
+null
+if none in use
+Throws:
+UnsupportedOperationException
+- When implementation does not
+   override this method
+Since:
+1.5
+isXIncludeAware
+public
+boolean
+isXIncludeAware
+()
+Get the XInclude processing mode for this parser.
+Returns:
+the return value of
+      the
+DocumentBuilderFactory.isXIncludeAware()
+when this parser was created from factory.
+Throws:
+UnsupportedOperationException
+- When implementation does not
+   override this method
+Since:
+1.5
+See Also:
+DocumentBuilderFactory.setXIncludeAware(boolean)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,487 @@
+MenuBar (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt
+Class MenuBar
+java.lang.Object
+java.awt.MenuComponent
+java.awt.MenuBar
+All Implemented Interfaces:
+MenuContainer
+,
+Serializable
+,
+Accessible
+public class
+MenuBar
+extends
+MenuComponent
+implements
+MenuContainer
+,
+Accessible
+The
+MenuBar
+class encapsulates the platform's
+ concept of a menu bar bound to a frame. In order to associate
+ the menu bar with a
+Frame
+object, call the
+ frame's
+setMenuBar
+method.
+This is what a menu bar might look like:
+A menu bar handles keyboard shortcuts for menu items, passing them
+ along to its child menus.
+ (Keyboard shortcuts, which are optional, provide the user with
+ an alternative to the mouse for invoking a menu item and the
+ action that is associated with it.)
+ Each menu item can maintain an instance of
+MenuShortcut
+.
+ The
+MenuBar
+class defines several methods,
+shortcuts()
+and
+getShortcutMenuItem(java.awt.MenuShortcut)
+that retrieve information about the shortcuts a given
+ menu bar is managing.
+Since:
+1.0
+See Also:
+Frame
+Frame.setMenuBar(java.awt.MenuBar)
+Menu
+MenuItem
+MenuShortcut
+Serialized Form
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+protected class
+MenuBar.AccessibleAWTMenuBar
+Inner class of MenuBar used to provide default support for
+ accessibility.
+Nested classes/interfaces declared in class java.awt.
+MenuComponent
+MenuComponent.AccessibleAWTMenuComponent
+Constructor Summary
+Constructors
+Constructor
+Description
+MenuBar
+()
+Creates a new menu bar.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+Menu
+add
+(
+Menu
+m)
+Adds the specified menu to the menu bar.
+void
+addNotify
+()
+Creates the menu bar's peer.
+int
+countMenus
+()
+Deprecated.
+As of JDK version 1.1,
+ replaced by
+getMenuCount()
+.
+void
+deleteShortcut
+(
+MenuShortcut
+s)
+Deletes the specified menu shortcut.
+AccessibleContext
+getAccessibleContext
+()
+Gets the AccessibleContext associated with this MenuBar.
+Menu
+getHelpMenu
+()
+Gets the help menu on the menu bar.
+Menu
+getMenu
+(int i)
+Gets the specified menu.
+int
+getMenuCount
+()
+Gets the number of menus on the menu bar.
+MenuItem
+getShortcutMenuItem
+(
+MenuShortcut
+s)
+Gets the instance of
+MenuItem
+associated
+ with the specified
+MenuShortcut
+object,
+ or
+null
+if none of the menu items being managed
+ by this menu bar is associated with the specified menu
+ shortcut.
+void
+remove
+(int index)
+Removes the menu located at the specified
+ index from this menu bar.
+void
+remove
+(
+MenuComponent
+m)
+Removes the specified menu component from this menu bar.
+void
+removeNotify
+()
+Removes the menu bar's peer.
+void
+setHelpMenu
+(
+Menu
+m)
+Sets the specified menu to be this menu bar's help menu.
+Enumeration
+<
+MenuShortcut
+>
+shortcuts
+()
+Gets an enumeration of all menu shortcuts this menu bar
+ is managing.
+Methods declared in class java.awt.
+MenuComponent
+dispatchEvent
+,
+getFont
+,
+getName
+,
+getParent
+,
+getTreeLock
+,
+paramString
+,
+postEvent
+,
+processEvent
+,
+setFont
+,
+setName
+,
+toString
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface java.awt.
+MenuContainer
+getFont
+,
+postEvent
+Constructor Details
+MenuBar
+public
+MenuBar
+()
+        throws
+HeadlessException
+Creates a new menu bar.
+Throws:
+HeadlessException
+- if GraphicsEnvironment.isHeadless()
+ returns true.
+See Also:
+GraphicsEnvironment.isHeadless()
+Method Details
+addNotify
+public
+void
+addNotify
+()
+Creates the menu bar's peer.  The peer allows us to change the
+ appearance of the menu bar without changing any of the menu bar's
+ functionality.
+removeNotify
+public
+void
+removeNotify
+()
+Removes the menu bar's peer.  The peer allows us to change the
+ appearance of the menu bar without changing any of the menu bar's
+ functionality.
+Overrides:
+removeNotify
+in class
+MenuComponent
+getHelpMenu
+public
+Menu
+getHelpMenu
+()
+Gets the help menu on the menu bar.
+Returns:
+the help menu on this menu bar.
+setHelpMenu
+public
+void
+setHelpMenu
+(
+Menu
+m)
+Sets the specified menu to be this menu bar's help menu.
+ If this menu bar has an existing help menu, the old help menu is
+ removed from the menu bar, and replaced with the specified menu.
+Parameters:
+m
+- the menu to be set as the help menu
+add
+public
+Menu
+add
+(
+Menu
+m)
+Adds the specified menu to the menu bar.
+ If the menu has been part of another menu bar,
+ removes it from that menu bar.
+Parameters:
+m
+- the menu to be added
+Returns:
+the menu added
+See Also:
+remove(int)
+remove(java.awt.MenuComponent)
+remove
+public
+void
+remove
+(int index)
+Removes the menu located at the specified
+ index from this menu bar.
+Parameters:
+index
+- the position of the menu to be removed.
+See Also:
+add(java.awt.Menu)
+remove
+public
+void
+remove
+(
+MenuComponent
+m)
+Removes the specified menu component from this menu bar.
+Specified by:
+remove
+in interface
+MenuContainer
+Parameters:
+m
+- the menu component to be removed.
+See Also:
+add(java.awt.Menu)
+getMenuCount
+public
+int
+getMenuCount
+()
+Gets the number of menus on the menu bar.
+Returns:
+the number of menus on the menu bar.
+Since:
+1.1
+countMenus
+@Deprecated
+public
+int
+countMenus
+()
+Deprecated.
+As of JDK version 1.1,
+ replaced by
+getMenuCount()
+.
+Gets the number of menus on the menu bar.
+Returns:
+the number of menus on the menu bar.
+getMenu
+public
+Menu
+getMenu
+(int i)
+Gets the specified menu.
+Parameters:
+i
+- the index position of the menu to be returned.
+Returns:
+the menu at the specified index of this menu bar.
+shortcuts
+public
+Enumeration
+<
+MenuShortcut
+>
+shortcuts
+()
+Gets an enumeration of all menu shortcuts this menu bar
+ is managing.
+Returns:
+an enumeration of menu shortcuts that this
+                      menu bar is managing.
+Since:
+1.1
+See Also:
+MenuShortcut
+getShortcutMenuItem
+public
+MenuItem
+getShortcutMenuItem
+(
+MenuShortcut
+s)
+Gets the instance of
+MenuItem
+associated
+ with the specified
+MenuShortcut
+object,
+ or
+null
+if none of the menu items being managed
+ by this menu bar is associated with the specified menu
+ shortcut.
+Parameters:
+s
+- the specified menu shortcut.
+Returns:
+the menu item for the specified shortcut.
+Since:
+1.1
+See Also:
+MenuItem
+MenuShortcut
+deleteShortcut
+public
+void
+deleteShortcut
+(
+MenuShortcut
+s)
+Deletes the specified menu shortcut.
+Parameters:
+s
+- the menu shortcut to delete.
+Since:
+1.1
+getAccessibleContext
+public
+AccessibleContext
+getAccessibleContext
+()
+Gets the AccessibleContext associated with this MenuBar.
+ For menu bars, the AccessibleContext takes the form of an
+ AccessibleAWTMenuBar.
+ A new AccessibleAWTMenuBar instance is created if necessary.
+Specified by:
+getAccessibleContext
+in interface
+Accessible
+Overrides:
+getAccessibleContext
+in class
+MenuComponent
+Returns:
+an AccessibleAWTMenuBar that serves as the
+         AccessibleContext of this MenuBar
+Since:
+1.3
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

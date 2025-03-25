@@ -1,0 +1,272 @@
+BasicHTML (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.plaf.basic
+Class BasicHTML
+java.lang.Object
+javax.swing.plaf.basic.BasicHTML
+public class
+BasicHTML
+extends
+Object
+Support for providing html views for the swing components.
+ This translates a simple html string to a javax.swing.text.View
+ implementation that can render the html and provide the necessary
+ layout semantics.
+Since:
+1.3
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+String
+documentBaseKey
+Key stored as a client property to indicate the base that relative
+ references are resolved against.
+static final
+String
+propertyKey
+Key to use for the html renderer when stored as a
+ client property of a JComponent.
+Constructor Summary
+Constructors
+Constructor
+Description
+BasicHTML
+()
+Constructs a
+BasicHTML
+.
+Method Summary
+All Methods
+Static Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+View
+createHTMLView
+(
+JComponent
+c,
+String
+html)
+Create an html renderer for the given component and
+ string of html.
+static int
+getHTMLBaseline
+(
+View
+view,
+ int w,
+ int h)
+Returns the baseline for the html renderer.
+static boolean
+isHTMLString
+(
+String
+s)
+Check the given string to see if it should trigger the
+ html rendering logic in a non-text component that supports
+ html rendering.
+static void
+updateRenderer
+(
+JComponent
+c,
+String
+text)
+Stash the HTML render for the given text into the client
+ properties of the given JComponent.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+propertyKey
+public static final
+String
+propertyKey
+Key to use for the html renderer when stored as a
+ client property of a JComponent.
+See Also:
+Constant Field Values
+documentBaseKey
+public static final
+String
+documentBaseKey
+Key stored as a client property to indicate the base that relative
+ references are resolved against. For example, lets say you keep
+ your images in the directory resources relative to the code path,
+ you would use the following the set the base:
+jComponent.putClientProperty(documentBaseKey,
+                                xxx.class.getResource("resources/"));
+See Also:
+Constant Field Values
+Constructor Details
+BasicHTML
+public
+BasicHTML
+()
+Constructs a
+BasicHTML
+.
+Method Details
+createHTMLView
+public static
+View
+createHTMLView
+(
+JComponent
+c,
+String
+html)
+Create an html renderer for the given component and
+ string of html.
+Parameters:
+c
+- a component
+html
+- an HTML string
+Returns:
+an HTML renderer
+getHTMLBaseline
+public static
+int
+getHTMLBaseline
+(
+View
+view,
+ int w,
+ int h)
+Returns the baseline for the html renderer.
+Parameters:
+view
+- the View to get the baseline for
+w
+- the width to get the baseline for
+h
+- the height to get the baseline for
+Returns:
+baseline or a value < 0 indicating there is no reasonable
+                  baseline
+Throws:
+IllegalArgumentException
+- if width or height is < 0
+Since:
+1.6
+See Also:
+FontMetrics
+JComponent.getBaseline(int,int)
+isHTMLString
+public static
+boolean
+isHTMLString
+(
+String
+s)
+Check the given string to see if it should trigger the
+ html rendering logic in a non-text component that supports
+ html rendering.
+Parameters:
+s
+- a text
+Returns:
+true
+if the given string should trigger the
+         html rendering logic in a non-text component
+updateRenderer
+public static
+void
+updateRenderer
+(
+JComponent
+c,
+String
+text)
+Stash the HTML render for the given text into the client
+ properties of the given JComponent. If the given text is
+NOT HTML
+the property will be cleared of any
+ renderer.
+This method is useful for ComponentUI implementations
+ that are static (i.e. shared) and get their state
+ entirely from the JComponent.
+Parameters:
+c
+- a component
+text
+- a text
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

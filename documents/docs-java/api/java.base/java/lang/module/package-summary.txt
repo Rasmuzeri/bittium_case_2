@@ -1,0 +1,254 @@
+java.lang.module (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages
+|
+Classes and Interfaces
+SEARCH
+Module
+java.base
+Package java.lang.module
+package
+java.lang.module
+Classes to support module descriptors and creating configurations of modules
+ by means of resolution and service binding.
+Unless otherwise noted, passing a
+null
+argument to a constructor
+ or method of any class or interface in this package will cause a
+NullPointerException
+to be thrown. Additionally,
+ invoking a method with an array or collection containing a
+null
+element
+ will cause a
+NullPointerException
+, unless otherwise specified.
+Module Resolution
+Resolution is the process of computing how modules depend on each other.
+ The process occurs at compile time and run time.
+Resolution is a two-step process. The first step recursively enumerates
+ the 'requires' directives of a set of root modules. If all the enumerated
+ modules are observable, then the second step computes their readability graph.
+ The readability graph embodies how modules depend on each other, which in
+ turn controls access across module boundaries.
+Step 1: Recursive enumeration
+Recursive enumeration takes a set of module names, looks up each of their
+ module declarations, and for each module declaration, recursively enumerates:
+the module names given by the 'requires' directives with the
+   'transitive' modifier, and
+at the discretion of the host system, the module names given by
+   the 'requires' directives without the 'transitive' modifier.
+Module declarations are looked up in a set of observable modules. The set
+ of observable modules is determined in an implementation specific manner. The
+ set of observable modules may include modules with explicit declarations
+ (that is, with a
+module-info.java
+source file or
+module-info.class
+file) and modules with implicit declarations (that is,
+automatic modules
+).
+ Because an automatic module has no explicit module declaration, it has no
+ 'requires' directives of its own, although its name may be given by a
+ 'requires' directive of an explicit module declaration.
+The set of root modules, whose names are the initial input to this
+ algorithm, is determined in an implementation specific manner. The set of
+ root modules may include automatic modules.
+If at least one automatic module is enumerated by this algorithm, then
+ every observable automatic module must be enumerated, regardless of whether
+ any of their names are given by 'requires' directives of explicit module
+ declarations.
+If any of the following conditions occur, then resolution fails:
+Any root module is not observable.
+Any module whose name is given by a 'requires' directive with the
+   'transitive' modifier is not observable.
+At the discretion of the host system, any module whose name is given
+   by a 'requires' directive without the 'transitive' modifier is not
+   observable.
+The algorithm in this step enumerates the same module name twice. This
+   indicates a cycle in the 'requires' directives, disregarding any 'transitive'
+   modifiers.
+Otherwise, resolution proceeds to step 2.
+Step 2: Computing the readability graph
+A 'requires' directive (irrespective of 'transitive') expresses that
+ one module depends on some other module. The effect of the 'transitive'
+ modifier is to cause additional modules to also depend on the other module.
+ If module M 'requires transitive N', then not only does M depend on N, but
+ any module that depends on M also depends on N. This allows M to be
+ refactored so that some or all of its content can be moved to a new module N
+ without breaking modules that have a 'requires M' directive.
+Module dependencies are represented by the readability graph. The
+ readability graph is a directed graph whose vertices are the modules
+ enumerated in step 1 and whose edges represent readability between pairs of
+ modules. The edges are specified as follows:
+First, readability is determined by the 'requires' directives of the
+ enumerated modules, disregarding any 'transitive' modifiers:
+For each enumerated module A that 'requires' B: A "reads" B.
+For each enumerated module X that is automatic: X "reads" every
+   other enumerated module (it is "as if" an automatic module has 'requires'
+   directives for every other enumerated module).
+Second, readability is augmented to account for 'transitive' modifiers:
+For each enumerated module A that "reads" B:
+If B 'requires transitive' C, then A "reads" C as well as B. This
+     augmentation is recursive: since A "reads" C, if C 'requires transitive'
+     D, then A "reads" D as well as C and B.
+If B is an automatic module, then A "reads" every other enumerated
+     automatic module. (It is "as if" an automatic module has 'requires transitive'
+     directives for every other enumerated automatic module).
+Finally, every module "reads" itself.
+If any of the following conditions occur in the readability graph, then
+ resolution fails:
+A module "reads" two or more modules with the same name. This includes
+   the case where a module "reads" another with the same name as itself.
+Two or more modules export a package with the same name to a module
+   that "reads" both. This includes the case where a module M containing package
+   p "reads" another module that exports p to M.
+A module M declares that it 'uses p.S' or 'provides p.S with ...' but
+   package p is neither in module M nor exported to M by any module that M
+   "reads".
+Otherwise, resolution succeeds, and the result of resolution is the
+ readability graph.
+Root modules
+The set of root modules at compile-time is usually the set of modules
+ being compiled. At run-time, the set of root modules is usually the
+ application module specified to the 'java' launcher. When compiling code in
+ the unnamed module, or at run-time when the main application class is loaded
+ from the class path, then the default set of root modules is implementation
+ specific. In the JDK the default set of root modules contains every module
+ that is observable on the upgrade module path or among the system modules,
+ and that exports at least one package without qualification.
+Observable modules
+The set of observable modules at both compile-time and run-time is
+ determined by searching several different paths, and also by searching
+ the compiled modules built in to the environment. The search order is as
+ follows:
+At compile time only, the compilation module path. This path
+   contains module definitions in source form.
+The upgrade module path. This path contains compiled definitions of
+   modules that will be observed in preference to the compiled definitions of
+   any
+upgradeable modules
+that are present in (3) and (4). See the Java
+   SE Platform for the designation of which standard modules are upgradeable.
+The system modules, which are the compiled definitions built in to
+   the environment.
+The application module path. This path contains compiled definitions
+   of library and application modules.
+'requires' directives with 'static' modifier
+'requires' directives that have the 'static' modifier express an optional
+ dependence at run time. If a module declares that it 'requires static M' then
+ resolution does not search the observable modules for M to satisfy the dependency.
+ However, if M is recursively enumerated at step 1 then all modules that are
+ enumerated and `requires static M` will read M.
+Completeness
+Resolution may be partial at compile-time in that the complete transitive
+ closure may not be required to compile a set of modules. Minimally, the
+ readability graph that is constructed and validated at compile-time includes
+ the modules being compiled, their direct dependences, and all implicitly
+ declared dependences (requires transitive).
+At run-time, resolution is an additive process. The recursive enumeration
+ at step 1 may be relative to previous resolutions so that a root module,
+ or a module named in a 'requires' directive, is not enumerated when it was
+ enumerated by a previous (or parent) resolution. The readability graph that
+ is the result of resolution may therefore have a vertex for a module enumerated
+ in step 1 but with an edge to represent that the module reads a module that
+ was enumerated by previous (or parent) resolution.
+Since:
+9
+Related Packages
+Package
+Description
+java.lang
+Provides classes that are fundamental to the design of the Java
+ programming language.
+All Classes and Interfaces
+Interfaces
+Classes
+Enum Classes
+Exception Classes
+Class
+Description
+Configuration
+A configuration that is the result of
+resolution
+or resolution with
+service binding
+.
+FindException
+Thrown by a
+ModuleFinder
+when an error occurs finding
+ a module.
+InvalidModuleDescriptorException
+Thrown when reading a module descriptor and the module descriptor is found
+ to be malformed or otherwise cannot be interpreted as a module descriptor.
+ModuleDescriptor
+A module descriptor.
+ModuleDescriptor.Builder
+A builder for building
+ModuleDescriptor
+objects.
+ModuleDescriptor.Exports
+A package exported by a module, may be qualified or unqualified.
+ModuleDescriptor.Exports.Modifier
+A modifier on an exported package.
+ModuleDescriptor.Modifier
+A modifier on a module.
+ModuleDescriptor.Opens
+A package opened by a module, may be qualified or unqualified.
+ModuleDescriptor.Opens.Modifier
+A modifier on an open package.
+ModuleDescriptor.Provides
+A service that a module provides one or more implementations of.
+ModuleDescriptor.Requires
+A dependence upon a module.
+ModuleDescriptor.Requires.Modifier
+A modifier on a module dependence.
+ModuleDescriptor.Version
+A module's version string.
+ModuleFinder
+A finder of modules.
+ModuleReader
+Provides access to the content of a module.
+ModuleReference
+A reference to a module's content.
+ResolutionException
+Thrown when resolving a set of modules, or resolving a set of modules with
+ service binding, fails.
+ResolvedModule
+A module in a graph of
+resolved modules
+.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

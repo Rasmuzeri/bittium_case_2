@@ -1,0 +1,1170 @@
+HttpClient (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.net.http
+Package
+java.net.http
+Class HttpClient
+java.lang.Object
+java.net.http.HttpClient
+All Implemented Interfaces:
+AutoCloseable
+public abstract class
+HttpClient
+extends
+Object
+implements
+AutoCloseable
+An HTTP Client.
+An
+HttpClient
+can be used to send
+requests
+and retrieve their
+responses
+. An
+HttpClient
+is created through a
+builder
+.
+ The
+newBuilder
+method returns a builder that creates
+ instances of the default
+HttpClient
+implementation.
+ The builder can be used to configure per-client state, like: the preferred
+ protocol version ( HTTP/1.1 or HTTP/2 ), whether to follow redirects, a
+ proxy, an authenticator, etc. Once built, an
+HttpClient
+is immutable,
+ and can be used to send multiple requests.
+An
+HttpClient
+provides configuration information, and resource
+ sharing, for all requests sent through it. An
+HttpClient
+instance
+ typically manages its own pools of connections, which it may then reuse
+ as and when necessary. Connection pools are  typically not shared between
+HttpClient
+instances. Creating a new client for each operation,
+ though possible, will usually prevent reusing such connections.
+A
+BodyHandler
+must be supplied for each
+HttpRequest
+sent. The
+BodyHandler
+determines how to handle the
+ response body, if any. Once an
+HttpResponse
+is received, the
+ headers, response code, and body (typically) are available. Whether the
+ response body bytes have been read or not depends on the type,
+T
+, of
+ the response body.
+Requests can be sent either synchronously or asynchronously:
+send(HttpRequest, BodyHandler)
+blocks
+     until the request has been sent and the response has been received.
+sendAsync(HttpRequest, BodyHandler)
+sends the
+     request and receives the response asynchronously. The
+sendAsync
+method returns immediately with a
+CompletableFuture
+<
+HttpResponse
+>. The
+CompletableFuture
+completes when the response becomes available. The
+     returned
+CompletableFuture
+can be combined in different ways to
+     declare dependencies among several asynchronous tasks.
+Synchronous Example
+Copy
+HttpClient client = HttpClient.newBuilder()
+     .version(Version.HTTP_1_1)
+     .followRedirects(Redirect.NORMAL)
+     .connectTimeout(Duration.ofSeconds(20))
+     .proxy(ProxySelector.of(new InetSocketAddress("proxy.example.com", 80)))
+     .authenticator(Authenticator.getDefault())
+     .build();
+HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+System.out.println(response.statusCode());
+System.out.println(response.body());
+Asynchronous Example
+Copy
+HttpRequest request = HttpRequest.newBuilder()
+     .uri(URI.create("https://foo.com/"))
+     .timeout(Duration.ofMinutes(2))
+     .header("Content-Type", "application/json")
+     .POST(BodyPublishers.ofFile(Paths.get("file.json")))
+     .build();
+client.sendAsync(request, BodyHandlers.ofString())
+     .thenApply(HttpResponse::body)
+     .thenAccept(System.out::println);
+Security checks
+If a security manager is present then security checks are performed by
+ the HTTP Client's sending methods. An appropriate
+URLPermission
+is
+ required to access the destination server, and proxy server if one has
+ been configured. The form of the
+URLPermission
+required to access a
+ proxy has a
+method
+parameter of
+"CONNECT"
+(for all kinds of
+ proxying) and a
+URL
+string of the form
+"socket://host:port"
+where host and port specify the proxy's address.
+API Note:
+Resources allocated by the
+HttpClient
+may be
+ reclaimed early by
+closing
+the client.
+Implementation Note:
+The JDK built-in implementation of the
+HttpClient
+overrides
+close()
+,
+shutdown()
+,
+shutdownNow()
+,
+awaitTermination(Duration)
+, and
+isTerminated()
+to
+ provide a best effort implementation. Failing to close, cancel, or
+ read returned streams to exhaustion, such as streams provided when using
+HttpResponse.BodyHandlers.ofInputStream()
+,
+HttpResponse.BodyHandlers.ofLines()
+, or
+HttpResponse.BodyHandlers.ofPublisher()
+, may prevent requests submitted
+ before an
+orderly shutdown
+to run to completion. Likewise, failing to
+request data
+or
+cancel subscriptions
+from a custom
+BodySubscriber
+may stop
+ delivery of data and
+stall an
+ orderly shutdown
+.
+If an explicit
+executor
+has not been set for an
+HttpClient
+, and a security manager
+ has been installed, then the default executor will execute asynchronous and
+ dependent tasks in a context that is granted no permissions. Custom
+request body publishers
+,
+response body handlers
+,
+response body subscribers
+, and
+WebSocket Listeners
+, if executing operations that require
+ privileges, should do so within an appropriate
+privileged context
+.
+Since:
+11
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+static interface
+HttpClient.Builder
+A builder of
+HTTP Clients
+.
+static enum
+HttpClient.Redirect
+Defines the automatic redirection policy.
+static enum
+HttpClient.Version
+The HTTP protocol version.
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+HttpClient
+()
+Creates an HttpClient.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+abstract
+Optional
+<
+Authenticator
+>
+authenticator
+()
+Returns an
+Optional
+containing the
+Authenticator
+set on
+ this client.
+boolean
+awaitTermination
+(
+Duration
+duration)
+Blocks until all operations have completed execution after a shutdown
+ request, or the
+duration
+elapses, or the current thread is
+interrupted
+, whichever happens first.
+void
+close
+()
+Initiates an orderly shutdown in which  requests previously
+ submitted to
+send
+or
+sendAsync
+are run to completion, but no new request will be accepted.
+abstract
+Optional
+<
+Duration
+>
+connectTimeout
+()
+Returns an
+Optional
+containing the
+connect timeout duration
+for this client.
+abstract
+Optional
+<
+CookieHandler
+>
+cookieHandler
+()
+Returns an
+Optional
+containing this client's
+CookieHandler
+.
+abstract
+Optional
+<
+Executor
+>
+executor
+()
+Returns an
+Optional
+containing this client's
+Executor
+.
+abstract
+HttpClient.Redirect
+followRedirects
+()
+Returns the follow redirects policy for this client.
+boolean
+isTerminated
+()
+Returns
+true
+if all operations have completed following
+ a shutdown.
+static
+HttpClient.Builder
+newBuilder
+()
+Creates a new
+HttpClient
+builder.
+static
+HttpClient
+newHttpClient
+()
+Returns a new
+HttpClient
+with default settings.
+WebSocket.Builder
+newWebSocketBuilder
+()
+Creates a new
+WebSocket
+builder (optional operation).
+abstract
+Optional
+<
+ProxySelector
+>
+proxy
+()
+Returns an
+Optional
+containing the
+ProxySelector
+supplied to this client.
+abstract <T>
+HttpResponse
+<T>
+send
+(
+HttpRequest
+request,
+HttpResponse.BodyHandler
+<T> responseBodyHandler)
+Sends the given request using this client, blocking if necessary to get
+ the response.
+abstract <T>
+CompletableFuture
+<
+HttpResponse
+<T>>
+sendAsync
+(
+HttpRequest
+request,
+HttpResponse.BodyHandler
+<T> responseBodyHandler)
+Sends the given request asynchronously using this client with the given
+ response body handler.
+abstract <T>
+CompletableFuture
+<
+HttpResponse
+<T>>
+sendAsync
+(
+HttpRequest
+request,
+HttpResponse.BodyHandler
+<T> responseBodyHandler,
+HttpResponse.PushPromiseHandler
+<T> pushPromiseHandler)
+Sends the given request asynchronously using this client with the given
+ response body handler and push promise handler.
+void
+shutdown
+()
+Initiates an orderly shutdown in which  requests previously
+ submitted with
+send
+or
+sendAsync
+are run to completion, but no new request will be accepted.
+void
+shutdownNow
+()
+This method attempts to initiate an immediate shutdown.
+abstract
+SSLContext
+sslContext
+()
+Returns this client's
+SSLContext
+.
+abstract
+SSLParameters
+sslParameters
+()
+Returns a copy of this client's
+SSLParameters
+.
+abstract
+HttpClient.Version
+version
+()
+Returns the preferred HTTP protocol version for this client.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+HttpClient
+protected
+HttpClient
+()
+Creates an HttpClient.
+Method Details
+newHttpClient
+public static
+HttpClient
+newHttpClient
+()
+Returns a new
+HttpClient
+with default settings.
+Equivalent to
+newBuilder().build()
+.
+The default settings include: the "GET" request method, a preference
+ of
+HTTP/2
+, a redirection policy of
+NEVER
+, the
+default proxy selector
+, and the
+default SSL context
+.
+Implementation Note:
+The system-wide default values are retrieved at the time the
+HttpClient
+instance is constructed. Changing the system-wide
+ values after an
+HttpClient
+instance has been built, for
+ instance, by calling
+ProxySelector.setDefault(ProxySelector)
+or
+SSLContext.setDefault(SSLContext)
+, has no effect on already
+ built instances.
+Returns:
+a new HttpClient
+Throws:
+UncheckedIOException
+- if necessary underlying IO resources required to
+build a new HttpClient
+cannot be allocated.
+newBuilder
+public static
+HttpClient.Builder
+newBuilder
+()
+Creates a new
+HttpClient
+builder.
+Builders returned by this method create instances
+ of the default
+HttpClient
+implementation.
+Returns:
+an
+HttpClient.Builder
+cookieHandler
+public abstract
+Optional
+<
+CookieHandler
+>
+cookieHandler
+()
+Returns an
+Optional
+containing this client's
+CookieHandler
+. If no
+CookieHandler
+was set in this client's
+ builder, then the
+Optional
+is empty.
+Returns:
+an
+Optional
+containing this client's
+CookieHandler
+connectTimeout
+public abstract
+Optional
+<
+Duration
+>
+connectTimeout
+()
+Returns an
+Optional
+containing the
+connect timeout duration
+for this client. If the
+connect timeout duration
+was not set in the client's builder, then the
+Optional
+is empty.
+Returns:
+an
+Optional
+containing this client's connect timeout
+         duration
+followRedirects
+public abstract
+HttpClient.Redirect
+followRedirects
+()
+Returns the follow redirects policy for this client. The default value
+ for client's built by builders that do not specify a redirect policy is
+NEVER
+.
+Returns:
+this client's follow redirects setting
+proxy
+public abstract
+Optional
+<
+ProxySelector
+>
+proxy
+()
+Returns an
+Optional
+containing the
+ProxySelector
+supplied to this client. If no proxy selector was set in this client's
+ builder, then the
+Optional
+is empty.
+Even though this method may return an empty optional, the
+HttpClient
+may still have a non-exposed
+default proxy selector
+that is
+ used for sending HTTP requests.
+Returns:
+an
+Optional
+containing the proxy selector supplied
+        to this client.
+sslContext
+public abstract
+SSLContext
+sslContext
+()
+Returns this client's
+SSLContext
+.
+If no
+SSLContext
+was set in this client's builder, then the
+default context
+is returned.
+Returns:
+this client's SSLContext
+sslParameters
+public abstract
+SSLParameters
+sslParameters
+()
+Returns a copy of this client's
+SSLParameters
+.
+If no
+SSLParameters
+were set in the client's builder, then an
+ implementation specific default set of parameters, that the client will
+ use, is returned.
+Returns:
+this client's
+SSLParameters
+authenticator
+public abstract
+Optional
+<
+Authenticator
+>
+authenticator
+()
+Returns an
+Optional
+containing the
+Authenticator
+set on
+ this client. If no
+Authenticator
+was set in the client's builder,
+ then the
+Optional
+is empty.
+Returns:
+an
+Optional
+containing this client's
+Authenticator
+version
+public abstract
+HttpClient.Version
+version
+()
+Returns the preferred HTTP protocol version for this client. The default
+ value is
+HttpClient.Version.HTTP_2
+Implementation Note:
+Constraints may also affect the selection of protocol version.
+ For example, if HTTP/2 is requested through a proxy, and if the
+ implementation does not support this mode, then HTTP/1.1 may be used
+Returns:
+the HTTP protocol version requested
+executor
+public abstract
+Optional
+<
+Executor
+>
+executor
+()
+Returns an
+Optional
+containing this client's
+Executor
+. If no
+Executor
+was set in the client's builder,
+ then the
+Optional
+is empty.
+Even though this method may return an empty optional, the
+HttpClient
+may still have an non-exposed
+default executor
+that is used for
+ executing asynchronous and dependent tasks.
+Returns:
+an
+Optional
+containing this client's
+Executor
+send
+public abstract
+<T>
+HttpResponse
+<T>
+send
+(
+HttpRequest
+request,
+HttpResponse.BodyHandler
+<T> responseBodyHandler)
+throws
+IOException
+,
+InterruptedException
+Sends the given request using this client, blocking if necessary to get
+ the response. The returned
+HttpResponse
+<T>
+contains the
+ response status, headers, and body ( as handled by given response body
+ handler ).
+If the operation is interrupted, the default
+HttpClient
+implementation attempts to cancel the HTTP exchange and
+InterruptedException
+is thrown.
+ No guarantee is made as to exactly
+when
+the cancellation request
+ may be taken into account. In particular, the request might still get sent
+ to the server, as its processing might already have started asynchronously
+ in another thread, and the underlying resources may only be released
+ asynchronously.
+With HTTP/1.1, an attempt to cancel may cause the underlying
+         connection to be closed abruptly.
+With HTTP/2, an attempt to cancel may cause the stream to be reset,
+         or in certain circumstances, may also cause the connection to be
+         closed abruptly, if, for instance, the thread is currently trying
+         to write to the underlying socket.
+Type Parameters:
+T
+- the response body type
+Parameters:
+request
+- the request
+responseBodyHandler
+- the response body handler
+Returns:
+the response
+Throws:
+IOException
+- if an I/O error occurs when sending or receiving, or
+         the client has
+shut down
+InterruptedException
+- if the operation is interrupted
+IllegalArgumentException
+- if the
+request
+argument is not
+         a request that could have been validly built as specified by
+HttpRequest.Builder
+.
+SecurityException
+- If a security manager has been installed
+          and it denies
+access
+to the
+          URL in the given request, or proxy if one is configured.
+          See
+security checks
+for further
+          information.
+sendAsync
+public abstract
+<T>
+CompletableFuture
+<
+HttpResponse
+<T>>
+sendAsync
+(
+HttpRequest
+request,
+HttpResponse.BodyHandler
+<T> responseBodyHandler)
+Sends the given request asynchronously using this client with the given
+ response body handler.
+Equivalent to:
+sendAsync(request, responseBodyHandler, null)
+.
+Type Parameters:
+T
+- the response body type
+Parameters:
+request
+- the request
+responseBodyHandler
+- the response body handler
+Returns:
+a
+CompletableFuture<HttpResponse<T>>
+Throws:
+IllegalArgumentException
+- if the
+request
+argument is not
+         a request that could have been validly built as specified by
+HttpRequest.Builder
+.
+sendAsync
+public abstract
+<T>
+CompletableFuture
+<
+HttpResponse
+<T>>
+sendAsync
+(
+HttpRequest
+request,
+HttpResponse.BodyHandler
+<T> responseBodyHandler,
+HttpResponse.PushPromiseHandler
+<T> pushPromiseHandler)
+Sends the given request asynchronously using this client with the given
+ response body handler and push promise handler.
+The returned completable future, if completed successfully, completes
+ with an
+HttpResponse
+<T>
+that contains the response status,
+ headers, and body ( as handled by given response body handler ).
+Push promises
+received, if any, are
+ handled by the given
+pushPromiseHandler
+. A
+null
+valued
+pushPromiseHandler
+rejects any push promises.
+The returned completable future completes exceptionally with:
+IOException
+- if an I/O error occurs when sending or receiving,
+      or the client has
+shut down
+.
+SecurityException
+- If a security manager has been installed
+          and it denies
+access
+to the
+          URL in the given request, or proxy if one is configured.
+          See
+security checks
+for further
+          information.
+The default
+HttpClient
+implementation returns
+CompletableFuture
+objects that are
+cancelable
+.
+CompletableFuture
+objects
+derived
+from cancelable futures are themselves
+cancelable
+.
+ Invoking
+cancel(true)
+on a cancelable future that is not completed, attempts to cancel the HTTP exchange
+ in an effort to release underlying resources as soon as possible.
+ No guarantee is made as to exactly
+when
+the cancellation request
+ may be taken into account. In particular, the request might still get sent
+ to the server, as its processing might already have started asynchronously
+ in another thread, and the underlying resources may only be released
+ asynchronously.
+With HTTP/1.1, an attempt to cancel may cause the underlying connection
+         to be closed abruptly.
+With HTTP/2, an attempt to cancel may cause the stream to be reset.
+Type Parameters:
+T
+- the response body type
+Parameters:
+request
+- the request
+responseBodyHandler
+- the response body handler
+pushPromiseHandler
+- push promise handler, may be null
+Returns:
+a
+CompletableFuture<HttpResponse<T>>
+Throws:
+IllegalArgumentException
+- if the
+request
+argument is not
+         a request that could have been validly built as specified by
+HttpRequest.Builder
+.
+newWebSocketBuilder
+public
+WebSocket.Builder
+newWebSocketBuilder
+()
+Creates a new
+WebSocket
+builder (optional operation).
+Example
+Copy
+HttpClient client = HttpClient.newHttpClient();
+CompletableFuture<WebSocket> ws = client.newWebSocketBuilder()
+   .buildAsync(URI.create("ws://websocket.example.com"), listener);
+Finer control over the WebSocket Opening Handshake can be achieved
+ by using a custom
+HttpClient
+.
+Example
+Copy
+InetSocketAddress addr = new InetSocketAddress("proxy.example.com", 80);
+HttpClient client = HttpClient.newBuilder()
+        .proxy(ProxySelector.of(addr))
+        .build();
+
+CompletableFuture<WebSocket> ws = client.newWebSocketBuilder()
+        .buildAsync(URI.create("ws://websocket.example.com"), listener);
+Implementation Requirements:
+The default implementation of this method throws
+UnsupportedOperationException
+. Clients obtained through
+newHttpClient()
+or
+newBuilder()
+return a
+WebSocket
+builder.
+Implementation Note:
+Both builder and
+WebSocket
+s created with it operate in
+ a non-blocking fashion. That is, their methods do not block before
+ returning a
+CompletableFuture
+. Asynchronous tasks are executed in
+ this
+HttpClient
+'s executor.
+When a
+CompletionStage
+returned from
+Listener.onClose
+completes,
+ the
+WebSocket
+will send a Close message that has the same code
+ the received message has and an empty reason.
+Returns:
+a
+WebSocket.Builder
+Throws:
+UnsupportedOperationException
+- if this
+HttpClient
+does not provide WebSocket support
+shutdown
+public
+void
+shutdown
+()
+Initiates an orderly shutdown in which  requests previously
+ submitted with
+send
+or
+sendAsync
+are run to completion, but no new request will be accepted.
+ Running a request to completion may involve running several
+ operations in the background, including
+waiting for responses to be delivered
+, which will all have to
+ run to completion until the request is considered completed.
+
+ Invocation has no additional effect if already shut down.
+This method does not wait for previously submitted request
+ to complete execution.  Use
+awaitTermination
+or
+close
+to do that.
+Implementation Requirements:
+The default implementation of this method does nothing. Subclasses should
+ override this method to implement the appropriate behavior.
+Since:
+21
+See Also:
+Implementation Note on closing the HttpClient
+awaitTermination
+public
+boolean
+awaitTermination
+(
+Duration
+duration)
+throws
+InterruptedException
+Blocks until all operations have completed execution after a shutdown
+ request, or the
+duration
+elapses, or the current thread is
+interrupted
+, whichever happens first.
+ Operations are any tasks required to run a request previously
+ submitted with
+send
+or
+sendAsync
+to completion.
+This method does not wait if the duration to wait is less than or
+ equal to zero. In this case, the method just tests if the thread has
+ terminated.
+Implementation Requirements:
+The default implementation of this method checks for null arguments, but
+ otherwise does nothing and returns true.
+ Subclasses should override this method to implement the proper behavior.
+Parameters:
+duration
+- the maximum time to wait
+Returns:
+true
+if this client terminated and
+false
+if the timeout elapsed before termination
+Throws:
+InterruptedException
+- if interrupted while waiting
+Since:
+21
+See Also:
+Implementation Note on closing the HttpClient
+isTerminated
+public
+boolean
+isTerminated
+()
+Returns
+true
+if all operations have completed following
+ a shutdown.
+ Operations are any tasks required to run a request previously
+ submitted with
+send
+or
+sendAsync
+to completion.
+Note that
+isTerminated
+is never
+true
+unless
+ either
+shutdown
+or
+shutdownNow
+was called first.
+Implementation Requirements:
+The default implementation of this method does nothing and returns false.
+ Subclasses should override this method to implement the proper behavior.
+Returns:
+true
+if all tasks have completed following a shutdown
+Since:
+21
+See Also:
+Implementation Note on closing the HttpClient
+shutdownNow
+public
+void
+shutdownNow
+()
+This method attempts to initiate an immediate shutdown.
+ An implementation of this method may attempt to
+ interrupt operations that are actively running.
+ Operations are any tasks required to run a request previously
+ submitted with
+send
+or
+sendAsync
+to completion.
+ The behavior of actively running operations when interrupted
+ is undefined. In particular, there is no guarantee that
+ interrupted operations will terminate, or that code waiting
+ on these operations will ever be notified.
+Implementation Requirements:
+The default implementation of this method simply calls
+shutdown()
+.
+ Subclasses should override this method to implement the appropriate
+ behavior.
+Since:
+21
+See Also:
+Implementation Note on closing the HttpClient
+close
+public
+void
+close
+()
+Initiates an orderly shutdown in which  requests previously
+ submitted to
+send
+or
+sendAsync
+are run to completion, but no new request will be accepted.
+ Running a request to completion may involve running several
+ operations in the background, including
+waiting for responses to be delivered
+.
+ This method waits until all operations have completed execution
+ and the client has terminated.
+If interrupted while waiting, this method may attempt to stop all
+ operations by calling
+shutdownNow()
+. It then continues to wait
+ until all actively executing operations have completed.
+ The interrupt status will be re-asserted before this method returns.
+If already terminated, invoking this method has no effect.
+Specified by:
+close
+in interface
+AutoCloseable
+Implementation Requirements:
+The default implementation invokes
+shutdown()
+and waits for tasks
+ to complete execution with
+awaitTermination
+.
+Since:
+21
+See Also:
+Implementation Note on closing the HttpClient
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

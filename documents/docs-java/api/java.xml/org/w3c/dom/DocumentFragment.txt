@@ -1,0 +1,246 @@
+DocumentFragment (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.xml
+Package
+org.w3c.dom
+Interface DocumentFragment
+All Superinterfaces:
+Node
+public interface
+DocumentFragment
+extends
+Node
+DocumentFragment
+is a "lightweight" or "minimal"
+Document
+object. It is very common to want to be able to
+ extract a portion of a document's tree or to create a new fragment of a
+ document. Imagine implementing a user command like cut or rearranging a
+ document by moving fragments around. It is desirable to have an object
+ which can hold such fragments and it is quite natural to use a Node for
+ this purpose. While it is true that a
+Document
+object could
+ fulfill this role, a
+Document
+object can potentially be a
+ heavyweight object, depending on the underlying implementation. What is
+ really needed for this is a very lightweight object.
+DocumentFragment
+is such an object.
+Furthermore, various operations -- such as inserting nodes as children
+ of another
+Node
+-- may take
+DocumentFragment
+objects as arguments; this results in all the child nodes of the
+DocumentFragment
+being moved to the child list of this node.
+The children of a
+DocumentFragment
+node are zero or more
+ nodes representing the tops of any sub-trees defining the structure of
+ the document.
+DocumentFragment
+nodes do not need to be
+ well-formed XML documents (although they do need to follow the rules
+ imposed upon well-formed XML parsed entities, which can have multiple top
+ nodes). For example, a
+DocumentFragment
+might have only one
+ child and that child node could be a
+Text
+node. Such a
+ structure model represents neither an HTML document nor a well-formed XML
+ document.
+When a
+DocumentFragment
+is inserted into a
+Document
+(or indeed any other
+Node
+that may
+ take children) the children of the
+DocumentFragment
+and not
+ the
+DocumentFragment
+itself are inserted into the
+Node
+. This makes the
+DocumentFragment
+very
+ useful when the user wishes to create nodes that are siblings; the
+DocumentFragment
+acts as the parent of these nodes so that
+ the user can use the standard methods from the
+Node
+interface, such as
+Node.insertBefore
+and
+Node.appendChild
+.
+See also the
+Document Object Model (DOM) Level 3 Core Specification
+.
+Field Summary
+Fields declared in interface org.w3c.dom.
+Node
+ATTRIBUTE_NODE
+,
+CDATA_SECTION_NODE
+,
+COMMENT_NODE
+,
+DOCUMENT_FRAGMENT_NODE
+,
+DOCUMENT_NODE
+,
+DOCUMENT_POSITION_CONTAINED_BY
+,
+DOCUMENT_POSITION_CONTAINS
+,
+DOCUMENT_POSITION_DISCONNECTED
+,
+DOCUMENT_POSITION_FOLLOWING
+,
+DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC
+,
+DOCUMENT_POSITION_PRECEDING
+,
+DOCUMENT_TYPE_NODE
+,
+ELEMENT_NODE
+,
+ENTITY_NODE
+,
+ENTITY_REFERENCE_NODE
+,
+NOTATION_NODE
+,
+PROCESSING_INSTRUCTION_NODE
+,
+TEXT_NODE
+Method Summary
+Methods declared in interface org.w3c.dom.
+Node
+appendChild
+,
+cloneNode
+,
+compareDocumentPosition
+,
+getAttributes
+,
+getBaseURI
+,
+getChildNodes
+,
+getFeature
+,
+getFirstChild
+,
+getLastChild
+,
+getLocalName
+,
+getNamespaceURI
+,
+getNextSibling
+,
+getNodeName
+,
+getNodeType
+,
+getNodeValue
+,
+getOwnerDocument
+,
+getParentNode
+,
+getPrefix
+,
+getPreviousSibling
+,
+getTextContent
+,
+getUserData
+,
+hasAttributes
+,
+hasChildNodes
+,
+insertBefore
+,
+isDefaultNamespace
+,
+isEqualNode
+,
+isSameNode
+,
+isSupported
+,
+lookupNamespaceURI
+,
+lookupPrefix
+,
+normalize
+,
+removeChild
+,
+replaceChild
+,
+setNodeValue
+,
+setPrefix
+,
+setTextContent
+,
+setUserData
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

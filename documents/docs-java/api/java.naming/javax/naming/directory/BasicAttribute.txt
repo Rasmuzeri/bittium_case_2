@@ -1,0 +1,918 @@
+BasicAttribute (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.naming
+Package
+javax.naming.directory
+Class BasicAttribute
+java.lang.Object
+javax.naming.directory.BasicAttribute
+All Implemented Interfaces:
+Serializable
+,
+Cloneable
+,
+Attribute
+public class
+BasicAttribute
+extends
+Object
+implements
+Attribute
+This class provides a basic implementation of the
+Attribute
+interface.
+This implementation does not support the schema methods
+getAttributeDefinition()
+and
+getAttributeSyntaxDefinition()
+.
+ They simply throw
+OperationNotSupportedException
+.
+ Subclasses of
+BasicAttribute
+should override these methods if they
+ support them.
+The
+BasicAttribute
+class by default uses
+Object.equals()
+to
+ determine equality of attribute values when testing for equality or
+ when searching for values,
+except
+when the value is an array.
+ For an array, each element of the array is checked using
+Object.equals()
+.
+ Subclasses of
+BasicAttribute
+can make use of schema information
+ when doing similar equality checks by overriding methods
+ in which such use of schema is meaningful.
+ Similarly, the
+BasicAttribute
+class by default returns the values passed to its
+ constructor and/or manipulated using the add/remove methods.
+ Subclasses of
+BasicAttribute
+can override
+get()
+and
+getAll()
+to get the values dynamically from the directory (or implement
+ the
+Attribute
+interface directly instead of subclassing
+BasicAttribute
+).
+Note that updates to
+BasicAttribute
+(such as adding or removing a value)
+ does not affect the corresponding representation of the attribute
+ in the directory.  Updates to the directory can only be effected
+ using operations in the
+DirContext
+interface.
+A
+BasicAttribute
+instance is not synchronized against concurrent
+ multithreaded access. Multiple threads trying to access and modify a
+BasicAttribute
+should lock the object.
+Since:
+1.3
+See Also:
+Serialized Form
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected
+String
+attrID
+Holds the attribute's id.
+protected boolean
+ordered
+A flag for recording whether this attribute's values are ordered.
+protected
+Vector
+<
+Object
+>
+values
+Holds the attribute's values.
+Constructor Summary
+Constructors
+Constructor
+Description
+BasicAttribute
+(
+String
+id)
+Constructs a new instance of an unordered attribute with no value.
+BasicAttribute
+(
+String
+id,
+ boolean ordered)
+Constructs a new instance of a possibly ordered attribute with no value.
+BasicAttribute
+(
+String
+id,
+Object
+value)
+Constructs a new instance of an unordered attribute with a single value.
+BasicAttribute
+(
+String
+id,
+Object
+value,
+ boolean ordered)
+Constructs a new instance of a possibly ordered attribute with a
+ single value.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+add
+(int ix,
+Object
+attrVal)
+Adds an attribute value to the ordered list of attribute values.
+boolean
+add
+(
+Object
+attrVal)
+Adds a new value to this attribute.
+void
+clear
+()
+Removes all values from this attribute.
+Object
+clone
+()
+Creates and returns a copy of this object.
+boolean
+contains
+(
+Object
+attrVal)
+Determines whether a value is in this attribute.
+boolean
+equals
+(
+Object
+obj)
+Determines whether obj is equal to this attribute.
+Object
+get
+()
+Retrieves one of this attribute's values.
+Object
+get
+(int ix)
+Retrieves the attribute value from the ordered list of attribute values.
+NamingEnumeration
+<?>
+getAll
+()
+Retrieves an enumeration of this attribute's values.
+DirContext
+getAttributeDefinition
+()
+Retrieves this attribute's schema definition.
+DirContext
+getAttributeSyntaxDefinition
+()
+Retrieves the syntax definition associated with this attribute.
+String
+getID
+()
+Retrieves the id of this attribute.
+int
+hashCode
+()
+Calculates the hash code of this attribute.
+boolean
+isOrdered
+()
+Determines whether this attribute's values are ordered.
+Object
+remove
+(int ix)
+Removes an attribute value from the ordered list of attribute values.
+boolean
+remove
+(
+Object
+attrval)
+Removes a specified value from this attribute.
+Object
+set
+(int ix,
+Object
+attrVal)
+Sets an attribute value in the ordered list of attribute values.
+int
+size
+()
+Retrieves the number of values in this attribute.
+String
+toString
+()
+Generates the string representation of this attribute.
+Methods declared in class java.lang.
+Object
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Field Details
+attrID
+protected
+String
+attrID
+Holds the attribute's id. It is initialized by the public constructor and
+ cannot be null unless methods in BasicAttribute that use attrID
+ have been overridden.
+values
+protected transient
+Vector
+<
+Object
+>
+values
+Holds the attribute's values. Initialized by public constructors.
+ Cannot be null unless methods in BasicAttribute that use
+ values have been overridden.
+ordered
+protected
+boolean
+ordered
+A flag for recording whether this attribute's values are ordered.
+Constructor Details
+BasicAttribute
+public
+BasicAttribute
+(
+String
+id)
+Constructs a new instance of an unordered attribute with no value.
+Parameters:
+id
+- The attribute's id. It cannot be null.
+BasicAttribute
+public
+BasicAttribute
+(
+String
+id,
+Object
+value)
+Constructs a new instance of an unordered attribute with a single value.
+Parameters:
+id
+- The attribute's id. It cannot be null.
+value
+- The attribute's value. If null, a null
+        value is added to the attribute.
+BasicAttribute
+public
+BasicAttribute
+(
+String
+id,
+ boolean ordered)
+Constructs a new instance of a possibly ordered attribute with no value.
+Parameters:
+id
+- The attribute's id. It cannot be null.
+ordered
+- true means the attribute's values will be ordered;
+ false otherwise.
+BasicAttribute
+public
+BasicAttribute
+(
+String
+id,
+Object
+value,
+ boolean ordered)
+Constructs a new instance of a possibly ordered attribute with a
+ single value.
+Parameters:
+id
+- The attribute's id. It cannot be null.
+value
+- The attribute's value. If null, a null
+        value is added to the attribute.
+ordered
+- true means the attribute's values will be ordered;
+ false otherwise.
+Method Details
+clone
+public
+Object
+clone
+()
+Description copied from class:
+Object
+Creates and returns a copy of this object.  The precise meaning
+ of "copy" may depend on the class of the object. The general
+ intent is that, for any object
+x
+, the expression:
+x.clone() != x
+will be true, and that the expression:
+x.clone().getClass() == x.getClass()
+will be
+true
+, but these are not absolute requirements.
+ While it is typically the case that:
+x.clone().equals(x)
+will be
+true
+, this is not an absolute requirement.
+By convention, the returned object should be obtained by calling
+super.clone
+.  If a class and all of its superclasses (except
+Object
+) obey this convention, it will be the case that
+x.clone().getClass() == x.getClass()
+.
+By convention, the object returned by this method should be independent
+ of this object (which is being cloned).  To achieve this independence,
+ it may be necessary to modify one or more fields of the object returned
+ by
+super.clone
+before returning it.  Typically, this means
+ copying any mutable objects that comprise the internal "deep structure"
+ of the object being cloned and replacing the references to these
+ objects with references to the copies.  If a class contains only
+ primitive fields or references to immutable objects, then it is usually
+ the case that no fields in the object returned by
+super.clone
+need to be modified.
+Specified by:
+clone
+in interface
+Attribute
+Overrides:
+clone
+in class
+Object
+Returns:
+a clone of this instance.
+See Also:
+Cloneable
+equals
+public
+boolean
+equals
+(
+Object
+obj)
+Determines whether obj is equal to this attribute.
+ Two attributes are equal if their attribute-ids, syntaxes
+ and values are equal.
+ If the attribute values are unordered, the order that the values were added
+ are irrelevant. If the attribute values are ordered, then the
+ order the values must match.
+ If obj is null or not an Attribute, false is returned.
+By default
+Object.equals()
+is used when comparing the attribute
+ id and its values except when a value is an array. For an array,
+ each element of the array is checked using
+Object.equals()
+.
+ A subclass may override this to make
+ use of schema syntax information and matching rules,
+ which define what it means for two attributes to be equal.
+ How and whether a subclass makes
+ use of the schema information is determined by the subclass.
+ If a subclass overrides
+equals()
+, it should also override
+hashCode()
+such that two attributes that are equal have the same hash code.
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- The possibly null object to check.
+Returns:
+true if obj is equal to this attribute; false otherwise.
+See Also:
+hashCode()
+contains(java.lang.Object)
+hashCode
+public
+int
+hashCode
+()
+Calculates the hash code of this attribute.
+The hash code is computed by adding the hash code of
+ the attribute's id and that of all of its values except for
+ values that are arrays.
+ For an array, the hash code of each element of the array is summed.
+ If a subclass overrides
+hashCode()
+, it should override
+equals()
+as well so that two attributes that are equal have the same hash code.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+an int representing the hash code of this attribute.
+See Also:
+equals(java.lang.Object)
+toString
+public
+String
+toString
+()
+Generates the string representation of this attribute.
+ The string consists of the attribute's id and its values.
+ This string is meant for debugging and not meant to be
+ interpreted programmatically.
+Overrides:
+toString
+in class
+Object
+Returns:
+The non-null string representation of this attribute.
+getAll
+public
+NamingEnumeration
+<?>
+getAll
+()
+                            throws
+NamingException
+Retrieves an enumeration of this attribute's values.
+By default, the values returned are those passed to the
+ constructor and/or manipulated using the add/replace/remove methods.
+ A subclass may override this to retrieve the values dynamically
+ from the directory.
+Specified by:
+getAll
+in interface
+Attribute
+Returns:
+A non-null enumeration of the attribute's values.
+ Each element of the enumeration is a possibly null Object. The object's
+ class is the class of the attribute value. The element is null
+ if the attribute's value is null.
+ If the attribute has zero values, an empty enumeration
+ is returned.
+Throws:
+NamingException
+- If a naming exception was encountered while retrieving
+         the values.
+See Also:
+Attribute.isOrdered()
+get
+public
+Object
+get
+()
+           throws
+NamingException
+Retrieves one of this attribute's values.
+By default, the value returned is one of those passed to the
+ constructor and/or manipulated using the add/replace/remove methods.
+ A subclass may override this to retrieve the value dynamically
+ from the directory.
+Specified by:
+get
+in interface
+Attribute
+Returns:
+A possibly null object representing one of
+        the attribute's value. It is null if the attribute's value
+        is null.
+Throws:
+NamingException
+- If a naming exception was encountered while retrieving
+         the value.
+size
+public
+int
+size
+()
+Description copied from interface:
+Attribute
+Retrieves the number of values in this attribute.
+Specified by:
+size
+in interface
+Attribute
+Returns:
+The nonnegative number of values in this attribute.
+getID
+public
+String
+getID
+()
+Description copied from interface:
+Attribute
+Retrieves the id of this attribute.
+Specified by:
+getID
+in interface
+Attribute
+Returns:
+The id of this attribute. It cannot be null.
+contains
+public
+boolean
+contains
+(
+Object
+attrVal)
+Determines whether a value is in this attribute.
+By default,
+Object.equals()
+is used when comparing
+attrVal
+with this attribute's values except when
+attrVal
+is an array.
+ For an array, each element of the array is checked using
+Object.equals()
+.
+ A subclass may use schema information to determine equality.
+Specified by:
+contains
+in interface
+Attribute
+Parameters:
+attrVal
+- The possibly null value to check. If null, check
+  whether the attribute has an attribute value whose value is null.
+Returns:
+true if attrVal is one of this attribute's values; false otherwise.
+See Also:
+Object.equals(java.lang.Object)
+equals(java.lang.Object)
+add
+public
+boolean
+add
+(
+Object
+attrVal)
+Adds a new value to this attribute.
+By default,
+Object.equals()
+is used when comparing
+attrVal
+with this attribute's values except when
+attrVal
+is an array.
+ For an array, each element of the array is checked using
+Object.equals()
+.
+ A subclass may use schema information to determine equality.
+Specified by:
+add
+in interface
+Attribute
+Parameters:
+attrVal
+- The new possibly null value to add. If null, null
+  is added as an attribute value.
+Returns:
+true if a value was added; false otherwise.
+remove
+public
+boolean
+remove
+(
+Object
+attrval)
+Removes a specified value from this attribute.
+By default,
+Object.equals()
+is used when comparing
+attrVal
+with this attribute's values except when
+attrVal
+is an array.
+ For an array, each element of the array is checked using
+Object.equals()
+.
+ A subclass may use schema information to determine equality.
+Specified by:
+remove
+in interface
+Attribute
+Parameters:
+attrval
+- The possibly null value to remove from this attribute.
+ If null, remove the attribute value that is null.
+Returns:
+true if the value was removed; false otherwise.
+clear
+public
+void
+clear
+()
+Description copied from interface:
+Attribute
+Removes all values from this attribute.
+Specified by:
+clear
+in interface
+Attribute
+isOrdered
+public
+boolean
+isOrdered
+()
+Description copied from interface:
+Attribute
+Determines whether this attribute's values are ordered.
+ If an attribute's values are ordered, duplicate values are allowed.
+ If an attribute's values are unordered, they are presented
+ in any order and there are no duplicate values.
+Specified by:
+isOrdered
+in interface
+Attribute
+Returns:
+true if this attribute's values are ordered; false otherwise.
+See Also:
+Attribute.get(int)
+Attribute.remove(int)
+Attribute.add(int, java.lang.Object)
+Attribute.set(int, java.lang.Object)
+get
+public
+Object
+get
+(int ix)
+throws
+NamingException
+Description copied from interface:
+Attribute
+Retrieves the attribute value from the ordered list of attribute values.
+ This method returns the value at the
+ix
+index of the list of
+ attribute values.
+ If the attribute values are unordered,
+ this method returns the value that happens to be at that index.
+Specified by:
+get
+in interface
+Attribute
+Parameters:
+ix
+- The index of the value in the ordered list of attribute values.
+0 <= ix < size()
+.
+Returns:
+The possibly null attribute value at index
+ix
+;
+   null if the attribute value is null.
+Throws:
+NamingException
+- If a naming exception was encountered while
+ retrieving the value.
+remove
+public
+Object
+remove
+(int ix)
+Description copied from interface:
+Attribute
+Removes an attribute value from the ordered list of attribute values.
+ This method removes the value at the
+ix
+index of the list of
+ attribute values.
+ If the attribute values are unordered,
+ this method removes the value that happens to be at that index.
+ Values located at indices greater than
+ix
+are shifted up towards
+ the front of the list (and their indices decremented by one).
+Specified by:
+remove
+in interface
+Attribute
+Parameters:
+ix
+- The index of the value to remove.
+0 <= ix < size()
+.
+Returns:
+The possibly null attribute value at index
+ix
+that was removed;
+   null if the attribute value is null.
+add
+public
+void
+add
+(int ix,
+Object
+attrVal)
+Description copied from interface:
+Attribute
+Adds an attribute value to the ordered list of attribute values.
+ This method adds
+attrVal
+to the list of attribute values at
+ index
+ix
+.
+ Values located at indices at or greater than
+ix
+are
+ shifted down towards the end of the list (and their indices incremented
+ by one).
+ If the attribute values are unordered and already have
+attrVal
+,
+IllegalStateException
+is thrown.
+Specified by:
+add
+in interface
+Attribute
+Parameters:
+ix
+- The index in the ordered list of attribute values to add the new value.
+0 <= ix <= size()
+.
+attrVal
+- The possibly null attribute value to add; if null, null is
+ the value added.
+set
+public
+Object
+set
+(int ix,
+Object
+attrVal)
+Description copied from interface:
+Attribute
+Sets an attribute value in the ordered list of attribute values.
+ This method sets the value at the
+ix
+index of the list of
+ attribute values to be
+attrVal
+. The old value is removed.
+ If the attribute values are unordered,
+ this method sets the value that happens to be at that index
+ to
+attrVal
+, unless
+attrVal
+is already one of the values.
+ In that case,
+IllegalStateException
+is thrown.
+Specified by:
+set
+in interface
+Attribute
+Parameters:
+ix
+- The index of the value in the ordered list of attribute values.
+0 <= ix < size()
+.
+attrVal
+- The possibly null attribute value to use.
+ If null, 'null' replaces the old value.
+Returns:
+The possibly null attribute value at index ix that was replaced.
+   Null if the attribute value was null.
+getAttributeSyntaxDefinition
+public
+DirContext
+getAttributeSyntaxDefinition
+()
+                                        throws
+NamingException
+Retrieves the syntax definition associated with this attribute.
+This method by default throws OperationNotSupportedException. A subclass
+ should override this method if it supports schema.
+Specified by:
+getAttributeSyntaxDefinition
+in interface
+Attribute
+Returns:
+The attribute's syntax definition. Null if the implementation
+    supports schemas but this particular attribute does not have
+    any schema information.
+Throws:
+OperationNotSupportedException
+- If getting the schema
+         is not supported.
+NamingException
+- If a naming exception occurs while getting
+         the schema.
+getAttributeDefinition
+public
+DirContext
+getAttributeDefinition
+()
+                                  throws
+NamingException
+Retrieves this attribute's schema definition.
+This method by default throws OperationNotSupportedException. A subclass
+ should override this method if it supports schema.
+Specified by:
+getAttributeDefinition
+in interface
+Attribute
+Returns:
+This attribute's schema definition. Null if the implementation
+     supports schemas but this particular attribute does not have
+     any schema information.
+Throws:
+OperationNotSupportedException
+- If getting the schema
+         is not supported.
+NamingException
+- If a naming exception occurs while getting
+         the schema.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

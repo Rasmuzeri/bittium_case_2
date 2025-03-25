@@ -1,0 +1,1005 @@
+Uses of Interface java.util.function.Supplier (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Interface
+java.util.function.Supplier
+Packages that use
+Supplier
+Package
+Description
+java.lang
+Provides classes that are fundamental to the design of the Java
+ programming language.
+java.lang.module
+Classes to support module descriptors and creating configurations of modules
+ by means of resolution and service binding.
+java.net.http
+HTTP Client and WebSocket APIs
+java.util
+Contains the collections framework, some internationalization support classes,
+ a service loader, properties, random number generation, string parsing
+ and scanning classes, base64 encoding and decoding, a bit array, and
+ several miscellaneous utility classes.
+java.util.concurrent
+Utility classes commonly useful in concurrent programming.
+java.util.logging
+Provides the classes and interfaces of
+ the Java 2 platform's core logging facilities.
+java.util.stream
+Classes to support functional-style operations on streams of elements, such
+ as map-reduce transformations on collections.
+jdk.dynalink.linker
+Contains interfaces and classes needed by language runtimes to implement
+ their own language-specific object models and type conversions.
+jdk.jshell
+Provides interfaces for creating tools, such as a Read-Eval-Print Loop (REPL),
+ which interactively evaluate "snippets" of Java programming language code.
+Uses of
+Supplier
+in
+java.lang
+Methods in
+java.lang
+with parameters of type
+Supplier
+Modifier and Type
+Method
+Description
+<R> R
+ScopedValue.Carrier.
+get
+(
+Supplier
+<? extends R> op)
+Invokes a supplier of results with each scoped value in this mapping bound
+ to its value in the current thread.
+static <T,
+R> R
+ScopedValue.
+getWhere
+(
+ScopedValue
+PREVIEW
+<T> key,
+ T value,
+Supplier
+<? extends R> op)
+Invokes a supplier of results with a
+ScopedValue
+bound to a value
+ in the current thread.
+default void
+System.Logger.
+log
+(
+System.Logger.Level
+level,
+Supplier
+<
+String
+> msgSupplier)
+Logs a lazily supplied message.
+default void
+System.Logger.
+log
+(
+System.Logger.Level
+level,
+Supplier
+<
+String
+> msgSupplier,
+Throwable
+thrown)
+Logs a lazily supplied message associated with a given throwable.
+<X extends
+Throwable
+>
+T
+ScopedValue.
+orElseThrow
+(
+Supplier
+<? extends X> exceptionSupplier)
+Returns the value of this scoped value if bound in the current thread, otherwise
+ throws an exception produced by the exception supplying function.
+static <S>
+ThreadLocal
+<S>
+ThreadLocal.
+withInitial
+(
+Supplier
+<? extends S> supplier)
+Creates a thread local variable.
+Uses of
+Supplier
+in
+java.lang.module
+Methods in
+java.lang.module
+with parameters of type
+Supplier
+Modifier and Type
+Method
+Description
+static
+ModuleDescriptor
+ModuleDescriptor.
+read
+(
+InputStream
+in,
+Supplier
+<
+Set
+<
+String
+>> packageFinder)
+Reads the binary form of a module declaration from an input stream
+ as a module descriptor.
+static
+ModuleDescriptor
+ModuleDescriptor.
+read
+(
+ByteBuffer
+bb,
+Supplier
+<
+Set
+<
+String
+>> packageFinder)
+Reads the binary form of a module declaration from a byte buffer
+ as a module descriptor.
+Uses of
+Supplier
+in
+java.net.http
+Methods in
+java.net.http
+with parameters of type
+Supplier
+Modifier and Type
+Method
+Description
+static
+HttpRequest.BodyPublisher
+HttpRequest.BodyPublishers.
+ofInputStream
+(
+Supplier
+<? extends
+InputStream
+> streamSupplier)
+A request body publisher that reads its data from an
+InputStream
+.
+Uses of
+Supplier
+in
+java.util
+Subinterfaces of
+Supplier
+in
+java.util
+Modifier and Type
+Interface
+Description
+static interface
+ServiceLoader.Provider
+<S>
+Represents a service provider located by
+ServiceLoader
+.
+Methods in
+java.util
+with parameters of type
+Supplier
+Modifier and Type
+Method
+Description
+Optional
+<
+T
+>
+Optional.
+or
+(
+Supplier
+<? extends
+Optional
+<? extends
+T
+>> supplier)
+If a value is present, returns an
+Optional
+describing the value,
+ otherwise returns an
+Optional
+produced by the supplying function.
+T
+Optional.
+orElseGet
+(
+Supplier
+<? extends
+T
+> supplier)
+If a value is present, returns the value, otherwise returns the result
+ produced by the supplying function.
+<X extends
+Throwable
+>
+T
+Optional.
+orElseThrow
+(
+Supplier
+<? extends X> exceptionSupplier)
+If a value is present, returns the value, otherwise throws an exception
+ produced by the exception supplying function.
+<X extends
+Throwable
+>
+double
+OptionalDouble.
+orElseThrow
+(
+Supplier
+<? extends X> exceptionSupplier)
+If a value is present, returns the value, otherwise throws an exception
+ produced by the exception supplying function.
+<X extends
+Throwable
+>
+int
+OptionalInt.
+orElseThrow
+(
+Supplier
+<? extends X> exceptionSupplier)
+If a value is present, returns the value, otherwise throws an exception
+ produced by the exception supplying function.
+<X extends
+Throwable
+>
+long
+OptionalLong.
+orElseThrow
+(
+Supplier
+<? extends X> exceptionSupplier)
+If a value is present, returns the value, otherwise throws an exception
+ produced by the exception supplying function.
+static <T> T
+Objects.
+requireNonNull
+(T obj,
+Supplier
+<
+String
+> messageSupplier)
+Checks that the specified object reference is not
+null
+and
+ throws a customized
+NullPointerException
+if it is.
+static <T> T
+Objects.
+requireNonNullElseGet
+(T obj,
+Supplier
+<? extends T> supplier)
+Returns the first argument if it is non-
+null
+and otherwise
+ returns the non-
+null
+value of
+supplier.get()
+.
+Uses of
+Supplier
+in
+java.util.concurrent
+Subinterfaces of
+Supplier
+in
+java.util.concurrent
+Modifier and Type
+Interface
+Description
+static interface
+StructuredTaskScope.Subtask
+PREVIEW
+<T>
+Preview.
+Represents a subtask forked with
+StructuredTaskScope.fork(Callable)
+PREVIEW
+.
+Methods in
+java.util.concurrent
+with parameters of type
+Supplier
+Modifier and Type
+Method
+Description
+CompletableFuture
+<
+T
+>
+CompletableFuture.
+completeAsync
+(
+Supplier
+<? extends
+T
+> supplier)
+Completes this CompletableFuture with the result of the given
+ Supplier function invoked from an asynchronous task using the
+ default executor.
+CompletableFuture
+<
+T
+>
+CompletableFuture.
+completeAsync
+(
+Supplier
+<? extends
+T
+> supplier,
+Executor
+executor)
+Completes this CompletableFuture with the result of
+ the given Supplier function invoked from an asynchronous
+ task using the given executor.
+static <U>
+CompletableFuture
+<U>
+CompletableFuture.
+supplyAsync
+(
+Supplier
+<U> supplier)
+Returns a new CompletableFuture that is asynchronously completed
+ by a task running in the
+ForkJoinPool.commonPool()
+with
+ the value obtained by calling the given Supplier.
+static <U>
+CompletableFuture
+<U>
+CompletableFuture.
+supplyAsync
+(
+Supplier
+<U> supplier,
+Executor
+executor)
+Returns a new CompletableFuture that is asynchronously completed
+ by a task running in the given executor with the value obtained
+ by calling the given Supplier.
+Uses of
+Supplier
+in
+java.util.logging
+Methods in
+java.util.logging
+with parameters of type
+Supplier
+Modifier and Type
+Method
+Description
+void
+Logger.
+config
+(
+Supplier
+<
+String
+> msgSupplier)
+Log a CONFIG message, which is only to be constructed if the logging
+ level is such that the message will actually be logged.
+void
+Logger.
+fine
+(
+Supplier
+<
+String
+> msgSupplier)
+Log a FINE message, which is only to be constructed if the logging
+ level is such that the message will actually be logged.
+void
+Logger.
+finer
+(
+Supplier
+<
+String
+> msgSupplier)
+Log a FINER message, which is only to be constructed if the logging
+ level is such that the message will actually be logged.
+void
+Logger.
+finest
+(
+Supplier
+<
+String
+> msgSupplier)
+Log a FINEST message, which is only to be constructed if the logging
+ level is such that the message will actually be logged.
+void
+Logger.
+info
+(
+Supplier
+<
+String
+> msgSupplier)
+Log a INFO message, which is only to be constructed if the logging
+ level is such that the message will actually be logged.
+void
+Logger.
+log
+(
+Level
+level,
+Throwable
+thrown,
+Supplier
+<
+String
+> msgSupplier)
+Log a lazily constructed message, with associated Throwable information.
+void
+Logger.
+log
+(
+Level
+level,
+Supplier
+<
+String
+> msgSupplier)
+Log a message, which is only to be constructed if the logging level
+ is such that the message will actually be logged.
+void
+Logger.
+logp
+(
+Level
+level,
+String
+sourceClass,
+String
+sourceMethod,
+Throwable
+thrown,
+Supplier
+<
+String
+> msgSupplier)
+Log a lazily constructed message, specifying source class and method,
+ with associated Throwable information.
+void
+Logger.
+logp
+(
+Level
+level,
+String
+sourceClass,
+String
+sourceMethod,
+Supplier
+<
+String
+> msgSupplier)
+Log a lazily constructed message, specifying source class and method,
+ with no arguments.
+void
+Logger.
+severe
+(
+Supplier
+<
+String
+> msgSupplier)
+Log a SEVERE message, which is only to be constructed if the logging
+ level is such that the message will actually be logged.
+void
+Logger.
+warning
+(
+Supplier
+<
+String
+> msgSupplier)
+Log a WARNING message, which is only to be constructed if the logging
+ level is such that the message will actually be logged.
+Uses of
+Supplier
+in
+java.util.stream
+Methods in
+java.util.stream
+that return
+Supplier
+Modifier and Type
+Method
+Description
+Supplier
+<
+A
+>
+Collector.
+supplier
+()
+A function that creates and returns a new mutable result container.
+Methods in
+java.util.stream
+with parameters of type
+Supplier
+Modifier and Type
+Method
+Description
+<R> R
+DoubleStream.
+collect
+(
+Supplier
+<R> supplier,
+ObjDoubleConsumer
+<R> accumulator,
+BiConsumer
+<R,
+R> combiner)
+Performs a
+mutable
+ reduction
+operation on the elements of this stream.
+<R> R
+IntStream.
+collect
+(
+Supplier
+<R> supplier,
+ObjIntConsumer
+<R> accumulator,
+BiConsumer
+<R,
+R> combiner)
+Performs a
+mutable
+ reduction
+operation on the elements of this stream.
+<R> R
+LongStream.
+collect
+(
+Supplier
+<R> supplier,
+ObjLongConsumer
+<R> accumulator,
+BiConsumer
+<R,
+R> combiner)
+Performs a
+mutable
+ reduction
+operation on the elements of this stream.
+<R> R
+Stream.
+collect
+(
+Supplier
+<R> supplier,
+BiConsumer
+<R,
+? super
+T
+> accumulator,
+BiConsumer
+<R,
+R> combiner)
+Performs a
+mutable
+ reduction
+operation on the elements of this stream.
+static
+DoubleStream
+StreamSupport.
+doubleStream
+(
+Supplier
+<? extends
+Spliterator.OfDouble
+> supplier,
+ int characteristics,
+ boolean parallel)
+Creates a new sequential or parallel
+DoubleStream
+from a
+Supplier
+of
+Spliterator.OfDouble
+.
+static <T>
+Stream
+<T>
+Stream.
+generate
+(
+Supplier
+<? extends T> s)
+Returns an infinite sequential unordered stream where each element is
+ generated by the provided
+Supplier
+.
+static <T,
+K,
+D,
+A,
+M extends
+Map
+<K,
+D>>
+Collector
+<T,
+?,
+M>
+Collectors.
+groupingBy
+(
+Function
+<? super T,
+? extends K> classifier,
+Supplier
+<M> mapFactory,
+Collector
+<? super T,
+A,
+D> downstream)
+Returns a
+Collector
+implementing a cascaded "group by" operation
+ on input elements of type
+T
+, grouping elements according to a
+ classification function, and then performing a reduction operation on
+ the values associated with a given key using the specified downstream
+Collector
+.
+static <T,
+K,
+A,
+D,
+M extends
+ConcurrentMap
+<K,
+D>>
+Collector
+<T,
+?,
+M>
+Collectors.
+groupingByConcurrent
+(
+Function
+<? super T,
+? extends K> classifier,
+Supplier
+<M> mapFactory,
+Collector
+<? super T,
+A,
+D> downstream)
+Returns a concurrent
+Collector
+implementing a cascaded "group by"
+ operation on input elements of type
+T
+, grouping elements
+ according to a classification function, and then performing a reduction
+ operation on the values associated with a given key using the specified
+ downstream
+Collector
+.
+static
+IntStream
+StreamSupport.
+intStream
+(
+Supplier
+<? extends
+Spliterator.OfInt
+> supplier,
+ int characteristics,
+ boolean parallel)
+Creates a new sequential or parallel
+IntStream
+from a
+Supplier
+of
+Spliterator.OfInt
+.
+static
+LongStream
+StreamSupport.
+longStream
+(
+Supplier
+<? extends
+Spliterator.OfLong
+> supplier,
+ int characteristics,
+ boolean parallel)
+Creates a new sequential or parallel
+LongStream
+from a
+Supplier
+of
+Spliterator.OfLong
+.
+static <T,
+A,
+R>
+Collector
+<T,
+A,
+R>
+Collector.
+of
+(
+Supplier
+<A> supplier,
+BiConsumer
+<A,
+T> accumulator,
+BinaryOperator
+<A> combiner,
+Function
+<A,
+R> finisher,
+Collector.Characteristics
+... characteristics)
+Returns a new
+Collector
+described by the given
+supplier
+,
+accumulator
+,
+combiner
+, and
+finisher
+functions.
+static <T,
+R>
+Collector
+<T,
+R,
+R>
+Collector.
+of
+(
+Supplier
+<R> supplier,
+BiConsumer
+<R,
+T> accumulator,
+BinaryOperator
+<R> combiner,
+Collector.Characteristics
+... characteristics)
+Returns a new
+Collector
+described by the given
+supplier
+,
+accumulator
+, and
+combiner
+functions.
+static <T>
+Stream
+<T>
+StreamSupport.
+stream
+(
+Supplier
+<? extends
+Spliterator
+<T>> supplier,
+ int characteristics,
+ boolean parallel)
+Creates a new sequential or parallel
+Stream
+from a
+Supplier
+of
+Spliterator
+.
+static <T,
+C extends
+Collection
+<T>>
+Collector
+<T,
+?,
+C>
+Collectors.
+toCollection
+(
+Supplier
+<C> collectionFactory)
+Returns a
+Collector
+that accumulates the input elements into a
+ new
+Collection
+, in encounter order.
+static <T,
+K,
+U,
+M extends
+ConcurrentMap
+<K,
+U>>
+Collector
+<T,
+?,
+M>
+Collectors.
+toConcurrentMap
+(
+Function
+<? super T,
+? extends K> keyMapper,
+Function
+<? super T,
+? extends U> valueMapper,
+BinaryOperator
+<U> mergeFunction,
+Supplier
+<M> mapFactory)
+Returns a concurrent
+Collector
+that accumulates elements into a
+ConcurrentMap
+whose keys and values are the result of applying
+ the provided mapping functions to the input elements.
+static <T,
+K,
+U,
+M extends
+Map
+<K,
+U>>
+Collector
+<T,
+?,
+M>
+Collectors.
+toMap
+(
+Function
+<? super T,
+? extends K> keyMapper,
+Function
+<? super T,
+? extends U> valueMapper,
+BinaryOperator
+<U> mergeFunction,
+Supplier
+<M> mapFactory)
+Returns a
+Collector
+that accumulates elements into a
+Map
+whose keys and values are the result of applying the provided
+ mapping functions to the input elements.
+Uses of
+Supplier
+in
+jdk.dynalink.linker
+Classes in
+jdk.dynalink.linker
+that implement
+Supplier
+Modifier and Type
+Class
+Description
+class
+GuardingDynamicLinkerExporter
+A class acting as a supplier of guarding dynamic linkers that can be
+ automatically loaded by other language runtimes.
+Methods in
+jdk.dynalink.linker
+with parameters of type
+Supplier
+Modifier and Type
+Method
+Description
+GuardedInvocation
+GuardingTypeConverterFactory.
+convertToType
+(
+Class
+<?> sourceType,
+Class
+<?> targetType,
+Supplier
+<
+MethodHandles.Lookup
+> lookupSupplier)
+Returns a guarded type conversion that receives a value of the specified
+ source type and returns a value converted to the specified target type.
+<T> T
+LinkerServices.
+getWithLookup
+(
+Supplier
+<T> operation,
+SecureLookupSupplier
+lookupSupplier)
+Executes an operation within the context of a particular
+MethodHandles.Lookup
+lookup object.
+Uses of
+Supplier
+in
+jdk.jshell
+Methods in
+jdk.jshell
+with parameters of type
+Supplier
+Modifier and Type
+Method
+Description
+JShell.Builder
+JShell.Builder.
+tempVariableNameGenerator
+(
+Supplier
+<
+String
+> generator)
+Sets a generator of temp variable names for
+VarSnippet
+of
+Snippet.SubKind.TEMP_VAR_EXPRESSION_SUBKIND
+.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

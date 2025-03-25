@@ -1,0 +1,600 @@
+Uses of Class java.rmi.RemoteException (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Class
+java.rmi.RemoteException
+Packages that use
+RemoteException
+Package
+Description
+java.rmi
+Provides the RMI package.
+java.rmi.dgc
+Provides classes and interface for RMI distributed
+ garbage-collection (DGC).
+java.rmi.registry
+Provides a class and two interfaces for the RMI registry.
+java.rmi.server
+Provides classes and interfaces for supporting the server side of RMI.
+javax.management.remote.rmi
+The RMI connector is a connector for the JMX Remote API that
+      uses RMI to transmit client requests to a remote MBean server.
+Uses of
+RemoteException
+in
+java.rmi
+Subclasses of
+RemoteException
+in
+java.rmi
+Modifier and Type
+Class
+Description
+class
+AccessException
+An
+AccessException
+is thrown by certain methods of the
+java.rmi.Naming
+class (specifically
+bind
+,
+rebind
+, and
+unbind
+) to
+ indicate that the caller does not have permission to perform the action
+ requested by the method call.
+class
+ConnectException
+A
+ConnectException
+is thrown if a connection is refused
+ to the remote host for a remote method call.
+class
+ConnectIOException
+A
+ConnectIOException
+is thrown if an
+IOException
+occurs while making a connection
+ to the remote host for a remote method call.
+class
+MarshalException
+A
+MarshalException
+is thrown if a
+java.io.IOException
+occurs while marshalling the remote call
+ header, arguments or return value for a remote method call.
+class
+NoSuchObjectException
+A
+NoSuchObjectException
+is thrown if an attempt is made to
+ invoke a method on an object that no longer exists in the remote virtual
+ machine.
+class
+ServerError
+A
+ServerError
+is thrown as a result of a remote method
+ invocation when an
+Error
+is thrown while processing
+ the invocation on the server, either while unmarshalling the arguments,
+ executing the remote method itself, or marshalling the return value.
+class
+ServerException
+A
+ServerException
+is thrown as a result of a remote method
+ invocation when a
+RemoteException
+is thrown while processing
+ the invocation on the server, either while unmarshalling the arguments or
+ executing the remote method itself.
+class
+ServerRuntimeException
+Deprecated.
+no replacement
+class
+StubNotFoundException
+A
+StubNotFoundException
+is thrown if a valid stub class
+ could not be found for a remote object when it is exported.
+class
+UnexpectedException
+An
+UnexpectedException
+is thrown if the client of a
+ remote method call receives, as a result of the call, a checked
+ exception that is not among the checked exception types declared in the
+throws
+clause of the method in the remote interface.
+class
+UnknownHostException
+An
+UnknownHostException
+is thrown if a
+java.net.UnknownHostException
+occurs while creating
+ a connection to the remote host for a remote method call.
+class
+UnmarshalException
+An
+UnmarshalException
+can be thrown while unmarshalling the
+ parameters or results of a remote method call if any of the following
+ conditions occur:
+ 
+  if an exception occurs while unmarshalling the call header
+  if the protocol for the return value is invalid
+  if a
+java.io.IOException
+occurs unmarshalling
+ parameters (on the server side) or the return value (on the client side).
+Methods in
+java.rmi
+that throw
+RemoteException
+Modifier and Type
+Method
+Description
+static void
+Naming.
+bind
+(
+String
+name,
+Remote
+obj)
+Binds the specified
+name
+to a remote object.
+static
+String
+[]
+Naming.
+list
+(
+String
+name)
+Returns an array of the names bound in the registry.
+static
+Remote
+Naming.
+lookup
+(
+String
+name)
+Returns a reference, a stub, for the remote object associated
+ with the specified
+name
+.
+static void
+Naming.
+rebind
+(
+String
+name,
+Remote
+obj)
+Rebinds the specified name to a new remote object.
+static void
+Naming.
+unbind
+(
+String
+name)
+Destroys the binding for the specified name that is associated
+ with a remote object.
+Uses of
+RemoteException
+in
+java.rmi.dgc
+Methods in
+java.rmi.dgc
+that throw
+RemoteException
+Modifier and Type
+Method
+Description
+void
+DGC.
+clean
+(
+ObjID
+[] ids,
+ long sequenceNum,
+VMID
+vmid,
+ boolean strong)
+The clean call removes the 'vmid' from the reference list of
+ each remote object indicated in 'id's.
+Lease
+DGC.
+dirty
+(
+ObjID
+[] ids,
+ long sequenceNum,
+Lease
+lease)
+The dirty call requests leases for the remote object references
+ associated with the object identifiers contained in the array
+ 'ids'.
+Uses of
+RemoteException
+in
+java.rmi.registry
+Methods in
+java.rmi.registry
+that throw
+RemoteException
+Modifier and Type
+Method
+Description
+void
+Registry.
+bind
+(
+String
+name,
+Remote
+obj)
+Binds a remote reference to the specified
+name
+in
+ this registry.
+static
+Registry
+LocateRegistry.
+createRegistry
+(int port)
+Creates and exports a
+Registry
+instance on the local
+ host that accepts requests on the specified
+port
+.
+static
+Registry
+LocateRegistry.
+createRegistry
+(int port,
+RMIClientSocketFactory
+csf,
+RMIServerSocketFactory
+ssf)
+Creates and exports a
+Registry
+instance on the local
+ host that uses custom socket factories for communication with that
+ instance.
+static
+Registry
+LocateRegistry.
+getRegistry
+()
+Returns a reference to the remote object
+Registry
+for
+ the local host on the default registry port of 1099.
+static
+Registry
+LocateRegistry.
+getRegistry
+(int port)
+Returns a reference to the remote object
+Registry
+for
+ the local host on the specified
+port
+.
+static
+Registry
+LocateRegistry.
+getRegistry
+(
+String
+host)
+Returns a reference to the remote object
+Registry
+on the
+ specified
+host
+on the default registry port of 1099.
+static
+Registry
+LocateRegistry.
+getRegistry
+(
+String
+host,
+ int port)
+Returns a reference to the remote object
+Registry
+on the
+ specified
+host
+and
+port
+.
+static
+Registry
+LocateRegistry.
+getRegistry
+(
+String
+host,
+ int port,
+RMIClientSocketFactory
+csf)
+Returns a locally created remote reference to the remote object
+Registry
+on the specified
+host
+and
+port
+.
+String
+[]
+Registry.
+list
+()
+Returns an array of the names bound in this registry.
+Remote
+Registry.
+lookup
+(
+String
+name)
+Returns the remote reference bound to the specified
+name
+in this registry.
+void
+Registry.
+rebind
+(
+String
+name,
+Remote
+obj)
+Replaces the binding for the specified
+name
+in
+ this registry with the supplied remote reference.
+Registry
+RegistryHandler.
+registryImpl
+(int port)
+Deprecated.
+no replacement.
+Registry
+RegistryHandler.
+registryStub
+(
+String
+host,
+ int port)
+Deprecated.
+no replacement.
+void
+Registry.
+unbind
+(
+String
+name)
+Removes the binding for the specified
+name
+in
+ this registry.
+Uses of
+RemoteException
+in
+java.rmi.server
+Subclasses of
+RemoteException
+in
+java.rmi.server
+Modifier and Type
+Class
+Description
+class
+ExportException
+An
+ExportException
+is a
+RemoteException
+thrown if an attempt to export a remote object fails.
+class
+SkeletonMismatchException
+Deprecated.
+no replacement.
+class
+SkeletonNotFoundException
+Deprecated.
+no replacement.
+class
+SocketSecurityException
+Deprecated.
+This class is obsolete.
+Methods in
+java.rmi.server
+that throw
+RemoteException
+Modifier and Type
+Method
+Description
+void
+RemoteRef.
+done
+(
+RemoteCall
+call)
+Deprecated.
+1.2 style stubs no longer use this method.
+RemoteStub
+ServerRef.
+exportObject
+(
+Remote
+obj,
+Object
+data)
+Deprecated.
+Creates a client stub object for the supplied Remote object.
+static
+RemoteStub
+UnicastRemoteObject.
+exportObject
+(
+Remote
+obj)
+Deprecated.
+This method is deprecated because it supports only static stubs.
+static
+Remote
+UnicastRemoteObject.
+exportObject
+(
+Remote
+obj,
+ int port)
+Exports the remote object to make it available to receive incoming
+ calls, using the particular supplied port.
+static
+Remote
+UnicastRemoteObject.
+exportObject
+(
+Remote
+obj,
+ int port,
+ObjectInputFilter
+filter)
+Exports the remote object to make it available to receive incoming
+ calls, using the particular supplied port
+ and
+filter
+.
+static
+Remote
+UnicastRemoteObject.
+exportObject
+(
+Remote
+obj,
+ int port,
+RMIClientSocketFactory
+csf,
+RMIServerSocketFactory
+ssf)
+Exports the remote object to make it available to receive incoming
+ calls, using a transport specified by the given socket factory.
+static
+Remote
+UnicastRemoteObject.
+exportObject
+(
+Remote
+obj,
+ int port,
+RMIClientSocketFactory
+csf,
+RMIServerSocketFactory
+ssf,
+ObjectInputFilter
+filter)
+Exports the remote object to make it available to receive incoming
+ calls, using a transport specified by the given socket factory
+ and
+filter
+.
+RemoteCall
+RemoteRef.
+newCall
+(
+RemoteObject
+obj,
+Operation
+[] op,
+ int opnum,
+ long hash)
+Deprecated.
+1.2 style stubs no longer use this method.
+Constructors in
+java.rmi.server
+that throw
+RemoteException
+Modifier
+Constructor
+Description
+protected
+UnicastRemoteObject
+()
+Creates and exports a new UnicastRemoteObject object using an
+ anonymous port.
+protected
+UnicastRemoteObject
+(int port)
+Creates and exports a new UnicastRemoteObject object using the
+ particular supplied port.
+protected
+UnicastRemoteObject
+(int port,
+RMIClientSocketFactory
+csf,
+RMIServerSocketFactory
+ssf)
+Creates and exports a new UnicastRemoteObject object using the
+ particular supplied port and socket factories.
+Uses of
+RemoteException
+in
+javax.management.remote.rmi
+Methods in
+javax.management.remote.rmi
+that throw
+RemoteException
+Modifier and Type
+Method
+Description
+String
+RMIServer.
+getVersion
+()
+The version of the RMI Connector Protocol understood by this
+ connector server.
+String
+RMIServerImpl_Stub.
+getVersion
+()
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,2080 @@
+Uses of Interface java.util.function.Function (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Interface
+java.util.function.Function
+Packages that use
+Function
+Package
+Description
+java.lang
+Provides classes that are fundamental to the design of the Java
+ programming language.
+java.net.http
+HTTP Client and WebSocket APIs
+java.security
+Provides the classes and interfaces for the security framework.
+java.util
+Contains the collections framework, some internationalization support classes,
+ a service loader, properties, random number generation, string parsing
+ and scanning classes, base64 encoding and decoding, a bit array, and
+ several miscellaneous utility classes.
+java.util.concurrent
+Utility classes commonly useful in concurrent programming.
+java.util.function
+Functional interfaces
+provide target types for lambda expressions
+ and method references.
+java.util.logging
+Provides the classes and interfaces of
+ the Java 2 platform's core logging facilities.
+java.util.regex
+Classes for matching character sequences against patterns specified
+ by regular expressions.
+java.util.stream
+Classes to support functional-style operations on streams of elements, such
+ as map-reduce transformations on collections.
+jdk.jshell
+Provides interfaces for creating tools, such as a Read-Eval-Print Loop (REPL),
+ which interactively evaluate "snippets" of Java programming language code.
+Uses of
+Function
+in
+java.lang
+Methods in
+java.lang
+with parameters of type
+Function
+Modifier and Type
+Method
+Description
+ModuleLayer
+ModuleLayer.
+defineModules
+(
+Configuration
+cf,
+Function
+<
+String
+,
+ClassLoader
+> clf)
+Creates a new module layer, with this layer as its parent, by defining the
+ modules in the given
+Configuration
+to the Java virtual machine.
+static
+ModuleLayer.Controller
+ModuleLayer.
+defineModules
+(
+Configuration
+cf,
+List
+<
+ModuleLayer
+> parentLayers,
+Function
+<
+String
+,
+ClassLoader
+> clf)
+Creates a new module layer by defining the modules in the given
+Configuration
+to the Java virtual machine.
+static <T>
+StringTemplate.Processor
+PREVIEW
+<T,
+RuntimeException
+>
+StringTemplate.Processor.
+of
+(
+Function
+<? super
+StringTemplate
+PREVIEW
+,
+? extends T> process)
+This factory method can be used to create a
+StringTemplate.Processor
+PREVIEW
+containing a
+StringTemplate.Processor.process(java.lang.StringTemplate)
+PREVIEW
+method derived from a lambda expression.
+<R> R
+String.
+transform
+(
+Function
+<? super
+String
+,
+? extends R> f)
+This method allows the application of a function to
+this
+string.
+<T> T
+StackWalker.
+walk
+(
+Function
+<? super
+Stream
+<
+StackWalker.StackFrame
+>,
+? extends T> function)
+Applies the given function to the stream of
+StackFrame
+s
+ for the current thread, traversing from the top frame of the stack,
+ which is the method calling this
+walk
+method.
+Uses of
+Function
+in
+java.net.http
+Methods in
+java.net.http
+with parameters of type
+Function
+Modifier and Type
+Method
+Description
+void
+HttpResponse.PushPromiseHandler.
+applyPushPromise
+(
+HttpRequest
+initiatingRequest,
+HttpRequest
+pushPromiseRequest,
+Function
+<
+HttpResponse.BodyHandler
+<
+T
+>,
+CompletableFuture
+<
+HttpResponse
+<
+T
+>>> acceptor)
+Notification of an incoming push promise.
+static <S extends
+Flow.Subscriber
+<? super
+String
+>,
+T>
+HttpResponse.BodyHandler
+<T>
+HttpResponse.BodyHandlers.
+fromLineSubscriber
+(S subscriber,
+Function
+<? super S,
+? extends T> finisher,
+String
+lineSeparator)
+Returns a response body handler that returns a
+BodySubscriber
+<T>
+obtained from
+BodySubscribers.fromLineSubscriber(subscriber, finisher, charset, lineSeparator)
+,
+ with the given
+subscriber
+,
+finisher
+function, and line separator.
+static <S extends
+Flow.Subscriber
+<? super
+String
+>,
+T>
+HttpResponse.BodySubscriber
+<T>
+HttpResponse.BodySubscribers.
+fromLineSubscriber
+(S subscriber,
+Function
+<? super S,
+? extends T> finisher,
+Charset
+charset,
+String
+lineSeparator)
+Returns a body subscriber that forwards all response body to the
+ given
+Flow.Subscriber
+, line by line.
+static <S extends
+Flow.Subscriber
+<? super
+List
+<
+ByteBuffer
+>>,
+T>
+HttpResponse.BodyHandler
+<T>
+HttpResponse.BodyHandlers.
+fromSubscriber
+(S subscriber,
+Function
+<? super S,
+? extends T> finisher)
+Returns a response body handler that returns a
+BodySubscriber
+<T>
+obtained from
+HttpResponse.BodySubscribers.fromSubscriber(Subscriber, Function)
+, with the
+ given
+subscriber
+and
+finisher
+function.
+static <S extends
+Flow.Subscriber
+<? super
+List
+<
+ByteBuffer
+>>,
+T>
+HttpResponse.BodySubscriber
+<T>
+HttpResponse.BodySubscribers.
+fromSubscriber
+(S subscriber,
+Function
+<? super S,
+? extends T> finisher)
+Returns a body subscriber that forwards all response body to the
+ given
+Flow.Subscriber
+.
+static <T,
+U>
+HttpResponse.BodySubscriber
+<U>
+HttpResponse.BodySubscribers.
+mapping
+(
+HttpResponse.BodySubscriber
+<T> upstream,
+Function
+<? super T,
+? extends U> mapper)
+Returns a
+BodySubscriber
+whose response body value is that of
+ the result of applying the given function to the body object of the
+ given
+upstream
+BodySubscriber
+.
+static <T>
+HttpResponse.PushPromiseHandler
+<T>
+HttpResponse.PushPromiseHandler.
+of
+(
+Function
+<
+HttpRequest
+,
+HttpResponse.BodyHandler
+<T>> pushPromiseHandler,
+ConcurrentMap
+<
+HttpRequest
+,
+CompletableFuture
+<
+HttpResponse
+<T>>> pushPromisesMap)
+Returns a push promise handler that accumulates push promises, and
+ their responses, into the given map.
+Uses of
+Function
+in
+java.security
+Methods in
+java.security
+with parameters of type
+Function
+Modifier and Type
+Method
+Description
+Object
+Provider.
+computeIfAbsent
+(
+Object
+key,
+Function
+<? super
+Object
+,
+? extends
+Object
+> mappingFunction)
+If the specified key is not already associated with a value (or
+ is mapped to
+null
+), attempts to compute its value using
+ the given mapping function and enters it into this map unless
+null
+.
+Uses of
+Function
+in
+java.util
+Methods in
+java.util
+with parameters of type
+Function
+Modifier and Type
+Method
+Description
+static <T,
+U extends
+Comparable
+<? super U>>
+Comparator
+<T>
+Comparator.
+comparing
+(
+Function
+<? super T,
+? extends U> keyExtractor)
+Accepts a function that extracts a
+Comparable
+sort key from a type
+T
+, and returns a
+Comparator<T>
+that compares by that sort key.
+static <T,
+U>
+Comparator
+<T>
+Comparator.
+comparing
+(
+Function
+<? super T,
+? extends U> keyExtractor,
+Comparator
+<? super U> keyComparator)
+Accepts a function that extracts a sort key from a type
+T
+, and
+ returns a
+Comparator<T>
+that compares by that sort key using
+ the specified
+Comparator
+.
+V
+HashMap.
+computeIfAbsent
+(
+K
+key,
+Function
+<? super
+K
+,
+? extends
+V
+> mappingFunction)
+If the specified key is not already associated with a value (or is mapped
+ to
+null
+), attempts to compute its value using the given mapping
+ function and enters it into this map unless
+null
+.
+V
+Hashtable.
+computeIfAbsent
+(
+K
+key,
+Function
+<? super
+K
+,
+? extends
+V
+> mappingFunction)
+If the specified key is not already associated with a value (or is mapped
+ to
+null
+), attempts to compute its value using the given mapping
+ function and enters it into this map unless
+null
+.
+default
+V
+Map.
+computeIfAbsent
+(
+K
+key,
+Function
+<? super
+K
+,
+? extends
+V
+> mappingFunction)
+If the specified key is not already associated with a value (or is mapped
+ to
+null
+), attempts to compute its value using the given mapping
+ function and enters it into this map unless
+null
+.
+V
+TreeMap.
+computeIfAbsent
+(
+K
+key,
+Function
+<? super
+K
+,
+? extends
+V
+> mappingFunction)
+If the specified key is not already associated with a value (or is mapped
+ to
+null
+), attempts to compute its value using the given mapping
+ function and enters it into this map unless
+null
+.
+<U>
+Optional
+<U>
+Optional.
+flatMap
+(
+Function
+<? super
+T
+,
+? extends
+Optional
+<? extends U>> mapper)
+If a value is present, returns the result of applying the given
+Optional
+-bearing mapping function to the value, otherwise returns
+ an empty
+Optional
+.
+<U>
+Optional
+<U>
+Optional.
+map
+(
+Function
+<? super
+T
+,
+? extends U> mapper)
+If a value is present, returns an
+Optional
+describing (as if by
+Optional.ofNullable(T)
+) the result of applying the given mapping function to
+ the value, otherwise returns an empty
+Optional
+.
+default <U extends
+Comparable
+<? super U>>
+Comparator
+<
+T
+>
+Comparator.
+thenComparing
+(
+Function
+<? super
+T
+,
+? extends U> keyExtractor)
+Returns a lexicographic-order comparator with a function that
+ extracts a
+Comparable
+sort key.
+default <U>
+Comparator
+<
+T
+>
+Comparator.
+thenComparing
+(
+Function
+<? super
+T
+,
+? extends U> keyExtractor,
+Comparator
+<? super U> keyComparator)
+Returns a lexicographic-order comparator with a function that
+ extracts a key to be compared with the given
+Comparator
+.
+Uses of
+Function
+in
+java.util.concurrent
+Methods in
+java.util.concurrent
+with parameters of type
+Function
+Modifier and Type
+Method
+Description
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+applyToEither
+(
+CompletionStage
+<? extends
+T
+> other,
+Function
+<? super
+T
+,
+U> fn)
+<U>
+CompletionStage
+<U>
+CompletionStage.
+applyToEither
+(
+CompletionStage
+<? extends
+T
+> other,
+Function
+<? super
+T
+,
+U> fn)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, is executed with the
+ corresponding result as argument to the supplied function.
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+applyToEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Function
+<? super
+T
+,
+U> fn)
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+applyToEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Function
+<? super
+T
+,
+U> fn,
+Executor
+executor)
+<U>
+CompletionStage
+<U>
+CompletionStage.
+applyToEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Function
+<? super
+T
+,
+U> fn)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, is executed using this
+ stage's default asynchronous execution facility, with the
+ corresponding result as argument to the supplied function.
+<U>
+CompletionStage
+<U>
+CompletionStage.
+applyToEitherAsync
+(
+CompletionStage
+<? extends
+T
+> other,
+Function
+<? super
+T
+,
+U> fn,
+Executor
+executor)
+Returns a new CompletionStage that, when either this or the
+ other given stage complete normally, is executed using the
+ supplied executor, with the corresponding result as argument to
+ the supplied function.
+V
+ConcurrentHashMap.
+computeIfAbsent
+(
+K
+key,
+Function
+<? super
+K
+,
+? extends
+V
+> mappingFunction)
+If the specified key is not already associated with a value,
+ attempts to compute its value using the given mapping function
+ and enters it into this map unless
+null
+.
+default
+V
+ConcurrentMap.
+computeIfAbsent
+(
+K
+key,
+Function
+<? super
+K
+,
+? extends
+V
+> mappingFunction)
+If the specified key is not already associated with a value (or is mapped
+ to
+null
+), attempts to compute its value using the given mapping
+ function and enters it into this map unless
+null
+.
+V
+ConcurrentSkipListMap.
+computeIfAbsent
+(
+K
+key,
+Function
+<? super
+K
+,
+? extends
+V
+> mappingFunction)
+If the specified key is not already associated with a value,
+ attempts to compute its value using the given mapping function
+ and enters it into this map unless
+null
+.
+CompletableFuture
+<
+T
+>
+CompletableFuture.
+exceptionally
+(
+Function
+<
+Throwable
+,
+? extends
+T
+> fn)
+CompletionStage
+<
+T
+>
+CompletionStage.
+exceptionally
+(
+Function
+<
+Throwable
+,
+? extends
+T
+> fn)
+Returns a new CompletionStage that, when this stage completes
+ exceptionally, is executed with this stage's exception as the
+ argument to the supplied function.
+default
+CompletionStage
+<
+T
+>
+CompletionStage.
+exceptionallyAsync
+(
+Function
+<
+Throwable
+,
+? extends
+T
+> fn)
+Returns a new CompletionStage that, when this stage completes
+ exceptionally, is executed with this stage's exception as the
+ argument to the supplied function, using this stage's default
+ asynchronous execution facility.
+default
+CompletionStage
+<
+T
+>
+CompletionStage.
+exceptionallyAsync
+(
+Function
+<
+Throwable
+,
+? extends
+T
+> fn,
+Executor
+executor)
+Returns a new CompletionStage that, when this stage completes
+ exceptionally, is executed with this stage's exception as the
+ argument to the supplied function, using the supplied Executor.
+default
+CompletionStage
+<
+T
+>
+CompletionStage.
+exceptionallyCompose
+(
+Function
+<
+Throwable
+,
+? extends
+CompletionStage
+<
+T
+>> fn)
+Returns a new CompletionStage that, when this stage completes
+ exceptionally, is composed using the results of the supplied
+ function applied to this stage's exception.
+default
+CompletionStage
+<
+T
+>
+CompletionStage.
+exceptionallyComposeAsync
+(
+Function
+<
+Throwable
+,
+? extends
+CompletionStage
+<
+T
+>> fn)
+Returns a new CompletionStage that, when this stage completes
+ exceptionally, is composed using the results of the supplied
+ function applied to this stage's exception, using this stage's
+ default asynchronous execution facility.
+default
+CompletionStage
+<
+T
+>
+CompletionStage.
+exceptionallyComposeAsync
+(
+Function
+<
+Throwable
+,
+? extends
+CompletionStage
+<
+T
+>> fn,
+Executor
+executor)
+Returns a new CompletionStage that, when this stage completes
+ exceptionally, is composed using the results of the supplied
+ function applied to this stage's exception, using the
+ supplied Executor.
+<U> void
+ConcurrentHashMap.
+forEachEntry
+(long parallelismThreshold,
+Function
+<
+Map.Entry
+<
+K
+,
+V
+>,
+? extends U> transformer,
+Consumer
+<? super U> action)
+Performs the given action for each non-null transformation
+ of each entry.
+<U> void
+ConcurrentHashMap.
+forEachKey
+(long parallelismThreshold,
+Function
+<? super
+K
+,
+? extends U> transformer,
+Consumer
+<? super U> action)
+Performs the given action for each non-null transformation
+ of each key.
+<U> void
+ConcurrentHashMap.
+forEachValue
+(long parallelismThreshold,
+Function
+<? super
+V
+,
+? extends U> transformer,
+Consumer
+<? super U> action)
+Performs the given action for each non-null transformation
+ of each value.
+<U> U
+ConcurrentHashMap.
+reduceEntries
+(long parallelismThreshold,
+Function
+<
+Map.Entry
+<
+K
+,
+V
+>,
+? extends U> transformer,
+BiFunction
+<? super U,
+? super U,
+? extends U> reducer)
+Returns the result of accumulating the given transformation
+ of all entries using the given reducer to combine values,
+ or null if none.
+<U> U
+ConcurrentHashMap.
+reduceKeys
+(long parallelismThreshold,
+Function
+<? super
+K
+,
+? extends U> transformer,
+BiFunction
+<? super U,
+? super U,
+? extends U> reducer)
+Returns the result of accumulating the given transformation
+ of all keys using the given reducer to combine values, or
+ null if none.
+<U> U
+ConcurrentHashMap.
+reduceValues
+(long parallelismThreshold,
+Function
+<? super
+V
+,
+? extends U> transformer,
+BiFunction
+<? super U,
+? super U,
+? extends U> reducer)
+Returns the result of accumulating the given transformation
+ of all values using the given reducer to combine values, or
+ null if none.
+<X extends
+Throwable
+>
+T
+StructuredTaskScope.ShutdownOnSuccess.
+result
+(
+Function
+<
+Throwable
+,
+? extends X> esf)
+Returns the result of the first subtask that completed
+successfully
+PREVIEW
+, otherwise throws an exception produced
+ by the given exception supplying function.
+<U> U
+ConcurrentHashMap.
+searchEntries
+(long parallelismThreshold,
+Function
+<
+Map.Entry
+<
+K
+,
+V
+>,
+? extends U> searchFunction)
+Returns a non-null result from applying the given search
+ function on each entry, or null if none.
+<U> U
+ConcurrentHashMap.
+searchKeys
+(long parallelismThreshold,
+Function
+<? super
+K
+,
+? extends U> searchFunction)
+Returns a non-null result from applying the given search
+ function on each key, or null if none.
+<U> U
+ConcurrentHashMap.
+searchValues
+(long parallelismThreshold,
+Function
+<? super
+V
+,
+? extends U> searchFunction)
+Returns a non-null result from applying the given search
+ function on each value, or null if none.
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+thenApply
+(
+Function
+<? super
+T
+,
+? extends U> fn)
+<U>
+CompletionStage
+<U>
+CompletionStage.
+thenApply
+(
+Function
+<? super
+T
+,
+? extends U> fn)
+Returns a new CompletionStage that, when this stage completes
+ normally, is executed with this stage's result as the argument
+ to the supplied function.
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+thenApplyAsync
+(
+Function
+<? super
+T
+,
+? extends U> fn)
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+thenApplyAsync
+(
+Function
+<? super
+T
+,
+? extends U> fn,
+Executor
+executor)
+<U>
+CompletionStage
+<U>
+CompletionStage.
+thenApplyAsync
+(
+Function
+<? super
+T
+,
+? extends U> fn)
+Returns a new CompletionStage that, when this stage completes
+ normally, is executed using this stage's default asynchronous
+ execution facility, with this stage's result as the argument to
+ the supplied function.
+<U>
+CompletionStage
+<U>
+CompletionStage.
+thenApplyAsync
+(
+Function
+<? super
+T
+,
+? extends U> fn,
+Executor
+executor)
+Returns a new CompletionStage that, when this stage completes
+ normally, is executed using the supplied Executor, with this
+ stage's result as the argument to the supplied function.
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+thenCompose
+(
+Function
+<? super
+T
+,
+? extends
+CompletionStage
+<U>> fn)
+<U>
+CompletionStage
+<U>
+CompletionStage.
+thenCompose
+(
+Function
+<? super
+T
+,
+? extends
+CompletionStage
+<U>> fn)
+Returns a new CompletionStage that is completed with the same
+ value as the CompletionStage returned by the given function.
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+thenComposeAsync
+(
+Function
+<? super
+T
+,
+? extends
+CompletionStage
+<U>> fn)
+<U>
+CompletableFuture
+<U>
+CompletableFuture.
+thenComposeAsync
+(
+Function
+<? super
+T
+,
+? extends
+CompletionStage
+<U>> fn,
+Executor
+executor)
+<U>
+CompletionStage
+<U>
+CompletionStage.
+thenComposeAsync
+(
+Function
+<? super
+T
+,
+? extends
+CompletionStage
+<U>> fn)
+Returns a new CompletionStage that is completed with the same
+ value as the CompletionStage returned by the given function,
+ executed using this stage's default asynchronous execution
+ facility.
+<U>
+CompletionStage
+<U>
+CompletionStage.
+thenComposeAsync
+(
+Function
+<? super
+T
+,
+? extends
+CompletionStage
+<U>> fn,
+Executor
+executor)
+Returns a new CompletionStage that is completed with the same
+ value as the CompletionStage returned by the given function,
+ executed using the supplied Executor.
+<X extends
+Throwable
+>
+void
+StructuredTaskScope.ShutdownOnFailure.
+throwIfFailed
+(
+Function
+<
+Throwable
+,
+? extends X> esf)
+Throws the exception produced by the given exception supplying function if a
+ subtask
+failed
+PREVIEW
+.
+Uses of
+Function
+in
+java.util.function
+Subinterfaces of
+Function
+in
+java.util.function
+Modifier and Type
+Interface
+Description
+interface
+UnaryOperator
+<T>
+Represents an operation on a single operand that produces a result of the
+ same type as its operand.
+Methods in
+java.util.function
+that return
+Function
+Modifier and Type
+Method
+Description
+default <V>
+Function
+<
+T
+,
+V>
+Function.
+andThen
+(
+Function
+<? super
+R
+,
+? extends V> after)
+Returns a composed function that first applies this function to
+ its input, and then applies the
+after
+function to the result.
+default <V>
+Function
+<V,
+R
+>
+Function.
+compose
+(
+Function
+<? super V,
+? extends
+T
+> before)
+Returns a composed function that first applies the
+before
+function to its input, and then applies this function to the result.
+static <T>
+Function
+<T,
+T>
+Function.
+identity
+()
+Returns a function that always returns its input argument.
+Methods in
+java.util.function
+with parameters of type
+Function
+Modifier and Type
+Method
+Description
+default <V>
+BiFunction
+<
+T
+,
+U
+,
+V>
+BiFunction.
+andThen
+(
+Function
+<? super
+R
+,
+? extends V> after)
+Returns a composed function that first applies this function to
+ its input, and then applies the
+after
+function to the result.
+default <V>
+Function
+<
+T
+,
+V>
+Function.
+andThen
+(
+Function
+<? super
+R
+,
+? extends V> after)
+Returns a composed function that first applies this function to
+ its input, and then applies the
+after
+function to the result.
+default <V>
+Function
+<V,
+R
+>
+Function.
+compose
+(
+Function
+<? super V,
+? extends
+T
+> before)
+Returns a composed function that first applies the
+before
+function to its input, and then applies this function to the result.
+Uses of
+Function
+in
+java.util.logging
+Methods in
+java.util.logging
+with parameters of type
+Function
+Modifier and Type
+Method
+Description
+void
+LogManager.
+updateConfiguration
+(
+InputStream
+ins,
+Function
+<
+String
+,
+BiFunction
+<
+String
+,
+String
+,
+String
+>> mapper)
+Updates the logging configuration.
+void
+LogManager.
+updateConfiguration
+(
+Function
+<
+String
+,
+BiFunction
+<
+String
+,
+String
+,
+String
+>> mapper)
+Updates the logging configuration.
+Uses of
+Function
+in
+java.util.regex
+Methods in
+java.util.regex
+with parameters of type
+Function
+Modifier and Type
+Method
+Description
+String
+Matcher.
+replaceAll
+(
+Function
+<
+MatchResult
+,
+String
+> replacer)
+Replaces every subsequence of the input sequence that matches the
+ pattern with the result of applying the given replacer function to the
+ match result of this matcher corresponding to that subsequence.
+String
+Matcher.
+replaceFirst
+(
+Function
+<
+MatchResult
+,
+String
+> replacer)
+Replaces the first subsequence of the input sequence that matches the
+ pattern with the result of applying the given replacer function to the
+ match result of this matcher corresponding to that subsequence.
+Uses of
+Function
+in
+java.util.stream
+Methods in
+java.util.stream
+that return
+Function
+Modifier and Type
+Method
+Description
+Function
+<
+A
+,
+R
+>
+Collector.
+finisher
+()
+Perform the final transformation from the intermediate accumulation type
+A
+to the final result type
+R
+.
+Methods in
+java.util.stream
+with parameters of type
+Function
+Modifier and Type
+Method
+Description
+static <T,
+A,
+R,
+RR>
+Collector
+<T,
+A,
+RR>
+Collectors.
+collectingAndThen
+(
+Collector
+<T,
+A,
+R> downstream,
+Function
+<R,
+RR> finisher)
+Adapts a
+Collector
+to perform an additional finishing
+ transformation.
+<R>
+Stream
+<R>
+Stream.
+flatMap
+(
+Function
+<? super
+T
+,
+? extends
+Stream
+<? extends R>> mapper)
+Returns a stream consisting of the results of replacing each element of
+ this stream with the contents of a mapped stream produced by applying
+ the provided mapping function to each element.
+static <T,
+U,
+A,
+R>
+Collector
+<T,
+?,
+R>
+Collectors.
+flatMapping
+(
+Function
+<? super T,
+? extends
+Stream
+<? extends U>> mapper,
+Collector
+<? super U,
+A,
+R> downstream)
+Adapts a
+Collector
+accepting elements of type
+U
+to one
+ accepting elements of type
+T
+by applying a flat mapping function
+ to each input element before accumulation.
+DoubleStream
+Stream.
+flatMapToDouble
+(
+Function
+<? super
+T
+,
+? extends
+DoubleStream
+> mapper)
+Returns an
+DoubleStream
+consisting of the results of replacing
+ each element of this stream with the contents of a mapped stream produced
+ by applying the provided mapping function to each element.
+IntStream
+Stream.
+flatMapToInt
+(
+Function
+<? super
+T
+,
+? extends
+IntStream
+> mapper)
+Returns an
+IntStream
+consisting of the results of replacing each
+ element of this stream with the contents of a mapped stream produced by
+ applying the provided mapping function to each element.
+LongStream
+Stream.
+flatMapToLong
+(
+Function
+<? super
+T
+,
+? extends
+LongStream
+> mapper)
+Returns an
+LongStream
+consisting of the results of replacing each
+ element of this stream with the contents of a mapped stream produced by
+ applying the provided mapping function to each element.
+static <T,
+K>
+Collector
+<T,
+?,
+Map
+<K,
+List
+<T>>>
+Collectors.
+groupingBy
+(
+Function
+<? super T,
+? extends K> classifier)
+Returns a
+Collector
+implementing a "group by" operation on
+ input elements of type
+T
+, grouping elements according to a
+ classification function, and returning the results in a
+Map
+.
+static <T,
+K,
+D,
+A,
+M extends
+Map
+<K,
+D>>
+Collector
+<T,
+?,
+M>
+Collectors.
+groupingBy
+(
+Function
+<? super T,
+? extends K> classifier,
+Supplier
+<M> mapFactory,
+Collector
+<? super T,
+A,
+D> downstream)
+Returns a
+Collector
+implementing a cascaded "group by" operation
+ on input elements of type
+T
+, grouping elements according to a
+ classification function, and then performing a reduction operation on
+ the values associated with a given key using the specified downstream
+Collector
+.
+static <T,
+K,
+A,
+D>
+Collector
+<T,
+?,
+Map
+<K,
+D>>
+Collectors.
+groupingBy
+(
+Function
+<? super T,
+? extends K> classifier,
+Collector
+<? super T,
+A,
+D> downstream)
+Returns a
+Collector
+implementing a cascaded "group by" operation
+ on input elements of type
+T
+, grouping elements according to a
+ classification function, and then performing a reduction operation on
+ the values associated with a given key using the specified downstream
+Collector
+.
+static <T,
+K>
+Collector
+<T,
+?,
+ConcurrentMap
+<K,
+List
+<T>>>
+Collectors.
+groupingByConcurrent
+(
+Function
+<? super T,
+? extends K> classifier)
+Returns a concurrent
+Collector
+implementing a "group by"
+ operation on input elements of type
+T
+, grouping elements
+ according to a classification function.
+static <T,
+K,
+A,
+D,
+M extends
+ConcurrentMap
+<K,
+D>>
+Collector
+<T,
+?,
+M>
+Collectors.
+groupingByConcurrent
+(
+Function
+<? super T,
+? extends K> classifier,
+Supplier
+<M> mapFactory,
+Collector
+<? super T,
+A,
+D> downstream)
+Returns a concurrent
+Collector
+implementing a cascaded "group by"
+ operation on input elements of type
+T
+, grouping elements
+ according to a classification function, and then performing a reduction
+ operation on the values associated with a given key using the specified
+ downstream
+Collector
+.
+static <T,
+K,
+A,
+D>
+Collector
+<T,
+?,
+ConcurrentMap
+<K,
+D>>
+Collectors.
+groupingByConcurrent
+(
+Function
+<? super T,
+? extends K> classifier,
+Collector
+<? super T,
+A,
+D> downstream)
+Returns a concurrent
+Collector
+implementing a cascaded "group by"
+ operation on input elements of type
+T
+, grouping elements
+ according to a classification function, and then performing a reduction
+ operation on the values associated with a given key using the specified
+ downstream
+Collector
+.
+<R>
+Stream
+<R>
+Stream.
+map
+(
+Function
+<? super
+T
+,
+? extends R> mapper)
+Returns a stream consisting of the results of applying the given
+ function to the elements of this stream.
+static <T,
+U,
+A,
+R>
+Collector
+<T,
+?,
+R>
+Collectors.
+mapping
+(
+Function
+<? super T,
+? extends U> mapper,
+Collector
+<? super U,
+A,
+R> downstream)
+Adapts a
+Collector
+accepting elements of type
+U
+to one
+ accepting elements of type
+T
+by applying a mapping function to
+ each input element before accumulation.
+static <T,
+A,
+R>
+Collector
+<T,
+A,
+R>
+Collector.
+of
+(
+Supplier
+<A> supplier,
+BiConsumer
+<A,
+T> accumulator,
+BinaryOperator
+<A> combiner,
+Function
+<A,
+R> finisher,
+Collector.Characteristics
+... characteristics)
+Returns a new
+Collector
+described by the given
+supplier
+,
+accumulator
+,
+combiner
+, and
+finisher
+functions.
+static <T,
+U>
+Collector
+<T,
+?,
+U>
+Collectors.
+reducing
+(U identity,
+Function
+<? super T,
+? extends U> mapper,
+BinaryOperator
+<U> op)
+Returns a
+Collector
+which performs a reduction of its
+ input elements under a specified mapping function and
+BinaryOperator
+.
+static <T,
+K,
+U>
+Collector
+<T,
+?,
+ConcurrentMap
+<K,
+U>>
+Collectors.
+toConcurrentMap
+(
+Function
+<? super T,
+? extends K> keyMapper,
+Function
+<? super T,
+? extends U> valueMapper)
+Returns a concurrent
+Collector
+that accumulates elements into a
+ConcurrentMap
+whose keys and values are the result of applying
+ the provided mapping functions to the input elements.
+static <T,
+K,
+U>
+Collector
+<T,
+?,
+ConcurrentMap
+<K,
+U>>
+Collectors.
+toConcurrentMap
+(
+Function
+<? super T,
+? extends K> keyMapper,
+Function
+<? super T,
+? extends U> valueMapper,
+BinaryOperator
+<U> mergeFunction)
+Returns a concurrent
+Collector
+that accumulates elements into a
+ConcurrentMap
+whose keys and values are the result of applying
+ the provided mapping functions to the input elements.
+static <T,
+K,
+U,
+M extends
+ConcurrentMap
+<K,
+U>>
+Collector
+<T,
+?,
+M>
+Collectors.
+toConcurrentMap
+(
+Function
+<? super T,
+? extends K> keyMapper,
+Function
+<? super T,
+? extends U> valueMapper,
+BinaryOperator
+<U> mergeFunction,
+Supplier
+<M> mapFactory)
+Returns a concurrent
+Collector
+that accumulates elements into a
+ConcurrentMap
+whose keys and values are the result of applying
+ the provided mapping functions to the input elements.
+static <T,
+K,
+U>
+Collector
+<T,
+?,
+Map
+<K,
+U>>
+Collectors.
+toMap
+(
+Function
+<? super T,
+? extends K> keyMapper,
+Function
+<? super T,
+? extends U> valueMapper)
+Returns a
+Collector
+that accumulates elements into a
+Map
+whose keys and values are the result of applying the provided
+ mapping functions to the input elements.
+static <T,
+K,
+U>
+Collector
+<T,
+?,
+Map
+<K,
+U>>
+Collectors.
+toMap
+(
+Function
+<? super T,
+? extends K> keyMapper,
+Function
+<? super T,
+? extends U> valueMapper,
+BinaryOperator
+<U> mergeFunction)
+Returns a
+Collector
+that accumulates elements into a
+Map
+whose keys and values are the result of applying the provided
+ mapping functions to the input elements.
+static <T,
+K,
+U,
+M extends
+Map
+<K,
+U>>
+Collector
+<T,
+?,
+M>
+Collectors.
+toMap
+(
+Function
+<? super T,
+? extends K> keyMapper,
+Function
+<? super T,
+? extends U> valueMapper,
+BinaryOperator
+<U> mergeFunction,
+Supplier
+<M> mapFactory)
+Returns a
+Collector
+that accumulates elements into a
+Map
+whose keys and values are the result of applying the provided
+ mapping functions to the input elements.
+static <T,
+K,
+U>
+Collector
+<T,
+?,
+Map
+<K,
+U>>
+Collectors.
+toUnmodifiableMap
+(
+Function
+<? super T,
+? extends K> keyMapper,
+Function
+<? super T,
+? extends U> valueMapper)
+Returns a
+Collector
+that accumulates the input elements into an
+unmodifiable Map
+,
+ whose keys and values are the result of applying the provided
+ mapping functions to the input elements.
+static <T,
+K,
+U>
+Collector
+<T,
+?,
+Map
+<K,
+U>>
+Collectors.
+toUnmodifiableMap
+(
+Function
+<? super T,
+? extends K> keyMapper,
+Function
+<? super T,
+? extends U> valueMapper,
+BinaryOperator
+<U> mergeFunction)
+Returns a
+Collector
+that accumulates the input elements into an
+unmodifiable Map
+,
+ whose keys and values are the result of applying the provided
+ mapping functions to the input elements.
+Uses of
+Function
+in
+jdk.jshell
+Methods in
+jdk.jshell
+with parameters of type
+Function
+Modifier and Type
+Method
+Description
+JShell.Builder
+JShell.Builder.
+fileManager
+(
+Function
+<
+StandardJavaFileManager
+,
+StandardJavaFileManager
+> mapping)
+Configure the
+FileManager
+to be used by compilation and
+ source analysis.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

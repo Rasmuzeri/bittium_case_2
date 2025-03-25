@@ -1,0 +1,192 @@
+SecureLookupSupplier (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+jdk.dynalink
+Package
+jdk.dynalink
+Class SecureLookupSupplier
+java.lang.Object
+jdk.dynalink.SecureLookupSupplier
+Direct Known Subclasses:
+CallSiteDescriptor
+public class
+SecureLookupSupplier
+extends
+Object
+Provides security-checked access to a
+MethodHandles.Lookup
+object.
+ See
+getLookup()
+for details.
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+String
+GET_LOOKUP_PERMISSION_NAME
+The name of a runtime permission required to successfully invoke the
+getLookup()
+method.
+Constructor Summary
+Constructors
+Constructor
+Description
+SecureLookupSupplier
+(
+MethodHandles.Lookup
+lookup)
+Creates a new secure lookup supplier, securing the passed lookup.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+final
+MethodHandles.Lookup
+getLookup
+()
+Returns the lookup secured by this
+SecureLookupSupplier
+.
+protected final
+MethodHandles.Lookup
+getLookupPrivileged
+()
+Returns the value of
+getLookup()
+without a security check.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+GET_LOOKUP_PERMISSION_NAME
+public static final
+String
+GET_LOOKUP_PERMISSION_NAME
+The name of a runtime permission required to successfully invoke the
+getLookup()
+method.
+See Also:
+Constant Field Values
+Constructor Details
+SecureLookupSupplier
+public
+SecureLookupSupplier
+(
+MethodHandles.Lookup
+lookup)
+Creates a new secure lookup supplier, securing the passed lookup.
+Parameters:
+lookup
+- the lookup to secure. Can not be null.
+Throws:
+NullPointerException
+- if null is passed.
+Method Details
+getLookup
+public final
+MethodHandles.Lookup
+getLookup
+()
+Returns the lookup secured by this
+SecureLookupSupplier
+.
+Returns:
+the lookup secured by this
+SecureLookupSupplier
+.
+Throws:
+SecurityException
+- if the secured lookup isn't the
+MethodHandles.publicLookup()
+, and a security manager is present,
+ and a check for
+RuntimePermission("dynalink.getLookup")
+fails.
+getLookupPrivileged
+protected final
+MethodHandles.Lookup
+getLookupPrivileged
+()
+Returns the value of
+getLookup()
+without a security check. Can
+ be used by subclasses to access the lookup quickly.
+Returns:
+same as returned value of
+getLookup()
+.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

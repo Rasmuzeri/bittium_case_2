@@ -1,0 +1,498 @@
+RandomGenerator.JumpableGenerator (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.util.random
+Interface RandomGenerator.JumpableGenerator
+All Superinterfaces:
+RandomGenerator
+,
+RandomGenerator.StreamableGenerator
+All Known Subinterfaces:
+RandomGenerator.ArbitrarilyJumpableGenerator
+,
+RandomGenerator.LeapableGenerator
+Enclosing interface:
+RandomGenerator
+public static interface
+RandomGenerator.JumpableGenerator
+extends
+RandomGenerator.StreamableGenerator
+This interface is designed to provide a common protocol for objects that
+ generate pseudorandom values and can easily
+jump
+forward, by a
+ moderate amount (ex. 2
+64
+) to a distant point in the state cycle.
+Ideally, all
+RandomGenerator.JumpableGenerator
+objects produced by iterative
+ jumping from a single original
+RandomGenerator.JumpableGenerator
+object are
+ statistically independent of one another and individually uniform. In
+ practice, one must settle for some approximation to independence and
+ uniformity. In particular, a specific implementation may assume that each
+ generator in a stream produced by the
+jump()
+method is used to produce a number
+ of values no larger than either 2
+64
+or the square root of its
+ period. Implementors are advised to use algorithms whose period is at
+ least 2
+127
+.
+Methods are provided to perform a single jump operation and also to
+ produce a stream of generators produced from the original by iterative
+ copying and jumping of internal state. A typical strategy for a
+ multithreaded application is to create a single
+RandomGenerator.JumpableGenerator
+object, calls its
+jump
+() method exactly
+ once, and then parcel out generators from the resulting stream, one to
+ each thread. It is generally not a good idea to call
+jump
+() on a generator that was itself
+ produced by the
+jump
+() method, because the
+ result may be a generator identical to another generator already produce
+ by that call to the
+jump
+() method. For
+ this reason, the return type of the
+jumps
+()
+ method is
+Stream
+<
+RandomGenerator
+>
+rather than
+Stream
+<
+RandomGenerator.JumpableGenerator
+>
+, even though the actual generator
+ objects in that stream likely do also implement the
+RandomGenerator.JumpableGenerator
+interface.
+Objects that implement
+RandomGenerator.JumpableGenerator
+are typically not
+ cryptographically secure. Consider instead using
+SecureRandom
+to
+ get a cryptographically secure pseudo-random number generator for use by
+ security-sensitive applications.
+Nested Class Summary
+Nested classes/interfaces declared in interface java.util.random.
+RandomGenerator
+RandomGenerator.ArbitrarilyJumpableGenerator
+,
+RandomGenerator.JumpableGenerator
+,
+RandomGenerator.LeapableGenerator
+,
+RandomGenerator.SplittableGenerator
+,
+RandomGenerator.StreamableGenerator
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+RandomGenerator.JumpableGenerator
+copy
+()
+Returns a new generator whose internal state is an exact copy of this
+ generator (therefore their future behavior should be identical if
+ subjected to the same series of operations).
+default
+RandomGenerator
+copyAndJump
+()
+Copy this generator, jump this generator forward, then return the
+ copy.
+void
+jump
+()
+Alter the state of this pseudorandom number generator so as to jump
+ forward a large, fixed distance (typically 2
+64
+or more)
+ within its state cycle.
+double
+jumpDistance
+()
+Returns the distance by which the
+jump
+() method will jump forward within
+ the state cycle of this generator object.
+default
+Stream
+<
+RandomGenerator
+>
+jumps
+()
+Returns an effectively unlimited stream of new pseudorandom number
+ generators, each of which implements the
+RandomGenerator
+interface.
+default
+Stream
+<
+RandomGenerator
+>
+jumps
+(long streamSize)
+Returns a stream producing the given
+streamSize
+number of new
+ pseudorandom number generators, each of which implements the
+RandomGenerator
+interface.
+static
+RandomGenerator.JumpableGenerator
+of
+(
+String
+name)
+Returns an instance of
+RandomGenerator.JumpableGenerator
+that utilizes the
+name
+algorithm
+.
+default
+Stream
+<
+RandomGenerator
+>
+rngs
+()
+Returns an effectively unlimited stream of new pseudorandom number
+ generators, each of which implements the
+RandomGenerator
+interface.
+default
+Stream
+<
+RandomGenerator
+>
+rngs
+(long streamSize)
+Returns a stream producing the given
+streamSize
+number of new
+ pseudorandom number generators, each of which implements the
+RandomGenerator
+interface.
+Methods declared in interface java.util.random.
+RandomGenerator
+doubles
+,
+doubles
+,
+doubles
+,
+doubles
+,
+ints
+,
+ints
+,
+ints
+,
+ints
+,
+isDeprecated
+,
+longs
+,
+longs
+,
+longs
+,
+longs
+,
+nextBoolean
+,
+nextBytes
+,
+nextDouble
+,
+nextDouble
+,
+nextDouble
+,
+nextExponential
+,
+nextFloat
+,
+nextFloat
+,
+nextFloat
+,
+nextGaussian
+,
+nextGaussian
+,
+nextInt
+,
+nextInt
+,
+nextInt
+,
+nextLong
+,
+nextLong
+,
+nextLong
+Method Details
+of
+static
+RandomGenerator.JumpableGenerator
+of
+(
+String
+name)
+Returns an instance of
+RandomGenerator.JumpableGenerator
+that utilizes the
+name
+algorithm
+.
+Parameters:
+name
+- Name of random number generator
+algorithm
+Returns:
+An instance of
+RandomGenerator.JumpableGenerator
+Throws:
+NullPointerException
+- if name is null
+IllegalArgumentException
+- if the named algorithm is not found
+copy
+RandomGenerator.JumpableGenerator
+copy
+()
+Returns a new generator whose internal state is an exact copy of this
+ generator (therefore their future behavior should be identical if
+ subjected to the same series of operations).
+Returns:
+a new object that is a copy of this generator
+jump
+void
+jump
+()
+Alter the state of this pseudorandom number generator so as to jump
+ forward a large, fixed distance (typically 2
+64
+or more)
+ within its state cycle.
+jumpDistance
+double
+jumpDistance
+()
+Returns the distance by which the
+jump
+() method will jump forward within
+ the state cycle of this generator object.
+Returns:
+the default jump distance (as a
+double
+value)
+jumps
+default
+Stream
+<
+RandomGenerator
+>
+jumps
+()
+Returns an effectively unlimited stream of new pseudorandom number
+ generators, each of which implements the
+RandomGenerator
+interface.
+Implementation Requirements:
+The default implementation produces a sequential stream that  repeatedly
+ calls
+copy
+() and
+jump
+()
+ on this generator, and the copies become the generators produced by the stream.
+Implementation Note:
+It is permitted to implement this method in a manner equivalent to
+jumps
+(
+Long.MAX_VALUE
+).
+Returns:
+a stream of objects that implement the
+RandomGenerator
+interface
+jumps
+default
+Stream
+<
+RandomGenerator
+>
+jumps
+(long streamSize)
+Returns a stream producing the given
+streamSize
+number of new
+ pseudorandom number generators, each of which implements the
+RandomGenerator
+interface.
+Implementation Requirements:
+The default implementation produces a sequential stream that  repeatedly
+ calls
+copy
+() and
+jump
+()
+ on this generator, and the copies become the generators produced by the stream.
+Parameters:
+streamSize
+- the number of generators to generate
+Returns:
+a stream of objects that implement the
+RandomGenerator
+interface
+Throws:
+IllegalArgumentException
+- if
+streamSize
+is less than zero
+rngs
+default
+Stream
+<
+RandomGenerator
+>
+rngs
+()
+Returns an effectively unlimited stream of new pseudorandom number
+ generators, each of which implements the
+RandomGenerator
+interface. Ideally the generators in the stream will appear to be
+ statistically independent.
+Specified by:
+rngs
+in interface
+RandomGenerator.StreamableGenerator
+Implementation Requirements:
+The default implementation calls
+jumps
+().
+Returns:
+a stream of objects that implement the
+RandomGenerator
+interface
+rngs
+default
+Stream
+<
+RandomGenerator
+>
+rngs
+(long streamSize)
+Returns a stream producing the given
+streamSize
+number of new
+ pseudorandom number generators, each of which implements the
+RandomGenerator
+interface. Ideally the generators in the
+ stream will appear to be statistically independent.
+Specified by:
+rngs
+in interface
+RandomGenerator.StreamableGenerator
+Implementation Requirements:
+The default implementation calls
+jumps
+(streamSize).
+Parameters:
+streamSize
+- the number of generators to generate
+Returns:
+a stream of objects that implement the
+RandomGenerator
+interface
+Throws:
+IllegalArgumentException
+- if
+streamSize
+is less than zero
+copyAndJump
+default
+RandomGenerator
+copyAndJump
+()
+Copy this generator, jump this generator forward, then return the
+ copy.
+Implementation Requirements:
+The default implementation copies this, jumps and then
+ returns the copy.
+Returns:
+a copy of this generator object before the jump occurred
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

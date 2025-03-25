@@ -1,0 +1,309 @@
+OAEPParameterSpec (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+javax.crypto.spec
+Class OAEPParameterSpec
+java.lang.Object
+javax.crypto.spec.OAEPParameterSpec
+All Implemented Interfaces:
+AlgorithmParameterSpec
+public class
+OAEPParameterSpec
+extends
+Object
+implements
+AlgorithmParameterSpec
+This class specifies the set of parameters used with OAEP Padding,
+ as defined in the
+PKCS#1 v2.2
+standard.
+
+ Its ASN.1 definition in PKCS#1 standard is described below:
+RSAES-OAEP-params ::= SEQUENCE {
+   hashAlgorithm      [0] HashAlgorithm     DEFAULT sha1,
+   maskGenAlgorithm   [1] MaskGenAlgorithm  DEFAULT mgf1SHA1,
+   pSourceAlgorithm   [2] PSourceAlgorithm  DEFAULT pSpecifiedEmpty
+ }
+where
+HashAlgorithm ::= AlgorithmIdentifier {
+   {OAEP-PSSDigestAlgorithms}
+ }
+ MaskGenAlgorithm ::= AlgorithmIdentifier { {PKCS1MGFAlgorithms} }
+ PSourceAlgorithm ::= AlgorithmIdentifier {
+   {PKCS1PSourceAlgorithms}
+ }
+
+ OAEP-PSSDigestAlgorithms    ALGORITHM-IDENTIFIER ::= {
+   { OID id-sha1       PARAMETERS NULL }|
+   { OID id-sha224     PARAMETERS NULL }|
+   { OID id-sha256     PARAMETERS NULL }|
+   { OID id-sha384     PARAMETERS NULL }|
+   { OID id-sha512     PARAMETERS NULL }|
+   { OID id-sha512-224 PARAMETERS NULL }|
+   { OID id-sha512-256 PARAMETERS NULL },
+   ...  -- Allows for future expansion --
+ }
+ PKCS1MGFAlgorithms    ALGORITHM-IDENTIFIER ::= {
+   { OID id-mgf1 PARAMETERS HashAlgorithm },
+   ...  -- Allows for future expansion --
+ }
+ PKCS1PSourceAlgorithms    ALGORITHM-IDENTIFIER ::= {
+   { OID id-pSpecified PARAMETERS EncodingParameters },
+   ...  -- Allows for future expansion --
+ }
+ EncodingParameters ::= OCTET STRING(SIZE(0..MAX))
+Since:
+1.5
+See Also:
+MGF1ParameterSpec
+PSource
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+OAEPParameterSpec
+DEFAULT
+Deprecated.
+This field uses the default values defined in the PKCS #1
+         standard.
+Constructor Summary
+Constructors
+Constructor
+Description
+OAEPParameterSpec
+(
+String
+mdName,
+String
+mgfName,
+AlgorithmParameterSpec
+mgfSpec,
+PSource
+pSrc)
+Constructs a parameter set for OAEP padding as defined in
+ the PKCS #1 standard using the specified message digest
+ algorithm
+mdName
+, mask generation function
+ algorithm
+mgfName
+, parameters for the mask
+ generation function
+mgfSpec
+, and source of
+ the encoding input P
+pSrc
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+String
+getDigestAlgorithm
+()
+Returns the message digest algorithm name.
+String
+getMGFAlgorithm
+()
+Returns the mask generation function algorithm name.
+AlgorithmParameterSpec
+getMGFParameters
+()
+Returns the parameters for the mask generation function.
+PSource
+getPSource
+()
+Returns the source of encoding input P.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+DEFAULT
+@Deprecated
+(
+since
+="19")
+public static final
+OAEPParameterSpec
+DEFAULT
+Deprecated.
+This field uses the default values defined in the PKCS #1
+         standard. Some of these defaults are no longer recommended due
+         to advances in cryptanalysis -- see
+Appendix B.1 of PKCS #1
+for more details. Thus, it is recommended to create
+         a new
+OAEPParameterSpec
+with the desired parameter values
+         using the
+OAEPParameterSpec(String, String, AlgorithmParameterSpec, PSource)
+constructor.
+The OAEP parameter set with all default values, i.e. "SHA-1" as message
+ digest algorithm, "MGF1" as mask generation function (mgf) algorithm,
+MGF1ParameterSpec.SHA1
+as parameters for the mask generation
+ function, and
+PSource.PSpecified.DEFAULT
+as the source of the
+ encoding input.
+Constructor Details
+OAEPParameterSpec
+public
+OAEPParameterSpec
+(
+String
+mdName,
+String
+mgfName,
+AlgorithmParameterSpec
+mgfSpec,
+PSource
+pSrc)
+Constructs a parameter set for OAEP padding as defined in
+ the PKCS #1 standard using the specified message digest
+ algorithm
+mdName
+, mask generation function
+ algorithm
+mgfName
+, parameters for the mask
+ generation function
+mgfSpec
+, and source of
+ the encoding input P
+pSrc
+.
+Parameters:
+mdName
+- the algorithm name for the message digest
+mgfName
+- the algorithm name for the mask generation function
+mgfSpec
+- the parameters for the mask generation function;
+ if
+null
+is specified,
+null
+will be returned by
+getMGFParameters()
+pSrc
+- the source of the encoding input P
+Throws:
+NullPointerException
+- if
+mdName
+,
+mgfName
+, or
+pSrc
+is
+null
+Method Details
+getDigestAlgorithm
+public
+String
+getDigestAlgorithm
+()
+Returns the message digest algorithm name.
+Returns:
+the message digest algorithm name.
+getMGFAlgorithm
+public
+String
+getMGFAlgorithm
+()
+Returns the mask generation function algorithm name.
+Returns:
+the mask generation function algorithm name.
+getMGFParameters
+public
+AlgorithmParameterSpec
+getMGFParameters
+()
+Returns the parameters for the mask generation function.
+Returns:
+the parameters for the mask generation function.
+getPSource
+public
+PSource
+getPSource
+()
+Returns the source of encoding input P.
+Returns:
+the source of encoding input P.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,535 @@
+ElementScanner6 (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.lang.model.util
+Class ElementScanner6<R,
+P>
+java.lang.Object
+javax.lang.model.util.AbstractElementVisitor6
+<R,
+P>
+javax.lang.model.util.ElementScanner6<R,
+P>
+Type Parameters:
+R
+- the return type of this visitor's methods.  Use
+Void
+for visitors that do not need to return results.
+P
+- the type of the additional parameter to this visitor's
+            methods.  Use
+Void
+for visitors that do not need an
+            additional parameter.
+All Implemented Interfaces:
+ElementVisitor
+<R,
+P>
+Direct Known Subclasses:
+ElementScanner7
+@SupportedSourceVersion
+(
+RELEASE_6
+)
+public class
+ElementScanner6<R,
+P>
+extends
+AbstractElementVisitor6
+<R,
+P>
+A scanning visitor of program elements with default behavior
+ appropriate for the
+RELEASE_6
+source version.  The
+visit
+Xyz
+methods in this
+ class scan their component elements by calling
+scan
+on their
+enclosed elements
+,
+parameters
+, etc., as indicated in
+ the individual method specifications.  A subclass can control the
+ order elements are visited by overriding the
+visit
+Xyz
+methods.  Note that clients of a
+ scanner may get the desired behavior by invoking
+v.scan(e,
+ p)
+rather than
+v.visit(e, p)
+on the root objects of
+ interest.
+When a subclass overrides a
+visit
+Xyz
+method, the
+ new method can cause the enclosed elements to be scanned in the
+ default way by calling
+super.visit
+Xyz
+.  In this
+ fashion, the concrete visitor can control the ordering of traversal
+ over the component elements with respect to the additional
+ processing; for example, consistently calling
+super.visit
+Xyz
+at the start of the overridden
+ methods will yield a preorder traversal, etc.  If the component
+ elements should be traversed in some other order, instead of
+ calling
+super.visit
+Xyz
+, an overriding visit method
+ should call
+scan
+with the elements in the desired order.
+API Note:
+Methods in this class may be overridden subject to their general
+ contract.
+WARNING:
+The
+ElementVisitor
+interface
+ implemented by this class may have methods added to it in the
+ future to accommodate new, currently unknown, language structures
+ added to future versions of the Java programming language.
+ Therefore, methods whose names begin with
+"visit"
+may be
+ added to this class in the future; to avoid incompatibilities,
+ classes which extend this class should not declare any instance
+ methods with names beginning with
+"visit"
+.
+When such a new visit method is added, the default
+ implementation in this class will be to directly or indirectly call the
+visitUnknown
+method.  A new element scanner visitor
+ class will also be introduced to correspond to the new language
+ level; this visitor will have different default behavior for the
+ visit method in question.  When a new visitor is introduced,
+ portions of this visitor class may be deprecated, including its constructors.
+Since:
+1.6
+See Also:
+ElementScanner7
+ElementScanner8
+ElementScanner9
+ElementScanner14
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected final
+R
+DEFAULT_VALUE
+The specified default value.
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+ElementScanner6
+()
+Deprecated.
+Release 6 is obsolete; update to a visitor for a newer
+ release level.
+protected
+ElementScanner6
+(
+R
+defaultValue)
+Deprecated.
+Release 6 is obsolete; update to a visitor for a newer
+ release level.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+final
+R
+scan
+(
+Iterable
+<? extends
+Element
+> iterable,
+P
+p)
+Iterates over the given elements and calls
+scan(Element, P)
+on each one.
+final
+R
+scan
+(
+Element
+e)
+Convenience method equivalent to
+v.scan(e, null)
+.
+R
+scan
+(
+Element
+e,
+P
+p)
+Processes an element by calling
+e.accept(this, p)
+;
+ this method may be overridden by subclasses.
+R
+visitExecutable
+(
+ExecutableElement
+e,
+P
+p)
+Visits an executable element.
+R
+visitPackage
+(
+PackageElement
+e,
+P
+p)
+Visits a package element.
+R
+visitType
+(
+TypeElement
+e,
+P
+p)
+Visits a type element.
+R
+visitTypeParameter
+(
+TypeParameterElement
+e,
+P
+p)
+Visits a type parameter element.
+R
+visitVariable
+(
+VariableElement
+e,
+P
+p)
+Visits a variable element.
+Methods declared in class javax.lang.model.util.
+AbstractElementVisitor6
+visit
+,
+visit
+,
+visitModule
+,
+visitRecordComponent
+,
+visitUnknown
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+DEFAULT_VALUE
+protected final
+R
+DEFAULT_VALUE
+The specified default value.
+Constructor Details
+ElementScanner6
+@Deprecated
+(
+since
+="9")
+protected
+ElementScanner6
+()
+Deprecated.
+Release 6 is obsolete; update to a visitor for a newer
+ release level.
+Constructor for concrete subclasses; uses
+null
+for the
+ default value.
+ElementScanner6
+@Deprecated
+(
+since
+="9")
+protected
+ElementScanner6
+(
+R
+defaultValue)
+Deprecated.
+Release 6 is obsolete; update to a visitor for a newer
+ release level.
+Constructor for concrete subclasses; uses the argument for the
+ default value.
+Parameters:
+defaultValue
+- the default value
+Method Details
+scan
+public final
+R
+scan
+(
+Iterable
+<? extends
+Element
+> iterable,
+P
+p)
+Iterates over the given elements and calls
+scan(Element, P)
+on each one.  Returns
+ the result of the last call to
+scan
+or
+DEFAULT_VALUE
+for an empty iterable.
+Parameters:
+iterable
+- the elements to scan
+p
+- additional parameter
+Returns:
+the scan of the last element or
+DEFAULT_VALUE
+if no elements
+scan
+public
+R
+scan
+(
+Element
+e,
+P
+p)
+Processes an element by calling
+e.accept(this, p)
+;
+ this method may be overridden by subclasses.
+Parameters:
+e
+- the element to scan
+p
+- a scanner-specified parameter
+Returns:
+the result of visiting
+e
+.
+scan
+public final
+R
+scan
+(
+Element
+e)
+Convenience method equivalent to
+v.scan(e, null)
+.
+Parameters:
+e
+- the element to scan
+Returns:
+the result of scanning
+e
+.
+visitPackage
+public
+R
+visitPackage
+(
+PackageElement
+e,
+P
+p)
+Visits a package element.
+Implementation Requirements:
+This implementation scans the enclosed elements.
+Parameters:
+e
+- the element to visit
+p
+- a visitor-specified parameter
+Returns:
+the result of scanning
+visitType
+public
+R
+visitType
+(
+TypeElement
+e,
+P
+p)
+Visits a type element.
+Implementation Requirements:
+This implementation scans the enclosed elements.
+ Note that type parameters are
+not
+scanned by this
+ implementation since type parameters are not considered to be
+enclosed elements
+ of a type
+.
+Parameters:
+e
+- the element to visit
+p
+- a visitor-specified parameter
+Returns:
+the result of scanning
+visitVariable
+public
+R
+visitVariable
+(
+VariableElement
+e,
+P
+p)
+Visits a variable element.
+Implementation Requirements:
+This implementation scans the enclosed elements, unless the
+ element is a
+RESOURCE_VARIABLE
+in which case
+visitUnknown
+is called.
+Parameters:
+e
+- the element to visit
+p
+- a visitor-specified parameter
+Returns:
+the result of scanning
+visitExecutable
+public
+R
+visitExecutable
+(
+ExecutableElement
+e,
+P
+p)
+Visits an executable element.
+Implementation Requirements:
+This implementation scans the parameters.
+ Note that type parameters are
+not
+scanned by this
+ implementation.
+Parameters:
+e
+- the element to visit
+p
+- a visitor-specified parameter
+Returns:
+the result of scanning
+visitTypeParameter
+public
+R
+visitTypeParameter
+(
+TypeParameterElement
+e,
+P
+p)
+Visits a type parameter element.
+Implementation Requirements:
+This implementation scans the enclosed elements.
+Parameters:
+e
+- the element to visit
+p
+- a visitor-specified parameter
+Returns:
+the result of scanning
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

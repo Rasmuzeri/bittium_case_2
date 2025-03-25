@@ -1,0 +1,174 @@
+Filter.Chain (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.httpserver
+Package
+com.sun.net.httpserver
+Class Filter.Chain
+java.lang.Object
+com.sun.net.httpserver.Filter.Chain
+Enclosing class:
+Filter
+public static class
+Filter.Chain
+extends
+Object
+A chain of filters associated with a
+HttpServer
+.
+ Each filter in the chain is given one of these so it can invoke the
+ next filter in the chain.
+Constructor Summary
+Constructors
+Constructor
+Description
+Chain
+(
+List
+<
+Filter
+> filters,
+HttpHandler
+handler)
+Creates a
+Chain
+instance with given filters and handler.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+doFilter
+(
+HttpExchange
+exchange)
+Calls the next filter in the chain, or else the users exchange
+ handler, if this is the final filter in the chain.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+Chain
+public
+Chain
+(
+List
+<
+Filter
+> filters,
+HttpHandler
+handler)
+Creates a
+Chain
+instance with given filters and handler.
+Parameters:
+filters
+- the filters that make up the
+Chain
+handler
+- the
+HttpHandler
+that will be invoked after
+                the final
+Filter
+has finished
+Method Details
+doFilter
+public
+void
+doFilter
+(
+HttpExchange
+exchange)
+throws
+IOException
+Calls the next filter in the chain, or else the users exchange
+ handler, if this is the final filter in the chain. The
+Filter
+may decide to terminate the chain, by not calling this method.
+ In this case, the filter
+must
+send the response to the
+ request, because the application's
+exchange
+handler will not be invoked.
+Parameters:
+exchange
+- the
+HttpExchange
+Throws:
+IOException
+- if an I/O error occurs
+NullPointerException
+- if exchange is
+null
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,145 @@
+SourcePositions (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.compiler
+Package
+com.sun.source.util
+Interface SourcePositions
+All Known Subinterfaces:
+DocSourcePositions
+public interface
+SourcePositions
+Provides methods to obtain the position of a Tree within a CompilationUnit.
+ A position is defined as a simple character offset from the start of a
+ CompilationUnit where the first character is at offset 0.
+Since:
+1.6
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+long
+getEndPosition
+(
+CompilationUnitTree
+file,
+Tree
+tree)
+Returns the ending position of tree within file.
+long
+getStartPosition
+(
+CompilationUnitTree
+file,
+Tree
+tree)
+Returns the starting position of tree within file.
+Method Details
+getStartPosition
+long
+getStartPosition
+(
+CompilationUnitTree
+file,
+Tree
+tree)
+Returns the starting position of tree within file.  If tree is not found within
+ file, or if the starting position is not available,
+ returns
+Diagnostic.NOPOS
+.
+ The returned position must be at the start of the yield of this tree, that
+ is for any sub-tree of this tree, the following must hold:
+getStartPosition(file, tree) <= getStartPosition(file, subtree)
+or
+getStartPosition(file, tree) == NOPOS
+or
+getStartPosition(file, subtree) == NOPOS
+Parameters:
+file
+- CompilationUnit in which to find tree
+tree
+- tree for which a position is sought
+Returns:
+the start position of tree
+getEndPosition
+long
+getEndPosition
+(
+CompilationUnitTree
+file,
+Tree
+tree)
+Returns the ending position of tree within file.  If tree is not found within
+ file, or if the ending position is not available,
+ returns
+Diagnostic.NOPOS
+.
+ The returned position must be at the end of the yield of this tree,
+ that is for any sub-tree of this tree, the following must hold:
+getEndPosition(file, tree) >= getEndPosition(file, subtree)
+or
+getEndPosition(file, tree) == NOPOS
+or
+getEndPosition(file, subtree) == NOPOS
+In addition, the following must hold:
+getStartPosition(file, tree) <= getEndPosition(file, tree)
+or
+getStartPosition(file, tree) == NOPOS
+or
+getEndPosition(file, tree) == NOPOS
+Parameters:
+file
+- CompilationUnit in which to find tree
+tree
+- tree for which a position is sought
+Returns:
+the end position of tree
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,485 @@
+StyledEditorKit (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.text
+Class StyledEditorKit
+java.lang.Object
+javax.swing.text.EditorKit
+javax.swing.text.DefaultEditorKit
+javax.swing.text.StyledEditorKit
+All Implemented Interfaces:
+Serializable
+,
+Cloneable
+Direct Known Subclasses:
+HTMLEditorKit
+,
+RTFEditorKit
+public class
+StyledEditorKit
+extends
+DefaultEditorKit
+This is the set of things needed by a text component
+ to be a reasonably functioning editor for some
+type
+of text document.  This implementation provides a default
+ implementation which treats text as styled text and
+ provides a minimal set of actions for editing styled text.
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+static class
+StyledEditorKit.AlignmentAction
+An action to set paragraph alignment.
+static class
+StyledEditorKit.BoldAction
+An action to toggle the bold attribute.
+static class
+StyledEditorKit.FontFamilyAction
+An action to set the font family in the associated
+ JEditorPane.
+static class
+StyledEditorKit.FontSizeAction
+An action to set the font size in the associated
+ JEditorPane.
+static class
+StyledEditorKit.ForegroundAction
+An action to set foreground color.
+static class
+StyledEditorKit.ItalicAction
+An action to toggle the italic attribute.
+static class
+StyledEditorKit.StyledTextAction
+An action that assumes it's being fired on a JEditorPane
+ with a StyledEditorKit (or subclass) installed.
+static class
+StyledEditorKit.UnderlineAction
+An action to toggle the underline attribute.
+Nested classes/interfaces declared in class javax.swing.text.
+DefaultEditorKit
+DefaultEditorKit.BeepAction
+,
+DefaultEditorKit.CopyAction
+,
+DefaultEditorKit.CutAction
+,
+DefaultEditorKit.DefaultKeyTypedAction
+,
+DefaultEditorKit.InsertBreakAction
+,
+DefaultEditorKit.InsertContentAction
+,
+DefaultEditorKit.InsertTabAction
+,
+DefaultEditorKit.PasteAction
+Field Summary
+Fields declared in class javax.swing.text.
+DefaultEditorKit
+backwardAction
+,
+beepAction
+,
+beginAction
+,
+beginLineAction
+,
+beginLineUpAction
+,
+beginParagraphAction
+,
+beginWordAction
+,
+copyAction
+,
+cutAction
+,
+defaultKeyTypedAction
+,
+deleteNextCharAction
+,
+deleteNextWordAction
+,
+deletePrevCharAction
+,
+deletePrevWordAction
+,
+downAction
+,
+endAction
+,
+endLineAction
+,
+endLineDownAction
+,
+EndOfLineStringProperty
+,
+endParagraphAction
+,
+endWordAction
+,
+forwardAction
+,
+insertBreakAction
+,
+insertContentAction
+,
+insertTabAction
+,
+nextWordAction
+,
+pageDownAction
+,
+pageUpAction
+,
+pasteAction
+,
+previousWordAction
+,
+readOnlyAction
+,
+selectAllAction
+,
+selectionBackwardAction
+,
+selectionBeginAction
+,
+selectionBeginLineAction
+,
+selectionBeginParagraphAction
+,
+selectionBeginWordAction
+,
+selectionDownAction
+,
+selectionEndAction
+,
+selectionEndLineAction
+,
+selectionEndParagraphAction
+,
+selectionEndWordAction
+,
+selectionForwardAction
+,
+selectionNextWordAction
+,
+selectionPreviousWordAction
+,
+selectionUpAction
+,
+selectLineAction
+,
+selectParagraphAction
+,
+selectWordAction
+,
+upAction
+,
+writableAction
+Constructor Summary
+Constructors
+Constructor
+Description
+StyledEditorKit
+()
+Creates a new EditorKit used for styled documents.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Object
+clone
+()
+Creates a copy of the editor kit.
+Document
+createDefaultDocument
+()
+Creates an uninitialized text storage model
+ that is appropriate for this type of editor.
+protected void
+createInputAttributes
+(
+Element
+element,
+MutableAttributeSet
+set)
+Copies the key/values in
+element
+s AttributeSet into
+set
+.
+void
+deinstall
+(
+JEditorPane
+c)
+Called when the kit is being removed from the
+ JEditorPane.
+Action
+[]
+getActions
+()
+Fetches the command list for the editor.
+Element
+getCharacterAttributeRun
+()
+Fetches the element representing the current
+ run of character attributes for the caret.
+MutableAttributeSet
+getInputAttributes
+()
+Gets the input attributes for the pane.
+ViewFactory
+getViewFactory
+()
+Fetches a factory that is suitable for producing
+ views of any models that are produced by this
+ kit.
+void
+install
+(
+JEditorPane
+c)
+Called when the kit is being installed into
+ a JEditorPane.
+Methods declared in class javax.swing.text.
+DefaultEditorKit
+createCaret
+,
+getContentType
+,
+read
+,
+read
+,
+write
+,
+write
+Methods declared in class java.lang.
+Object
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+StyledEditorKit
+public
+StyledEditorKit
+()
+Creates a new EditorKit used for styled documents.
+Method Details
+getInputAttributes
+public
+MutableAttributeSet
+getInputAttributes
+()
+Gets the input attributes for the pane.  When
+ the caret moves and there is no selection, the
+ input attributes are automatically mutated to
+ reflect the character attributes of the current
+ caret location.  The styled editing actions
+ use the input attributes to carry out their
+ actions.
+Returns:
+the attribute set
+getCharacterAttributeRun
+public
+Element
+getCharacterAttributeRun
+()
+Fetches the element representing the current
+ run of character attributes for the caret.
+Returns:
+the element
+getActions
+public
+Action
+[]
+getActions
+()
+Fetches the command list for the editor.  This is
+ the list of commands supported by the superclass
+ augmented by the collection of commands defined
+ locally for style operations.
+Overrides:
+getActions
+in class
+DefaultEditorKit
+Returns:
+the command list
+createDefaultDocument
+public
+Document
+createDefaultDocument
+()
+Creates an uninitialized text storage model
+ that is appropriate for this type of editor.
+Overrides:
+createDefaultDocument
+in class
+DefaultEditorKit
+Returns:
+the model
+install
+public
+void
+install
+(
+JEditorPane
+c)
+Called when the kit is being installed into
+ a JEditorPane.
+Overrides:
+install
+in class
+EditorKit
+Parameters:
+c
+- the JEditorPane
+deinstall
+public
+void
+deinstall
+(
+JEditorPane
+c)
+Called when the kit is being removed from the
+ JEditorPane.  This is used to unregister any
+ listeners that were attached.
+Overrides:
+deinstall
+in class
+EditorKit
+Parameters:
+c
+- the JEditorPane
+getViewFactory
+public
+ViewFactory
+getViewFactory
+()
+Fetches a factory that is suitable for producing
+ views of any models that are produced by this
+ kit.  This is implemented to return View implementations
+ for the following kinds of elements:
+AbstractDocument.ContentElementName
+AbstractDocument.ParagraphElementName
+AbstractDocument.SectionElementName
+StyleConstants.ComponentElementName
+StyleConstants.IconElementName
+Overrides:
+getViewFactory
+in class
+DefaultEditorKit
+Returns:
+the factory
+clone
+public
+Object
+clone
+()
+Creates a copy of the editor kit.
+Overrides:
+clone
+in class
+EditorKit
+Returns:
+the copy
+See Also:
+Cloneable
+createInputAttributes
+protected
+void
+createInputAttributes
+(
+Element
+element,
+MutableAttributeSet
+set)
+Copies the key/values in
+element
+s AttributeSet into
+set
+. This does not copy component, icon, or element
+ names attributes. Subclasses may wish to refine what is and what
+ isn't copied here. But be sure to first remove all the attributes that
+ are in
+set
+.
+This is called anytime the caret moves over a different location.
+Parameters:
+element
+- the element
+set
+- the attributes
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

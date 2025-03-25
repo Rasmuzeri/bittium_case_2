@@ -1,0 +1,534 @@
+AnnotatedConstruct (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.lang.model
+Interface AnnotatedConstruct
+All Known Subinterfaces:
+ArrayType
+,
+DeclaredType
+,
+Element
+,
+ErrorType
+,
+ExecutableElement
+,
+ExecutableType
+,
+IntersectionType
+,
+ModuleElement
+,
+NoType
+,
+NullType
+,
+PackageElement
+,
+Parameterizable
+,
+PrimitiveType
+,
+QualifiedNameable
+,
+RecordComponentElement
+,
+ReferenceType
+,
+TypeElement
+,
+TypeMirror
+,
+TypeParameterElement
+,
+TypeVariable
+,
+UnionType
+,
+VariableElement
+,
+WildcardType
+public interface
+AnnotatedConstruct
+Represents a construct that can be annotated.
+
+ A construct is either an
+element
+or a
+type
+.  Annotations on an element
+ are on a
+declaration
+, whereas annotations on a type are on
+ a specific
+use
+of a type name.
+
+ As defined by
+The Java Language Specification
+section
+9.7.4
+, an annotation on an element is a
+declaration annotation
+and an annotation on a type is a
+type annotation
+.
+
+ The terms
+directly present
+,
+present
+,
+indirectly present
+, and
+associated
+are used
+ throughout this interface to describe precisely which annotations,
+ either declaration annotations or type annotations, are returned by
+ the methods in this interface.
+In the definitions below, an annotation
+A
+has an
+ annotation interface
+AI
+. If
+AI
+is a repeatable annotation
+ interface, the type of the containing annotation is
+AIC
+.
+Annotation
+A
+is
+directly present
+on a construct
+C
+if either:
+A
+is
+explicitly or implicitly
+declared as applying to
+ the source code representation of
+C
+.
+Typically, if exactly one annotation of type
+AI
+appears in
+ the source code of representation of
+C
+, then
+A
+is
+ explicitly declared as applying to
+C
+.
+
+ An annotation of type
+AI
+on a
+record component
+can be implicitly propagated
+ down to affiliated mandated members. Type annotations modifying the
+ type of a record component can be also propagated to mandated
+ members. Propagation of the annotations to mandated members is
+ governed by rules given in the
+The Java Language
+ Specification
+(JLS
+8.10.1
+).
+
+ If there are multiple annotations of type
+AI
+present on
+C
+, then if
+AI
+is repeatable annotation interface, an
+ annotation of type
+AIC
+is
+implicitly declared
+on
+C
+.
+A representation of
+A
+appears in the executable output
+ for
+C
+, such as the
+RuntimeVisibleAnnotations
+(JVMS
+4.7.16
+) or
+RuntimeVisibleParameterAnnotations
+(JVMS
+4.7.17
+) attributes of a class
+ file.
+An annotation
+A
+is
+present
+on a
+ construct
+C
+if either:
+A
+is directly present on
+C
+.
+No annotation of type
+AI
+is directly present on
+C
+, and
+C
+is a class and
+AI
+is inheritable
+ and
+A
+is present on the superclass of
+C
+.
+An annotation
+A
+is
+indirectly present
+on a construct
+C
+if both:
+AI
+is a repeatable annotation interface with a containing
+ annotation interface
+AIC
+.
+An annotation of type
+AIC
+is directly present on
+C
+and
+A
+is an annotation included in the result of
+ calling the
+value
+method of the directly present annotation
+ of type
+AIC
+.
+An annotation
+A
+is
+associated
+with a construct
+C
+if either:
+A
+is directly or indirectly present on
+C
+.
+No annotation of type
+AI
+is directly or indirectly
+ present on
+C
+, and
+C
+is a class, and
+AI
+is
+ inheritable, and
+A
+is associated with the superclass of
+C
+.
+See
+Java Language Specification
+:
+9.6 Annotation Interfaces
+9.6.4.3
+@Inherited
+9.7.4 Where Annotations May Appear
+9.7.5 Multiple Annotations of the Same Interface
+Since:
+1.8
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+<A extends
+Annotation
+>
+A
+getAnnotation
+(
+Class
+<A> annotationType)
+Returns this construct's annotation of the specified type if
+ such an annotation is
+present
+, else
+null
+.
+List
+<? extends
+AnnotationMirror
+>
+getAnnotationMirrors
+()
+Returns the annotations that are
+directly present
+on
+ this construct.
+<A extends
+Annotation
+>
+A[]
+getAnnotationsByType
+(
+Class
+<A> annotationType)
+Returns annotations that are
+associated
+with this construct.
+Method Details
+getAnnotationMirrors
+List
+<? extends
+AnnotationMirror
+>
+getAnnotationMirrors
+()
+Returns the annotations that are
+directly present
+on
+ this construct.
+Returns:
+the annotations
+directly present
+on this
+ construct; an empty list if there are none
+getAnnotation
+<A extends
+Annotation
+>
+A
+getAnnotation
+(
+Class
+<A> annotationType)
+Returns this construct's annotation of the specified type if
+ such an annotation is
+present
+, else
+null
+.
+The annotation returned by this method could contain an element
+ whose value is of type
+Class
+.
+ This value cannot be returned directly:  information necessary to
+ locate and load a class (such as the class loader to use) is
+ not available, and the class might not be loadable at all.
+ Attempting to read a
+Class
+object by invoking the relevant
+ method on the returned annotation
+ will result in a
+MirroredTypeException
+,
+ from which the corresponding
+TypeMirror
+may be extracted.
+ Similarly, attempting to read a
+Class[]
+-valued element
+ will result in a
+MirroredTypesException
+.
+Note:
+This method is unlike others in this and related
+ interfaces.  It operates on runtime reflective information —
+ representations of annotation interfaces currently loaded into the
+ VM — rather than on the representations defined by and used
+ throughout these interfaces.  Consequently, calling methods on
+ the returned annotation object can throw many of the exceptions
+ that can be thrown when calling methods on an annotation object
+ returned by core reflection.  This method is intended for
+ callers that are written to operate on a known, fixed set of
+ annotation interfaces.
+Type Parameters:
+A
+- the annotation interface
+Parameters:
+annotationType
+- the
+Class
+object corresponding to
+          the annotation interface
+Returns:
+this construct's annotation of the specified type if
+ such an annotation is
+present
+, else
+null
+See
+Java Language Specification
+:
+9.6.1 Annotation Interface Elements
+See Also:
+getAnnotationMirrors()
+AnnotatedElement.getAnnotation(java.lang.Class<T>)
+EnumConstantNotPresentException
+AnnotationTypeMismatchException
+IncompleteAnnotationException
+MirroredTypeException
+MirroredTypesException
+getAnnotationsByType
+<A extends
+Annotation
+>
+A[]
+getAnnotationsByType
+(
+Class
+<A> annotationType)
+Returns annotations that are
+associated
+with this construct.
+
+ If there are no annotations associated with this construct, the
+ return value is an array of length 0.
+
+ The order of annotations which are directly or indirectly
+ present on a construct
+C
+is computed as if indirectly present
+ annotations on
+C
+are directly present on
+C
+in place of their
+ container annotation, in the order in which they appear in the
+ value element of the container annotation.
+
+ The difference between this method and
+getAnnotation(Class)
+is that this method detects if its argument is a
+repeatable
+ annotation interface
+, and if so, attempts to find one or more
+ annotations of that type by "looking through" a container annotation.
+The annotations returned by this method could contain an element
+ whose value is of type
+Class
+.
+ This value cannot be returned directly:  information necessary to
+ locate and load a class (such as the class loader to use) is
+ not available, and the class might not be loadable at all.
+ Attempting to read a
+Class
+object by invoking the relevant
+ method on the returned annotation
+ will result in a
+MirroredTypeException
+,
+ from which the corresponding
+TypeMirror
+may be extracted.
+ Similarly, attempting to read a
+Class[]
+-valued element
+ will result in a
+MirroredTypesException
+.
+Note:
+This method is unlike others in this and related
+ interfaces.  It operates on runtime reflective information —
+ representations of annotation interfaces currently loaded into the
+ VM — rather than on the representations defined by and used
+ throughout these interfaces.  Consequently, calling methods on
+ the returned annotation object can throw many of the exceptions
+ that can be thrown when calling methods on an annotation object
+ returned by core reflection.  This method is intended for
+ callers that are written to operate on a known, fixed set of
+ annotation interfaces.
+Type Parameters:
+A
+- the annotation interface
+Parameters:
+annotationType
+- the
+Class
+object corresponding to
+          the annotation interface
+Returns:
+this construct's annotations for the specified annotation
+         type if present on this construct, else an empty array
+See
+Java Language Specification
+:
+9.6 Annotation Interfaces
+9.6.1 Annotation Interface Elements
+See Also:
+getAnnotationMirrors()
+getAnnotation(Class)
+AnnotatedElement.getAnnotationsByType(Class)
+EnumConstantNotPresentException
+AnnotationTypeMismatchException
+IncompleteAnnotationException
+MirroredTypeException
+MirroredTypesException
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

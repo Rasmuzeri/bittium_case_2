@@ -1,0 +1,289 @@
+RemoteObjectInvocationHandler (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.rmi
+Package
+java.rmi.server
+Class RemoteObjectInvocationHandler
+java.lang.Object
+java.rmi.server.RemoteObject
+java.rmi.server.RemoteObjectInvocationHandler
+All Implemented Interfaces:
+Serializable
+,
+InvocationHandler
+,
+Remote
+public class
+RemoteObjectInvocationHandler
+extends
+RemoteObject
+implements
+InvocationHandler
+An implementation of the
+InvocationHandler
+interface for
+ use with Java Remote Method Invocation (Java RMI).  This invocation
+ handler can be used in conjunction with a dynamic proxy instance as a
+ replacement for a pregenerated stub class.
+Applications are not expected to use this class directly.  A remote
+ object exported to use a dynamic proxy with
+UnicastRemoteObject
+has an instance of this class as that proxy's invocation handler.
+Since:
+1.5
+See Also:
+Serialized Form
+Field Summary
+Fields declared in class java.rmi.server.
+RemoteObject
+ref
+Constructor Summary
+Constructors
+Constructor
+Description
+RemoteObjectInvocationHandler
+(
+RemoteRef
+ref)
+Creates a new
+RemoteObjectInvocationHandler
+constructed
+ with the specified
+RemoteRef
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Object
+invoke
+(
+Object
+proxy,
+Method
+method,
+Object
+[] args)
+Processes a method invocation made on the encapsulating
+ proxy instance,
+proxy
+, and returns the result.
+Methods declared in class java.rmi.server.
+RemoteObject
+equals
+,
+getRef
+,
+hashCode
+,
+toString
+,
+toStub
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+RemoteObjectInvocationHandler
+public
+RemoteObjectInvocationHandler
+(
+RemoteRef
+ref)
+Creates a new
+RemoteObjectInvocationHandler
+constructed
+ with the specified
+RemoteRef
+.
+Parameters:
+ref
+- the remote ref
+Throws:
+NullPointerException
+- if
+ref
+is
+null
+Method Details
+invoke
+public
+Object
+invoke
+(
+Object
+proxy,
+Method
+method,
+Object
+[] args)
+throws
+Throwable
+Processes a method invocation made on the encapsulating
+ proxy instance,
+proxy
+, and returns the result.
+RemoteObjectInvocationHandler
+implements this method
+ as follows:
+If
+method
+is one of the following methods, it
+ is processed as described below:
+Object.hashCode
+: Returns the hash
+ code value for the proxy.
+Object.equals
+: Returns
+true
+if the argument (
+args[0]
+) is an instance of a dynamic
+ proxy class and this invocation handler is equal to the invocation
+ handler of that argument, and returns
+false
+otherwise.
+Object.toString
+: Returns a string
+ representation of the proxy.
+If
+method
+overrides
+Object.finalize
+,
+ it is ignored.
+Otherwise, a remote call is made as follows:
+If
+proxy
+is not an instance of the interface
+Remote
+, then an
+IllegalArgumentException
+is thrown.
+Otherwise, the
+invoke
+method is invoked
+ on this invocation handler's
+RemoteRef
+, passing
+proxy
+,
+method
+,
+args
+, and the
+ method hash (defined in section 8.3 of the "Java Remote Method
+ Invocation (RMI) Specification") for
+method
+, and the
+ result is returned.
+If an exception is thrown by
+RemoteRef.invoke
+and
+ that exception is a checked exception that is not assignable to any
+ exception in the
+throws
+clause of the method
+ implemented by the
+proxy
+'s class, then that exception
+ is wrapped in an
+UnexpectedException
+and the wrapped
+ exception is thrown.  Otherwise, the exception thrown by
+invoke
+is thrown by this method.
+The semantics of this method are unspecified if the
+ arguments could not have been produced by an instance of some
+ valid dynamic proxy class containing this invocation handler.
+Specified by:
+invoke
+in interface
+InvocationHandler
+Parameters:
+proxy
+- the proxy instance that the method was invoked on
+method
+- the
+Method
+instance corresponding to the
+ interface method invoked on the proxy instance
+args
+- an array of objects containing the values of the
+ arguments passed in the method invocation on the proxy instance, or
+null
+if the method takes no arguments
+Returns:
+the value to return from the method invocation on the proxy
+ instance
+Throws:
+Throwable
+- the exception to throw from the method invocation
+ on the proxy instance
+See Also:
+UndeclaredThrowableException
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

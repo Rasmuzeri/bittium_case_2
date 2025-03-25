@@ -1,0 +1,337 @@
+FunctionDescriptor (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang.foreign
+Interface FunctionDescriptor
+public sealed interface
+FunctionDescriptor
+FunctionDescriptor
+is a preview API of the Java platform.
+Programs can only use
+FunctionDescriptor
+when preview features are enabled.
+Preview features may be removed in a future release, or upgraded to permanent features of the Java platform.
+A function descriptor models the signature of a foreign function. A function descriptor is made up of zero or more
+ argument layouts, and zero or one return layout. A function descriptor is used to create
+downcall method handles
+PREVIEW
+and
+upcall stubs
+PREVIEW
+.
+Implementation Requirements:
+Implementing classes are immutable, thread-safe and
+value-based
+.
+Since:
+19
+See Also:
+MemoryLayout
+PREVIEW
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+FunctionDescriptor
+PREVIEW
+appendArgumentLayouts
+(
+MemoryLayout
+PREVIEW
+... addedLayouts)
+Returns a function descriptor with the given argument layouts appended to the argument layouts
+ of this function descriptor.
+List
+<
+MemoryLayout
+PREVIEW
+>
+argumentLayouts
+()
+Returns the argument layouts of this function descriptor (as an unmodifiable list).
+FunctionDescriptor
+PREVIEW
+changeReturnLayout
+(
+MemoryLayout
+PREVIEW
+newReturn)
+Returns a function descriptor with the provided return layout.
+FunctionDescriptor
+PREVIEW
+dropReturnLayout
+()
+Returns a new function descriptor, with no return layout.
+FunctionDescriptor
+PREVIEW
+insertArgumentLayouts
+(int index,
+MemoryLayout
+PREVIEW
+... addedLayouts)
+Returns a function descriptor with the given argument layouts inserted at the given index, into the argument
+ layout array of this function descriptor.
+static
+FunctionDescriptor
+PREVIEW
+of
+(
+MemoryLayout
+PREVIEW
+resLayout,
+MemoryLayout
+PREVIEW
+... argLayouts)
+Creates a function descriptor with the given return and argument layouts.
+static
+FunctionDescriptor
+PREVIEW
+ofVoid
+(
+MemoryLayout
+PREVIEW
+... argLayouts)
+Creates a function descriptor with the given argument layouts and no return layout.
+Optional
+<
+MemoryLayout
+PREVIEW
+>
+returnLayout
+()
+Returns the return layout (if any) of this function descriptor.
+MethodType
+toMethodType
+()
+Returns the method type consisting of the carrier types of the layouts in this function descriptor.
+Method Details
+returnLayout
+Optional
+<
+MemoryLayout
+PREVIEW
+>
+returnLayout
+()
+Returns the return layout (if any) of this function descriptor.
+Returns:
+the return layout (if any) of this function descriptor
+argumentLayouts
+List
+<
+MemoryLayout
+PREVIEW
+>
+argumentLayouts
+()
+Returns the argument layouts of this function descriptor (as an unmodifiable list)..
+Returns:
+the argument layouts of this function descriptor (as an unmodifiable list)
+appendArgumentLayouts
+FunctionDescriptor
+PREVIEW
+appendArgumentLayouts
+(
+MemoryLayout
+PREVIEW
+... addedLayouts)
+Returns a function descriptor with the given argument layouts appended to the argument layouts
+ of this function descriptor.
+Parameters:
+addedLayouts
+- the argument layouts to append.
+Returns:
+a new function descriptor, with the provided additional argument layouts.
+Throws:
+IllegalArgumentException
+- if one of the layouts in
+addedLayouts
+is a padding layout.
+insertArgumentLayouts
+FunctionDescriptor
+PREVIEW
+insertArgumentLayouts
+(int index,
+MemoryLayout
+PREVIEW
+... addedLayouts)
+Returns a function descriptor with the given argument layouts inserted at the given index, into the argument
+ layout array of this function descriptor.
+Parameters:
+index
+- the index at which to insert the arguments
+addedLayouts
+- the argument layouts to insert at given index.
+Returns:
+a new function descriptor, with the provided additional argument layouts.
+Throws:
+IllegalArgumentException
+- if one of the layouts in
+addedLayouts
+is a padding layout.
+IllegalArgumentException
+- if
+index < 0 || index > argumentLayouts().size()
+.
+changeReturnLayout
+FunctionDescriptor
+PREVIEW
+changeReturnLayout
+(
+MemoryLayout
+PREVIEW
+newReturn)
+Returns a function descriptor with the provided return layout.
+Parameters:
+newReturn
+- the new return layout.
+Returns:
+a new function descriptor, with the provided return layout.
+Throws:
+IllegalArgumentException
+- if
+newReturn
+is a padding layout.
+dropReturnLayout
+FunctionDescriptor
+PREVIEW
+dropReturnLayout
+()
+Returns a new function descriptor, with no return layout.
+Returns:
+a new function descriptor, with no return layout
+toMethodType
+MethodType
+toMethodType
+()
+Returns the method type consisting of the carrier types of the layouts in this function descriptor.
+The carrier type of a layout
+L
+is determined as follows:
+If
+L
+is a
+ValueLayout
+PREVIEW
+the carrier type is determined through
+ValueLayout.carrier()
+PREVIEW
+.
+If
+L
+is a
+GroupLayout
+PREVIEW
+or a
+SequenceLayout
+PREVIEW
+, the carrier type is
+MemorySegment
+PREVIEW
+.
+API Note:
+A function descriptor cannot, by construction, contain any padding layouts. As such, it is not
+ necessary to specify how padding layout should be mapped to carrier types.
+Returns:
+the method type consisting of the carrier types of the layouts in this function descriptor.
+of
+static
+FunctionDescriptor
+PREVIEW
+of
+(
+MemoryLayout
+PREVIEW
+resLayout,
+MemoryLayout
+PREVIEW
+... argLayouts)
+Creates a function descriptor with the given return and argument layouts.
+Parameters:
+resLayout
+- the return layout.
+argLayouts
+- the argument layouts.
+Returns:
+a new function descriptor with the provided return and argument layouts.
+Throws:
+IllegalArgumentException
+- if
+resLayout
+is a padding layout.
+IllegalArgumentException
+- if one of the layouts in
+argLayouts
+is a padding layout.
+ofVoid
+static
+FunctionDescriptor
+PREVIEW
+ofVoid
+(
+MemoryLayout
+PREVIEW
+... argLayouts)
+Creates a function descriptor with the given argument layouts and no return layout.  This is useful to model functions
+ that return no values.
+Parameters:
+argLayouts
+- the argument layouts.
+Returns:
+a new function descriptor with the provided argument layouts.
+Throws:
+IllegalArgumentException
+- if one of the layouts in
+argLayouts
+is a padding layout.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

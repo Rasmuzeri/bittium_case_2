@@ -1,0 +1,174 @@
+DocumentationTool.DocumentationTask (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.tools
+Interface DocumentationTool.DocumentationTask
+All Superinterfaces:
+Callable
+<
+Boolean
+>
+Enclosing interface:
+DocumentationTool
+public static interface
+DocumentationTool.DocumentationTask
+extends
+Callable
+<
+Boolean
+>
+Interface representing a future for a documentation task.  The
+ task has not yet started.  To start the task, call
+ the
+call
+method.
+Before calling the
+call
+method, additional aspects of the
+ task can be configured, for example, by calling the
+setLocale
+method.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+void
+addModules
+(
+Iterable
+<
+String
+> moduleNames)
+Adds root modules to be taken into account during module
+ resolution.
+Boolean
+call
+()
+Performs this documentation task.
+void
+setLocale
+(
+Locale
+locale)
+Sets the locale to be applied when formatting diagnostics and
+ other localized data.
+Method Details
+addModules
+void
+addModules
+(
+Iterable
+<
+String
+> moduleNames)
+Adds root modules to be taken into account during module
+ resolution.
+ Invalid module names may cause either
+IllegalArgumentException
+to be thrown,
+ or diagnostics to be reported when the task is started.
+Parameters:
+moduleNames
+- the names of the root modules
+Throws:
+IllegalArgumentException
+- may be thrown for some
+      invalid module names
+IllegalStateException
+- if the task has started
+Since:
+9
+setLocale
+void
+setLocale
+(
+Locale
+locale)
+Sets the locale to be applied when formatting diagnostics and
+ other localized data.
+Parameters:
+locale
+- the locale to apply;
+null
+means apply no
+ locale
+Throws:
+IllegalStateException
+- if the task has started
+call
+Boolean
+call
+()
+Performs this documentation task.  The task may only
+ be performed once.  Subsequent calls to this method throw
+IllegalStateException
+.
+Specified by:
+call
+in interface
+Callable
+<
+Boolean
+>
+Returns:
+true if and only all the files were processed without errors;
+ false otherwise
+Throws:
+RuntimeException
+- if an unrecoverable error occurred
+ in a user-supplied component.  The
+cause
+will be the error
+ in user code.
+IllegalStateException
+- if called more than once
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

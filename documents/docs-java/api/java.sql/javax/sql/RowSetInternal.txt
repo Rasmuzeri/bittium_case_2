@@ -1,0 +1,229 @@
+RowSetInternal (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.sql
+Package
+javax.sql
+Interface RowSetInternal
+public interface
+RowSetInternal
+The interface that a
+RowSet
+object implements in order to
+ present itself to a
+RowSetReader
+or
+RowSetWriter
+object. The
+RowSetInternal
+interface contains
+ methods that let the reader or writer access and modify the internal
+ state of the rowset.
+Since:
+1.4
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+Connection
+getConnection
+()
+Retrieves the
+Connection
+object that was passed to this
+RowSet
+object.
+ResultSet
+getOriginal
+()
+Retrieves a
+ResultSet
+object containing the original
+ value of this
+RowSet
+object.
+ResultSet
+getOriginalRow
+()
+Retrieves a
+ResultSet
+object containing the original value
+ of the current row only.
+Object
+[]
+getParams
+()
+Retrieves the parameters that have been set for this
+RowSet
+object's command.
+void
+setMetaData
+(
+RowSetMetaData
+md)
+Sets the given
+RowSetMetaData
+object as the
+RowSetMetaData
+object for this
+RowSet
+object.
+Method Details
+getParams
+Object
+[]
+getParams
+()
+            throws
+SQLException
+Retrieves the parameters that have been set for this
+RowSet
+object's command.
+Returns:
+an array of the current parameter values for this
+RowSet
+object's command
+Throws:
+SQLException
+- if a database access error occurs
+getConnection
+Connection
+getConnection
+()
+                  throws
+SQLException
+Retrieves the
+Connection
+object that was passed to this
+RowSet
+object.
+Returns:
+the
+Connection
+object passed to the rowset
+      or
+null
+if none was passed
+Throws:
+SQLException
+- if a database access error occurs
+setMetaData
+void
+setMetaData
+(
+RowSetMetaData
+md)
+throws
+SQLException
+Sets the given
+RowSetMetaData
+object as the
+RowSetMetaData
+object for this
+RowSet
+object. The
+RowSetReader
+object associated with the rowset
+ will use
+RowSetMetaData
+methods to set the values giving
+ information about the rowset's columns.
+Parameters:
+md
+- the
+RowSetMetaData
+object that will be set with
+        information about the rowset's columns
+Throws:
+SQLException
+- if a database access error occurs
+getOriginal
+ResultSet
+getOriginal
+()
+               throws
+SQLException
+Retrieves a
+ResultSet
+object containing the original
+ value of this
+RowSet
+object.
+The cursor is positioned before the first row in the result set.
+ Only rows contained in the result set returned by the method
+getOriginal
+are said to have an original value.
+Returns:
+the original value of the rowset
+Throws:
+SQLException
+- if a database access error occurs
+getOriginalRow
+ResultSet
+getOriginalRow
+()
+                  throws
+SQLException
+Retrieves a
+ResultSet
+object containing the original value
+ of the current row only.  If the current row has no original value,
+ an empty result set is returned. If there is no current row,
+ an exception is thrown.
+Returns:
+the original value of the current row as a
+ResultSet
+object
+Throws:
+SQLException
+- if a database access error occurs or this method
+         is called while the cursor is on the insert row, before the
+         first row, or after the last row
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

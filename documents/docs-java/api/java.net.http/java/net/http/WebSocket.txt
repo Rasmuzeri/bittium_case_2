@@ -1,0 +1,702 @@
+WebSocket (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+java.net.http
+Package
+java.net.http
+Interface WebSocket
+public interface
+WebSocket
+A WebSocket Client.
+WebSocket
+instances are created through
+WebSocket.Builder
+.
+WebSocket has an input and an output side. These sides are independent
+ from each other. A side can either be open or closed. Once closed, the side
+ remains closed. WebSocket messages are sent through a
+WebSocket
+and
+ received through a
+WebSocket.Listener
+associated with it. Messages
+ can be sent until the WebSocket's output is closed, and received until the
+ WebSocket's input is closed.
+A send method is any of the
+sendText
+,
+sendBinary
+,
+sendPing
+,
+sendPong
+and
+sendClose
+methods of
+WebSocket
+. A send method initiates a send operation and returns a
+CompletableFuture
+which completes once the operation has completed.
+ If the
+CompletableFuture
+completes normally the operation is
+ considered succeeded. If the
+CompletableFuture
+completes
+ exceptionally, the operation is considered failed. An operation that has been
+ initiated but not yet completed is considered pending.
+A receive method is any of the
+onText
+,
+onBinary
+,
+onPing
+,
+onPong
+and
+onClose
+methods of
+Listener
+. WebSocket initiates a receive operation by invoking a
+ receive method on the listener. The listener then must return a
+CompletionStage
+which completes once the operation has completed.
+To control receiving of messages, a WebSocket maintains an
+internal counter
+. This counter's value is a number of
+ times the WebSocket has yet to invoke a receive method. While this counter is
+ zero the WebSocket does not invoke receive methods. The counter is
+ incremented by
+n
+when
+request(n)
+is called. The counter is
+ decremented by one when the WebSocket invokes a receive method.
+onOpen
+and
+onError
+are not receive methods. WebSocket invokes
+onOpen
+prior to any other methods on the listener. WebSocket invokes
+onOpen
+at most once. WebSocket may invoke
+onError
+at any
+ given time. If the WebSocket invokes
+onError
+or
+onClose
+, then
+ no further listener's methods will be invoked, no matter the value of the
+ counter. For a newly built WebSocket the counter is zero.
+Unless otherwise stated,
+null
+arguments will cause methods
+ of
+WebSocket
+to throw
+NullPointerException
+, similarly,
+WebSocket
+will not pass
+null
+arguments to methods of
+Listener
+. The state of a WebSocket is not changed by the invocations
+ that throw or return a
+CompletableFuture
+that completes with one of
+ the
+NullPointerException
+,
+IllegalArgumentException
+,
+IllegalStateException
+exceptions.
+WebSocket
+handles received Ping and Close messages automatically
+ (as per the WebSocket Protocol) by replying with Pong and Close messages. If
+ the listener receives Ping or Close messages, no mandatory actions from the
+ listener are required.
+API Note:
+The relationship between a WebSocket and the associated Listener is
+ analogous to that of a Subscription and the associated Subscriber of type
+Flow
+.
+Since:
+11
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Interface
+Description
+static interface
+WebSocket.Builder
+A builder of
+WebSocket Clients
+.
+static interface
+WebSocket.Listener
+The receiving interface of
+WebSocket
+.
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final int
+NORMAL_CLOSURE
+The WebSocket Close message status code (
+1000
+),
+ indicating normal closure, meaning that the purpose for which the
+ connection was established has been fulfilled.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+void
+abort
+()
+Closes this WebSocket's input and output abruptly.
+String
+getSubprotocol
+()
+Returns the subprotocol used by this WebSocket.
+boolean
+isInputClosed
+()
+Tells whether this WebSocket's input is closed.
+boolean
+isOutputClosed
+()
+Tells whether this WebSocket's output is closed.
+void
+request
+(long n)
+Increments the counter of invocations of receive methods.
+CompletableFuture
+<
+WebSocket
+>
+sendBinary
+(
+ByteBuffer
+data,
+ boolean last)
+Sends binary data with bytes from the given buffer.
+CompletableFuture
+<
+WebSocket
+>
+sendClose
+(int statusCode,
+String
+reason)
+Initiates an orderly closure of this WebSocket's output by
+ sending a Close message with the given status code and the reason.
+CompletableFuture
+<
+WebSocket
+>
+sendPing
+(
+ByteBuffer
+message)
+Sends a Ping message with bytes from the given buffer.
+CompletableFuture
+<
+WebSocket
+>
+sendPong
+(
+ByteBuffer
+message)
+Sends a Pong message with bytes from the given buffer.
+CompletableFuture
+<
+WebSocket
+>
+sendText
+(
+CharSequence
+data,
+ boolean last)
+Sends textual data with characters from the given character sequence.
+Field Details
+NORMAL_CLOSURE
+static final
+int
+NORMAL_CLOSURE
+The WebSocket Close message status code (
+1000
+),
+ indicating normal closure, meaning that the purpose for which the
+ connection was established has been fulfilled.
+See Also:
+sendClose(int, String)
+WebSocket.Listener.onClose(WebSocket, int, String)
+Constant Field Values
+Method Details
+sendText
+CompletableFuture
+<
+WebSocket
+>
+sendText
+(
+CharSequence
+data,
+ boolean last)
+Sends textual data with characters from the given character sequence.
+The character sequence must not be modified until the
+CompletableFuture
+returned from this method has completed.
+A
+CompletableFuture
+returned from this method can
+ complete exceptionally with:
+IllegalStateException
+-
+          if there is a pending text or binary send operation
+          or if the previous binary data does not complete the message
+IOException
+-
+          if an I/O error occurs, or if the output is closed
+Implementation Note:
+If
+data
+is a malformed UTF-16 sequence, the operation
+ will fail with
+IOException
+.
+Parameters:
+data
+- the data
+last
+-
+true
+if this invocation completes the message,
+false
+otherwise
+Returns:
+a
+CompletableFuture
+that completes, with this WebSocket,
+ when the data has been sent
+sendBinary
+CompletableFuture
+<
+WebSocket
+>
+sendBinary
+(
+ByteBuffer
+data,
+ boolean last)
+Sends binary data with bytes from the given buffer.
+The data is located in bytes from the buffer's position to its limit.
+ Upon normal completion of a
+CompletableFuture
+returned from this
+ method the buffer will have no remaining bytes. The buffer must not be
+ accessed until after that.
+The
+CompletableFuture
+returned from this method can
+ complete exceptionally with:
+IllegalStateException
+-
+          if there is a pending text or binary send operation
+          or if the previous textual data does not complete the message
+IOException
+-
+          if an I/O error occurs, or if the output is closed
+Parameters:
+data
+- the data
+last
+-
+true
+if this invocation completes the message,
+false
+otherwise
+Returns:
+a
+CompletableFuture
+that completes, with this WebSocket,
+ when the data has been sent
+sendPing
+CompletableFuture
+<
+WebSocket
+>
+sendPing
+(
+ByteBuffer
+message)
+Sends a Ping message with bytes from the given buffer.
+The message consists of not more than
+125
+bytes from the
+ buffer's position to its limit. Upon normal completion of a
+CompletableFuture
+returned from this method the buffer will
+ have no remaining bytes. The buffer must not be accessed until after that.
+The
+CompletableFuture
+returned from this method can
+ complete exceptionally with:
+IllegalStateException
+-
+          if there is a pending ping or pong send operation
+IllegalArgumentException
+-
+          if the message is too long
+IOException
+-
+          if an I/O error occurs, or if the output is closed
+Parameters:
+message
+- the message
+Returns:
+a
+CompletableFuture
+that completes, with this WebSocket,
+ when the Ping message has been sent
+sendPong
+CompletableFuture
+<
+WebSocket
+>
+sendPong
+(
+ByteBuffer
+message)
+Sends a Pong message with bytes from the given buffer.
+The message consists of not more than
+125
+bytes from the
+ buffer's position to its limit. Upon normal completion of a
+CompletableFuture
+returned from this method the buffer will have
+ no remaining bytes. The buffer must not be accessed until after that.
+Given that the WebSocket implementation will automatically send a
+ reciprocal pong when a ping is received, it is rarely required to send a
+ pong message explicitly.
+The
+CompletableFuture
+returned from this method can
+ complete exceptionally with:
+IllegalStateException
+-
+          if there is a pending ping or pong send operation
+IllegalArgumentException
+-
+          if the message is too long
+IOException
+-
+          if an I/O error occurs, or if the output is closed
+Parameters:
+message
+- the message
+Returns:
+a
+CompletableFuture
+that completes, with this WebSocket,
+ when the Pong message has been sent
+sendClose
+CompletableFuture
+<
+WebSocket
+>
+sendClose
+(int statusCode,
+String
+reason)
+Initiates an orderly closure of this WebSocket's output by
+ sending a Close message with the given status code and the reason.
+The
+statusCode
+is an integer from the range
+1000 <= code <= 4999
+. Status codes
+1002
+,
+1003
+,
+1006
+,
+1007
+,
+1009
+,
+1010
+,
+1012
+,
+1013
+and
+1015
+are illegal. Behaviour in respect to other
+ status codes is implementation-specific. A legal
+reason
+is a
+ string that has a UTF-8 representation not longer than
+123
+bytes.
+A
+CompletableFuture
+returned from this method can
+ complete exceptionally with:
+IllegalArgumentException
+-
+           if
+statusCode
+is illegal, or
+           if
+reason
+is illegal
+IOException
+-
+           if an I/O error occurs, or if the output is closed
+Unless the
+CompletableFuture
+returned from this method
+ completes with
+IllegalArgumentException
+, or the method throws
+NullPointerException
+, the output will be closed.
+If not already closed, the input remains open until a Close message
+received
+, or
+abort
+is invoked, or an
+error
+occurs.
+API Note:
+Use the provided integer constant
+NORMAL_CLOSURE
+as a
+ status code and an empty string as a reason in a typical case:
+Copy
+CompletableFuture<WebSocket> webSocket = ...
+     webSocket.thenCompose(ws -> ws.sendText("Hello, ", false))
+            .thenCompose(ws -> ws.sendText("world!", true))
+            .thenCompose(ws -> ws.sendClose(WebSocket.NORMAL_CLOSURE, ""))
+            .join();
+The
+sendClose
+method does not close this WebSocket's input. It
+ merely closes this WebSocket's output by sending a Close message. To
+ enforce closing the input, invoke the
+abort
+method. Here is an
+ example of an application that sends a Close message, and then starts a
+ timer. Once no data has been received within the specified timeout, the
+ timer goes off and the alarm aborts
+WebSocket
+:
+Copy
+MyAlarm alarm = new MyAlarm(webSocket::abort);
+WebSocket.Listener listener = new WebSocket.Listener() {
+
+    public CompletionStage<?> onText(WebSocket webSocket,
+                                     CharSequence data,
+                                     boolean last) {
+        alarm.snooze();
+        ...
+    }
+    ...
+};
+...
+Runnable startTimer = () -> {
+    MyTimer idleTimer = new MyTimer();
+    idleTimer.add(alarm, 30, TimeUnit.SECONDS);
+};
+webSocket.sendClose(WebSocket.NORMAL_CLOSURE, "ok").thenRun(startTimer);
+Parameters:
+statusCode
+- the status code
+reason
+- the reason
+Returns:
+a
+CompletableFuture
+that completes, with this WebSocket,
+ when the Close message has been sent
+request
+void
+request
+(long n)
+Increments the counter of invocations of receive methods.
+This WebSocket will invoke
+onText
+,
+onBinary
+,
+onPing
+,
+onPong
+or
+onClose
+methods on the
+ associated listener (i.e. receive methods) up to
+n
+more times.
+API Note:
+The parameter of this method is the number of invocations being
+ requested from this WebSocket to the associated listener, not the number
+ of messages. Sometimes a message may be delivered to the listener in a
+ single invocation, but not always. For example, Ping, Pong and Close
+ messages are delivered in a single invocation of
+onPing
+,
+onPong
+and
+onClose
+methods respectively. However, whether
+ or not Text and Binary messages are delivered in a single invocation of
+onText
+and
+onBinary
+methods depends on the boolean
+ argument (
+last
+) of these methods. If
+last
+is
+false
+, then there is more to a message than has been delivered to
+ the invocation.
+Here is an example of a listener that requests invocations, one at a
+ time, until a complete message has been accumulated, and then processes
+ the result:
+Copy
+WebSocket.Listener listener = new WebSocket.Listener() {
+
+    StringBuilder text = new StringBuilder();
+
+    public CompletionStage<?> onText(WebSocket webSocket,
+                                     CharSequence message,
+                                     boolean last) {
+        text.append(message);
+        if (last) {
+            processCompleteTextMessage(text);
+            text = new StringBuilder();
+        }
+        webSocket.request(1);
+        return null;
+    }
+};
+Parameters:
+n
+- the number of invocations
+Throws:
+IllegalArgumentException
+- if
+n <= 0
+getSubprotocol
+String
+getSubprotocol
+()
+Returns the subprotocol used by this WebSocket.
+Returns:
+the subprotocol, or an empty string if there's no subprotocol
+isOutputClosed
+boolean
+isOutputClosed
+()
+Tells whether this WebSocket's output is closed.
+If this method returns
+true
+, subsequent invocations will also
+ return
+true
+.
+Returns:
+true
+if closed,
+false
+otherwise
+isInputClosed
+boolean
+isInputClosed
+()
+Tells whether this WebSocket's input is closed.
+If this method returns
+true
+, subsequent invocations will also
+ return
+true
+.
+Returns:
+true
+if closed,
+false
+otherwise
+abort
+void
+abort
+()
+Closes this WebSocket's input and output abruptly.
+When this method returns both the input and the output will have been
+ closed. Any pending send operations will fail with
+IOException
+.
+ Subsequent invocations of
+abort
+will have no effect.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

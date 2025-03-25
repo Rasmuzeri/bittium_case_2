@@ -1,0 +1,420 @@
+BeanContext (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.beans.beancontext
+Interface BeanContext
+All Superinterfaces:
+BeanContextChild
+,
+Collection
+,
+DesignMode
+,
+Iterable
+,
+Visibility
+All Known Subinterfaces:
+BeanContextServices
+All Known Implementing Classes:
+BeanContextServicesSupport
+,
+BeanContextSupport
+public interface
+BeanContext
+extends
+BeanContextChild
+,
+Collection
+,
+DesignMode
+,
+Visibility
+The BeanContext acts a logical hierarchical container for JavaBeans.
+Since:
+1.2
+See Also:
+Beans
+BeanContextChild
+BeanContextMembershipListener
+PropertyChangeEvent
+DesignMode
+Visibility
+Collection
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+Object
+globalHierarchyLock
+This global lock is used by both
+BeanContext
+and
+BeanContextServices
+implementors
+ to serialize changes in a
+BeanContext
+hierarchy and any service requests etc.
+Fields declared in interface java.beans.
+DesignMode
+PROPERTYNAME
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+void
+addBeanContextMembershipListener
+(
+BeanContextMembershipListener
+bcml)
+Adds the specified
+BeanContextMembershipListener
+to receive
+BeanContextMembershipEvents
+from
+ this
+BeanContext
+whenever it adds
+ or removes a child
+Component
+(s).
+URL
+getResource
+(
+String
+name,
+BeanContextChild
+bcc)
+Analogous to
+java.lang.ClassLoader.getResource()
+, this
+ method allows a
+BeanContext
+implementation to interpose
+ behavior between the child
+Component
+and underlying
+ClassLoader
+.
+InputStream
+getResourceAsStream
+(
+String
+name,
+BeanContextChild
+bcc)
+Analogous to
+java.lang.ClassLoader.getResourceAsStream()
+,
+ this method allows a
+BeanContext
+implementation
+ to interpose behavior between the child
+Component
+and underlying
+ClassLoader
+.
+Object
+instantiateChild
+(
+String
+beanName)
+Instantiate the javaBean named as a
+ child of this
+BeanContext
+.
+void
+removeBeanContextMembershipListener
+(
+BeanContextMembershipListener
+bcml)
+Removes the specified
+BeanContextMembershipListener
+so that it no longer receives
+BeanContextMembershipEvent
+s
+ when the child
+Component
+(s) are added or removed.
+Methods declared in interface java.beans.beancontext.
+BeanContextChild
+addPropertyChangeListener
+,
+addVetoableChangeListener
+,
+getBeanContext
+,
+removePropertyChangeListener
+,
+removeVetoableChangeListener
+,
+setBeanContext
+Methods declared in interface java.util.
+Collection
+add
+,
+addAll
+,
+clear
+,
+contains
+,
+containsAll
+,
+equals
+,
+hashCode
+,
+isEmpty
+,
+iterator
+,
+parallelStream
+,
+remove
+,
+removeAll
+,
+removeIf
+,
+retainAll
+,
+size
+,
+spliterator
+,
+stream
+,
+toArray
+,
+toArray
+,
+toArray
+Methods declared in interface java.beans.
+DesignMode
+isDesignTime
+,
+setDesignTime
+Methods declared in interface java.lang.
+Iterable
+forEach
+Methods declared in interface java.beans.
+Visibility
+avoidingGui
+,
+dontUseGui
+,
+needsGui
+,
+okToUseGui
+Field Details
+globalHierarchyLock
+static final
+Object
+globalHierarchyLock
+This global lock is used by both
+BeanContext
+and
+BeanContextServices
+implementors
+ to serialize changes in a
+BeanContext
+hierarchy and any service requests etc.
+Method Details
+instantiateChild
+Object
+instantiateChild
+(
+String
+beanName)
+throws
+IOException
+,
+ClassNotFoundException
+Instantiate the javaBean named as a
+ child of this
+BeanContext
+.
+ The implementation of the JavaBean is
+ derived from the value of the beanName parameter,
+ and is defined by the
+java.beans.Beans.instantiate()
+method.
+Parameters:
+beanName
+- The name of the JavaBean to instantiate
+ as a child of this
+BeanContext
+Returns:
+a javaBean named as a child of this
+BeanContext
+Throws:
+IOException
+- if an IO problem occurs
+ClassNotFoundException
+- if the class identified
+ by the beanName parameter is not found
+getResourceAsStream
+InputStream
+getResourceAsStream
+(
+String
+name,
+BeanContextChild
+bcc)
+throws
+IllegalArgumentException
+Analogous to
+java.lang.ClassLoader.getResourceAsStream()
+,
+ this method allows a
+BeanContext
+implementation
+ to interpose behavior between the child
+Component
+and underlying
+ClassLoader
+.
+Parameters:
+name
+- the resource name
+bcc
+- the specified child
+Returns:
+an
+InputStream
+for reading the resource,
+ or
+null
+if the resource could not
+ be found.
+Throws:
+IllegalArgumentException
+- if
+ the resource is not valid
+getResource
+URL
+getResource
+(
+String
+name,
+BeanContextChild
+bcc)
+throws
+IllegalArgumentException
+Analogous to
+java.lang.ClassLoader.getResource()
+, this
+ method allows a
+BeanContext
+implementation to interpose
+ behavior between the child
+Component
+and underlying
+ClassLoader
+.
+Parameters:
+name
+- the resource name
+bcc
+- the specified child
+Returns:
+a
+URL
+for the named
+ resource for the specified child
+Throws:
+IllegalArgumentException
+- if the resource is not valid
+addBeanContextMembershipListener
+void
+addBeanContextMembershipListener
+(
+BeanContextMembershipListener
+bcml)
+Adds the specified
+BeanContextMembershipListener
+to receive
+BeanContextMembershipEvents
+from
+ this
+BeanContext
+whenever it adds
+ or removes a child
+Component
+(s).
+Parameters:
+bcml
+- the BeanContextMembershipListener to be added
+removeBeanContextMembershipListener
+void
+removeBeanContextMembershipListener
+(
+BeanContextMembershipListener
+bcml)
+Removes the specified
+BeanContextMembershipListener
+so that it no longer receives
+BeanContextMembershipEvent
+s
+ when the child
+Component
+(s) are added or removed.
+Parameters:
+bcml
+- the
+BeanContextMembershipListener
+to be removed
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

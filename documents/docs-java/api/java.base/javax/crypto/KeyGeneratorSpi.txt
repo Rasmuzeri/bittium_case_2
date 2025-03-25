@@ -1,0 +1,221 @@
+KeyGeneratorSpi (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+javax.crypto
+Class KeyGeneratorSpi
+java.lang.Object
+javax.crypto.KeyGeneratorSpi
+public abstract class
+KeyGeneratorSpi
+extends
+Object
+This class defines the
+Service Provider Interface
+(
+SPI
+)
+ for the
+KeyGenerator
+class.
+ All the abstract methods in this class must be implemented by each
+ cryptographic service provider who wishes to supply the implementation
+ of a key generator for a particular algorithm.
+In case the client does not explicitly initialize the KeyGenerator
+ (via a call to an
+init
+method), each provider must
+ supply (and document) a default initialization.
+ See the Keysize Restriction sections of the
+JDK Providers
+document for information on the KeyGenerator defaults used by
+ JDK providers.
+ However, note that defaults may vary across different providers.
+ Additionally, the default value for a provider may change in a future
+ version. Therefore, it is recommended to explicitly initialize the
+ KeyGenerator instead of relying on provider-specific defaults.
+Since:
+1.4
+See Also:
+SecretKey
+Constructor Summary
+Constructors
+Constructor
+Description
+KeyGeneratorSpi
+()
+Constructor for subclasses to call.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+protected abstract
+SecretKey
+engineGenerateKey
+()
+Generates a secret key.
+protected abstract void
+engineInit
+(int keysize,
+SecureRandom
+random)
+Initializes this key generator for a certain keysize, using the given
+ source of randomness.
+protected abstract void
+engineInit
+(
+SecureRandom
+random)
+Initializes the key generator.
+protected abstract void
+engineInit
+(
+AlgorithmParameterSpec
+params,
+SecureRandom
+random)
+Initializes the key generator with the specified parameter
+ set and a user-provided source of randomness.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+KeyGeneratorSpi
+public
+KeyGeneratorSpi
+()
+Constructor for subclasses to call.
+Method Details
+engineInit
+protected abstract
+void
+engineInit
+(
+SecureRandom
+random)
+Initializes the key generator.
+Parameters:
+random
+- the source of randomness for this generator
+engineInit
+protected abstract
+void
+engineInit
+(
+AlgorithmParameterSpec
+params,
+SecureRandom
+random)
+throws
+InvalidAlgorithmParameterException
+Initializes the key generator with the specified parameter
+ set and a user-provided source of randomness.
+Parameters:
+params
+- the key generation parameters
+random
+- the source of randomness for this key generator
+Throws:
+InvalidAlgorithmParameterException
+- if
+params
+is
+ inappropriate for this key generator
+engineInit
+protected abstract
+void
+engineInit
+(int keysize,
+SecureRandom
+random)
+Initializes this key generator for a certain keysize, using the given
+ source of randomness.
+Parameters:
+keysize
+- the keysize. This is an algorithm-specific metric,
+ specified in number of bits.
+random
+- the source of randomness for this key generator
+Throws:
+InvalidParameterException
+- if the keysize is wrong or not
+ supported.
+engineGenerateKey
+protected abstract
+SecretKey
+engineGenerateKey
+()
+Generates a secret key.
+Returns:
+the new key
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

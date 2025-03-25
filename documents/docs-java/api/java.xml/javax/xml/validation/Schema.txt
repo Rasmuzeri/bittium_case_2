@@ -1,0 +1,210 @@
+Schema (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.xml
+Package
+javax.xml.validation
+Class Schema
+java.lang.Object
+javax.xml.validation.Schema
+public abstract class
+Schema
+extends
+Object
+Immutable in-memory representation of grammar.
+This object represents a set of constraints that can be checked/
+ enforced against an XML document.
+A
+Schema
+object is thread safe and applications are
+ encouraged to share it across many parsers in many threads.
+A
+Schema
+object is immutable in the sense that it shouldn't
+ change the set of constraints once it is created. In other words,
+ if an application validates the same document twice against the same
+Schema
+, it must always produce the same result.
+A
+Schema
+object is usually created from
+SchemaFactory
+.
+Two kinds of validators can be created from a
+Schema
+object.
+ One is
+Validator
+, which provides highly-level validation
+ operations that cover typical use cases. The other is
+ValidatorHandler
+, which works on top of SAX for better
+ modularity.
+This specification does not refine
+ the
+Object.equals(java.lang.Object)
+method.
+ In other words, if you parse the same schema twice, you may
+ still get
+!schemaA.equals(schemaB)
+.
+Since:
+1.5
+See Also:
+XML Schema Part 1: Structures
+Extensible Markup Language (XML) 1.1
+Extensible Markup Language (XML) 1.0 (Second Edition)
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+Schema
+()
+Constructor for the derived class.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+abstract
+Validator
+newValidator
+()
+Creates a new
+Validator
+for this
+Schema
+.
+abstract
+ValidatorHandler
+newValidatorHandler
+()
+Creates a new
+ValidatorHandler
+for this
+Schema
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+Schema
+protected
+Schema
+()
+Constructor for the derived class.
+The constructor does nothing.
+Method Details
+newValidator
+public abstract
+Validator
+newValidator
+()
+Creates a new
+Validator
+for this
+Schema
+.
+A validator enforces/checks the set of constraints this object
+ represents.
+Implementors should assure that the properties set on the
+SchemaFactory
+that created this
+Schema
+are also
+ set on the
+Validator
+constructed.
+Returns:
+Always return a non-null valid object.
+newValidatorHandler
+public abstract
+ValidatorHandler
+newValidatorHandler
+()
+Creates a new
+ValidatorHandler
+for this
+Schema
+.
+Implementors should assure that the properties set on the
+SchemaFactory
+that created this
+Schema
+are also
+ set on the
+ValidatorHandler
+constructed.
+Returns:
+Always return a non-null valid object.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,732 @@
+PageAttributes (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt
+Class PageAttributes
+java.lang.Object
+java.awt.PageAttributes
+All Implemented Interfaces:
+Cloneable
+public final class
+PageAttributes
+extends
+Object
+implements
+Cloneable
+A set of attributes which control the output of a printed page.
+Instances of this class control the color state, paper size (media type),
+ orientation, logical origin, print quality, and resolution of every
+ page which uses the instance. Attribute names are compliant with the
+ Internet Printing Protocol (IPP) 1.1 where possible. Attribute values
+ are partially compliant where possible.
+To use a method which takes an inner class type, pass a reference to
+ one of the constant fields of the inner class. Client code cannot create
+ new instances of the inner class types because none of those classes
+ has a public constructor. For example, to set the color state to
+ monochrome, use the following code:
+import java.awt.PageAttributes;
+
+ public class MonochromeExample {
+     public void setMonochrome(PageAttributes pageAttributes) {
+         pageAttributes.setColor(PageAttributes.ColorType.MONOCHROME);
+     }
+ }
+Every IPP attribute which supports an
+attributeName
+-default value
+ has a corresponding
+set
+attributeName
+ToDefault
+method.
+ Default value fields are not provided.
+Since:
+1.3
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+static final class
+PageAttributes.ColorType
+A type-safe enumeration of possible color states.
+static final class
+PageAttributes.MediaType
+A type-safe enumeration of possible paper sizes.
+static final class
+PageAttributes.OrientationRequestedType
+A type-safe enumeration of possible orientations.
+static final class
+PageAttributes.OriginType
+A type-safe enumeration of possible origins.
+static final class
+PageAttributes.PrintQualityType
+A type-safe enumeration of possible print qualities.
+Constructor Summary
+Constructors
+Constructor
+Description
+PageAttributes
+()
+Constructs a PageAttributes instance with default values for every
+ attribute.
+PageAttributes
+(
+PageAttributes
+obj)
+Constructs a PageAttributes instance which is a copy of the supplied
+ PageAttributes.
+PageAttributes
+(
+PageAttributes.ColorType
+color,
+PageAttributes.MediaType
+media,
+PageAttributes.OrientationRequestedType
+orientationRequested,
+PageAttributes.OriginType
+origin,
+PageAttributes.PrintQualityType
+printQuality,
+ int[] printerResolution)
+Constructs a PageAttributes instance with the specified values for
+ every attribute.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Object
+clone
+()
+Creates and returns a copy of this PageAttributes.
+boolean
+equals
+(
+Object
+obj)
+Determines whether two PageAttributes are equal to each other.
+PageAttributes.ColorType
+getColor
+()
+Returns whether pages using these attributes will be rendered in
+ color or monochrome.
+PageAttributes.MediaType
+getMedia
+()
+Returns the paper size for pages using these attributes.
+PageAttributes.OrientationRequestedType
+getOrientationRequested
+()
+Returns the print orientation for pages using these attributes.
+PageAttributes.OriginType
+getOrigin
+()
+Returns whether drawing at (0, 0) to pages using these attributes
+ draws at the upper-left corner of the physical page, or at the
+ upper-left corner of the printable area.
+int[]
+getPrinterResolution
+()
+Returns the print resolution for pages using these attributes.
+PageAttributes.PrintQualityType
+getPrintQuality
+()
+Returns the print quality for pages using these attributes.
+int
+hashCode
+()
+Returns a hash code value for this PageAttributes.
+void
+set
+(
+PageAttributes
+obj)
+Sets all of the attributes of this PageAttributes to the same values as
+ the attributes of obj.
+void
+setColor
+(
+PageAttributes.ColorType
+color)
+Specifies whether pages using these attributes will be rendered in
+ color or monochrome.
+void
+setMedia
+(
+PageAttributes.MediaType
+media)
+Specifies the desired paper size for pages using these attributes.
+void
+setMediaToDefault
+()
+Sets the paper size for pages using these attributes to the default
+ size for the default locale.
+void
+setOrientationRequested
+(int orientationRequested)
+Specifies the print orientation for pages using these attributes.
+void
+setOrientationRequested
+(
+PageAttributes.OrientationRequestedType
+orientationRequested)
+Specifies the print orientation for pages using these attributes.
+void
+setOrientationRequestedToDefault
+()
+Sets the print orientation for pages using these attributes to the
+ default.
+void
+setOrigin
+(
+PageAttributes.OriginType
+origin)
+Specifies whether drawing at (0, 0) to pages using these attributes
+ draws at the upper-left corner of the physical page, or at the
+ upper-left corner of the printable area.
+void
+setPrinterResolution
+(int printerResolution)
+Specifies the desired cross feed and feed print resolutions in dots per
+ inch for pages using these attributes.
+void
+setPrinterResolution
+(int[] printerResolution)
+Specifies the desired print resolution for pages using these attributes.
+void
+setPrinterResolutionToDefault
+()
+Sets the printer resolution for pages using these attributes to the
+ default.
+void
+setPrintQuality
+(int printQuality)
+Specifies the print quality for pages using these attributes.
+void
+setPrintQuality
+(
+PageAttributes.PrintQualityType
+printQuality)
+Specifies the print quality for pages using these attributes.
+void
+setPrintQualityToDefault
+()
+Sets the print quality for pages using these attributes to the default.
+String
+toString
+()
+Returns a string representation of this PageAttributes.
+Methods declared in class java.lang.
+Object
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+PageAttributes
+public
+PageAttributes
+()
+Constructs a PageAttributes instance with default values for every
+ attribute.
+PageAttributes
+public
+PageAttributes
+(
+PageAttributes
+obj)
+Constructs a PageAttributes instance which is a copy of the supplied
+ PageAttributes.
+Parameters:
+obj
+- the PageAttributes to copy.
+PageAttributes
+public
+PageAttributes
+(
+PageAttributes.ColorType
+color,
+PageAttributes.MediaType
+media,
+PageAttributes.OrientationRequestedType
+orientationRequested,
+PageAttributes.OriginType
+origin,
+PageAttributes.PrintQualityType
+printQuality,
+ int[] printerResolution)
+Constructs a PageAttributes instance with the specified values for
+ every attribute.
+Parameters:
+color
+- ColorType.COLOR or ColorType.MONOCHROME.
+media
+- one of the constant fields of the MediaType class.
+orientationRequested
+- OrientationRequestedType.PORTRAIT or
+          OrientationRequestedType.LANDSCAPE.
+origin
+- OriginType.PHYSICAL or OriginType.PRINTABLE
+printQuality
+- PrintQualityType.DRAFT, PrintQualityType.NORMAL,
+          or PrintQualityType.HIGH
+printerResolution
+- an integer array of 3 elements. The first
+          element must be greater than 0. The second element must be
+          must be greater than 0. The third element must be either
+3
+or
+4
+.
+Throws:
+IllegalArgumentException
+- if one or more of the above
+          conditions is violated.
+Method Details
+clone
+public
+Object
+clone
+()
+Creates and returns a copy of this PageAttributes.
+Overrides:
+clone
+in class
+Object
+Returns:
+the newly created copy. It is safe to cast this Object into
+          a PageAttributes.
+See Also:
+Cloneable
+set
+public
+void
+set
+(
+PageAttributes
+obj)
+Sets all of the attributes of this PageAttributes to the same values as
+ the attributes of obj.
+Parameters:
+obj
+- the PageAttributes to copy.
+getColor
+public
+PageAttributes.ColorType
+getColor
+()
+Returns whether pages using these attributes will be rendered in
+ color or monochrome. This attribute is updated to the value chosen
+ by the user.
+Returns:
+ColorType.COLOR or ColorType.MONOCHROME.
+setColor
+public
+void
+setColor
+(
+PageAttributes.ColorType
+color)
+Specifies whether pages using these attributes will be rendered in
+ color or monochrome. Not specifying this attribute is equivalent to
+ specifying ColorType.MONOCHROME.
+Parameters:
+color
+- ColorType.COLOR or ColorType.MONOCHROME.
+Throws:
+IllegalArgumentException
+- if color is null.
+getMedia
+public
+PageAttributes.MediaType
+getMedia
+()
+Returns the paper size for pages using these attributes. This
+ attribute is updated to the value chosen by the user.
+Returns:
+one of the constant fields of the MediaType class.
+setMedia
+public
+void
+setMedia
+(
+PageAttributes.MediaType
+media)
+Specifies the desired paper size for pages using these attributes. The
+ actual paper size will be determined by the limitations of the target
+ printer. If an exact match cannot be found, an implementation will
+ choose the closest possible match. Not specifying this attribute is
+ equivalent to specifying the default size for the default locale. The
+ default size for locales in the United States and Canada is
+ MediaType.NA_LETTER. The default size for all other locales is
+ MediaType.ISO_A4.
+Parameters:
+media
+- one of the constant fields of the MediaType class.
+Throws:
+IllegalArgumentException
+- if media is null.
+setMediaToDefault
+public
+void
+setMediaToDefault
+()
+Sets the paper size for pages using these attributes to the default
+ size for the default locale. The default size for locales in the
+ United States and Canada is MediaType.NA_LETTER. The default size for
+ all other locales is MediaType.ISO_A4.
+getOrientationRequested
+public
+PageAttributes.OrientationRequestedType
+getOrientationRequested
+()
+Returns the print orientation for pages using these attributes. This
+ attribute is updated to the value chosen by the user.
+Returns:
+OrientationRequestedType.PORTRAIT or
+          OrientationRequestedType.LANDSCAPE.
+setOrientationRequested
+public
+void
+setOrientationRequested
+(
+PageAttributes.OrientationRequestedType
+orientationRequested)
+Specifies the print orientation for pages using these attributes. Not
+ specifying the property is equivalent to specifying
+ OrientationRequestedType.PORTRAIT.
+Parameters:
+orientationRequested
+- OrientationRequestedType.PORTRAIT or
+          OrientationRequestedType.LANDSCAPE.
+Throws:
+IllegalArgumentException
+- if orientationRequested is null.
+setOrientationRequested
+public
+void
+setOrientationRequested
+(int orientationRequested)
+Specifies the print orientation for pages using these attributes.
+ Specifying
+3
+denotes portrait. Specifying
+4
+denotes landscape. Specifying any other value will generate an
+ IllegalArgumentException. Not specifying the property is equivalent
+ to calling setOrientationRequested(OrientationRequestedType.PORTRAIT).
+Parameters:
+orientationRequested
+-
+3
+or
+4
+Throws:
+IllegalArgumentException
+- if orientationRequested is not
+3
+or
+4
+setOrientationRequestedToDefault
+public
+void
+setOrientationRequestedToDefault
+()
+Sets the print orientation for pages using these attributes to the
+ default. The default orientation is portrait.
+getOrigin
+public
+PageAttributes.OriginType
+getOrigin
+()
+Returns whether drawing at (0, 0) to pages using these attributes
+ draws at the upper-left corner of the physical page, or at the
+ upper-left corner of the printable area. (Note that these locations
+ could be equivalent.) This attribute cannot be modified by,
+ and is not subject to any limitations of, the implementation or the
+ target printer.
+Returns:
+OriginType.PHYSICAL or OriginType.PRINTABLE
+setOrigin
+public
+void
+setOrigin
+(
+PageAttributes.OriginType
+origin)
+Specifies whether drawing at (0, 0) to pages using these attributes
+ draws at the upper-left corner of the physical page, or at the
+ upper-left corner of the printable area. (Note that these locations
+ could be equivalent.) Not specifying the property is equivalent to
+ specifying OriginType.PHYSICAL.
+Parameters:
+origin
+- OriginType.PHYSICAL or OriginType.PRINTABLE
+Throws:
+IllegalArgumentException
+- if origin is null.
+getPrintQuality
+public
+PageAttributes.PrintQualityType
+getPrintQuality
+()
+Returns the print quality for pages using these attributes. This
+ attribute is updated to the value chosen by the user.
+Returns:
+PrintQualityType.DRAFT, PrintQualityType.NORMAL, or
+          PrintQualityType.HIGH
+setPrintQuality
+public
+void
+setPrintQuality
+(
+PageAttributes.PrintQualityType
+printQuality)
+Specifies the print quality for pages using these attributes. Not
+ specifying the property is equivalent to specifying
+ PrintQualityType.NORMAL.
+Parameters:
+printQuality
+- PrintQualityType.DRAFT, PrintQualityType.NORMAL,
+          or PrintQualityType.HIGH
+Throws:
+IllegalArgumentException
+- if printQuality is null.
+setPrintQuality
+public
+void
+setPrintQuality
+(int printQuality)
+Specifies the print quality for pages using these attributes.
+ Specifying
+3
+denotes draft. Specifying
+4
+denotes normal. Specifying
+5
+denotes high. Specifying
+ any other value will generate an IllegalArgumentException. Not
+ specifying the property is equivalent to calling
+ setPrintQuality(PrintQualityType.NORMAL).
+Parameters:
+printQuality
+-
+3
+,
+4
+, or
+5
+Throws:
+IllegalArgumentException
+- if printQuality is not
+3
+,
+4
+, or
+5
+setPrintQualityToDefault
+public
+void
+setPrintQualityToDefault
+()
+Sets the print quality for pages using these attributes to the default.
+ The default print quality is normal.
+getPrinterResolution
+public
+int[]
+getPrinterResolution
+()
+Returns the print resolution for pages using these attributes.
+ Index 0 of the array specifies the cross feed direction resolution
+ (typically the horizontal resolution). Index 1 of the array specifies
+ the feed direction resolution (typically the vertical resolution).
+ Index 2 of the array specifies whether the resolutions are in dots per
+ inch or dots per centimeter.
+3
+denotes dots per inch.
+4
+denotes dots per centimeter.
+Returns:
+an integer array of 3 elements. The first
+          element must be greater than 0. The second element must be
+          must be greater than 0. The third element must be either
+3
+or
+4
+.
+setPrinterResolution
+public
+void
+setPrinterResolution
+(int[] printerResolution)
+Specifies the desired print resolution for pages using these attributes.
+ The actual resolution will be determined by the limitations of the
+ implementation and the target printer. Index 0 of the array specifies
+ the cross feed direction resolution (typically the horizontal
+ resolution). Index 1 of the array specifies the feed direction
+ resolution (typically the vertical resolution). Index 2 of the array
+ specifies whether the resolutions are in dots per inch or dots per
+ centimeter.
+3
+denotes dots per inch.
+4
+denotes dots per centimeter. Note that the 1.1 printing implementation
+ (Toolkit.getPrintJob) requires that the feed and cross feed resolutions
+ be the same. Not specifying the property is equivalent to calling
+ setPrinterResolution(72).
+Parameters:
+printerResolution
+- an integer array of 3 elements. The first
+          element must be greater than 0. The second element must be
+          must be greater than 0. The third element must be either
+3
+or
+4
+.
+Throws:
+IllegalArgumentException
+- if one or more of the above
+          conditions is violated.
+setPrinterResolution
+public
+void
+setPrinterResolution
+(int printerResolution)
+Specifies the desired cross feed and feed print resolutions in dots per
+ inch for pages using these attributes. The same value is used for both
+ resolutions. The actual resolutions will be determined by the
+ limitations of the implementation and the target printer. Not
+ specifying the property is equivalent to specifying
+72
+.
+Parameters:
+printerResolution
+- an integer greater than 0.
+Throws:
+IllegalArgumentException
+- if printerResolution is less than or
+          equal to 0.
+setPrinterResolutionToDefault
+public
+void
+setPrinterResolutionToDefault
+()
+Sets the printer resolution for pages using these attributes to the
+ default. The default is 72 dpi for both the feed and cross feed
+ resolutions.
+equals
+public
+boolean
+equals
+(
+Object
+obj)
+Determines whether two PageAttributes are equal to each other.
+Two PageAttributes are equal if and only if each of their attributes are
+ equal. Attributes of enumeration type are equal if and only if the
+ fields refer to the same unique enumeration object. This means that
+ an aliased media is equal to its underlying unique media. Printer
+ resolutions are equal if and only if the feed resolution, cross feed
+ resolution, and units are equal.
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- the object whose equality will be checked.
+Returns:
+whether obj is equal to this PageAttribute according to the
+          above criteria.
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+public
+int
+hashCode
+()
+Returns a hash code value for this PageAttributes.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+the hash code.
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+toString
+public
+String
+toString
+()
+Returns a string representation of this PageAttributes.
+Overrides:
+toString
+in class
+Object
+Returns:
+the string representation.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

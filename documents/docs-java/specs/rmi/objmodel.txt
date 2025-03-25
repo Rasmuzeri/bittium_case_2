@@ -1,0 +1,515 @@
+Java Remote Method Invocation: 2 - Distributed Object
+Model
+2 Distributed Object Model
+Distributed Object
+Applications
+Definition of Terms
+The
+Distributed and Nondistributed Models Contrasted
+Overview of RMI
+Interfaces and Classes
+Implementing a Remote
+Interface
+Parameter
+Passing in Remote Method Invocation
+Locating Remote Objects
+2.1 Distributed Object
+Applications
+RMI applications are often comprised of two separate programs: a
+server and a client. A typical server application creates a number of
+remote objects, makes references to those remote objects accessible, and
+waits for clients to invoke methods on those remote objects. A typical
+client application gets a remote reference to one or more remote objects
+in the server and then invokes methods on them. RMI provides the
+mechanism by which the server and the client communicate and pass
+information back and forth. Such an application is sometimes referred to
+as a distributed object application.
+Distributed object applications need to:
+Locate remote objects
+Applications can use one of two mechanisms to obtain references to
+remote objects. An application can register its remote objects with
+RMI's simple naming facility, the
+rmiregistry
+, or the
+application can pass and return remote object references as part of its
+normal operation.
+Communicate with remote objects
+Details of communication between remote objects are handled by RMI;
+to the programmer, remote communication looks like a standard method
+invocation.
+Load class bytecodes for objects that are passed as parameters or
+return values
+Because RMI allows a caller to pass objects to remote objects, RMI
+provides the necessary mechanisms for loading an object's code as well
+as transmitting its data.
+The illustration below depicts an RMI distributed application that
+uses the registry to obtain references to a remote object. The server
+calls the registry to associate a name with a remote object. The client
+looks up the remote object by its name in the server's registry and then
+invokes a method on it. The illustration also shows that the RMI system
+uses an existing web server to load bytecodes of classes written in the
+Java programming language, from server to client and from client to
+server, for objects when needed. RMI can load class bytecodes using any
+URL protocol (e.g., HTTP, FTP, file, etc.) that is supported by the Java
+platform.
+This illustration depicts an RMI
+distributed application that uses the registry to obtain references to a
+remote object.
+2.2 Definition of Terms
+In the Java SE platform's distributed object model, a
+remote
+object
+is one whose methods can be invoked from another Java
+virtual machine, potentially on a different host. An object of this type
+is described by one or more
+remote interfaces
+, which are
+interfaces written in the Java programming language that declare the
+methods of the remote object.
+Remote method invocation
+(RMI) is the action of invoking a
+method of a remote interface on a remote object. Most importantly, a
+method invocation on a remote object has the same syntax as a method
+invocation on a local object.
+2.3 The
+Distributed and Nondistributed Models Contrasted
+The Java SE platform's distributed object model is similar to the
+Java SE platform's object model in the following ways:
+A reference to a remote object can be passed as an argument or
+returned as a result in any method invocation (local or
+remote).
+A remote object can be cast to any of the set of remote
+interfaces supported by the implementation using the syntax for casting
+built into the Java programming language.
+The built-in
+instanceof
+operator can be used to test
+the remote interfaces supported by a remote object.
+The Java SE platform's distributed object model differs from the Java
+SE platform's object model in these ways:
+Clients of remote objects interact with remote interfaces, never
+with the implementation classes of those interfaces.
+Non-remote arguments to, and results from, a remote method
+invocation are passed by copy rather than by reference. This is because
+references to objects are only useful within a single virtual
+machine.
+A remote object is passed by reference, not by copying the actual
+remote implementation.
+The semantics of some of the methods defined by class
+java.lang.Object
+are specialized for remote
+objects.
+Since the failure modes of invoking remote objects are inherently
+more complicated than the failure modes of invoking local objects,
+clients must deal with additional exceptions that can occur during a
+remote method invocation.
+2.4 Overview of RMI
+Interfaces and Classes
+The interfaces and classes that are responsible for specifying the
+remote behavior of the RMI system are defined in the java.rmi package
+hierarchy. The following figure shows the relationship between several
+of these interfaces and classes:
+Relationship between several of these
+interfaces and classes
+2.4.1 The
+java.rmi.Remote
+Interface
+In RMI, a
+remote
+interface is an interface that declares a
+set of methods that may be invoked from a remote Java virtual machine. A
+remote interface must satisfy the following requirements:
+A remote interface must at least extend, either directly or
+indirectly, the interface
+java.rmi.Remote
+.
+Each method declaration in a remote interface or its
+super-interfaces must satisfy the requirements of a
+remote
+method
+declaration as follows:
+A remote method declaration must include the exception
+java.rmi.RemoteException
+(or one of its superclasses such
+as
+java.io.IOException
+or
+java.lang.Exception
+)
+in its throws clause, in addition to any application-specific exceptions
+(note that application specific exceptions do not have to extend
+java.rmi.RemoteException
+).
+In a remote method declaration, a remote object declared as a
+parameter or return value (either declared directly in the parameter
+list or embedded within a non-remote object in a parameter) must be
+declared as the remote
+interface
+, not the implementation class
+of that interface.
+The interface
+java.rmi.Remote
+is a marker interface that
+defines no methods:
+public interface Remote {}
+A remote interface must
+at least
+extend the interface
+java.rmi.Remote
+(or another remote interface that extends
+java.rmi.Remote
+). However, a remote interface may extend a
+non-remote interface under the following condition:
+A remote interface may also extend another non-remote interface, as
+long as all of the methods (if any) of the extended interface satisfy
+the requirements of a remote method declaration.
+For example, the following interface
+BankAccount
+defines
+a remote interface for accessing a bank account. It contains remote
+methods to deposit to the account, to get the account balance, and to
+withdraw from the account:
+public interface BankAccount extends java.rmi.Remote {
+        public void deposit(float amount)
+                throws java.rmi.RemoteException;
+        public void withdraw(float amount)
+                throws OverdrawnException, java.rmi.RemoteException;
+        public float getBalance()
+                throws java.rmi.RemoteException;
+}
+The next example shows a valid remote interface
+Beta
+that extends a non-remote interface
+Alpha
+, which has remote
+methods, and the interface
+java.rmi.Remote
+:
+public interface Alpha {
+        public final String okay = "constants are okay too";
+        public Object foo(Object obj)
+                throws java.rmi.RemoteException;
+        public void bar() throws java.io.IOException;
+        public int baz() throws java.lang.Exception;
+}
+
+public interface Beta extends Alpha, java.rmi.Remote {
+        public void ping() throws java.rmi.RemoteException;
+}
+2.4.2 The
+RemoteException
+Class
+The
+java.rmi.RemoteException
+class is the superclass of
+exceptions thrown by the RMI runtime during a remote method invocation.
+To ensure the robustness of applications using the RMI system, each
+remote method declared in a remote interface must specify
+java.rmi.RemoteException
+(or one of its superclasses such
+as
+java.io.IOException
+or
+java.lang.Exception
+)
+in its throws clause.
+The exception
+java.rmi.RemoteException
+is thrown when a
+remote method invocation fails for some reason. Some reasons for remote
+method invocation failure include:
+Communication failure (the remote server is unreachable or is
+refusing connections; the connection is closed by the server, etc.)
+Failure during parameter or return value marshalling or
+unmarshalling
+Protocol errors
+The class
+RemoteException
+is a checked exception (one
+that must be handled by the caller of a remote method and is checked by
+the compiler), not a
+RuntimeException
+.
+2.4.3 The
+RemoteObject
+Class and its Subclasses
+RMI server functions are provided by
+java.rmi.server.RemoteObject
+and its subclasses,
+java.rmi.server.RemoteServer
+and
+java.rmi.server.UnicastRemoteObject
+.
+The class
+java.rmi.server.RemoteObject
+provides
+implementations for the
+java.lang.Object
+methods,
+hashCode
+,
+equals
+, and
+toString
+that are sensible for remote objects.
+The methods needed to create remote objects and export them (make
+them available to remote clients) are provided by the class
+UnicastRemoteObject
+.
+The
+java.rmi.server.UnicastRemoteObject
+class
+defines a singleton (unicast) remote object whose references are valid
+only while the server process is alive.
+2.5 Implementing a Remote
+Interface
+The general rules for a class that implements a remote interface are
+as follows:
+The class
+usually
+extends
+java.rmi.server.UnicastRemoteObject
+, thereby inheriting the
+remote behavior provided by the classes
+java.rmi.server.RemoteObject
+and
+java.rmi.server.RemoteServer
+.
+The class can implement any number of remote interfaces.
+The class can extend another remote implementation class.
+The class can define methods that do not appear in the remote
+interface, but those methods can only be used locally and are not
+available remotely.
+For example, the following class
+BankAcctImpl
+implements
+the
+BankAccount
+remote interface and extends the
+java.rmi.server.UnicastRemoteObject
+class:
+package mypackage;
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+public class BankAccountImpl
+        extends UnicastRemoteObject
+        implements BankAccount
+{
+        private float balance = 0.0;
+
+        public BankAccountImpl(float initialBalance)
+                throws RemoteException
+        {
+                balance = initialBalance;
+        }
+        public void deposit(float amount) throws RemoteException {
+                ...
+        }
+        public void withdraw(float amount) throws OverdrawnException,
+                RemoteException {
+                ...
+        }
+        public float getBalance() throws RemoteException {
+                ...
+        }
+}
+Note:
+If necessary, a class that implements a remote interface can
+extend some other class besides
+java.rmi.server.UnicastRemoteObject
+. However, the
+implementation class must then assume the responsibility for exporting
+the object (taken care of by the
+UnicastRemoteObject
+constructor) and for implementing (if needed) the correct remote
+semantics of the
+hashCode
+,
+equals
+, and
+toString
+methods inherited from the
+java.lang.Object
+class.
+If you export a remote object without specifying a socket
+factory, or if you export the object with a version of the method
+UnicastRemoteObject.exportObject
+or the constructor
+UnicastRemoteObject
+that does not contain parameters of
+type
+RMIClientSocketFactory
+and
+RMIServerSocketFactory
+, then the remote object is exported
+to all local addresses. To export a remote object to a specific address,
+see the section
+"RMI Socket
+Factories"
+.
+2.6 Parameter
+Passing in Remote Method Invocation
+An argument to, or a return value from, a remote object can be any
+object that is
+serializable
+. This includes primitive types,
+remote objects, and non-remote objects that implement the
+java.io.Serializable
+interface. For more details on how to
+make classes serializable, see the "Java Object Serialization
+Specification." Classes, for parameters or return values, that are not
+available locally are downloaded dynamically by the RMI system. See the
+section on
+"Dynamic Class
+Loading"
+for more information on how RMI downloads parameter and
+return value classes when reading parameters, return values and
+exceptions.
+2.6.1 Passing Non-remote
+Objects
+A non-remote object, that is passed as a parameter of a remote method
+invocation or returned as a result of a remote method invocation, is
+passed by
+copy
+; that is, the object is serialized using the
+object serialization mechanism of the Java SE platform.
+So, when a non-remote object is passed as an argument or return value
+in a remote method invocation, the content of the non-remote object is
+copied before invoking the call on the remote object.
+When a non-remote object is returned from a remote method invocation,
+a new object is created in the calling virtual machine.
+2.6.2 Passing Remote Objects
+When passing an exported remote object as a parameter or return value
+in a remote method call, the stub for that remote object is passed
+instead. Remote objects that are not exported will not be replaced with
+a stub instance. A remote object passed as a parameter can only
+implement remote interfaces.
+2.6.3 Referential Integrity
+If two references to an object are passed from one JVM to another JVM
+in parameters (or in the return value) in a single remote method call
+and those references refer to the same object in the sending JVM, those
+references will refer to a single copy of the object in the receiving
+JVM. More generally stated: within a single remote method call, the RMI
+system maintains referential integrity among the objects passed as
+parameters or as a return value in the call.
+2.6.4 Class Annotation
+When an object is sent from one JVM to another in a remote method
+call, the RMI system annotates the class descriptor in the call stream
+with information (the URL) of the class so that the class can be loaded
+at the receiver. It is a requirement that classes be downloaded on
+demand during remote method invocation.
+2.6.5 Parameter Transmission
+Parameters in an RMI call are written to a stream that is a subclass
+of the class
+java.io.ObjectOutputStream
+in order to
+serialize the parameters to the destination of the remote call. The
+ObjectOutputStream
+subclass overrides the
+replaceObject
+method to replace each exported remote object
+with its corresponding stub instance. Parameters that are objects are
+written to the stream using the
+ObjectOutputStream
+'s
+writeObject
+method. The
+ObjectOutputStream
+calls the
+replaceObject
+method for each object written to
+the stream via the
+writeObject
+method (that includes
+objects referenced by those objects that are written). The
+replaceObject
+method of RMI's subclass of
+ObjectOutputStream
+returns the following:
+If the object passed to
+replaceObject
+is an instance
+of
+java.rmi.Remote
+and that object is exported to the RMI
+runtime, then it returns the stub for the remote object. If the object
+is an instance of
+java.rmi.Remote
+and the object is
+not
+exported to the RMI runtime, then
+replaceObject
+returns the object itself. A stub for a
+remote object is obtained via a call to the method
+java.rmi.server.RemoteObject.toStub
+.
+If the object passed to
+replaceObject
+is not an
+instance of
+java.rmi.Remote
+, then the object is simply
+returned.
+RMI's subclass of
+ObjectOutputStream
+also implements the
+annotateClass
+method that annotates the call stream with
+the location of the class so that it can be downloaded at the receiver.
+See the section
+"Dynamic Class
+Loading"
+for more information on how
+annotateClass
+is
+used.
+Since parameters are written to a single
+ObjectOutputStream
+, references that refer to the same
+object at the caller will refer to the same copy of the object at the
+receiver. At the receiver, parameters are read by a single
+ObjectInputStream
+.
+Any other default behavior of
+ObjectOutputStream
+for
+writing objects (and similarly
+ObjectInputStream
+for
+reading objects) is maintained in parameter passing. For example, the
+calling of
+writeReplace
+when writing objects and
+readResolve
+when reading objects is honored by RMI's
+parameter marshal and unmarshal streams.
+In a similar manner to parameter passing in RMI as described above, a
+return value (or exception) is written to a subclass of
+ObjectOutputStream
+and has the same replacement behavior as
+parameter transmission.
+2.7 Locating Remote Objects
+A simple bootstrap name server is provided for storing named
+references to remote objects. A remote object reference can be stored
+using the URL-based methods of the class
+java.rmi.Naming
+.
+For a client to invoke a method on a remote object, that client must
+first obtain a reference to the object. A reference to a remote object
+is usually obtained as a parameter or return value in a method call. The
+RMI system provides a simple bootstrap name server from which to obtain
+remote objects on given hosts. The
+java.rmi.Naming
+class
+provides Uniform Resource Locator (URL) based methods to look up, bind,
+rebind, unbind, and list the name-object pairings maintained on a
+particular host and port.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,323 @@
+ServerSocketFactory (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+javax.net
+Class ServerSocketFactory
+java.lang.Object
+javax.net.ServerSocketFactory
+Direct Known Subclasses:
+SSLServerSocketFactory
+public abstract class
+ServerSocketFactory
+extends
+Object
+This class creates server sockets.  It may be subclassed by other
+ factories, which create particular types of server sockets.  This
+ provides a general framework for the addition of public socket-level
+ functionality.  It is the server side analogue of a socket factory,
+ and similarly provides a way to capture a variety of policies related
+ to the sockets being constructed.
+Like socket factories, server Socket factory instances have
+ methods used to create sockets. There is also an environment
+ specific default server socket factory; frameworks will often use
+ their own customized factory.
+Since:
+1.4
+See Also:
+SocketFactory
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+ServerSocketFactory
+()
+Creates a server socket factory.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+ServerSocket
+createServerSocket
+()
+Returns an unbound server socket.
+abstract
+ServerSocket
+createServerSocket
+(int port)
+Returns a server socket bound to the specified port.
+abstract
+ServerSocket
+createServerSocket
+(int port,
+ int backlog)
+Returns a server socket bound to the specified port, and uses the
+ specified connection backlog.
+abstract
+ServerSocket
+createServerSocket
+(int port,
+ int backlog,
+InetAddress
+ifAddress)
+Returns a server socket bound to the specified port,
+ with a specified listen backlog and local IP.
+static
+ServerSocketFactory
+getDefault
+()
+Returns a copy of the environment's default socket factory.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+ServerSocketFactory
+protected
+ServerSocketFactory
+()
+Creates a server socket factory.
+Method Details
+getDefault
+public static
+ServerSocketFactory
+getDefault
+()
+Returns a copy of the environment's default socket factory.
+Returns:
+the
+ServerSocketFactory
+createServerSocket
+public
+ServerSocket
+createServerSocket
+()
+                                throws
+IOException
+Returns an unbound server socket.  The socket is configured with
+ the socket options (such as accept timeout) given to this factory.
+Returns:
+the unbound socket
+Throws:
+IOException
+- if the socket cannot be created
+See Also:
+ServerSocket.bind(java.net.SocketAddress)
+ServerSocket.bind(java.net.SocketAddress, int)
+ServerSocket()
+createServerSocket
+public abstract
+ServerSocket
+createServerSocket
+(int port)
+throws
+IOException
+Returns a server socket bound to the specified port.
+ The socket is configured with the socket options
+ (such as accept timeout) given to this factory.
+If there is a security manager, its
+checkListen
+method is called with the
+port
+argument as its
+ argument to ensure the operation is allowed. This could result
+ in a SecurityException.
+Parameters:
+port
+- the port to listen to
+Returns:
+the
+ServerSocket
+Throws:
+IOException
+- for networking errors
+SecurityException
+- if a security manager exists and its
+checkListen
+method doesn't allow the operation.
+IllegalArgumentException
+- if the port parameter is outside the
+         specified range of valid port values, which is between 0 and
+         65535, inclusive.
+See Also:
+SecurityManager.checkListen(int)
+ServerSocket(int)
+createServerSocket
+public abstract
+ServerSocket
+createServerSocket
+(int port,
+ int backlog)
+throws
+IOException
+Returns a server socket bound to the specified port, and uses the
+ specified connection backlog.  The socket is configured with
+ the socket options (such as accept timeout) given to this factory.
+The
+backlog
+argument must be a positive
+ value greater than 0. If the value passed if equal or less
+ than 0, then the default value will be assumed.
+If there is a security manager, its
+checkListen
+method is called with the
+port
+argument as its
+ argument to ensure the operation is allowed. This could result
+ in a SecurityException.
+Parameters:
+port
+- the port to listen to
+backlog
+- how many connections are queued
+Returns:
+the
+ServerSocket
+Throws:
+IOException
+- for networking errors
+SecurityException
+- if a security manager exists and its
+checkListen
+method doesn't allow the operation.
+IllegalArgumentException
+- if the port parameter is outside the
+         specified range of valid port values, which is between 0 and
+         65535, inclusive.
+See Also:
+SecurityManager.checkListen(int)
+ServerSocket(int, int)
+createServerSocket
+public abstract
+ServerSocket
+createServerSocket
+(int port,
+ int backlog,
+InetAddress
+ifAddress)
+throws
+IOException
+Returns a server socket bound to the specified port,
+ with a specified listen backlog and local IP.
+The
+ifAddress
+argument can be used on a multi-homed
+ host for a
+ServerSocket
+that will only accept connect
+ requests to one of its addresses. If
+ifAddress
+is null,
+ it will accept connections on all local addresses. The socket is
+ configured with the socket options (such as accept timeout) given
+ to this factory.
+The
+backlog
+argument must be a positive
+ value greater than 0. If the value passed if equal or less
+ than 0, then the default value will be assumed.
+If there is a security manager, its
+checkListen
+method is called with the
+port
+argument as its
+ argument to ensure the operation is allowed. This could result
+ in a SecurityException.
+Parameters:
+port
+- the port to listen to
+backlog
+- how many connections are queued
+ifAddress
+- the network interface address to use
+Returns:
+the
+ServerSocket
+Throws:
+IOException
+- for networking errors
+SecurityException
+- if a security manager exists and its
+checkListen
+method doesn't allow the operation.
+IllegalArgumentException
+- if the port parameter is outside the
+         specified range of valid port values, which is between 0 and
+         65535, inclusive.
+See Also:
+SecurityManager.checkListen(int)
+ServerSocket(int, int, java.net.InetAddress)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

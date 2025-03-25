@@ -1,0 +1,1971 @@
+Uses of Class java.nio.ByteBuffer (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Class
+java.nio.ByteBuffer
+Packages that use
+ByteBuffer
+Package
+Description
+com.sun.nio.sctp
+A Java API for Stream Control Transport Protocol.
+java.lang
+Provides classes that are fundamental to the design of the Java
+ programming language.
+java.lang.foreign
+Provides low-level access to memory and functions outside the Java runtime.
+java.lang.module
+Classes to support module descriptors and creating configurations of modules
+ by means of resolution and service binding.
+java.net.http
+HTTP Client and WebSocket APIs
+java.nio
+Defines buffers, which are containers for data, and provides an
+ overview of the other NIO packages.
+java.nio.channels
+Defines channels, which represent connections to entities that are capable of
+ performing I/O operations, such as files and sockets; defines selectors, for
+ multiplexed, non-blocking I/O operations.
+java.nio.charset
+Defines charsets, decoders, and encoders, for translating between
+ bytes and Unicode characters.
+java.nio.file.attribute
+Interfaces and classes providing access to file and file system attributes.
+java.security
+Provides the classes and interfaces for the security framework.
+java.util
+Contains the collections framework, some internationalization support classes,
+ a service loader, properties, random number generation, string parsing
+ and scanning classes, base64 encoding and decoding, a bit array, and
+ several miscellaneous utility classes.
+java.util.zip
+Provides classes for reading and writing the standard ZIP and GZIP file
+ formats.
+javax.crypto
+Provides the classes and interfaces for cryptographic
+ operations.
+javax.net.ssl
+Provides classes for the secure socket package.
+javax.smartcardio
+Java™ Smart Card I/O API.
+Uses of
+ByteBuffer
+in
+com.sun.nio.sctp
+Methods in
+com.sun.nio.sctp
+that return
+ByteBuffer
+Modifier and Type
+Method
+Description
+abstract
+ByteBuffer
+SendFailedNotification.
+buffer
+()
+Returns the data that was to be sent.
+Methods in
+com.sun.nio.sctp
+with parameters of type
+ByteBuffer
+Modifier and Type
+Method
+Description
+abstract <T>
+MessageInfo
+SctpChannel.
+receive
+(
+ByteBuffer
+dst,
+ T attachment,
+NotificationHandler
+<T> handler)
+Receives a message into the given buffer and/or handles a notification.
+abstract <T>
+MessageInfo
+SctpMultiChannel.
+receive
+(
+ByteBuffer
+buffer,
+ T attachment,
+NotificationHandler
+<T> handler)
+Receives a message and/or handles a notification via this channel.
+abstract int
+SctpChannel.
+send
+(
+ByteBuffer
+src,
+MessageInfo
+messageInfo)
+Sends a message via this channel.
+abstract int
+SctpMultiChannel.
+send
+(
+ByteBuffer
+buffer,
+MessageInfo
+messageInfo)
+Sends a message via this channel.
+Uses of
+ByteBuffer
+in
+java.lang
+Methods in
+java.lang
+with parameters of type
+ByteBuffer
+Modifier and Type
+Method
+Description
+protected final
+Class
+<?>
+ClassLoader.
+defineClass
+(
+String
+name,
+ByteBuffer
+b,
+ProtectionDomain
+protectionDomain)
+Converts a
+ByteBuffer
+into an instance
+ of class
+Class
+, with the given
+ProtectionDomain
+.
+Uses of
+ByteBuffer
+in
+java.lang.foreign
+Methods in
+java.lang.foreign
+that return
+ByteBuffer
+Modifier and Type
+Method
+Description
+ByteBuffer
+MemorySegment.
+asByteBuffer
+()
+Wraps this segment in a
+ByteBuffer
+.
+Uses of
+ByteBuffer
+in
+java.lang.module
+Methods in
+java.lang.module
+that return types with arguments of type
+ByteBuffer
+Modifier and Type
+Method
+Description
+default
+Optional
+<
+ByteBuffer
+>
+ModuleReader.
+read
+(
+String
+name)
+Reads a resource, returning a byte buffer with the contents of the
+ resource.
+Methods in
+java.lang.module
+with parameters of type
+ByteBuffer
+Modifier and Type
+Method
+Description
+static
+ModuleDescriptor
+ModuleDescriptor.
+read
+(
+ByteBuffer
+bb)
+Reads the binary form of a module declaration from a byte buffer as a
+ module descriptor.
+static
+ModuleDescriptor
+ModuleDescriptor.
+read
+(
+ByteBuffer
+bb,
+Supplier
+<
+Set
+<
+String
+>> packageFinder)
+Reads the binary form of a module declaration from a byte buffer
+ as a module descriptor.
+default void
+ModuleReader.
+release
+(
+ByteBuffer
+bb)
+Releases a byte buffer.
+Uses of
+ByteBuffer
+in
+java.net.http
+Methods in
+java.net.http
+with type parameters of type
+ByteBuffer
+Modifier and Type
+Method
+Description
+static <S extends
+Flow.Subscriber
+<? super
+List
+<
+ByteBuffer
+>>,
+T>
+HttpResponse.BodyHandler
+<T>
+HttpResponse.BodyHandlers.
+fromSubscriber
+(S subscriber,
+Function
+<? super S,
+? extends T> finisher)
+Returns a response body handler that returns a
+BodySubscriber
+<T>
+obtained from
+HttpResponse.BodySubscribers.fromSubscriber(Subscriber, Function)
+, with the
+ given
+subscriber
+and
+finisher
+function.
+static <S extends
+Flow.Subscriber
+<? super
+List
+<
+ByteBuffer
+>>,
+T>
+HttpResponse.BodySubscriber
+<T>
+HttpResponse.BodySubscribers.
+fromSubscriber
+(S subscriber,
+Function
+<? super S,
+? extends T> finisher)
+Returns a body subscriber that forwards all response body to the
+ given
+Flow.Subscriber
+.
+Methods in
+java.net.http
+that return types with arguments of type
+ByteBuffer
+Modifier and Type
+Method
+Description
+static
+HttpResponse.BodyHandler
+<
+Flow.Publisher
+<
+List
+<
+ByteBuffer
+>>>
+HttpResponse.BodyHandlers.
+ofPublisher
+()
+Returns a
+BodyHandler<Publisher<List<ByteBuffer>>>
+that creates a
+BodySubscriber
+<Publisher<List<ByteBuffer>>>
+obtained from
+BodySubscribers.ofPublisher()
+.
+static
+HttpResponse.BodySubscriber
+<
+Flow.Publisher
+<
+List
+<
+ByteBuffer
+>>>
+HttpResponse.BodySubscribers.
+ofPublisher
+()
+Returns a response subscriber which publishes the response body
+ through a
+Publisher<List<ByteBuffer>>
+.
+Methods in
+java.net.http
+with parameters of type
+ByteBuffer
+Modifier and Type
+Method
+Description
+default
+CompletionStage
+<?>
+WebSocket.Listener.
+onBinary
+(
+WebSocket
+webSocket,
+ByteBuffer
+data,
+ boolean last)
+A binary data has been received.
+default
+CompletionStage
+<?>
+WebSocket.Listener.
+onPing
+(
+WebSocket
+webSocket,
+ByteBuffer
+message)
+A Ping message has been received.
+default
+CompletionStage
+<?>
+WebSocket.Listener.
+onPong
+(
+WebSocket
+webSocket,
+ByteBuffer
+message)
+A Pong message has been received.
+CompletableFuture
+<
+WebSocket
+>
+WebSocket.
+sendBinary
+(
+ByteBuffer
+data,
+ boolean last)
+Sends binary data with bytes from the given buffer.
+CompletableFuture
+<
+WebSocket
+>
+WebSocket.
+sendPing
+(
+ByteBuffer
+message)
+Sends a Ping message with bytes from the given buffer.
+CompletableFuture
+<
+WebSocket
+>
+WebSocket.
+sendPong
+(
+ByteBuffer
+message)
+Sends a Pong message with bytes from the given buffer.
+Method parameters in
+java.net.http
+with type arguments of type
+ByteBuffer
+Modifier and Type
+Method
+Description
+static
+HttpRequest.BodyPublisher
+HttpRequest.BodyPublishers.
+fromPublisher
+(
+Flow.Publisher
+<? extends
+ByteBuffer
+> publisher)
+Returns a request body publisher whose body is retrieved from the
+ given
+Flow.Publisher
+.
+static
+HttpRequest.BodyPublisher
+HttpRequest.BodyPublishers.
+fromPublisher
+(
+Flow.Publisher
+<? extends
+ByteBuffer
+> publisher,
+ long contentLength)
+Returns a request body publisher whose body is retrieved from the
+ given
+Flow.Publisher
+.
+static
+HttpResponse.BodyHandler
+<
+Void
+>
+HttpResponse.BodyHandlers.
+fromSubscriber
+(
+Flow.Subscriber
+<? super
+List
+<
+ByteBuffer
+>> subscriber)
+Returns a response body handler that returns a
+BodySubscriber
+<Void>
+obtained from
+HttpResponse.BodySubscribers.fromSubscriber(Subscriber)
+, with the given
+subscriber
+.
+static
+HttpResponse.BodySubscriber
+<
+Void
+>
+HttpResponse.BodySubscribers.
+fromSubscriber
+(
+Flow.Subscriber
+<? super
+List
+<
+ByteBuffer
+>> subscriber)
+Returns a body subscriber that forwards all response body to the
+ given
+Flow.Subscriber
+.
+Uses of
+ByteBuffer
+in
+java.nio
+Subclasses of
+ByteBuffer
+in
+java.nio
+Modifier and Type
+Class
+Description
+class
+MappedByteBuffer
+A direct byte buffer whose content is a memory-mapped region of a file.
+Methods in
+java.nio
+that return
+ByteBuffer
+Modifier and Type
+Method
+Description
+final
+ByteBuffer
+ByteBuffer.
+alignedSlice
+(int unitSize)
+Creates a new byte buffer whose content is a shared and aligned
+ subsequence of this buffer's content.
+static
+ByteBuffer
+ByteBuffer.
+allocate
+(int capacity)
+Allocates a new byte buffer.
+static
+ByteBuffer
+ByteBuffer.
+allocateDirect
+(int capacity)
+Allocates a new direct byte buffer.
+abstract
+ByteBuffer
+ByteBuffer.
+asReadOnlyBuffer
+()
+Creates a new, read-only byte buffer that shares this buffer's
+ content.
+ByteBuffer
+ByteBuffer.
+clear
+()
+Clears this buffer.
+abstract
+ByteBuffer
+ByteBuffer.
+compact
+()
+Compacts this buffer
+(optional operation)
+.
+abstract
+ByteBuffer
+ByteBuffer.
+duplicate
+()
+Creates a new byte buffer that shares this buffer's content.
+ByteBuffer
+ByteBuffer.
+flip
+()
+Flips this buffer.
+ByteBuffer
+ByteBuffer.
+get
+(byte[] dst)
+Relative bulk
+get
+method.
+ByteBuffer
+ByteBuffer.
+get
+(byte[] dst,
+ int offset,
+ int length)
+Relative bulk
+get
+method.
+ByteBuffer
+ByteBuffer.
+get
+(int index,
+ byte[] dst)
+Absolute bulk
+get
+method.
+ByteBuffer
+ByteBuffer.
+get
+(int index,
+ byte[] dst,
+ int offset,
+ int length)
+Absolute bulk
+get
+method.
+ByteBuffer
+ByteBuffer.
+limit
+(int newLimit)
+Sets this buffer's limit.
+ByteBuffer
+ByteBuffer.
+mark
+()
+Sets this buffer's mark at its position.
+final
+ByteBuffer
+ByteBuffer.
+order
+(
+ByteOrder
+bo)
+Modifies this buffer's byte order.
+ByteBuffer
+ByteBuffer.
+position
+(int newPosition)
+Sets this buffer's position.
+abstract
+ByteBuffer
+ByteBuffer.
+put
+(byte b)
+Relative
+put
+method
+(optional operation)
+.
+final
+ByteBuffer
+ByteBuffer.
+put
+(byte[] src)
+Relative bulk
+put
+method
+(optional operation)
+.
+ByteBuffer
+ByteBuffer.
+put
+(byte[] src,
+ int offset,
+ int length)
+Relative bulk
+put
+method
+(optional operation)
+.
+abstract
+ByteBuffer
+ByteBuffer.
+put
+(int index,
+ byte b)
+Absolute
+put
+method
+(optional operation)
+.
+ByteBuffer
+ByteBuffer.
+put
+(int index,
+ byte[] src)
+Absolute bulk
+put
+method
+(optional operation)
+.
+ByteBuffer
+ByteBuffer.
+put
+(int index,
+ byte[] src,
+ int offset,
+ int length)
+Absolute bulk
+put
+method
+(optional operation)
+.
+ByteBuffer
+ByteBuffer.
+put
+(int index,
+ByteBuffer
+src,
+ int offset,
+ int length)
+Absolute bulk
+put
+method
+(optional operation)
+.
+ByteBuffer
+ByteBuffer.
+put
+(
+ByteBuffer
+src)
+Relative bulk
+put
+method
+(optional operation)
+.
+abstract
+ByteBuffer
+ByteBuffer.
+putChar
+(char value)
+Relative
+put
+method for writing a char
+ value
+(optional operation)
+.
+abstract
+ByteBuffer
+ByteBuffer.
+putChar
+(int index,
+ char value)
+Absolute
+put
+method for writing a char
+ value
+(optional operation)
+.
+abstract
+ByteBuffer
+ByteBuffer.
+putDouble
+(double value)
+Relative
+put
+method for writing a double
+ value
+(optional operation)
+.
+abstract
+ByteBuffer
+ByteBuffer.
+putDouble
+(int index,
+ double value)
+Absolute
+put
+method for writing a double
+ value
+(optional operation)
+.
+abstract
+ByteBuffer
+ByteBuffer.
+putFloat
+(float value)
+Relative
+put
+method for writing a float
+ value
+(optional operation)
+.
+abstract
+ByteBuffer
+ByteBuffer.
+putFloat
+(int index,
+ float value)
+Absolute
+put
+method for writing a float
+ value
+(optional operation)
+.
+abstract
+ByteBuffer
+ByteBuffer.
+putInt
+(int value)
+Relative
+put
+method for writing an int
+ value
+(optional operation)
+.
+abstract
+ByteBuffer
+ByteBuffer.
+putInt
+(int index,
+ int value)
+Absolute
+put
+method for writing an int
+ value
+(optional operation)
+.
+abstract
+ByteBuffer
+ByteBuffer.
+putLong
+(int index,
+ long value)
+Absolute
+put
+method for writing a long
+ value
+(optional operation)
+.
+abstract
+ByteBuffer
+ByteBuffer.
+putLong
+(long value)
+Relative
+put
+method for writing a long
+ value
+(optional operation)
+.
+abstract
+ByteBuffer
+ByteBuffer.
+putShort
+(int index,
+ short value)
+Absolute
+put
+method for writing a short
+ value
+(optional operation)
+.
+abstract
+ByteBuffer
+ByteBuffer.
+putShort
+(short value)
+Relative
+put
+method for writing a short
+ value
+(optional operation)
+.
+ByteBuffer
+ByteBuffer.
+reset
+()
+Resets this buffer's position to the previously-marked position.
+ByteBuffer
+ByteBuffer.
+rewind
+()
+Rewinds this buffer.
+abstract
+ByteBuffer
+ByteBuffer.
+slice
+()
+Creates a new byte buffer whose content is a shared subsequence of
+ this buffer's content.
+abstract
+ByteBuffer
+ByteBuffer.
+slice
+(int index,
+ int length)
+Creates a new byte buffer whose content is a shared subsequence of
+ this buffer's content.
+static
+ByteBuffer
+ByteBuffer.
+wrap
+(byte[] array)
+Wraps a byte array into a buffer.
+static
+ByteBuffer
+ByteBuffer.
+wrap
+(byte[] array,
+ int offset,
+ int length)
+Wraps a byte array into a buffer.
+Methods in
+java.nio
+with parameters of type
+ByteBuffer
+Modifier and Type
+Method
+Description
+int
+ByteBuffer.
+compareTo
+(
+ByteBuffer
+that)
+Compares this buffer to another.
+int
+ByteBuffer.
+mismatch
+(
+ByteBuffer
+that)
+Finds and returns the relative index of the first mismatch between this
+ buffer and a given buffer.
+ByteBuffer
+ByteBuffer.
+put
+(int index,
+ByteBuffer
+src,
+ int offset,
+ int length)
+Absolute bulk
+put
+method
+(optional operation)
+.
+ByteBuffer
+ByteBuffer.
+put
+(
+ByteBuffer
+src)
+Relative bulk
+put
+method
+(optional operation)
+.
+Uses of
+ByteBuffer
+in
+java.nio.channels
+Methods in
+java.nio.channels
+with parameters of type
+ByteBuffer
+Modifier and Type
+Method
+Description
+Future
+<
+Integer
+>
+AsynchronousByteChannel.
+read
+(
+ByteBuffer
+dst)
+Reads a sequence of bytes from this channel into the given buffer.
+<A> void
+AsynchronousByteChannel.
+read
+(
+ByteBuffer
+dst,
+ A attachment,
+CompletionHandler
+<
+Integer
+,
+? super A> handler)
+Reads a sequence of bytes from this channel into the given buffer.
+abstract
+Future
+<
+Integer
+>
+AsynchronousFileChannel.
+read
+(
+ByteBuffer
+dst,
+ long position)
+Reads a sequence of bytes from this channel into the given buffer,
+ starting at the given file position.
+abstract <A> void
+AsynchronousFileChannel.
+read
+(
+ByteBuffer
+dst,
+ long position,
+ A attachment,
+CompletionHandler
+<
+Integer
+,
+? super A> handler)
+Reads a sequence of bytes from this channel into the given buffer,
+ starting at the given file position.
+abstract
+Future
+<
+Integer
+>
+AsynchronousSocketChannel.
+read
+(
+ByteBuffer
+dst)
+abstract <A> void
+AsynchronousSocketChannel.
+read
+(
+ByteBuffer
+[] dsts,
+ int offset,
+ int length,
+ long timeout,
+TimeUnit
+unit,
+ A attachment,
+CompletionHandler
+<
+Long
+,
+? super A> handler)
+Reads a sequence of bytes from this channel into a subsequence of the
+ given buffers.
+abstract <A> void
+AsynchronousSocketChannel.
+read
+(
+ByteBuffer
+dst,
+ long timeout,
+TimeUnit
+unit,
+ A attachment,
+CompletionHandler
+<
+Integer
+,
+? super A> handler)
+Reads a sequence of bytes from this channel into the given buffer.
+final <A> void
+AsynchronousSocketChannel.
+read
+(
+ByteBuffer
+dst,
+ A attachment,
+CompletionHandler
+<
+Integer
+,
+? super A> handler)
+abstract int
+DatagramChannel.
+read
+(
+ByteBuffer
+dst)
+Reads a datagram from this channel.
+final long
+DatagramChannel.
+read
+(
+ByteBuffer
+[] dsts)
+Reads a datagram from this channel.
+abstract long
+DatagramChannel.
+read
+(
+ByteBuffer
+[] dsts,
+ int offset,
+ int length)
+Reads a datagram from this channel.
+abstract int
+FileChannel.
+read
+(
+ByteBuffer
+dst)
+Reads a sequence of bytes from this channel into the given buffer.
+final long
+FileChannel.
+read
+(
+ByteBuffer
+[] dsts)
+Reads a sequence of bytes from this channel into the given buffers.
+abstract long
+FileChannel.
+read
+(
+ByteBuffer
+[] dsts,
+ int offset,
+ int length)
+Reads a sequence of bytes from this channel into a subsequence of the
+ given buffers.
+abstract int
+FileChannel.
+read
+(
+ByteBuffer
+dst,
+ long position)
+Reads a sequence of bytes from this channel into the given buffer,
+ starting at the given file position.
+int
+ReadableByteChannel.
+read
+(
+ByteBuffer
+dst)
+Reads a sequence of bytes from this channel into the given buffer.
+long
+ScatteringByteChannel.
+read
+(
+ByteBuffer
+[] dsts)
+Reads a sequence of bytes from this channel into the given buffers.
+long
+ScatteringByteChannel.
+read
+(
+ByteBuffer
+[] dsts,
+ int offset,
+ int length)
+Reads a sequence of bytes from this channel into a subsequence of the
+ given buffers.
+int
+SeekableByteChannel.
+read
+(
+ByteBuffer
+dst)
+Reads a sequence of bytes from this channel into the given buffer.
+abstract int
+SocketChannel.
+read
+(
+ByteBuffer
+dst)
+final long
+SocketChannel.
+read
+(
+ByteBuffer
+[] dsts)
+abstract long
+SocketChannel.
+read
+(
+ByteBuffer
+[] dsts,
+ int offset,
+ int length)
+abstract
+SocketAddress
+DatagramChannel.
+receive
+(
+ByteBuffer
+dst)
+Receives a datagram via this channel.
+abstract int
+DatagramChannel.
+send
+(
+ByteBuffer
+src,
+SocketAddress
+target)
+Sends a datagram via this channel.
+Future
+<
+Integer
+>
+AsynchronousByteChannel.
+write
+(
+ByteBuffer
+src)
+Writes a sequence of bytes to this channel from the given buffer.
+<A> void
+AsynchronousByteChannel.
+write
+(
+ByteBuffer
+src,
+ A attachment,
+CompletionHandler
+<
+Integer
+,
+? super A> handler)
+Writes a sequence of bytes to this channel from the given buffer.
+abstract
+Future
+<
+Integer
+>
+AsynchronousFileChannel.
+write
+(
+ByteBuffer
+src,
+ long position)
+Writes a sequence of bytes to this channel from the given buffer, starting
+ at the given file position.
+abstract <A> void
+AsynchronousFileChannel.
+write
+(
+ByteBuffer
+src,
+ long position,
+ A attachment,
+CompletionHandler
+<
+Integer
+,
+? super A> handler)
+Writes a sequence of bytes to this channel from the given buffer, starting
+ at the given file position.
+abstract
+Future
+<
+Integer
+>
+AsynchronousSocketChannel.
+write
+(
+ByteBuffer
+src)
+abstract <A> void
+AsynchronousSocketChannel.
+write
+(
+ByteBuffer
+[] srcs,
+ int offset,
+ int length,
+ long timeout,
+TimeUnit
+unit,
+ A attachment,
+CompletionHandler
+<
+Long
+,
+? super A> handler)
+Writes a sequence of bytes to this channel from a subsequence of the given
+ buffers.
+abstract <A> void
+AsynchronousSocketChannel.
+write
+(
+ByteBuffer
+src,
+ long timeout,
+TimeUnit
+unit,
+ A attachment,
+CompletionHandler
+<
+Integer
+,
+? super A> handler)
+Writes a sequence of bytes to this channel from the given buffer.
+final <A> void
+AsynchronousSocketChannel.
+write
+(
+ByteBuffer
+src,
+ A attachment,
+CompletionHandler
+<
+Integer
+,
+? super A> handler)
+abstract int
+DatagramChannel.
+write
+(
+ByteBuffer
+src)
+Writes a datagram to this channel.
+final long
+DatagramChannel.
+write
+(
+ByteBuffer
+[] srcs)
+Writes a datagram to this channel.
+abstract long
+DatagramChannel.
+write
+(
+ByteBuffer
+[] srcs,
+ int offset,
+ int length)
+Writes a datagram to this channel.
+abstract int
+FileChannel.
+write
+(
+ByteBuffer
+src)
+Writes a sequence of bytes to this channel from the given buffer.
+final long
+FileChannel.
+write
+(
+ByteBuffer
+[] srcs)
+Writes a sequence of bytes to this channel from the given buffers.
+abstract long
+FileChannel.
+write
+(
+ByteBuffer
+[] srcs,
+ int offset,
+ int length)
+Writes a sequence of bytes to this channel from a subsequence of the
+ given buffers.
+abstract int
+FileChannel.
+write
+(
+ByteBuffer
+src,
+ long position)
+Writes a sequence of bytes to this channel from the given buffer,
+ starting at the given file position.
+long
+GatheringByteChannel.
+write
+(
+ByteBuffer
+[] srcs)
+Writes a sequence of bytes to this channel from the given buffers.
+long
+GatheringByteChannel.
+write
+(
+ByteBuffer
+[] srcs,
+ int offset,
+ int length)
+Writes a sequence of bytes to this channel from a subsequence of the
+ given buffers.
+int
+SeekableByteChannel.
+write
+(
+ByteBuffer
+src)
+Writes a sequence of bytes to this channel from the given buffer.
+abstract int
+SocketChannel.
+write
+(
+ByteBuffer
+src)
+final long
+SocketChannel.
+write
+(
+ByteBuffer
+[] srcs)
+abstract long
+SocketChannel.
+write
+(
+ByteBuffer
+[] srcs,
+ int offset,
+ int length)
+int
+WritableByteChannel.
+write
+(
+ByteBuffer
+src)
+Writes a sequence of bytes to this channel from the given buffer.
+Uses of
+ByteBuffer
+in
+java.nio.charset
+Methods in
+java.nio.charset
+that return
+ByteBuffer
+Modifier and Type
+Method
+Description
+final
+ByteBuffer
+Charset.
+encode
+(
+String
+str)
+Convenience method that encodes a string into bytes in this charset.
+final
+ByteBuffer
+Charset.
+encode
+(
+CharBuffer
+cb)
+Convenience method that encodes Unicode characters into bytes in this
+ charset.
+final
+ByteBuffer
+CharsetEncoder.
+encode
+(
+CharBuffer
+in)
+Convenience method that encodes the remaining content of a single input
+ character buffer into a newly-allocated byte buffer.
+Methods in
+java.nio.charset
+with parameters of type
+ByteBuffer
+Modifier and Type
+Method
+Description
+final
+CharBuffer
+Charset.
+decode
+(
+ByteBuffer
+bb)
+Convenience method that decodes bytes in this charset into Unicode
+ characters.
+final
+CharBuffer
+CharsetDecoder.
+decode
+(
+ByteBuffer
+in)
+Convenience method that decodes the remaining content of a single input
+ byte buffer into a newly-allocated character buffer.
+final
+CoderResult
+CharsetDecoder.
+decode
+(
+ByteBuffer
+in,
+CharBuffer
+out,
+ boolean endOfInput)
+Decodes as many bytes as possible from the given input buffer,
+ writing the results to the given output buffer.
+protected abstract
+CoderResult
+CharsetDecoder.
+decodeLoop
+(
+ByteBuffer
+in,
+CharBuffer
+out)
+Decodes one or more bytes into one or more characters.
+final
+CoderResult
+CharsetEncoder.
+encode
+(
+CharBuffer
+in,
+ByteBuffer
+out,
+ boolean endOfInput)
+Encodes as many characters as possible from the given input buffer,
+ writing the results to the given output buffer.
+protected abstract
+CoderResult
+CharsetEncoder.
+encodeLoop
+(
+CharBuffer
+in,
+ByteBuffer
+out)
+Encodes one or more characters into one or more bytes.
+final
+CoderResult
+CharsetEncoder.
+flush
+(
+ByteBuffer
+out)
+Flushes this encoder.
+protected
+CoderResult
+CharsetEncoder.
+implFlush
+(
+ByteBuffer
+out)
+Flushes this encoder.
+Uses of
+ByteBuffer
+in
+java.nio.file.attribute
+Methods in
+java.nio.file.attribute
+with parameters of type
+ByteBuffer
+Modifier and Type
+Method
+Description
+int
+UserDefinedFileAttributeView.
+read
+(
+String
+name,
+ByteBuffer
+dst)
+Read the value of a user-defined attribute into a buffer.
+int
+UserDefinedFileAttributeView.
+write
+(
+String
+name,
+ByteBuffer
+src)
+Writes the value of a user-defined attribute from a buffer.
+Uses of
+ByteBuffer
+in
+java.security
+Methods in
+java.security
+with parameters of type
+ByteBuffer
+Modifier and Type
+Method
+Description
+protected final
+Class
+<?>
+SecureClassLoader.
+defineClass
+(
+String
+name,
+ByteBuffer
+b,
+CodeSource
+cs)
+Converts a
+ByteBuffer
+into an instance of class
+Class
+, with an optional CodeSource.
+protected void
+MessageDigestSpi.
+engineUpdate
+(
+ByteBuffer
+input)
+Update the digest using the specified ByteBuffer.
+protected void
+SignatureSpi.
+engineUpdate
+(
+ByteBuffer
+input)
+Updates the data to be signed or verified using the specified
+ ByteBuffer.
+final void
+MessageDigest.
+update
+(
+ByteBuffer
+input)
+Update the digest using the specified ByteBuffer.
+final void
+Signature.
+update
+(
+ByteBuffer
+data)
+Updates the data to be signed or verified using the specified
+ ByteBuffer.
+Uses of
+ByteBuffer
+in
+java.util
+Methods in
+java.util
+that return
+ByteBuffer
+Modifier and Type
+Method
+Description
+ByteBuffer
+Base64.Decoder.
+decode
+(
+ByteBuffer
+buffer)
+Decodes all bytes from the input byte buffer using the
+Base64
+encoding scheme, writing the results into a newly-allocated ByteBuffer.
+ByteBuffer
+Base64.Encoder.
+encode
+(
+ByteBuffer
+buffer)
+Encodes all remaining bytes from the specified byte buffer into
+ a newly-allocated ByteBuffer using the
+Base64
+encoding
+ scheme.
+Methods in
+java.util
+with parameters of type
+ByteBuffer
+Modifier and Type
+Method
+Description
+ByteBuffer
+Base64.Decoder.
+decode
+(
+ByteBuffer
+buffer)
+Decodes all bytes from the input byte buffer using the
+Base64
+encoding scheme, writing the results into a newly-allocated ByteBuffer.
+ByteBuffer
+Base64.Encoder.
+encode
+(
+ByteBuffer
+buffer)
+Encodes all remaining bytes from the specified byte buffer into
+ a newly-allocated ByteBuffer using the
+Base64
+encoding
+ scheme.
+static
+BitSet
+BitSet.
+valueOf
+(
+ByteBuffer
+bb)
+Returns a new bit set containing all the bits in the given byte
+ buffer between its position and limit.
+Uses of
+ByteBuffer
+in
+java.util.zip
+Methods in
+java.util.zip
+with parameters of type
+ByteBuffer
+Modifier and Type
+Method
+Description
+int
+Deflater.
+deflate
+(
+ByteBuffer
+output)
+Compresses the input data and fills specified buffer with compressed
+ data.
+int
+Deflater.
+deflate
+(
+ByteBuffer
+output,
+ int flush)
+Compresses the input data and fills the specified buffer with compressed
+ data.
+int
+Inflater.
+inflate
+(
+ByteBuffer
+output)
+Uncompresses bytes into specified buffer.
+void
+Deflater.
+setDictionary
+(
+ByteBuffer
+dictionary)
+Sets preset dictionary for compression.
+void
+Inflater.
+setDictionary
+(
+ByteBuffer
+dictionary)
+Sets the preset dictionary to the bytes in the given buffer.
+void
+Deflater.
+setInput
+(
+ByteBuffer
+input)
+Sets input data for compression.
+void
+Inflater.
+setInput
+(
+ByteBuffer
+input)
+Sets input data for decompression.
+void
+Adler32.
+update
+(
+ByteBuffer
+buffer)
+Updates the checksum with the bytes from the specified buffer.
+default void
+Checksum.
+update
+(
+ByteBuffer
+buffer)
+Updates the current checksum with the bytes from the specified buffer.
+void
+CRC32.
+update
+(
+ByteBuffer
+buffer)
+Updates the CRC-32 checksum with the bytes from the specified buffer.
+void
+CRC32C.
+update
+(
+ByteBuffer
+buffer)
+Updates the CRC-32C checksum with the bytes from the specified buffer.
+Uses of
+ByteBuffer
+in
+javax.crypto
+Methods in
+javax.crypto
+with parameters of type
+ByteBuffer
+Modifier and Type
+Method
+Description
+final int
+Cipher.
+doFinal
+(
+ByteBuffer
+input,
+ByteBuffer
+output)
+Encrypts or decrypts data in a single-part operation, or finishes a
+ multiple-part operation.
+protected int
+CipherSpi.
+engineDoFinal
+(
+ByteBuffer
+input,
+ByteBuffer
+output)
+Encrypts or decrypts data in a single-part operation,
+ or finishes a multiple-part operation.
+protected int
+CipherSpi.
+engineUpdate
+(
+ByteBuffer
+input,
+ByteBuffer
+output)
+Continues a multiple-part encryption or decryption operation
+ (depending on how this
+CipherSpi
+object was initialized),
+ processing another data part.
+protected void
+MacSpi.
+engineUpdate
+(
+ByteBuffer
+input)
+Processes
+input.remaining()
+bytes in the ByteBuffer
+input
+, starting at
+input.position()
+.
+protected void
+CipherSpi.
+engineUpdateAAD
+(
+ByteBuffer
+src)
+Continues a multipart update of the Additional Authentication
+ Data (AAD).
+final int
+Cipher.
+update
+(
+ByteBuffer
+input,
+ByteBuffer
+output)
+Continues a multiple-part encryption or decryption operation
+ (depending on how this
+Cipher
+object was initialized),
+ processing another data part.
+final void
+Mac.
+update
+(
+ByteBuffer
+input)
+Processes
+input.remaining()
+bytes in the ByteBuffer
+input
+, starting at
+input.position()
+.
+final void
+Cipher.
+updateAAD
+(
+ByteBuffer
+src)
+Continues a multi-part update of the Additional Authentication
+ Data (AAD).
+Uses of
+ByteBuffer
+in
+javax.net.ssl
+Methods in
+javax.net.ssl
+with parameters of type
+ByteBuffer
+Modifier and Type
+Method
+Description
+SSLEngineResult
+SSLEngine.
+unwrap
+(
+ByteBuffer
+src,
+ByteBuffer
+dst)
+Attempts to decode SSL/TLS/DTLS network data into a plaintext
+ application data buffer.
+SSLEngineResult
+SSLEngine.
+unwrap
+(
+ByteBuffer
+src,
+ByteBuffer
+[] dsts)
+Attempts to decode SSL/TLS/DTLS network data into a sequence of plaintext
+ application data buffers.
+abstract
+SSLEngineResult
+SSLEngine.
+unwrap
+(
+ByteBuffer
+src,
+ByteBuffer
+[] dsts,
+ int offset,
+ int length)
+Attempts to decode SSL/TLS/DTLS network data into a subsequence of
+ plaintext application data buffers.
+abstract
+SSLEngineResult
+SSLEngine.
+wrap
+(
+ByteBuffer
+[] srcs,
+ int offset,
+ int length,
+ByteBuffer
+dst)
+Attempts to encode plaintext bytes from a subsequence of data
+ buffers into SSL/TLS/DTLS network data.
+SSLEngineResult
+SSLEngine.
+wrap
+(
+ByteBuffer
+[] srcs,
+ByteBuffer
+dst)
+Attempts to encode plaintext bytes from a sequence of data
+ buffers into SSL/TLS/DTLS network data.
+SSLEngineResult
+SSLEngine.
+wrap
+(
+ByteBuffer
+src,
+ByteBuffer
+dst)
+Attempts to encode a buffer of plaintext application data into
+ SSL/TLS/DTLS network data.
+Uses of
+ByteBuffer
+in
+javax.smartcardio
+Methods in
+javax.smartcardio
+with parameters of type
+ByteBuffer
+Modifier and Type
+Method
+Description
+abstract int
+CardChannel.
+transmit
+(
+ByteBuffer
+command,
+ByteBuffer
+response)
+Transmits the command APDU stored in the command ByteBuffer and receives
+ the response APDU in the response ByteBuffer.
+Constructors in
+javax.smartcardio
+with parameters of type
+ByteBuffer
+Modifier
+Constructor
+Description
+CommandAPDU
+(
+ByteBuffer
+apdu)
+Creates a CommandAPDU from the ByteBuffer containing the complete APDU
+ contents (header and body).
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

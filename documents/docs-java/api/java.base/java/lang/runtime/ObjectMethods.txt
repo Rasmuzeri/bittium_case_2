@@ -1,0 +1,231 @@
+ObjectMethods (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang.runtime
+Class ObjectMethods
+java.lang.Object
+java.lang.runtime.ObjectMethods
+public class
+ObjectMethods
+extends
+Object
+Bootstrap methods for state-driven implementations of core methods,
+ including
+Object.equals(Object)
+,
+Object.hashCode()
+, and
+Object.toString()
+.  These methods may be used, for example, by
+ Java compiler implementations to implement the bodies of
+Object
+methods for record classes.
+Since:
+16
+Method Summary
+All Methods
+Static Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+Object
+bootstrap
+(
+MethodHandles.Lookup
+lookup,
+String
+methodName,
+TypeDescriptor
+type,
+Class
+<?> recordClass,
+String
+names,
+MethodHandle
+... getters)
+Bootstrap method to generate the
+Object.equals(Object)
+,
+Object.hashCode()
+, and
+Object.toString()
+methods, based
+ on a description of the component names and accessor methods, for either
+invokedynamic
+call sites or dynamic constant pool entries.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Method Details
+bootstrap
+public static
+Object
+bootstrap
+(
+MethodHandles.Lookup
+lookup,
+String
+methodName,
+TypeDescriptor
+type,
+Class
+<?> recordClass,
+String
+names,
+MethodHandle
+... getters)
+throws
+Throwable
+Bootstrap method to generate the
+Object.equals(Object)
+,
+Object.hashCode()
+, and
+Object.toString()
+methods, based
+ on a description of the component names and accessor methods, for either
+invokedynamic
+call sites or dynamic constant pool entries.
+
+ For more detail on the semantics of the generated methods see the specification
+ of
+Record.equals(Object)
+,
+Record.hashCode()
+and
+Record.toString()
+.
+Parameters:
+lookup
+- Every bootstrap method is expected to have a
+lookup
+which usually represents a lookup context with the
+                     accessibility privileges of the caller. This is because
+invokedynamic
+call sites always provide a
+lookup
+to the corresponding bootstrap method, but this method just
+                     ignores the
+lookup
+parameter
+methodName
+- the name of the method to generate, which must be one of
+"equals"
+,
+"hashCode"
+, or
+"toString"
+type
+- a
+MethodType
+corresponding the descriptor type
+                     for the method, which must correspond to the descriptor
+                     for the corresponding
+Object
+method, if linking
+                     an
+invokedynamic
+call site, or the
+                     constant
+MethodHandle.class
+, if linking a
+                     dynamic constant
+recordClass
+- the record class hosting the record components
+names
+- the list of component names, joined into a string
+                     separated by ";", or the empty string if there are no
+                     components. This parameter is ignored if the
+methodName
+parameter is
+"equals"
+or
+"hashCode"
+getters
+- method handles for the accessor methods for the components
+Returns:
+a call site if invoked by indy, or a method handle
+                     if invoked by a condy
+Throws:
+IllegalArgumentException
+- if the bootstrap arguments are invalid
+                                  or inconsistent
+NullPointerException
+- if any argument is
+null
+or if any element
+                              in the
+getters
+array is
+null
+Throwable
+- if any exception is thrown during call site construction
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

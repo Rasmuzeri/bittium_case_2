@@ -1,0 +1,366 @@
+jdk.jfr (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages
+|
+Classes and Interfaces
+SEARCH
+Module
+jdk.jfr
+Package jdk.jfr
+package
+jdk.jfr
+This package provides classes to create events and control Flight Recorder.
+Defining events
+Flight Recorder collects data as events. An event has a time stamp, duration
+ and usually an application-specific payload, useful for diagnosing the
+ running application up to the failure or crash.
+To define a Flight Recorder event, extend
+Event
+and add
+ fields that matches the data types of the payload. Metadata about fields,
+ such as labels, descriptions and units, can be added by using the annotations
+ available in the
+jdk.jfr
+package, or by using a user-defined
+ annotation that has the
+MetadataDefinition
+annotation.
+After an event class is defined, instances can be created (event objects).
+ Data is stored in the event by assigning data to fields. Event timing can be
+ explicitly controlled by using the
+begin
+and
+end
+methods
+ available in the
+Event
+class.
+Gathering data to store in an event can be expensive. The
+Event.shouldCommit()
+method can be used to verify whether
+ an event instance would actually be written to the system when
+ the
+Event.commit()
+method is invoked.
+ If
+Event.shouldCommit()
+returns
+false
+,
+ then those operations can be avoided.
+Sometimes the field layout of an event is not known at compile time. In that
+ case, an event can be dynamically defined. However, dynamic events might not
+ have the same level of performance as statically defined ones and tools might
+ not be able to identify and visualize the data without knowing the layout.
+To dynamically define an event, use the
+EventFactory
+class
+ and define fields by using the
+ValueDescriptor
+class, and
+ define annotations by using the
+AnnotationElement
+class. Use
+ the factory to allocate an event and the
+Event.set(int, Object)
+method to populate it.
+Controlling Flight Recorder
+Flight Recorder can be controlled locally by using the
+jcmd
+command line tool or remotely by using the
+FlightRecorderMXBean
+interface, registered in the platform MBeanServer. When direct programmatic
+ access is needed, a Flight Recorder instance can be obtained by invoking
+FlightRecorder.getFlightRecorder()
+and a recording created by
+ using
+Recording
+class, from which the amount of data to
+ record is configured.
+Settings and configuration
+A setting consists of a name/value pair, where
+name
+specifies the
+ event and setting to configure, and the
+value
+specifies what to set
+ it to.
+The name can be formed in the following ways:
+<event-name> + "#" + <setting-name>
+or
+<event-id> + "#" + <setting-name>
+For example, to set the sample interval of the CPU Load event to once every
+ second, use the name
+"jdk.CPULoad#period"
+and the value
+"1 s"
+. If multiple events use the same name, for example if an event
+ class is loaded in multiple class loaders, and differentiation is needed
+ between them, then the name is
+"56#period"
+. The ID for an event is
+ obtained by invoking
+EventType.getId()
+method and is valid
+ for the Java Virtual Machine instance that the event is registered in.
+A list of available event names is retrieved by invoking
+FlightRecorder.getEventTypes()
+and
+EventType.getName()
+. A list of available settings for an
+ event type is obtained by invoking
+EventType.getSettingDescriptors()
+and
+ValueDescriptor.getName()
+.
+Predefined settings
+Event setting names and their purpose.
+Name
+Description
+Default value
+Format
+Example values
+enabled
+Specifies whether the event is recorded
+"true"
+String representation of a
+Boolean
+(
+"true"
+or
+"false"
+)
+"true"
+"false"
+threshold
+Specifies the duration below which an event is not recorded
+"0"
+(no limit)
+"0"
+if no threshold is used, otherwise a string representation of
+ a positive
+Long
+followed by a space and one of the following units:
+"ns"
+(nanoseconds)
+"us"
+(microseconds)
+"ms"
+(milliseconds)
+"s"
+(seconds)
+"m"
+(minutes)
+"h"
+(hours)
+"d"
+(days)
+"0"
+"10 ms"
+"1 s"
+period
+Specifies the interval at which the event is emitted, if it is
+ periodic
+"everyChunk"
+"everyChunk"
+, if a periodic event should be emitted with every
+ file rotation, otherwise a string representation of a positive
+Long
+value followed by an empty space and one of the following units:
+"ns"
+(nanoseconds)
+"us"
+(microseconds)
+"ms"
+(milliseconds)
+"s"
+(seconds)
+"m"
+(minutes)
+"h"
+(hours)
+"d"
+(days)
+"20 ms"
+"1 s"
+"everyChunk"
+stackTrace
+Specifies whether the stack trace from the
+Event.commit()
+method
+ is recorded
+"true"
+String representation of a
+Boolean
+(
+"true"
+or
+"false"
+)
+"true"
+,
+"false"
+Null-handling
+All methods define whether they accept or return
+null
+in the Javadoc.
+ Typically this is expressed as
+"not null"
+. If a
+null
+parameter is used where it is not allowed, a
+java.lang.NullPointerException
+is thrown. If a
+null
+parameters is passed to a method that throws other exceptions, such as
+java.io.IOException
+, the
+java.lang.NullPointerException
+takes
+ precedence, unless the Javadoc for the method explicitly states how
+null
+is handled, i.e. by throwing
+java.lang.IllegalArgumentException
+.
+Since:
+9
+Related Packages
+Package
+Description
+jdk.jfr.consumer
+This package contains classes for consuming Flight Recorder data.
+All Classes and Interfaces
+Interfaces
+Classes
+Enum Classes
+Annotation Interfaces
+Class
+Description
+AnnotationElement
+Describes event metadata, such as labels, descriptions and units.
+BooleanFlag
+Event field annotation, specifies that the value is a boolean flag, a
+true
+or
+false
+value.
+Category
+Event annotation, to associate the event type with a category, in the format
+ of a human-readable path.
+Configuration
+A collection of settings and metadata describing the configuration.
+ContentType
+Meta annotation, specifies that an annotation represents a content type, such
+ as a time span or a frequency.
+DataAmount
+Event field annotation, specifies that a value represents an amount of data (for example, bytes).
+Description
+Annotation that describes an element by using a sentence or two.
+Enabled
+Event annotation, determines if an event should be enabled by default.
+Event
+Base class for events, to be subclassed in order to define events and their
+ fields.
+EventFactory
+Class for defining an event at runtime.
+EventSettings
+Convenience class for applying event settings to a recording.
+EventType
+Describes an event, its fields, settings and annotations.
+Experimental
+Annotation that specifies that an element is experimental and may change
+ without notice.
+FlightRecorder
+Class for accessing, controlling, and managing Flight Recorder.
+FlightRecorderListener
+Callback interface to monitor Flight Recorder's life cycle.
+FlightRecorderPermission
+Permission for controlling access to Flight Recorder.
+Frequency
+Event field annotation, specifies that the value is a frequency, measured in Hz.
+Label
+Annotation that sets a human-readable name for an element (for example,
+"Maximum Throughput"
+).
+MemoryAddress
+Event field annotation, specifies that the value is a memory address.
+MetadataDefinition
+Meta annotation for defining new types of event metadata.
+Name
+Annotation that sets the default name for an element.
+Percentage
+Event field annotation to use on fractions, typically between
+0.0
+and
+1.0
+, to specify that the value is a percentage.
+Period
+Event annotation, specifies the default setting value for a periodic event.
+Recording
+Provides means to configure, start, stop and dump recording data to disk.
+RecordingState
+Indicates a state in the life cycle of a recording.
+Registered
+Event annotation, for programmatic event registration.
+Relational
+Meta annotation for relational annotations, to be used on an annotation.
+SettingControl
+Base class to extend to create setting controls.
+SettingDefinition
+Annotation that specifies that a method in an event class should be used to
+ filter out events.
+SettingDescriptor
+Describes an event setting.
+StackTrace
+Event annotation, determines whether an event by default has a stack trace
+ or not.
+Threshold
+Event annotation, specifies the default duration below which an event is not
+ recorded (for example,
+"20 ms"
+).
+Timespan
+Event field annotation, specifies that the value is a duration.
+Timestamp
+Event field annotation, specifies that the value is a point in time.
+TransitionFrom
+Event field annotation, specifies that the event transitioned from a thread.
+TransitionTo
+Event field annotation, specifies that the event will soon transition to a thread.
+Unsigned
+Event field annotation, specifies that the value is of an unsigned data type.
+ValueDescriptor
+Describes the event fields and annotation elements.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

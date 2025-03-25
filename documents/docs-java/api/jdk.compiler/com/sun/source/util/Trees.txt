@@ -1,0 +1,833 @@
+Trees (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.compiler
+Package
+com.sun.source.util
+Class Trees
+java.lang.Object
+com.sun.source.util.Trees
+Direct Known Subclasses:
+DocTrees
+public abstract class
+Trees
+extends
+Object
+Bridges JSR 199, JSR 269, and the Tree API.
+Constructor Summary
+Constructors
+Constructor
+Description
+Trees
+()
+Constructor for subclasses to call.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+abstract
+String
+getDocComment
+(
+TreePath
+path)
+Returns the doc comment, if any, for the
+Tree
+node identified by a given
+TreePath
+.
+abstract
+Element
+getElement
+(
+TreePath
+path)
+Returns the
+Element
+for the
+Tree
+node identified by a given
+TreePath
+.
+abstract
+TypeMirror
+getLub
+(
+CatchTree
+tree)
+Returns the lub of an exception parameter declared in a catch clause.
+abstract
+TypeMirror
+getOriginalType
+(
+ErrorType
+errorType)
+Returns the original type from the
+ErrorType
+object.
+abstract
+TreePath
+getPath
+(
+CompilationUnitTree
+unit,
+Tree
+node)
+Returns the path to tree node within the specified compilation unit.
+abstract
+TreePath
+getPath
+(
+Element
+e)
+Returns the
+TreePath
+node for a given
+Element
+.
+abstract
+TreePath
+getPath
+(
+Element
+e,
+AnnotationMirror
+a)
+Returns the
+TreePath
+node for an
+AnnotationMirror
+on a given
+Element
+.
+abstract
+TreePath
+getPath
+(
+Element
+e,
+AnnotationMirror
+a,
+AnnotationValue
+v)
+Returns the
+TreePath
+node for an
+AnnotationValue
+for an
+AnnotationMirror
+on a given
+Element
+.
+abstract
+Scope
+getScope
+(
+TreePath
+path)
+Returns the
+Scope
+for the
+Tree
+node identified by a given
+TreePath
+.
+abstract
+SourcePositions
+getSourcePositions
+()
+Returns a utility object for obtaining source positions.
+abstract
+Tree
+getTree
+(
+Element
+element)
+Returns the
+Tree
+node for a given
+Element
+.
+abstract
+Tree
+getTree
+(
+Element
+e,
+AnnotationMirror
+a)
+Returns the
+Tree
+node for an
+AnnotationMirror
+on a given
+Element
+.
+abstract
+Tree
+getTree
+(
+Element
+e,
+AnnotationMirror
+a,
+AnnotationValue
+v)
+Returns the
+Tree
+node for an
+AnnotationValue
+for an
+AnnotationMirror
+on a given
+Element
+.
+abstract
+MethodTree
+getTree
+(
+ExecutableElement
+method)
+Returns the
+MethodTree
+node for a given
+ExecutableElement
+.
+abstract
+ClassTree
+getTree
+(
+TypeElement
+element)
+Returns the
+ClassTree
+node for a given
+TypeElement
+.
+abstract
+TypeMirror
+getTypeMirror
+(
+TreePath
+path)
+Returns the
+TypeMirror
+for the
+Tree
+node identified by a given
+TreePath
+.
+static
+Trees
+instance
+(
+ProcessingEnvironment
+env)
+Returns a
+Trees
+object for a given
+ProcessingEnvironment
+.
+static
+Trees
+instance
+(
+JavaCompiler.CompilationTask
+task)
+Returns a
+Trees
+object for a given
+CompilationTask
+.
+abstract boolean
+isAccessible
+(
+Scope
+scope,
+Element
+member,
+DeclaredType
+type)
+Checks whether the given element is accessible as a member of the given
+ type in a given scope.
+abstract boolean
+isAccessible
+(
+Scope
+scope,
+TypeElement
+type)
+Checks whether a given type is accessible in a given scope.
+abstract void
+printMessage
+(
+Diagnostic.Kind
+kind,
+CharSequence
+msg,
+Tree
+t,
+CompilationUnitTree
+root)
+Prints a message of the specified kind at the location of the
+ tree within the provided compilation unit
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+Trees
+public
+Trees
+()
+Constructor for subclasses to call.
+Method Details
+instance
+public static
+Trees
+instance
+(
+JavaCompiler.CompilationTask
+task)
+Returns a
+Trees
+object for a given
+CompilationTask
+.
+Parameters:
+task
+- the compilation task for which to get the
+Trees
+object
+Returns:
+the
+Trees
+object
+Throws:
+IllegalArgumentException
+- if the task does not support the Tree API.
+instance
+public static
+Trees
+instance
+(
+ProcessingEnvironment
+env)
+Returns a
+Trees
+object for a given
+ProcessingEnvironment
+.
+Parameters:
+env
+- the processing environment for which to get the
+Trees
+object
+Returns:
+the
+Trees
+object
+Throws:
+IllegalArgumentException
+- if the env does not support the Tree API.
+getSourcePositions
+public abstract
+SourcePositions
+getSourcePositions
+()
+Returns a utility object for obtaining source positions.
+Returns:
+the utility object for obtaining source positions
+getTree
+public abstract
+Tree
+getTree
+(
+Element
+element)
+Returns the
+Tree
+node for a given
+Element
+.
+ Returns
+null
+if the node can not be found.
+Parameters:
+element
+- the element
+Returns:
+the tree node
+getTree
+public abstract
+ClassTree
+getTree
+(
+TypeElement
+element)
+Returns the
+ClassTree
+node for a given
+TypeElement
+.
+ Returns
+null
+if the node can not be found.
+Parameters:
+element
+- the element
+Returns:
+the class tree node
+getTree
+public abstract
+MethodTree
+getTree
+(
+ExecutableElement
+method)
+Returns the
+MethodTree
+node for a given
+ExecutableElement
+.
+ Returns
+null
+if the node can not be found.
+Parameters:
+method
+- the executable element
+Returns:
+the method tree node
+getTree
+public abstract
+Tree
+getTree
+(
+Element
+e,
+AnnotationMirror
+a)
+Returns the
+Tree
+node for an
+AnnotationMirror
+on a given
+Element
+.
+ Returns
+null
+if the node can not be found.
+Parameters:
+e
+- the element
+a
+- the annotation mirror
+Returns:
+the tree node
+getTree
+public abstract
+Tree
+getTree
+(
+Element
+e,
+AnnotationMirror
+a,
+AnnotationValue
+v)
+Returns the
+Tree
+node for an
+AnnotationValue
+for an
+AnnotationMirror
+on a given
+Element
+.
+ Returns
+null
+if the node can not be found.
+Parameters:
+e
+- the element
+a
+- the annotation mirror
+v
+- the annotation value
+Returns:
+the tree node
+getPath
+public abstract
+TreePath
+getPath
+(
+CompilationUnitTree
+unit,
+Tree
+node)
+Returns the path to tree node within the specified compilation unit.
+Parameters:
+unit
+- the compilation unit
+node
+- the tree node
+Returns:
+the tree path
+getPath
+public abstract
+TreePath
+getPath
+(
+Element
+e)
+Returns the
+TreePath
+node for a given
+Element
+.
+ Returns
+null
+if the node can not be found.
+Parameters:
+e
+- the element
+Returns:
+the tree path
+getPath
+public abstract
+TreePath
+getPath
+(
+Element
+e,
+AnnotationMirror
+a)
+Returns the
+TreePath
+node for an
+AnnotationMirror
+on a given
+Element
+.
+ Returns
+null
+if the node can not be found.
+Parameters:
+e
+- the element
+a
+- the annotation mirror
+Returns:
+the tree path
+getPath
+public abstract
+TreePath
+getPath
+(
+Element
+e,
+AnnotationMirror
+a,
+AnnotationValue
+v)
+Returns the
+TreePath
+node for an
+AnnotationValue
+for an
+AnnotationMirror
+on a given
+Element
+.
+ Returns
+null
+if the node can not be found.
+Parameters:
+e
+- the element
+a
+- the annotation mirror
+v
+- the annotation value
+Returns:
+the tree path
+getElement
+public abstract
+Element
+getElement
+(
+TreePath
+path)
+Returns the
+Element
+for the
+Tree
+node identified by a given
+TreePath
+.
+ Returns
+null
+if the element is not available.
+Parameters:
+path
+- the tree path
+Returns:
+the element
+Throws:
+IllegalArgumentException
+- is the
+TreePath
+does not identify
+ a
+Tree
+node that might have an associated
+Element
+.
+getTypeMirror
+public abstract
+TypeMirror
+getTypeMirror
+(
+TreePath
+path)
+Returns the
+TypeMirror
+for the
+Tree
+node identified by a given
+TreePath
+.
+ Returns
+null
+if the
+TypeMirror
+is not available.
+Parameters:
+path
+- the tree path
+Returns:
+the type mirror
+Throws:
+IllegalArgumentException
+- is the
+TreePath
+does not identify
+ a
+Tree
+node that might have an associated
+TypeMirror
+.
+getScope
+public abstract
+Scope
+getScope
+(
+TreePath
+path)
+Returns the
+Scope
+for the
+Tree
+node identified by a given
+TreePath
+.
+ Returns
+null
+if the
+Scope
+is not available.
+Parameters:
+path
+- the tree path
+Returns:
+the scope
+getDocComment
+public abstract
+String
+getDocComment
+(
+TreePath
+path)
+Returns the doc comment, if any, for the
+Tree
+node identified by a given
+TreePath
+.
+ Returns
+null
+if no doc comment was found.
+Parameters:
+path
+- the tree path
+Returns:
+the doc comment
+See Also:
+DocTrees.getDocCommentTree(TreePath)
+isAccessible
+public abstract
+boolean
+isAccessible
+(
+Scope
+scope,
+TypeElement
+type)
+Checks whether a given type is accessible in a given scope.
+Parameters:
+scope
+- the scope to be checked
+type
+- the type to be checked
+Returns:
+true if
+type
+is accessible
+isAccessible
+public abstract
+boolean
+isAccessible
+(
+Scope
+scope,
+Element
+member,
+DeclaredType
+type)
+Checks whether the given element is accessible as a member of the given
+ type in a given scope.
+Parameters:
+scope
+- the scope to be checked
+member
+- the member to be checked
+type
+- the type for which to check if the member is accessible
+Returns:
+true if
+member
+is accessible in
+type
+getOriginalType
+public abstract
+TypeMirror
+getOriginalType
+(
+ErrorType
+errorType)
+Returns the original type from the
+ErrorType
+object.
+Parameters:
+errorType
+- the errorType for which we want to get the original type
+Returns:
+the type mirror corresponding to the original type, replaced by the
+ErrorType
+printMessage
+public abstract
+void
+printMessage
+(
+Diagnostic.Kind
+kind,
+CharSequence
+msg,
+Tree
+t,
+CompilationUnitTree
+root)
+Prints a message of the specified kind at the location of the
+ tree within the provided compilation unit
+Parameters:
+kind
+- the kind of message
+msg
+- the message, or an empty string if none
+t
+- the tree to use as a position hint
+root
+- the compilation unit that contains tree
+getLub
+public abstract
+TypeMirror
+getLub
+(
+CatchTree
+tree)
+Returns the lub of an exception parameter declared in a catch clause.
+Parameters:
+tree
+- the tree for the catch clause
+Returns:
+the lub of the exception parameter
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

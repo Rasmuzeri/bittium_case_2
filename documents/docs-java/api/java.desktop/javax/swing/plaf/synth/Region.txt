@@ -1,0 +1,1006 @@
+Region (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.plaf.synth
+Class Region
+java.lang.Object
+javax.swing.plaf.synth.Region
+public class
+Region
+extends
+Object
+A distinct rendering area of a Swing component.  A component may
+ support one or more regions.  Specific component regions are defined
+ by the typesafe enumeration in this class.
+Regions are typically used as a way to identify the
+Component
+s
+ and areas a particular style is to apply to. Synth's file format allows you
+ to bind styles based on the name of a
+Region
+.
+ The name is derived from the field name of the constant:
+Map all characters to lowercase.
+Map the first character to uppercase.
+Map the first character after underscores to uppercase.
+Remove all underscores.
+For example, to identify the
+SPLIT_PANE
+Region
+you would use
+SplitPane
+.
+ The following shows a custom
+SynthStyleFactory
+that returns a specific style for split panes:
+public SynthStyle getStyle(JComponent c, Region id) {
+        if (id == Region.SPLIT_PANE) {
+            return splitPaneStyle;
+        }
+        ...
+    }
+The following
+xml
+accomplishes the same thing:
+<style id="splitPaneStyle">
+   ...
+ </style>
+ <bind style="splitPaneStyle" type="region" key="SplitPane"/>
+Since:
+1.5
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+Region
+ARROW_BUTTON
+ArrowButton's are special types of buttons that also render a
+ directional indicator, typically an arrow.
+static final
+Region
+BUTTON
+Button region.
+static final
+Region
+CHECK_BOX
+CheckBox region.
+static final
+Region
+CHECK_BOX_MENU_ITEM
+CheckBoxMenuItem region.
+static final
+Region
+COLOR_CHOOSER
+ColorChooser region.
+static final
+Region
+COMBO_BOX
+ComboBox region.
+static final
+Region
+DESKTOP_ICON
+DesktopIcon region.
+static final
+Region
+DESKTOP_PANE
+DesktopPane region.
+static final
+Region
+EDITOR_PANE
+EditorPane region.
+static final
+Region
+FILE_CHOOSER
+FileChooser region.
+static final
+Region
+FORMATTED_TEXT_FIELD
+FormattedTextField region.
+static final
+Region
+INTERNAL_FRAME
+InternalFrame region.
+static final
+Region
+INTERNAL_FRAME_TITLE_PANE
+TitlePane of an InternalFrame.
+static final
+Region
+LABEL
+Label region.
+static final
+Region
+LIST
+List region.
+static final
+Region
+MENU
+Menu region.
+static final
+Region
+MENU_BAR
+MenuBar region.
+static final
+Region
+MENU_ITEM
+MenuItem region.
+static final
+Region
+MENU_ITEM_ACCELERATOR
+Accelerator region of a MenuItem.
+static final
+Region
+OPTION_PANE
+OptionPane region.
+static final
+Region
+PANEL
+Panel region.
+static final
+Region
+PASSWORD_FIELD
+PasswordField region.
+static final
+Region
+POPUP_MENU
+PopupMenu region.
+static final
+Region
+POPUP_MENU_SEPARATOR
+PopupMenuSeparator region.
+static final
+Region
+PROGRESS_BAR
+ProgressBar region.
+static final
+Region
+RADIO_BUTTON
+RadioButton region.
+static final
+Region
+RADIO_BUTTON_MENU_ITEM
+RadioButtonMenuItem  region.
+static final
+Region
+ROOT_PANE
+RootPane region.
+static final
+Region
+SCROLL_BAR
+ScrollBar region.
+static final
+Region
+SCROLL_BAR_THUMB
+Thumb of the ScrollBar.
+static final
+Region
+SCROLL_BAR_TRACK
+Track of the ScrollBar.
+static final
+Region
+SCROLL_PANE
+ScrollPane region.
+static final
+Region
+SEPARATOR
+Separator region.
+static final
+Region
+SLIDER
+Slider region.
+static final
+Region
+SLIDER_THUMB
+Thumb of the Slider.
+static final
+Region
+SLIDER_TRACK
+Track of the Slider.
+static final
+Region
+SPINNER
+Spinner region.
+static final
+Region
+SPLIT_PANE
+SplitPane region.
+static final
+Region
+SPLIT_PANE_DIVIDER
+Divider of the SplitPane.
+static final
+Region
+TABBED_PANE
+TabbedPane region.
+static final
+Region
+TABBED_PANE_CONTENT
+Region of a TabbedPane containing the content.
+static final
+Region
+TABBED_PANE_TAB
+Region of a TabbedPane for one tab.
+static final
+Region
+TABBED_PANE_TAB_AREA
+Region of a TabbedPane containing the tabs.
+static final
+Region
+TABLE
+Table region.
+static final
+Region
+TABLE_HEADER
+TableHeader region.
+static final
+Region
+TEXT_AREA
+TextArea region.
+static final
+Region
+TEXT_FIELD
+TextField region.
+static final
+Region
+TEXT_PANE
+TextPane region.
+static final
+Region
+TOGGLE_BUTTON
+ToggleButton region.
+static final
+Region
+TOOL_BAR
+ToolBar region.
+static final
+Region
+TOOL_BAR_CONTENT
+Region of the ToolBar containing the content.
+static final
+Region
+TOOL_BAR_DRAG_WINDOW
+Region for the Window containing the ToolBar.
+static final
+Region
+TOOL_BAR_SEPARATOR
+ToolBar separator region.
+static final
+Region
+TOOL_TIP
+ToolTip region.
+static final
+Region
+TREE
+Tree region.
+static final
+Region
+TREE_CELL
+Region of the Tree for one cell.
+static final
+Region
+VIEWPORT
+Viewport region.
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+Region
+(
+String
+name,
+String
+ui,
+ boolean subregion)
+Creates a Region with the specified name.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+String
+getName
+()
+Returns the name of the region.
+boolean
+isSubregion
+()
+Returns true if the Region is a subregion of a Component, otherwise
+ false.
+String
+toString
+()
+Returns the name of the Region.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Field Details
+ARROW_BUTTON
+public static final
+Region
+ARROW_BUTTON
+ArrowButton's are special types of buttons that also render a
+ directional indicator, typically an arrow. ArrowButtons are used by
+ composite components, for example ScrollBar's contain ArrowButtons.
+ To bind a style to this
+Region
+use the name
+ArrowButton
+.
+BUTTON
+public static final
+Region
+BUTTON
+Button region. To bind a style to this
+Region
+use the name
+Button
+.
+CHECK_BOX
+public static final
+Region
+CHECK_BOX
+CheckBox region. To bind a style to this
+Region
+use the name
+CheckBox
+.
+CHECK_BOX_MENU_ITEM
+public static final
+Region
+CHECK_BOX_MENU_ITEM
+CheckBoxMenuItem region. To bind a style to this
+Region
+use
+ the name
+CheckBoxMenuItem
+.
+COLOR_CHOOSER
+public static final
+Region
+COLOR_CHOOSER
+ColorChooser region. To bind a style to this
+Region
+use
+ the name
+ColorChooser
+.
+COMBO_BOX
+public static final
+Region
+COMBO_BOX
+ComboBox region. To bind a style to this
+Region
+use
+ the name
+ComboBox
+.
+DESKTOP_PANE
+public static final
+Region
+DESKTOP_PANE
+DesktopPane region. To bind a style to this
+Region
+use
+ the name
+DesktopPane
+.
+DESKTOP_ICON
+public static final
+Region
+DESKTOP_ICON
+DesktopIcon region. To bind a style to this
+Region
+use
+ the name
+DesktopIcon
+.
+EDITOR_PANE
+public static final
+Region
+EDITOR_PANE
+EditorPane region. To bind a style to this
+Region
+use
+ the name
+EditorPane
+.
+FILE_CHOOSER
+public static final
+Region
+FILE_CHOOSER
+FileChooser region. To bind a style to this
+Region
+use
+ the name
+FileChooser
+.
+FORMATTED_TEXT_FIELD
+public static final
+Region
+FORMATTED_TEXT_FIELD
+FormattedTextField region. To bind a style to this
+Region
+use
+ the name
+FormattedTextField
+.
+INTERNAL_FRAME
+public static final
+Region
+INTERNAL_FRAME
+InternalFrame region. To bind a style to this
+Region
+use
+ the name
+InternalFrame
+.
+INTERNAL_FRAME_TITLE_PANE
+public static final
+Region
+INTERNAL_FRAME_TITLE_PANE
+TitlePane of an InternalFrame. The TitlePane typically
+ shows a menu, title, widgets to manipulate the internal frame.
+ To bind a style to this
+Region
+use the name
+InternalFrameTitlePane
+.
+LABEL
+public static final
+Region
+LABEL
+Label region. To bind a style to this
+Region
+use the name
+Label
+.
+LIST
+public static final
+Region
+LIST
+List region. To bind a style to this
+Region
+use the name
+List
+.
+MENU
+public static final
+Region
+MENU
+Menu region. To bind a style to this
+Region
+use the name
+Menu
+.
+MENU_BAR
+public static final
+Region
+MENU_BAR
+MenuBar region. To bind a style to this
+Region
+use the name
+MenuBar
+.
+MENU_ITEM
+public static final
+Region
+MENU_ITEM
+MenuItem region. To bind a style to this
+Region
+use the name
+MenuItem
+.
+MENU_ITEM_ACCELERATOR
+public static final
+Region
+MENU_ITEM_ACCELERATOR
+Accelerator region of a MenuItem. To bind a style to this
+Region
+use the name
+MenuItemAccelerator
+.
+OPTION_PANE
+public static final
+Region
+OPTION_PANE
+OptionPane region. To bind a style to this
+Region
+use
+ the name
+OptionPane
+.
+PANEL
+public static final
+Region
+PANEL
+Panel region. To bind a style to this
+Region
+use the name
+Panel
+.
+PASSWORD_FIELD
+public static final
+Region
+PASSWORD_FIELD
+PasswordField region. To bind a style to this
+Region
+use
+ the name
+PasswordField
+.
+POPUP_MENU
+public static final
+Region
+POPUP_MENU
+PopupMenu region. To bind a style to this
+Region
+use
+ the name
+PopupMenu
+.
+POPUP_MENU_SEPARATOR
+public static final
+Region
+POPUP_MENU_SEPARATOR
+PopupMenuSeparator region. To bind a style to this
+Region
+use the name
+PopupMenuSeparator
+.
+PROGRESS_BAR
+public static final
+Region
+PROGRESS_BAR
+ProgressBar region. To bind a style to this
+Region
+use the name
+ProgressBar
+.
+RADIO_BUTTON
+public static final
+Region
+RADIO_BUTTON
+RadioButton region. To bind a style to this
+Region
+use the name
+RadioButton
+.
+RADIO_BUTTON_MENU_ITEM
+public static final
+Region
+RADIO_BUTTON_MENU_ITEM
+RadioButtonMenuItem  region. To bind a style to this
+Region
+use the name
+RadioButtonMenuItem
+.
+ROOT_PANE
+public static final
+Region
+ROOT_PANE
+RootPane region. To bind a style to this
+Region
+use
+ the name
+RootPane
+.
+SCROLL_BAR
+public static final
+Region
+SCROLL_BAR
+ScrollBar region. To bind a style to this
+Region
+use
+ the name
+ScrollBar
+.
+SCROLL_BAR_TRACK
+public static final
+Region
+SCROLL_BAR_TRACK
+Track of the ScrollBar. To bind a style to this
+Region
+use
+ the name
+ScrollBarTrack
+.
+SCROLL_BAR_THUMB
+public static final
+Region
+SCROLL_BAR_THUMB
+Thumb of the ScrollBar. The thumb is the region of the ScrollBar
+ that gives a graphical depiction of what percentage of the View is
+ currently visible. To bind a style to this
+Region
+use
+ the name
+ScrollBarThumb
+.
+SCROLL_PANE
+public static final
+Region
+SCROLL_PANE
+ScrollPane region. To bind a style to this
+Region
+use
+ the name
+ScrollPane
+.
+SEPARATOR
+public static final
+Region
+SEPARATOR
+Separator region. To bind a style to this
+Region
+use
+ the name
+Separator
+.
+SLIDER
+public static final
+Region
+SLIDER
+Slider region. To bind a style to this
+Region
+use
+ the name
+Slider
+.
+SLIDER_TRACK
+public static final
+Region
+SLIDER_TRACK
+Track of the Slider. To bind a style to this
+Region
+use
+ the name
+SliderTrack
+.
+SLIDER_THUMB
+public static final
+Region
+SLIDER_THUMB
+Thumb of the Slider. The thumb of the Slider identifies the current
+ value. To bind a style to this
+Region
+use the name
+SliderThumb
+.
+SPINNER
+public static final
+Region
+SPINNER
+Spinner region. To bind a style to this
+Region
+use the name
+Spinner
+.
+SPLIT_PANE
+public static final
+Region
+SPLIT_PANE
+SplitPane region. To bind a style to this
+Region
+use the name
+SplitPane
+.
+SPLIT_PANE_DIVIDER
+public static final
+Region
+SPLIT_PANE_DIVIDER
+Divider of the SplitPane. To bind a style to this
+Region
+use the name
+SplitPaneDivider
+.
+TABBED_PANE
+public static final
+Region
+TABBED_PANE
+TabbedPane region. To bind a style to this
+Region
+use
+ the name
+TabbedPane
+.
+TABBED_PANE_TAB
+public static final
+Region
+TABBED_PANE_TAB
+Region of a TabbedPane for one tab. To bind a style to this
+Region
+use the name
+TabbedPaneTab
+.
+TABBED_PANE_TAB_AREA
+public static final
+Region
+TABBED_PANE_TAB_AREA
+Region of a TabbedPane containing the tabs. To bind a style to this
+Region
+use the name
+TabbedPaneTabArea
+.
+TABBED_PANE_CONTENT
+public static final
+Region
+TABBED_PANE_CONTENT
+Region of a TabbedPane containing the content. To bind a style to this
+Region
+use the name
+TabbedPaneContent
+.
+TABLE
+public static final
+Region
+TABLE
+Table region. To bind a style to this
+Region
+use
+ the name
+Table
+.
+TABLE_HEADER
+public static final
+Region
+TABLE_HEADER
+TableHeader region. To bind a style to this
+Region
+use
+ the name
+TableHeader
+.
+TEXT_AREA
+public static final
+Region
+TEXT_AREA
+TextArea region. To bind a style to this
+Region
+use
+ the name
+TextArea
+.
+TEXT_FIELD
+public static final
+Region
+TEXT_FIELD
+TextField region. To bind a style to this
+Region
+use
+ the name
+TextField
+.
+TEXT_PANE
+public static final
+Region
+TEXT_PANE
+TextPane region. To bind a style to this
+Region
+use
+ the name
+TextPane
+.
+TOGGLE_BUTTON
+public static final
+Region
+TOGGLE_BUTTON
+ToggleButton region. To bind a style to this
+Region
+use
+ the name
+ToggleButton
+.
+TOOL_BAR
+public static final
+Region
+TOOL_BAR
+ToolBar region. To bind a style to this
+Region
+use
+ the name
+ToolBar
+.
+TOOL_BAR_CONTENT
+public static final
+Region
+TOOL_BAR_CONTENT
+Region of the ToolBar containing the content. To bind a style to this
+Region
+use the name
+ToolBarContent
+.
+TOOL_BAR_DRAG_WINDOW
+public static final
+Region
+TOOL_BAR_DRAG_WINDOW
+Region for the Window containing the ToolBar. To bind a style to this
+Region
+use the name
+ToolBarDragWindow
+.
+TOOL_TIP
+public static final
+Region
+TOOL_TIP
+ToolTip region. To bind a style to this
+Region
+use
+ the name
+ToolTip
+.
+TOOL_BAR_SEPARATOR
+public static final
+Region
+TOOL_BAR_SEPARATOR
+ToolBar separator region. To bind a style to this
+Region
+use
+ the name
+ToolBarSeparator
+.
+TREE
+public static final
+Region
+TREE
+Tree region. To bind a style to this
+Region
+use the name
+Tree
+.
+TREE_CELL
+public static final
+Region
+TREE_CELL
+Region of the Tree for one cell. To bind a style to this
+Region
+use the name
+TreeCell
+.
+VIEWPORT
+public static final
+Region
+VIEWPORT
+Viewport region. To bind a style to this
+Region
+use
+ the name
+Viewport
+.
+Constructor Details
+Region
+protected
+Region
+(
+String
+name,
+String
+ui,
+ boolean subregion)
+Creates a Region with the specified name. This should only be
+ used if you are creating your own
+JComponent
+subclass
+ with a custom
+ComponentUI
+class.
+Parameters:
+name
+- Name of the region
+ui
+- String that will be returned from
+component.getUIClassID
+. This will be null
+           if this is a subregion.
+subregion
+- Whether or not this is a subregion.
+Method Details
+isSubregion
+public
+boolean
+isSubregion
+()
+Returns true if the Region is a subregion of a Component, otherwise
+ false. For example,
+Region.BUTTON
+corresponds do a
+Component
+so that
+Region.BUTTON.isSubregion()
+returns false.
+Returns:
+true if the Region is a subregion of a Component.
+getName
+public
+String
+getName
+()
+Returns the name of the region.
+Returns:
+name of the Region.
+toString
+public
+String
+toString
+()
+Returns the name of the Region.
+Overrides:
+toString
+in class
+Object
+Returns:
+name of the Region.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

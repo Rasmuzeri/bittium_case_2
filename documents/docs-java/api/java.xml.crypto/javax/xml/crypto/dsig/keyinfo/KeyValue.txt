@@ -1,0 +1,264 @@
+KeyValue (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+java.xml.crypto
+Package
+javax.xml.crypto.dsig.keyinfo
+Interface KeyValue
+All Superinterfaces:
+XMLStructure
+public interface
+KeyValue
+extends
+XMLStructure
+A representation of the XML
+KeyValue
+element as defined
+ in the
+W3C Recommendation for XML-Signature Syntax and Processing
+. A
+KeyValue
+object contains a single public key that may be
+ useful in validating the signature. The XML schema definition is defined as:
+<element name="KeyValue" type="ds:KeyValueType"/>
+    <complexType name="KeyValueType" mixed="true">
+      <choice>
+        <element ref="ds:DSAKeyValue"/>
+        <element ref="ds:RSAKeyValue"/>
+        <!-- <element ref="dsig11:ECKeyValue"/> -->
+        <!-- ECC keys (XMLDsig 1.1) will use the any element -->
+        <any namespace="##other" processContents="lax"/>
+      </choice>
+    </complexType>
+
+    <element name="DSAKeyValue" type="ds:DSAKeyValueType"/>
+    <complexType name="DSAKeyValueType">
+      <sequence>
+        <sequence minOccurs="0">
+          <element name="P" type="ds:CryptoBinary"/>
+          <element name="Q" type="ds:CryptoBinary"/>
+        </sequence>
+        <element name="G" type="ds:CryptoBinary" minOccurs="0"/>
+        <element name="Y" type="ds:CryptoBinary"/>
+        <element name="J" type="ds:CryptoBinary" minOccurs="0"/>
+        <sequence minOccurs="0">
+          <element name="Seed" type="ds:CryptoBinary"/>
+          <element name="PgenCounter" type="ds:CryptoBinary"/>
+        </sequence>
+      </sequence>
+    </complexType>
+
+    <element name="RSAKeyValue" type="ds:RSAKeyValueType"/>
+    <complexType name="RSAKeyValueType">
+      <sequence>
+        <element name="Modulus" type="ds:CryptoBinary"/>
+        <element name="Exponent" type="ds:CryptoBinary"/>
+      </sequence>
+    </complexType>
+
+    <complexType name="ECKeyValueType">
+      <sequence>
+        <choice>
+          <element name="ECParameters" type="dsig11:ECParametersType" />
+          <element name="NamedCurve" type="dsig11:NamedCurveType" />
+        </choice>
+        <element name="PublicKey" type="dsig11:ECPointType" />
+      </sequence>
+      <attribute name="Id" type="ID" use="optional" />
+    </complexType>
+
+    <complexType name="NamedCurveType">
+      <attribute name="URI" type="anyURI" use="required" />
+    </complexType>
+
+    <simpleType name="ECPointType">
+      <restriction base="ds:CryptoBinary" />
+    </simpleType>
+See section 4.5.2.3.1 of the W3C Recommendation for the definition
+ of ECParametersType.
+A
+KeyValue
+instance may be created by invoking the
+newKeyValue
+method of the
+KeyInfoFactory
+class, and passing it a
+PublicKey
+representing the value of the public key. Here is
+ an example of creating a
+KeyValue
+from a
+DSAPublicKey
+of a
+Certificate
+stored in a
+KeyStore
+:
+KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+ PublicKey dsaPublicKey = keyStore.getCertificate("myDSASigningCert").getPublicKey();
+ KeyInfoFactory factory = KeyInfoFactory.getInstance("DOM");
+ KeyValue keyValue = factory.newKeyValue(dsaPublicKey);
+This class returns the
+DSAKeyValue
+and
+RSAKeyValue
+elements as objects of type
+DSAPublicKey
+and
+RSAPublicKey
+, respectively. Note that not
+ all of the fields in the schema are accessible as parameters of these
+ types.
+Since:
+1.6
+See Also:
+KeyInfoFactory.newKeyValue(PublicKey)
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+String
+DSA_TYPE
+URI identifying the DSA KeyValue KeyInfo type:
+ http://www.w3.org/2000/09/xmldsig#DSAKeyValue.
+static final
+String
+EC_TYPE
+URI identifying the EC KeyValue KeyInfo type:
+ http://www.w3.org/2009/xmldsig11#ECKeyValue.
+static final
+String
+RSA_TYPE
+URI identifying the RSA KeyValue KeyInfo type:
+ http://www.w3.org/2000/09/xmldsig#RSAKeyValue.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+PublicKey
+getPublicKey
+()
+Returns the public key of this
+KeyValue
+.
+Methods declared in interface javax.xml.crypto.
+XMLStructure
+isFeatureSupported
+Field Details
+DSA_TYPE
+static final
+String
+DSA_TYPE
+URI identifying the DSA KeyValue KeyInfo type:
+ http://www.w3.org/2000/09/xmldsig#DSAKeyValue. This can be specified as
+ the value of the
+type
+parameter of the
+RetrievalMethod
+class to describe a remote
+DSAKeyValue
+structure.
+See Also:
+Constant Field Values
+RSA_TYPE
+static final
+String
+RSA_TYPE
+URI identifying the RSA KeyValue KeyInfo type:
+ http://www.w3.org/2000/09/xmldsig#RSAKeyValue. This can be specified as
+ the value of the
+type
+parameter of the
+RetrievalMethod
+class to describe a remote
+RSAKeyValue
+structure.
+See Also:
+Constant Field Values
+EC_TYPE
+static final
+String
+EC_TYPE
+URI identifying the EC KeyValue KeyInfo type:
+ http://www.w3.org/2009/xmldsig11#ECKeyValue. This can be specified as
+ the value of the
+type
+parameter of the
+RetrievalMethod
+class to describe a remote
+ECKeyValue
+structure.
+See Also:
+Constant Field Values
+Method Details
+getPublicKey
+PublicKey
+getPublicKey
+()
+                throws
+KeyException
+Returns the public key of this
+KeyValue
+.
+Returns:
+the public key of this
+KeyValue
+Throws:
+KeyException
+- if this
+KeyValue
+cannot be converted
+    to a
+PublicKey
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

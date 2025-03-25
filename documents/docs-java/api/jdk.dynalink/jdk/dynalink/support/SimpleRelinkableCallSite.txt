@@ -1,0 +1,255 @@
+SimpleRelinkableCallSite (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.dynalink
+Package
+jdk.dynalink.support
+Class SimpleRelinkableCallSite
+java.lang.Object
+java.lang.invoke.CallSite
+java.lang.invoke.MutableCallSite
+jdk.dynalink.support.AbstractRelinkableCallSite
+jdk.dynalink.support.SimpleRelinkableCallSite
+All Implemented Interfaces:
+RelinkableCallSite
+public class
+SimpleRelinkableCallSite
+extends
+AbstractRelinkableCallSite
+A relinkable call site that implements monomorphic inline caching strategy,
+ only being linked to a single
+GuardedInvocation
+at any given time.
+ If the guard of that single invocation fails, or it has an invalidated
+ switch point, or its invalidating exception triggered, then the call site
+ will throw it away and ask its associated
+DynamicLinker
+to relink it.
+Constructor Summary
+Constructors
+Constructor
+Description
+SimpleRelinkableCallSite
+(
+CallSiteDescriptor
+descriptor)
+Creates a new call site with monomorphic inline caching strategy.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+relink
+(
+GuardedInvocation
+guardedInvocation,
+MethodHandle
+relinkAndInvoke)
+This method will be called by the dynamic linker every time the call site
+ is relinked (but see
+RelinkableCallSite.resetAndRelink(GuardedInvocation, MethodHandle)
+for an
+ exception).
+void
+resetAndRelink
+(
+GuardedInvocation
+guardedInvocation,
+MethodHandle
+relinkAndInvoke)
+This method will be called by the dynamic linker every time the call site
+ is relinked
+and
+the linker wishes the call site to throw away any
+ prior linkage state (that is how it differs from
+RelinkableCallSite.relink(GuardedInvocation, MethodHandle)
+).
+Methods declared in class jdk.dynalink.support.
+AbstractRelinkableCallSite
+getDescriptor
+,
+initialize
+Methods declared in class java.lang.invoke.
+MutableCallSite
+dynamicInvoker
+,
+getTarget
+,
+setTarget
+,
+syncAll
+Methods declared in class java.lang.invoke.
+CallSite
+type
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+SimpleRelinkableCallSite
+public
+SimpleRelinkableCallSite
+(
+CallSiteDescriptor
+descriptor)
+Creates a new call site with monomorphic inline caching strategy.
+Parameters:
+descriptor
+- the descriptor for this call site
+Method Details
+relink
+public
+void
+relink
+(
+GuardedInvocation
+guardedInvocation,
+MethodHandle
+relinkAndInvoke)
+Description copied from interface:
+RelinkableCallSite
+This method will be called by the dynamic linker every time the call site
+ is relinked (but see
+RelinkableCallSite.resetAndRelink(GuardedInvocation, MethodHandle)
+for an
+ exception). It will be passed a
+GuardedInvocation
+that the call
+ site should incorporate into its target method handle. When this method
+ is called, the call site is allowed to keep other non-invalidated
+ invocations around for implementation of polymorphic inline caches and
+ compose them with this invocation to form its final target.
+Parameters:
+guardedInvocation
+- the guarded invocation that the call site should
+ incorporate into its target method handle.
+relinkAndInvoke
+- a relink-and-invoke method handle. This is a
+ method handle matching the method type of the call site that is supplied
+ by the
+DynamicLinker
+as a callback. It should be used by this
+ call site as the ultimate fallback when it can't invoke its target with
+ the passed arguments. The fallback method is such that when it's invoked,
+ it'll try to obtain an adequate target
+GuardedInvocation
+for the
+ invocation, and subsequently invoke
+RelinkableCallSite.relink(GuardedInvocation, MethodHandle)
+or
+RelinkableCallSite.resetAndRelink(GuardedInvocation, MethodHandle)
+, and finally
+ invoke the target.
+resetAndRelink
+public
+void
+resetAndRelink
+(
+GuardedInvocation
+guardedInvocation,
+MethodHandle
+relinkAndInvoke)
+Description copied from interface:
+RelinkableCallSite
+This method will be called by the dynamic linker every time the call site
+ is relinked
+and
+the linker wishes the call site to throw away any
+ prior linkage state (that is how it differs from
+RelinkableCallSite.relink(GuardedInvocation, MethodHandle)
+). It will be passed a
+GuardedInvocation
+that the call site should use to build its new
+ target method handle. When this method is called, the call site is
+ discouraged from keeping any previous state, and is supposed to only
+ link the current invocation.
+Parameters:
+guardedInvocation
+- the guarded invocation that the call site should
+ use to build its target method handle.
+relinkAndInvoke
+- a relink-and-invoke method handle. This is a
+ method handle matching the method type of the call site that is supplied
+ by the
+DynamicLinker
+as a callback. It should be used by this
+ call site as the ultimate fallback when it can't invoke its target with
+ the passed arguments. The fallback method is such that when it's invoked,
+ it'll try to obtain an adequate target
+GuardedInvocation
+for the
+ invocation, and subsequently invoke
+RelinkableCallSite.relink(GuardedInvocation, MethodHandle)
+or
+RelinkableCallSite.resetAndRelink(GuardedInvocation, MethodHandle)
+, and finally
+ invoke the target.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,214 @@
+HttpsConfigurator (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.httpserver
+Package
+com.sun.net.httpserver
+Class HttpsConfigurator
+java.lang.Object
+com.sun.net.httpserver.HttpsConfigurator
+public class
+HttpsConfigurator
+extends
+Object
+This class is used to configure the https parameters for each incoming
+ https connection on a
+HttpsServer
+. Applications need to override
+ the
+configure(HttpsParameters)
+method in order to change
+ the default configuration.
+The following
+example
+shows how this may be done:
+SSLContext sslContext = SSLContext.getInstance (....);
+ HttpsServer server = HttpsServer.create();
+
+ server.setHttpsConfigurator (new HttpsConfigurator(sslContext) {
+     public void configure (HttpsParameters params) {
+
+         // get the remote address if needed
+         InetSocketAddress remote = params.getClientAddress();
+
+         SSLContext c = getSSLContext();
+
+         // get the default parameters
+         SSLParameters sslparams = c.getDefaultSSLParameters();
+         if (remote.equals (...) ) {
+             // modify the default set for client x
+         }
+
+         params.setSSLParameters(sslparams);
+     }
+ });
+Since:
+1.6
+Constructor Summary
+Constructors
+Constructor
+Description
+HttpsConfigurator
+(
+SSLContext
+context)
+Creates a Https configuration, with the given
+SSLContext
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+configure
+(
+HttpsParameters
+params)
+Called by the
+HttpsServer
+to configure the parameters for a https
+ connection currently being established.
+SSLContext
+getSSLContext
+()
+Returns the
+SSLContext
+for this
+HttpsConfigurator
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+HttpsConfigurator
+public
+HttpsConfigurator
+(
+SSLContext
+context)
+Creates a Https configuration, with the given
+SSLContext
+.
+Parameters:
+context
+- the
+SSLContext
+to use for this configurator
+Throws:
+NullPointerException
+- if no
+SSLContext
+supplied
+Method Details
+getSSLContext
+public
+SSLContext
+getSSLContext
+()
+Returns the
+SSLContext
+for this
+HttpsConfigurator
+.
+Returns:
+the
+SSLContext
+configure
+public
+void
+configure
+(
+HttpsParameters
+params)
+Called by the
+HttpsServer
+to configure the parameters for a https
+ connection currently being established. The implementation of configure()
+ must call
+HttpsParameters.setSSLParameters(SSLParameters)
+in order
+ to set the SSL parameters for the connection.
+The default implementation of this method uses the
+ SSLParameters returned from:
+getSSLContext().getDefaultSSLParameters()
+configure() may be overridden in order to modify this behavior. See
+ example
+above
+.
+Parameters:
+params
+- the
+HttpsParameters
+to be configured
+Since:
+1.6
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

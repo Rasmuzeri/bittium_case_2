@@ -1,0 +1,535 @@
+FontRenderContext (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt.font
+Class FontRenderContext
+java.lang.Object
+java.awt.font.FontRenderContext
+public class
+FontRenderContext
+extends
+Object
+The
+FontRenderContext
+class is a container for the
+   information needed to correctly measure text.  The measurement of text
+   can vary because of rules that map outlines to pixels, and rendering
+   hints provided by an application.
+One such piece of information is a transform that scales
+   typographical points to pixels. (A point is defined to be exactly 1/72
+   of an inch, which is slightly different than
+   the traditional mechanical measurement of a point.)  A character that
+   is rendered at 12pt on a 600dpi device might have a different size
+   than the same character rendered at 12pt on a 72dpi device because of
+   such factors as rounding to pixel boundaries and hints that the font
+   designer may have specified.
+Anti-aliasing and Fractional-metrics specified by an application can also
+   affect the size of a character because of rounding to pixel
+   boundaries.
+Typically, instances of
+FontRenderContext
+are
+   obtained from a
+Graphics2D
+object.  A
+FontRenderContext
+which is directly constructed will
+   most likely not represent any actual graphics device, and may lead
+   to unexpected or incorrect results.
+See Also:
+RenderingHints.KEY_TEXT_ANTIALIASING
+RenderingHints.KEY_FRACTIONALMETRICS
+Graphics2D.getFontRenderContext()
+LineMetrics
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+FontRenderContext
+()
+Constructs a new
+FontRenderContext
+object.
+FontRenderContext
+(
+AffineTransform
+tx,
+ boolean isAntiAliased,
+ boolean usesFractionalMetrics)
+Constructs a
+FontRenderContext
+object from an
+ optional
+AffineTransform
+and two
+boolean
+values that determine if the newly constructed object has
+ anti-aliasing or fractional metrics.
+FontRenderContext
+(
+AffineTransform
+tx,
+Object
+aaHint,
+Object
+fmHint)
+Constructs a
+FontRenderContext
+object from an
+ optional
+AffineTransform
+and two
+Object
+values that determine if the newly constructed object has
+ anti-aliasing or fractional metrics.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+equals
+(
+FontRenderContext
+rhs)
+Return true if rhs has the same transform, antialiasing,
+ and fractional metrics values as this.
+boolean
+equals
+(
+Object
+obj)
+Return true if obj is an instance of FontRenderContext and has the same
+ transform, antialiasing, and fractional metrics values as this.
+Object
+getAntiAliasingHint
+()
+Return the text anti-aliasing rendering mode hint used in this
+FontRenderContext
+.
+Object
+getFractionalMetricsHint
+()
+Return the text fractional metrics rendering mode hint used in this
+FontRenderContext
+.
+AffineTransform
+getTransform
+()
+Gets the transform that is used to scale typographical points
+   to pixels in this
+FontRenderContext
+.
+int
+getTransformType
+()
+Returns the integer type of the affine transform for this
+FontRenderContext
+as specified by
+AffineTransform.getType()
+int
+hashCode
+()
+Return a hashcode for this FontRenderContext.
+boolean
+isAntiAliased
+()
+Returns a boolean which indicates whether or not some form of
+ antialiasing is specified by this
+FontRenderContext
+.
+boolean
+isTransformed
+()
+Indicates whether or not this
+FontRenderContext
+object
+ measures text in a transformed render context.
+boolean
+usesFractionalMetrics
+()
+Returns a boolean which whether text fractional metrics mode
+ is used in this
+FontRenderContext
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+FontRenderContext
+protected
+FontRenderContext
+()
+Constructs a new
+FontRenderContext
+object.
+FontRenderContext
+public
+FontRenderContext
+(
+AffineTransform
+tx,
+ boolean isAntiAliased,
+ boolean usesFractionalMetrics)
+Constructs a
+FontRenderContext
+object from an
+ optional
+AffineTransform
+and two
+boolean
+values that determine if the newly constructed object has
+ anti-aliasing or fractional metrics.
+ In each case the boolean values
+true
+and
+false
+correspond to the rendering hint values
+ON
+and
+OFF
+respectively.
+To specify other hint values, use the constructor which
+ specifies the rendering hint values as parameters :
+FontRenderContext(AffineTransform, Object, Object)
+.
+Parameters:
+tx
+- the transform which is used to scale typographical points
+ to pixels in this
+FontRenderContext
+.  If null, an
+ identity transform is used.
+isAntiAliased
+- determines if the newly constructed object
+ has anti-aliasing.
+usesFractionalMetrics
+- determines if the newly constructed
+ object has fractional metrics.
+FontRenderContext
+public
+FontRenderContext
+(
+AffineTransform
+tx,
+Object
+aaHint,
+Object
+fmHint)
+Constructs a
+FontRenderContext
+object from an
+ optional
+AffineTransform
+and two
+Object
+values that determine if the newly constructed object has
+ anti-aliasing or fractional metrics.
+Parameters:
+tx
+- the transform which is used to scale typographical points
+ to pixels in this
+FontRenderContext
+.  If null, an
+ identity transform is used.
+aaHint
+- one of the text antialiasing rendering hint values
+ defined in
+java.awt.RenderingHints
+.
+ Any other value will throw
+IllegalArgumentException
+.
+VALUE_TEXT_ANTIALIAS_DEFAULT
+may be specified, in which case the mode used is implementation
+ dependent.
+fmHint
+- one of the text fractional rendering hint values defined
+ in
+java.awt.RenderingHints
+.
+VALUE_FRACTIONALMETRICS_DEFAULT
+may be specified, in which case the mode used is implementation
+ dependent.
+ Any other value will throw
+IllegalArgumentException
+Throws:
+IllegalArgumentException
+- if the hints are not one of the
+ legal values.
+Since:
+1.6
+Method Details
+isTransformed
+public
+boolean
+isTransformed
+()
+Indicates whether or not this
+FontRenderContext
+object
+ measures text in a transformed render context.
+Returns:
+true
+if this
+FontRenderContext
+object has a non-identity AffineTransform attribute.
+false
+otherwise.
+Since:
+1.6
+See Also:
+getTransform()
+getTransformType
+public
+int
+getTransformType
+()
+Returns the integer type of the affine transform for this
+FontRenderContext
+as specified by
+AffineTransform.getType()
+Returns:
+the type of the transform.
+Since:
+1.6
+See Also:
+AffineTransform
+getTransform
+public
+AffineTransform
+getTransform
+()
+Gets the transform that is used to scale typographical points
+   to pixels in this
+FontRenderContext
+.
+Returns:
+the
+AffineTransform
+of this
+FontRenderContext
+.
+See Also:
+AffineTransform
+isAntiAliased
+public
+boolean
+isAntiAliased
+()
+Returns a boolean which indicates whether or not some form of
+ antialiasing is specified by this
+FontRenderContext
+.
+ Call
+getAntiAliasingHint()
+for the specific rendering hint value.
+Returns:
+true
+, if text is anti-aliased in this
+FontRenderContext
+;
+false
+otherwise.
+See Also:
+RenderingHints.KEY_TEXT_ANTIALIASING
+FontRenderContext(AffineTransform,boolean,boolean)
+FontRenderContext(AffineTransform,Object,Object)
+usesFractionalMetrics
+public
+boolean
+usesFractionalMetrics
+()
+Returns a boolean which whether text fractional metrics mode
+ is used in this
+FontRenderContext
+.
+ Call
+getFractionalMetricsHint()
+to obtain the corresponding rendering hint value.
+Returns:
+true
+, if layout should be performed with
+   fractional metrics;
+false
+otherwise.
+               in this
+FontRenderContext
+.
+See Also:
+RenderingHints.KEY_FRACTIONALMETRICS
+FontRenderContext(AffineTransform,boolean,boolean)
+FontRenderContext(AffineTransform,Object,Object)
+getAntiAliasingHint
+public
+Object
+getAntiAliasingHint
+()
+Return the text anti-aliasing rendering mode hint used in this
+FontRenderContext
+.
+ This will be one of the text antialiasing rendering hint values
+ defined in
+java.awt.RenderingHints
+.
+Returns:
+text anti-aliasing rendering mode hint used in this
+FontRenderContext
+.
+Since:
+1.6
+getFractionalMetricsHint
+public
+Object
+getFractionalMetricsHint
+()
+Return the text fractional metrics rendering mode hint used in this
+FontRenderContext
+.
+ This will be one of the text fractional metrics rendering hint values
+ defined in
+java.awt.RenderingHints
+.
+Returns:
+the text fractional metrics rendering mode hint used in this
+FontRenderContext
+.
+Since:
+1.6
+equals
+public
+boolean
+equals
+(
+Object
+obj)
+Return true if obj is an instance of FontRenderContext and has the same
+ transform, antialiasing, and fractional metrics values as this.
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- the object to test for equality
+Returns:
+true
+if the specified object is equal to
+         this
+FontRenderContext
+;
+false
+otherwise.
+See Also:
+Object.hashCode()
+HashMap
+equals
+public
+boolean
+equals
+(
+FontRenderContext
+rhs)
+Return true if rhs has the same transform, antialiasing,
+ and fractional metrics values as this.
+Parameters:
+rhs
+- the
+FontRenderContext
+to test for equality
+Returns:
+true
+if
+rhs
+is equal to
+         this
+FontRenderContext
+;
+false
+otherwise.
+Since:
+1.4
+hashCode
+public
+int
+hashCode
+()
+Return a hashcode for this FontRenderContext.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+a hash code value for this object.
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

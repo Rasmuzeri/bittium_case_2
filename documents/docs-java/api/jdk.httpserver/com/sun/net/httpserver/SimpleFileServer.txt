@@ -1,0 +1,367 @@
+SimpleFileServer (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.httpserver
+Package
+com.sun.net.httpserver
+Class SimpleFileServer
+java.lang.Object
+com.sun.net.httpserver.SimpleFileServer
+public final class
+SimpleFileServer
+extends
+Object
+A simple HTTP file server and its components (intended for testing,
+ development and debugging purposes only).
+A simple file server is composed of three components:
+an
+HttpServer
+that is bound to a given address,
+an
+HttpHandler
+that serves files from a given
+        directory path, and
+an optional
+Filter
+that prints log messages relating to
+        the exchanges handled by the server.
+The individual server components can be retrieved for reuse and extension via
+ the static methods provided.
+Simple file server
+The
+createFileServer
+static factory method returns an
+HttpServer
+that is a
+ simple out-of-the-box file server. The server comes with an initial handler
+ that serves files from a given directory path (and its subdirectories).
+ The output level determines what log messages are printed to
+System.out
+, if any.
+Example of a simple file server:
+var addr = new InetSocketAddress(8080);
+    var server = SimpleFileServer.createFileServer(addr, Path.of("/some/path"), OutputLevel.INFO);
+    server.start();
+File handler
+The
+createFileHandler
+static factory
+ method returns an
+HttpHandler
+that serves files and directory
+ listings. The handler supports only the
+HEAD
+and
+GET
+request
+ methods; to handle other request methods, one can either add additional
+ handlers to the server, or complement the file handler by composing a single
+ handler via
+HttpHandlers.handleOrElse(Predicate, HttpHandler, HttpHandler)
+.
+Example of composing a single handler:
+var handler = HttpHandlers.handleOrElse(
+        (req) -> req.getRequestMethod().equals("PUT"),
+        (exchange) -> {
+            // validate and handle PUT request
+        },
+        SimpleFileServer.createFileHandler(Path.of("/some/path")))
+    );
+Output filter
+The
+createOutputFilter
+static factory method returns a
+post-processing filter
+that
+ prints log messages relating to the exchanges handled by the server. The
+ output format is specified by the
+outputLevel
+.
+Example of an output filter:
+var filter = SimpleFileServer.createOutputFilter(System.out, OutputLevel.VERBOSE);
+    var server = HttpServer.create(new InetSocketAddress(8080), 10, "/some/path/", new SomeHandler(), filter);
+    server.start();
+jwebserver Tool
+A simple HTTP file server implementation is provided via the
+jwebserver
+tool.
+Tool Guides:
+jwebserver
+Since:
+18
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+static enum
+SimpleFileServer.OutputLevel
+Describes the log message output level produced by the server when
+ processing exchanges.
+Method Summary
+All Methods
+Static Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+HttpHandler
+createFileHandler
+(
+Path
+rootDirectory)
+Creates a
+file handler
+that serves files from a given directory
+ path (and its subdirectories).
+static
+HttpServer
+createFileServer
+(
+InetSocketAddress
+addr,
+Path
+rootDirectory,
+SimpleFileServer.OutputLevel
+outputLevel)
+Creates a
+file server
+that serves files from a given path.
+static
+Filter
+createOutputFilter
+(
+OutputStream
+out,
+SimpleFileServer.OutputLevel
+outputLevel)
+Creates a
+post-processing Filter
+that prints log messages about
+exchanges
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Method Details
+createFileServer
+public static
+HttpServer
+createFileServer
+(
+InetSocketAddress
+addr,
+Path
+rootDirectory,
+SimpleFileServer.OutputLevel
+outputLevel)
+Creates a
+file server
+that serves files from a given path.
+The server is configured with an initial context that maps the
+ URI
+path
+to a
+file handler
+. The
+file handler
+is
+ created as if by an invocation of
+createFileHandler(rootDirectory)
+, and is
+ associated to a context created as if by an invocation of
+createContext("/")
+. The returned
+ server is not started.
+An output level can be given to print log messages relating to the
+ exchanges handled by the server. The log messages, if any, are printed to
+System.out
+. If
+OutputLevel.NONE
+is
+ given, no log messages are printed.
+Parameters:
+addr
+- the address to listen on
+rootDirectory
+- the root directory to be served, must be an absolute path
+outputLevel
+- the log message output level
+Returns:
+an HttpServer
+Throws:
+IllegalArgumentException
+- if root does not exist, is not absolute,
+         is not a directory, or is not readable
+UncheckedIOException
+- if an I/O error occurs
+NullPointerException
+- if any argument is null
+SecurityException
+- if a security manager is installed and a
+         recursive
+FilePermission
+"
+read
+" of the
+         rootDirectory is denied
+createFileHandler
+public static
+HttpHandler
+createFileHandler
+(
+Path
+rootDirectory)
+Creates a
+file handler
+that serves files from a given directory
+ path (and its subdirectories).
+The file handler resolves the request URI against the given
+rootDirectory
+path to determine the path
+p
+on the
+ associated file system to serve the response. If the path
+p
+is
+ a directory, then the response contains a directory listing, formatted in
+ HTML, as the response body. If the path
+p
+is a file, then the
+ response contains a "Content-Type" header based on the best-guess
+ content type, as determined by an invocation of
+getContentTypeFor
+,
+ on the system-wide
+mimeTable
+, as
+ well as the contents of the file as the response body.
+The handler supports only requests with the
+HEAD
+or
+GET
+method, and will reply with a
+405
+response code for requests with
+ any other method.
+Parameters:
+rootDirectory
+- the root directory to be served, must be an absolute path
+Returns:
+a file handler
+Throws:
+IllegalArgumentException
+- if rootDirectory does not exist,
+         is not absolute, is not a directory, or is not readable
+NullPointerException
+- if the argument is null
+SecurityException
+- if a security manager is installed and a
+         recursive
+FilePermission
+"
+read
+" of the
+         rootDirectory is denied
+createOutputFilter
+public static
+Filter
+createOutputFilter
+(
+OutputStream
+out,
+SimpleFileServer.OutputLevel
+outputLevel)
+Creates a
+post-processing Filter
+that prints log messages about
+exchanges
+. The log messages are printed to
+ the given
+OutputStream
+in
+UTF-8
+encoding.
+API Note:
+To not output any log messages it is recommended to not use a filter.
+Parameters:
+out
+- the stream to print to
+outputLevel
+- the output level
+Returns:
+a post-processing filter
+Throws:
+IllegalArgumentException
+- if
+OutputLevel.NONE
+is given
+NullPointerException
+- if any argument is null
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,349 @@
+Certificate (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+javax.security.cert
+Class Certificate
+java.lang.Object
+javax.security.cert.Certificate
+Direct Known Subclasses:
+X509Certificate
+@Deprecated
+(
+since
+="9",
+forRemoval
+=true)
+public abstract class
+Certificate
+extends
+Object
+Deprecated, for removal: This API element is subject to removal in a future version.
+Use the classes in
+java.security.cert
+instead.
+Abstract class for managing a variety of identity certificates.
+ An identity certificate is a guarantee by a principal that
+ a public key is that of another principal.  (A principal represents
+ an entity such as an individual user, a group, or a corporation.)
+This class is an abstraction for certificates that have different
+ formats but important common uses.  For example, different types of
+ certificates, such as X.509 and PGP, share general certificate
+ functionality (like encoding and verifying) and
+ some types of information (like a public key).
+X.509, PGP, and SDSI certificates can all be implemented by
+ subclassing the Certificate class, even though they contain different
+ sets of information, and they store and retrieve the information in
+ different ways.
+Note: The classes in the package
+javax.security.cert
+exist for compatibility with earlier versions of the
+ Java Secure Sockets Extension (JSSE). New applications should instead
+ use the standard Java SE certificate classes located in
+java.security.cert
+.
+Since:
+1.4
+See Also:
+X509Certificate
+Constructor Summary
+Constructors
+Constructor
+Description
+Certificate
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Constructor for subclasses to call.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+boolean
+equals
+(
+Object
+other)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Compares this certificate for equality with the specified
+ object.
+abstract byte[]
+getEncoded
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Returns the encoded form of this certificate.
+abstract
+PublicKey
+getPublicKey
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Gets the public key from this certificate.
+int
+hashCode
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Returns a hashcode value for this certificate from its
+ encoded form.
+abstract
+String
+toString
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Returns a string representation of this certificate.
+abstract void
+verify
+(
+PublicKey
+key)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Verifies that this certificate was signed using the
+ private key that corresponds to the specified public key.
+abstract void
+verify
+(
+PublicKey
+key,
+String
+sigProvider)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Verifies that this certificate was signed using the
+ private key that corresponds to the specified public key.
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+Certificate
+public
+Certificate
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Constructor for subclasses to call.
+Method Details
+equals
+public
+boolean
+equals
+(
+Object
+other)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Compares this certificate for equality with the specified
+ object. If the
+other
+object is an
+instanceof
+Certificate
+, then
+ its encoded form is retrieved and compared with the
+ encoded form of this certificate.
+Overrides:
+equals
+in class
+Object
+Parameters:
+other
+- the object to test for equality with this certificate.
+Returns:
+true if the encoded forms of the two certificates
+         match, false otherwise.
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+public
+int
+hashCode
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Returns a hashcode value for this certificate from its
+ encoded form.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+the hashcode value.
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+getEncoded
+public abstract
+byte[]
+getEncoded
+()
+                           throws
+CertificateEncodingException
+Deprecated, for removal: This API element is subject to removal in a future version.
+Returns the encoded form of this certificate. It is
+ assumed that each certificate type would have only a single
+ form of encoding; for example, X.509 certificates would
+ be encoded as ASN.1 DER.
+Returns:
+encoded form of this certificate
+Throws:
+CertificateEncodingException
+- on internal certificate
+            encoding failure
+verify
+public abstract
+void
+verify
+(
+PublicKey
+key)
+throws
+CertificateException
+,
+NoSuchAlgorithmException
+,
+InvalidKeyException
+,
+NoSuchProviderException
+,
+SignatureException
+Deprecated, for removal: This API element is subject to removal in a future version.
+Verifies that this certificate was signed using the
+ private key that corresponds to the specified public key.
+Parameters:
+key
+- the PublicKey used to carry out the verification.
+Throws:
+NoSuchAlgorithmException
+- on unsupported signature
+ algorithms.
+InvalidKeyException
+- on incorrect key.
+NoSuchProviderException
+- if there's no default provider.
+SignatureException
+- on signature errors.
+CertificateException
+- on encoding errors.
+verify
+public abstract
+void
+verify
+(
+PublicKey
+key,
+String
+sigProvider)
+throws
+CertificateException
+,
+NoSuchAlgorithmException
+,
+InvalidKeyException
+,
+NoSuchProviderException
+,
+SignatureException
+Deprecated, for removal: This API element is subject to removal in a future version.
+Verifies that this certificate was signed using the
+ private key that corresponds to the specified public key.
+ This method uses the signature verification engine
+ supplied by the specified provider.
+Parameters:
+key
+- the PublicKey used to carry out the verification.
+sigProvider
+- the name of the signature provider.
+Throws:
+NoSuchAlgorithmException
+- on unsupported signature algorithms.
+InvalidKeyException
+- on incorrect key.
+NoSuchProviderException
+- on incorrect provider.
+SignatureException
+- on signature errors.
+CertificateException
+- on encoding errors.
+toString
+public abstract
+String
+toString
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Returns a string representation of this certificate.
+Overrides:
+toString
+in class
+Object
+Returns:
+a string representation of this certificate.
+getPublicKey
+public abstract
+PublicKey
+getPublicKey
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Gets the public key from this certificate.
+Returns:
+the public key.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

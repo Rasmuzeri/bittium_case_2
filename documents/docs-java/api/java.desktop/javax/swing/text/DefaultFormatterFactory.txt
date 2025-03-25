@@ -1,0 +1,532 @@
+DefaultFormatterFactory (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.text
+Class DefaultFormatterFactory
+java.lang.Object
+javax.swing.JFormattedTextField.AbstractFormatterFactory
+javax.swing.text.DefaultFormatterFactory
+All Implemented Interfaces:
+Serializable
+public class
+DefaultFormatterFactory
+extends
+JFormattedTextField.AbstractFormatterFactory
+implements
+Serializable
+An implementation of
+JFormattedTextField.AbstractFormatterFactory
+.
+DefaultFormatterFactory
+allows specifying a number of
+ different
+JFormattedTextField.AbstractFormatter
+s that are to
+ be used.
+ The most important one is the default one
+ (
+setDefaultFormatter
+). The default formatter will be used
+ if a more specific formatter could not be found. The following process
+ is used to determine the appropriate formatter to use.
+Is the passed in value null? Use the null formatter.
+Does the
+JFormattedTextField
+have focus? Use the edit
+       formatter.
+Otherwise, use the display formatter.
+If a non-null
+AbstractFormatter
+has not been found, use
+       the default formatter.
+The following code shows how to configure a
+JFormattedTextField
+with two
+JFormattedTextField.AbstractFormatter
+s, one for display and
+ one for editing.
+JFormattedTextField.AbstractFormatter editFormatter = ...;
+ JFormattedTextField.AbstractFormatter displayFormatter = ...;
+ DefaultFormatterFactory factory = new DefaultFormatterFactory(
+                 displayFormatter, displayFormatter, editFormatter);
+ JFormattedTextField tf = new JFormattedTextField(factory);
+Warning:
+Serialized objects of this class will not be compatible with
+ future Swing releases. The current serialization support is
+ appropriate for short term storage or RMI between applications running
+ the same version of Swing.  As of 1.4, support for long term storage
+ of all JavaBeans
+ has been added to the
+java.beans
+package.
+ Please see
+XMLEncoder
+.
+Since:
+1.4
+See Also:
+JFormattedTextField
+Constructor Summary
+Constructors
+Constructor
+Description
+DefaultFormatterFactory
+()
+Constructs a
+DefaultFormatterFactory
+.
+DefaultFormatterFactory
+(
+JFormattedTextField.AbstractFormatter
+defaultFormat)
+Creates a
+DefaultFormatterFactory
+with the specified
+JFormattedTextField.AbstractFormatter
+.
+DefaultFormatterFactory
+(
+JFormattedTextField.AbstractFormatter
+defaultFormat,
+JFormattedTextField.AbstractFormatter
+displayFormat)
+Creates a
+DefaultFormatterFactory
+with the specified
+JFormattedTextField.AbstractFormatter
+s.
+DefaultFormatterFactory
+(
+JFormattedTextField.AbstractFormatter
+defaultFormat,
+JFormattedTextField.AbstractFormatter
+displayFormat,
+JFormattedTextField.AbstractFormatter
+editFormat)
+Creates a DefaultFormatterFactory with the specified
+ JFormattedTextField.AbstractFormatters.
+DefaultFormatterFactory
+(
+JFormattedTextField.AbstractFormatter
+defaultFormat,
+JFormattedTextField.AbstractFormatter
+displayFormat,
+JFormattedTextField.AbstractFormatter
+editFormat,
+JFormattedTextField.AbstractFormatter
+nullFormat)
+Creates a DefaultFormatterFactory with the specified
+ JFormattedTextField.AbstractFormatters.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+JFormattedTextField.AbstractFormatter
+getDefaultFormatter
+()
+Returns the
+JFormattedTextField.AbstractFormatter
+to use
+ as a last resort, eg in case a display, edit or null
+JFormattedTextField.AbstractFormatter
+has not been specified.
+JFormattedTextField.AbstractFormatter
+getDisplayFormatter
+()
+Returns the
+JFormattedTextField.AbstractFormatter
+to use
+ if the
+JFormattedTextField
+is not being edited and either
+ the value is not-null, or the value is null and a null formatter has
+ has not been specified.
+JFormattedTextField.AbstractFormatter
+getEditFormatter
+()
+Returns the
+JFormattedTextField.AbstractFormatter
+to use
+ if the
+JFormattedTextField
+is being edited and either
+ the value is not-null, or the value is null and a null formatter has
+ has not been specified.
+JFormattedTextField.AbstractFormatter
+getFormatter
+(
+JFormattedTextField
+source)
+Returns either the default formatter, display formatter, editor
+ formatter or null formatter based on the state of the
+ JFormattedTextField.
+JFormattedTextField.AbstractFormatter
+getNullFormatter
+()
+Returns the formatter to use if the value is null.
+void
+setDefaultFormatter
+(
+JFormattedTextField.AbstractFormatter
+atf)
+Sets the
+JFormattedTextField.AbstractFormatter
+to use as
+ a last resort, eg in case a display, edit or null
+JFormattedTextField.AbstractFormatter
+has not been
+ specified.
+void
+setDisplayFormatter
+(
+JFormattedTextField.AbstractFormatter
+atf)
+Sets the
+JFormattedTextField.AbstractFormatter
+to use if
+ the
+JFormattedTextField
+is not being edited and either
+ the value is not-null, or the value is null and a null formatter has
+ has not been specified.
+void
+setEditFormatter
+(
+JFormattedTextField.AbstractFormatter
+atf)
+Sets the
+JFormattedTextField.AbstractFormatter
+to use if
+ the
+JFormattedTextField
+is being edited and either
+ the value is not-null, or the value is null and a null formatter has
+ has not been specified.
+void
+setNullFormatter
+(
+JFormattedTextField.AbstractFormatter
+atf)
+Sets the formatter to use if the value of the JFormattedTextField is
+ null.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+DefaultFormatterFactory
+public
+DefaultFormatterFactory
+()
+Constructs a
+DefaultFormatterFactory
+.
+DefaultFormatterFactory
+public
+DefaultFormatterFactory
+(
+JFormattedTextField.AbstractFormatter
+defaultFormat)
+Creates a
+DefaultFormatterFactory
+with the specified
+JFormattedTextField.AbstractFormatter
+.
+Parameters:
+defaultFormat
+- JFormattedTextField.AbstractFormatter to be used
+                      if a more specific
+                      JFormattedTextField.AbstractFormatter can not be
+                      found.
+DefaultFormatterFactory
+public
+DefaultFormatterFactory
+(
+JFormattedTextField.AbstractFormatter
+defaultFormat,
+JFormattedTextField.AbstractFormatter
+displayFormat)
+Creates a
+DefaultFormatterFactory
+with the specified
+JFormattedTextField.AbstractFormatter
+s.
+Parameters:
+defaultFormat
+- JFormattedTextField.AbstractFormatter to be used
+                      if a more specific
+                      JFormattedTextField.AbstractFormatter can not be
+                      found.
+displayFormat
+- JFormattedTextField.AbstractFormatter to be used
+                      when the JFormattedTextField does not have focus.
+DefaultFormatterFactory
+public
+DefaultFormatterFactory
+(
+JFormattedTextField.AbstractFormatter
+defaultFormat,
+JFormattedTextField.AbstractFormatter
+displayFormat,
+JFormattedTextField.AbstractFormatter
+editFormat)
+Creates a DefaultFormatterFactory with the specified
+ JFormattedTextField.AbstractFormatters.
+Parameters:
+defaultFormat
+- JFormattedTextField.AbstractFormatter to be used
+                      if a more specific
+                      JFormattedTextField.AbstractFormatter can not be
+                      found.
+displayFormat
+- JFormattedTextField.AbstractFormatter to be used
+                      when the JFormattedTextField does not have focus.
+editFormat
+- JFormattedTextField.AbstractFormatter to be used
+                      when the JFormattedTextField has focus.
+DefaultFormatterFactory
+public
+DefaultFormatterFactory
+(
+JFormattedTextField.AbstractFormatter
+defaultFormat,
+JFormattedTextField.AbstractFormatter
+displayFormat,
+JFormattedTextField.AbstractFormatter
+editFormat,
+JFormattedTextField.AbstractFormatter
+nullFormat)
+Creates a DefaultFormatterFactory with the specified
+ JFormattedTextField.AbstractFormatters.
+Parameters:
+defaultFormat
+- JFormattedTextField.AbstractFormatter to be used
+                      if a more specific
+                      JFormattedTextField.AbstractFormatter can not be
+                      found.
+displayFormat
+- JFormattedTextField.AbstractFormatter to be used
+                      when the JFormattedTextField does not have focus.
+editFormat
+- JFormattedTextField.AbstractFormatter to be used
+                      when the JFormattedTextField has focus.
+nullFormat
+- JFormattedTextField.AbstractFormatter to be used
+                      when the JFormattedTextField has a null value.
+Method Details
+setDefaultFormatter
+public
+void
+setDefaultFormatter
+(
+JFormattedTextField.AbstractFormatter
+atf)
+Sets the
+JFormattedTextField.AbstractFormatter
+to use as
+ a last resort, eg in case a display, edit or null
+JFormattedTextField.AbstractFormatter
+has not been
+ specified.
+Parameters:
+atf
+- JFormattedTextField.AbstractFormatter used if a more
+            specific is not specified
+getDefaultFormatter
+public
+JFormattedTextField.AbstractFormatter
+getDefaultFormatter
+()
+Returns the
+JFormattedTextField.AbstractFormatter
+to use
+ as a last resort, eg in case a display, edit or null
+JFormattedTextField.AbstractFormatter
+has not been specified.
+Returns:
+JFormattedTextField.AbstractFormatter used if a more specific
+         one is not specified.
+setDisplayFormatter
+public
+void
+setDisplayFormatter
+(
+JFormattedTextField.AbstractFormatter
+atf)
+Sets the
+JFormattedTextField.AbstractFormatter
+to use if
+ the
+JFormattedTextField
+is not being edited and either
+ the value is not-null, or the value is null and a null formatter has
+ has not been specified.
+Parameters:
+atf
+- JFormattedTextField.AbstractFormatter to use when the
+            JFormattedTextField does not have focus
+getDisplayFormatter
+public
+JFormattedTextField.AbstractFormatter
+getDisplayFormatter
+()
+Returns the
+JFormattedTextField.AbstractFormatter
+to use
+ if the
+JFormattedTextField
+is not being edited and either
+ the value is not-null, or the value is null and a null formatter has
+ has not been specified.
+Returns:
+JFormattedTextField.AbstractFormatter to use when the
+         JFormattedTextField does not have focus
+setEditFormatter
+public
+void
+setEditFormatter
+(
+JFormattedTextField.AbstractFormatter
+atf)
+Sets the
+JFormattedTextField.AbstractFormatter
+to use if
+ the
+JFormattedTextField
+is being edited and either
+ the value is not-null, or the value is null and a null formatter has
+ has not been specified.
+Parameters:
+atf
+- JFormattedTextField.AbstractFormatter to use when the
+            component has focus
+getEditFormatter
+public
+JFormattedTextField.AbstractFormatter
+getEditFormatter
+()
+Returns the
+JFormattedTextField.AbstractFormatter
+to use
+ if the
+JFormattedTextField
+is being edited and either
+ the value is not-null, or the value is null and a null formatter has
+ has not been specified.
+Returns:
+JFormattedTextField.AbstractFormatter to use when the
+         component has focus
+setNullFormatter
+public
+void
+setNullFormatter
+(
+JFormattedTextField.AbstractFormatter
+atf)
+Sets the formatter to use if the value of the JFormattedTextField is
+ null.
+Parameters:
+atf
+- JFormattedTextField.AbstractFormatter to use when
+ the value of the JFormattedTextField is null.
+getNullFormatter
+public
+JFormattedTextField.AbstractFormatter
+getNullFormatter
+()
+Returns the formatter to use if the value is null.
+Returns:
+JFormattedTextField.AbstractFormatter to use when the value is
+         null
+getFormatter
+public
+JFormattedTextField.AbstractFormatter
+getFormatter
+(
+JFormattedTextField
+source)
+Returns either the default formatter, display formatter, editor
+ formatter or null formatter based on the state of the
+ JFormattedTextField.
+Specified by:
+getFormatter
+in class
+JFormattedTextField.AbstractFormatterFactory
+Parameters:
+source
+- JFormattedTextField requesting
+               JFormattedTextField.AbstractFormatter
+Returns:
+JFormattedTextField.AbstractFormatter to handle
+         formatting duties.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

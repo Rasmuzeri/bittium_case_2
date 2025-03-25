@@ -1,0 +1,515 @@
+Uses of Interface java.security.PublicKey (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Interface
+java.security.PublicKey
+Packages that use
+PublicKey
+Package
+Description
+java.security
+Provides the classes and interfaces for the security framework.
+java.security.cert
+Provides classes and interfaces for parsing and managing
+ certificates, certificate revocation lists (CRLs), and
+ certification paths.
+java.security.interfaces
+Provides interfaces for generating RSA (Rivest, Shamir and
+ Adleman AsymmetricCipher algorithm)
+ keys as defined in the RSA Laboratory Technical Note
+ PKCS#1, and DSA (Digital Signature
+ Algorithm) keys as defined in NIST's FIPS-186.
+javax.crypto
+Provides the classes and interfaces for cryptographic
+ operations.
+javax.crypto.interfaces
+Provides interfaces for Diffie-Hellman keys as defined in RSA
+ Laboratories' PKCS #3.
+javax.security.cert
+Provides classes for public key certificates.
+javax.xml.crypto.dsig.keyinfo
+Classes for parsing and processing
+KeyInfo
+elements and structures.
+Uses of
+PublicKey
+in
+java.security
+Methods in
+java.security
+that return
+PublicKey
+Modifier and Type
+Method
+Description
+protected abstract
+PublicKey
+KeyFactorySpi.
+engineGeneratePublic
+(
+KeySpec
+keySpec)
+Generates a public key object from the provided key
+ specification (key material).
+final
+PublicKey
+KeyFactory.
+generatePublic
+(
+KeySpec
+keySpec)
+Generates a public key object from the provided key specification
+ (key material).
+PublicKey
+KeyPair.
+getPublic
+()
+Returns a reference to the public key component of this key pair.
+PublicKey
+Certificate.
+getPublicKey
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Returns the key of the principal-key pair being guaranteed by
+ the guarantor.
+PublicKey
+Identity.
+getPublicKey
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Returns this identity's public key.
+Methods in
+java.security
+with parameters of type
+PublicKey
+Modifier and Type
+Method
+Description
+protected abstract void
+SignatureSpi.
+engineInitVerify
+(
+PublicKey
+publicKey)
+Initializes this
+Signature
+object with the specified
+ public key for verification operations.
+abstract
+Identity
+IdentityScope.
+getIdentity
+(
+PublicKey
+key)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Retrieves the
+identity
+with the specified public key.
+final void
+Signature.
+initVerify
+(
+PublicKey
+publicKey)
+Initializes this object for verification.
+void
+Identity.
+setPublicKey
+(
+PublicKey
+key)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Sets this identity's public key.
+boolean
+SignedObject.
+verify
+(
+PublicKey
+verificationKey,
+Signature
+verificationEngine)
+Verifies that the signature in this
+SignedObject
+is the valid
+ signature for the object stored inside, with the given
+ verification key, using the designated verification engine.
+Constructors in
+java.security
+with parameters of type
+PublicKey
+Modifier
+Constructor
+Description
+KeyPair
+(
+PublicKey
+publicKey,
+PrivateKey
+privateKey)
+Constructs a key pair from the given public key and private key.
+Uses of
+PublicKey
+in
+java.security.cert
+Methods in
+java.security.cert
+that return
+PublicKey
+Modifier and Type
+Method
+Description
+final
+PublicKey
+TrustAnchor.
+getCAPublicKey
+()
+Returns the public key of the most-trusted CA.
+abstract
+PublicKey
+Certificate.
+getPublicKey
+()
+Gets the public key from this certificate.
+PublicKey
+PKIXCertPathValidatorResult.
+getPublicKey
+()
+Returns the public key of the subject (target) of the certification
+ path, including any inherited public key parameters if applicable.
+PublicKey
+X509CertSelector.
+getSubjectPublicKey
+()
+Returns the subjectPublicKey criterion.
+Methods in
+java.security.cert
+with parameters of type
+PublicKey
+Modifier and Type
+Method
+Description
+void
+X509CertSelector.
+setSubjectPublicKey
+(
+PublicKey
+key)
+Sets the subjectPublicKey criterion.
+abstract void
+Certificate.
+verify
+(
+PublicKey
+key)
+Verifies that this certificate was signed using the
+ private key that corresponds to the specified public key.
+abstract void
+Certificate.
+verify
+(
+PublicKey
+key,
+String
+sigProvider)
+Verifies that this certificate was signed using the
+ private key that corresponds to the specified public key.
+void
+Certificate.
+verify
+(
+PublicKey
+key,
+Provider
+sigProvider)
+Verifies that this certificate was signed using the
+ private key that corresponds to the specified public key.
+void
+X509Certificate.
+verify
+(
+PublicKey
+key,
+Provider
+sigProvider)
+Verifies that this certificate was signed using the
+ private key that corresponds to the specified public key.
+abstract void
+X509CRL.
+verify
+(
+PublicKey
+key)
+Verifies that this CRL was signed using the
+ private key that corresponds to the given public key.
+abstract void
+X509CRL.
+verify
+(
+PublicKey
+key,
+String
+sigProvider)
+Verifies that this CRL was signed using the
+ private key that corresponds to the given public key.
+void
+X509CRL.
+verify
+(
+PublicKey
+key,
+Provider
+sigProvider)
+Verifies that this CRL was signed using the
+ private key that corresponds to the given public key.
+Constructors in
+java.security.cert
+with parameters of type
+PublicKey
+Modifier
+Constructor
+Description
+PKIXCertPathBuilderResult
+(
+CertPath
+certPath,
+TrustAnchor
+trustAnchor,
+PolicyNode
+policyTree,
+PublicKey
+subjectPublicKey)
+Creates an instance of
+PKIXCertPathBuilderResult
+containing the specified parameters.
+PKIXCertPathValidatorResult
+(
+TrustAnchor
+trustAnchor,
+PolicyNode
+policyTree,
+PublicKey
+subjectPublicKey)
+Creates an instance of
+PKIXCertPathValidatorResult
+containing the specified parameters.
+TrustAnchor
+(
+String
+caName,
+PublicKey
+pubKey,
+ byte[] nameConstraints)
+Creates an instance of
+TrustAnchor
+where the
+ most-trusted CA is specified as a distinguished name and public key.
+TrustAnchor
+(
+X500Principal
+caPrincipal,
+PublicKey
+pubKey,
+ byte[] nameConstraints)
+Creates an instance of
+TrustAnchor
+where the
+ most-trusted CA is specified as an X500Principal and public key.
+Uses of
+PublicKey
+in
+java.security.interfaces
+Subinterfaces of
+PublicKey
+in
+java.security.interfaces
+Modifier and Type
+Interface
+Description
+interface
+DSAPublicKey
+The interface to a DSA public key.
+interface
+ECPublicKey
+The interface to an elliptic curve (EC) public key.
+interface
+EdECPublicKey
+An interface for an elliptic curve public key as defined by
+RFC 8032: Edwards-Curve
+ Digital Signature Algorithm (EdDSA)
+.
+interface
+RSAPublicKey
+The interface to an RSA public key.
+interface
+XECPublicKey
+An interface for an elliptic curve public key as defined by RFC 7748.
+Uses of
+PublicKey
+in
+javax.crypto
+Methods in
+javax.crypto
+with parameters of type
+PublicKey
+Modifier and Type
+Method
+Description
+KEMSpi.EncapsulatorSpi
+KEMSpi.
+engineNewEncapsulator
+(
+PublicKey
+publicKey,
+AlgorithmParameterSpec
+spec,
+SecureRandom
+secureRandom)
+Creates a KEM encapsulator on the KEM sender side.
+KEM.Encapsulator
+KEM.
+newEncapsulator
+(
+PublicKey
+publicKey)
+Creates a KEM encapsulator on the KEM sender side.
+KEM.Encapsulator
+KEM.
+newEncapsulator
+(
+PublicKey
+publicKey,
+SecureRandom
+secureRandom)
+Creates a KEM encapsulator on the KEM sender side.
+KEM.Encapsulator
+KEM.
+newEncapsulator
+(
+PublicKey
+publicKey,
+AlgorithmParameterSpec
+spec,
+SecureRandom
+secureRandom)
+Creates a KEM encapsulator on the KEM sender side.
+Uses of
+PublicKey
+in
+javax.crypto.interfaces
+Subinterfaces of
+PublicKey
+in
+javax.crypto.interfaces
+Modifier and Type
+Interface
+Description
+interface
+DHPublicKey
+The interface to a Diffie-Hellman public key.
+Uses of
+PublicKey
+in
+javax.security.cert
+Methods in
+javax.security.cert
+that return
+PublicKey
+Modifier and Type
+Method
+Description
+abstract
+PublicKey
+Certificate.
+getPublicKey
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Gets the public key from this certificate.
+Methods in
+javax.security.cert
+with parameters of type
+PublicKey
+Modifier and Type
+Method
+Description
+abstract void
+Certificate.
+verify
+(
+PublicKey
+key)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Verifies that this certificate was signed using the
+ private key that corresponds to the specified public key.
+abstract void
+Certificate.
+verify
+(
+PublicKey
+key,
+String
+sigProvider)
+Deprecated, for removal: This API element is subject to removal in a future version.
+Verifies that this certificate was signed using the
+ private key that corresponds to the specified public key.
+Uses of
+PublicKey
+in
+javax.xml.crypto.dsig.keyinfo
+Methods in
+javax.xml.crypto.dsig.keyinfo
+that return
+PublicKey
+Modifier and Type
+Method
+Description
+PublicKey
+KeyValue.
+getPublicKey
+()
+Returns the public key of this
+KeyValue
+.
+Methods in
+javax.xml.crypto.dsig.keyinfo
+with parameters of type
+PublicKey
+Modifier and Type
+Method
+Description
+abstract
+KeyValue
+KeyInfoFactory.
+newKeyValue
+(
+PublicKey
+key)
+Creates a
+KeyValue
+from the specified public key.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

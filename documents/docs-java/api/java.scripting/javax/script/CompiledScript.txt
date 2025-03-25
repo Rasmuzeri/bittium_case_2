@@ -1,0 +1,287 @@
+CompiledScript (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.scripting
+Package
+javax.script
+Class CompiledScript
+java.lang.Object
+javax.script.CompiledScript
+public abstract class
+CompiledScript
+extends
+Object
+Extended by classes that store results of compilations.  State
+ might be stored in the form of Java classes, Java class files or scripting
+ language opcodes.  The script may be executed repeatedly
+ without reparsing.
+Each
+CompiledScript
+is associated with a
+ScriptEngine
+-- A call to an
+eval
+method of the
+CompiledScript
+causes the execution of the script by the
+ScriptEngine
+.  Changes in the state of the
+ScriptEngine
+caused by execution
+ of the
+CompiledScript
+may visible during subsequent executions of scripts by the engine.
+Since:
+1.6
+Constructor Summary
+Constructors
+Constructor
+Description
+CompiledScript
+()
+Constructor for subclasses to call.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Object
+eval
+()
+Executes the program stored in the
+CompiledScript
+object.
+Object
+eval
+(
+Bindings
+bindings)
+Executes the program stored in the
+CompiledScript
+object using
+ the supplied
+Bindings
+of attributes as the
+ENGINE_SCOPE
+of the
+ associated
+ScriptEngine
+during script execution.
+abstract
+Object
+eval
+(
+ScriptContext
+context)
+Executes the program stored in this
+CompiledScript
+object.
+abstract
+ScriptEngine
+getEngine
+()
+Returns the
+ScriptEngine
+whose
+compile
+method created this
+CompiledScript
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+CompiledScript
+public
+CompiledScript
+()
+Constructor for subclasses to call.
+Method Details
+eval
+public abstract
+Object
+eval
+(
+ScriptContext
+context)
+throws
+ScriptException
+Executes the program stored in this
+CompiledScript
+object.
+Parameters:
+context
+- A
+ScriptContext
+that is used in the same way as
+ the
+ScriptContext
+passed to the
+eval
+methods of
+ScriptEngine
+.
+Returns:
+The value returned by the script execution, if any.  Should return
+null
+if no value is returned by the script execution.
+Throws:
+ScriptException
+- if an error occurs.
+NullPointerException
+- if context is null.
+eval
+public
+Object
+eval
+(
+Bindings
+bindings)
+throws
+ScriptException
+Executes the program stored in the
+CompiledScript
+object using
+ the supplied
+Bindings
+of attributes as the
+ENGINE_SCOPE
+of the
+ associated
+ScriptEngine
+during script execution.  If bindings is null,
+ then the effect of calling this method is same as that of eval(getEngine().getContext()).
+.
+ The
+GLOBAL_SCOPE
+Bindings
+,
+Reader
+and
+Writer
+associated with the default
+ScriptContext
+of the associated
+ScriptEngine
+are used.
+Parameters:
+bindings
+- The bindings of attributes used for the
+ENGINE_SCOPE
+.
+Returns:
+The return value from the script execution
+Throws:
+ScriptException
+- if an error occurs.
+eval
+public
+Object
+eval
+()
+            throws
+ScriptException
+Executes the program stored in the
+CompiledScript
+object.  The
+ default
+ScriptContext
+of the associated
+ScriptEngine
+is used.
+ The effect of calling this method is same as that of eval(getEngine().getContext()).
+Returns:
+The return value from the script execution
+Throws:
+ScriptException
+- if an error occurs.
+getEngine
+public abstract
+ScriptEngine
+getEngine
+()
+Returns the
+ScriptEngine
+whose
+compile
+method created this
+CompiledScript
+.
+ The
+CompiledScript
+will execute in this engine.
+Returns:
+The
+ScriptEngine
+that created this
+CompiledScript
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

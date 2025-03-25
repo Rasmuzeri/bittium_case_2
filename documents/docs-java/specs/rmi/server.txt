@@ -1,0 +1,698 @@
+Java Remote Method Invocation: 5 - Server Interfaces
+5 Server Interfaces
+The
+RemoteObject
+Class
+The
+RemoteServer
+Class
+The
+UnicastRemoteObject
+Class
+The
+Unreferenced
+Interface
+The
+RMISecurityManager
+Class
+The
+RMIClassLoader
+Class
+The
+LoaderHandler
+Interface
+RMI Socket Factories
+The
+RMIFailureHandler
+Interface
+The
+LogStream
+Class
+Stub and Skeleton
+Compiler
+The
+java.rmi.server
+package contains interfaces and
+classes typically used to implement remote objects.
+5.1 The
+RemoteObject
+Class
+See the
+RemoteObject
+API documentation.
+5.2 The
+RemoteServer
+Class
+See the
+RemoteServer
+API documentation.
+5.3 The
+UnicastRemoteObject
+Class
+The class
+java.rmi.server.UnicastRemoteObject
+provides
+support for creating and exporting remote objects. The class implements
+a remote server object with the following characteristics:
+References to such objects are valid only for, at most, the life of
+the process that creates the remote object.
+Communication with the remote object uses a TCP transport.
+Invocations, parameters, and results use a stream protocol for
+communicating between client and server.
+package java.rmi.server;
+
+public class UnicastRemoteObject extends RemoteServer {
+
+        protected UnicastRemoteObject()
+                throws java.rmi.RemoteException {...}
+        protected UnicastRemoteObject(int port)
+                throws java.rmi.RemoteException {...}
+        protected UnicastRemoteObject(int port,
+                                      RMIClientSocketFactory csf,
+                                      RMIServerSocketFactory ssf)
+                throws java.rmi.RemoteException {...}
+
+        public Object clone()
+                throws java.lang.CloneNotSupportedException {...}
+        public static RemoteStub exportObject(java.rmi.Remote obj)
+                throws java.rmi.RemoteException {...}
+        public static Remote exportObject(java.rmi.Remote obj, int port)
+                throws java.rmi.RemoteException {...}
+        public static Remote exportObject(Remote obj, int port,
+                                          RMIClientSocketFactory csf,
+                                          RMIServerSocketFactory ssf)
+                throws java.rmi.RemoteException {...}
+        public static boolean unexportObject(java.rmi.Remote obj,
+                                             boolean force)
+                throws java.rmi.NoSuchObjectException {...}
+}
+5.3.1 Constructing a New
+Remote Object
+A remote object implementation (one that implements one or more
+remote interfaces) must be created and exported. Exporting a remote
+object makes that object available to accept incoming calls from
+clients. For a remote object implementation that is exported as a
+UnicastRemoteObject
+, the exporting involves listening on a
+TCP port (note that more than one remote object can accept incoming
+calls on the same port, so listening on a new port is not always
+necessary). A remote object implementation can extend the class
+UnicastRemoteObject
+to make use of its constructors that
+export the object, or it can extend some other class (or none at all)
+and export the object via
+UnicastRemoteObject
+'s
+exportObject
+methods.
+The constructor that takes no arguments creates and exports a remote
+object on an anonymous (or arbitrary) port, chosen at runtime. The
+second form of the constructor takes a single argument,
+port
+,
+that specifies the port number on which the remote object accepts
+incoming calls. The third constructor creates and exports a remote
+object that accepts incoming calls on the specified
+port
+via a
+ServerSocket
+created from the
+RMIServerSocketFactory
+; clients will make connections to
+the remote object via
+Socket
+s supplied from the
+RMIClientSocketFactory
+.
+Note that if you export a remote object without specifying a socket
+factory, or if you export the object with a version of the method
+UnicastRemoteObject.exportObject
+or the constructor
+UnicastRemoteObject
+that does not contain parameters of
+type
+RMIClientSocketFactory
+and
+RMIServerSocketFactory
+), then the remote object is exported
+to all local addresses. To export a remote object to a specific address,
+see the section
+"RMI Socket
+Factories"
+.
+5.3.2
+Exporting an Implementation Not Extended From
+RemoteObject
+An
+exportObject
+method (any of the forms) is used to
+export a simple peer-to-peer remote object that is not implemented by
+extending the
+UnicastRemoteObject
+class. The first form of
+the
+exportObject
+method takes a single parameter,
+obj
+, which is the remote object that will accept incoming RMI
+calls; this
+exportObject
+method exports the object on an
+anonymous (or arbitrary) port, chosen at runtime. The second
+exportObject
+method takes two parameters, both the remote
+object,
+obj
+, and
+port
+, the port number on which the
+remote object accepts incoming calls. The third
+exportObject
+method exports the object,
+obj
+, with
+the specified
+RMIClientSocketFactory
+,
+csf
+, and
+RMIServerSocketFactory
+,
+ssf
+, on the specified
+port
+.
+The
+exportObject
+method returns a
+Remote
+stub which is the stub object for the remote object,
+obj
+,
+that is passed in place of the remote object in an RMI call.
+5.3.3 Passing a
+UnicastRemoteObject
+in an RMI Call
+As stated above, when an exported object of type
+UnicastRemoteObject
+is passed as a parameter or return
+value in an RMI call, the object is replaced by the remote object's
+stub. An exported remote object implementation remains in the virtual
+machine in which it was created and does not move (even by value) from
+that virtual machine. In other words, an exported remote object is
+passed by reference in an RMI call; exported remote object
+implementations cannot be passed by value.
+5.3.4 Serializing a
+UnicastRemoteObject
+Information contained in
+UnicastRemoteObject
+is
+transient and is not saved if an object of that type is written to a
+user-defined
+ObjectOutputStream
+(for example, if the object
+is written to a file using serialization). An object that is an instance
+of a user-defined subclass of
+UnicastRemoteObject
+, however,
+may have non-transient data that can be saved when the object is
+serialized.
+When a
+UnicastRemoteObject
+is read from an
+ObjectInputStream
+using
+UnicastRemoteObject
+'s
+readObject
+method, the remote object is automatically
+exported to the RMI runtime so that it may receive RMI calls. If
+exporting the object fails for some reason, deserializing the object
+will terminate with an exception.
+5.3.5 Unexporting a
+UnicastRemoteObject
+The
+unexportObject
+method makes the remote object,
+obj
+, unavailable for incoming calls. If the force parameter is
+true, the object is forcibly unexported even if there are pending calls
+to the remote object or the remote object still has calls in progress.
+If the force parameter is false, the object is only unexported if there
+are no pending or in-progress calls to the object. If the object is
+successfully unexported, the RMI runtime removes the object from its
+internal tables. Unexporting the object in this forcible manner may
+leave clients holding stale remote references to the remote object. This
+method throws
+java.rmi.NoSuchObjectException
+if the object
+was not previously exported to the RMI runtime.
+5.3.6 The
+clone
+method
+Objects are only cloneable using the Java programming language's
+default mechanism if they support the
+java.lang.Cloneable
+interface. The class
+java.rmi.server.UnicastRemoteObject
+does not implement this interface, but does implement the
+clone
+method so that if subclasses need to implement
+Cloneable
+, the remote object will be capable of being
+cloned properly. The
+clone
+method can be used by a subclass
+to create a cloned remote object with initially the same contents, but
+is exported to accept remote calls and is distinct from the original
+object.
+5.4 The
+Unreferenced
+Interface
+package java.rmi.server;
+
+public interface Unreferenced {
+        public void unreferenced();
+}
+The
+java.rmi.server.Unreferenced
+interface allows a
+server object to receive notification that there are no clients holding
+remote references to it. The distributed garbage collection mechanism
+maintains for each remote object, the set of client virtual machines
+that hold references to that remote object. As long as some client holds
+a remote reference to the remote object, the RMI runtime keeps a local
+reference to the remote object. Each time the remote object's
+"reference" set becomes empty (meaning that the number of clients that
+reference the object becomes zero), the
+Unreferenced.unreferenced
+method is invoked (if that remote
+object implements the
+Unreferenced
+interface). A remote
+object is
+not
+required to support the
+Unreferenced
+interface.
+As long as some local reference to the remote object exists, it may
+be passed in remote calls or returned to clients. The process that
+receives the reference is added to the reference set for the remote
+object. When the reference set becomes empty, the remote object's
+unreferenced
+method will be invoked. As such, the
+unreferenced
+method can be called more than once (each time
+the set is newly emptied). Remote objects are only collected when no
+more references, either local references or those held by clients, still
+exist.
+5.5 The
+RMISecurityManager
+Class
+See the
+RMISecurityManager
+API documentation.
+5.6 The
+RMIClassLoader
+Class
+See the
+RMIClassLoader
+API documentation.
+5.7 The
+LoaderHandler
+Interface
+See the
+LoaderHandler
+API documentation.
+5.8 RMI Socket Factories
+When the RMI runtime implementation needs instances of
+java.net.Socket
+and
+java.net.ServerSocket
+for
+its connections, instead of instantiating objects of those classes
+directly, it calls the
+createSocket
+and
+createServerSocket
+methods on the current
+RMISocketFactory
+object, returned by the static method
+RMISocketFactory.getSocketFactory
+. This allows the
+application to have a hook to customize the type of sockets used by the
+RMI transport, such as alternate subclasses of the
+java.net.Socket
+and
+java.net.ServerSocket
+classes. The instance of
+RMISocketFactory
+to be used can be
+set once by trusted system code. In JDK1.1, this customization was
+limited to relatively global decisions about socket type, because the
+only parameters supplied to the factory's methods were
+host
+and
+port
+(for
+createSocket
+) and just
+port
+(for
+createServerSocket
+).
+In the Java SE platform, the new interfaces
+RMIServerSocketFactory
+and
+RMIClientSocketFactory
+have been introduced to provide more
+flexible customization of what protocols are used to communicate with
+remote objects.
+To allow applications using RMI to take advantage of these new socket
+factory interfaces, several new constructors and
+exportObject
+methods, that take the client and server
+socket factory as additional parameters, have been added to the
+UnicastRemoteObject
+class.
+Remote objects exported with either of the new constructors or
+exportObject
+methods (with
+RMIClientSocketFactory
+and
+RMIServerSocketFactory
+parameters) will be treated
+differently by the RMI runtime. For the lifetime of such a remote
+object, the runtime will use the custom
+RMIServerSocketFactory
+to create a
+ServerSocket
+to accept incoming calls to the remote object
+and use the custom
+RMIClientSocketFactory
+to create a
+Socket
+to connect clients to the remote object.
+The implementation of
+RemoteRef
+and
+ServerRef
+used in the stubs and skeletons for remote
+objects exported with custom socket factories is
+UnicastRef2
+and
+UnicastServerRef2
+,
+respectively. The wire representation of the
+UnicastRef2
+type contains a different representation of the "endpoint" to contact
+than the
+UnicastRef
+type has (which used just a host name
+string in UTF format, following by an integer port number). For
+UnicastRef2
+, the endpoint's wire representation consists of
+a format byte specifying the contents of the rest of the endpoint's
+representation (to allow for future expansion of the endpoint
+representation) followed by data in the indicated format. Currently, the
+data may consist of a host name in UTF format, a port number, and
+optionally (as specified by the endpoint format byte) the serialized
+representation of an
+RMIClientSocketFactory
+object that is
+used by clients to generate socket connections to remote object at this
+endpoint. The endpoint representation does not contain the
+RMIServerSocketFactory
+object that was specified when the
+remote object was exported.
+When calls are made through references of the
+UnicastRef2
+type, the runtime uses the
+createSocket
+method of the
+RMIClientSocketFactory
+object in the endpoint when creating
+sockets for connections to the referent remote object. Also, when the
+runtime makes DGC "dirty" and "clean" calls for a particular remote
+object, it must call the DGC on the remote JVM using a connection
+generated from the same
+RMIClientSocketFactory
+object as
+specified in the remote reference, and the DGC implementation on the
+server side should verify that this was done correctly.
+Remote objects exported with the older constructor or method on
+UnicastRemoteObject
+that do not take custom socket
+factories as arguments will have
+RemoteRef
+and
+ServerRef
+of type
+UnicastRef
+and
+UnicastServerRef
+as before and use the old wire
+representation for their endpoints, i.e. a host string in UTF format
+followed by an integer specifying the port number. This is so that RMI
+servers that do not use new 1.2 features will interoperate with older
+RMI clients.
+If you export a remote object without specifying a socket factory, or
+if you export the object with a version of the method
+UnicastRemoteObject.exportObject
+or the constructor
+UnicastRemoteObject
+that does not contain parameters of
+type
+RMIClientSocketFactory
+and
+RMIServerSocketFactory
+, then the Java runtime uses the
+system's default RMI socket factory, which opens a socket on a wildcard
+address, which listens on all interfaces. Consequently, the remote
+object is exported to all local addresses. To export a remote object to
+a specific address, do one of the following:
+Specify a socket factory with the method
+RMISocketFactory.setSocketFactory
+.
+Implement the interfaces
+RMIClientSocketFactory
+and
+RMIServerSocketFactory
+, and then invoke the method
+UnicastRemoteObject.exportObject(Remote obj, int port, RMIClientSocketFactory csf, RMIServerSocketFactory ssf)
+.
+Alternatively, subclass the class
+UnicastRemoteObject
+and
+invoke the constructor
+UnicastRemoteObject(int port, RMIClientSocketFactory csf, RMIServerSocketFactory ssf)
+.
+This approach is more flexible than invoking the method
+RMISocketFactory.setSocketFactory
+because it enables you to
+export different objects bound to different interfaces. However, this
+approach is more complicated. The
+RMIClientSocketFactory
+implementation must be serializable because instances are transmitted to
+clients by being embedded in the stub. The
+RMIClientSocketFactory
+implementation classes must be made
+accessible to the client, typically by configuring the client's RMI
+codebase to point to where the classes are available.
+Instead of using one of the socket factories, set up a security
+policy that accepts incoming connections from only specific Internet
+addresses or domains. This option is flexible because it allows you to
+restrict access to specific networks, domains, or specific hosts
+(including only
+localhost
+). Note that with this approach,
+the Java runtime uses the system's default RMI socket factory that opens
+a socket that listens on all interfaces. The socket still accepts
+connections from disallowed hosts, domains, and networks, but it
+immediately closes these connections without processing any RMI
+requests.
+5.8.1 The
+RMISocketFactory
+Class
+The
+java.rmi.server.RMISocketFactory
+abstract class
+provides an interface for specifying how the transport should obtain
+sockets. Note that the class below uses
+Socket
+and
+ServerSocket
+from the
+java.net
+package.
+package java.rmi.server;
+
+public abstract class RMISocketFactory
+        implements RMIClientSocketFactory, RMIServerSocketFactory
+{
+
+        public abstract Socket createSocket(String host, int port)
+                throws IOException;
+   public abstract ServerSocket createServerSocket(int port)
+                throws IOException;
+        public static void setSocketFactory(RMISocketFactory fac)
+                throws IOException {...}
+        public static RMISocketFactory getSocketFactory() {...}
+        public static void setFailureHandler(RMIFailureHandler fh) {...}
+        public static RMIFailureHandler getFailureHandler() {...}
+}
+The static method
+setSocketFactory
+is used to set the
+socket factory from which RMI obtains sockets. The application may
+invoke this method with its own
+RMISocketFactory
+instance
+only once. An application-defined implementation of
+RMISocketFactory
+could, for example, do preliminary
+filtering on the requested connection and throw exceptions, or return
+its own extension of the
+java.net.Socket
+or
+java.net.ServerSocket
+classes, such as ones that provide a
+secure communication channel. Note that the
+RMISocketFactory
+may only be set if the current security
+manager allows setting a socket factory; if setting the socket factory
+is disallowed, a
+SecurityException
+will be thrown.
+The static method
+getSocketFactory
+returns the socket
+factory used by RMI. The method returns
+null
+if the socket
+factory is not set.
+The transport layer invokes the
+createSocket
+and
+createServerSocket
+methods on the
+RMISocketFactory
+returned by the
+getSocketFactory
+method when the transport needs to create
+sockets. For example:
+RMISocketFactory.getSocketFactory().createSocket(myhost, myport)
+The method
+createSocket
+should create a client socket
+connected to the specified
+host
+and
+port
+. The method
+createServerSocket
+should create a server socket on the
+specified
+port
+.
+The method
+setFailureHandler
+sets the failure handler to
+be called by the RMI runtime if the creation of a server socket fails.
+The failure handler returns a boolean to indicate if retry should occur.
+The default failure handler returns
+false
+, meaning that by
+default recreation of sockets is not attempted by the runtime.
+The method
+getFailureHandler
+returns the current handler
+for socket creation failure, or
+null
+if the failure handler
+is not set.
+5.8.2 The
+RMIServerSocketFactory
+Interface
+See the
+RMIServerSocketFactory
+API documentation.
+5.8.3 The
+RMIClientSocketFactory
+Interface
+See the
+RMIClientSocketFactory
+API documentation.
+5.9 The
+RMIFailureHandler
+Interface
+The
+java.rmi.server.RMIFailureHandler
+interface provides
+a method for specifying how the RMI runtime should respond when server
+socket creation fails (except during object export).
+package java.rmi.server;
+
+public interface RMIFailureHandler {
+
+        public boolean failure(Exception ex);
+}
+The
+failure
+method is invoked with the exception that
+prevented the RMI runtime from creating a
+java.net.ServerSocket
+. The method returns
+true
+if the runtime should attempt to retry and
+false
+otherwise.
+Before this method can be invoked, a failure handler needs to be
+registered via the
+RMISocketFactory.setFailureHandler
+call.
+If the failure handler is not set, the RMI runtime attempts to re-create
+the
+ServerSocket
+after waiting for a short period of
+time.
+Note that the
+RMIFailureHandler
+is not called when
+ServerSocket
+creation fails upon initial export of the
+object. The
+RMIFailureHandler
+will be called when there is
+an attempt to create a
+ServerSocket
+after a failed accept
+on that
+ServerSocket
+.
+5.10 The
+LogStream
+Class
+See the
+LogStream
+API documentation.
+5.11 Stub and Skeleton Compiler
+The
+rmic
+stub and skeleton compiler is used to compile
+the appropriate stubs and skeletons for a specific remote object
+implementation.
+Please see the following URLs for further information on
+rmic
+:
+For the Linux and Mac Operating System:
+https://docs.oracle.com/javase/8/docs/technotes/tools/unix/rmic.html
+For the Windows platform:
+https://docs.oracle.com/javase/8/docs/technotes/tools/windows/rmic.html
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

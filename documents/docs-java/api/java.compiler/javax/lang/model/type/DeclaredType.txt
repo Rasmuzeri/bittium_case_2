@@ -1,0 +1,179 @@
+DeclaredType (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.lang.model.type
+Interface DeclaredType
+All Superinterfaces:
+AnnotatedConstruct
+,
+ReferenceType
+,
+TypeMirror
+All Known Subinterfaces:
+ErrorType
+public interface
+DeclaredType
+extends
+ReferenceType
+Represents a declared type, either a class type or an interface type.
+ This includes parameterized types such as
+java.util.Set<String>
+as well as raw types.
+While a
+TypeElement
+represents a class or interface
+element
+, a
+DeclaredType
+represents a class
+ or interface
+type
+, the latter being a use
+ (or
+invocation
+) of the former.
+ See
+TypeElement
+for more on this distinction.
+The supertypes (both class and interface types) of a declared
+ type may be found using the
+Types.directSupertypes(TypeMirror)
+method.  This returns the
+ supertypes with any type arguments substituted in.
+Since:
+1.6
+See Also:
+TypeElement
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+Element
+asElement
+()
+Returns the element corresponding to this type.
+TypeMirror
+getEnclosingType
+()
+Returns the type of the innermost enclosing instance or a
+NoType
+of kind
+NONE
+if there is no enclosing
+ instance.
+List
+<? extends
+TypeMirror
+>
+getTypeArguments
+()
+Returns the actual type arguments of this type.
+Methods declared in interface javax.lang.model.type.
+TypeMirror
+accept
+,
+equals
+,
+getAnnotation
+,
+getAnnotationMirrors
+,
+getAnnotationsByType
+,
+getKind
+,
+hashCode
+,
+toString
+Method Details
+asElement
+Element
+asElement
+()
+Returns the element corresponding to this type.
+Returns:
+the element corresponding to this type
+getEnclosingType
+TypeMirror
+getEnclosingType
+()
+Returns the type of the innermost enclosing instance or a
+NoType
+of kind
+NONE
+if there is no enclosing
+ instance.  Only types corresponding to inner classes have an
+ enclosing instance.
+Returns:
+a type mirror for the enclosing type
+See
+Java Language Specification
+:
+8.1.3 Inner Classes and Enclosing Instances
+15.9.2 Determining Enclosing Instances
+getTypeArguments
+List
+<? extends
+TypeMirror
+>
+getTypeArguments
+()
+Returns the actual type arguments of this type.
+ For a type nested within a parameterized type
+ (such as
+Outer<String>.Inner<Number>
+), only the type
+ arguments of the innermost type are included.
+Returns:
+the actual type arguments of this type, or an empty list
+           if none
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

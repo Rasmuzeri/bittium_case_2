@@ -1,0 +1,525 @@
+HttpRequest.BodyPublishers (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.net.http
+Package
+java.net.http
+Class HttpRequest.BodyPublishers
+java.lang.Object
+java.net.http.HttpRequest.BodyPublishers
+Enclosing class:
+HttpRequest
+public static class
+HttpRequest.BodyPublishers
+extends
+Object
+Implementations of
+BodyPublisher
+that implement
+ various useful publishers, such as publishing the request body from a
+ String, or from a file.
+The following are examples of using the predefined body publishers to
+ convert common high-level Java objects into a flow of data suitable for
+ sending as a request body:
+Copy
+// Request body from a String
+HttpRequest request = HttpRequest.newBuilder()
+     .uri(URI.create("https://foo.com/"))
+     .header("Content-Type", "text/plain; charset=UTF-8")
+     .POST(BodyPublishers.ofString("some body text"))
+     .build();
+Copy
+// Request body from a File
+HttpRequest request = HttpRequest.newBuilder()
+     .uri(URI.create("https://foo.com/"))
+     .header("Content-Type", "application/json")
+     .POST(BodyPublishers.ofFile(Paths.get("file.json")))
+     .build();
+Copy
+// Request body from a byte array
+HttpRequest request = HttpRequest.newBuilder()
+     .uri(URI.create("https://foo.com/"))
+     .POST(BodyPublishers.ofByteArray(new byte[] { ... }))
+     .build();
+Since:
+11
+Method Summary
+All Methods
+Static Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+static
+HttpRequest.BodyPublisher
+concat
+(
+HttpRequest.BodyPublisher
+... publishers)
+Returns a
+BodyPublisher
+that publishes a request
+ body consisting of the concatenation of the request bodies
+ published by a sequence of publishers.
+static
+HttpRequest.BodyPublisher
+fromPublisher
+(
+Flow.Publisher
+<? extends
+ByteBuffer
+> publisher)
+Returns a request body publisher whose body is retrieved from the
+ given
+Flow.Publisher
+.
+static
+HttpRequest.BodyPublisher
+fromPublisher
+(
+Flow.Publisher
+<? extends
+ByteBuffer
+> publisher,
+ long contentLength)
+Returns a request body publisher whose body is retrieved from the
+ given
+Flow.Publisher
+.
+static
+HttpRequest.BodyPublisher
+noBody
+()
+A request body publisher which sends no request body.
+static
+HttpRequest.BodyPublisher
+ofByteArray
+(byte[] buf)
+Returns a request body publisher whose body is the given byte array.
+static
+HttpRequest.BodyPublisher
+ofByteArray
+(byte[] buf,
+ int offset,
+ int length)
+Returns a request body publisher whose body is the content of the
+ given byte array of
+length
+bytes starting from the specified
+offset
+.
+static
+HttpRequest.BodyPublisher
+ofByteArrays
+(
+Iterable
+<byte[]> iter)
+A request body publisher that takes data from an
+Iterable
+of byte arrays.
+static
+HttpRequest.BodyPublisher
+ofFile
+(
+Path
+path)
+A request body publisher that takes data from the contents of a File.
+static
+HttpRequest.BodyPublisher
+ofInputStream
+(
+Supplier
+<? extends
+InputStream
+> streamSupplier)
+A request body publisher that reads its data from an
+InputStream
+.
+static
+HttpRequest.BodyPublisher
+ofString
+(
+String
+body)
+Returns a request body publisher whose body is the given
+String
+, converted using the
+UTF_8
+character set.
+static
+HttpRequest.BodyPublisher
+ofString
+(
+String
+s,
+Charset
+charset)
+Returns a request body publisher whose body is the given
+String
+, converted using the given character set.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Method Details
+fromPublisher
+public static
+HttpRequest.BodyPublisher
+fromPublisher
+(
+Flow.Publisher
+<? extends
+ByteBuffer
+> publisher)
+Returns a request body publisher whose body is retrieved from the
+ given
+Flow.Publisher
+. The returned request body publisher
+ has an unknown content length.
+API Note:
+This method can be used as an adapter between
+BodyPublisher
+and
+Flow.Publisher
+, where the amount of
+ request body that the publisher will publish is unknown.
+Parameters:
+publisher
+- the publisher responsible for publishing the body
+Returns:
+a BodyPublisher
+fromPublisher
+public static
+HttpRequest.BodyPublisher
+fromPublisher
+(
+Flow.Publisher
+<? extends
+ByteBuffer
+> publisher,
+ long contentLength)
+Returns a request body publisher whose body is retrieved from the
+ given
+Flow.Publisher
+. The returned request body publisher
+ has the given content length.
+The given
+contentLength
+is a positive number, that
+ represents the exact amount of bytes the
+publisher
+must
+ publish.
+API Note:
+This method can be used as an adapter between
+BodyPublisher
+and
+Flow.Publisher
+, where the amount of
+ request body that the publisher will publish is known.
+Parameters:
+publisher
+- the publisher responsible for publishing the body
+contentLength
+- a positive number representing the exact
+                      amount of bytes the publisher will publish
+Returns:
+a BodyPublisher
+Throws:
+IllegalArgumentException
+- if the content length is
+                                  non-positive
+ofString
+public static
+HttpRequest.BodyPublisher
+ofString
+(
+String
+body)
+Returns a request body publisher whose body is the given
+String
+, converted using the
+UTF_8
+character set.
+Parameters:
+body
+- the String containing the body
+Returns:
+a BodyPublisher
+ofString
+public static
+HttpRequest.BodyPublisher
+ofString
+(
+String
+s,
+Charset
+charset)
+Returns a request body publisher whose body is the given
+String
+, converted using the given character set.
+Parameters:
+s
+- the String containing the body
+charset
+- the character set to convert the string to bytes
+Returns:
+a BodyPublisher
+ofInputStream
+public static
+HttpRequest.BodyPublisher
+ofInputStream
+(
+Supplier
+<? extends
+InputStream
+> streamSupplier)
+A request body publisher that reads its data from an
+InputStream
+. A
+Supplier
+of
+InputStream
+is used in
+ case the request needs to be repeated, as the content is not buffered.
+ The
+Supplier
+may return
+null
+on subsequent attempts,
+ in which case the request fails.
+Parameters:
+streamSupplier
+- a Supplier of open InputStreams
+Returns:
+a BodyPublisher
+ofByteArray
+public static
+HttpRequest.BodyPublisher
+ofByteArray
+(byte[] buf)
+Returns a request body publisher whose body is the given byte array.
+Parameters:
+buf
+- the byte array containing the body
+Returns:
+a BodyPublisher
+ofByteArray
+public static
+HttpRequest.BodyPublisher
+ofByteArray
+(byte[] buf,
+ int offset,
+ int length)
+Returns a request body publisher whose body is the content of the
+ given byte array of
+length
+bytes starting from the specified
+offset
+.
+Parameters:
+buf
+- the byte array containing the body
+offset
+- the offset of the first byte
+length
+- the number of bytes to use
+Returns:
+a BodyPublisher
+Throws:
+IndexOutOfBoundsException
+- if the sub-range is defined to be
+                                   out of bounds
+ofFile
+public static
+HttpRequest.BodyPublisher
+ofFile
+(
+Path
+path)
+throws
+FileNotFoundException
+A request body publisher that takes data from the contents of a File.
+Security manager permission checks are performed in this factory
+ method, when the
+BodyPublisher
+is created. Care must be taken
+ that the
+BodyPublisher
+is not shared with untrusted code.
+Parameters:
+path
+- the path to the file containing the body
+Returns:
+a BodyPublisher
+Throws:
+FileNotFoundException
+- if the path is not found
+SecurityException
+- if
+opening the file for reading
+is denied:
+         in the case of the system-default file system provider,
+         and a security manager is installed,
+checkRead
+is invoked to check read access to the given file
+ofByteArrays
+public static
+HttpRequest.BodyPublisher
+ofByteArrays
+(
+Iterable
+<byte[]> iter)
+A request body publisher that takes data from an
+Iterable
+of byte arrays. An
+Iterable
+is provided which supplies
+Iterator
+instances. Each attempt to send the request results
+ in one invocation of the
+Iterable
+.
+Parameters:
+iter
+- an Iterable of byte arrays
+Returns:
+a BodyPublisher
+noBody
+public static
+HttpRequest.BodyPublisher
+noBody
+()
+A request body publisher which sends no request body.
+Returns:
+a BodyPublisher which completes immediately and sends
+         no request body.
+concat
+public static
+HttpRequest.BodyPublisher
+concat
+(
+HttpRequest.BodyPublisher
+... publishers)
+Returns a
+BodyPublisher
+that publishes a request
+ body consisting of the concatenation of the request bodies
+ published by a sequence of publishers.
+If the sequence is empty an
+empty
+publisher
+ is returned. Otherwise, if the sequence contains a single element,
+ that publisher is returned. Otherwise a
+concatenation publisher
+is returned.
+The request body published by a
+concatenation publisher
+is logically equivalent to the request body that would have
+ been published by concatenating all the bytes of each publisher
+ in sequence.
+Each publisher is lazily subscribed to in turn,
+ until all the body bytes are published, an error occurs, or the
+ concatenation publisher's subscription is cancelled.
+ The concatenation publisher may be subscribed to more than once,
+ which in turn may result in the publishers in the sequence being
+ subscribed to more than once.
+The concatenation publisher has a known content
+ length only if all publishers in the sequence have a known content
+ length. The
+contentLength
+reported by the concatenation publisher is computed as follows:
+If any of the publishers reports an
+unknown
+content length,
+         or if the sum of the known content lengths would exceed
+Long.MAX_VALUE
+, the resulting
+         content length is
+unknown
+.
+Otherwise, the resulting content length is the sum of the
+         known content lengths, a number between
+0
+and
+Long.MAX_VALUE
+, inclusive.
+Implementation Note:
+If the concatenation publisher's subscription is
+cancelled
+, or an error occurs
+ while publishing the bytes, not all publishers in the sequence may
+ be subscribed to.
+Parameters:
+publishers
+- a sequence of publishers.
+Returns:
+An aggregate publisher that publishes a request body
+ logically equivalent to the concatenation of all bytes published
+ by each publisher in the sequence.
+Since:
+16
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

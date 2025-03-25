@@ -1,0 +1,573 @@
+FieldView (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.text
+Class FieldView
+java.lang.Object
+javax.swing.text.View
+javax.swing.text.PlainView
+javax.swing.text.FieldView
+All Implemented Interfaces:
+SwingConstants
+,
+TabExpander
+Direct Known Subclasses:
+PasswordView
+public class
+FieldView
+extends
+PlainView
+Extends the multi-line plain text view to be suitable
+ for a single-line editor view.  If the view is
+ allocated extra space, the field must adjust for it.
+ If the hosting component is a JTextField, this view
+ will manage the ranges of the associated BoundedRangeModel
+ and will adjust the horizontal allocation to match the
+ current visibility settings of the JTextField.
+See Also:
+View
+Field Summary
+Fields declared in class javax.swing.text.
+PlainView
+metrics
+Fields declared in class javax.swing.text.
+View
+BadBreakWeight
+,
+ExcellentBreakWeight
+,
+ForcedBreakWeight
+,
+GoodBreakWeight
+,
+X_AXIS
+,
+Y_AXIS
+Fields declared in interface javax.swing.
+SwingConstants
+BOTTOM
+,
+CENTER
+,
+EAST
+,
+HORIZONTAL
+,
+LEADING
+,
+LEFT
+,
+NEXT
+,
+NORTH
+,
+NORTH_EAST
+,
+NORTH_WEST
+,
+PREVIOUS
+,
+RIGHT
+,
+SOUTH
+,
+SOUTH_EAST
+,
+SOUTH_WEST
+,
+TOP
+,
+TRAILING
+,
+VERTICAL
+,
+WEST
+Constructor Summary
+Constructors
+Constructor
+Description
+FieldView
+(
+Element
+elem)
+Constructs a new FieldView wrapped on an element.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+protected
+Shape
+adjustAllocation
+(
+Shape
+a)
+Adjusts the allocation given to the view
+ to be a suitable allocation for a text field.
+protected
+FontMetrics
+getFontMetrics
+()
+Fetches the font metrics associated with the component hosting
+ this view.
+float
+getPreferredSpan
+(int axis)
+Determines the preferred span for this view along an
+ axis.
+int
+getResizeWeight
+(int axis)
+Determines the resizability of the view along the
+ given axis.
+void
+insertUpdate
+(
+DocumentEvent
+changes,
+Shape
+a,
+ViewFactory
+f)
+Gives notification that something was inserted into the document
+ in a location that this view is responsible for.
+Shape
+modelToView
+(int pos,
+Shape
+a,
+Position.Bias
+b)
+Provides a mapping from the document model coordinate space
+ to the coordinate space of the view mapped to it.
+void
+paint
+(
+Graphics
+g,
+Shape
+a)
+Renders using the given rendering surface and area on that surface.
+void
+removeUpdate
+(
+DocumentEvent
+changes,
+Shape
+a,
+ViewFactory
+f)
+Gives notification that something was removed from the document
+ in a location that this view is responsible for.
+int
+viewToModel
+(float fx,
+ float fy,
+Shape
+a,
+Position.Bias
+[] bias)
+Provides a mapping from the view coordinate space to the logical
+ coordinate space of the model.
+Methods declared in class javax.swing.text.
+PlainView
+changedUpdate
+,
+damageLineRange
+,
+drawLine
+,
+drawLine
+,
+drawSelectedText
+,
+drawSelectedText
+,
+drawUnselectedText
+,
+drawUnselectedText
+,
+getLineBuffer
+,
+getTabSize
+,
+lineToRect
+,
+nextTabStop
+,
+setSize
+,
+updateDamage
+,
+updateMetrics
+Methods declared in class javax.swing.text.
+View
+append
+,
+breakView
+,
+createFragment
+,
+forwardUpdate
+,
+forwardUpdateToView
+,
+getAlignment
+,
+getAttributes
+,
+getBreakWeight
+,
+getChildAllocation
+,
+getContainer
+,
+getDocument
+,
+getElement
+,
+getEndOffset
+,
+getGraphics
+,
+getMaximumSpan
+,
+getMinimumSpan
+,
+getNextVisualPositionFrom
+,
+getParent
+,
+getStartOffset
+,
+getToolTipText
+,
+getView
+,
+getViewCount
+,
+getViewFactory
+,
+getViewIndex
+,
+getViewIndex
+,
+insert
+,
+isVisible
+,
+modelToView
+,
+modelToView
+,
+preferenceChanged
+,
+remove
+,
+removeAll
+,
+replace
+,
+setParent
+,
+updateChildren
+,
+updateLayout
+,
+viewToModel
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+FieldView
+public
+FieldView
+(
+Element
+elem)
+Constructs a new FieldView wrapped on an element.
+Parameters:
+elem
+- the element
+Method Details
+getFontMetrics
+protected
+FontMetrics
+getFontMetrics
+()
+Fetches the font metrics associated with the component hosting
+ this view.
+Returns:
+the metrics
+adjustAllocation
+protected
+Shape
+adjustAllocation
+(
+Shape
+a)
+Adjusts the allocation given to the view
+ to be a suitable allocation for a text field.
+ If the view has been allocated more than the
+ preferred span vertically, the allocation is
+ changed to be centered vertically.  Horizontally
+ the view is adjusted according to the horizontal
+ alignment property set on the associated JTextField
+ (if that is the type of the hosting component).
+Parameters:
+a
+- the allocation given to the view, which may need
+  to be adjusted.
+Returns:
+the allocation that the superclass should use.
+paint
+public
+void
+paint
+(
+Graphics
+g,
+Shape
+a)
+Renders using the given rendering surface and area on that surface.
+ The view may need to do layout and create child views to enable
+ itself to render into the given allocation.
+Overrides:
+paint
+in class
+PlainView
+Parameters:
+g
+- the rendering surface to use
+a
+- the allocated region to render into
+See Also:
+View.paint(java.awt.Graphics, java.awt.Shape)
+getPreferredSpan
+public
+float
+getPreferredSpan
+(int axis)
+Determines the preferred span for this view along an
+ axis.
+Overrides:
+getPreferredSpan
+in class
+PlainView
+Parameters:
+axis
+- may be either View.X_AXIS or View.Y_AXIS
+Returns:
+the span the view would like to be rendered into >= 0.
+           Typically the view is told to render into the span
+           that is returned, although there is no guarantee.
+           The parent may choose to resize or break the view.
+getResizeWeight
+public
+int
+getResizeWeight
+(int axis)
+Determines the resizability of the view along the
+ given axis.  A value of 0 or less is not resizable.
+Overrides:
+getResizeWeight
+in class
+View
+Parameters:
+axis
+- View.X_AXIS or View.Y_AXIS
+Returns:
+the weight -> 1 for View.X_AXIS, else 0
+modelToView
+public
+Shape
+modelToView
+(int pos,
+Shape
+a,
+Position.Bias
+b)
+throws
+BadLocationException
+Provides a mapping from the document model coordinate space
+ to the coordinate space of the view mapped to it.
+Overrides:
+modelToView
+in class
+PlainView
+Parameters:
+pos
+- the position to convert >= 0
+a
+- the allocated region to render into
+b
+- the bias toward the previous character or the
+  next character represented by the offset, in case the
+  position is a boundary of two views;
+b
+will have one
+  of these values:
+Position.Bias.Forward
+Position.Bias.Backward
+Returns:
+the bounding box of the given position
+Throws:
+BadLocationException
+- if the given position does not
+   represent a valid location in the associated document
+See Also:
+View.modelToView(int, java.awt.Shape, javax.swing.text.Position.Bias)
+viewToModel
+public
+int
+viewToModel
+(float fx,
+ float fy,
+Shape
+a,
+Position.Bias
+[] bias)
+Provides a mapping from the view coordinate space to the logical
+ coordinate space of the model.
+Overrides:
+viewToModel
+in class
+PlainView
+Parameters:
+fx
+- the X coordinate >= 0.0f
+fy
+- the Y coordinate >= 0.0f
+a
+- the allocated region to render into
+bias
+- the returned bias
+Returns:
+the location within the model that best represents the
+  given point in the view
+See Also:
+View.viewToModel(float, float, java.awt.Shape, javax.swing.text.Position.Bias[])
+insertUpdate
+public
+void
+insertUpdate
+(
+DocumentEvent
+changes,
+Shape
+a,
+ViewFactory
+f)
+Gives notification that something was inserted into the document
+ in a location that this view is responsible for.
+Overrides:
+insertUpdate
+in class
+PlainView
+Parameters:
+changes
+- the change information from the associated document
+a
+- the current allocation of the view
+f
+- the factory to use to rebuild if the view has children
+See Also:
+View.insertUpdate(javax.swing.event.DocumentEvent, java.awt.Shape, javax.swing.text.ViewFactory)
+removeUpdate
+public
+void
+removeUpdate
+(
+DocumentEvent
+changes,
+Shape
+a,
+ViewFactory
+f)
+Gives notification that something was removed from the document
+ in a location that this view is responsible for.
+Overrides:
+removeUpdate
+in class
+PlainView
+Parameters:
+changes
+- the change information from the associated document
+a
+- the current allocation of the view
+f
+- the factory to use to rebuild if the view has children
+See Also:
+View.removeUpdate(javax.swing.event.DocumentEvent, java.awt.Shape, javax.swing.text.ViewFactory)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,318 @@
+MessageDigestSpi (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.security
+Class MessageDigestSpi
+java.lang.Object
+java.security.MessageDigestSpi
+Direct Known Subclasses:
+MessageDigest
+public abstract class
+MessageDigestSpi
+extends
+Object
+This class defines the
+Service Provider Interface
+(
+SPI
+)
+ for the
+MessageDigest
+class, which provides the functionality
+ of a message digest algorithm, such as MD5 or SHA. Message digests are
+ secure one-way hash functions that take arbitrary-sized data and output a
+ fixed-length hash value.
+All the abstract methods in this class must be implemented by a
+ cryptographic service provider who wishes to supply the implementation
+ of a particular message digest algorithm.
+Implementations are free to implement the Cloneable interface.
+Since:
+1.2
+See Also:
+MessageDigest
+Constructor Summary
+Constructors
+Constructor
+Description
+MessageDigestSpi
+()
+Constructor for subclasses to call.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Object
+clone
+()
+Returns a clone if the implementation is cloneable.
+protected abstract byte[]
+engineDigest
+()
+Completes the hash computation by performing final
+ operations such as padding.
+protected int
+engineDigest
+(byte[] buf,
+ int offset,
+ int len)
+Completes the hash computation by performing final
+ operations such as padding.
+protected int
+engineGetDigestLength
+()
+Returns the digest length in bytes.
+protected abstract void
+engineReset
+()
+Resets the digest for further use.
+protected abstract void
+engineUpdate
+(byte input)
+Updates the digest using the specified byte.
+protected abstract void
+engineUpdate
+(byte[] input,
+ int offset,
+ int len)
+Updates the digest using the specified array of bytes,
+ starting at the specified offset.
+protected void
+engineUpdate
+(
+ByteBuffer
+input)
+Update the digest using the specified ByteBuffer.
+Methods declared in class java.lang.
+Object
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+MessageDigestSpi
+public
+MessageDigestSpi
+()
+Constructor for subclasses to call.
+Method Details
+engineGetDigestLength
+protected
+int
+engineGetDigestLength
+()
+Returns the digest length in bytes.
+This concrete method has been added to this previously-defined
+ abstract class. (For backwards compatibility, it cannot be abstract.)
+The default behavior is to return 0.
+This method may be overridden by a provider to return the digest
+ length.
+Returns:
+the digest length in bytes.
+Since:
+1.2
+engineUpdate
+protected abstract
+void
+engineUpdate
+(byte input)
+Updates the digest using the specified byte.
+Parameters:
+input
+- the byte to use for the update.
+engineUpdate
+protected abstract
+void
+engineUpdate
+(byte[] input,
+ int offset,
+ int len)
+Updates the digest using the specified array of bytes,
+ starting at the specified offset.
+Parameters:
+input
+- the array of bytes to use for the update.
+offset
+- the offset to start from in the array of bytes.
+len
+- the number of bytes to use, starting at
+offset
+.
+engineUpdate
+protected
+void
+engineUpdate
+(
+ByteBuffer
+input)
+Update the digest using the specified ByteBuffer. The digest is
+ updated using the
+input.remaining()
+bytes starting
+ at
+input.position()
+.
+ Upon return, the buffer's position will be equal to its limit;
+ its limit will not have changed.
+Parameters:
+input
+- the ByteBuffer
+Since:
+1.5
+engineDigest
+protected abstract
+byte[]
+engineDigest
+()
+Completes the hash computation by performing final
+ operations such as padding. Once
+engineDigest
+has
+ been called, the engine should be reset (see
+engineReset
+).
+ Resetting is the responsibility of the
+ engine implementor.
+Returns:
+the array of bytes for the resulting hash value.
+engineDigest
+protected
+int
+engineDigest
+(byte[] buf,
+ int offset,
+ int len)
+throws
+DigestException
+Completes the hash computation by performing final
+ operations such as padding. Once
+engineDigest
+has
+ been called, the engine should be reset (see
+engineReset
+).
+ Resetting is the responsibility of the
+ engine implementor.
+
+ This method should be abstract, but we leave it concrete for
+ binary compatibility.  Knowledgeable providers should override this
+ method.
+Parameters:
+buf
+- the output buffer in which to store the digest
+offset
+- offset to start from in the output buffer
+len
+- number of bytes within
+buf
+allotted for the digest.
+ Both this default implementation and the SUN provider do not
+ return partial digests.  The presence of this parameter is solely
+ for consistency in our API's.  If the value of this parameter is less
+ than the actual digest length, the method will throw a
+DigestException
+.
+ This parameter is ignored if its value is greater than or equal to
+ the actual digest length.
+Returns:
+the length of the digest stored in the output buffer.
+Throws:
+DigestException
+- if an error occurs.
+Since:
+1.2
+engineReset
+protected abstract
+void
+engineReset
+()
+Resets the digest for further use.
+clone
+public
+Object
+clone
+()
+             throws
+CloneNotSupportedException
+Returns a clone if the implementation is cloneable.
+Overrides:
+clone
+in class
+Object
+Returns:
+a clone if the implementation is cloneable.
+Throws:
+CloneNotSupportedException
+- if this is called on an
+ implementation that does not support
+Cloneable
+.
+See Also:
+Cloneable
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,439 @@
+DropTargetDragEvent (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt.dnd
+Class DropTargetDragEvent
+java.lang.Object
+java.util.EventObject
+java.awt.dnd.DropTargetEvent
+java.awt.dnd.DropTargetDragEvent
+All Implemented Interfaces:
+Serializable
+public class
+DropTargetDragEvent
+extends
+DropTargetEvent
+The
+DropTargetDragEvent
+is delivered to a
+DropTargetListener
+via its
+ dragEnter() and dragOver() methods.
+The
+DropTargetDragEvent
+reports the
+source drop actions
+and the
+user drop action
+that reflect the current state of
+ the drag operation.
+Source drop actions
+is a bitwise mask of
+DnDConstants
+that represents the set of drop actions supported by the drag source for
+ this drag operation.
+User drop action
+depends on the drop actions supported by the drag
+ source and the drop action selected by the user. The user can select a drop
+ action by pressing modifier keys during the drag operation:
+Ctrl + Shift -> ACTION_LINK
+   Ctrl         -> ACTION_COPY
+   Shift        -> ACTION_MOVE
+If the user selects a drop action, the
+user drop action
+is one of
+DnDConstants
+that represents the selected drop action if this
+ drop action is supported by the drag source or
+DnDConstants.ACTION_NONE
+if this drop action is not supported
+ by the drag source.
+If the user doesn't select a drop action, the set of
+DnDConstants
+that represents the set of drop actions supported
+ by the drag source is searched for
+DnDConstants.ACTION_MOVE
+,
+ then for
+DnDConstants.ACTION_COPY
+, then for
+DnDConstants.ACTION_LINK
+and the
+user drop action
+is the
+ first constant found. If no constant is found the
+user drop action
+is
+DnDConstants.ACTION_NONE
+.
+Since:
+1.2
+See Also:
+Serialized Form
+Field Summary
+Fields declared in class java.awt.dnd.
+DropTargetEvent
+context
+Fields declared in class java.util.
+EventObject
+source
+Constructor Summary
+Constructors
+Constructor
+Description
+DropTargetDragEvent
+(
+DropTargetContext
+dtc,
+Point
+cursorLocn,
+ int dropAction,
+ int srcActions)
+Construct a
+DropTargetDragEvent
+given the
+DropTargetContext
+for this operation,
+ the location of the "Drag"
+Cursor
+'s hotspot
+ in the
+Component
+'s coordinates, the
+ user drop action, and the source drop actions.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+acceptDrag
+(int dragOperation)
+Accepts the drag.
+DataFlavor
+[]
+getCurrentDataFlavors
+()
+This method returns the current
+DataFlavor
+s from the
+DropTargetContext
+.
+List
+<
+DataFlavor
+>
+getCurrentDataFlavorsAsList
+()
+This method returns the current
+DataFlavor
+s
+ as a
+java.util.List
+int
+getDropAction
+()
+This method returns the user drop action.
+Point
+getLocation
+()
+This method returns a
+Point
+indicating the
+Cursor
+'s current
+ location within the
+Component'
+s
+ coordinates.
+int
+getSourceActions
+()
+This method returns the source drop actions.
+Transferable
+getTransferable
+()
+This method returns the Transferable object that represents
+ the data associated with the current drag operation.
+boolean
+isDataFlavorSupported
+(
+DataFlavor
+df)
+This method returns a
+boolean
+indicating
+ if the specified
+DataFlavor
+is supported.
+void
+rejectDrag
+()
+Rejects the drag as a result of examining either the
+dropAction
+or the available
+DataFlavor
+types.
+Methods declared in class java.awt.dnd.
+DropTargetEvent
+getDropTargetContext
+Methods declared in class java.util.
+EventObject
+getSource
+,
+toString
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+DropTargetDragEvent
+public
+DropTargetDragEvent
+(
+DropTargetContext
+dtc,
+Point
+cursorLocn,
+ int dropAction,
+ int srcActions)
+Construct a
+DropTargetDragEvent
+given the
+DropTargetContext
+for this operation,
+ the location of the "Drag"
+Cursor
+'s hotspot
+ in the
+Component
+'s coordinates, the
+ user drop action, and the source drop actions.
+Parameters:
+dtc
+- The DropTargetContext for this operation
+cursorLocn
+- The location of the "Drag" Cursor's
+ hotspot in Component coordinates
+dropAction
+- The user drop action
+srcActions
+- The source drop actions
+Throws:
+NullPointerException
+- if cursorLocn is null
+IllegalArgumentException
+- if dropAction is not one of
+DnDConstants
+.
+IllegalArgumentException
+- if srcActions is not
+         a bitwise mask of
+DnDConstants
+.
+IllegalArgumentException
+- if dtc is
+null
+.
+Method Details
+getLocation
+public
+Point
+getLocation
+()
+This method returns a
+Point
+indicating the
+Cursor
+'s current
+ location within the
+Component'
+s
+ coordinates.
+Returns:
+the current cursor location in
+Component
+'s coords.
+getCurrentDataFlavors
+public
+DataFlavor
+[]
+getCurrentDataFlavors
+()
+This method returns the current
+DataFlavor
+s from the
+DropTargetContext
+.
+Returns:
+current DataFlavors from the DropTargetContext
+getCurrentDataFlavorsAsList
+public
+List
+<
+DataFlavor
+>
+getCurrentDataFlavorsAsList
+()
+This method returns the current
+DataFlavor
+s
+ as a
+java.util.List
+Returns:
+a
+java.util.List
+of the Current
+DataFlavor
+s
+isDataFlavorSupported
+public
+boolean
+isDataFlavorSupported
+(
+DataFlavor
+df)
+This method returns a
+boolean
+indicating
+ if the specified
+DataFlavor
+is supported.
+Parameters:
+df
+- the
+DataFlavor
+to test
+Returns:
+if a particular DataFlavor is supported
+getSourceActions
+public
+int
+getSourceActions
+()
+This method returns the source drop actions.
+Returns:
+the source drop actions
+getDropAction
+public
+int
+getDropAction
+()
+This method returns the user drop action.
+Returns:
+the user drop action
+getTransferable
+public
+Transferable
+getTransferable
+()
+This method returns the Transferable object that represents
+ the data associated with the current drag operation.
+Returns:
+the Transferable associated with the drag operation
+Throws:
+InvalidDnDOperationException
+- if the data associated with the drag
+         operation is not available
+Since:
+1.5
+acceptDrag
+public
+void
+acceptDrag
+(int dragOperation)
+Accepts the drag.
+
+ This method should be called from a
+DropTargetListeners dragEnter
+,
+dragOver
+, and
+dropActionChanged
+methods if the implementation wishes to accept an operation
+ from the srcActions other than the one selected by
+ the user as represented by the
+dropAction
+.
+Parameters:
+dragOperation
+- the operation accepted by the target
+rejectDrag
+public
+void
+rejectDrag
+()
+Rejects the drag as a result of examining either the
+dropAction
+or the available
+DataFlavor
+types.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

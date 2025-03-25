@@ -1,0 +1,288 @@
+AbstractDocument.ElementEdit (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.text
+Class AbstractDocument.ElementEdit
+java.lang.Object
+javax.swing.undo.AbstractUndoableEdit
+javax.swing.text.AbstractDocument.ElementEdit
+All Implemented Interfaces:
+Serializable
+,
+DocumentEvent.ElementChange
+,
+UndoableEdit
+Enclosing class:
+AbstractDocument
+public static class
+AbstractDocument.ElementEdit
+extends
+AbstractUndoableEdit
+implements
+DocumentEvent.ElementChange
+An implementation of ElementChange that can be added to the document
+ event.
+Field Summary
+Fields declared in class javax.swing.undo.
+AbstractUndoableEdit
+RedoName
+,
+UndoName
+Constructor Summary
+Constructors
+Constructor
+Description
+ElementEdit
+(
+Element
+e,
+ int index,
+Element
+[] removed,
+Element
+[] added)
+Constructs an edit record.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Element
+[]
+getChildrenAdded
+()
+Gets a list of children that were added.
+Element
+[]
+getChildrenRemoved
+()
+Gets a list of children that were removed.
+Element
+getElement
+()
+Returns the underlying element.
+int
+getIndex
+()
+Returns the index into the list of elements.
+void
+redo
+()
+Redoes a change.
+void
+undo
+()
+Undoes a change.
+Methods declared in class javax.swing.undo.
+AbstractUndoableEdit
+addEdit
+,
+canRedo
+,
+canUndo
+,
+die
+,
+getPresentationName
+,
+getRedoPresentationName
+,
+getUndoPresentationName
+,
+isSignificant
+,
+replaceEdit
+,
+toString
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+ElementEdit
+public
+ElementEdit
+(
+Element
+e,
+ int index,
+Element
+[] removed,
+Element
+[] added)
+Constructs an edit record.  This does not modify the element
+ so it can safely be used to
+catch up
+a view to the
+ current model state for views that just attached to a model.
+Parameters:
+e
+- the element
+index
+- the index into the model >= 0
+removed
+- a set of elements that were removed
+added
+- a set of elements that were added
+Method Details
+getElement
+public
+Element
+getElement
+()
+Returns the underlying element.
+Specified by:
+getElement
+in interface
+DocumentEvent.ElementChange
+Returns:
+the element
+getIndex
+public
+int
+getIndex
+()
+Returns the index into the list of elements.
+Specified by:
+getIndex
+in interface
+DocumentEvent.ElementChange
+Returns:
+the index >= 0
+getChildrenRemoved
+public
+Element
+[]
+getChildrenRemoved
+()
+Gets a list of children that were removed.
+Specified by:
+getChildrenRemoved
+in interface
+DocumentEvent.ElementChange
+Returns:
+the list
+getChildrenAdded
+public
+Element
+[]
+getChildrenAdded
+()
+Gets a list of children that were added.
+Specified by:
+getChildrenAdded
+in interface
+DocumentEvent.ElementChange
+Returns:
+the list
+redo
+public
+void
+redo
+()
+          throws
+CannotRedoException
+Redoes a change.
+Specified by:
+redo
+in interface
+UndoableEdit
+Overrides:
+redo
+in class
+AbstractUndoableEdit
+Throws:
+CannotRedoException
+- if the change cannot be redone
+See Also:
+AbstractUndoableEdit.canRedo()
+undo
+public
+void
+undo
+()
+          throws
+CannotUndoException
+Undoes a change.
+Specified by:
+undo
+in interface
+UndoableEdit
+Overrides:
+undo
+in class
+AbstractUndoableEdit
+Throws:
+CannotUndoException
+- if the change cannot be undone
+See Also:
+AbstractUndoableEdit.canUndo()
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

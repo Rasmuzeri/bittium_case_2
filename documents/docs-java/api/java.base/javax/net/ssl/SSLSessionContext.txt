@@ -1,0 +1,290 @@
+SSLSessionContext (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+javax.net.ssl
+Interface SSLSessionContext
+public interface
+SSLSessionContext
+A
+SSLSessionContext
+represents a set of
+SSLSession
+s associated with a single entity. For example,
+ it could be associated with a server or client who participates in many
+ sessions concurrently.
+Not all environments will contain session contexts.  For example, stateless
+ session resumption.
+Session contexts may not contain all sessions. For example, stateless
+ sessions are not stored in the session context.
+There are
+SSLSessionContext
+parameters that affect how
+ sessions are stored:
+Sessions can be set to expire after a specified
+      time limit.
+The number of sessions that can be stored in context
+      can be limited.
+A session can be retrieved based on its session id, and all session id's
+ in a
+SSLSessionContext
+can be listed.
+Since:
+1.4
+See Also:
+SSLSession
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+Enumeration
+<byte[]>
+getIds
+()
+Returns an Enumeration of all known session id's grouped under this
+SSLSessionContext
+.
+SSLSession
+getSession
+(byte[] sessionId)
+Returns the
+SSLSession
+bound to the specified session id.
+int
+getSessionCacheSize
+()
+Returns the size of the cache used for storing
+SSLSession
+objects grouped under this
+SSLSessionContext
+.
+int
+getSessionTimeout
+()
+Returns the timeout limit of
+SSLSession
+objects grouped
+ under this
+SSLSessionContext
+.
+void
+setSessionCacheSize
+(int size)
+Sets the size of the cache used for storing
+SSLSession
+objects grouped under this
+SSLSessionContext
+.
+void
+setSessionTimeout
+(int seconds)
+Sets the timeout limit for
+SSLSession
+objects grouped
+ under this
+SSLSessionContext
+.
+Method Details
+getSession
+SSLSession
+getSession
+(byte[] sessionId)
+Returns the
+SSLSession
+bound to the specified session id.
+Parameters:
+sessionId
+- the Session identifier
+Returns:
+the
+SSLSession
+or null if
+ the specified session id does not refer to a valid SSLSession.
+Throws:
+NullPointerException
+- if
+sessionId
+is null.
+getIds
+Enumeration
+<byte[]>
+getIds
+()
+Returns an Enumeration of all known session id's grouped under this
+SSLSessionContext
+.
+Session contexts may not contain all sessions. For example,
+ stateless sessions are not stored in the session context.
+Returns:
+an enumeration of all the Session id's
+setSessionTimeout
+void
+setSessionTimeout
+(int seconds)
+Sets the timeout limit for
+SSLSession
+objects grouped
+ under this
+SSLSessionContext
+.
+If the timeout limit is set to 't' seconds, a session exceeds the
+ timeout limit 't' seconds after its creation time.
+ When the timeout limit is exceeded for a session, the
+SSLSession
+object is invalidated and future connections
+ cannot resume or rejoin the session.
+ A check for sessions exceeding the timeout is made immediately whenever
+ the timeout limit is changed for this
+SSLSessionContext
+.
+API Note:
+Note that the JDK Implementation uses default values for both
+          the session cache size and timeout.  See
+getSessionCacheSize
+and
+getSessionTimeout
+for
+          more information.  Applications should consider their
+          performance requirements and override the defaults if necessary.
+Parameters:
+seconds
+- the new session timeout limit in seconds; zero means
+        there is no limit.
+Throws:
+IllegalArgumentException
+- if the timeout specified is
+< 0
+.
+See Also:
+getSessionTimeout()
+getSessionTimeout
+int
+getSessionTimeout
+()
+Returns the timeout limit of
+SSLSession
+objects grouped
+ under this
+SSLSessionContext
+.
+If the timeout limit is set to 't' seconds, a session exceeds the
+ timeout limit 't' seconds after its creation time.
+ When the timeout limit is exceeded for a session, the
+SSLSession
+object is invalidated and future connections
+ cannot resume or rejoin the session.
+ A check for sessions exceeding the timeout limit is made immediately
+ whenever the timeout limit is changed for this
+SSLSessionContext
+.
+Implementation Note:
+The JDK implementation returns the session timeout as set by
+           the
+setSessionTimeout
+method, or if not set, a default
+           value of 86400 seconds (24 hours).
+Returns:
+the session timeout limit in seconds; zero means there is no
+         limit.
+See Also:
+setSessionTimeout(int)
+setSessionCacheSize
+void
+setSessionCacheSize
+(int size)
+Sets the size of the cache used for storing
+SSLSession
+objects grouped under this
+SSLSessionContext
+.
+API Note:
+Note that the JDK Implementation uses default values for both
+          the session cache size and timeout.  See
+getSessionCacheSize
+and
+getSessionTimeout
+for
+          more information.  Applications should consider their
+          performance requirements and override the defaults if necessary.
+Parameters:
+size
+- the new session cache size limit; zero means there is no
+        limit.
+Throws:
+IllegalArgumentException
+- if the specified size is
+< 0
+.
+See Also:
+getSessionCacheSize()
+getSessionCacheSize
+int
+getSessionCacheSize
+()
+Returns the size of the cache used for storing
+SSLSession
+objects grouped under this
+SSLSessionContext
+.
+Implementation Note:
+The JDK implementation returns the cache size as set by
+           the
+setSessionCacheSize
+method, or if not set, the
+           value of the
+javax.net.ssl.sessionCacheSize
+system property.  If neither is set, it returns a default
+           value of 20480.
+Returns:
+size of the session cache; zero means there is no size limit.
+See Also:
+setSessionCacheSize(int)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

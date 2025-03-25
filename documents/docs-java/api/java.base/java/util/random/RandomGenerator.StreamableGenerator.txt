@@ -1,0 +1,321 @@
+RandomGenerator.StreamableGenerator (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.util.random
+Interface RandomGenerator.StreamableGenerator
+All Superinterfaces:
+RandomGenerator
+All Known Subinterfaces:
+RandomGenerator.ArbitrarilyJumpableGenerator
+,
+RandomGenerator.JumpableGenerator
+,
+RandomGenerator.LeapableGenerator
+,
+RandomGenerator.SplittableGenerator
+All Known Implementing Classes:
+SplittableRandom
+Enclosing interface:
+RandomGenerator
+public static interface
+RandomGenerator.StreamableGenerator
+extends
+RandomGenerator
+The
+RandomGenerator.StreamableGenerator
+interface augments the
+RandomGenerator
+interface to provide methods that return streams
+ of
+RandomGenerator
+objects. Ideally, such a stream of objects
+ would have the property that the behavior of each object is statistically
+ independent of all the others. In practice, one may have to settle for
+ some approximation to this property.
+A generator that implements interface
+RandomGenerator.SplittableGenerator
+may
+ choose to use its
+splits
+() method to
+ implement the
+rngs
+() method required by this
+ interface.
+A generator that implements interface
+RandomGenerator.JumpableGenerator
+may
+ choose to use its
+jumps
+() method to implement the
+rngs
+() method required by this interface.
+A generator that implements interface
+RandomGenerator.LeapableGenerator
+may
+ choose to use its
+leaps
+() method to
+ implement the
+rngs
+() method required by this
+ interface.
+Objects that implement
+RandomGenerator.StreamableGenerator
+are typically not
+ cryptographically secure. Consider instead using
+SecureRandom
+to
+ get a cryptographically secure pseudo-random number generator for use by
+ security-sensitive applications.
+Nested Class Summary
+Nested classes/interfaces declared in interface java.util.random.
+RandomGenerator
+RandomGenerator.ArbitrarilyJumpableGenerator
+,
+RandomGenerator.JumpableGenerator
+,
+RandomGenerator.LeapableGenerator
+,
+RandomGenerator.SplittableGenerator
+,
+RandomGenerator.StreamableGenerator
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+static
+RandomGenerator.StreamableGenerator
+of
+(
+String
+name)
+Returns an instance of
+RandomGenerator.StreamableGenerator
+that utilizes the
+name
+algorithm
+.
+Stream
+<
+RandomGenerator
+>
+rngs
+()
+Returns an effectively unlimited stream of objects, each of which
+ implements the
+RandomGenerator
+interface.
+default
+Stream
+<
+RandomGenerator
+>
+rngs
+(long streamSize)
+Returns an effectively unlimited stream of objects, each of which
+ implements the
+RandomGenerator
+interface.
+Methods declared in interface java.util.random.
+RandomGenerator
+doubles
+,
+doubles
+,
+doubles
+,
+doubles
+,
+ints
+,
+ints
+,
+ints
+,
+ints
+,
+isDeprecated
+,
+longs
+,
+longs
+,
+longs
+,
+longs
+,
+nextBoolean
+,
+nextBytes
+,
+nextDouble
+,
+nextDouble
+,
+nextDouble
+,
+nextExponential
+,
+nextFloat
+,
+nextFloat
+,
+nextFloat
+,
+nextGaussian
+,
+nextGaussian
+,
+nextInt
+,
+nextInt
+,
+nextInt
+,
+nextLong
+,
+nextLong
+,
+nextLong
+Method Details
+of
+static
+RandomGenerator.StreamableGenerator
+of
+(
+String
+name)
+Returns an instance of
+RandomGenerator.StreamableGenerator
+that utilizes the
+name
+algorithm
+.
+Parameters:
+name
+- Name of random number generator
+algorithm
+Returns:
+An instance of
+RandomGenerator.StreamableGenerator
+Throws:
+NullPointerException
+- if name is null
+IllegalArgumentException
+- if the named algorithm is not found
+rngs
+Stream
+<
+RandomGenerator
+>
+rngs
+()
+Returns an effectively unlimited stream of objects, each of which
+ implements the
+RandomGenerator
+interface. Ideally the
+ generators in the stream will appear to be statistically independent.
+ The new generators are of the same
+algorithm
+as this generator.
+Implementation Note:
+It is permitted to implement this method in a manner
+           equivalent to
+rngs
+(
+Long.MAX_VALUE
+).
+Returns:
+a stream of objects that implement the
+RandomGenerator
+interface
+rngs
+default
+Stream
+<
+RandomGenerator
+>
+rngs
+(long streamSize)
+Returns an effectively unlimited stream of objects, each of which
+ implements the
+RandomGenerator
+interface. Ideally the
+ generators in the stream will appear to be statistically independent.
+ The new generators are of the same
+algorithm
+as this generator.
+Implementation Requirements:
+The default implementation calls
+rngs
+() and
+ then limits its length to
+streamSize
+.
+Parameters:
+streamSize
+- the number of generators to generate
+Returns:
+a stream of objects that implement the
+RandomGenerator
+interface
+Throws:
+IllegalArgumentException
+- if
+streamSize
+is
+         less than zero
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

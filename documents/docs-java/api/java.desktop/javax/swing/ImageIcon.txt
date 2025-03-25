@@ -1,0 +1,643 @@
+ImageIcon (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing
+Class ImageIcon
+java.lang.Object
+javax.swing.ImageIcon
+All Implemented Interfaces:
+Serializable
+,
+Accessible
+,
+Icon
+public class
+ImageIcon
+extends
+Object
+implements
+Icon
+,
+Serializable
+,
+Accessible
+An implementation of the Icon interface that paints Icons
+ from Images. Images that are created from a URL, filename or byte array
+ are preloaded using MediaTracker to monitor the loaded state
+ of the image.
+For further information and examples of using image icons, see
+How to Use Icons
+in
+The Java Tutorial.
+Warning:
+Serialized objects of this class will not be compatible with
+ future Swing releases. The current serialization support is
+ appropriate for short term storage or RMI between applications running
+ the same version of Swing.  As of 1.4, support for long term storage
+ of all JavaBeans
+ has been added to the
+java.beans
+package.
+ Please see
+XMLEncoder
+.
+Since:
+1.2
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+protected class
+ImageIcon.AccessibleImageIcon
+This class implements accessibility support for the
+ImageIcon
+class.
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected static final
+Component
+component
+Deprecated.
+since 1.8
+protected static final
+MediaTracker
+tracker
+Deprecated.
+since 1.8
+Constructor Summary
+Constructors
+Constructor
+Description
+ImageIcon
+()
+Creates an uninitialized image icon.
+ImageIcon
+(byte[] imageData)
+Creates an ImageIcon from an array of bytes which were
+ read from an image file containing a supported image format,
+ such as GIF, JPEG, or (as of 1.3) PNG.
+ImageIcon
+(byte[] imageData,
+String
+description)
+Creates an ImageIcon from an array of bytes which were
+ read from an image file containing a supported image format,
+ such as GIF, JPEG, or (as of 1.3) PNG.
+ImageIcon
+(
+Image
+image)
+Creates an ImageIcon from an image object.
+ImageIcon
+(
+Image
+image,
+String
+description)
+Creates an ImageIcon from the image.
+ImageIcon
+(
+String
+filename)
+Creates an ImageIcon from the specified file.
+ImageIcon
+(
+String
+filename,
+String
+description)
+Creates an ImageIcon from the specified file.
+ImageIcon
+(
+URL
+location)
+Creates an ImageIcon from the specified URL.
+ImageIcon
+(
+URL
+location,
+String
+description)
+Creates an ImageIcon from the specified URL.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+AccessibleContext
+getAccessibleContext
+()
+Gets the AccessibleContext associated with this ImageIcon.
+String
+getDescription
+()
+Gets the description of the image.
+int
+getIconHeight
+()
+Gets the height of the icon.
+int
+getIconWidth
+()
+Gets the width of the icon.
+Image
+getImage
+()
+Returns this icon's
+Image
+.
+int
+getImageLoadStatus
+()
+Returns the status of the image loading operation.
+ImageObserver
+getImageObserver
+()
+Returns the image observer for the image.
+protected void
+loadImage
+(
+Image
+image)
+Loads the image, returning only when the image is loaded.
+void
+paintIcon
+(
+Component
+c,
+Graphics
+g,
+ int x,
+ int y)
+Paints the icon.
+void
+setDescription
+(
+String
+description)
+Sets the description of the image.
+void
+setImage
+(
+Image
+image)
+Sets the image displayed by this icon.
+void
+setImageObserver
+(
+ImageObserver
+observer)
+Sets the image observer for the image.
+String
+toString
+()
+Returns a string representation of this image.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Field Details
+component
+@Deprecated
+protected static final
+Component
+component
+Deprecated.
+since 1.8
+Do not use this shared component, which is used to track image loading.
+ It is left for backward compatibility only.
+tracker
+@Deprecated
+protected static final
+MediaTracker
+tracker
+Deprecated.
+since 1.8
+Do not use this shared media tracker, which is used to load images.
+ It is left for backward compatibility only.
+Constructor Details
+ImageIcon
+public
+ImageIcon
+(
+String
+filename,
+String
+description)
+Creates an ImageIcon from the specified file. The image will
+ be preloaded by using MediaTracker to monitor the loading state
+ of the image.
+Parameters:
+filename
+- the name of the file containing the image
+description
+- a brief textual description of the image
+See Also:
+ImageIcon(String)
+ImageIcon
+@ConstructorProperties
+("description")
+public
+ImageIcon
+(
+String
+filename)
+Creates an ImageIcon from the specified file. The image will
+ be preloaded by using MediaTracker to monitor the loading state
+ of the image. The specified String can be a file name or a
+ file path. When specifying a path, use the Internet-standard
+ forward-slash ("/") as a separator.
+ (The string is converted to an URL, so the forward-slash works
+ on all systems.)
+ For example, specify:
+new ImageIcon("images/myImage.gif")
+The description is initialized to the
+filename
+string.
+Parameters:
+filename
+- a String specifying a filename or path
+See Also:
+getDescription()
+ImageIcon
+public
+ImageIcon
+(
+URL
+location,
+String
+description)
+Creates an ImageIcon from the specified URL. The image will
+ be preloaded by using MediaTracker to monitor the loaded state
+ of the image.
+Parameters:
+location
+- the URL for the image
+description
+- a brief textual description of the image
+See Also:
+ImageIcon(String)
+ImageIcon
+public
+ImageIcon
+(
+URL
+location)
+Creates an ImageIcon from the specified URL. The image will
+ be preloaded by using MediaTracker to monitor the loaded state
+ of the image.
+ The icon's description is initialized to be
+ a string representation of the URL.
+Parameters:
+location
+- the URL for the image
+See Also:
+getDescription()
+ImageIcon
+public
+ImageIcon
+(
+Image
+image,
+String
+description)
+Creates an ImageIcon from the image.
+Parameters:
+image
+- the image
+description
+- a brief textual description of the image
+ImageIcon
+public
+ImageIcon
+(
+Image
+image)
+Creates an ImageIcon from an image object.
+ If the image has a "comment" property that is a string,
+ then the string is used as the description of this icon.
+Parameters:
+image
+- the image
+See Also:
+getDescription()
+Image.getProperty(java.lang.String, java.awt.image.ImageObserver)
+ImageIcon
+public
+ImageIcon
+(byte[] imageData,
+String
+description)
+Creates an ImageIcon from an array of bytes which were
+ read from an image file containing a supported image format,
+ such as GIF, JPEG, or (as of 1.3) PNG.
+ Normally this array is created
+ by reading an image using Class.getResourceAsStream(), but
+ the byte array may also be statically stored in a class.
+Parameters:
+imageData
+- an array of pixels in an image format supported
+         by the AWT Toolkit, such as GIF, JPEG, or (as of 1.3) PNG
+description
+- a brief textual description of the image
+See Also:
+Toolkit.createImage(java.lang.String)
+ImageIcon
+public
+ImageIcon
+(byte[] imageData)
+Creates an ImageIcon from an array of bytes which were
+ read from an image file containing a supported image format,
+ such as GIF, JPEG, or (as of 1.3) PNG.
+ Normally this array is created
+ by reading an image using Class.getResourceAsStream(), but
+ the byte array may also be statically stored in a class.
+ If the resulting image has a "comment" property that is a string,
+ then the string is used as the description of this icon.
+Parameters:
+imageData
+- an array of pixels in an image format supported by
+             the AWT Toolkit, such as GIF, JPEG, or (as of 1.3) PNG
+See Also:
+Toolkit.createImage(java.lang.String)
+getDescription()
+Image.getProperty(java.lang.String, java.awt.image.ImageObserver)
+ImageIcon
+public
+ImageIcon
+()
+Creates an uninitialized image icon.
+Method Details
+loadImage
+protected
+void
+loadImage
+(
+Image
+image)
+Loads the image, returning only when the image is loaded.
+Parameters:
+image
+- the image
+getImageLoadStatus
+public
+int
+getImageLoadStatus
+()
+Returns the status of the image loading operation.
+Returns:
+the loading status as defined by java.awt.MediaTracker
+See Also:
+MediaTracker.ABORTED
+MediaTracker.ERRORED
+MediaTracker.COMPLETE
+getImage
+public
+Image
+getImage
+()
+Returns this icon's
+Image
+.
+Returns:
+the
+Image
+object for this
+ImageIcon
+setImage
+public
+void
+setImage
+(
+Image
+image)
+Sets the image displayed by this icon.
+Parameters:
+image
+- the image
+getDescription
+public
+String
+getDescription
+()
+Gets the description of the image.  This is meant to be a brief
+ textual description of the object.  For example, it might be
+ presented to a blind user to give an indication of the purpose
+ of the image.
+ The description may be null.
+Returns:
+a brief textual description of the image
+setDescription
+public
+void
+setDescription
+(
+String
+description)
+Sets the description of the image.  This is meant to be a brief
+ textual description of the object.  For example, it might be
+ presented to a blind user to give an indication of the purpose
+ of the image.
+Parameters:
+description
+- a brief textual description of the image
+paintIcon
+public
+void
+paintIcon
+(
+Component
+c,
+Graphics
+g,
+ int x,
+ int y)
+Paints the icon.
+ The top-left corner of the icon is drawn at
+ the point (
+x
+,
+y
+)
+ in the coordinate space of the graphics context
+g
+.
+ If this icon has no image observer,
+ this method uses the
+c
+component
+ as the observer.
+Specified by:
+paintIcon
+in interface
+Icon
+Parameters:
+c
+- the component to be used as the observer
+          if this icon has no image observer
+g
+- the graphics context
+x
+- the X coordinate of the icon's top-left corner
+y
+- the Y coordinate of the icon's top-left corner
+getIconWidth
+public
+int
+getIconWidth
+()
+Gets the width of the icon.
+Specified by:
+getIconWidth
+in interface
+Icon
+Returns:
+the width in pixels of this icon
+getIconHeight
+public
+int
+getIconHeight
+()
+Gets the height of the icon.
+Specified by:
+getIconHeight
+in interface
+Icon
+Returns:
+the height in pixels of this icon
+setImageObserver
+public
+void
+setImageObserver
+(
+ImageObserver
+observer)
+Sets the image observer for the image.  Set this
+ property if the ImageIcon contains an animated GIF, so
+ the observer is notified to update its display.
+ For example:
+icon = new ImageIcon(...)
+     button.setIcon(icon);
+     icon.setImageObserver(button);
+Parameters:
+observer
+- the image observer
+getImageObserver
+public
+ImageObserver
+getImageObserver
+()
+Returns the image observer for the image.
+Returns:
+the image observer, which may be null
+toString
+public
+String
+toString
+()
+Returns a string representation of this image.
+Overrides:
+toString
+in class
+Object
+Returns:
+a string representing this image
+getAccessibleContext
+@BeanProperty
+(
+expert
+=true,
+description
+="The AccessibleContext associated with this ImageIcon.")
+public
+AccessibleContext
+getAccessibleContext
+()
+Gets the AccessibleContext associated with this ImageIcon.
+ For image icons, the AccessibleContext takes the form of an
+ AccessibleImageIcon.
+ A new AccessibleImageIcon instance is created if necessary.
+Specified by:
+getAccessibleContext
+in interface
+Accessible
+Returns:
+an AccessibleImageIcon that serves as the
+         AccessibleContext of this ImageIcon
+Since:
+1.3
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

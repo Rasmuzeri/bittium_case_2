@@ -1,0 +1,304 @@
+PackageElement (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.lang.model.element
+Interface PackageElement
+All Superinterfaces:
+AnnotatedConstruct
+,
+Element
+,
+QualifiedNameable
+public interface
+PackageElement
+extends
+Element
+,
+QualifiedNameable
+Represents a package program element.  Provides access to information
+ about the package and its members.
+API Note:
+The represented package may have an explicit
+reference
+ representation
+(either source code or executable output) or may be
+ created from implicit information. The explicit and standalone
+ source code construct for a package is typically a
+package-info.java
+file (JLS
+7.4.1
+).  A named package
+ without a standalone
+package-info.java
+file can be declared
+ in the package declaration of a
+top-level
+class or interface.  Implicit information is used to
+ model
+unnamed packages
+(JLS
+7.4.2
+).
+In the context of annotation processing, a package element can
+ be:
+created from the initial inputs to a run of the tool
+created from
+source code
+or
+class files
+written by a processor
+queried for
+in the configured environment
+Since:
+1.6
+See Also:
+Elements.getPackageOf(javax.lang.model.element.Element)
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+TypeMirror
+asType
+()
+Returns a
+pseudo-type
+for this package.
+List
+<? extends
+Element
+>
+getEnclosedElements
+()
+Returns the
+top-level
+classes and interfaces within this package.
+Element
+getEnclosingElement
+()
+Returns the enclosing module if such a module exists; otherwise
+null
+.
+Name
+getQualifiedName
+()
+Returns the fully qualified name of this package.
+Name
+getSimpleName
+()
+Returns the simple name of this package.
+boolean
+isUnnamed
+()
+Returns
+true
+if this is an unnamed package and
+false
+otherwise.
+Methods declared in interface javax.lang.model.element.
+Element
+accept
+,
+equals
+,
+getAnnotation
+,
+getAnnotationMirrors
+,
+getAnnotationsByType
+,
+getKind
+,
+getModifiers
+,
+hashCode
+Method Details
+asType
+TypeMirror
+asType
+()
+Returns a
+pseudo-type
+for this package.
+Specified by:
+asType
+in interface
+Element
+Returns:
+a
+pseudo-type
+for this package
+See Also:
+NoType
+TypeKind.PACKAGE
+getQualifiedName
+Name
+getQualifiedName
+()
+Returns the fully qualified name of this package.  This is also
+ known as the package's
+canonical
+name.  For an
+unnamed package
+, an
+empty name
+is returned.
+Specified by:
+getQualifiedName
+in interface
+QualifiedNameable
+API Note:
+The fully qualified name of a named package that is
+ not a subpackage of a named package is its simple name. The
+ fully qualified name of a named package that is a subpackage of
+ another named package consists of the fully qualified name of
+ the containing package, followed by "
+.
+", followed by the simple
+ (member) name of the subpackage.
+Returns:
+the fully qualified name of this package, or an
+ empty name if this is an unnamed package
+See
+Java Language Specification
+:
+6.7 Fully Qualified Names and Canonical Names
+getSimpleName
+Name
+getSimpleName
+()
+Returns the simple name of this package.  For an
+unnamed package
+, an
+empty name
+is returned.
+Specified by:
+getSimpleName
+in interface
+Element
+Returns:
+the simple name of this package or an empty name if
+ this is an unnamed package
+See Also:
+getSimpleName()
+ExecutableElement.getSimpleName()
+TypeElement.getSimpleName()
+VariableElement.getSimpleName()
+ModuleElement.getSimpleName()
+RecordComponentElement.getSimpleName()
+getEnclosedElements
+List
+<? extends
+Element
+>
+getEnclosedElements
+()
+Returns the
+top-level
+classes and interfaces within this package.  Note that
+ subpackages are
+not
+considered to be enclosed by a
+ package.
+Specified by:
+getEnclosedElements
+in interface
+Element
+Returns:
+the
+top-level
+classes and interfaces within this package
+See Also:
+TypeElement.getEnclosedElements()
+getEnclosedElements()
+ModuleElement.getEnclosedElements()
+Elements.getAllMembers(javax.lang.model.element.TypeElement)
+isUnnamed
+boolean
+isUnnamed
+()
+Returns
+true
+if this is an unnamed package and
+false
+otherwise.
+Returns:
+true
+if this is an unnamed package and
+false
+otherwise
+See
+Java Language Specification
+:
+7.4.2 Unnamed Packages
+getEnclosingElement
+Element
+getEnclosingElement
+()
+Returns the enclosing module if such a module exists; otherwise
+null
+.
+
+ One situation where a module does not exist for a package is if
+ the environment does not include modules, such as an annotation
+ processing environment configured for a
+source version
+without modules.
+Specified by:
+getEnclosingElement
+in interface
+Element
+Returns:
+the enclosing module if such a module exists; otherwise
+null
+See Also:
+Elements.getPackageOf(javax.lang.model.element.Element)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,1082 @@
+SerialArray (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.sql.rowset
+Package
+javax.sql.rowset.serial
+Class SerialArray
+java.lang.Object
+javax.sql.rowset.serial.SerialArray
+All Implemented Interfaces:
+Serializable
+,
+Cloneable
+,
+Array
+public class
+SerialArray
+extends
+Object
+implements
+Array
+,
+Serializable
+,
+Cloneable
+A serialized version of an
+Array
+object, which is the mapping in the Java programming language of an SQL
+ARRAY
+value.
+The
+SerialArray
+class provides a constructor for creating
+ a
+SerialArray
+instance from an
+Array
+object,
+ methods for getting the base type and the SQL name for the base type, and
+ methods for copying all or part of a
+SerialArray
+object.
+Note: In order for this class to function correctly, a connection to the
+ data source
+ must be available in order for the SQL
+Array
+object to be
+ materialized (have all of its elements brought to the client server)
+ if necessary. At this time, logical pointers to the data in the data source,
+ such as locators, are not currently supported.
+Thread safety
+A SerialArray is not safe for use by multiple concurrent threads.  If a
+ SerialArray is to be used by more than one thread then access to the
+ SerialArray should be controlled by appropriate synchronization.
+Since:
+1.5
+See Also:
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+SerialArray
+(
+Array
+array)
+Constructs a new
+SerialArray
+object from the given
+Array
+object.
+SerialArray
+(
+Array
+array,
+Map
+<
+String
+,
+Class
+<?>> map)
+Constructs a new
+SerialArray
+object from the given
+Array
+object, using the given type map for the custom
+ mapping of each element when the elements are SQL UDTs.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Object
+clone
+()
+Returns a clone of this
+SerialArray
+.
+boolean
+equals
+(
+Object
+obj)
+Compares this SerialArray to the specified object.
+void
+free
+()
+This method frees the
+SerialArray
+object and releases the
+ resources that it holds.
+Object
+getArray
+()
+Returns a new array that is a copy of this
+SerialArray
+object.
+Object
+getArray
+(long index,
+ int count)
+Returns a new array that is a copy of a slice
+ of this
+SerialArray
+object, starting with the
+ element at the given index and containing the given number
+ of consecutive elements.
+Object
+getArray
+(long index,
+ int count,
+Map
+<
+String
+,
+Class
+<?>> map)
+Returns a new array that is a copy of a slice
+ of this
+SerialArray
+object, starting with the
+ element at the given index and containing the given number
+ of consecutive elements.
+Object
+getArray
+(
+Map
+<
+String
+,
+Class
+<?>> map)
+Returns a new array that is a copy of this
+SerialArray
+object, using the given type map for the custom
+ mapping of each element when the elements are SQL UDTs.
+int
+getBaseType
+()
+Retrieves the SQL type of the elements in this
+SerialArray
+object.
+String
+getBaseTypeName
+()
+Retrieves the DBMS-specific type name for the elements in this
+SerialArray
+object.
+ResultSet
+getResultSet
+()
+Retrieves a
+ResultSet
+object that contains all of
+ the elements in the
+ARRAY
+value that this
+SerialArray
+object represents.
+ResultSet
+getResultSet
+(long index,
+ int count)
+Retrieves a
+ResultSet
+object holding the elements of
+ the subarray that starts at
+ index
+index
+and contains up to
+count
+successive elements.
+ResultSet
+getResultSet
+(long index,
+ int count,
+Map
+<
+String
+,
+Class
+<?>> map)
+Retrieves a result set holding the elements of the subarray that starts at
+ Retrieves a
+ResultSet
+object that contains a subarray of the
+ elements in this
+SerialArray
+object, starting at
+ index
+index
+and containing up to
+count
+successive
+ elements.
+ResultSet
+getResultSet
+(
+Map
+<
+String
+,
+Class
+<?>> map)
+Retrieves a
+ResultSet
+object that contains all of
+ the elements of the SQL
+ARRAY
+value represented by this
+SerialArray
+object.
+int
+hashCode
+()
+Returns a hash code for this SerialArray.
+Methods declared in class java.lang.
+Object
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+SerialArray
+public
+SerialArray
+(
+Array
+array,
+Map
+<
+String
+,
+Class
+<?>> map)
+throws
+SerialException
+,
+SQLException
+Constructs a new
+SerialArray
+object from the given
+Array
+object, using the given type map for the custom
+ mapping of each element when the elements are SQL UDTs.
+This method does custom mapping if the array elements are a UDT
+ and the given type map has an entry for that UDT.
+ Custom mapping is recursive,
+ meaning that if, for instance, an element of an SQL structured type
+ is an SQL structured type that itself has an element that is an SQL
+ structured type, each structured type that has a custom mapping will be
+ mapped according to the given type map.
+The new
+SerialArray
+object contains the same elements as the
+Array
+object
+ from which it is built, except when the base type is the SQL type
+STRUCT
+,
+ARRAY
+,
+BLOB
+,
+CLOB
+,
+DATALINK
+or
+JAVA_OBJECT
+.
+ In this case, each element in the new
+SerialArray
+object is the appropriate serialized form,
+ that is, a
+SerialStruct
+,
+SerialArray
+,
+SerialBlob
+,
+SerialClob
+,
+SerialDatalink
+, or
+SerialJavaObject
+object.
+Note: (1) The
+Array
+object from which a
+SerialArray
+object is created must have materialized the SQL
+ARRAY
+value's
+ data on the client before it is passed to the constructor.  Otherwise,
+ the new
+SerialArray
+object will contain no data.
+Note: (2) If the
+Array
+contains
+java.sql.Types.JAVA_OBJECT
+types, the
+SerialJavaObject
+constructor is called where checks
+ are made to ensure this object is serializable.
+Note: (3) The
+Array
+object supplied to this constructor cannot
+ return
+null
+for any
+Array.getArray()
+methods.
+SerialArray
+cannot serialize null array values.
+Parameters:
+array
+- the
+Array
+object to be serialized
+map
+- a
+java.util.Map
+object in which
+        each entry consists of 1) a
+String
+object
+        giving the fully qualified name of a UDT (an SQL structured type or
+        distinct type) and 2) the
+Class
+object for the
+SQLData
+implementation
+        that defines how the UDT is to be mapped. The
+map
+parameter does not have any effect for
+Blob
+,
+Clob
+,
+DATALINK
+, or
+JAVA_OBJECT
+types.
+Throws:
+SerialException
+- if an error occurs serializing the
+Array
+object
+SQLException
+- if a database access error occurs or if the
+array
+or the
+map
+values are
+null
+SerialArray
+public
+SerialArray
+(
+Array
+array)
+throws
+SerialException
+,
+SQLException
+Constructs a new
+SerialArray
+object from the given
+Array
+object.
+This constructor does not do custom mapping.  If the base type of the array
+ is an SQL structured type and custom mapping is desired, the constructor
+SerialArray(Array array, Map map)
+should be used.
+The new
+SerialArray
+object contains the same elements as the
+Array
+object
+ from which it is built, except when the base type is the SQL type
+BLOB
+,
+CLOB
+,
+DATALINK
+or
+JAVA_OBJECT
+.
+ In this case, each element in the new
+SerialArray
+object is the appropriate serialized form,
+ that is, a
+SerialBlob
+,
+SerialClob
+,
+SerialDatalink
+, or
+SerialJavaObject
+object.
+Note: (1) The
+Array
+object from which a
+SerialArray
+object is created must have materialized the SQL
+ARRAY
+value's
+ data on the client before it is passed to the constructor.  Otherwise,
+ the new
+SerialArray
+object will contain no data.
+Note: (2) The
+Array
+object supplied to this constructor cannot
+ return
+null
+for any
+Array.getArray()
+methods.
+SerialArray
+cannot serialize
+null
+array values.
+Parameters:
+array
+- the
+Array
+object to be serialized
+Throws:
+SerialException
+- if an error occurs serializing the
+Array
+object
+SQLException
+- if a database access error occurs or the
+array
+parameter is
+null
+.
+Method Details
+free
+public
+void
+free
+()
+          throws
+SQLException
+This method frees the
+SerialArray
+object and releases the
+ resources that it holds. The object is invalid once the
+free
+method is called.
+If
+free
+is called multiple times, the
+ subsequent calls to
+free
+are treated as a no-op.
+Specified by:
+free
+in interface
+Array
+Throws:
+SQLException
+- if an error occurs releasing the SerialArray's resources
+Since:
+1.6
+getArray
+public
+Object
+getArray
+()
+                throws
+SerialException
+Returns a new array that is a copy of this
+SerialArray
+object.
+Specified by:
+getArray
+in interface
+Array
+Returns:
+a copy of this
+SerialArray
+object as an
+Object
+in the Java programming language
+Throws:
+SerialException
+- if an error occurs;
+ if
+free
+had previously been called on this object
+getArray
+public
+Object
+getArray
+(
+Map
+<
+String
+,
+Class
+<?>> map)
+throws
+SerialException
+Returns a new array that is a copy of this
+SerialArray
+object, using the given type map for the custom
+ mapping of each element when the elements are SQL UDTs.
+This method does custom mapping if the array elements are a UDT
+ and the given type map has an entry for that UDT.
+ Custom mapping is recursive,
+ meaning that if, for instance, an element of an SQL structured type
+ is an SQL structured type that itself has an element that is an SQL
+ structured type, each structured type that has a custom mapping will be
+ mapped according to the given type map.
+Specified by:
+getArray
+in interface
+Array
+Parameters:
+map
+- a
+java.util.Map
+object in which
+        each entry consists of 1) a
+String
+object
+        giving the fully qualified name of a UDT and 2) the
+Class
+object for the
+SQLData
+implementation
+        that defines how the UDT is to be mapped
+Returns:
+a copy of this
+SerialArray
+object as an
+Object
+in the Java programming language
+Throws:
+SerialException
+- if an error occurs;
+ if
+free
+had previously been called on this object
+getArray
+public
+Object
+getArray
+(long index,
+ int count)
+throws
+SerialException
+Returns a new array that is a copy of a slice
+ of this
+SerialArray
+object, starting with the
+ element at the given index and containing the given number
+ of consecutive elements.
+Specified by:
+getArray
+in interface
+Array
+Parameters:
+index
+- the index into this
+SerialArray
+object
+              of the first element to be copied;
+              the index of the first element is
+0
+count
+- the number of consecutive elements to be copied, starting
+              at the given index
+Returns:
+a copy of the designated elements in this
+SerialArray
+object as an
+Object
+in the Java programming language
+Throws:
+SerialException
+- if an error occurs;
+ if
+free
+had previously been called on this object
+getArray
+public
+Object
+getArray
+(long index,
+ int count,
+Map
+<
+String
+,
+Class
+<?>> map)
+throws
+SerialException
+Returns a new array that is a copy of a slice
+ of this
+SerialArray
+object, starting with the
+ element at the given index and containing the given number
+ of consecutive elements.
+This method does custom mapping if the array elements are a UDT
+ and the given type map has an entry for that UDT.
+ Custom mapping is recursive,
+ meaning that if, for instance, an element of an SQL structured type
+ is an SQL structured type that itself has an element that is an SQL
+ structured type, each structured type that has a custom mapping will be
+ mapped according to the given type map.
+Specified by:
+getArray
+in interface
+Array
+Parameters:
+index
+- the index into this
+SerialArray
+object
+              of the first element to be copied; the index of the
+              first element in the array is
+0
+count
+- the number of consecutive elements to be copied, starting
+              at the given index
+map
+- a
+java.util.Map
+object in which
+        each entry consists of 1) a
+String
+object
+        giving the fully qualified name of a UDT and 2) the
+Class
+object for the
+SQLData
+implementation
+        that defines how the UDT is to be mapped
+Returns:
+a copy of the designated elements in this
+SerialArray
+object as an
+Object
+in the Java programming language
+Throws:
+SerialException
+- if an error occurs;
+ if
+free
+had previously been called on this object
+getBaseType
+public
+int
+getBaseType
+()
+                throws
+SerialException
+Retrieves the SQL type of the elements in this
+SerialArray
+object.  The
+int
+returned is one of the constants in the class
+java.sql.Types
+.
+Specified by:
+getBaseType
+in interface
+Array
+Returns:
+one of the constants in
+java.sql.Types
+, indicating
+         the SQL type of the elements in this
+SerialArray
+object
+Throws:
+SerialException
+- if an error occurs;
+ if
+free
+had previously been called on this object
+getBaseTypeName
+public
+String
+getBaseTypeName
+()
+                       throws
+SerialException
+Retrieves the DBMS-specific type name for the elements in this
+SerialArray
+object.
+Specified by:
+getBaseTypeName
+in interface
+Array
+Returns:
+the SQL type name used by the DBMS for the base type of this
+SerialArray
+object
+Throws:
+SerialException
+- if an error occurs;
+ if
+free
+had previously been called on this object
+getResultSet
+public
+ResultSet
+getResultSet
+(long index,
+ int count)
+throws
+SerialException
+Retrieves a
+ResultSet
+object holding the elements of
+ the subarray that starts at
+ index
+index
+and contains up to
+count
+successive elements.
+ This method uses the connection's type map to map the elements of
+ the array if the map contains
+ an entry for the base type. Otherwise, the standard mapping is used.
+Specified by:
+getResultSet
+in interface
+Array
+Parameters:
+index
+- the index into this
+SerialArray
+object
+         of the first element to be copied; the index of the
+         first element in the array is
+0
+count
+- the number of consecutive elements to be copied, starting
+         at the given index
+Returns:
+a
+ResultSet
+object containing the designated
+         elements in this
+SerialArray
+object, with a
+         separate row for each element
+Throws:
+SerialException
+- if called with the cause set to
+UnsupportedOperationException
+getResultSet
+public
+ResultSet
+getResultSet
+(
+Map
+<
+String
+,
+Class
+<?>> map)
+throws
+SerialException
+Retrieves a
+ResultSet
+object that contains all of
+ the elements of the SQL
+ARRAY
+value represented by this
+SerialArray
+object. This method uses
+ the specified map for type map customizations unless the base type of the
+ array does not match a user-defined type (UDT) in
+map
+, in
+ which case it uses the
+ standard mapping. This version of the method
+getResultSet
+uses either the given type map or the standard mapping; it never uses the
+ type map associated with the connection.
+Specified by:
+getResultSet
+in interface
+Array
+Parameters:
+map
+- a
+java.util.Map
+object in which
+        each entry consists of 1) a
+String
+object
+        giving the fully qualified name of a UDT and 2) the
+Class
+object for the
+SQLData
+implementation
+        that defines how the UDT is to be mapped
+Returns:
+a
+ResultSet
+object containing all of the
+         elements in this
+SerialArray
+object, with a
+         separate row for each element
+Throws:
+SerialException
+- if called with the cause set to
+UnsupportedOperationException
+getResultSet
+public
+ResultSet
+getResultSet
+()
+                       throws
+SerialException
+Retrieves a
+ResultSet
+object that contains all of
+ the elements in the
+ARRAY
+value that this
+SerialArray
+object represents.
+ If appropriate, the elements of the array are mapped using the connection's
+ type map; otherwise, the standard mapping is used.
+Specified by:
+getResultSet
+in interface
+Array
+Returns:
+a
+ResultSet
+object containing all of the
+         elements in this
+SerialArray
+object, with a
+         separate row for each element
+Throws:
+SerialException
+- if called with the cause set to
+UnsupportedOperationException
+getResultSet
+public
+ResultSet
+getResultSet
+(long index,
+ int count,
+Map
+<
+String
+,
+Class
+<?>> map)
+throws
+SerialException
+Retrieves a result set holding the elements of the subarray that starts at
+ Retrieves a
+ResultSet
+object that contains a subarray of the
+ elements in this
+SerialArray
+object, starting at
+ index
+index
+and containing up to
+count
+successive
+ elements. This method uses
+ the specified map for type map customizations unless the base type of the
+ array does not match a user-defined type (UDT) in
+map
+, in
+ which case it uses the
+ standard mapping. This version of the method
+getResultSet
+uses
+ either the given type map or the standard mapping; it never uses the type
+ map associated with the connection.
+Specified by:
+getResultSet
+in interface
+Array
+Parameters:
+index
+- the index into this
+SerialArray
+object
+              of the first element to be copied; the index of the
+              first element in the array is
+0
+count
+- the number of consecutive elements to be copied, starting
+              at the given index
+map
+- a
+java.util.Map
+object in which
+        each entry consists of 1) a
+String
+object
+        giving the fully qualified name of a UDT and 2) the
+Class
+object for the
+SQLData
+implementation
+        that defines how the UDT is to be mapped
+Returns:
+a
+ResultSet
+object containing the designated
+         elements in this
+SerialArray
+object, with a
+         separate row for each element
+Throws:
+SerialException
+- if called with the cause set to
+UnsupportedOperationException
+equals
+public
+boolean
+equals
+(
+Object
+obj)
+Compares this SerialArray to the specified object.  The result is
+true
+if and only if the argument is not
+null
+and is a
+SerialArray
+object whose elements are identical to this object's elements
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- The object to compare this
+SerialArray
+against
+Returns:
+true
+if the given object represents a
+SerialArray
+equivalent to this SerialArray,
+false
+otherwise
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+public
+int
+hashCode
+()
+Returns a hash code for this SerialArray. The hash code for a
+SerialArray
+object is computed using the hash codes
+ of the elements of the
+SerialArray
+object
+Overrides:
+hashCode
+in class
+Object
+Returns:
+a hash code value for this object.
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+clone
+public
+Object
+clone
+()
+Returns a clone of this
+SerialArray
+. The copy will contain a
+ reference to a clone of the underlying objects array, not a reference
+ to the original underlying object array of this
+SerialArray
+object.
+Overrides:
+clone
+in class
+Object
+Returns:
+a clone of this SerialArray
+See Also:
+Cloneable
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

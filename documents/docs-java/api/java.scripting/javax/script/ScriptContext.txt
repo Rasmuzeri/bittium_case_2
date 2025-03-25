@@ -1,0 +1,483 @@
+ScriptContext (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+java.scripting
+Package
+javax.script
+Interface ScriptContext
+All Known Implementing Classes:
+SimpleScriptContext
+public interface
+ScriptContext
+The interface whose implementing classes are used to connect Script Engines
+ with objects, such as scoped Bindings, in hosting applications.  Each scope is a set
+ of named attributes whose values can be set and retrieved using the
+ScriptContext
+methods. ScriptContexts also expose Readers and Writers
+ that can be used by the ScriptEngines for input and output.
+Since:
+1.6
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final int
+ENGINE_SCOPE
+EngineScope attributes are visible during the lifetime of a single
+ScriptEngine
+and a set of attributes is maintained for each
+ engine.
+static final int
+GLOBAL_SCOPE
+GlobalScope attributes are visible to all engines created by same ScriptEngineFactory.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+Object
+getAttribute
+(
+String
+name)
+Retrieves the value of the attribute with the given name in
+ the scope occurring earliest in the search order.
+Object
+getAttribute
+(
+String
+name,
+ int scope)
+Gets the value of an attribute in a given scope.
+int
+getAttributesScope
+(
+String
+name)
+Get the lowest scope in which an attribute is defined.
+Bindings
+getBindings
+(int scope)
+Gets the
+Bindings
+associated with the given scope in this
+ScriptContext
+.
+Writer
+getErrorWriter
+()
+Returns the
+Writer
+used to display error output.
+Reader
+getReader
+()
+Returns a
+Reader
+to be used by the script to read
+ input.
+List
+<
+Integer
+>
+getScopes
+()
+Returns immutable
+List
+of all the valid values for
+ scope in the ScriptContext.
+Writer
+getWriter
+()
+Returns the
+Writer
+for scripts to use when displaying output.
+Object
+removeAttribute
+(
+String
+name,
+ int scope)
+Remove an attribute in a given scope.
+void
+setAttribute
+(
+String
+name,
+Object
+value,
+ int scope)
+Sets the value of an attribute in a given scope.
+void
+setBindings
+(
+Bindings
+bindings,
+ int scope)
+Associates a
+Bindings
+instance with a particular scope in this
+ScriptContext
+.
+void
+setErrorWriter
+(
+Writer
+writer)
+Sets the
+Writer
+used to display error output.
+void
+setReader
+(
+Reader
+reader)
+Sets the
+Reader
+for scripts to read input
+ .
+void
+setWriter
+(
+Writer
+writer)
+Sets the
+Writer
+for scripts to use when displaying output.
+Field Details
+ENGINE_SCOPE
+static final
+int
+ENGINE_SCOPE
+EngineScope attributes are visible during the lifetime of a single
+ScriptEngine
+and a set of attributes is maintained for each
+ engine.
+See Also:
+Constant Field Values
+GLOBAL_SCOPE
+static final
+int
+GLOBAL_SCOPE
+GlobalScope attributes are visible to all engines created by same ScriptEngineFactory.
+See Also:
+Constant Field Values
+Method Details
+setBindings
+void
+setBindings
+(
+Bindings
+bindings,
+ int scope)
+Associates a
+Bindings
+instance with a particular scope in this
+ScriptContext
+.  Calls to the
+getAttribute
+and
+setAttribute
+methods must map to the
+get
+and
+put
+methods of the
+Bindings
+for the specified scope.
+Parameters:
+bindings
+- The
+Bindings
+to associate with the given scope
+scope
+- The scope
+Throws:
+IllegalArgumentException
+- If no
+Bindings
+is defined for the
+ specified scope value in ScriptContexts of this type.
+NullPointerException
+- if value of scope is
+ENGINE_SCOPE
+and
+ the specified
+Bindings
+is null.
+getBindings
+Bindings
+getBindings
+(int scope)
+Gets the
+Bindings
+associated with the given scope in this
+ScriptContext
+.
+Parameters:
+scope
+- The scope
+Returns:
+The associated
+Bindings
+.  Returns
+null
+if it has not
+ been set.
+Throws:
+IllegalArgumentException
+- If no
+Bindings
+is defined for the
+ specified scope value in
+ScriptContext
+of this type.
+setAttribute
+void
+setAttribute
+(
+String
+name,
+Object
+value,
+ int scope)
+Sets the value of an attribute in a given scope. If the scope is
+GLOBAL_SCOPE
+and no Bindings is set for
+GLOBAL_SCOPE
+, then setAttribute call is a no-op.
+Parameters:
+name
+- The name of the attribute to set
+value
+- The value of the attribute
+scope
+- The scope in which to set the attribute
+Throws:
+IllegalArgumentException
+- if the name is empty or if the scope is invalid.
+NullPointerException
+- if the name is null.
+getAttribute
+Object
+getAttribute
+(
+String
+name,
+ int scope)
+Gets the value of an attribute in a given scope.
+Parameters:
+name
+- The name of the attribute to retrieve.
+scope
+- The scope in which to retrieve the attribute.
+Returns:
+The value of the attribute. Returns
+null
+is the name
+ does not exist in the given scope.
+Throws:
+IllegalArgumentException
+- if the name is empty or if the value of scope is invalid.
+NullPointerException
+- if the name is null.
+removeAttribute
+Object
+removeAttribute
+(
+String
+name,
+ int scope)
+Remove an attribute in a given scope.
+Parameters:
+name
+- The name of the attribute to remove
+scope
+- The scope in which to remove the attribute
+Returns:
+The removed value.
+Throws:
+IllegalArgumentException
+- if the name is empty or if the scope is invalid.
+NullPointerException
+- if the name is null.
+getAttribute
+Object
+getAttribute
+(
+String
+name)
+Retrieves the value of the attribute with the given name in
+ the scope occurring earliest in the search order.  The order
+ is determined by the numeric value of the scope parameter (lowest
+ scope values first.)
+Parameters:
+name
+- The name of the attribute to retrieve.
+Returns:
+The value of the attribute in the lowest scope for
+ which an attribute with the given name is defined.  Returns
+ null if no attribute with the name exists in any scope.
+Throws:
+NullPointerException
+- if the name is null.
+IllegalArgumentException
+- if the name is empty.
+getAttributesScope
+int
+getAttributesScope
+(
+String
+name)
+Get the lowest scope in which an attribute is defined.
+Parameters:
+name
+- Name of the attribute
+ .
+Returns:
+The lowest scope.  Returns -1 if no attribute with the given
+ name is defined in any scope.
+Throws:
+NullPointerException
+- if name is null.
+IllegalArgumentException
+- if name is empty.
+getWriter
+Writer
+getWriter
+()
+Returns the
+Writer
+for scripts to use when displaying output.
+Returns:
+The
+Writer
+.
+getErrorWriter
+Writer
+getErrorWriter
+()
+Returns the
+Writer
+used to display error output.
+Returns:
+The
+Writer
+setWriter
+void
+setWriter
+(
+Writer
+writer)
+Sets the
+Writer
+for scripts to use when displaying output.
+Parameters:
+writer
+- The new
+Writer
+.
+setErrorWriter
+void
+setErrorWriter
+(
+Writer
+writer)
+Sets the
+Writer
+used to display error output.
+Parameters:
+writer
+- The
+Writer
+.
+getReader
+Reader
+getReader
+()
+Returns a
+Reader
+to be used by the script to read
+ input.
+Returns:
+The
+Reader
+.
+setReader
+void
+setReader
+(
+Reader
+reader)
+Sets the
+Reader
+for scripts to read input
+ .
+Parameters:
+reader
+- The new
+Reader
+.
+getScopes
+List
+<
+Integer
+>
+getScopes
+()
+Returns immutable
+List
+of all the valid values for
+ scope in the ScriptContext.
+Returns:
+list of scope values
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

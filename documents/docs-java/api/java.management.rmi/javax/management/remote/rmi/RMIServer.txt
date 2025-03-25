@@ -1,0 +1,151 @@
+RMIServer (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.management.rmi
+Package
+javax.management.remote.rmi
+Interface RMIServer
+All Superinterfaces:
+Remote
+All Known Implementing Classes:
+RMIJRMPServerImpl
+,
+RMIServerImpl
+,
+RMIServerImpl_Stub
+public interface
+RMIServer
+extends
+Remote
+RMI object used to establish connections to an RMI connector.
+ There is one Remote object implementing this interface for each RMI
+ connector.
+User code does not usually refer to this interface.  It is
+ specified as part of the public API so that different
+ implementations of that API will interoperate.
+Since:
+1.5
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+String
+getVersion
+()
+The version of the RMI Connector Protocol understood by this
+ connector server.
+RMIConnection
+newClient
+(
+Object
+credentials)
+Makes a new connection through this RMI connector.
+Method Details
+getVersion
+String
+getVersion
+()
+           throws
+RemoteException
+The version of the RMI Connector Protocol understood by this
+ connector server.  This is a string with the following format:
+protocol-version
+implementation-name
+The
+protocol-version
+is a series of
+ two or more non-negative integers separated by periods
+ (
+.
+).  An implementation of the version described
+ by this documentation must use the string
+1.0
+here.
+After the protocol version there must be a space, followed
+ by the implementation name.  The format of the implementation
+ name is unspecified.  It is recommended that it include an
+ implementation version number.  An implementation can use an
+ empty string as its implementation name, for example for
+ security reasons.
+Returns:
+a string with the format described here.
+Throws:
+RemoteException
+- if there is a communication
+ exception during the remote method call.
+newClient
+RMIConnection
+newClient
+(
+Object
+credentials)
+throws
+IOException
+Makes a new connection through this RMI connector.  Each
+ remote client calls this method to obtain a new RMI object
+ representing its connection.
+Parameters:
+credentials
+- this object specifies the user-defined credentials
+ to be passed in to the server in order to authenticate the user before
+ creating the
+RMIConnection
+.  Can be null.
+Returns:
+the newly-created connection object.
+Throws:
+IOException
+- if the new client object cannot be
+ created or exported, or if there is a communication exception
+ during the remote method call.
+SecurityException
+- if the given credentials do not
+ allow the server to authenticate the caller successfully.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

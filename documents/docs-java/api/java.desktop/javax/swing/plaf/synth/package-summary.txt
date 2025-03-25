@@ -1,0 +1,432 @@
+javax.swing.plaf.synth (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages
+|
+Classes and Interfaces
+SEARCH
+Module
+java.desktop
+Package javax.swing.plaf.synth
+package
+javax.swing.plaf.synth
+Synth is a skinnable look and feel in which all painting is delegated. Synth
+ does not provide a default look. In order to use Synth you need to specify a
+file
+, or provide a
+SynthStyleFactory
+. Both configuration options
+ require an understanding of the synth architecture, which is described below,
+ as well as an understanding of Swing's architecture.
+Unless otherwise specified null is not a legal value to any of the methods
+ defined in the synth package and if passed in will result in a
+NullPointerException
+.
+Synth
+Each
+ComponentUI
+implementation in Synth associates
+ itself with one
+SynthStyle
+per
+Region
+, most
+Components
+only have one
+Region
+and therefore only one
+SynthStyle
+.
+SynthStyle
+is used to access all style related properties: fonts, colors
+ and other
+Component
+properties. In addition
+SynthStyle
+s are
+ used to obtain
+SynthPainter
+s for painting the
+ background, border, focus and other portions of a
+Component
+. The
+ComponentUI
+s obtain
+SynthStyle
+s from a
+SynthStyleFactory
+. A
+SynthStyleFactory
+can be provided directly by way of
+SynthLookAndFeel.setStyleFactory(javax.swing.plaf.synth.SynthStyleFactory)
+,
+ or indirectly by way of
+SynthLookAndFeel.load(java.io.InputStream, java.lang.Class<?>)
+.
+ The following example uses the
+SynthLookAndFeel.load()
+method to
+ configure a
+SynthLookAndFeel
+and sets it as the current look and
+ feel:
+SynthLookAndFeel laf = new SynthLookAndFeel();
+     laf.load(MyClass.class.getResourceAsStream("laf.xml"), MyClass.class);
+     UIManager.setLookAndFeel(laf);
+Many
+JComponent
+s are broken down into smaller pieces and identified
+ by the type safe enumeration in
+Region
+. For
+ example, a
+JTabbedPane
+consists of a
+Region
+for the
+JTabbedPane
+(
+Region.TABBED_PANE
+), the
+ content area (
+Region.TABBED_PANE_CONTENT
+), the
+ area behind the tabs
+ (
+Region.TABBED_PANE_TAB_AREA
+), and the tabs
+ (
+Region.TABBED_PANE_TAB
+). Each
+Region
+of each
+JComponent
+will have a
+SynthStyle
+.
+ This allows you to customize individual pieces of each region of each
+JComponent
+.
+Many of the Synth methods take a
+SynthContext
+.
+ This is used to provide information about the current
+Component
+and
+ includes: the
+SynthStyle
+associated with the
+ current
+Region
+, the state of the
+Component
+as a bitmask (refer to
+SynthConstants
+for the valid states), and a
+Region
+identifying the portion of the
+Component
+being painted.
+All text rendering by non-
+JTextComponent
+s is delegated to a
+SynthGraphicsUtils
+, which is obtained using
+ the
+SynthStyle
+method
+SynthStyle.getGraphicsUtils(javax.swing.plaf.synth.SynthContext)
+. You can customize
+ text rendering by supplying your own
+SynthGraphicsUtils
+.
+Notes on specific components
+JTree
+Synth provides a region for the cells of a tree:
+Region.TREE_CELL
+. To specify the colors of the
+ renderer you'll want to provide a style for the
+TREE_CELL
+region. The following illustrates this:
+<style id="treeCellStyle">
+     <opaque value="TRUE"/>
+     <state>
+       <color value="WHITE" type="TEXT_FOREGROUND"/>
+       <color value="RED" type="TEXT_BACKGROUND"/>
+     </state>
+     <state value="SELECTED">
+       <color value="RED" type="TEXT_FOREGROUND"/>
+       <color value="WHITE" type="BACKGROUND"/>
+     </state>
+   </style>
+   <bind style="treeCellStyle" type="region" key="TreeCell"/>
+This specifies a color combination of red on white, when selected, and white
+ on red when not selected. To see the background you need to specify that
+ labels are not opaque. The following XML fragment does that:
+<style id="labelStyle">
+     <opaque value="FALSE"/>
+   </style>
+   <bind style="labelStyle" type="region" key="Label"/>
+JList and JTable
+The colors that the renderers for JList and JTable use are specified by way
+ of the list and table Regions. The following XML fragment illustrates how to
+ specify red on white, when selected, and white on red when not selected:
+<style id="style">
+     <opaque value="TRUE"/>
+     <state>
+       <color value="WHITE" type="TEXT_FOREGROUND"/>
+       <color value="RED" type="TEXT_BACKGROUND"/>
+       <color value="RED" type="BACKGROUND"/>
+     </state>
+     <state value="SELECTED">
+       <color value="RED" type="TEXT_FOREGROUND"/>
+       <color value="WHITE" type="TEXT_BACKGROUND"/>
+     </state>
+   </style>
+   <bind style="style" type="region" key="Table"/>
+   <bind style="style" type="region" key="List"/>
+Related Packages
+Package
+Description
+javax.swing.plaf
+Provides one interface and many abstract classes that Swing uses to provide
+ its pluggable look-and-feel capabilities.
+javax.swing.plaf.basic
+Provides user interface objects built according to the Basic look and feel.
+javax.swing.plaf.metal
+Provides user interface objects built according to the Java look and feel
+ (once codenamed
+Metal
+), which is the default look and feel.
+javax.swing.plaf.multi
+Provides user interface objects that combine two or more look and feels.
+javax.swing.plaf.nimbus
+Provides user interface objects built according to the cross-platform Nimbus
+ look and feel.
+All Classes and Interfaces
+Interfaces
+Classes
+Class
+Description
+ColorType
+A typesafe enumeration of colors that can be fetched from a style.
+Region
+A distinct rendering area of a Swing component.
+SynthButtonUI
+Provides the Synth L&F UI delegate for
+JButton
+.
+SynthCheckBoxMenuItemUI
+Provides the Synth L&F UI delegate for
+JCheckBoxMenuItem
+.
+SynthCheckBoxUI
+Provides the Synth L&F UI delegate for
+JCheckBox
+.
+SynthColorChooserUI
+Provides the Synth L&F UI delegate for
+JColorChooser
+.
+SynthComboBoxUI
+Provides the Synth L&F UI delegate for
+JComboBox
+.
+SynthConstants
+Constants used by Synth.
+SynthContext
+An immutable transient object containing contextual information about
+ a
+Region
+.
+SynthDesktopIconUI
+Provides the Synth L&F UI delegate for a minimized internal frame on a desktop.
+SynthDesktopPaneUI
+Provides the Synth L&F UI delegate for
+JDesktopPane
+.
+SynthEditorPaneUI
+Provides the Synth L&F UI delegate for
+JEditorPane
+.
+SynthFormattedTextFieldUI
+Provides the Synth L&F UI delegate for
+JFormattedTextField
+.
+SynthGraphicsUtils
+Wrapper for primitive graphics calls.
+SynthIcon
+An icon that is passed a
+SynthContext
+.
+SynthInternalFrameUI
+Provides the Synth L&F UI delegate for
+JInternalFrame
+.
+SynthLabelUI
+Provides the Synth L&F UI delegate for
+JLabel
+.
+SynthListUI
+Provides the Synth L&F UI delegate for
+JList
+.
+SynthLookAndFeel
+SynthLookAndFeel provides the basis for creating a customized look and
+ feel.
+SynthMenuBarUI
+Provides the Synth L&F UI delegate for
+JMenuBar
+.
+SynthMenuItemUI
+Provides the Synth L&F UI delegate for
+JMenuItem
+.
+SynthMenuUI
+Provides the Synth L&F UI delegate for
+JMenu
+.
+SynthOptionPaneUI
+Provides the Synth L&F UI delegate for
+JOptionPane
+.
+SynthPainter
+SynthPainter
+is used for painting portions of
+JComponent
+s.
+SynthPanelUI
+Provides the Synth L&F UI delegate for
+JPanel
+.
+SynthPasswordFieldUI
+Provides the Synth L&F UI delegate for
+JPasswordField
+.
+SynthPopupMenuUI
+Provides the Synth L&F UI delegate for
+JPopupMenu
+.
+SynthProgressBarUI
+Provides the Synth L&F UI delegate for
+JProgressBar
+.
+SynthRadioButtonMenuItemUI
+Provides the Synth L&F UI delegate for
+JRadioButtonMenuItem
+.
+SynthRadioButtonUI
+Provides the Synth L&F UI delegate for
+JRadioButton
+.
+SynthRootPaneUI
+Provides the Synth L&F UI delegate for
+JRootPane
+.
+SynthScrollBarUI
+Provides the Synth L&F UI delegate for
+JScrollBar
+.
+SynthScrollPaneUI
+Provides the Synth L&F UI delegate for
+JScrollPane
+.
+SynthSeparatorUI
+Provides the Synth L&F UI delegate for
+JSeparator
+.
+SynthSliderUI
+Provides the Synth L&F UI delegate for
+JSlider
+.
+SynthSpinnerUI
+Provides the Synth L&F UI delegate for
+JSpinner
+.
+SynthSplitPaneUI
+Provides the Synth L&F UI delegate for
+JSplitPane
+.
+SynthStyle
+SynthStyle
+is a set of style properties.
+SynthStyleFactory
+Factory used for obtaining
+SynthStyle
+s.
+SynthTabbedPaneUI
+Provides the Synth L&F UI delegate for
+JTabbedPane
+.
+SynthTableHeaderUI
+Provides the Synth L&F UI delegate for
+JTableHeader
+.
+SynthTableUI
+Provides the Synth L&F UI delegate for
+JTable
+.
+SynthTextAreaUI
+Provides the look and feel for a plain text editor in the
+ Synth look and feel.
+SynthTextFieldUI
+Provides the Synth L&F UI delegate for
+JTextField
+.
+SynthTextPaneUI
+Provides the look and feel for a styled text editor in the
+ Synth look and feel.
+SynthToggleButtonUI
+Provides the Synth L&F UI delegate for
+JToggleButton
+.
+SynthToolBarUI
+Provides the Synth L&F UI delegate for
+JToolBar
+.
+SynthToolTipUI
+Provides the Synth L&F UI delegate for
+JToolTip
+.
+SynthTreeUI
+Provides the Synth L&F UI delegate for
+JTree
+.
+SynthUI
+SynthUI is used to fetch the SynthContext for a particular Component.
+SynthViewportUI
+Provides the Synth L&F UI delegate for
+JViewport
+.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

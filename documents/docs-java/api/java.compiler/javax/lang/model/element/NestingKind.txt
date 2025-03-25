@@ -1,0 +1,306 @@
+NestingKind (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Enum Constants
+Field
+Method
+Detail:
+Enum Constants
+Field
+Method
+Summary:
+Nested
+|
+Enum Constants
+|
+Field |
+Method
+Detail:
+Enum Constants
+|
+Field |
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.lang.model.element
+Enum Class NestingKind
+java.lang.Object
+java.lang.Enum
+<
+NestingKind
+>
+javax.lang.model.element.NestingKind
+All Implemented Interfaces:
+Serializable
+,
+Comparable
+<
+NestingKind
+>
+,
+Constable
+public enum
+NestingKind
+extends
+Enum
+<
+NestingKind
+>
+The
+nesting kind
+of a type element.
+ Type elements come in four varieties:
+ top-level, member, local, and anonymous.
+Nesting kind
+is a non-standard term used here to denote this
+ classification.
+Note that it is possible additional nesting kinds will be added
+ in future versions of the platform.
+Example:
+The classes below are annotated with their nesting kind.
+import java.lang.annotation.*;
+ import static java.lang.annotation.RetentionPolicy.*;
+ import javax.lang.model.element.*;
+ import static javax.lang.model.element.NestingKind.*;
+
+ @Nesting(TOP_LEVEL)
+ public class NestingExamples {
+     @Nesting(MEMBER)
+     static class MemberClass1{}
+
+     @Nesting(MEMBER)
+     class MemberClass2{}
+
+     public static void main(String... argv) {
+         @Nesting(LOCAL)
+         class LocalClass{};
+
+         Class<?>[] classes = {
+             NestingExamples.class,
+             MemberClass1.class,
+             MemberClass2.class,
+             LocalClass.class
+         };
+
+         for(Class<?> clazz : classes) {
+             System.out.format("%s is %s%n",
+                               clazz.getName(),
+                               clazz.getAnnotation(Nesting.class).value());
+         }
+     }
+ }
+
+ @Retention(RUNTIME)
+ @interface Nesting {
+     NestingKind value();
+ }
+Since:
+1.6
+Nested Class Summary
+Nested classes/interfaces declared in class java.lang.
+Enum
+Enum.EnumDesc
+<
+E
+extends
+Enum
+<
+E
+>>
+Enum Constant Summary
+Enum Constants
+Enum Constant
+Description
+ANONYMOUS
+A class without a name.
+LOCAL
+A named class or interface declared within a construct other
+ than a class or interface.
+MEMBER
+A class or interface that is a named member of another class or
+ interface.
+TOP_LEVEL
+A top-level class or interface, not contained within another
+ class or interface.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+isNested
+()
+Does this constant correspond to a nested type element?
+static
+NestingKind
+valueOf
+(
+String
+name)
+Returns the enum constant of this class with the specified name.
+static
+NestingKind
+[]
+values
+()
+Returns an array containing the constants of this enum class, in
+the order they are declared.
+Methods declared in class java.lang.
+Enum
+clone
+,
+compareTo
+,
+describeConstable
+,
+equals
+,
+finalize
+,
+getDeclaringClass
+,
+hashCode
+,
+name
+,
+ordinal
+,
+toString
+,
+valueOf
+Methods declared in class java.lang.
+Object
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Enum Constant Details
+TOP_LEVEL
+public static final
+NestingKind
+TOP_LEVEL
+A top-level class or interface, not contained within another
+ class or interface.
+MEMBER
+public static final
+NestingKind
+MEMBER
+A class or interface that is a named member of another class or
+ interface.
+See
+Java Language Specification
+:
+8.5 Member Class and Interface Declarations
+LOCAL
+public static final
+NestingKind
+LOCAL
+A named class or interface declared within a construct other
+ than a class or interface.
+See
+Java Language Specification
+:
+14.3 Local Class Declarations
+ANONYMOUS
+public static final
+NestingKind
+ANONYMOUS
+A class without a name.
+See
+Java Language Specification
+:
+15.9.5 Anonymous Class Declarations
+Method Details
+values
+public static
+NestingKind
+[]
+values
+()
+Returns an array containing the constants of this enum class, in
+the order they are declared.
+Returns:
+an array containing the constants of this enum class, in the order they are declared
+valueOf
+public static
+NestingKind
+valueOf
+(
+String
+name)
+Returns the enum constant of this class with the specified name.
+The string must match
+exactly
+an identifier used to declare an
+enum constant in this class.  (Extraneous whitespace characters are 
+not permitted.)
+Parameters:
+name
+- the name of the enum constant to be returned.
+Returns:
+the enum constant with the specified name
+Throws:
+IllegalArgumentException
+- if this enum class has no constant with the specified name
+NullPointerException
+- if the argument is null
+isNested
+public
+boolean
+isNested
+()
+Does this constant correspond to a nested type element?
+ A
+nested
+type element is any that is not top-level.
+ More specifically, an
+inner
+type element is any nested type element that
+ is not
+static
+.
+Returns:
+whether or not the constant is nested
+See
+Java Language Specification
+:
+14.3 Local Class Declarations
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,396 @@
+DataTruncation (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.sql
+Package
+java.sql
+Class DataTruncation
+java.lang.Object
+java.lang.Throwable
+java.lang.Exception
+java.sql.SQLException
+java.sql.SQLWarning
+java.sql.DataTruncation
+All Implemented Interfaces:
+Serializable
+,
+Iterable
+<
+Throwable
+>
+public class
+DataTruncation
+extends
+SQLWarning
+An exception  thrown as a
+DataTruncation
+exception
+ (on writes) or reported as a
+DataTruncation
+warning (on reads)
+  when a data values is unexpectedly truncated for reasons other than its having
+  exceeded
+MaxFieldSize
+.
+The SQLstate for a
+DataTruncation
+during read is
+01004
+.
+The SQLstate for a
+DataTruncation
+during write is
+22001
+.
+Since:
+1.1
+See Also:
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+DataTruncation
+(int index,
+ boolean parameter,
+ boolean read,
+ int dataSize,
+ int transferSize)
+Creates a
+DataTruncation
+object
+ with the SQLState initialized
+ to 01004 when
+read
+is set to
+true
+and 22001
+ when
+read
+is set to
+false
+,
+ the reason set to "Data truncation", the
+ vendor code set to 0, and
+ the other fields set to the given values.
+DataTruncation
+(int index,
+ boolean parameter,
+ boolean read,
+ int dataSize,
+ int transferSize,
+Throwable
+cause)
+Creates a
+DataTruncation
+object
+ with the SQLState initialized
+ to 01004 when
+read
+is set to
+true
+and 22001
+ when
+read
+is set to
+false
+,
+ the reason set to "Data truncation", the
+ vendor code set to 0, and
+ the other fields set to the given values.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+int
+getDataSize
+()
+Gets the number of bytes of data that should have been transferred.
+int
+getIndex
+()
+Retrieves the index of the column or parameter that was truncated.
+boolean
+getParameter
+()
+Indicates whether the value truncated was a parameter value or
+ a column value.
+boolean
+getRead
+()
+Indicates whether or not the value was truncated on a read.
+int
+getTransferSize
+()
+Gets the number of bytes of data actually transferred.
+Methods declared in class java.sql.
+SQLWarning
+getNextWarning
+,
+setNextWarning
+Methods declared in class java.sql.
+SQLException
+getErrorCode
+,
+getNextException
+,
+getSQLState
+,
+iterator
+,
+setNextException
+Methods declared in class java.lang.
+Throwable
+addSuppressed
+,
+fillInStackTrace
+,
+getCause
+,
+getLocalizedMessage
+,
+getMessage
+,
+getStackTrace
+,
+getSuppressed
+,
+initCause
+,
+printStackTrace
+,
+printStackTrace
+,
+printStackTrace
+,
+setStackTrace
+,
+toString
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface java.lang.
+Iterable
+forEach
+,
+spliterator
+Constructor Details
+DataTruncation
+public
+DataTruncation
+(int index,
+ boolean parameter,
+ boolean read,
+ int dataSize,
+ int transferSize)
+Creates a
+DataTruncation
+object
+ with the SQLState initialized
+ to 01004 when
+read
+is set to
+true
+and 22001
+ when
+read
+is set to
+false
+,
+ the reason set to "Data truncation", the
+ vendor code set to 0, and
+ the other fields set to the given values.
+ The
+cause
+is not initialized, and may subsequently be
+ initialized by a call to the
+Throwable.initCause(java.lang.Throwable)
+method.
+Parameters:
+index
+- The index of the parameter or column value
+parameter
+- true if a parameter value was truncated
+read
+- true if a read was truncated
+dataSize
+- the original size of the data
+transferSize
+- the size after truncation
+DataTruncation
+public
+DataTruncation
+(int index,
+ boolean parameter,
+ boolean read,
+ int dataSize,
+ int transferSize,
+Throwable
+cause)
+Creates a
+DataTruncation
+object
+ with the SQLState initialized
+ to 01004 when
+read
+is set to
+true
+and 22001
+ when
+read
+is set to
+false
+,
+ the reason set to "Data truncation", the
+ vendor code set to 0, and
+ the other fields set to the given values.
+Parameters:
+index
+- The index of the parameter or column value
+parameter
+- true if a parameter value was truncated
+read
+- true if a read was truncated
+dataSize
+- the original size of the data
+transferSize
+- the size after truncation
+cause
+- the underlying reason for this
+DataTruncation
+(which is saved for later retrieval by the
+getCause()
+method);
+ may be null indicating the cause is non-existent or unknown.
+Since:
+1.6
+Method Details
+getIndex
+public
+int
+getIndex
+()
+Retrieves the index of the column or parameter that was truncated.
+This may be -1 if the column or parameter index is unknown, in
+ which case the
+parameter
+and
+read
+fields should be ignored.
+Returns:
+the index of the truncated parameter or column value
+getParameter
+public
+boolean
+getParameter
+()
+Indicates whether the value truncated was a parameter value or
+ a column value.
+Returns:
+true
+if the value truncated was a parameter;
+false
+if it was a column value
+getRead
+public
+boolean
+getRead
+()
+Indicates whether or not the value was truncated on a read.
+Returns:
+true
+if the value was truncated when read from
+         the database;
+false
+if the data was truncated on a write
+getDataSize
+public
+int
+getDataSize
+()
+Gets the number of bytes of data that should have been transferred.
+ This number may be approximate if data conversions were being
+ performed.  The value may be
+-1
+if the size is unknown.
+Returns:
+the number of bytes of data that should have been transferred
+getTransferSize
+public
+int
+getTransferSize
+()
+Gets the number of bytes of data actually transferred.
+ The value may be
+-1
+if the size is unknown.
+Returns:
+the number of bytes of data actually transferred
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

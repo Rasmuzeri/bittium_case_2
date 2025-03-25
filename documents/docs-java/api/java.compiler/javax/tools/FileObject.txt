@@ -1,0 +1,273 @@
+FileObject (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.tools
+Interface FileObject
+All Known Subinterfaces:
+JavaFileObject
+All Known Implementing Classes:
+ForwardingFileObject
+,
+ForwardingJavaFileObject
+,
+SimpleJavaFileObject
+public interface
+FileObject
+File abstraction for tools.  In this context,
+file
+means
+ an abstraction of regular files and other sources of data.  For
+ example, a file object can be used to represent regular files,
+ memory cache, or data in databases.
+All methods in this interface might throw a SecurityException if
+ a security exception occurs.
+Unless explicitly allowed, all methods in this interface might
+ throw a NullPointerException if given a
+null
+argument.
+Since:
+1.6
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+boolean
+delete
+()
+Deletes this file object.
+CharSequence
+getCharContent
+(boolean ignoreEncodingErrors)
+Returns the character content of this file object, if available.
+long
+getLastModified
+()
+Returns the time this file object was last modified.
+String
+getName
+()
+Returns a user-friendly name for this file object.
+InputStream
+openInputStream
+()
+Returns an InputStream for this file object.
+OutputStream
+openOutputStream
+()
+Returns an OutputStream for this file object.
+Reader
+openReader
+(boolean ignoreEncodingErrors)
+Returns a reader for this object.
+Writer
+openWriter
+()
+Returns a Writer for this file object.
+URI
+toUri
+()
+Returns a URI identifying this file object.
+Method Details
+toUri
+URI
+toUri
+()
+Returns a URI identifying this file object.
+Returns:
+a URI
+getName
+String
+getName
+()
+Returns a user-friendly name for this file object.  The exact
+ value returned is not specified but implementations should take
+ care to preserve names as given by the user.  For example, if
+ the user writes the filename
+"BobsApp\Test.java"
+on
+ the command line, this method should return
+"BobsApp\Test.java"
+whereas the
+toUri
+method might return
+file:///C:/Documents%20and%20Settings/UncleBob/BobsApp/Test.java
+.
+Returns:
+a user-friendly name
+openInputStream
+InputStream
+openInputStream
+()
+                     throws
+IOException
+Returns an InputStream for this file object.
+Returns:
+an InputStream
+Throws:
+IllegalStateException
+- if this file object was
+ opened for writing and does not support reading
+UnsupportedOperationException
+- if this kind of file
+ object does not support byte access
+IOException
+- if an I/O error occurred
+openOutputStream
+OutputStream
+openOutputStream
+()
+                       throws
+IOException
+Returns an OutputStream for this file object.
+Returns:
+an OutputStream
+Throws:
+IllegalStateException
+- if this file object was
+ opened for reading and does not support writing
+UnsupportedOperationException
+- if this kind of
+ file object does not support byte access
+IOException
+- if an I/O error occurred
+openReader
+Reader
+openReader
+(boolean ignoreEncodingErrors)
+throws
+IOException
+Returns a reader for this object.  The returned reader will
+ replace bytes that cannot be decoded with the default
+ translation character.  In addition, the reader may report a
+ diagnostic unless
+ignoreEncodingErrors
+is true.
+Parameters:
+ignoreEncodingErrors
+- ignore encoding errors if true
+Returns:
+a Reader
+Throws:
+IllegalStateException
+- if this file object was
+ opened for writing and does not support reading
+UnsupportedOperationException
+- if this kind of
+ file object does not support character access
+IOException
+- if an I/O error occurred
+getCharContent
+CharSequence
+getCharContent
+(boolean ignoreEncodingErrors)
+throws
+IOException
+Returns the character content of this file object, if available.
+ Any byte that cannot be decoded will be replaced by the default
+ translation character.  In addition, a diagnostic may be
+ reported unless
+ignoreEncodingErrors
+is true.
+Parameters:
+ignoreEncodingErrors
+- ignore encoding errors if true
+Returns:
+a CharSequence if available;
+null
+otherwise
+Throws:
+IllegalStateException
+- if this file object was
+ opened for writing and does not support reading
+UnsupportedOperationException
+- if this kind of
+ file object does not support character access
+IOException
+- if an I/O error occurred
+openWriter
+Writer
+openWriter
+()
+           throws
+IOException
+Returns a Writer for this file object.
+Returns:
+a Writer
+Throws:
+IllegalStateException
+- if this file object was
+ opened for reading and does not support writing
+UnsupportedOperationException
+- if this kind of
+ file object does not support character access
+IOException
+- if an I/O error occurred
+getLastModified
+long
+getLastModified
+()
+Returns the time this file object was last modified.  The time is
+ measured in milliseconds since the epoch (00:00:00 GMT, January
+ 1, 1970).
+Returns:
+the time this file object was last modified; or 0 if
+ the file object does not exist, if an I/O error occurred, or if
+ the operation is not supported
+delete
+boolean
+delete
+()
+Deletes this file object.  In case of errors, returns false.
+Returns:
+true if and only if this file object is successfully
+ deleted; false otherwise
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

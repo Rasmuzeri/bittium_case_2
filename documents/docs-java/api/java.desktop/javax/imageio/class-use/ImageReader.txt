@@ -1,0 +1,443 @@
+Uses of Class javax.imageio.ImageReader (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Class
+javax.imageio.ImageReader
+Packages that use
+ImageReader
+Package
+Description
+javax.imageio
+The main package of the Java Image I/O API.
+javax.imageio.event
+A package of the Java Image I/O API dealing with synchronous notification of
+ events during the reading and writing of images.
+javax.imageio.spi
+A package of the Java Image I/O API containing the plug-in interfaces for
+ readers, writers, transcoders, and streams, and a runtime registry.
+Uses of
+ImageReader
+in
+javax.imageio
+Methods in
+javax.imageio
+that return
+ImageReader
+Modifier and Type
+Method
+Description
+static
+ImageReader
+ImageIO.
+getImageReader
+(
+ImageWriter
+writer)
+Returns an
+ImageReader
+corresponding to the given
+ImageWriter
+, if there is one, or
+null
+if the plug-in for this
+ImageWriter
+does not
+ specify a corresponding
+ImageReader
+, or if the
+ given
+ImageWriter
+is not registered.
+Methods in
+javax.imageio
+that return types with arguments of type
+ImageReader
+Modifier and Type
+Method
+Description
+static
+Iterator
+<
+ImageReader
+>
+ImageIO.
+getImageReaders
+(
+Object
+input)
+Returns an
+Iterator
+containing all currently
+ registered
+ImageReader
+s that claim to be able to
+ decode the supplied
+Object
+, typically an
+ImageInputStream
+.
+static
+Iterator
+<
+ImageReader
+>
+ImageIO.
+getImageReadersByFormatName
+(
+String
+formatName)
+Returns an
+Iterator
+containing all currently
+ registered
+ImageReader
+s that claim to be able to
+ decode the named format.
+static
+Iterator
+<
+ImageReader
+>
+ImageIO.
+getImageReadersByMIMEType
+(
+String
+MIMEType)
+Returns an
+Iterator
+containing all currently
+ registered
+ImageReader
+s that claim to be able to
+ decode files with the given MIME type.
+static
+Iterator
+<
+ImageReader
+>
+ImageIO.
+getImageReadersBySuffix
+(
+String
+fileSuffix)
+Returns an
+Iterator
+containing all currently
+ registered
+ImageReader
+s that claim to be able to
+ decode files with the given suffix.
+Methods in
+javax.imageio
+with parameters of type
+ImageReader
+Modifier and Type
+Method
+Description
+static
+Iterator
+<
+ImageTranscoder
+>
+ImageIO.
+getImageTranscoders
+(
+ImageReader
+reader,
+ImageWriter
+writer)
+Returns an
+Iterator
+containing all currently
+ registered
+ImageTranscoder
+s that claim to be
+ able to transcode between the metadata of the given
+ImageReader
+and
+ImageWriter
+.
+static
+ImageWriter
+ImageIO.
+getImageWriter
+(
+ImageReader
+reader)
+Returns an
+ImageWriter
+corresponding to the given
+ImageReader
+, if there is one, or
+null
+if the plug-in for this
+ImageReader
+does not
+ specify a corresponding
+ImageWriter
+, or if the
+ given
+ImageReader
+is not registered.
+Uses of
+ImageReader
+in
+javax.imageio.event
+Methods in
+javax.imageio.event
+with parameters of type
+ImageReader
+Modifier and Type
+Method
+Description
+void
+IIOReadProgressListener.
+imageComplete
+(
+ImageReader
+source)
+Reports that the current image read operation has completed.
+void
+IIOReadProgressListener.
+imageProgress
+(
+ImageReader
+source,
+ float percentageDone)
+Reports the approximate degree of completion of the current
+read
+call of the associated
+ImageReader
+.
+void
+IIOReadProgressListener.
+imageStarted
+(
+ImageReader
+source,
+ int imageIndex)
+Reports that an image read operation is beginning.
+void
+IIOReadUpdateListener.
+imageUpdate
+(
+ImageReader
+source,
+BufferedImage
+theImage,
+ int minX,
+ int minY,
+ int width,
+ int height,
+ int periodX,
+ int periodY,
+ int[] bands)
+Reports that a given region of the image has been updated.
+void
+IIOReadUpdateListener.
+passComplete
+(
+ImageReader
+source,
+BufferedImage
+theImage)
+Reports that the current read operation has completed a
+ progressive pass.
+void
+IIOReadUpdateListener.
+passStarted
+(
+ImageReader
+source,
+BufferedImage
+theImage,
+ int pass,
+ int minPass,
+ int maxPass,
+ int minX,
+ int minY,
+ int periodX,
+ int periodY,
+ int[] bands)
+Reports that the current read operation is about to begin a
+ progressive pass.
+void
+IIOReadProgressListener.
+readAborted
+(
+ImageReader
+source)
+Reports that a read has been aborted via the reader's
+abort
+method.
+void
+IIOReadProgressListener.
+sequenceComplete
+(
+ImageReader
+source)
+Reports that a sequence of read operations has completed.
+void
+IIOReadProgressListener.
+sequenceStarted
+(
+ImageReader
+source,
+ int minIndex)
+Reports that a sequence of read operations is beginning.
+void
+IIOReadProgressListener.
+thumbnailComplete
+(
+ImageReader
+source)
+Reports that a thumbnail read operation has completed.
+void
+IIOReadUpdateListener.
+thumbnailPassComplete
+(
+ImageReader
+source,
+BufferedImage
+theThumbnail)
+Reports that the current thumbnail read operation has completed
+ a progressive pass.
+void
+IIOReadUpdateListener.
+thumbnailPassStarted
+(
+ImageReader
+source,
+BufferedImage
+theThumbnail,
+ int pass,
+ int minPass,
+ int maxPass,
+ int minX,
+ int minY,
+ int periodX,
+ int periodY,
+ int[] bands)
+Reports that the current thumbnail read operation is about to
+ begin a progressive pass.
+void
+IIOReadProgressListener.
+thumbnailProgress
+(
+ImageReader
+source,
+ float percentageDone)
+Reports the approximate degree of completion of the current
+getThumbnail
+call within the associated
+ImageReader
+.
+void
+IIOReadProgressListener.
+thumbnailStarted
+(
+ImageReader
+source,
+ int imageIndex,
+ int thumbnailIndex)
+Reports that a thumbnail read operation is beginning.
+void
+IIOReadUpdateListener.
+thumbnailUpdate
+(
+ImageReader
+source,
+BufferedImage
+theThumbnail,
+ int minX,
+ int minY,
+ int width,
+ int height,
+ int periodX,
+ int periodY,
+ int[] bands)
+Reports that a given region of a thumbnail image has been updated.
+void
+IIOReadWarningListener.
+warningOccurred
+(
+ImageReader
+source,
+String
+warning)
+Reports the occurrence of a non-fatal error in decoding.
+Uses of
+ImageReader
+in
+javax.imageio.spi
+Methods in
+javax.imageio.spi
+that return
+ImageReader
+Modifier and Type
+Method
+Description
+ImageReader
+ImageReaderSpi.
+createReaderInstance
+()
+Returns an instance of the
+ImageReader
+implementation associated with this service provider.
+abstract
+ImageReader
+ImageReaderSpi.
+createReaderInstance
+(
+Object
+extension)
+Returns an instance of the
+ImageReader
+implementation associated with this service provider.
+Methods in
+javax.imageio.spi
+with parameters of type
+ImageReader
+Modifier and Type
+Method
+Description
+boolean
+ImageReaderSpi.
+isOwnReader
+(
+ImageReader
+reader)
+Returns
+true
+if the
+ImageReader
+object
+ passed in is an instance of the
+ImageReader
+associated with this service provider.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

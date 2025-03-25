@@ -1,0 +1,377 @@
+Messager (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.compiler
+Package
+javax.annotation.processing
+Interface Messager
+public interface
+Messager
+A
+Messager
+provides the way for an annotation processor to
+ report error messages, warnings, and other notices.  Elements,
+ annotations, and annotation values can be passed to provide a
+ location hint for the message.  However, such location hints may be
+ unavailable or only approximate.
+Printing a message with an
+error kind
+will
+raise an error
+.
+API Note:
+The messages "printed" by methods in this
+ interface may or may not appear as textual output to a location
+ like
+System.out
+or
+System.err
+.  Implementations may
+ choose to present this information in a different fashion, such as
+ messages in a window.
+Since:
+1.6
+See Also:
+ProcessingEnvironment.getLocale()
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+default void
+printError
+(
+CharSequence
+msg)
+Prints an error.
+default void
+printError
+(
+CharSequence
+msg,
+Element
+e)
+Prints an error at the location of the element.
+void
+printMessage
+(
+Diagnostic.Kind
+kind,
+CharSequence
+msg)
+Prints a message of the specified kind.
+void
+printMessage
+(
+Diagnostic.Kind
+kind,
+CharSequence
+msg,
+Element
+e)
+Prints a message of the specified kind at the location of the
+ element.
+void
+printMessage
+(
+Diagnostic.Kind
+kind,
+CharSequence
+msg,
+Element
+e,
+AnnotationMirror
+a)
+Prints a message of the specified kind at the location of the
+ annotation mirror of the annotated element.
+void
+printMessage
+(
+Diagnostic.Kind
+kind,
+CharSequence
+msg,
+Element
+e,
+AnnotationMirror
+a,
+AnnotationValue
+v)
+Prints a message of the specified kind at the location of the
+ annotation value inside the annotation mirror of the annotated
+ element.
+default void
+printNote
+(
+CharSequence
+msg)
+Prints a note.
+default void
+printNote
+(
+CharSequence
+msg,
+Element
+e)
+Prints a note at the location of the element.
+default void
+printWarning
+(
+CharSequence
+msg)
+Prints a warning.
+default void
+printWarning
+(
+CharSequence
+msg,
+Element
+e)
+Prints a warning at the location of the element.
+Method Details
+printMessage
+void
+printMessage
+(
+Diagnostic.Kind
+kind,
+CharSequence
+msg)
+Prints a message of the specified kind.
+Parameters:
+kind
+- the kind of message
+msg
+- the message, or an empty string if none
+printMessage
+void
+printMessage
+(
+Diagnostic.Kind
+kind,
+CharSequence
+msg,
+Element
+e)
+Prints a message of the specified kind at the location of the
+ element.
+Parameters:
+kind
+- the kind of message
+msg
+- the message, or an empty string if none
+e
+- the element to use as a position hint
+printMessage
+void
+printMessage
+(
+Diagnostic.Kind
+kind,
+CharSequence
+msg,
+Element
+e,
+AnnotationMirror
+a)
+Prints a message of the specified kind at the location of the
+ annotation mirror of the annotated element.
+Parameters:
+kind
+- the kind of message
+msg
+- the message, or an empty string if none
+e
+- the annotated element
+a
+- the annotation to use as a position hint
+printMessage
+void
+printMessage
+(
+Diagnostic.Kind
+kind,
+CharSequence
+msg,
+Element
+e,
+AnnotationMirror
+a,
+AnnotationValue
+v)
+Prints a message of the specified kind at the location of the
+ annotation value inside the annotation mirror of the annotated
+ element.
+Parameters:
+kind
+- the kind of message
+msg
+- the message, or an empty string if none
+e
+- the annotated element
+a
+- the annotation containing the annotation value
+v
+- the annotation value to use as a position hint
+printError
+default
+void
+printError
+(
+CharSequence
+msg)
+Prints an error.
+Implementation Requirements:
+The default implementation is equivalent to
+printMessage(Diagnostic.Kind.ERROR, msg)
+.
+Parameters:
+msg
+- the message, or an empty string if none
+Since:
+18
+printError
+default
+void
+printError
+(
+CharSequence
+msg,
+Element
+e)
+Prints an error at the location of the element.
+Implementation Requirements:
+The default implementation is equivalent to
+printMessage(Diagnostic.Kind.ERROR, msg, e)
+.
+Parameters:
+msg
+- the message, or an empty string if none
+e
+- the element to use as a position hint
+Since:
+18
+printWarning
+default
+void
+printWarning
+(
+CharSequence
+msg)
+Prints a warning.
+Implementation Requirements:
+The default implementation is equivalent to
+printMessage(Diagnostic.Kind.WARNING, msg)
+.
+Parameters:
+msg
+- the message, or an empty string if none
+Since:
+18
+printWarning
+default
+void
+printWarning
+(
+CharSequence
+msg,
+Element
+e)
+Prints a warning at the location of the element.
+Implementation Requirements:
+The default implementation is equivalent to
+printMessage(Diagnostic.Kind.WARNING, msg, e)
+.
+Parameters:
+msg
+- the message, or an empty string if none
+e
+- the element to use as a position hint
+Since:
+18
+printNote
+default
+void
+printNote
+(
+CharSequence
+msg)
+Prints a note.
+Implementation Requirements:
+The default implementation is equivalent to
+printMessage(Diagnostic.Kind.NOTE, msg)
+.
+Parameters:
+msg
+- the message, or an empty string if none
+Since:
+18
+printNote
+default
+void
+printNote
+(
+CharSequence
+msg,
+Element
+e)
+Prints a note at the location of the element.
+Implementation Requirements:
+The default implementation is equivalent to
+printMessage(Diagnostic.Kind.NOTE, msg, e)
+.
+Parameters:
+msg
+- the message, or an empty string if none
+e
+- the element to use as a position hint
+Since:
+18
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

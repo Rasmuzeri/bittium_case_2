@@ -1,0 +1,346 @@
+ExtendedSocketOptions (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+jdk.net
+Package
+jdk.net
+Class ExtendedSocketOptions
+java.lang.Object
+jdk.net.ExtendedSocketOptions
+public final class
+ExtendedSocketOptions
+extends
+Object
+Defines extended socket options, beyond those defined in
+StandardSocketOptions
+. These options may be platform
+ specific.
+Since:
+1.8
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+SocketOption
+<
+Boolean
+>
+IP_DONTFRAGMENT
+Disable IP packet fragmentation.
+static final
+SocketOption
+<
+Integer
+>
+SO_INCOMING_NAPI_ID
+Identifies the receive queue that the last incoming packet for the socket
+ was received on.
+static final
+SocketOption
+<
+UnixDomainPrincipal
+>
+SO_PEERCRED
+Unix Domain peer credentials.
+static final
+SocketOption
+<
+Integer
+>
+TCP_KEEPCOUNT
+Keep-Alive retransmission maximum limit.
+static final
+SocketOption
+<
+Integer
+>
+TCP_KEEPIDLE
+Keep-Alive idle time.
+static final
+SocketOption
+<
+Integer
+>
+TCP_KEEPINTERVAL
+Keep-Alive retransmission interval time.
+static final
+SocketOption
+<
+Boolean
+>
+TCP_QUICKACK
+Disable Delayed Acknowledgements.
+Method Summary
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+TCP_QUICKACK
+public static final
+SocketOption
+<
+Boolean
+>
+TCP_QUICKACK
+Disable Delayed Acknowledgements.
+This socket option can be used to reduce or disable delayed
+ acknowledgments (ACKs). When
+TCP_QUICKACK
+is enabled, ACKs are
+ sent immediately, rather than delayed if needed in accordance to normal
+ TCP operation. This option is not permanent, it only enables a switch to
+ or from
+TCP_QUICKACK
+mode. Subsequent operations of the TCP
+ protocol will once again disable/enable
+TCP_QUICKACK
+mode
+ depending on internal protocol processing and factors such as delayed ACK
+ timeouts occurring and data transfer, therefore this option needs to be
+ set with
+setOption
+after each operation of TCP on a given socket.
+The value of this socket option is a
+Boolean
+that represents
+ whether the option is enabled or disabled. The socket option is specific
+ to stream-oriented sockets using the TCP/IP protocol. The exact semantics
+ of this socket option are socket type and system dependent.
+Since:
+10
+TCP_KEEPIDLE
+public static final
+SocketOption
+<
+Integer
+>
+TCP_KEEPIDLE
+Keep-Alive idle time.
+The value of this socket option is an
+Integer
+that is the number
+ of seconds of idle time before keep-alive initiates a probe. The socket
+ option is specific to stream-oriented sockets using the TCP/IP protocol.
+ The exact semantics of this socket option are system dependent.
+When the
+SO_KEEPALIVE
+option is enabled, TCP probes a connection that has been
+ idle for some amount of time. The default value for this idle period is
+ system dependent, but is typically 2 hours. The
+TCP_KEEPIDLE
+option can be used to affect this value for a given socket.
+Since:
+11
+TCP_KEEPINTERVAL
+public static final
+SocketOption
+<
+Integer
+>
+TCP_KEEPINTERVAL
+Keep-Alive retransmission interval time.
+The value of this socket option is an
+Integer
+that is the number
+ of seconds to wait before retransmitting a keep-alive probe. The socket
+ option is specific to stream-oriented sockets using the TCP/IP protocol.
+ The exact semantics of this socket option are system dependent.
+When the
+SO_KEEPALIVE
+option is enabled, TCP probes a connection that has been
+ idle for some amount of time. If the remote system does not respond to a
+ keep-alive probe, TCP retransmits the probe after some amount of time.
+ The default value for this retransmission interval is system dependent,
+ but is typically 75 seconds. The
+TCP_KEEPINTERVAL
+option can be
+ used to affect this value for a given socket.
+Since:
+11
+TCP_KEEPCOUNT
+public static final
+SocketOption
+<
+Integer
+>
+TCP_KEEPCOUNT
+Keep-Alive retransmission maximum limit.
+The value of this socket option is an
+Integer
+that is the maximum
+ number of keep-alive probes to be sent. The socket option is specific to
+ stream-oriented sockets using the TCP/IP protocol. The exact semantics of
+ this socket option are system dependent.
+When the
+SO_KEEPALIVE
+option is enabled, TCP probes a connection that has been
+ idle for some amount of time. If the remote system does not respond to a
+ keep-alive probe, TCP retransmits the probe a certain number of times
+ before a connection is considered to be broken. The default value for
+ this keep-alive probe retransmit limit is system dependent, but is
+ typically 8. The
+TCP_KEEPCOUNT
+option can be used to affect this
+ value for a given socket.
+Since:
+11
+SO_INCOMING_NAPI_ID
+public static final
+SocketOption
+<
+Integer
+>
+SO_INCOMING_NAPI_ID
+Identifies the receive queue that the last incoming packet for the socket
+ was received on.
+The value of this socket option is a positive
+Integer
+that
+ identifies a receive queue that the application can use to split the
+ incoming flows among threads based on the queue identifier. The value is
+0
+when the socket is not bound, a packet has not been received,
+ or more generally, when there is no receive queue to identify.
+ The socket option is supported by both stream-oriented and datagram-oriented
+ sockets.
+The socket option is read-only and an attempt to set the socket option
+ will throw
+SocketException
+.
+API Note:
+Network devices may have multiple queues or channels to transmit and receive
+ network packets. The
+SO_INCOMING_NAPI_ID
+socket option provides a hint
+ to the application to indicate the receive queue on which an incoming socket
+ connection or packets for that connection are directed to. An application may
+ take advantage of this by handling all socket connections assigned to a
+ specific queue on one thread.
+Since:
+15
+SO_PEERCRED
+public static final
+SocketOption
+<
+UnixDomainPrincipal
+>
+SO_PEERCRED
+Unix Domain peer credentials.
+The value of this socket option is a
+UnixDomainPrincipal
+that
+ represents the credentials of a peer connected to a Unix Domain socket.
+ The credentials are those that applied at the time the socket was first
+ connected or accepted.
+The socket option is read-only and an attempt to set the socket option
+ will throw
+SocketException
+.
+SocketException
+is also thrown
+ when attempting to get the value of the socket option on an unconnected Unix
+ Domain socket.
+Since:
+16
+IP_DONTFRAGMENT
+public static final
+SocketOption
+<
+Boolean
+>
+IP_DONTFRAGMENT
+Disable IP packet fragmentation.
+The value of this socket option is a
+Boolean
+that represents
+ whether the option is enabled or disabled. When
+true
+fragmentation
+ of outgoing IPv4 and IPv6 packets does not occur. This option can only be used
+ with datagram sockets. When set, care must be taken to limit outgoing packet
+ sizes to the
+local MTU
+. Depending
+ on the implementation and the network interface, packets larger than the MTU
+ may be sent or dropped silently or dropped with an exception thrown.
+ For
+IPv6
+sockets it is
+ system dependent whether the option also applies to datagrams
+ sent to IPv4 addresses.
+API Note:
+For IPv4 this option sets the DF (Do not Fragment) flag in the IP packet
+ header. This instructs intermediate routers to not fragment the packet.
+ IPv6 routers never fragment packets. Instead, fragmentation is handled
+ by the sending and receiving nodes exclusively. Setting this option for
+ an IPv6 socket ensures that packets to be sent are never fragmented, in
+ which case, the local network MTU must be observed.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

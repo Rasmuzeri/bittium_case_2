@@ -1,0 +1,174 @@
+InheritableThreadLocal (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang
+Class InheritableThreadLocal<T>
+java.lang.Object
+java.lang.ThreadLocal
+<T>
+java.lang.InheritableThreadLocal<T>
+Type Parameters:
+T
+- the type of the inheritable thread local's value
+public class
+InheritableThreadLocal<T>
+extends
+ThreadLocal
+<T>
+This class extends
+ThreadLocal
+to provide inheritance of values
+ from parent thread to child thread: when a child thread is created, the
+ child receives initial values for all inheritable thread-local variables
+ for which the parent has values.  Normally the child's values will be
+ identical to the parent's; however, the child's value can be made an
+ arbitrary function of the parent's by overriding the
+childValue
+method in this class.
+Inheritable thread-local variables are used in preference to
+ ordinary thread-local variables when the per-thread-attribute being
+ maintained in the variable (e.g., User ID, Transaction ID) must be
+ automatically transmitted to any child threads that are created.
+Note: During the creation of a new
+thread
+, it is
+ possible to
+opt out
+of receiving initial values for inheritable
+ thread-local variables.
+Since:
+1.2
+See Also:
+ThreadLocal
+Thread.Builder.inheritInheritableThreadLocals(boolean)
+Constructor Summary
+Constructors
+Constructor
+Description
+InheritableThreadLocal
+()
+Creates an inheritable thread local variable.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+protected
+T
+childValue
+(
+T
+parentValue)
+Computes the child's initial value for this inheritable thread-local
+ variable as a function of the parent's value at the time the child
+ thread is created.
+Methods declared in class java.lang.
+ThreadLocal
+get
+,
+initialValue
+,
+remove
+,
+set
+,
+withInitial
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+InheritableThreadLocal
+public
+InheritableThreadLocal
+()
+Creates an inheritable thread local variable.
+Method Details
+childValue
+protected
+T
+childValue
+(
+T
+parentValue)
+Computes the child's initial value for this inheritable thread-local
+ variable as a function of the parent's value at the time the child
+ thread is created.  This method is called from within the parent
+ thread before the child is started.
+This method merely returns its input argument, and should be overridden
+ if a different behavior is desired.
+Parameters:
+parentValue
+- the parent thread's value
+Returns:
+the child thread's initial value
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

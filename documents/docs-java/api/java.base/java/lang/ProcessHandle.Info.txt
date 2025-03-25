@@ -1,0 +1,210 @@
+ProcessHandle.Info (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang
+Interface ProcessHandle.Info
+Enclosing interface:
+ProcessHandle
+public static interface
+ProcessHandle.Info
+Information snapshot about the process.
+ The attributes of a process vary by operating system and are not available
+ in all implementations.  Information about processes is limited
+ by the operating system privileges of the process making the request.
+ The return types are
+Optional<T>
+allowing explicit tests
+ and actions if the value is available.
+Since:
+9
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+Optional
+<
+String
+[]>
+arguments
+()
+Returns an array of Strings of the arguments of the process.
+Optional
+<
+String
+>
+command
+()
+Returns the executable pathname of the process.
+Optional
+<
+String
+>
+commandLine
+()
+Returns the command line of the process.
+Optional
+<
+Instant
+>
+startInstant
+()
+Returns the start time of the process.
+Optional
+<
+Duration
+>
+totalCpuDuration
+()
+Returns the total cputime accumulated of the process.
+Optional
+<
+String
+>
+user
+()
+Return the user of the process.
+Method Details
+command
+Optional
+<
+String
+>
+command
+()
+Returns the executable pathname of the process.
+Returns:
+an
+Optional<String>
+of the executable pathname
+         of the process
+commandLine
+Optional
+<
+String
+>
+commandLine
+()
+Returns the command line of the process.
+If
+command()
+and
+arguments()
+return
+ non-empty optionals, this is simply a convenience method which concatenates
+ the values of the two functions separated by spaces. Otherwise it will return a
+ best-effort, platform dependent representation of the command line.
+API Note:
+Note that the returned executable pathname and the
+          arguments may be truncated on some platforms due to system
+          limitations.
+The executable pathname may contain only the
+          name of the executable without the full path information.
+          It is undecidable whether white space separates different
+          arguments or is part of a single argument.
+Returns:
+an
+Optional<String>
+of the command line
+         of the process
+arguments
+Optional
+<
+String
+[]>
+arguments
+()
+Returns an array of Strings of the arguments of the process.
+API Note:
+On some platforms, native applications are free to change
+          the arguments array after startup and this method may only
+          show the changed values.
+Returns:
+an
+Optional<String[]>
+of the arguments of the process
+startInstant
+Optional
+<
+Instant
+>
+startInstant
+()
+Returns the start time of the process.
+Returns:
+an
+Optional<Instant>
+of the start time of the process
+totalCpuDuration
+Optional
+<
+Duration
+>
+totalCpuDuration
+()
+Returns the total cputime accumulated of the process.
+Returns:
+an
+Optional<Duration>
+for the accumulated total cputime
+user
+Optional
+<
+String
+>
+user
+()
+Return the user of the process.
+Returns:
+an
+Optional<String>
+for the user of the process
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

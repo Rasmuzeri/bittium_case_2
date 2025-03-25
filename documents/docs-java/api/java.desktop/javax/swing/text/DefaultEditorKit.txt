@@ -1,0 +1,1292 @@
+DefaultEditorKit (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing.text
+Class DefaultEditorKit
+java.lang.Object
+javax.swing.text.EditorKit
+javax.swing.text.DefaultEditorKit
+All Implemented Interfaces:
+Serializable
+,
+Cloneable
+Direct Known Subclasses:
+StyledEditorKit
+public class
+DefaultEditorKit
+extends
+EditorKit
+This is the set of things needed by a text component
+ to be a reasonably functioning editor for some
+type
+of text document.  This implementation provides a default
+ implementation which treats text as plain text and
+ provides a minimal set of actions for a simple editor.
+Newlines
+There are two properties which deal with newlines.  The
+ system property,
+line.separator
+, is defined to be
+ platform-dependent, either "\n", "\r", or "\r\n".  There is also
+ a property defined in
+DefaultEditorKit
+, called
+EndOfLineStringProperty
+,
+ which is defined automatically when a document is loaded, to be
+ the first occurrence of any of the newline characters.
+ When a document is loaded,
+EndOfLineStringProperty
+is set appropriately, and when the document is written back out, the
+EndOfLineStringProperty
+is used.  But while the document
+ is in memory, the "\n" character is used to define a
+ newline, regardless of how the newline is defined when
+ the document is on disk.  Therefore, for searching purposes,
+ "\n" should always be used.  When a new document is created,
+ and the
+EndOfLineStringProperty
+has not been defined,
+ it will use the System property when writing out the
+ document.
+Note that
+EndOfLineStringProperty
+is set
+ on the
+Document
+using the
+get/putProperty
+methods.  Subclasses may override this behavior.
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+static class
+DefaultEditorKit.BeepAction
+Creates a beep.
+static class
+DefaultEditorKit.CopyAction
+Copies the selected region and place its contents
+ into the system clipboard.
+static class
+DefaultEditorKit.CutAction
+Cuts the selected region and place its contents
+ into the system clipboard.
+static class
+DefaultEditorKit.DefaultKeyTypedAction
+The action that is executed by default if
+ a
+key typed event
+is received and there
+ is no keymap entry.
+static class
+DefaultEditorKit.InsertBreakAction
+Places a line/paragraph break into the document.
+static class
+DefaultEditorKit.InsertContentAction
+Places content into the associated document.
+static class
+DefaultEditorKit.InsertTabAction
+Places a tab character into the document.
+static class
+DefaultEditorKit.PasteAction
+Pastes the contents of the system clipboard into the
+ selected region, or before the caret if nothing is
+ selected.
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+String
+backwardAction
+Name of the Action for moving the caret
+ logically backward one position.
+static final
+String
+beepAction
+Name of the action to create a beep.
+static final
+String
+beginAction
+Name of the
+Action
+for moving the caret
+ to the beginning of the document.
+static final
+String
+beginLineAction
+Name of the
+Action
+for moving the caret
+ to the beginning of a line.
+static final
+String
+beginLineUpAction
+Name of the
+Action
+for moving the caret
+ to the beginning of the current line or up to the
+ beginning of the previous line if the caret is
+ already at the beginning of the line.
+static final
+String
+beginParagraphAction
+Name of the
+Action
+for moving the caret
+ to the beginning of a paragraph.
+static final
+String
+beginWordAction
+Name of the
+Action
+for moving the caret
+ to the beginning of a word.
+static final
+String
+copyAction
+Name of the action to copy the selected region
+ and place the contents into the system clipboard.
+static final
+String
+cutAction
+Name of the action to cut the selected region
+ and place the contents into the system clipboard.
+static final
+String
+defaultKeyTypedAction
+Name of the action that is executed by default if
+ a
+key typed event
+is received and there
+ is no keymap entry.
+static final
+String
+deleteNextCharAction
+Name of the action to delete the character of content that
+ follows the current caret position.
+static final
+String
+deleteNextWordAction
+Name of the action to delete the word that
+ follows the beginning of the selection.
+static final
+String
+deletePrevCharAction
+Name of the action to delete the character of content that
+ precedes the current caret position.
+static final
+String
+deletePrevWordAction
+Name of the action to delete the word that
+ precedes the beginning of the selection.
+static final
+String
+downAction
+Name of the Action for moving the caret
+ logically downward one position.
+static final
+String
+endAction
+Name of the
+Action
+for moving the caret
+ to the end of the document.
+static final
+String
+endLineAction
+Name of the
+Action
+for moving the caret
+ to the end of a line.
+static final
+String
+endLineDownAction
+Name of the
+Action
+for moving the caret
+ to the end of the current line or down to the
+ end of the next line if the caret is already
+ at the end of the line.
+static final
+String
+EndOfLineStringProperty
+When reading a document if a CRLF is encountered a property
+ with this name is added and the value will be "\r\n".
+static final
+String
+endParagraphAction
+Name of the
+Action
+for moving the caret
+ to the end of a paragraph.
+static final
+String
+endWordAction
+Name of the Action for moving the caret
+ to the end of a word.
+static final
+String
+forwardAction
+Name of the Action for moving the caret
+ logically forward one position.
+static final
+String
+insertBreakAction
+Name of the action to place a line/paragraph break into
+ the document.
+static final
+String
+insertContentAction
+Name of the action to place content into the associated
+ document.
+static final
+String
+insertTabAction
+Name of the action to place a tab character into
+ the document.
+static final
+String
+nextWordAction
+Name of the
+Action
+for moving the caret to the
+ beginning of the next word.
+static final
+String
+pageDownAction
+Name of the action to page down vertically.
+static final
+String
+pageUpAction
+Name of the action to page up vertically.
+static final
+String
+pasteAction
+Name of the action to paste the contents of the
+ system clipboard into the selected region, or before the
+ caret if nothing is selected.
+static final
+String
+previousWordAction
+Name of the
+Action
+for moving the caret to the
+ beginning of the previous word.
+static final
+String
+readOnlyAction
+Name of the action to set the editor into read-only
+ mode.
+static final
+String
+selectAllAction
+Name of the Action for selecting the entire document
+static final
+String
+selectionBackwardAction
+Name of the Action for extending the selection
+ by moving the caret logically backward one position.
+static final
+String
+selectionBeginAction
+Name of the
+Action
+for moving the caret
+ to the beginning of the document.
+static final
+String
+selectionBeginLineAction
+Name of the
+Action
+for moving the caret
+ to the beginning of a line, extending the selection.
+static final
+String
+selectionBeginParagraphAction
+Name of the
+Action
+for moving the caret
+ to the beginning of a paragraph, extending the selection.
+static final
+String
+selectionBeginWordAction
+Name of the
+Action
+for moving the caret
+ to the beginning of a word, extending the selection.
+static final
+String
+selectionDownAction
+Name of the Action for moving the caret
+ logically downward one position, extending the selection.
+static final
+String
+selectionEndAction
+Name of the Action for moving the caret
+ to the end of the document.
+static final
+String
+selectionEndLineAction
+Name of the
+Action
+for moving the caret
+ to the end of a line, extending the selection.
+static final
+String
+selectionEndParagraphAction
+Name of the
+Action
+for moving the caret
+ to the end of a paragraph, extending the selection.
+static final
+String
+selectionEndWordAction
+Name of the Action for moving the caret
+ to the end of a word, extending the selection.
+static final
+String
+selectionForwardAction
+Name of the Action for extending the selection
+ by moving the caret logically forward one position.
+static final
+String
+selectionNextWordAction
+Name of the
+Action
+for moving the selection to the
+ beginning of the next word, extending the selection.
+static final
+String
+selectionPreviousWordAction
+Name of the
+Action
+for moving the selection to the
+ beginning of the previous word, extending the selection.
+static final
+String
+selectionUpAction
+Name of the Action for moving the caret
+ logically upward one position, extending the selection.
+static final
+String
+selectLineAction
+Name of the Action for selecting a line around the caret.
+static final
+String
+selectParagraphAction
+Name of the Action for selecting a paragraph around the caret.
+static final
+String
+selectWordAction
+Name of the Action for selecting a word around the caret.
+static final
+String
+upAction
+Name of the Action for moving the caret
+ logically upward one position.
+static final
+String
+writableAction
+Name of the action to set the editor into writeable
+ mode.
+Constructor Summary
+Constructors
+Constructor
+Description
+DefaultEditorKit
+()
+default constructor for DefaultEditorKit
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Caret
+createCaret
+()
+Fetches a caret that can navigate through views
+ produced by the associated ViewFactory.
+Document
+createDefaultDocument
+()
+Creates an uninitialized text storage model (PlainDocument)
+ that is appropriate for this type of editor.
+Action
+[]
+getActions
+()
+Fetches the set of commands that can be used
+ on a text component that is using a model and
+ view produced by this kit.
+String
+getContentType
+()
+Gets the MIME type of the data that this
+ kit represents support for.
+ViewFactory
+getViewFactory
+()
+Fetches a factory that is suitable for producing
+ views of any models that are produced by this
+ kit.
+void
+read
+(
+InputStream
+in,
+Document
+doc,
+ int pos)
+Inserts content from the given stream which is expected
+ to be in a format appropriate for this kind of content
+ handler.
+void
+read
+(
+Reader
+in,
+Document
+doc,
+ int pos)
+Inserts content from the given stream, which will be
+ treated as plain text.
+void
+write
+(
+OutputStream
+out,
+Document
+doc,
+ int pos,
+ int len)
+Writes content from a document to the given stream
+ in a format appropriate for this kind of content handler.
+void
+write
+(
+Writer
+out,
+Document
+doc,
+ int pos,
+ int len)
+Writes content from a document to the given stream
+ as plain text.
+Methods declared in class javax.swing.text.
+EditorKit
+clone
+,
+deinstall
+,
+install
+Methods declared in class java.lang.
+Object
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+EndOfLineStringProperty
+public static final
+String
+EndOfLineStringProperty
+When reading a document if a CRLF is encountered a property
+ with this name is added and the value will be "\r\n".
+See Also:
+Constant Field Values
+insertContentAction
+public static final
+String
+insertContentAction
+Name of the action to place content into the associated
+ document.  If there is a selection, it is removed before
+ the new content is added.
+See Also:
+getActions()
+Constant Field Values
+insertBreakAction
+public static final
+String
+insertBreakAction
+Name of the action to place a line/paragraph break into
+ the document.  If there is a selection, it is removed before
+ the break is added.
+See Also:
+getActions()
+Constant Field Values
+insertTabAction
+public static final
+String
+insertTabAction
+Name of the action to place a tab character into
+ the document.  If there is a selection, it is removed before
+ the tab is added.
+See Also:
+getActions()
+Constant Field Values
+deletePrevCharAction
+public static final
+String
+deletePrevCharAction
+Name of the action to delete the character of content that
+ precedes the current caret position.
+See Also:
+getActions()
+Constant Field Values
+deleteNextCharAction
+public static final
+String
+deleteNextCharAction
+Name of the action to delete the character of content that
+ follows the current caret position.
+See Also:
+getActions()
+Constant Field Values
+deleteNextWordAction
+public static final
+String
+deleteNextWordAction
+Name of the action to delete the word that
+ follows the beginning of the selection.
+Since:
+1.6
+See Also:
+getActions()
+JTextComponent.getSelectionStart()
+Constant Field Values
+deletePrevWordAction
+public static final
+String
+deletePrevWordAction
+Name of the action to delete the word that
+ precedes the beginning of the selection.
+Since:
+1.6
+See Also:
+getActions()
+JTextComponent.getSelectionStart()
+Constant Field Values
+readOnlyAction
+public static final
+String
+readOnlyAction
+Name of the action to set the editor into read-only
+ mode.
+See Also:
+getActions()
+Constant Field Values
+writableAction
+public static final
+String
+writableAction
+Name of the action to set the editor into writeable
+ mode.
+See Also:
+getActions()
+Constant Field Values
+cutAction
+public static final
+String
+cutAction
+Name of the action to cut the selected region
+ and place the contents into the system clipboard.
+See Also:
+JTextComponent.cut()
+getActions()
+Constant Field Values
+copyAction
+public static final
+String
+copyAction
+Name of the action to copy the selected region
+ and place the contents into the system clipboard.
+See Also:
+JTextComponent.copy()
+getActions()
+Constant Field Values
+pasteAction
+public static final
+String
+pasteAction
+Name of the action to paste the contents of the
+ system clipboard into the selected region, or before the
+ caret if nothing is selected.
+See Also:
+JTextComponent.paste()
+getActions()
+Constant Field Values
+beepAction
+public static final
+String
+beepAction
+Name of the action to create a beep.
+See Also:
+getActions()
+Constant Field Values
+pageUpAction
+public static final
+String
+pageUpAction
+Name of the action to page up vertically.
+See Also:
+getActions()
+Constant Field Values
+pageDownAction
+public static final
+String
+pageDownAction
+Name of the action to page down vertically.
+See Also:
+getActions()
+Constant Field Values
+forwardAction
+public static final
+String
+forwardAction
+Name of the Action for moving the caret
+ logically forward one position.
+See Also:
+getActions()
+Constant Field Values
+backwardAction
+public static final
+String
+backwardAction
+Name of the Action for moving the caret
+ logically backward one position.
+See Also:
+getActions()
+Constant Field Values
+selectionForwardAction
+public static final
+String
+selectionForwardAction
+Name of the Action for extending the selection
+ by moving the caret logically forward one position.
+See Also:
+getActions()
+Constant Field Values
+selectionBackwardAction
+public static final
+String
+selectionBackwardAction
+Name of the Action for extending the selection
+ by moving the caret logically backward one position.
+See Also:
+getActions()
+Constant Field Values
+upAction
+public static final
+String
+upAction
+Name of the Action for moving the caret
+ logically upward one position.
+See Also:
+getActions()
+Constant Field Values
+downAction
+public static final
+String
+downAction
+Name of the Action for moving the caret
+ logically downward one position.
+See Also:
+getActions()
+Constant Field Values
+selectionUpAction
+public static final
+String
+selectionUpAction
+Name of the Action for moving the caret
+ logically upward one position, extending the selection.
+See Also:
+getActions()
+Constant Field Values
+selectionDownAction
+public static final
+String
+selectionDownAction
+Name of the Action for moving the caret
+ logically downward one position, extending the selection.
+See Also:
+getActions()
+Constant Field Values
+beginWordAction
+public static final
+String
+beginWordAction
+Name of the
+Action
+for moving the caret
+ to the beginning of a word.
+See Also:
+getActions()
+Constant Field Values
+endWordAction
+public static final
+String
+endWordAction
+Name of the Action for moving the caret
+ to the end of a word.
+See Also:
+getActions()
+Constant Field Values
+selectionBeginWordAction
+public static final
+String
+selectionBeginWordAction
+Name of the
+Action
+for moving the caret
+ to the beginning of a word, extending the selection.
+See Also:
+getActions()
+Constant Field Values
+selectionEndWordAction
+public static final
+String
+selectionEndWordAction
+Name of the Action for moving the caret
+ to the end of a word, extending the selection.
+See Also:
+getActions()
+Constant Field Values
+previousWordAction
+public static final
+String
+previousWordAction
+Name of the
+Action
+for moving the caret to the
+ beginning of the previous word.
+See Also:
+getActions()
+Constant Field Values
+nextWordAction
+public static final
+String
+nextWordAction
+Name of the
+Action
+for moving the caret to the
+ beginning of the next word.
+See Also:
+getActions()
+Constant Field Values
+selectionPreviousWordAction
+public static final
+String
+selectionPreviousWordAction
+Name of the
+Action
+for moving the selection to the
+ beginning of the previous word, extending the selection.
+See Also:
+getActions()
+Constant Field Values
+selectionNextWordAction
+public static final
+String
+selectionNextWordAction
+Name of the
+Action
+for moving the selection to the
+ beginning of the next word, extending the selection.
+See Also:
+getActions()
+Constant Field Values
+beginLineAction
+public static final
+String
+beginLineAction
+Name of the
+Action
+for moving the caret
+ to the beginning of a line.
+See Also:
+getActions()
+Constant Field Values
+endLineAction
+public static final
+String
+endLineAction
+Name of the
+Action
+for moving the caret
+ to the end of a line.
+See Also:
+getActions()
+Constant Field Values
+beginLineUpAction
+public static final
+String
+beginLineUpAction
+Name of the
+Action
+for moving the caret
+ to the beginning of the current line or up to the
+ beginning of the previous line if the caret is
+ already at the beginning of the line.
+See Also:
+getActions()
+Constant Field Values
+endLineDownAction
+public static final
+String
+endLineDownAction
+Name of the
+Action
+for moving the caret
+ to the end of the current line or down to the
+ end of the next line if the caret is already
+ at the end of the line.
+See Also:
+getActions()
+Constant Field Values
+selectionBeginLineAction
+public static final
+String
+selectionBeginLineAction
+Name of the
+Action
+for moving the caret
+ to the beginning of a line, extending the selection.
+See Also:
+getActions()
+Constant Field Values
+selectionEndLineAction
+public static final
+String
+selectionEndLineAction
+Name of the
+Action
+for moving the caret
+ to the end of a line, extending the selection.
+See Also:
+getActions()
+Constant Field Values
+beginParagraphAction
+public static final
+String
+beginParagraphAction
+Name of the
+Action
+for moving the caret
+ to the beginning of a paragraph.
+See Also:
+getActions()
+Constant Field Values
+endParagraphAction
+public static final
+String
+endParagraphAction
+Name of the
+Action
+for moving the caret
+ to the end of a paragraph.
+See Also:
+getActions()
+Constant Field Values
+selectionBeginParagraphAction
+public static final
+String
+selectionBeginParagraphAction
+Name of the
+Action
+for moving the caret
+ to the beginning of a paragraph, extending the selection.
+See Also:
+getActions()
+Constant Field Values
+selectionEndParagraphAction
+public static final
+String
+selectionEndParagraphAction
+Name of the
+Action
+for moving the caret
+ to the end of a paragraph, extending the selection.
+See Also:
+getActions()
+Constant Field Values
+beginAction
+public static final
+String
+beginAction
+Name of the
+Action
+for moving the caret
+ to the beginning of the document.
+See Also:
+getActions()
+Constant Field Values
+endAction
+public static final
+String
+endAction
+Name of the
+Action
+for moving the caret
+ to the end of the document.
+See Also:
+getActions()
+Constant Field Values
+selectionBeginAction
+public static final
+String
+selectionBeginAction
+Name of the
+Action
+for moving the caret
+ to the beginning of the document.
+See Also:
+getActions()
+Constant Field Values
+selectionEndAction
+public static final
+String
+selectionEndAction
+Name of the Action for moving the caret
+ to the end of the document.
+See Also:
+getActions()
+Constant Field Values
+selectWordAction
+public static final
+String
+selectWordAction
+Name of the Action for selecting a word around the caret.
+See Also:
+getActions()
+Constant Field Values
+selectLineAction
+public static final
+String
+selectLineAction
+Name of the Action for selecting a line around the caret.
+See Also:
+getActions()
+Constant Field Values
+selectParagraphAction
+public static final
+String
+selectParagraphAction
+Name of the Action for selecting a paragraph around the caret.
+See Also:
+getActions()
+Constant Field Values
+selectAllAction
+public static final
+String
+selectAllAction
+Name of the Action for selecting the entire document
+See Also:
+getActions()
+Constant Field Values
+defaultKeyTypedAction
+public static final
+String
+defaultKeyTypedAction
+Name of the action that is executed by default if
+ a
+key typed event
+is received and there
+ is no keymap entry.
+See Also:
+getActions()
+Constant Field Values
+Constructor Details
+DefaultEditorKit
+public
+DefaultEditorKit
+()
+default constructor for DefaultEditorKit
+Method Details
+getContentType
+public
+String
+getContentType
+()
+Gets the MIME type of the data that this
+ kit represents support for.  The default
+ is
+text/plain
+.
+Specified by:
+getContentType
+in class
+EditorKit
+Returns:
+the type
+getViewFactory
+public
+ViewFactory
+getViewFactory
+()
+Fetches a factory that is suitable for producing
+ views of any models that are produced by this
+ kit.  The default is to have the UI produce the
+ factory, so this method has no implementation.
+Specified by:
+getViewFactory
+in class
+EditorKit
+Returns:
+the view factory
+getActions
+public
+Action
+[]
+getActions
+()
+Fetches the set of commands that can be used
+ on a text component that is using a model and
+ view produced by this kit.
+Specified by:
+getActions
+in class
+EditorKit
+Returns:
+the command list
+createCaret
+public
+Caret
+createCaret
+()
+Fetches a caret that can navigate through views
+ produced by the associated ViewFactory.
+Specified by:
+createCaret
+in class
+EditorKit
+Returns:
+the caret
+createDefaultDocument
+public
+Document
+createDefaultDocument
+()
+Creates an uninitialized text storage model (PlainDocument)
+ that is appropriate for this type of editor.
+Specified by:
+createDefaultDocument
+in class
+EditorKit
+Returns:
+the model
+read
+public
+void
+read
+(
+InputStream
+in,
+Document
+doc,
+ int pos)
+throws
+IOException
+,
+BadLocationException
+Inserts content from the given stream which is expected
+ to be in a format appropriate for this kind of content
+ handler.
+Specified by:
+read
+in class
+EditorKit
+Parameters:
+in
+- The stream to read from
+doc
+- The destination for the insertion.
+pos
+- The location in the document to place the
+   content >=0.
+Throws:
+IOException
+- on any I/O error
+BadLocationException
+- if pos represents an invalid
+   location within the document.
+write
+public
+void
+write
+(
+OutputStream
+out,
+Document
+doc,
+ int pos,
+ int len)
+throws
+IOException
+,
+BadLocationException
+Writes content from a document to the given stream
+ in a format appropriate for this kind of content handler.
+Specified by:
+write
+in class
+EditorKit
+Parameters:
+out
+- The stream to write to
+doc
+- The source for the write.
+pos
+- The location in the document to fetch the
+   content >=0.
+len
+- The amount to write out >=0.
+Throws:
+IOException
+- on any I/O error
+BadLocationException
+- if pos represents an invalid
+   location within the document.
+read
+public
+void
+read
+(
+Reader
+in,
+Document
+doc,
+ int pos)
+throws
+IOException
+,
+BadLocationException
+Inserts content from the given stream, which will be
+ treated as plain text.
+Specified by:
+read
+in class
+EditorKit
+Parameters:
+in
+- The stream to read from
+doc
+- The destination for the insertion.
+pos
+- The location in the document to place the
+   content >=0.
+Throws:
+IOException
+- on any I/O error
+BadLocationException
+- if pos represents an invalid
+   location within the document.
+write
+public
+void
+write
+(
+Writer
+out,
+Document
+doc,
+ int pos,
+ int len)
+throws
+IOException
+,
+BadLocationException
+Writes content from a document to the given stream
+ as plain text.
+Specified by:
+write
+in class
+EditorKit
+Parameters:
+out
+- The stream to write to
+doc
+- The source for the write.
+pos
+- The location in the document to fetch the
+   content from >=0.
+len
+- The amount to write out >=0.
+Throws:
+IOException
+- on any I/O error
+BadLocationException
+- if pos is not within 0 and
+   the length of the document.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

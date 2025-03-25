@@ -1,0 +1,3069 @@
+TreeScanner (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+jdk.compiler
+Package
+com.sun.source.util
+Class TreeScanner<R,
+P>
+java.lang.Object
+com.sun.source.util.TreeScanner<R,
+P>
+Type Parameters:
+R
+- the return type of this visitor's methods.  Use
+Void
+for visitors that do not need to return results.
+P
+- the type of the additional parameter to this visitor's
+            methods.  Use
+Void
+for visitors that do not need an
+            additional parameter.
+All Implemented Interfaces:
+TreeVisitor
+<R,
+P>
+Direct Known Subclasses:
+TreePathScanner
+public class
+TreeScanner<R,
+P>
+extends
+Object
+implements
+TreeVisitor
+<R,
+P>
+TreeScanner
+relies on preview features of the Java platform:
+TreeScanner
+refers to one or more preview APIs:
+AnyPatternTree
+.
+Programs can only use
+TreeScanner
+when preview features are enabled.
+Preview features may be removed in a future release, or upgraded to permanent features of the Java platform.
+A TreeVisitor that visits all the child tree nodes.
+ To visit nodes of a particular type, just override the
+ corresponding visitXYZ method.
+ Inside your method, call super.visitXYZ to visit descendant
+ nodes.
+Here is an example to count the number of identifier nodes in a tree:
+class CountIdentifiers extends TreeScanner<Integer,Void> {
+      @Override
+      public Integer visitIdentifier(IdentifierTree node, Void p) {
+          return 1;
+      }
+      @Override
+      public Integer reduce(Integer r1, Integer r2) {
+          return (r1 == null ? 0 : r1) + (r2 == null ? 0 : r2);
+      }
+   }
+Implementation Requirements:
+The default implementation of the visitXYZ methods will determine
+ a result as follows:
+If the node being visited has no children, the result will be
+null
+.
+If the node being visited has one child, the result will be the
+ result of calling
+scan
+with that child. The child may be a simple node
+ or itself a list of nodes.
+If the node being visited has more than one child, the result will
+ be determined by calling
+scan
+with each child in turn, and then combining the
+ result of each scan after the first with the cumulative result
+ so far, as determined by the
+reduce(R, R)
+method. Each child may be either
+ a simple node or a list of nodes. The default behavior of the
+reduce
+method is such that the result of the visitXYZ method will be the result of
+ the last child scanned.
+Since:
+1.6
+Constructor Summary
+Constructors
+Constructor
+Description
+TreeScanner
+()
+Constructs a
+TreeScanner
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+R
+reduce
+(
+R
+r1,
+R
+r2)
+Reduces two results into a combined result.
+R
+scan
+(
+Tree
+tree,
+P
+p)
+Scans a single node.
+R
+scan
+(
+Iterable
+<? extends
+Tree
+> nodes,
+P
+p)
+Scans a sequence of nodes.
+R
+visitAnnotatedType
+(
+AnnotatedTypeTree
+node,
+P
+p)
+Visits an
+AnnotatedTypeTree
+node.
+R
+visitAnnotation
+(
+AnnotationTree
+node,
+P
+p)
+Visits an
+AnnotatedTree
+node.
+R
+visitAnyPattern
+(
+AnyPatternTree
+PREVIEW
+node,
+P
+p)
+Visits a
+AnyPatternTree
+node.
+R
+visitArrayAccess
+(
+ArrayAccessTree
+node,
+P
+p)
+Visits an
+ArrayAccessTree
+node.
+R
+visitArrayType
+(
+ArrayTypeTree
+node,
+P
+p)
+Visits an
+ArrayTypeTree
+node.
+R
+visitAssert
+(
+AssertTree
+node,
+P
+p)
+Visits an
+AssertTree
+node.
+R
+visitAssignment
+(
+AssignmentTree
+node,
+P
+p)
+Visits an
+AssignmentTree
+node.
+R
+visitBinary
+(
+BinaryTree
+node,
+P
+p)
+Visits a
+BinaryTree
+node.
+R
+visitBindingPattern
+(
+BindingPatternTree
+node,
+P
+p)
+Visits a
+BindingPatternTree
+node.
+R
+visitBlock
+(
+BlockTree
+node,
+P
+p)
+Visits a
+BlockTree
+node.
+R
+visitBreak
+(
+BreakTree
+node,
+P
+p)
+Visits a
+BreakTree
+node.
+R
+visitCase
+(
+CaseTree
+node,
+P
+p)
+Visits a
+CaseTree
+node.
+R
+visitCatch
+(
+CatchTree
+node,
+P
+p)
+Visits a
+CatchTree
+node.
+R
+visitClass
+(
+ClassTree
+node,
+P
+p)
+Visits a
+ClassTree
+node.
+R
+visitCompilationUnit
+(
+CompilationUnitTree
+node,
+P
+p)
+Visits a
+CompilationUnitTree
+node.
+R
+visitCompoundAssignment
+(
+CompoundAssignmentTree
+node,
+P
+p)
+Visits a
+CompoundAssignmentTree
+node.
+R
+visitConditionalExpression
+(
+ConditionalExpressionTree
+node,
+P
+p)
+Visits a
+ConditionalExpressionTree
+node.
+R
+visitConstantCaseLabel
+(
+ConstantCaseLabelTree
+node,
+P
+p)
+Visits a
+ConstantCaseLabelTree
+node.
+R
+visitContinue
+(
+ContinueTree
+node,
+P
+p)
+Visits a
+ContinueTree
+node.
+R
+visitDeconstructionPattern
+(
+DeconstructionPatternTree
+node,
+P
+p)
+Visits a
+DeconstructionPatternTree
+node.
+R
+visitDefaultCaseLabel
+(
+DefaultCaseLabelTree
+node,
+P
+p)
+Visits a
+DefaultCaseLabelTree
+node.
+R
+visitDoWhileLoop
+(
+DoWhileLoopTree
+node,
+P
+p)
+Visits a
+DoWhileTree
+node.
+R
+visitEmptyStatement
+(
+EmptyStatementTree
+node,
+P
+p)
+Visits an
+EmptyStatementTree
+node.
+R
+visitEnhancedForLoop
+(
+EnhancedForLoopTree
+node,
+P
+p)
+Visits an
+EnhancedForLoopTree
+node.
+R
+visitErroneous
+(
+ErroneousTree
+node,
+P
+p)
+Visits an
+ErroneousTree
+node.
+R
+visitExports
+(
+ExportsTree
+node,
+P
+p)
+Visits an
+ExportsTree
+node.
+R
+visitExpressionStatement
+(
+ExpressionStatementTree
+node,
+P
+p)
+Visits an
+ExpressionStatementTree
+node.
+R
+visitForLoop
+(
+ForLoopTree
+node,
+P
+p)
+Visits a
+ForLoopTree
+node.
+R
+visitIdentifier
+(
+IdentifierTree
+node,
+P
+p)
+Visits an
+IdentifierTree
+node.
+R
+visitIf
+(
+IfTree
+node,
+P
+p)
+Visits an
+IfTree
+node.
+R
+visitImport
+(
+ImportTree
+node,
+P
+p)
+Visits an
+ImportTree
+node.
+R
+visitInstanceOf
+(
+InstanceOfTree
+node,
+P
+p)
+Visits an
+InstanceOfTree
+node.
+R
+visitIntersectionType
+(
+IntersectionTypeTree
+node,
+P
+p)
+Visits an
+IntersectionTypeTree
+node.
+R
+visitLabeledStatement
+(
+LabeledStatementTree
+node,
+P
+p)
+Visits a
+LabeledStatementTree
+node.
+R
+visitLambdaExpression
+(
+LambdaExpressionTree
+node,
+P
+p)
+Visits a
+LambdaExpressionTree
+node.
+R
+visitLiteral
+(
+LiteralTree
+node,
+P
+p)
+Visits a
+LiteralTree
+node.
+R
+visitMemberReference
+(
+MemberReferenceTree
+node,
+P
+p)
+Visits a
+MemberReferenceTree
+node.
+R
+visitMemberSelect
+(
+MemberSelectTree
+node,
+P
+p)
+Visits a
+MemberSelectTree
+node.
+R
+visitMethod
+(
+MethodTree
+node,
+P
+p)
+Visits a
+MethodTree
+node.
+R
+visitMethodInvocation
+(
+MethodInvocationTree
+node,
+P
+p)
+Visits a
+MethodInvocationTree
+node.
+R
+visitModifiers
+(
+ModifiersTree
+node,
+P
+p)
+Visits a
+ModifiersTree
+node.
+R
+visitModule
+(
+ModuleTree
+node,
+P
+p)
+Visits a
+ModuleTree
+node.
+R
+visitNewArray
+(
+NewArrayTree
+node,
+P
+p)
+Visits a
+NewArrayTree
+node.
+R
+visitNewClass
+(
+NewClassTree
+node,
+P
+p)
+Visits a
+NewClassTree
+node.
+R
+visitOpens
+(
+OpensTree
+node,
+P
+p)
+Visits an
+OpensTree
+node.
+R
+visitOther
+(
+Tree
+node,
+P
+p)
+Visits an unknown type of
+Tree
+node.
+R
+visitPackage
+(
+PackageTree
+node,
+P
+p)
+Visits a
+PackageTree
+node.
+R
+visitParameterizedType
+(
+ParameterizedTypeTree
+node,
+P
+p)
+Visits a
+ParameterizedTypeTree
+node.
+R
+visitParenthesized
+(
+ParenthesizedTree
+node,
+P
+p)
+Visits a
+ParenthesizedTree
+node.
+R
+visitPatternCaseLabel
+(
+PatternCaseLabelTree
+node,
+P
+p)
+Visits a
+PatternCaseLabelTree
+node.
+R
+visitPrimitiveType
+(
+PrimitiveTypeTree
+node,
+P
+p)
+Visits a
+PrimitiveTypeTree
+node.
+R
+visitProvides
+(
+ProvidesTree
+node,
+P
+p)
+Visits a
+ProvidesTree
+node.
+R
+visitRequires
+(
+RequiresTree
+node,
+P
+p)
+Visits a
+RequiresTree
+node.
+R
+visitReturn
+(
+ReturnTree
+node,
+P
+p)
+Visits a
+ReturnTree
+node.
+R
+visitStringTemplate
+(
+StringTemplateTree
+PREVIEW
+node,
+P
+p)
+Preview.
+Visits a StringTemplateTree node.
+R
+visitSwitch
+(
+SwitchTree
+node,
+P
+p)
+Visits a
+SwitchTree
+node.
+R
+visitSwitchExpression
+(
+SwitchExpressionTree
+node,
+P
+p)
+Visits a
+SwitchExpressionTree
+node.
+R
+visitSynchronized
+(
+SynchronizedTree
+node,
+P
+p)
+Visits a
+SynchronizedTree
+node.
+R
+visitThrow
+(
+ThrowTree
+node,
+P
+p)
+Visits a
+ThrowTree
+node.
+R
+visitTry
+(
+TryTree
+node,
+P
+p)
+Visits a
+TryTree
+node.
+R
+visitTypeCast
+(
+TypeCastTree
+node,
+P
+p)
+Visits a
+TypeCastTree
+node.
+R
+visitTypeParameter
+(
+TypeParameterTree
+node,
+P
+p)
+Visits a
+TypeParameterTree
+node.
+R
+visitUnary
+(
+UnaryTree
+node,
+P
+p)
+Visits a
+UnaryTree
+node.
+R
+visitUnionType
+(
+UnionTypeTree
+node,
+P
+p)
+Visits a
+UnionTypeTree
+node.
+R
+visitUses
+(
+UsesTree
+node,
+P
+p)
+Visits a
+UsesTree
+node.
+R
+visitVariable
+(
+VariableTree
+node,
+P
+p)
+Visits a
+VariableTree
+node.
+R
+visitWhileLoop
+(
+WhileLoopTree
+node,
+P
+p)
+Visits a
+WhileLoopTree
+node.
+R
+visitWildcard
+(
+WildcardTree
+node,
+P
+p)
+Visits a
+WildcardTypeTree
+node.
+R
+visitYield
+(
+YieldTree
+node,
+P
+p)
+Visits a
+YieldTree
+node.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+TreeScanner
+public
+TreeScanner
+()
+Constructs a
+TreeScanner
+.
+Method Details
+scan
+public
+R
+scan
+(
+Tree
+tree,
+P
+p)
+Scans a single node.
+Parameters:
+tree
+- the node to be scanned
+p
+- a parameter value passed to the visit method
+Returns:
+the result value from the visit method
+scan
+public
+R
+scan
+(
+Iterable
+<? extends
+Tree
+> nodes,
+P
+p)
+Scans a sequence of nodes.
+Parameters:
+nodes
+- the nodes to be scanned
+p
+- a parameter value to be passed to the visit method for each node
+Returns:
+the combined return value from the visit methods.
+      The values are combined using the
+reduce
+method.
+reduce
+public
+R
+reduce
+(
+R
+r1,
+R
+r2)
+Reduces two results into a combined result.
+ The default implementation is to return the first parameter.
+ The general contract of the method is that it may take any action whatsoever.
+Parameters:
+r1
+- the first of the values to be combined
+r2
+- the second of the values to be combined
+Returns:
+the result of combining the two parameters
+visitCompilationUnit
+public
+R
+visitCompilationUnit
+(
+CompilationUnitTree
+node,
+P
+p)
+Visits a
+CompilationUnitTree
+node.
+Specified by:
+visitCompilationUnit
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitPackage
+public
+R
+visitPackage
+(
+PackageTree
+node,
+P
+p)
+Visits a
+PackageTree
+node.
+Specified by:
+visitPackage
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitImport
+public
+R
+visitImport
+(
+ImportTree
+node,
+P
+p)
+Visits an
+ImportTree
+node.
+Specified by:
+visitImport
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitClass
+public
+R
+visitClass
+(
+ClassTree
+node,
+P
+p)
+Visits a
+ClassTree
+node.
+Specified by:
+visitClass
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitMethod
+public
+R
+visitMethod
+(
+MethodTree
+node,
+P
+p)
+Visits a
+MethodTree
+node.
+Specified by:
+visitMethod
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitVariable
+public
+R
+visitVariable
+(
+VariableTree
+node,
+P
+p)
+Visits a
+VariableTree
+node.
+Specified by:
+visitVariable
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitEmptyStatement
+public
+R
+visitEmptyStatement
+(
+EmptyStatementTree
+node,
+P
+p)
+Visits an
+EmptyStatementTree
+node.
+Specified by:
+visitEmptyStatement
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitBlock
+public
+R
+visitBlock
+(
+BlockTree
+node,
+P
+p)
+Visits a
+BlockTree
+node.
+Specified by:
+visitBlock
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitDoWhileLoop
+public
+R
+visitDoWhileLoop
+(
+DoWhileLoopTree
+node,
+P
+p)
+Visits a
+DoWhileTree
+node.
+Specified by:
+visitDoWhileLoop
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitWhileLoop
+public
+R
+visitWhileLoop
+(
+WhileLoopTree
+node,
+P
+p)
+Visits a
+WhileLoopTree
+node.
+Specified by:
+visitWhileLoop
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitForLoop
+public
+R
+visitForLoop
+(
+ForLoopTree
+node,
+P
+p)
+Visits a
+ForLoopTree
+node.
+Specified by:
+visitForLoop
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitEnhancedForLoop
+public
+R
+visitEnhancedForLoop
+(
+EnhancedForLoopTree
+node,
+P
+p)
+Visits an
+EnhancedForLoopTree
+node.
+Specified by:
+visitEnhancedForLoop
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitLabeledStatement
+public
+R
+visitLabeledStatement
+(
+LabeledStatementTree
+node,
+P
+p)
+Visits a
+LabeledStatementTree
+node.
+Specified by:
+visitLabeledStatement
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitSwitch
+public
+R
+visitSwitch
+(
+SwitchTree
+node,
+P
+p)
+Visits a
+SwitchTree
+node.
+Specified by:
+visitSwitch
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitSwitchExpression
+public
+R
+visitSwitchExpression
+(
+SwitchExpressionTree
+node,
+P
+p)
+Visits a
+SwitchExpressionTree
+node.
+Specified by:
+visitSwitchExpression
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitCase
+public
+R
+visitCase
+(
+CaseTree
+node,
+P
+p)
+Visits a
+CaseTree
+node.
+Specified by:
+visitCase
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitSynchronized
+public
+R
+visitSynchronized
+(
+SynchronizedTree
+node,
+P
+p)
+Visits a
+SynchronizedTree
+node.
+Specified by:
+visitSynchronized
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitTry
+public
+R
+visitTry
+(
+TryTree
+node,
+P
+p)
+Visits a
+TryTree
+node.
+Specified by:
+visitTry
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitCatch
+public
+R
+visitCatch
+(
+CatchTree
+node,
+P
+p)
+Visits a
+CatchTree
+node.
+Specified by:
+visitCatch
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitConditionalExpression
+public
+R
+visitConditionalExpression
+(
+ConditionalExpressionTree
+node,
+P
+p)
+Visits a
+ConditionalExpressionTree
+node.
+Specified by:
+visitConditionalExpression
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitIf
+public
+R
+visitIf
+(
+IfTree
+node,
+P
+p)
+Visits an
+IfTree
+node.
+Specified by:
+visitIf
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitExpressionStatement
+public
+R
+visitExpressionStatement
+(
+ExpressionStatementTree
+node,
+P
+p)
+Visits an
+ExpressionStatementTree
+node.
+Specified by:
+visitExpressionStatement
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitBreak
+public
+R
+visitBreak
+(
+BreakTree
+node,
+P
+p)
+Visits a
+BreakTree
+node.
+Specified by:
+visitBreak
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitContinue
+public
+R
+visitContinue
+(
+ContinueTree
+node,
+P
+p)
+Visits a
+ContinueTree
+node.
+Specified by:
+visitContinue
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitReturn
+public
+R
+visitReturn
+(
+ReturnTree
+node,
+P
+p)
+Visits a
+ReturnTree
+node.
+Specified by:
+visitReturn
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitThrow
+public
+R
+visitThrow
+(
+ThrowTree
+node,
+P
+p)
+Visits a
+ThrowTree
+node.
+Specified by:
+visitThrow
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitAssert
+public
+R
+visitAssert
+(
+AssertTree
+node,
+P
+p)
+Visits an
+AssertTree
+node.
+Specified by:
+visitAssert
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitMethodInvocation
+public
+R
+visitMethodInvocation
+(
+MethodInvocationTree
+node,
+P
+p)
+Visits a
+MethodInvocationTree
+node.
+Specified by:
+visitMethodInvocation
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitNewClass
+public
+R
+visitNewClass
+(
+NewClassTree
+node,
+P
+p)
+Visits a
+NewClassTree
+node.
+Specified by:
+visitNewClass
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitNewArray
+public
+R
+visitNewArray
+(
+NewArrayTree
+node,
+P
+p)
+Visits a
+NewArrayTree
+node.
+Specified by:
+visitNewArray
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitLambdaExpression
+public
+R
+visitLambdaExpression
+(
+LambdaExpressionTree
+node,
+P
+p)
+Visits a
+LambdaExpressionTree
+node.
+Specified by:
+visitLambdaExpression
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitParenthesized
+public
+R
+visitParenthesized
+(
+ParenthesizedTree
+node,
+P
+p)
+Visits a
+ParenthesizedTree
+node.
+Specified by:
+visitParenthesized
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitAssignment
+public
+R
+visitAssignment
+(
+AssignmentTree
+node,
+P
+p)
+Visits an
+AssignmentTree
+node.
+Specified by:
+visitAssignment
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitCompoundAssignment
+public
+R
+visitCompoundAssignment
+(
+CompoundAssignmentTree
+node,
+P
+p)
+Visits a
+CompoundAssignmentTree
+node.
+Specified by:
+visitCompoundAssignment
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitUnary
+public
+R
+visitUnary
+(
+UnaryTree
+node,
+P
+p)
+Visits a
+UnaryTree
+node.
+Specified by:
+visitUnary
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitBinary
+public
+R
+visitBinary
+(
+BinaryTree
+node,
+P
+p)
+Visits a
+BinaryTree
+node.
+Specified by:
+visitBinary
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitTypeCast
+public
+R
+visitTypeCast
+(
+TypeCastTree
+node,
+P
+p)
+Visits a
+TypeCastTree
+node.
+Specified by:
+visitTypeCast
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitInstanceOf
+public
+R
+visitInstanceOf
+(
+InstanceOfTree
+node,
+P
+p)
+Visits an
+InstanceOfTree
+node.
+Specified by:
+visitInstanceOf
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitAnyPattern
+public
+R
+visitAnyPattern
+(
+AnyPatternTree
+PREVIEW
+node,
+P
+p)
+Visits a
+AnyPatternTree
+node.
+Specified by:
+visitAnyPattern
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+Since:
+21
+visitStringTemplate
+public
+R
+visitStringTemplate
+(
+StringTemplateTree
+PREVIEW
+node,
+P
+p)
+visitStringTemplate
+is a reflective preview API of the Java platform.
+Preview features may be removed in a future release, or upgraded to permanent features of the Java platform.
+Visits a StringTemplateTree node.
+Specified by:
+visitStringTemplate
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitBindingPattern
+public
+R
+visitBindingPattern
+(
+BindingPatternTree
+node,
+P
+p)
+Visits a
+BindingPatternTree
+node.
+Specified by:
+visitBindingPattern
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+Since:
+14
+visitDefaultCaseLabel
+public
+R
+visitDefaultCaseLabel
+(
+DefaultCaseLabelTree
+node,
+P
+p)
+Visits a
+DefaultCaseLabelTree
+node.
+Specified by:
+visitDefaultCaseLabel
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+Since:
+21
+visitConstantCaseLabel
+public
+R
+visitConstantCaseLabel
+(
+ConstantCaseLabelTree
+node,
+P
+p)
+Visits a
+ConstantCaseLabelTree
+node.
+Specified by:
+visitConstantCaseLabel
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+Since:
+21
+visitPatternCaseLabel
+public
+R
+visitPatternCaseLabel
+(
+PatternCaseLabelTree
+node,
+P
+p)
+Visits a
+PatternCaseLabelTree
+node.
+Specified by:
+visitPatternCaseLabel
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+Since:
+21
+visitDeconstructionPattern
+public
+R
+visitDeconstructionPattern
+(
+DeconstructionPatternTree
+node,
+P
+p)
+Visits a
+DeconstructionPatternTree
+node.
+Specified by:
+visitDeconstructionPattern
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+Since:
+21
+visitArrayAccess
+public
+R
+visitArrayAccess
+(
+ArrayAccessTree
+node,
+P
+p)
+Visits an
+ArrayAccessTree
+node. This implementation scans the children in left to right order.
+Specified by:
+visitArrayAccess
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitMemberSelect
+public
+R
+visitMemberSelect
+(
+MemberSelectTree
+node,
+P
+p)
+Visits a
+MemberSelectTree
+node.
+Specified by:
+visitMemberSelect
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitMemberReference
+public
+R
+visitMemberReference
+(
+MemberReferenceTree
+node,
+P
+p)
+Visits a
+MemberReferenceTree
+node.
+Specified by:
+visitMemberReference
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitIdentifier
+public
+R
+visitIdentifier
+(
+IdentifierTree
+node,
+P
+p)
+Visits an
+IdentifierTree
+node.
+Specified by:
+visitIdentifier
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitLiteral
+public
+R
+visitLiteral
+(
+LiteralTree
+node,
+P
+p)
+Visits a
+LiteralTree
+node.
+Specified by:
+visitLiteral
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitPrimitiveType
+public
+R
+visitPrimitiveType
+(
+PrimitiveTypeTree
+node,
+P
+p)
+Visits a
+PrimitiveTypeTree
+node.
+Specified by:
+visitPrimitiveType
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitArrayType
+public
+R
+visitArrayType
+(
+ArrayTypeTree
+node,
+P
+p)
+Visits an
+ArrayTypeTree
+node.
+Specified by:
+visitArrayType
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitParameterizedType
+public
+R
+visitParameterizedType
+(
+ParameterizedTypeTree
+node,
+P
+p)
+Visits a
+ParameterizedTypeTree
+node.
+Specified by:
+visitParameterizedType
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitUnionType
+public
+R
+visitUnionType
+(
+UnionTypeTree
+node,
+P
+p)
+Visits a
+UnionTypeTree
+node.
+Specified by:
+visitUnionType
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitIntersectionType
+public
+R
+visitIntersectionType
+(
+IntersectionTypeTree
+node,
+P
+p)
+Visits an
+IntersectionTypeTree
+node.
+Specified by:
+visitIntersectionType
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitTypeParameter
+public
+R
+visitTypeParameter
+(
+TypeParameterTree
+node,
+P
+p)
+Visits a
+TypeParameterTree
+node.
+Specified by:
+visitTypeParameter
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitWildcard
+public
+R
+visitWildcard
+(
+WildcardTree
+node,
+P
+p)
+Visits a
+WildcardTypeTree
+node.
+Specified by:
+visitWildcard
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitModifiers
+public
+R
+visitModifiers
+(
+ModifiersTree
+node,
+P
+p)
+Visits a
+ModifiersTree
+node.
+Specified by:
+visitModifiers
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitAnnotation
+public
+R
+visitAnnotation
+(
+AnnotationTree
+node,
+P
+p)
+Visits an
+AnnotatedTree
+node.
+Specified by:
+visitAnnotation
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitAnnotatedType
+public
+R
+visitAnnotatedType
+(
+AnnotatedTypeTree
+node,
+P
+p)
+Visits an
+AnnotatedTypeTree
+node.
+Specified by:
+visitAnnotatedType
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitModule
+public
+R
+visitModule
+(
+ModuleTree
+node,
+P
+p)
+Visits a
+ModuleTree
+node.
+Specified by:
+visitModule
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitExports
+public
+R
+visitExports
+(
+ExportsTree
+node,
+P
+p)
+Visits an
+ExportsTree
+node.
+Specified by:
+visitExports
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitOpens
+public
+R
+visitOpens
+(
+OpensTree
+node,
+P
+p)
+Visits an
+OpensTree
+node.
+Specified by:
+visitOpens
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitProvides
+public
+R
+visitProvides
+(
+ProvidesTree
+node,
+P
+p)
+Visits a
+ProvidesTree
+node.
+Specified by:
+visitProvides
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitRequires
+public
+R
+visitRequires
+(
+RequiresTree
+node,
+P
+p)
+Visits a
+RequiresTree
+node.
+Specified by:
+visitRequires
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitUses
+public
+R
+visitUses
+(
+UsesTree
+node,
+P
+p)
+Visits a
+UsesTree
+node.
+Specified by:
+visitUses
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitOther
+public
+R
+visitOther
+(
+Tree
+node,
+P
+p)
+Visits an unknown type of
+Tree
+node.
+ This can occur if the language evolves and new kinds
+ of nodes are added to the
+Tree
+hierarchy.
+Specified by:
+visitOther
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitErroneous
+public
+R
+visitErroneous
+(
+ErroneousTree
+node,
+P
+p)
+Visits an
+ErroneousTree
+node.
+Specified by:
+visitErroneous
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation returns
+null
+.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+visitYield
+public
+R
+visitYield
+(
+YieldTree
+node,
+P
+p)
+Visits a
+YieldTree
+node.
+Specified by:
+visitYield
+in interface
+TreeVisitor
+<
+R
+,
+P
+>
+Implementation Requirements:
+This implementation scans the children in left to right order.
+Parameters:
+node
+- the node being visited
+p
+- a parameter value
+Returns:
+the result of scanning
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

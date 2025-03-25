@@ -1,0 +1,349 @@
+Uses of Interface javax.swing.undo.UndoableEdit (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Interface
+javax.swing.undo.UndoableEdit
+Packages that use
+UndoableEdit
+Package
+Description
+javax.swing.event
+Provides for events fired by Swing components.
+javax.swing.text
+Provides classes and interfaces that deal with editable and noneditable text
+ components.
+javax.swing.undo
+Allows developers to provide support for undo/redo in applications such as
+ text editors.
+Uses of
+UndoableEdit
+in
+javax.swing.event
+Methods in
+javax.swing.event
+that return
+UndoableEdit
+Modifier and Type
+Method
+Description
+UndoableEdit
+UndoableEditEvent.
+getEdit
+()
+Returns the edit value.
+Constructors in
+javax.swing.event
+with parameters of type
+UndoableEdit
+Modifier
+Constructor
+Description
+UndoableEditEvent
+(
+Object
+source,
+UndoableEdit
+edit)
+Constructs an UndoableEditEvent object.
+Uses of
+UndoableEdit
+in
+javax.swing.text
+Classes in
+javax.swing.text
+that implement
+UndoableEdit
+Modifier and Type
+Class
+Description
+class
+AbstractDocument.DefaultDocumentEvent
+Stores document changes as the document is being
+ modified.
+static class
+AbstractDocument.ElementEdit
+An implementation of ElementChange that can be added to the document
+ event.
+static class
+DefaultStyledDocument.AttributeUndoableEdit
+An UndoableEdit used to remember AttributeSet changes to an
+ Element.
+Methods in
+javax.swing.text
+that return
+UndoableEdit
+Modifier and Type
+Method
+Description
+UndoableEdit
+AbstractDocument.Content.
+insertString
+(int where,
+String
+str)
+Inserts a string of characters into the sequence.
+UndoableEdit
+GapContent.
+insertString
+(int where,
+String
+str)
+Inserts a string into the content.
+UndoableEdit
+StringContent.
+insertString
+(int where,
+String
+str)
+Inserts a string into the content.
+UndoableEdit
+AbstractDocument.Content.
+remove
+(int where,
+ int nitems)
+Removes some portion of the sequence.
+UndoableEdit
+GapContent.
+remove
+(int where,
+ int nitems)
+Removes part of the content.
+UndoableEdit
+StringContent.
+remove
+(int where,
+ int nitems)
+Removes part of the content.
+Methods in
+javax.swing.text
+with parameters of type
+UndoableEdit
+Modifier and Type
+Method
+Description
+boolean
+AbstractDocument.DefaultDocumentEvent.
+addEdit
+(
+UndoableEdit
+anEdit)
+Adds a document edit.
+Uses of
+UndoableEdit
+in
+javax.swing.undo
+Classes in
+javax.swing.undo
+that implement
+UndoableEdit
+Modifier and Type
+Class
+Description
+class
+AbstractUndoableEdit
+An abstract implementation of
+UndoableEdit
+,
+ implementing simple responses to all boolean methods in
+ that interface.
+class
+CompoundEdit
+A concrete subclass of AbstractUndoableEdit, used to assemble little
+ UndoableEdits into great big ones.
+class
+StateEdit
+StateEdit is a general edit for objects that change state.
+class
+UndoManager
+UndoManager
+manages a list of
+UndoableEdits
+,
+ providing a way to undo or redo the appropriate edits.
+Fields in
+javax.swing.undo
+with type parameters of type
+UndoableEdit
+Modifier and Type
+Field
+Description
+protected
+Vector
+<
+UndoableEdit
+>
+CompoundEdit.
+edits
+The collection of
+UndoableEdit
+s
+ undone/redone en masse by this
+CompoundEdit
+.
+Methods in
+javax.swing.undo
+that return
+UndoableEdit
+Modifier and Type
+Method
+Description
+protected
+UndoableEdit
+UndoManager.
+editToBeRedone
+()
+Returns the next significant edit to be redone if
+redo
+is invoked.
+protected
+UndoableEdit
+UndoManager.
+editToBeUndone
+()
+Returns the next significant edit to be undone if
+undo
+is invoked.
+protected
+UndoableEdit
+CompoundEdit.
+lastEdit
+()
+Returns the last
+UndoableEdit
+in
+edits
+, or
+null
+if
+edits
+is empty.
+Methods in
+javax.swing.undo
+with parameters of type
+UndoableEdit
+Modifier and Type
+Method
+Description
+protected void
+UndoableEditSupport.
+_postEdit
+(
+UndoableEdit
+e)
+Called only from
+postEdit
+and
+endUpdate
+.
+boolean
+AbstractUndoableEdit.
+addEdit
+(
+UndoableEdit
+anEdit)
+This default implementation returns false.
+boolean
+CompoundEdit.
+addEdit
+(
+UndoableEdit
+anEdit)
+If this edit is
+inProgress
+,
+ accepts
+anEdit
+and returns true.
+boolean
+UndoableEdit.
+addEdit
+(
+UndoableEdit
+anEdit)
+Adds an
+UndoableEdit
+to this
+UndoableEdit
+.
+boolean
+UndoManager.
+addEdit
+(
+UndoableEdit
+anEdit)
+Adds an
+UndoableEdit
+to this
+UndoManager
+, if it's possible.
+void
+UndoableEditSupport.
+postEdit
+(
+UndoableEdit
+e)
+DEADLOCK WARNING: Calling this method may call
+undoableEditHappened
+in all listeners.
+protected void
+UndoManager.
+redoTo
+(
+UndoableEdit
+edit)
+Redoes all changes from the index of the next edit to
+edit
+, updating the index of the next edit appropriately.
+boolean
+AbstractUndoableEdit.
+replaceEdit
+(
+UndoableEdit
+anEdit)
+This default implementation returns false.
+boolean
+UndoableEdit.
+replaceEdit
+(
+UndoableEdit
+anEdit)
+Returns true if this
+UndoableEdit
+should replace
+anEdit
+.
+protected void
+UndoManager.
+undoTo
+(
+UndoableEdit
+edit)
+Undoes all changes from the index of the next edit to
+edit
+, updating the index of the next edit appropriately.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,390 @@
+AreaAveragingScaleFilter (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt.image
+Class AreaAveragingScaleFilter
+java.lang.Object
+java.awt.image.ImageFilter
+java.awt.image.ReplicateScaleFilter
+java.awt.image.AreaAveragingScaleFilter
+All Implemented Interfaces:
+ImageConsumer
+,
+Cloneable
+public class
+AreaAveragingScaleFilter
+extends
+ReplicateScaleFilter
+An ImageFilter class for scaling images using a simple area averaging
+ algorithm that produces smoother results than the nearest neighbor
+ algorithm.
+This class extends the basic ImageFilter Class to scale an existing
+ image and provide a source for a new image containing the resampled
+ image.  The pixels in the source image are blended to produce pixels
+ for an image of the specified size.  The blending process is analogous
+ to scaling up the source image to a multiple of the destination size
+ using pixel replication and then scaling it back down to the destination
+ size by simply averaging all the pixels in the supersized image that
+ fall within a given pixel of the destination image.  If the data from
+ the source is not delivered in TopDownLeftRight order then the filter
+ will back off to a simple pixel replication behavior and utilize the
+ requestTopDownLeftRightResend() method to refilter the pixels in a
+ better way at the end.
+It is meant to be used in conjunction with a FilteredImageSource
+ object to produce scaled versions of existing images.  Due to
+ implementation dependencies, there may be differences in pixel values
+ of an image filtered on different platforms.
+See Also:
+FilteredImageSource
+ReplicateScaleFilter
+ImageFilter
+Field Summary
+Fields declared in class java.awt.image.
+ReplicateScaleFilter
+destHeight
+,
+destWidth
+,
+outpixbuf
+,
+srccols
+,
+srcHeight
+,
+srcrows
+,
+srcWidth
+Fields declared in class java.awt.image.
+ImageFilter
+consumer
+Fields declared in interface java.awt.image.
+ImageConsumer
+COMPLETESCANLINES
+,
+IMAGEABORTED
+,
+IMAGEERROR
+,
+RANDOMPIXELORDER
+,
+SINGLEFRAME
+,
+SINGLEFRAMEDONE
+,
+SINGLEPASS
+,
+STATICIMAGEDONE
+,
+TOPDOWNLEFTRIGHT
+Constructor Summary
+Constructors
+Constructor
+Description
+AreaAveragingScaleFilter
+(int width,
+ int height)
+Constructs an AreaAveragingScaleFilter that scales the pixels from
+ its source Image as specified by the width and height parameters.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+setHints
+(int hints)
+Detect if the data is being delivered with the necessary hints
+ to allow the averaging algorithm to do its work.
+void
+setPixels
+(int x,
+ int y,
+ int w,
+ int h,
+ColorModel
+model,
+ byte[] pixels,
+ int off,
+ int scansize)
+Combine the components for the delivered byte pixels into the
+ accumulation arrays and send on any averaged data for rows of
+ pixels that are complete.
+void
+setPixels
+(int x,
+ int y,
+ int w,
+ int h,
+ColorModel
+model,
+ int[] pixels,
+ int off,
+ int scansize)
+Combine the components for the delivered int pixels into the
+ accumulation arrays and send on any averaged data for rows of
+ pixels that are complete.
+Methods declared in class java.awt.image.
+ReplicateScaleFilter
+setDimensions
+,
+setProperties
+Methods declared in class java.awt.image.
+ImageFilter
+clone
+,
+getFilterInstance
+,
+imageComplete
+,
+resendTopDownLeftRight
+,
+setColorModel
+Methods declared in class java.lang.
+Object
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+AreaAveragingScaleFilter
+public
+AreaAveragingScaleFilter
+(int width,
+ int height)
+Constructs an AreaAveragingScaleFilter that scales the pixels from
+ its source Image as specified by the width and height parameters.
+Parameters:
+width
+- the target width to scale the image
+height
+- the target height to scale the image
+Throws:
+IllegalArgumentException
+- if
+width
+equals
+         zero or
+height
+equals zero
+Method Details
+setHints
+public
+void
+setHints
+(int hints)
+Detect if the data is being delivered with the necessary hints
+ to allow the averaging algorithm to do its work.
+Note: This method is intended to be called by the
+ImageProducer
+of the
+Image
+whose
+ pixels are being filtered.  Developers using
+ this class to filter pixels from an image should avoid calling
+ this method directly since that operation could interfere
+ with the filtering operation.
+Specified by:
+setHints
+in interface
+ImageConsumer
+Overrides:
+setHints
+in class
+ImageFilter
+Parameters:
+hints
+- a set of hints that the ImageConsumer uses to
+        process the pixels
+See Also:
+ImageConsumer.setHints(int)
+setPixels
+public
+void
+setPixels
+(int x,
+ int y,
+ int w,
+ int h,
+ColorModel
+model,
+ byte[] pixels,
+ int off,
+ int scansize)
+Combine the components for the delivered byte pixels into the
+ accumulation arrays and send on any averaged data for rows of
+ pixels that are complete.  If the correct hints were not
+ specified in the setHints call then relay the work to our
+ superclass which is capable of scaling pixels regardless of
+ the delivery hints.
+Note: This method is intended to be called by the
+ImageProducer
+of the
+Image
+whose pixels are being filtered.  Developers using
+ this class to filter pixels from an image should avoid calling
+ this method directly since that operation could interfere
+ with the filtering operation.
+Specified by:
+setPixels
+in interface
+ImageConsumer
+Overrides:
+setPixels
+in class
+ReplicateScaleFilter
+Parameters:
+x
+- the X coordinate of the upper-left corner of the
+        area of pixels to be set
+y
+- the Y coordinate of the upper-left corner of the
+        area of pixels to be set
+w
+- the width of the area of pixels
+h
+- the height of the area of pixels
+model
+- the specified
+ColorModel
+pixels
+- the array of pixels
+off
+- the offset into the
+pixels
+array
+scansize
+- the distance from one row of pixels to the next in
+ the
+pixels
+array
+See Also:
+ReplicateScaleFilter
+setPixels
+public
+void
+setPixels
+(int x,
+ int y,
+ int w,
+ int h,
+ColorModel
+model,
+ int[] pixels,
+ int off,
+ int scansize)
+Combine the components for the delivered int pixels into the
+ accumulation arrays and send on any averaged data for rows of
+ pixels that are complete.  If the correct hints were not
+ specified in the setHints call then relay the work to our
+ superclass which is capable of scaling pixels regardless of
+ the delivery hints.
+Note: This method is intended to be called by the
+ImageProducer
+of the
+Image
+whose pixels are being filtered.  Developers using
+ this class to filter pixels from an image should avoid calling
+ this method directly since that operation could interfere
+ with the filtering operation.
+Specified by:
+setPixels
+in interface
+ImageConsumer
+Overrides:
+setPixels
+in class
+ReplicateScaleFilter
+Parameters:
+x
+- the X coordinate of the upper-left corner of the
+        area of pixels to be set
+y
+- the Y coordinate of the upper-left corner of the
+        area of pixels to be set
+w
+- the width of the area of pixels
+h
+- the height of the area of pixels
+model
+- the specified
+ColorModel
+pixels
+- the array of pixels
+off
+- the offset into the
+pixels
+array
+scansize
+- the distance from one row of pixels to the next in
+ the
+pixels
+array
+See Also:
+ReplicateScaleFilter
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

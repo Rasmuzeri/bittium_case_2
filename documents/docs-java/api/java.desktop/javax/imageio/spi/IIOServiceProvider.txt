@@ -1,0 +1,401 @@
+IIOServiceProvider (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.imageio.spi
+Class IIOServiceProvider
+java.lang.Object
+javax.imageio.spi.IIOServiceProvider
+All Implemented Interfaces:
+RegisterableService
+Direct Known Subclasses:
+ImageInputStreamSpi
+,
+ImageOutputStreamSpi
+,
+ImageReaderWriterSpi
+,
+ImageTranscoderSpi
+public abstract class
+IIOServiceProvider
+extends
+Object
+implements
+RegisterableService
+A superinterface for functionality common to all Image I/O service
+ provider interfaces (SPIs).  For more information on service
+ provider classes, see the class comment for the
+IIORegistry
+class.
+See Also:
+IIORegistry
+ImageReaderSpi
+ImageWriterSpi
+ImageTranscoderSpi
+ImageInputStreamSpi
+ImageOutputStreamSpi
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected
+String
+vendorName
+A
+String
+to be returned from
+getVendorName
+, initially
+null
+.
+protected
+String
+version
+A
+String
+to be returned from
+getVersion
+, initially null.
+Constructor Summary
+Constructors
+Constructor
+Description
+IIOServiceProvider
+()
+Constructs a blank
+IIOServiceProvider
+.
+IIOServiceProvider
+(
+String
+vendorName,
+String
+version)
+Constructs an
+IIOServiceProvider
+with a given
+ vendor name and version identifier.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+abstract
+String
+getDescription
+(
+Locale
+locale)
+Returns a brief, human-readable description of this service
+ provider and its associated implementation.
+String
+getVendorName
+()
+Returns the name of the vendor responsible for creating this
+ service provider and its associated implementation.
+String
+getVersion
+()
+Returns a string describing the version
+ number of this service provider and its associated
+ implementation.
+void
+onDeregistration
+(
+ServiceRegistry
+registry,
+Class
+<?> category)
+A callback that will be whenever the Spi class has been
+ deregistered from a
+ServiceRegistry
+.
+void
+onRegistration
+(
+ServiceRegistry
+registry,
+Class
+<?> category)
+A callback that will be called exactly once after the Spi class
+ has been instantiated and registered in a
+ServiceRegistry
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+vendorName
+protected
+String
+vendorName
+A
+String
+to be returned from
+getVendorName
+, initially
+null
+.
+ Constructors should set this to a non-
+null
+value.
+version
+protected
+String
+version
+A
+String
+to be returned from
+getVersion
+, initially null.  Constructors should
+ set this to a non-
+null
+value.
+Constructor Details
+IIOServiceProvider
+public
+IIOServiceProvider
+(
+String
+vendorName,
+String
+version)
+Constructs an
+IIOServiceProvider
+with a given
+ vendor name and version identifier.
+Parameters:
+vendorName
+- the vendor name.
+version
+- a version identifier.
+Throws:
+IllegalArgumentException
+- if
+vendorName
+is
+null
+.
+IllegalArgumentException
+- if
+version
+is
+null
+.
+IIOServiceProvider
+public
+IIOServiceProvider
+()
+Constructs a blank
+IIOServiceProvider
+.  It is up
+ to the subclass to initialize instance variables and/or
+ override method implementations in order to ensure that the
+getVendorName
+and
+getVersion
+methods
+ will return non-
+null
+values.
+Method Details
+onRegistration
+public
+void
+onRegistration
+(
+ServiceRegistry
+registry,
+Class
+<?> category)
+A callback that will be called exactly once after the Spi class
+ has been instantiated and registered in a
+ServiceRegistry
+.  This may be used to verify that
+ the environment is suitable for this service, for example that
+ native libraries can be loaded.  If the service cannot function
+ in the environment where it finds itself, it should deregister
+ itself from the registry.
+Only the registry should call this method.
+The default implementation does nothing.
+Specified by:
+onRegistration
+in interface
+RegisterableService
+Parameters:
+registry
+- a
+ServiceRegistry
+where this
+ object has been registered.
+category
+- a
+Class
+object indicating the
+ registry category under which this object has been registered.
+See Also:
+ServiceRegistry.registerServiceProvider(Object provider)
+onDeregistration
+public
+void
+onDeregistration
+(
+ServiceRegistry
+registry,
+Class
+<?> category)
+A callback that will be whenever the Spi class has been
+ deregistered from a
+ServiceRegistry
+.
+Only the registry should call this method.
+The default implementation does nothing.
+Specified by:
+onDeregistration
+in interface
+RegisterableService
+Parameters:
+registry
+- a
+ServiceRegistry
+from which this
+ object is being (wholly or partially) deregistered.
+category
+- a
+Class
+object indicating the
+ registry category from which this object is being deregistered.
+See Also:
+ServiceRegistry.deregisterServiceProvider(Object provider)
+getVendorName
+public
+String
+getVendorName
+()
+Returns the name of the vendor responsible for creating this
+ service provider and its associated implementation.  Because
+ the vendor name may be used to select a service provider,
+ it is not localized.
+The default implementation returns the value of the
+vendorName
+instance variable.
+Returns:
+a non-
+null String
+containing
+ the name of the vendor.
+getVersion
+public
+String
+getVersion
+()
+Returns a string describing the version
+ number of this service provider and its associated
+ implementation.  Because the version may be used by transcoders
+ to identify the service providers they understand, this method
+ is not localized.
+The default implementation returns the value of the
+version
+instance variable.
+Returns:
+a non-
+null String
+containing
+ the version of this service provider.
+getDescription
+public abstract
+String
+getDescription
+(
+Locale
+locale)
+Returns a brief, human-readable description of this service
+ provider and its associated implementation.  The resulting
+ string should be localized for the supplied
+Locale
+, if possible.
+Parameters:
+locale
+- a
+Locale
+for which the return value
+ should be localized.
+Returns:
+a
+String
+containing a description of this
+ service provider.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

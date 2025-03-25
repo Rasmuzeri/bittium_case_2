@@ -1,0 +1,501 @@
+AdjustmentEvent (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt.event
+Class AdjustmentEvent
+java.lang.Object
+java.util.EventObject
+java.awt.AWTEvent
+java.awt.event.AdjustmentEvent
+All Implemented Interfaces:
+Serializable
+public class
+AdjustmentEvent
+extends
+AWTEvent
+The adjustment event emitted by Adjustable objects like
+Scrollbar
+and
+ScrollPane
+.
+ When the user changes the value of the scrolling component,
+ it receives an instance of
+AdjustmentEvent
+.
+An unspecified behavior will be caused if the
+id
+parameter
+ of any particular
+AdjustmentEvent
+instance is not
+ in the range from
+ADJUSTMENT_FIRST
+to
+ADJUSTMENT_LAST
+.
+The
+type
+of any
+AdjustmentEvent
+instance takes one of the following
+ values:
+UNIT_INCREMENT
+UNIT_DECREMENT
+BLOCK_INCREMENT
+BLOCK_DECREMENT
+TRACK
+Assigning the value different from listed above will cause an unspecified behavior.
+Since:
+1.1
+See Also:
+Adjustable
+AdjustmentListener
+Serialized Form
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final int
+ADJUSTMENT_FIRST
+Marks the first integer id for the range of adjustment event ids.
+static final int
+ADJUSTMENT_LAST
+Marks the last integer id for the range of adjustment event ids.
+static final int
+ADJUSTMENT_VALUE_CHANGED
+The adjustment value changed event.
+static final int
+BLOCK_DECREMENT
+The block decrement adjustment type.
+static final int
+BLOCK_INCREMENT
+The block increment adjustment type.
+static final int
+TRACK
+The absolute tracking adjustment type.
+static final int
+UNIT_DECREMENT
+The unit decrement adjustment type.
+static final int
+UNIT_INCREMENT
+The unit increment adjustment type.
+Fields declared in class java.awt.
+AWTEvent
+ACTION_EVENT_MASK
+,
+ADJUSTMENT_EVENT_MASK
+,
+COMPONENT_EVENT_MASK
+,
+consumed
+,
+CONTAINER_EVENT_MASK
+,
+FOCUS_EVENT_MASK
+,
+HIERARCHY_BOUNDS_EVENT_MASK
+,
+HIERARCHY_EVENT_MASK
+,
+id
+,
+INPUT_METHOD_EVENT_MASK
+,
+INVOCATION_EVENT_MASK
+,
+ITEM_EVENT_MASK
+,
+KEY_EVENT_MASK
+,
+MOUSE_EVENT_MASK
+,
+MOUSE_MOTION_EVENT_MASK
+,
+MOUSE_WHEEL_EVENT_MASK
+,
+PAINT_EVENT_MASK
+,
+RESERVED_ID_MAX
+,
+TEXT_EVENT_MASK
+,
+WINDOW_EVENT_MASK
+,
+WINDOW_FOCUS_EVENT_MASK
+,
+WINDOW_STATE_EVENT_MASK
+Fields declared in class java.util.
+EventObject
+source
+Constructor Summary
+Constructors
+Constructor
+Description
+AdjustmentEvent
+(
+Adjustable
+source,
+ int id,
+ int type,
+ int value)
+Constructs an
+AdjustmentEvent
+object with the
+ specified
+Adjustable
+source, event type,
+ adjustment type, and value.
+AdjustmentEvent
+(
+Adjustable
+source,
+ int id,
+ int type,
+ int value,
+ boolean isAdjusting)
+Constructs an
+AdjustmentEvent
+object with the
+ specified Adjustable source, event type, adjustment type, and value.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Adjustable
+getAdjustable
+()
+Returns the
+Adjustable
+object where this event originated.
+int
+getAdjustmentType
+()
+Returns the type of adjustment which caused the value changed
+ event.
+int
+getValue
+()
+Returns the current value in the adjustment event.
+boolean
+getValueIsAdjusting
+()
+Returns
+true
+if this is one of multiple
+ adjustment events.
+Methods declared in class java.awt.
+AWTEvent
+consume
+,
+getID
+,
+isConsumed
+,
+paramString
+,
+setSource
+,
+toString
+Methods declared in class java.util.
+EventObject
+getSource
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Field Details
+ADJUSTMENT_FIRST
+public static final
+int
+ADJUSTMENT_FIRST
+Marks the first integer id for the range of adjustment event ids.
+See Also:
+Constant Field Values
+ADJUSTMENT_LAST
+public static final
+int
+ADJUSTMENT_LAST
+Marks the last integer id for the range of adjustment event ids.
+See Also:
+Constant Field Values
+ADJUSTMENT_VALUE_CHANGED
+public static final
+int
+ADJUSTMENT_VALUE_CHANGED
+The adjustment value changed event.
+See Also:
+Constant Field Values
+UNIT_INCREMENT
+@Native
+public static final
+int
+UNIT_INCREMENT
+The unit increment adjustment type.
+See Also:
+Constant Field Values
+UNIT_DECREMENT
+@Native
+public static final
+int
+UNIT_DECREMENT
+The unit decrement adjustment type.
+See Also:
+Constant Field Values
+BLOCK_DECREMENT
+@Native
+public static final
+int
+BLOCK_DECREMENT
+The block decrement adjustment type.
+See Also:
+Constant Field Values
+BLOCK_INCREMENT
+@Native
+public static final
+int
+BLOCK_INCREMENT
+The block increment adjustment type.
+See Also:
+Constant Field Values
+TRACK
+@Native
+public static final
+int
+TRACK
+The absolute tracking adjustment type.
+See Also:
+Constant Field Values
+Constructor Details
+AdjustmentEvent
+public
+AdjustmentEvent
+(
+Adjustable
+source,
+ int id,
+ int type,
+ int value)
+Constructs an
+AdjustmentEvent
+object with the
+ specified
+Adjustable
+source, event type,
+ adjustment type, and value.
+This method throws an
+IllegalArgumentException
+if
+source
+is
+null
+.
+Parameters:
+source
+- The
+Adjustable
+object where the
+               event originated
+id
+- An integer indicating the type of event.
+                     For information on allowable values, see
+                     the class description for
+AdjustmentEvent
+type
+- An integer indicating the adjustment type.
+                     For information on allowable values, see
+                     the class description for
+AdjustmentEvent
+value
+- The current value of the adjustment
+Throws:
+IllegalArgumentException
+- if
+source
+is null
+See Also:
+EventObject.getSource()
+AWTEvent.getID()
+getAdjustmentType()
+getValue()
+AdjustmentEvent
+public
+AdjustmentEvent
+(
+Adjustable
+source,
+ int id,
+ int type,
+ int value,
+ boolean isAdjusting)
+Constructs an
+AdjustmentEvent
+object with the
+ specified Adjustable source, event type, adjustment type, and value.
+This method throws an
+IllegalArgumentException
+if
+source
+is
+null
+.
+Parameters:
+source
+- The
+Adjustable
+object where the
+               event originated
+id
+- An integer indicating the type of event.
+                     For information on allowable values, see
+                     the class description for
+AdjustmentEvent
+type
+- An integer indicating the adjustment type.
+                     For information on allowable values, see
+                     the class description for
+AdjustmentEvent
+value
+- The current value of the adjustment
+isAdjusting
+- A boolean that equals
+true
+if the event is one
+               of a series of multiple adjusting events,
+               otherwise
+false
+Throws:
+IllegalArgumentException
+- if
+source
+is null
+Since:
+1.4
+See Also:
+EventObject.getSource()
+AWTEvent.getID()
+getAdjustmentType()
+getValue()
+getValueIsAdjusting()
+Method Details
+getAdjustable
+public
+Adjustable
+getAdjustable
+()
+Returns the
+Adjustable
+object where this event originated.
+Returns:
+the
+Adjustable
+object where this event originated
+getValue
+public
+int
+getValue
+()
+Returns the current value in the adjustment event.
+Returns:
+the current value in the adjustment event
+getAdjustmentType
+public
+int
+getAdjustmentType
+()
+Returns the type of adjustment which caused the value changed
+ event.  It will have one of the following values:
+UNIT_INCREMENT
+UNIT_DECREMENT
+BLOCK_INCREMENT
+BLOCK_DECREMENT
+TRACK
+Returns:
+one of the adjustment values listed above
+getValueIsAdjusting
+public
+boolean
+getValueIsAdjusting
+()
+Returns
+true
+if this is one of multiple
+ adjustment events.
+Returns:
+true
+if this is one of multiple
+         adjustment events, otherwise returns
+false
+Since:
+1.4
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

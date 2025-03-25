@@ -1,0 +1,389 @@
+Javadoc Search Specification (JDK 21)
+Javadoc Search Specification
+This document specifies the behaviour of the Javadoc search feature
+for JDK 21.
+Overview
+The Javadoc search feature was introduced in JDK 9 with
+JEP 225
+. However, the initial
+specification only contained a very basic description of the search
+algorithm. As a consequence, selection and ranking of search results
+sometimes left a bit to be desired.
+The purpose of this additional specification is to improve on the
+initial implementation by defining better rules for the selection and
+ranking of search results.
+Definitions
+The term
+entity
+is used to describe an artifact of the
+documented code, which includes code elements as well as additional
+search tags.
+The term
+signature
+is used to describe how an entity is
+represented in Javadoc search.
+The terms
+name
+and
+identifier
+are used as
+defined in
+Java Language
+Specification
+,
+Section
+6.2
+.
+The terms
+white space
+and
+separator
+are
+used as defined in
+Java Language
+Specification
+,
+Section
+3.6
+and
+Section
+3.11
+.
+The term
+camel-case
+is used to describe mixed case
+identifiers that make use of uppercase letters to mark word boundaries
+within the identifier.
+The term
+query string
+is used to describe the characters
+entered in the search input box by the user.
+All examples in the following sections refer to or are taken from the
+standard OpenJDK class libraries.
+Searchable Entities
+The list below describes the entities of documented code and how
+their signatures are built. For some elements, the signature consists of
+just the entity's name, while for others it contains information about
+containing entities or types of parameters.
+Modules
+The signature of a module equals the module name.
+Example: -
+java.base
+Packages
+The signature of a package consists of the package name.
+If the package belongs to a named module, the module name is
+prepended to the signature separated by
+/
+and can be
+included in the search.
+Example: -
+java.base/java.util.concurrent
+Types
+The signature of a type (classes, interfaces, enums, annotation
+types) consists of the type name.
+If the type is a nested type, names of parent types are prepended to
+the signature separated by
+.
+and can be included in the
+search.
+If the type is contained in a package, the package name is prepended
+to the signature separated by
+.
+and can be included in the
+search.
+Examples: -
+java.lang.Object
+-
+java.util.Map.Entry
+Members
+The signature of a member (methods, constructors, fields) consists of
+the member name prepended with its defining type, separated by
+.
+.
+If the member is a method or constructor, the type names of
+parameters are appended to the name enclosed between
+(
+and
+)
+and separated by
+,
+to identify overloaded
+methods.
+Examples: -
+java.lang.Object.wait(long, int)
+-
+java.lang.String.String(String)
+-
+java.lang.Byte.MAX_VALUE
+Search Tags
+Search Tags are arbitrary searchable items defined using the
+@index
+tag anywhere in a
+Javadoc comment of the documented source code.
+Examples: -
+{@index "Java Collections Framework"}
+-
+{@index jrt jrt}
+Matching Rules
+The following sections describe the special rules under which the
+query string is matched against the entity signatures.
+Case Sensitivity
+If the query string does not contain any uppercase characters, the
+search is performed in a case insensitive manner. If the query string
+contains uppercase characters, results with matching capitalization are
+considered better matches and shown before results with non-matching
+capitalization. Additionally, the rules described in the
+Camel Case Matches
+section are
+applied.
+Examples of Query Strings and Matches
+Query String
+Matches
+Object
+type
+java.lang.Object
+object
+type
+java.lang.Object
+obJECT
+type
+java.lang.Object
+MAX_VALUE
+member
+java.lang.Byte.MAX_VALUE
+max_value
+member
+java.lang.Byte.MAX_VALUE
+max_VALUE
+member
+java.lang.Byte.MAX_VALUE
+Left Boundaries
+The beginning of the query string must match a left word boundary, or
+a separator preceding a left word boundary.
+The following are considered left word boundaries:
+The beginning of an identifier
+An uppercase letter within a camel-case identifier
+The character following a
+_
+within an identifier
+Examples of Query Strings and Matches
+Query String
+Matches
+base
+module
+java.base
+.util
+package
+java.util
+map
+types
+java.util.Map
+and
+java.util.HashMap
+Map
+types
+java.util.Map
+and
+java.util.HashMap
+MAP
+types
+java.util.Map
+and
+java.util.HashMap
+.map
+type
+java.util.Map
+value
+member
+java.lang.Byte.MAX_VALUE
+Partial Matches
+The query string matches an identifier even if characters at the end
+of a name identifiers are missing, as long as the query string matches
+the beginning of the identifier.
+Examples of Query Strings and Matches
+Query String
+Matches
+j.l.o
+type
+java.lang.Object
+j.lang.Obj
+type
+java.lang.Object
+Camel Case Matches
+The rule for partial matches also applies to uppercase characters
+followed by any number of lowercase or non-letter characters within a
+camel-case identifier.
+An uppercase character in the query string followed by zero or more
+lowercase or non-letter characters matches the exact same character
+sequence in an entity's signature, followed by zero or more lowercase or
+non-letter characters.
+Examples of Query Strings and Matches
+Query String
+Matches
+j.io.FileInStr
+type
+java.io.FileInputStream
+j.io.FIS
+type
+java.io.FileInputStream
+j.io.FileInpS
+type
+java.io.FileInputStream
+j.io.FilEINPS
+no match
+FileInStr(FiD
+member
+java.io.FileInputStream.FileInputStream(FileDescriptor)
+FIS(FD
+member
+java.io.FileInputStream.FileInputStream(FileDescriptor)
+FINPS(FD
+no match
+White Space and Multiple
+Search Terms
+If a query string contains space characters, the parts of the query
+string delimited by space characters are considered search terms. The
+following three conditions must be true for an entity to match a query
+string consisting of multiple search terms:
+All search terms must match the entity's signature.
+Search terms must match the entity's signature in the order in which
+they appear in the query string.
+The match for each search term must be aligned with a left word
+boundary in the entity's signature as defined in the
+Left Boundaries
+section.
+Multiple consecutive space characters are considered equivalent to a
+single space character. If the query string consists entirely of white
+space no search is performed.
+Examples of Query Strings and Matches
+Query String
+Matches
+obj equals o o
+method
+java.util.Objects.equals(Object, Object)
+obj .equals ( o ,  o
+method
+java.util.Objects.equals(Object, Object)
+java coll
+search tag
+Java Collections Framework
+lang obj
+class
+java.lang.Object
+ob j.eq
+no match
+Core and Peripheral Matches
+The part of an entity's signature that represents the entity's name
+is considered the core component of the signature, while any other parts
+of the signature are considered peripheral components.
+An entity will only be included in the search result if the query
+string contains and matches at least part of its core component.
+Examples of Query Strings and Matches
+Query String
+Matches
+java.lang
+package
+java.lang
+but not type
+java.lang.Object
+java.util.Map
+type
+java.util.Map
+but not type
+java.util.Map.Entry
+Although the parameter types of a method or constructor are not
+considered a core component of its signature, it is possible to search
+for methods or constructors with specific parameter types by starting
+the search string with
+(
+.
+Examples of Query Strings and Matches
+Query String
+Matches
+(int
+methods and constructors with
+int
+as first parameter
+type
+Accessing Child Elements
+A query string that matches a code element can be turned into a
+search string that matches the element's child elements by appending the
+separator used to connect the two levels of code elements.
+Examples of Query Strings and Matches
+Query String
+Matches
+java.base
+module
+java.base
+but not the packages contained
+therein
+java.base/
+the packages contained in module
+java.base
+java.lang
+package
+java.lang
+but not the types contained
+therein
+java.lang.
+the types contained in package
+java.lang
+Object
+type
+java.lang.Object
+but not its members
+Object.
+the members of type
+java.lang.Object
+Ranking of Results
+A result that matches a whole identifier is ranked higher than a
+match that covers only part of an identifier, such as a segment of a
+camel-case identifier starting with a capital letter, or the beginning
+of an identifier. The result matching the whole identifier will appear
+higher up in the list of search results.
+Examples:
+Query string
+set
+matches types
+java.util.Set
+and
+java.util.HashSet
+but the
+former is ranked higher than the latter.
+Query string
+java.lang.ref
+matches both packages
+java.lang.ref
+and
+java.lang.reflect
+but the
+former is ranked higher than the latter because it matches the whole
+package name.
+Results from case-sensitive searches are ranked higher than results
+from case-insensitive searches when both a case-sensitive and a
+case-insensitive search is performed.
+Supported Browsers
+The search feature is supported in the following browsers.
+Supported Browsers
+Browser
+Version
+Platform
+Apple Safari
+tbd
+MacOS
+Google Chrome
+tbd
+All supported OSs
+Microsoft Edge
+tbd
+Windows OSs
+Mozilla Firefox
+tbd
+All supported OSs
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

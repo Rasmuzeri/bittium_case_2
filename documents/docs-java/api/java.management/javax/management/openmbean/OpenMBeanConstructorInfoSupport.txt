@@ -1,0 +1,452 @@
+OpenMBeanConstructorInfoSupport (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.management
+Package
+javax.management.openmbean
+Class OpenMBeanConstructorInfoSupport
+java.lang.Object
+javax.management.MBeanFeatureInfo
+javax.management.MBeanConstructorInfo
+javax.management.openmbean.OpenMBeanConstructorInfoSupport
+All Implemented Interfaces:
+Serializable
+,
+Cloneable
+,
+DescriptorRead
+,
+OpenMBeanConstructorInfo
+public class
+OpenMBeanConstructorInfoSupport
+extends
+MBeanConstructorInfo
+implements
+OpenMBeanConstructorInfo
+Describes a constructor of an Open MBean.
+Since:
+1.5
+See Also:
+Serialized Form
+Field Summary
+Fields declared in class javax.management.
+MBeanFeatureInfo
+description
+,
+name
+Constructor Summary
+Constructors
+Constructor
+Description
+OpenMBeanConstructorInfoSupport
+(
+String
+name,
+String
+description,
+OpenMBeanParameterInfo
+[] signature)
+Constructs an
+OpenMBeanConstructorInfoSupport
+instance, which describes the constructor of a class of open
+ MBeans with the specified
+name
+,
+description
+and
+signature
+.
+OpenMBeanConstructorInfoSupport
+(
+String
+name,
+String
+description,
+OpenMBeanParameterInfo
+[] signature,
+Descriptor
+descriptor)
+Constructs an
+OpenMBeanConstructorInfoSupport
+instance, which describes the constructor of a class of open
+ MBeans with the specified
+name
+,
+description
+,
+signature
+, and
+descriptor
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+boolean
+equals
+(
+Object
+obj)
+Compares the specified
+obj
+parameter with this
+OpenMBeanConstructorInfoSupport
+instance for
+ equality.
+int
+hashCode
+()
+Returns the hash code value for this
+OpenMBeanConstructorInfoSupport
+instance.
+String
+toString
+()
+Returns a string representation of this
+OpenMBeanConstructorInfoSupport
+instance.
+Methods declared in class javax.management.
+MBeanConstructorInfo
+clone
+,
+getSignature
+Methods declared in class javax.management.
+MBeanFeatureInfo
+getDescription
+,
+getDescriptor
+,
+getName
+Methods declared in class java.lang.
+Object
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface javax.management.openmbean.
+OpenMBeanConstructorInfo
+getDescription
+,
+getName
+,
+getSignature
+Constructor Details
+OpenMBeanConstructorInfoSupport
+public
+OpenMBeanConstructorInfoSupport
+(
+String
+name,
+String
+description,
+OpenMBeanParameterInfo
+[] signature)
+Constructs an
+OpenMBeanConstructorInfoSupport
+instance, which describes the constructor of a class of open
+ MBeans with the specified
+name
+,
+description
+and
+signature
+.
+The
+signature
+array parameter is internally copied,
+ so that subsequent changes to the array referenced by
+signature
+have no effect on this instance.
+Parameters:
+name
+- cannot be a null or empty string.
+description
+- cannot be a null or empty string.
+signature
+- can be null or empty if there are no
+ parameters to describe.
+Throws:
+IllegalArgumentException
+- if
+name
+or
+description
+are null or empty string.
+ArrayStoreException
+- If
+signature
+is not an
+ array of instances of a subclass of
+MBeanParameterInfo
+.
+OpenMBeanConstructorInfoSupport
+public
+OpenMBeanConstructorInfoSupport
+(
+String
+name,
+String
+description,
+OpenMBeanParameterInfo
+[] signature,
+Descriptor
+descriptor)
+Constructs an
+OpenMBeanConstructorInfoSupport
+instance, which describes the constructor of a class of open
+ MBeans with the specified
+name
+,
+description
+,
+signature
+, and
+descriptor
+.
+The
+signature
+array parameter is internally copied,
+ so that subsequent changes to the array referenced by
+signature
+have no effect on this instance.
+Parameters:
+name
+- cannot be a null or empty string.
+description
+- cannot be a null or empty string.
+signature
+- can be null or empty if there are no
+ parameters to describe.
+descriptor
+- The descriptor for the constructor.  This may
+ be null which is equivalent to an empty descriptor.
+Throws:
+IllegalArgumentException
+- if
+name
+or
+description
+are null or empty string.
+ArrayStoreException
+- If
+signature
+is not an
+ array of instances of a subclass of
+MBeanParameterInfo
+.
+Since:
+1.6
+Method Details
+equals
+public
+boolean
+equals
+(
+Object
+obj)
+Compares the specified
+obj
+parameter with this
+OpenMBeanConstructorInfoSupport
+instance for
+ equality.
+Returns
+true
+if and only if all of the following
+ statements are true:
+obj
+is non null,
+obj
+also implements the
+OpenMBeanConstructorInfo
+interface,
+their names are equal
+their signatures are equal.
+This ensures that this
+equals
+method works properly for
+obj
+parameters which are different implementations of
+ the
+OpenMBeanConstructorInfo
+interface.
+Specified by:
+equals
+in interface
+OpenMBeanConstructorInfo
+Overrides:
+equals
+in class
+MBeanConstructorInfo
+Parameters:
+obj
+- the object to be compared for equality with this
+OpenMBeanConstructorInfoSupport
+instance;
+Returns:
+true
+if the specified object is equal to this
+OpenMBeanConstructorInfoSupport
+instance.
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+public
+int
+hashCode
+()
+Returns the hash code value for this
+OpenMBeanConstructorInfoSupport
+instance.
+The hash code of an
+OpenMBeanConstructorInfoSupport
+instance is the sum of the hash codes of all elements of
+ information used in
+equals
+comparisons (ie: its name
+ and signature, where the signature hashCode is calculated by a
+ call to
+java.util.Arrays.asList(this.getSignature).hashCode()
+).
+This ensures that
+t1.equals(t2)
+implies that
+t1.hashCode()==t2.hashCode()
+for any two
+OpenMBeanConstructorInfoSupport
+instances
+t1
+and
+t2
+, as required by the general contract of the method
+Object.hashCode()
+.
+However, note that another instance of a class implementing
+ the
+OpenMBeanConstructorInfo
+interface may be equal to
+ this
+OpenMBeanConstructorInfoSupport
+instance as
+ defined by
+equals(java.lang.Object)
+, but may have a
+ different hash code if it is calculated differently.
+As
+OpenMBeanConstructorInfoSupport
+instances are
+ immutable, the hash code for this instance is calculated once,
+ on the first call to
+hashCode
+, and then the same value
+ is returned for subsequent calls.
+Specified by:
+hashCode
+in interface
+OpenMBeanConstructorInfo
+Overrides:
+hashCode
+in class
+Object
+Returns:
+the hash code value for this
+OpenMBeanConstructorInfoSupport
+instance
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+toString
+public
+String
+toString
+()
+Returns a string representation of this
+OpenMBeanConstructorInfoSupport
+instance.
+The string representation consists of the name of this class
+ (ie
+javax.management.openmbean.OpenMBeanConstructorInfoSupport
+),
+ the name and signature of the described constructor and the
+ string representation of its descriptor.
+As
+OpenMBeanConstructorInfoSupport
+instances are
+ immutable, the string representation for this instance is
+ calculated once, on the first call to
+toString
+, and
+ then the same value is returned for subsequent calls.
+Specified by:
+toString
+in interface
+OpenMBeanConstructorInfo
+Overrides:
+toString
+in class
+Object
+Returns:
+a string representation of this
+OpenMBeanConstructorInfoSupport
+instance
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

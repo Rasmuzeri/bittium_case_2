@@ -1,0 +1,343 @@
+CSSStyleDeclaration (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.xml.dom
+Package
+org.w3c.dom.css
+Interface CSSStyleDeclaration
+public interface
+CSSStyleDeclaration
+The
+CSSStyleDeclaration
+interface represents a single CSS
+ declaration block. This interface may be used to determine the style
+ properties currently set in a block or to set style properties explicitly
+ within the block.
+While an implementation may not recognize all CSS properties within a
+ CSS declaration block, it is expected to provide access to all specified
+ properties in the style sheet through the
+CSSStyleDeclaration
+interface. Furthermore, implementations that support a specific level of
+ CSS should correctly handle CSS shorthand properties for that level. For
+ a further discussion of shorthand properties, see the
+CSS2Properties
+interface.
+This interface is also used to provide a read-only access to the
+ computed values of an element. See also the
+ViewCSS
+interface.  The CSS Object Model doesn't provide an access to the
+ specified or actual values of the CSS cascade.
+See also the
+Document Object Model (DOM) Level 2 Style Specification
+.
+Since:
+1.4, DOM Level 2
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+String
+getCssText
+()
+The parsable textual representation of the declaration block
+ (excluding the surrounding curly braces).
+int
+getLength
+()
+The number of properties that have been explicitly set in this
+ declaration block.
+CSSRule
+getParentRule
+()
+The CSS rule that contains this declaration block or
+null
+if this
+CSSStyleDeclaration
+is not attached to a
+CSSRule
+.
+CSSValue
+getPropertyCSSValue
+(
+String
+propertyName)
+Used to retrieve the object representation of the value of a CSS
+ property if it has been explicitly set within this declaration block.
+String
+getPropertyPriority
+(
+String
+propertyName)
+Used to retrieve the priority of a CSS property (e.g. the
+"important"
+qualifier) if the priority has been
+ explicitly set in this declaration block.
+String
+getPropertyValue
+(
+String
+propertyName)
+Used to retrieve the value of a CSS property if it has been explicitly
+ set within this declaration block.
+String
+item
+(int index)
+Used to retrieve the properties that have been explicitly set in this
+ declaration block.
+String
+removeProperty
+(
+String
+propertyName)
+Used to remove a CSS property if it has been explicitly set within
+ this declaration block.
+void
+setCssText
+(
+String
+cssText)
+The parsable textual representation of the declaration block
+ (excluding the surrounding curly braces).
+void
+setProperty
+(
+String
+propertyName,
+String
+value,
+String
+priority)
+Used to set a property value and priority within this declaration
+ block.
+Method Details
+getCssText
+String
+getCssText
+()
+The parsable textual representation of the declaration block
+ (excluding the surrounding curly braces). Setting this attribute will
+ result in the parsing of the new value and resetting of all the
+ properties in the declaration block including the removal or addition
+ of properties.
+setCssText
+void
+setCssText
+(
+String
+cssText)
+throws
+DOMException
+The parsable textual representation of the declaration block
+ (excluding the surrounding curly braces). Setting this attribute will
+ result in the parsing of the new value and resetting of all the
+ properties in the declaration block including the removal or addition
+ of properties.
+Throws:
+DOMException
+- SYNTAX_ERR: Raised if the specified CSS string value has a syntax
+   error and is unparsable.
+NO_MODIFICATION_ALLOWED_ERR: Raised if this declaration is
+   readonly or a property is readonly.
+getPropertyValue
+String
+getPropertyValue
+(
+String
+propertyName)
+Used to retrieve the value of a CSS property if it has been explicitly
+ set within this declaration block.
+Parameters:
+propertyName
+- The name of the CSS property. See the CSS
+   property index.
+Returns:
+Returns the value of the property if it has been explicitly
+   set for this declaration block. Returns the empty string if the
+   property has not been set.
+getPropertyCSSValue
+CSSValue
+getPropertyCSSValue
+(
+String
+propertyName)
+Used to retrieve the object representation of the value of a CSS
+ property if it has been explicitly set within this declaration block.
+ This method returns
+null
+if the property is a shorthand
+ property. Shorthand property values can only be accessed and modified
+ as strings, using the
+getPropertyValue
+and
+setProperty
+methods.
+Parameters:
+propertyName
+- The name of the CSS property. See the CSS
+   property index.
+Returns:
+Returns the value of the property if it has been explicitly
+   set for this declaration block. Returns
+null
+if the
+   property has not been set.
+removeProperty
+String
+removeProperty
+(
+String
+propertyName)
+throws
+DOMException
+Used to remove a CSS property if it has been explicitly set within
+ this declaration block.
+Parameters:
+propertyName
+- The name of the CSS property. See the CSS
+   property index.
+Returns:
+Returns the value of the property if it has been explicitly
+   set for this declaration block. Returns the empty string if the
+   property has not been set or the property name does not correspond
+   to a known CSS property.
+Throws:
+DOMException
+- NO_MODIFICATION_ALLOWED_ERR: Raised if this declaration is readonly
+   or the property is readonly.
+getPropertyPriority
+String
+getPropertyPriority
+(
+String
+propertyName)
+Used to retrieve the priority of a CSS property (e.g. the
+"important"
+qualifier) if the priority has been
+ explicitly set in this declaration block.
+Parameters:
+propertyName
+- The name of the CSS property. See the CSS
+   property index.
+Returns:
+A string representing the priority (e.g.
+"important"
+) if the property has been explicitly set
+   in this declaration block and has a priority specified. The empty
+   string otherwise.
+setProperty
+void
+setProperty
+(
+String
+propertyName,
+String
+value,
+String
+priority)
+throws
+DOMException
+Used to set a property value and priority within this declaration
+ block.
+setProperty
+permits to modify a property or add a
+ new one in the declaration block. Any call to this method may modify
+ the order of properties in the
+item
+method.
+Parameters:
+propertyName
+- The name of the CSS property. See the CSS
+   property index.
+value
+- The new value of the property.
+priority
+- The new priority of the property (e.g.
+"important"
+) or the empty string if none.
+Throws:
+DOMException
+- SYNTAX_ERR: Raised if the specified value has a syntax error and is
+   unparsable.
+NO_MODIFICATION_ALLOWED_ERR: Raised if this declaration is
+   readonly or the property is readonly.
+getLength
+int
+getLength
+()
+The number of properties that have been explicitly set in this
+ declaration block. The range of valid indices is 0 to length-1
+ inclusive.
+item
+String
+item
+(int index)
+Used to retrieve the properties that have been explicitly set in this
+ declaration block. The order of the properties retrieved using this
+ method does not have to be the order in which they were set. This
+ method can be used to iterate over all properties in this declaration
+ block.
+Parameters:
+index
+- Index of the property name to retrieve.
+Returns:
+The name of the property at this ordinal position. The empty
+   string if no property exists at this position.
+getParentRule
+CSSRule
+getParentRule
+()
+The CSS rule that contains this declaration block or
+null
+if this
+CSSStyleDeclaration
+is not attached to a
+CSSRule
+.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,694 @@
+Uses of Class java.security.cert.Certificate (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+Uses of Class
+java.security.cert.Certificate
+Packages that use
+Certificate
+Package
+Description
+java.net
+Provides the classes for implementing networking applications.
+java.security
+Provides the classes and interfaces for the security framework.
+java.security.cert
+Provides classes and interfaces for parsing and managing
+ certificates, certificate revocation lists (CRLs), and
+ certification paths.
+java.util.jar
+Provides classes for reading and writing the JAR (Java ARchive)
+ file format, which is based on the standard ZIP file format with an
+ optional manifest file.
+javax.crypto
+Provides the classes and interfaces for cryptographic
+ operations.
+javax.net.ssl
+Provides classes for the secure socket package.
+Uses of
+Certificate
+in
+java.net
+Methods in
+java.net
+that return
+Certificate
+Modifier and Type
+Method
+Description
+Certificate
+[]
+JarURLConnection.
+getCertificates
+()
+Returns the Certificate objects for this connection if the URL
+ for it points to a JAR file entry, null otherwise.
+Methods in
+java.net
+that return types with arguments of type
+Certificate
+Modifier and Type
+Method
+Description
+abstract
+List
+<
+Certificate
+>
+SecureCacheResponse.
+getLocalCertificateChain
+()
+Returns the certificate chain that were sent to the server during
+ handshaking of the original connection that retrieved the
+ network resource.
+abstract
+List
+<
+Certificate
+>
+SecureCacheResponse.
+getServerCertificateChain
+()
+Returns the server's certificate chain, which was established as
+ part of defining the session in the original connection that
+ retrieved the network resource, from cache.
+Uses of
+Certificate
+in
+java.security
+Methods in
+java.security
+that return
+Certificate
+Modifier and Type
+Method
+Description
+abstract
+Certificate
+KeyStoreSpi.
+engineGetCertificate
+(
+String
+alias)
+Returns the certificate associated with the given alias.
+abstract
+Certificate
+[]
+KeyStoreSpi.
+engineGetCertificateChain
+(
+String
+alias)
+Returns the certificate chain associated with the given alias.
+final
+Certificate
+KeyStore.
+getCertificate
+(
+String
+alias)
+Returns the certificate associated with the given alias.
+Certificate
+KeyStore.PrivateKeyEntry.
+getCertificate
+()
+Gets the end entity
+Certificate
+from the certificate chain in this entry.
+final
+Certificate
+[]
+KeyStore.
+getCertificateChain
+(
+String
+alias)
+Returns the certificate chain associated with the given alias.
+Certificate
+[]
+KeyStore.PrivateKeyEntry.
+getCertificateChain
+()
+Gets the
+Certificate
+chain from this entry.
+final
+Certificate
+[]
+CodeSource.
+getCertificates
+()
+Returns the certificates associated with this
+CodeSource
+.
+Certificate
+KeyStore.TrustedCertificateEntry.
+getTrustedCertificate
+()
+Gets the trusted
+Certificate
+from this entry.
+Certificate
+[]
+UnresolvedPermission.
+getUnresolvedCerts
+()
+Get the signer certificates (without any supporting chain)
+ for the underlying permission that has not been resolved.
+Methods in
+java.security
+with parameters of type
+Certificate
+Modifier and Type
+Method
+Description
+abstract
+String
+KeyStoreSpi.
+engineGetCertificateAlias
+(
+Certificate
+cert)
+Returns the (alias) name of the first keystore entry whose certificate
+ matches the given certificate.
+abstract void
+KeyStoreSpi.
+engineSetCertificateEntry
+(
+String
+alias,
+Certificate
+cert)
+Assigns the given certificate to the given alias.
+abstract void
+KeyStoreSpi.
+engineSetKeyEntry
+(
+String
+alias,
+ byte[] key,
+Certificate
+[] chain)
+Assigns the given key (that has already been protected) to the given
+ alias.
+abstract void
+KeyStoreSpi.
+engineSetKeyEntry
+(
+String
+alias,
+Key
+key,
+ char[] password,
+Certificate
+[] chain)
+Assigns the given key to the given alias, protecting it with the given
+ password.
+final
+String
+KeyStore.
+getCertificateAlias
+(
+Certificate
+cert)
+Returns the (alias) name of the first keystore entry whose certificate
+ matches the given certificate.
+final void
+Signature.
+initVerify
+(
+Certificate
+certificate)
+Initializes this object for verification, using the public key from
+ the given certificate.
+final void
+KeyStore.
+setCertificateEntry
+(
+String
+alias,
+Certificate
+cert)
+Assigns the given trusted certificate to the given alias.
+final void
+KeyStore.
+setKeyEntry
+(
+String
+alias,
+ byte[] key,
+Certificate
+[] chain)
+Assigns the given key (that has already been protected) to the given
+ alias.
+final void
+KeyStore.
+setKeyEntry
+(
+String
+alias,
+Key
+key,
+ char[] password,
+Certificate
+[] chain)
+Assigns the given key to the given alias, protecting it with the given
+ password.
+Constructors in
+java.security
+with parameters of type
+Certificate
+Modifier
+Constructor
+Description
+CodeSource
+(
+URL
+url,
+Certificate
+[] certs)
+Constructs a
+CodeSource
+and associates it with the specified
+ location and set of certificates.
+PrivateKeyEntry
+(
+PrivateKey
+privateKey,
+Certificate
+[] chain)
+Constructs a
+PrivateKeyEntry
+with a
+PrivateKey
+and corresponding certificate chain.
+PrivateKeyEntry
+(
+PrivateKey
+privateKey,
+Certificate
+[] chain,
+Set
+<
+KeyStore.Entry.Attribute
+> attributes)
+Constructs a
+PrivateKeyEntry
+with a
+PrivateKey
+and
+ corresponding certificate chain and associated entry attributes.
+TrustedCertificateEntry
+(
+Certificate
+trustedCert)
+Constructs a
+TrustedCertificateEntry
+with a
+ trusted
+Certificate
+.
+TrustedCertificateEntry
+(
+Certificate
+trustedCert,
+Set
+<
+KeyStore.Entry.Attribute
+> attributes)
+Constructs a
+TrustedCertificateEntry
+with a
+ trusted
+Certificate
+and associated entry attributes.
+UnresolvedPermission
+(
+String
+type,
+String
+name,
+String
+actions,
+Certificate
+[] certs)
+Creates a new
+UnresolvedPermission
+containing the permission
+ information needed later to actually create a Permission of the
+ specified class, when the permission is resolved.
+Uses of
+Certificate
+in
+java.security.cert
+Subclasses of
+Certificate
+in
+java.security.cert
+Modifier and Type
+Class
+Description
+class
+X509Certificate
+Abstract class for X.509 certificates.
+Methods in
+java.security.cert
+that return
+Certificate
+Modifier and Type
+Method
+Description
+abstract
+Certificate
+CertificateFactorySpi.
+engineGenerateCertificate
+(
+InputStream
+inStream)
+Generates a certificate object and initializes it with
+ the data read from the input stream
+inStream
+.
+final
+Certificate
+CertificateFactory.
+generateCertificate
+(
+InputStream
+inStream)
+Generates a certificate object and initializes it with
+ the data read from the input stream
+inStream
+.
+Methods in
+java.security.cert
+that return types with arguments of type
+Certificate
+Modifier and Type
+Method
+Description
+abstract
+Collection
+<? extends
+Certificate
+>
+CertificateFactorySpi.
+engineGenerateCertificates
+(
+InputStream
+inStream)
+Returns a (possibly empty) collection view of the certificates read
+ from the given input stream
+inStream
+.
+abstract
+Collection
+<? extends
+Certificate
+>
+CertStoreSpi.
+engineGetCertificates
+(
+CertSelector
+selector)
+Returns a
+Collection
+of
+Certificate
+s that
+ match the specified selector.
+final
+Collection
+<? extends
+Certificate
+>
+CertificateFactory.
+generateCertificates
+(
+InputStream
+inStream)
+Returns a (possibly empty) collection view of the certificates read
+ from the given input stream
+inStream
+.
+abstract
+List
+<? extends
+Certificate
+>
+CertPath.
+getCertificates
+()
+Returns the list of certificates in this certification path.
+final
+Collection
+<? extends
+Certificate
+>
+CertStore.
+getCertificates
+(
+CertSelector
+selector)
+Returns a
+Collection
+of
+Certificate
+s that
+ match the specified selector.
+Methods in
+java.security.cert
+with parameters of type
+Certificate
+Modifier and Type
+Method
+Description
+void
+CertPathChecker.
+check
+(
+Certificate
+cert)
+Performs the check(s) on the specified certificate using its internal
+ state.
+void
+PKIXCertPathChecker.
+check
+(
+Certificate
+cert)
+Performs the check(s) on the specified certificate using its internal
+ state.
+abstract void
+PKIXCertPathChecker.
+check
+(
+Certificate
+cert,
+Collection
+<
+String
+> unresolvedCritExts)
+Performs the check(s) on the specified certificate using its internal
+ state and removes any critical extensions that it processes from the
+ specified collection of OID strings that represent the unresolved
+ critical extensions.
+abstract boolean
+CRL.
+isRevoked
+(
+Certificate
+cert)
+Checks whether the given certificate is on this CRL.
+boolean
+CertSelector.
+match
+(
+Certificate
+cert)
+Decides whether a
+Certificate
+should be selected.
+boolean
+X509CertSelector.
+match
+(
+Certificate
+cert)
+Decides whether a
+Certificate
+should be selected.
+Method parameters in
+java.security.cert
+with type arguments of type
+Certificate
+Modifier and Type
+Method
+Description
+CertPath
+CertificateFactorySpi.
+engineGenerateCertPath
+(
+List
+<? extends
+Certificate
+> certificates)
+Generates a
+CertPath
+object and initializes it with
+ a
+List
+of
+Certificate
+s.
+final
+CertPath
+CertificateFactory.
+generateCertPath
+(
+List
+<? extends
+Certificate
+> certificates)
+Generates a
+CertPath
+object and initializes it with
+ a
+List
+of
+Certificate
+s.
+Uses of
+Certificate
+in
+java.util.jar
+Methods in
+java.util.jar
+that return
+Certificate
+Modifier and Type
+Method
+Description
+Certificate
+[]
+JarEntry.
+getCertificates
+()
+Returns the
+Certificate
+objects for this entry, or
+null
+if none.
+Uses of
+Certificate
+in
+javax.crypto
+Methods in
+javax.crypto
+with parameters of type
+Certificate
+Modifier and Type
+Method
+Description
+final void
+Cipher.
+init
+(int opmode,
+Certificate
+certificate)
+Initializes this
+Cipher
+object with the public key from the given
+ certificate.
+final void
+Cipher.
+init
+(int opmode,
+Certificate
+certificate,
+SecureRandom
+random)
+Initializes this
+Cipher
+object with the public key from the given
+ certificate and a source of randomness.
+Uses of
+Certificate
+in
+javax.net.ssl
+Methods in
+javax.net.ssl
+that return
+Certificate
+Modifier and Type
+Method
+Description
+Certificate
+[]
+HandshakeCompletedEvent.
+getLocalCertificates
+()
+Returns the certificate(s) that were sent to the peer during
+ handshaking.
+abstract
+Certificate
+[]
+HttpsURLConnection.
+getLocalCertificates
+()
+Returns the certificate(s) that were sent to the server during
+ handshaking.
+Certificate
+[]
+SSLSession.
+getLocalCertificates
+()
+Returns the certificate(s) that were sent to the peer during
+ handshaking.
+Certificate
+[]
+HandshakeCompletedEvent.
+getPeerCertificates
+()
+Returns the identity of the peer which was established as part
+ of defining the session.
+Certificate
+[]
+SSLSession.
+getPeerCertificates
+()
+Returns the identity of the peer which was established as part
+ of defining the session.
+abstract
+Certificate
+[]
+HttpsURLConnection.
+getServerCertificates
+()
+Returns the server's certificate chain which was established
+ as part of defining the session.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

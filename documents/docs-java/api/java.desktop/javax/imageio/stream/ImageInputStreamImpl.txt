@@ -1,0 +1,2340 @@
+ImageInputStreamImpl (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.imageio.stream
+Class ImageInputStreamImpl
+java.lang.Object
+javax.imageio.stream.ImageInputStreamImpl
+All Implemented Interfaces:
+Closeable
+,
+DataInput
+,
+AutoCloseable
+,
+ImageInputStream
+Direct Known Subclasses:
+FileCacheImageInputStream
+,
+FileImageInputStream
+,
+ImageOutputStreamImpl
+,
+MemoryCacheImageInputStream
+public abstract class
+ImageInputStreamImpl
+extends
+Object
+implements
+ImageInputStream
+An abstract class implementing the
+ImageInputStream
+interface.
+ This class is designed to reduce the number of methods that must
+ be implemented by subclasses.
+In particular, this class handles most or all of the details of
+ byte order interpretation, buffering, mark/reset, discarding,
+ closing, and disposing.
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+protected int
+bitOffset
+The current bit offset within the stream.
+protected
+ByteOrder
+byteOrder
+The byte order of the stream as an instance of the enumeration
+ class
+java.nio.ByteOrder
+, where
+ByteOrder.BIG_ENDIAN
+indicates network byte order
+ and
+ByteOrder.LITTLE_ENDIAN
+indicates the reverse
+ order.
+protected long
+flushedPos
+The position prior to which data may be discarded.
+protected long
+streamPos
+The current read position within the stream.
+Constructor Summary
+Constructors
+Constructor
+Description
+ImageInputStreamImpl
+()
+Constructs an
+ImageInputStreamImpl
+.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Deprecated Methods
+Modifier and Type
+Method
+Description
+protected final void
+checkClosed
+()
+Throws an
+IOException
+if the stream has been closed.
+void
+close
+()
+Closes the stream.
+protected void
+finalize
+()
+Deprecated, for removal: This API element is subject to removal in a future version.
+Finalization has been deprecated for removal.
+void
+flush
+()
+Discards the initial position of the stream prior to the current
+ stream position.
+void
+flushBefore
+(long pos)
+Discards the initial portion of the stream prior to the
+ indicated position.
+int
+getBitOffset
+()
+Returns the current bit offset, as an integer between 0 and 7,
+ inclusive.
+ByteOrder
+getByteOrder
+()
+Returns the byte order with which data values will be read from
+ this stream as an instance of the
+java.nio.ByteOrder
+enumeration.
+long
+getFlushedPosition
+()
+Returns the earliest position in the stream to which seeking
+ may be performed.
+long
+getStreamPosition
+()
+Returns the current byte position of the stream.
+boolean
+isCached
+()
+Default implementation returns false.
+boolean
+isCachedFile
+()
+Default implementation returns false.
+boolean
+isCachedMemory
+()
+Default implementation returns false.
+long
+length
+()
+Returns
+-1L
+to indicate that the stream has unknown
+ length.
+void
+mark
+()
+Pushes the current stream position onto a stack of marked
+ positions.
+abstract int
+read
+()
+Reads a single byte from the stream and returns it as an
+int
+between 0 and 255.
+int
+read
+(byte[] b)
+A convenience method that calls
+read(b, 0, b.length)
+.
+abstract int
+read
+(byte[] b,
+ int off,
+ int len)
+Reads up to
+len
+bytes from the stream, and stores
+ them into
+b
+starting at index
+off
+.
+int
+readBit
+()
+Reads a single bit from the stream and returns it as an
+int
+with the value
+0
+or
+1
+.
+long
+readBits
+(int numBits)
+Reads a bitstring from the stream and returns it as a
+long
+, with the first bit read becoming the most
+ significant bit of the output.
+boolean
+readBoolean
+()
+Reads a byte from the stream and returns a
+boolean
+value of
+true
+if it is nonzero,
+false
+if it is zero.
+byte
+readByte
+()
+Reads a byte from the stream and returns it as a
+byte
+value.
+void
+readBytes
+(
+IIOByteBuffer
+buf,
+ int len)
+Reads up to
+len
+bytes from the stream, and
+ modifies the supplied
+IIOByteBuffer
+to indicate
+ the byte array, offset, and length where the data may be found.
+char
+readChar
+()
+Equivalent to
+readUnsignedShort
+, except that the
+ result is returned using the
+char
+datatype.
+double
+readDouble
+()
+Reads 8 bytes from the stream, and (conceptually) concatenates
+ them according to the current byte order and returns the result
+ as a
+double
+.
+float
+readFloat
+()
+Reads 4 bytes from the stream, and (conceptually) concatenates
+ them according to the current byte order and returns the result
+ as a
+float
+.
+void
+readFully
+(byte[] b)
+Reads
+b.length
+bytes from the stream, and stores them
+ into
+b
+starting at index
+0
+.
+void
+readFully
+(byte[] b,
+ int off,
+ int len)
+Reads
+len
+bytes from the stream, and stores them
+ into
+b
+starting at index
+off
+.
+void
+readFully
+(char[] c,
+ int off,
+ int len)
+Reads
+len
+chars (unsigned 16-bit integers) from the
+ stream according to the current byte order, and
+ stores them into
+c
+starting at index
+off
+.
+void
+readFully
+(double[] d,
+ int off,
+ int len)
+Reads
+len
+doubles (64-bit IEEE double-precision
+ floats) from the stream according to the current byte order,
+ and stores them into
+d
+starting at
+ index
+off
+.
+void
+readFully
+(float[] f,
+ int off,
+ int len)
+Reads
+len
+floats (32-bit IEEE single-precision
+ floats) from the stream according to the current byte order,
+ and stores them into
+f
+starting at
+ index
+off
+.
+void
+readFully
+(int[] i,
+ int off,
+ int len)
+Reads
+len
+ints (signed 32-bit integers) from the
+ stream according to the current byte order, and
+ stores them into
+i
+starting at index
+off
+.
+void
+readFully
+(long[] l,
+ int off,
+ int len)
+Reads
+len
+longs (signed 64-bit integers) from the
+ stream according to the current byte order, and
+ stores them into
+l
+starting at index
+off
+.
+void
+readFully
+(short[] s,
+ int off,
+ int len)
+Reads
+len
+shorts (signed 16-bit integers) from the
+ stream according to the current byte order, and
+ stores them into
+s
+starting at index
+off
+.
+int
+readInt
+()
+Reads 4 bytes from the stream, and (conceptually) concatenates
+ them according to the current byte order and returns the result
+ as an
+int
+.
+String
+readLine
+()
+Reads the next line of text from the input stream.
+long
+readLong
+()
+Reads 8 bytes from the stream, and (conceptually) concatenates
+ them according to the current byte order and returns the result
+ as a
+long
+.
+short
+readShort
+()
+Reads two bytes from the stream, and (conceptually)
+ concatenates them according to the current byte order, and
+ returns the result as a
+short
+value.
+int
+readUnsignedByte
+()
+Reads a byte from the stream, and (conceptually) converts it to
+ an int, masks it with
+0xff
+in order to strip off
+ any sign-extension bits, and returns it as a
+byte
+value.
+long
+readUnsignedInt
+()
+Reads 4 bytes from the stream, and (conceptually) concatenates
+ them according to the current byte order, converts the result
+ to a long, masks it with
+0xffffffffL
+in order to
+ strip off any sign-extension bits, and returns the result as an
+ unsigned
+long
+value.
+int
+readUnsignedShort
+()
+Reads two bytes from the stream, and (conceptually)
+ concatenates them according to the current byte order, converts
+ the resulting value to an
+int
+, masks it with
+0xffff
+in order to strip off any sign-extension
+ buts, and returns the result as an unsigned
+int
+value.
+String
+readUTF
+()
+Reads in a string that has been encoded using a
+modified UTF-8
+format.
+void
+reset
+()
+Resets the current stream byte and bit positions from the stack
+ of marked positions.
+void
+seek
+(long pos)
+Sets the current stream position to the desired location.
+void
+setBitOffset
+(int bitOffset)
+Sets the bit offset to an integer between 0 and 7, inclusive.
+void
+setByteOrder
+(
+ByteOrder
+byteOrder)
+Sets the desired byte order for future reads of data values
+ from this stream.
+int
+skipBytes
+(int n)
+Advances the current stream position by calling
+seek(getStreamPosition() + n)
+.
+long
+skipBytes
+(long n)
+Advances the current stream position by calling
+seek(getStreamPosition() + n)
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+byteOrder
+protected
+ByteOrder
+byteOrder
+The byte order of the stream as an instance of the enumeration
+ class
+java.nio.ByteOrder
+, where
+ByteOrder.BIG_ENDIAN
+indicates network byte order
+ and
+ByteOrder.LITTLE_ENDIAN
+indicates the reverse
+ order.  By default, the value is
+ByteOrder.BIG_ENDIAN
+.
+streamPos
+protected
+long
+streamPos
+The current read position within the stream.  Subclasses are
+ responsible for keeping this value current from any method they
+ override that alters the read position.
+bitOffset
+protected
+int
+bitOffset
+The current bit offset within the stream.  Subclasses are
+ responsible for keeping this value current from any method they
+ override that alters the bit offset.
+flushedPos
+protected
+long
+flushedPos
+The position prior to which data may be discarded.  Seeking
+ to a smaller position is not allowed.
+flushedPos
+will always be >= 0.
+Constructor Details
+ImageInputStreamImpl
+public
+ImageInputStreamImpl
+()
+Constructs an
+ImageInputStreamImpl
+.
+Method Details
+checkClosed
+protected final
+void
+checkClosed
+()
+                          throws
+IOException
+Throws an
+IOException
+if the stream has been closed.
+ Subclasses may call this method from any of their methods that
+ require the stream not to be closed.
+Throws:
+IOException
+- if the stream is closed.
+setByteOrder
+public
+void
+setByteOrder
+(
+ByteOrder
+byteOrder)
+Description copied from interface:
+ImageInputStream
+Sets the desired byte order for future reads of data values
+ from this stream.  For example, the sequence of bytes '0x01
+ 0x02 0x03 0x04' if read as a 4-byte integer would have the
+ value '0x01020304' using network byte order and the value
+ '0x04030201' under the reverse byte order.
+The enumeration class
+java.nio.ByteOrder
+is
+ used to specify the byte order.  A value of
+ByteOrder.BIG_ENDIAN
+specifies so-called
+ big-endian or network byte order, in which the high-order byte
+ comes first.  Motorola and Sparc processors store data in this
+ format, while Intel processors store data in the reverse
+ByteOrder.LITTLE_ENDIAN
+order.
+The byte order has no effect on the results returned from
+ the
+readBits
+method (or the value written by
+ImageOutputStream.writeBits
+).
+Specified by:
+setByteOrder
+in interface
+ImageInputStream
+Parameters:
+byteOrder
+- one of
+ByteOrder.BIG_ENDIAN
+or
+java.nio.ByteOrder.LITTLE_ENDIAN
+, indicating whether
+ network byte order or its reverse will be used for future
+ reads.
+See Also:
+ByteOrder
+ImageInputStream.getByteOrder()
+ImageInputStream.readBits(int)
+getByteOrder
+public
+ByteOrder
+getByteOrder
+()
+Description copied from interface:
+ImageInputStream
+Returns the byte order with which data values will be read from
+ this stream as an instance of the
+java.nio.ByteOrder
+enumeration.
+Specified by:
+getByteOrder
+in interface
+ImageInputStream
+Returns:
+one of
+ByteOrder.BIG_ENDIAN
+or
+ByteOrder.LITTLE_ENDIAN
+, indicating which byte
+ order is being used.
+See Also:
+ByteOrder
+ImageInputStream.setByteOrder(java.nio.ByteOrder)
+read
+public abstract
+int
+read
+()
+                  throws
+IOException
+Reads a single byte from the stream and returns it as an
+int
+between 0 and 255.  If EOF is reached,
+-1
+is returned.
+Subclasses must provide an implementation for this method.
+ The subclass implementation should update the stream position
+ before exiting.
+The bit offset within the stream must be reset to zero before
+ the read occurs.
+Specified by:
+read
+in interface
+ImageInputStream
+Returns:
+the value of the next byte in the stream, or
+-1
+if EOF is reached.
+Throws:
+IOException
+- if the stream has been closed.
+read
+public
+int
+read
+(byte[] b)
+throws
+IOException
+A convenience method that calls
+read(b, 0, b.length)
+.
+The bit offset within the stream is reset to zero before
+ the read occurs.
+Specified by:
+read
+in interface
+ImageInputStream
+Parameters:
+b
+- an array of bytes to be written to.
+Returns:
+the number of bytes actually read, or
+-1
+to indicate EOF.
+Throws:
+NullPointerException
+- if
+b
+is
+null
+.
+IOException
+- if an I/O error occurs.
+read
+public abstract
+int
+read
+(byte[] b,
+ int off,
+ int len)
+throws
+IOException
+Reads up to
+len
+bytes from the stream, and stores
+ them into
+b
+starting at index
+off
+.
+ If no bytes can be read because the end of the stream has been
+ reached,
+-1
+is returned.
+The bit offset within the stream must be reset to zero before
+ the read occurs.
+Subclasses must provide an implementation for this method.
+ The subclass implementation should update the stream position
+ before exiting.
+Specified by:
+read
+in interface
+ImageInputStream
+Parameters:
+b
+- an array of bytes to be written to.
+off
+- the starting position within
+b
+to write to.
+len
+- the maximum number of bytes to read.
+Returns:
+the number of bytes actually read, or
+-1
+to indicate EOF.
+Throws:
+IndexOutOfBoundsException
+- if
+off
+is
+ negative,
+len
+is negative, or
+off + len
+is greater than
+b.length
+.
+NullPointerException
+- if
+b
+is
+null
+.
+IOException
+- if an I/O error occurs.
+readBytes
+public
+void
+readBytes
+(
+IIOByteBuffer
+buf,
+ int len)
+throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads up to
+len
+bytes from the stream, and
+ modifies the supplied
+IIOByteBuffer
+to indicate
+ the byte array, offset, and length where the data may be found.
+ The caller should not attempt to modify the data found in the
+IIOByteBuffer
+.
+The bit offset within the stream is reset to zero before
+ the read occurs.
+Specified by:
+readBytes
+in interface
+ImageInputStream
+Parameters:
+buf
+- an IIOByteBuffer object to be modified.
+len
+- the maximum number of
+byte
+s to read.
+Throws:
+IOException
+- if an I/O error occurs.
+readBoolean
+public
+boolean
+readBoolean
+()
+                    throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads a byte from the stream and returns a
+boolean
+value of
+true
+if it is nonzero,
+false
+if it is zero.
+The bit offset within the stream is reset to zero before
+ the read occurs.
+Specified by:
+readBoolean
+in interface
+DataInput
+Specified by:
+readBoolean
+in interface
+ImageInputStream
+Returns:
+a boolean value from the stream.
+Throws:
+EOFException
+- if the end of the stream is reached.
+IOException
+- if an I/O error occurs.
+readByte
+public
+byte
+readByte
+()
+              throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads a byte from the stream and returns it as a
+byte
+value.  Byte values between
+0x00
+and
+0x7f
+represent integer values between
+0
+and
+127
+.  Values between
+0x80
+and
+0xff
+represent negative
+ values from
+-128
+to
+/1
+.
+The bit offset within the stream is reset to zero before
+ the read occurs.
+Specified by:
+readByte
+in interface
+DataInput
+Specified by:
+readByte
+in interface
+ImageInputStream
+Returns:
+a signed byte value from the stream.
+Throws:
+EOFException
+- if the end of the stream is reached.
+IOException
+- if an I/O error occurs.
+readUnsignedByte
+public
+int
+readUnsignedByte
+()
+                     throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads a byte from the stream, and (conceptually) converts it to
+ an int, masks it with
+0xff
+in order to strip off
+ any sign-extension bits, and returns it as a
+byte
+value.
+Thus, byte values between
+0x00
+and
+0x7f
+are simply returned as integer values between
+0
+and
+127
+.  Values between
+0x80
+and
+0xff
+, which normally
+ represent negative
+byte
+values, will be mapped into
+ positive integers between
+128
+and
+255
+.
+The bit offset within the stream is reset to zero before
+ the read occurs.
+Specified by:
+readUnsignedByte
+in interface
+DataInput
+Specified by:
+readUnsignedByte
+in interface
+ImageInputStream
+Returns:
+an unsigned byte value from the stream.
+Throws:
+EOFException
+- if the end of the stream is reached.
+IOException
+- if an I/O error occurs.
+readShort
+public
+short
+readShort
+()
+                throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads two bytes from the stream, and (conceptually)
+ concatenates them according to the current byte order, and
+ returns the result as a
+short
+value.
+The bit offset within the stream is reset to zero before
+ the read occurs.
+Specified by:
+readShort
+in interface
+DataInput
+Specified by:
+readShort
+in interface
+ImageInputStream
+Returns:
+a signed short value from the stream.
+Throws:
+EOFException
+- if the stream reaches the end before
+ reading all the bytes.
+IOException
+- if an I/O error occurs.
+See Also:
+ImageInputStream.getByteOrder()
+readUnsignedShort
+public
+int
+readUnsignedShort
+()
+                      throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads two bytes from the stream, and (conceptually)
+ concatenates them according to the current byte order, converts
+ the resulting value to an
+int
+, masks it with
+0xffff
+in order to strip off any sign-extension
+ buts, and returns the result as an unsigned
+int
+value.
+The bit offset within the stream is reset to zero before
+ the read occurs.
+Specified by:
+readUnsignedShort
+in interface
+DataInput
+Specified by:
+readUnsignedShort
+in interface
+ImageInputStream
+Returns:
+an unsigned short value from the stream, as an int.
+Throws:
+EOFException
+- if the stream reaches the end before
+ reading all the bytes.
+IOException
+- if an I/O error occurs.
+See Also:
+ImageInputStream.getByteOrder()
+readChar
+public
+char
+readChar
+()
+              throws
+IOException
+Description copied from interface:
+ImageInputStream
+Equivalent to
+readUnsignedShort
+, except that the
+ result is returned using the
+char
+datatype.
+The bit offset within the stream is reset to zero before
+ the read occurs.
+Specified by:
+readChar
+in interface
+DataInput
+Specified by:
+readChar
+in interface
+ImageInputStream
+Returns:
+an unsigned char value from the stream.
+Throws:
+EOFException
+- if the stream reaches the end before
+ reading all the bytes.
+IOException
+- if an I/O error occurs.
+See Also:
+ImageInputStream.readUnsignedShort()
+readInt
+public
+int
+readInt
+()
+            throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads 4 bytes from the stream, and (conceptually) concatenates
+ them according to the current byte order and returns the result
+ as an
+int
+.
+The bit offset within the stream is ignored and treated as
+ though it were zero.
+Specified by:
+readInt
+in interface
+DataInput
+Specified by:
+readInt
+in interface
+ImageInputStream
+Returns:
+a signed int value from the stream.
+Throws:
+EOFException
+- if the stream reaches the end before
+ reading all the bytes.
+IOException
+- if an I/O error occurs.
+See Also:
+ImageInputStream.getByteOrder()
+readUnsignedInt
+public
+long
+readUnsignedInt
+()
+                     throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads 4 bytes from the stream, and (conceptually) concatenates
+ them according to the current byte order, converts the result
+ to a long, masks it with
+0xffffffffL
+in order to
+ strip off any sign-extension bits, and returns the result as an
+ unsigned
+long
+value.
+The bit offset within the stream is reset to zero before
+ the read occurs.
+Specified by:
+readUnsignedInt
+in interface
+ImageInputStream
+Returns:
+an unsigned int value from the stream, as a long.
+Throws:
+EOFException
+- if the stream reaches the end before
+ reading all the bytes.
+IOException
+- if an I/O error occurs.
+See Also:
+ImageInputStream.getByteOrder()
+readLong
+public
+long
+readLong
+()
+              throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads 8 bytes from the stream, and (conceptually) concatenates
+ them according to the current byte order and returns the result
+ as a
+long
+.
+The bit offset within the stream is reset to zero before
+ the read occurs.
+Specified by:
+readLong
+in interface
+DataInput
+Specified by:
+readLong
+in interface
+ImageInputStream
+Returns:
+a signed long value from the stream.
+Throws:
+EOFException
+- if the stream reaches the end before
+ reading all the bytes.
+IOException
+- if an I/O error occurs.
+See Also:
+ImageInputStream.getByteOrder()
+readFloat
+public
+float
+readFloat
+()
+                throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads 4 bytes from the stream, and (conceptually) concatenates
+ them according to the current byte order and returns the result
+ as a
+float
+.
+The bit offset within the stream is reset to zero before
+ the read occurs.
+Specified by:
+readFloat
+in interface
+DataInput
+Specified by:
+readFloat
+in interface
+ImageInputStream
+Returns:
+a float value from the stream.
+Throws:
+EOFException
+- if the stream reaches the end before
+ reading all the bytes.
+IOException
+- if an I/O error occurs.
+See Also:
+ImageInputStream.getByteOrder()
+readDouble
+public
+double
+readDouble
+()
+                  throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads 8 bytes from the stream, and (conceptually) concatenates
+ them according to the current byte order and returns the result
+ as a
+double
+.
+The bit offset within the stream is reset to zero before
+ the read occurs.
+Specified by:
+readDouble
+in interface
+DataInput
+Specified by:
+readDouble
+in interface
+ImageInputStream
+Returns:
+a double value from the stream.
+Throws:
+EOFException
+- if the stream reaches the end before
+ reading all the bytes.
+IOException
+- if an I/O error occurs.
+See Also:
+ImageInputStream.getByteOrder()
+readLine
+public
+String
+readLine
+()
+                throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads the next line of text from the input stream.  It reads
+ successive bytes, converting each byte separately into a
+ character, until it encounters a line terminator or end of
+ file; the characters read are then returned as a
+String
+. Note that because this method processes
+ bytes, it does not support input of the full Unicode character
+ set.
+If end of file is encountered before even one byte can be
+ read, then
+null
+is returned. Otherwise, each byte
+ that is read is converted to type
+char
+by
+ zero-extension. If the character
+'\n'
+is
+ encountered, it is discarded and reading ceases. If the
+ character
+'\r'
+is encountered, it is discarded
+ and, if the following byte converts to the character
+'\n'
+, then that is discarded also; reading then
+ ceases. If end of file is encountered before either of the
+ characters
+'\n'
+and
+'\r'
+is
+ encountered, reading ceases. Once reading has ceased, a
+String
+is returned that contains all the
+ characters read and not discarded, taken in order.  Note that
+ every character in this string will have a value less than
+\u0100
+, that is,
+(char)256
+.
+The bit offset within the stream is reset to zero before
+ the read occurs.
+Specified by:
+readLine
+in interface
+DataInput
+Specified by:
+readLine
+in interface
+ImageInputStream
+Returns:
+a String containing a line of text from the stream.
+Throws:
+IOException
+- if an I/O error occurs.
+readUTF
+public
+String
+readUTF
+()
+               throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads in a string that has been encoded using a
+modified UTF-8
+format.  The general contract of
+readUTF
+is that
+ it reads a representation of a Unicode character string encoded
+ in modified UTF-8 format; this string of characters is
+ then returned as a
+String
+.
+First, two bytes are read and used to construct an unsigned
+ 16-bit integer in the manner of the
+readUnsignedShort
+method, using network byte order
+ (regardless of the current byte order setting). This integer
+ value is called the
+UTF length
+and specifies the number
+ of additional bytes to be read. These bytes are then converted
+ to characters by considering them in groups. The length of each
+ group is computed from the value of the first byte of the
+ group. The byte following a group, if any, is the first byte of
+ the next group.
+If the first byte of a group matches the bit pattern
+0xxxxxxx
+(where
+x
+means "may be
+0
+or
+1
+"), then the group consists of
+ just that byte. The byte is zero-extended to form a character.
+If the first byte of a group matches the bit pattern
+110xxxxx
+, then the group consists of that byte
+a
+and a second byte
+b
+. If there is no
+ byte
+b
+(because byte
+a
+was the last
+ of the bytes to be read), or if byte
+b
+does not
+ match the bit pattern
+10xxxxxx
+, then a
+UTFDataFormatException
+is thrown. Otherwise, the
+ group is converted to the character:
+(char)(((a& 0x1F) << 6) | (b & 0x3F))
+If the first byte of a group matches the bit pattern
+1110xxxx
+, then the group consists of that byte
+a
+and two more bytes
+b
+and
+c
+.  If there is no byte
+c
+(because
+ byte
+a
+was one of the last two of the bytes to be
+ read), or either byte
+b
+or byte
+c
+does not match the bit pattern
+10xxxxxx
+, then a
+UTFDataFormatException
+is thrown. Otherwise, the
+ group is converted to the character:
+(char)(((a & 0x0F) << 12) | ((b & 0x3F) << 6) | (c & 0x3F))
+If the first byte of a group matches the pattern
+1111xxxx
+or the pattern
+10xxxxxx
+,
+ then a
+UTFDataFormatException
+is thrown.
+If end of file is encountered at any time during this
+ entire process, then a
+java.io.EOFException
+is thrown.
+After every group has been converted to a character by this
+ process, the characters are gathered, in the same order in
+ which their corresponding groups were read from the input
+ stream, to form a
+String
+, which is returned.
+The current byte order setting is ignored.
+The bit offset within the stream is reset to zero before
+ the read occurs.
+Note:
+This method should not be used in
+ the  implementation of image formats that use standard UTF-8,
+ because  the modified UTF-8 used here is incompatible with
+ standard UTF-8.
+Specified by:
+readUTF
+in interface
+DataInput
+Specified by:
+readUTF
+in interface
+ImageInputStream
+Returns:
+a String read from the stream.
+Throws:
+EOFException
+- if this stream reaches the end
+ before reading all the bytes.
+UTFDataFormatException
+- if the bytes do not represent
+ a valid modified UTF-8 encoding of a string.
+IOException
+- if an I/O error occurs.
+readFully
+public
+void
+readFully
+(byte[] b,
+ int off,
+ int len)
+throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads
+len
+bytes from the stream, and stores them
+ into
+b
+starting at index
+off
+.
+ If the end of the stream is reached, a
+java.io.EOFException
+will be thrown.
+The bit offset within the stream is reset to zero before
+ the read occurs.
+Specified by:
+readFully
+in interface
+DataInput
+Specified by:
+readFully
+in interface
+ImageInputStream
+Parameters:
+b
+- an array of bytes to be written to.
+off
+- the starting position within
+b
+to write to.
+len
+- the maximum number of
+byte
+s to read.
+Throws:
+EOFException
+- if the stream reaches the end before
+ reading all the bytes.
+IOException
+- if an I/O error occurs.
+readFully
+public
+void
+readFully
+(byte[] b)
+throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads
+b.length
+bytes from the stream, and stores them
+ into
+b
+starting at index
+0
+.
+ If the end of the stream is reached, a
+java.io.EOFException
+will be thrown.
+The bit offset within the stream is reset to zero before
+ the read occurs.
+Specified by:
+readFully
+in interface
+DataInput
+Specified by:
+readFully
+in interface
+ImageInputStream
+Parameters:
+b
+- an array of
+byte
+s.
+Throws:
+EOFException
+- if the stream reaches the end before
+ reading all the bytes.
+IOException
+- if an I/O error occurs.
+readFully
+public
+void
+readFully
+(short[] s,
+ int off,
+ int len)
+throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads
+len
+shorts (signed 16-bit integers) from the
+ stream according to the current byte order, and
+ stores them into
+s
+starting at index
+off
+.  If the end of the stream is reached,
+ a
+java.io.EOFException
+will be thrown.
+The bit offset within the stream is reset to zero before
+ the read occurs.
+Specified by:
+readFully
+in interface
+ImageInputStream
+Parameters:
+s
+- an array of shorts to be written to.
+off
+- the starting position within
+s
+to write to.
+len
+- the maximum number of
+short
+s to read.
+Throws:
+EOFException
+- if the stream reaches the end before
+ reading all the bytes.
+IOException
+- if an I/O error occurs.
+readFully
+public
+void
+readFully
+(char[] c,
+ int off,
+ int len)
+throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads
+len
+chars (unsigned 16-bit integers) from the
+ stream according to the current byte order, and
+ stores them into
+c
+starting at index
+off
+.  If the end of the stream is reached,
+ a
+java.io.EOFException
+will be thrown.
+The bit offset within the stream is reset to zero before
+ the read occurs.
+Specified by:
+readFully
+in interface
+ImageInputStream
+Parameters:
+c
+- an array of chars to be written to.
+off
+- the starting position within
+c
+to write to.
+len
+- the maximum number of
+char
+s to read.
+Throws:
+EOFException
+- if the stream reaches the end before
+ reading all the bytes.
+IOException
+- if an I/O error occurs.
+readFully
+public
+void
+readFully
+(int[] i,
+ int off,
+ int len)
+throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads
+len
+ints (signed 32-bit integers) from the
+ stream according to the current byte order, and
+ stores them into
+i
+starting at index
+off
+.  If the end of the stream is reached,
+ a
+java.io.EOFException
+will be thrown.
+The bit offset within the stream is reset to zero before
+ the read occurs.
+Specified by:
+readFully
+in interface
+ImageInputStream
+Parameters:
+i
+- an array of ints to be written to.
+off
+- the starting position within
+i
+to write to.
+len
+- the maximum number of
+int
+s to read.
+Throws:
+EOFException
+- if the stream reaches the end before
+ reading all the bytes.
+IOException
+- if an I/O error occurs.
+readFully
+public
+void
+readFully
+(long[] l,
+ int off,
+ int len)
+throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads
+len
+longs (signed 64-bit integers) from the
+ stream according to the current byte order, and
+ stores them into
+l
+starting at index
+off
+.  If the end of the stream is reached,
+ a
+java.io.EOFException
+will be thrown.
+The bit offset within the stream is reset to zero before
+ the read occurs.
+Specified by:
+readFully
+in interface
+ImageInputStream
+Parameters:
+l
+- an array of longs to be written to.
+off
+- the starting position within
+l
+to write to.
+len
+- the maximum number of
+long
+s to read.
+Throws:
+EOFException
+- if the stream reaches the end before
+ reading all the bytes.
+IOException
+- if an I/O error occurs.
+readFully
+public
+void
+readFully
+(float[] f,
+ int off,
+ int len)
+throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads
+len
+floats (32-bit IEEE single-precision
+ floats) from the stream according to the current byte order,
+ and stores them into
+f
+starting at
+ index
+off
+.  If the end of the stream is reached,
+ a
+java.io.EOFException
+will be thrown.
+The bit offset within the stream is reset to zero before
+ the read occurs.
+Specified by:
+readFully
+in interface
+ImageInputStream
+Parameters:
+f
+- an array of floats to be written to.
+off
+- the starting position within
+f
+to write to.
+len
+- the maximum number of
+float
+s to read.
+Throws:
+EOFException
+- if the stream reaches the end before
+ reading all the bytes.
+IOException
+- if an I/O error occurs.
+readFully
+public
+void
+readFully
+(double[] d,
+ int off,
+ int len)
+throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads
+len
+doubles (64-bit IEEE double-precision
+ floats) from the stream according to the current byte order,
+ and stores them into
+d
+starting at
+ index
+off
+.  If the end of the stream is reached,
+ a
+java.io.EOFException
+will be thrown.
+The bit offset within the stream is reset to zero before
+ the read occurs.
+Specified by:
+readFully
+in interface
+ImageInputStream
+Parameters:
+d
+- an array of doubles to be written to.
+off
+- the starting position within
+d
+to write to.
+len
+- the maximum number of
+double
+s to read.
+Throws:
+EOFException
+- if the stream reaches the end before
+ reading all the bytes.
+IOException
+- if an I/O error occurs.
+getStreamPosition
+public
+long
+getStreamPosition
+()
+                       throws
+IOException
+Description copied from interface:
+ImageInputStream
+Returns the current byte position of the stream.  The next read
+ will take place starting at this offset.
+Specified by:
+getStreamPosition
+in interface
+ImageInputStream
+Returns:
+a long containing the position of the stream.
+Throws:
+IOException
+- if an I/O error occurs.
+getBitOffset
+public
+int
+getBitOffset
+()
+                 throws
+IOException
+Description copied from interface:
+ImageInputStream
+Returns the current bit offset, as an integer between 0 and 7,
+ inclusive.  The bit offset is updated implicitly by calls to
+ the
+readBits
+method.  A value of 0 indicates the
+ most-significant bit, and a value of 7 indicates the least
+ significant bit, of the byte being read.
+The bit offset is set to 0 when a stream is first
+ opened, and is reset to 0 by calls to
+seek
+,
+skipBytes
+, or any
+read
+or
+readFully
+method.
+Specified by:
+getBitOffset
+in interface
+ImageInputStream
+Returns:
+an
+int
+containing the bit offset between
+ 0 and 7, inclusive.
+Throws:
+IOException
+- if an I/O error occurs.
+See Also:
+ImageInputStream.setBitOffset(int)
+setBitOffset
+public
+void
+setBitOffset
+(int bitOffset)
+throws
+IOException
+Description copied from interface:
+ImageInputStream
+Sets the bit offset to an integer between 0 and 7, inclusive.
+ The byte offset within the stream, as returned by
+getStreamPosition
+, is left unchanged.
+ A value of 0 indicates the
+ most-significant bit, and a value of 7 indicates the least
+ significant bit, of the byte being read.
+Specified by:
+setBitOffset
+in interface
+ImageInputStream
+Parameters:
+bitOffset
+- the desired offset, as an
+int
+between 0 and 7, inclusive.
+Throws:
+IOException
+- if an I/O error occurs.
+See Also:
+ImageInputStream.getBitOffset()
+readBit
+public
+int
+readBit
+()
+            throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads a single bit from the stream and returns it as an
+int
+with the value
+0
+or
+1
+.  The bit offset is advanced by one and reduced
+ modulo 8.
+Specified by:
+readBit
+in interface
+ImageInputStream
+Returns:
+an
+int
+containing the value
+0
+or
+1
+.
+Throws:
+EOFException
+- if the stream reaches the end before
+ reading all the bits.
+IOException
+- if an I/O error occurs.
+readBits
+public
+long
+readBits
+(int numBits)
+throws
+IOException
+Description copied from interface:
+ImageInputStream
+Reads a bitstring from the stream and returns it as a
+long
+, with the first bit read becoming the most
+ significant bit of the output.  The read starts within the byte
+ indicated by
+getStreamPosition
+, at the bit given
+ by
+getBitOffset
+.  The bit offset is advanced by
+numBits
+and reduced modulo 8.
+The byte order of the stream has no effect on this
+ method.  The return value of this method is constructed as
+ though the bits were read one at a time, and shifted into
+ the right side of the return value, as shown by the following
+ pseudo-code:
+long accum = 0L;
+ for (int i = 0; i < numBits; i++) {
+   accum <<= 1; // Shift left one bit to make room
+   accum |= readBit();
+ }
+Note that the result of
+readBits(32)
+may thus not
+ be equal to that of
+readInt()
+if a reverse network
+ byte order is being used (i.e.,
+getByteOrder() == false
+).
+If the end of the stream is encountered before all the bits
+ have been read, a
+java.io.EOFException
+is thrown.
+Specified by:
+readBits
+in interface
+ImageInputStream
+Parameters:
+numBits
+- the number of bits to read, as an
+int
+between 0 and 64, inclusive.
+Returns:
+the bitstring, as a
+long
+with the last bit
+ read stored in the least significant bit.
+Throws:
+EOFException
+- if the stream reaches the end before
+ reading all the bits.
+IOException
+- if an I/O error occurs.
+length
+public
+long
+length
+()
+Returns
+-1L
+to indicate that the stream has unknown
+ length.  Subclasses must override this method to provide actual
+ length information.
+Specified by:
+length
+in interface
+ImageInputStream
+Returns:
+-1L to indicate unknown length.
+skipBytes
+public
+int
+skipBytes
+(int n)
+throws
+IOException
+Advances the current stream position by calling
+seek(getStreamPosition() + n)
+.
+The bit offset is reset to zero.
+Specified by:
+skipBytes
+in interface
+DataInput
+Specified by:
+skipBytes
+in interface
+ImageInputStream
+Parameters:
+n
+- the number of bytes to seek forward.
+Returns:
+an
+int
+representing the number of bytes
+ skipped.
+Throws:
+IOException
+- if
+getStreamPosition
+throws an
+IOException
+when computing either
+ the starting or ending position.
+skipBytes
+public
+long
+skipBytes
+(long n)
+throws
+IOException
+Advances the current stream position by calling
+seek(getStreamPosition() + n)
+.
+The bit offset is reset to zero.
+Specified by:
+skipBytes
+in interface
+ImageInputStream
+Parameters:
+n
+- the number of bytes to seek forward.
+Returns:
+a
+long
+representing the number of bytes
+ skipped.
+Throws:
+IOException
+- if
+getStreamPosition
+throws an
+IOException
+when computing either
+ the starting or ending position.
+seek
+public
+void
+seek
+(long pos)
+throws
+IOException
+Description copied from interface:
+ImageInputStream
+Sets the current stream position to the desired location.  The
+ next read will occur at this location.  The bit offset is set
+ to 0.
+An
+IndexOutOfBoundsException
+will be thrown if
+pos
+is smaller than the flushed position (as
+ returned by
+getflushedPosition
+).
+It is legal to seek past the end of the file;
+ a
+java.io.EOFException
+will be thrown only if a read is
+ performed.
+Specified by:
+seek
+in interface
+ImageInputStream
+Parameters:
+pos
+- a
+long
+containing the desired file
+ pointer position.
+Throws:
+IOException
+- if any other I/O error occurs.
+mark
+public
+void
+mark
+()
+Pushes the current stream position onto a stack of marked
+ positions.
+Specified by:
+mark
+in interface
+ImageInputStream
+reset
+public
+void
+reset
+()
+           throws
+IOException
+Resets the current stream byte and bit positions from the stack
+ of marked positions.
+An
+IOException
+will be thrown if the previous
+ marked position lies in the discarded portion of the stream.
+Specified by:
+reset
+in interface
+ImageInputStream
+Throws:
+IOException
+- if an I/O error occurs.
+flushBefore
+public
+void
+flushBefore
+(long pos)
+throws
+IOException
+Description copied from interface:
+ImageInputStream
+Discards the initial portion of the stream prior to the
+ indicated position.  Attempting to seek to an offset within the
+ flushed portion of the stream will result in an
+IndexOutOfBoundsException
+.
+Calling
+flushBefore
+may allow classes
+ implementing this interface to free up resources such as memory
+ or disk space that are being used to store data from the
+ stream.
+Specified by:
+flushBefore
+in interface
+ImageInputStream
+Parameters:
+pos
+- a
+long
+containing the length of the
+ stream prefix that may be flushed.
+Throws:
+IOException
+- if an I/O error occurs.
+flush
+public
+void
+flush
+()
+           throws
+IOException
+Description copied from interface:
+ImageInputStream
+Discards the initial position of the stream prior to the current
+ stream position.  Equivalent to
+flushBefore(getStreamPosition())
+.
+Specified by:
+flush
+in interface
+ImageInputStream
+Throws:
+IOException
+- if an I/O error occurs.
+getFlushedPosition
+public
+long
+getFlushedPosition
+()
+Description copied from interface:
+ImageInputStream
+Returns the earliest position in the stream to which seeking
+ may be performed.  The returned value will be the maximum of
+ all values passed into previous calls to
+flushBefore
+.
+Specified by:
+getFlushedPosition
+in interface
+ImageInputStream
+Returns:
+the earliest legal position for seeking, as a
+long
+.
+isCached
+public
+boolean
+isCached
+()
+Default implementation returns false.  Subclasses should
+ override this if they cache data.
+Specified by:
+isCached
+in interface
+ImageInputStream
+Returns:
+true
+if this
+ImageInputStream
+caches data.
+See Also:
+ImageInputStream.isCachedMemory()
+ImageInputStream.isCachedFile()
+isCachedMemory
+public
+boolean
+isCachedMemory
+()
+Default implementation returns false.  Subclasses should
+ override this if they cache data in main memory.
+Specified by:
+isCachedMemory
+in interface
+ImageInputStream
+Returns:
+true
+if this
+ImageInputStream
+caches data in main memory.
+See Also:
+ImageInputStream.isCached()
+ImageInputStream.isCachedFile()
+isCachedFile
+public
+boolean
+isCachedFile
+()
+Default implementation returns false.  Subclasses should
+ override this if they cache data in a temporary file.
+Specified by:
+isCachedFile
+in interface
+ImageInputStream
+Returns:
+true
+if this
+ImageInputStream
+caches data in a temporary file.
+See Also:
+ImageInputStream.isCached()
+ImageInputStream.isCachedMemory()
+close
+public
+void
+close
+()
+           throws
+IOException
+Description copied from interface:
+ImageInputStream
+Closes the stream.  Attempts to access a stream that has been
+ closed may result in
+IOException
+s or incorrect
+ behavior.  Calling this method may allow classes implementing
+ this interface to release resources associated with the stream
+ such as memory, disk space, or file descriptors.
+Specified by:
+close
+in interface
+AutoCloseable
+Specified by:
+close
+in interface
+Closeable
+Specified by:
+close
+in interface
+ImageInputStream
+Throws:
+IOException
+- if an I/O error occurs.
+finalize
+@Deprecated
+(
+since
+="9",
+forRemoval
+=true)
+protected
+void
+finalize
+()
+                 throws
+Throwable
+Deprecated, for removal: This API element is subject to removal in a future version.
+Finalization has been deprecated for removal.  See
+Object.finalize()
+for background information and details
+ about migration options.
+Finalizes this object prior to garbage collection.  The
+close
+method is called to close any open input
+ source.  This method should not be called from application
+ code.
+Overrides:
+finalize
+in class
+Object
+Throws:
+Throwable
+- if an error occurs during superclass
+ finalization.
+See Also:
+WeakReference
+PhantomReference
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

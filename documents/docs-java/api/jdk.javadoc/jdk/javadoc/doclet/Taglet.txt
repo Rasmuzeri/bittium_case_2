@@ -1,0 +1,249 @@
+Taglet (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+jdk.javadoc
+Package
+jdk.javadoc.doclet
+Interface Taglet
+public interface
+Taglet
+The interface for a custom taglet supported by doclets such as
+ the
+standard doclet
+.
+ Custom taglets are used to handle custom tags in documentation
+ comments; custom tags can be instantiated individually as either
+block tags
+, which appear at the end of a comment,
+ or
+inline tags
+, which can appear within the main body of a
+ documentation comment.
+Each implementation of a taglet must provide a public no-argument constructor
+ to be used by doclets to instantiate the taglet. A doclet will interact
+ with classes implementing this interface as follows:
+The doclet will create an instance of a taglet using the no-arg
+      constructor of the taglet class.
+Next, the doclet calls the
+init
+method with an appropriate environment and doclet.
+Afterwards, the doclet calls
+getName
+,
+getAllowedLocations
+, and
+isInlineTag
+, to determine the characteristics
+      of the tags supported by the taglet.
+As appropriate, the doclet calls the
+toString
+method on the taglet object,
+      giving it a list of tags and the element for which the tags are part
+      of the element's documentation comment, from which the taglet can
+      determine the string to be included in the documentation.
+      The doclet will typically specify any requirements on the contents of
+      the string that is returned.
+If a taglet object is created and used without the above protocol being
+ followed, then the taglet's behavior is not defined by this interface
+ specification.
+API Note:
+It is typical for a taglet to be designed to work in conjunction with a
+ specific doclet.
+Since:
+9
+See Also:
+User-Defined Taglets
+      for the Standard Doclet
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Interface
+Description
+static enum
+Taglet.Location
+The kind of location in which a tag may be used.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Default Methods
+Modifier and Type
+Method
+Description
+Set
+<
+Taglet.Location
+>
+getAllowedLocations
+()
+Returns the set of supported locations for block tags.
+String
+getName
+()
+Returns the name of the tag supported by this taglet.
+default void
+init
+(
+DocletEnvironment
+env,
+Doclet
+doclet)
+Initializes this taglet with the given doclet environment and doclet.
+default boolean
+isBlockTag
+()
+Indicates whether this taglet supports block tags.
+boolean
+isInlineTag
+()
+Indicates whether this taglet supports inline tags.
+String
+toString
+(
+List
+<? extends
+DocTree
+> tags,
+Element
+element)
+Returns the string representation of a series of instances of
+ this tag to be included in the generated output.
+Method Details
+getAllowedLocations
+Set
+<
+Taglet.Location
+>
+getAllowedLocations
+()
+Returns the set of supported locations for block tags.
+Returns:
+the set of supported locations for block tags
+isInlineTag
+boolean
+isInlineTag
+()
+Indicates whether this taglet supports inline tags.
+Returns:
+true if this taglet supports inline tags
+isBlockTag
+default
+boolean
+isBlockTag
+()
+Indicates whether this taglet supports block tags.
+Implementation Requirements:
+This implementation returns the inverse
+ result to
+isInlineTag
+.
+Returns:
+true if this taglet supports block tags
+getName
+String
+getName
+()
+Returns the name of the tag supported by this taglet.
+Returns:
+the name of this tag
+init
+default
+void
+init
+(
+DocletEnvironment
+env,
+Doclet
+doclet)
+Initializes this taglet with the given doclet environment and doclet.
+API Note:
+The environment may be used to access utility classes for
+elements
+and
+types
+if needed.
+Implementation Requirements:
+This implementation does nothing.
+Parameters:
+env
+- the environment in which the doclet and taglet are running
+doclet
+- the doclet that instantiated this taglet
+toString
+String
+toString
+(
+List
+<? extends
+DocTree
+> tags,
+Element
+element)
+Returns the string representation of a series of instances of
+ this tag to be included in the generated output.
+If this taglet supports
+inline
+tags, it will
+ be called once per instance of the inline tag, each time with a singleton list.
+ If this taglet supports
+block
+tags, it will be called once
+ for each comment containing instances of block tags, with a list of all the instances
+ of the block tag in that comment.
+Parameters:
+tags
+- the list of instances of this tag
+element
+- the element to which the enclosing comment belongs
+Returns:
+the string representation of the tags to be included in
+  the generated output
+See Also:
+User-Defined Taglets
+      for the Standard Doclet
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,174 @@
+XMLSignature.SignatureValue (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.xml.crypto
+Package
+javax.xml.crypto.dsig
+Interface XMLSignature.SignatureValue
+All Superinterfaces:
+XMLStructure
+Enclosing interface:
+XMLSignature
+public static interface
+XMLSignature.SignatureValue
+extends
+XMLStructure
+A representation of the XML
+SignatureValue
+element as
+ defined in the
+W3C Recommendation for XML-Signature Syntax and Processing
+.
+ The XML Schema Definition is defined as:
+<element name="SignatureValue" type="ds:SignatureValueType"/>
+     <complexType name="SignatureValueType">
+       <simpleContent>
+         <extension base="base64Binary">
+           <attribute name="Id" type="ID" use="optional"/>
+         </extension>
+       </simpleContent>
+     </complexType>
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+String
+getId
+()
+Returns the optional
+Id
+attribute of this
+SignatureValue
+, which permits this element to be
+ referenced from elsewhere.
+byte[]
+getValue
+()
+Returns the signature value of this
+SignatureValue
+.
+boolean
+validate
+(
+XMLValidateContext
+validateContext)
+Validates the signature value.
+Methods declared in interface javax.xml.crypto.
+XMLStructure
+isFeatureSupported
+Method Details
+getId
+String
+getId
+()
+Returns the optional
+Id
+attribute of this
+SignatureValue
+, which permits this element to be
+ referenced from elsewhere.
+Returns:
+the
+Id
+attribute (may be
+null
+if
+    not specified)
+getValue
+byte[]
+getValue
+()
+Returns the signature value of this
+SignatureValue
+.
+Returns:
+the signature value (may be
+null
+if the
+XMLSignature
+has not been signed yet). Each
+    invocation of this method returns a new clone of the array to
+    prevent subsequent modification.
+validate
+boolean
+validate
+(
+XMLValidateContext
+validateContext)
+throws
+XMLSignatureException
+Validates the signature value. This method performs a
+ cryptographic validation of the signature calculated over the
+SignedInfo
+of the
+XMLSignature
+.
+This method only validates the signature the first
+ time it is invoked. On subsequent invocations, it returns a cached
+ result.
+Parameters:
+validateContext
+- the validating context
+Returns:
+true
+if the signature was
+    validated successfully;
+false
+otherwise
+Throws:
+NullPointerException
+- if
+validateContext
+is
+null
+XMLSignatureException
+- if an unexpected exception occurs while
+    validating the signature
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

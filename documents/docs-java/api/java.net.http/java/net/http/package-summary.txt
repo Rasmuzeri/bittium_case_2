@@ -1,0 +1,192 @@
+java.net.http (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Package:
+Description
+Related Packages
+Classes and Interfaces
+Package:
+Description
+|
+Related Packages
+|
+Classes and Interfaces
+SEARCH
+Module
+java.net.http
+Package java.net.http
+package
+java.net.http
+HTTP Client and WebSocket APIs
+Provides high-level client interfaces to HTTP (versions 1.1 and 2) and
+ low-level client interfaces to WebSocket. The main types defined are:
+HttpClient
+HttpRequest
+HttpResponse
+WebSocket
+The protocol-specific requirements are defined in the
+Hypertext Transfer Protocol
+ Version 2 (HTTP/2)
+, the
+Hypertext Transfer Protocol (HTTP/1.1)
+, and
+The WebSocket Protocol
+.
+In general, asynchronous tasks execute in either the thread invoking
+ the operation, e.g.
+sending
+an HTTP request, or by the threads supplied by the client's
+executor
+. Dependent tasks, those that are triggered by
+ returned CompletionStages or CompletableFutures, that do not explicitly
+ specify an executor, execute in the same
+default executor
+as that of
+CompletableFuture
+, or the invoking thread if the operation completes before
+ the dependent task is registered.
+CompletableFuture
+s returned by this API will throw
+UnsupportedOperationException
+for their
+obtrudeValue
+and
+obtrudeException
+methods. Invoking the
+cancel
+method on a
+CompletableFuture
+returned by this API may not
+ interrupt the underlying operation, but may be useful to complete,
+ exceptionally, dependent stages that have not already completed.
+Unless otherwise stated,
+null
+parameter values will cause methods
+ of all classes in this package to throw
+NullPointerException
+.
+Since:
+11
+Related Packages
+Module
+Package
+Description
+java.base
+java.net
+Provides the classes for implementing networking applications.
+java.base
+java.net.spi
+Service-provider classes for the
+java.net
+package.
+All Classes and Interfaces
+Interfaces
+Classes
+Enum Classes
+Exception Classes
+Class
+Description
+HttpClient
+An HTTP Client.
+HttpClient.Builder
+A builder of
+HTTP Clients
+.
+HttpClient.Redirect
+Defines the automatic redirection policy.
+HttpClient.Version
+The HTTP protocol version.
+HttpConnectTimeoutException
+Thrown when a connection, over which an
+HttpRequest
+is intended to be
+ sent, is not successfully established within a specified time period.
+HttpHeaders
+A read-only view of a set of HTTP headers.
+HttpRequest
+An HTTP request.
+HttpRequest.BodyPublisher
+A
+BodyPublisher
+converts high-level Java objects into a flow of
+ byte buffers suitable for sending as a request body.
+HttpRequest.BodyPublishers
+Implementations of
+BodyPublisher
+that implement
+ various useful publishers, such as publishing the request body from a
+ String, or from a file.
+HttpRequest.Builder
+A builder of
+HTTP requests
+.
+HttpResponse
+<T>
+An HTTP response.
+HttpResponse.BodyHandler
+<T>
+A handler for response bodies.
+HttpResponse.BodyHandlers
+Implementations of
+BodyHandler
+that implement various
+ useful handlers, such as handling the response body as a String, or
+ streaming the response body to a file.
+HttpResponse.BodySubscriber
+<T>
+A
+BodySubscriber
+consumes response body bytes and converts them
+ into a higher-level Java type.
+HttpResponse.BodySubscribers
+Implementations of
+BodySubscriber
+that implement
+ various useful subscribers, such as converting the response body bytes
+ into a String, or streaming the bytes to a file.
+HttpResponse.PushPromiseHandler
+<T>
+A handler for push promises.
+HttpResponse.ResponseInfo
+Initial response information supplied to a
+BodyHandler
+when a response is initially received and before the body is processed.
+HttpTimeoutException
+Thrown when a response is not received within a specified time period.
+WebSocket
+A WebSocket Client.
+WebSocket.Builder
+A builder of
+WebSocket Clients
+.
+WebSocket.Listener
+The receiving interface of
+WebSocket
+.
+WebSocketHandshakeException
+Thrown when the opening handshake has failed.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

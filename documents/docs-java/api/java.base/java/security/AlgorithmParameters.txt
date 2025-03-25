@@ -1,0 +1,601 @@
+AlgorithmParameters (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.security
+Class AlgorithmParameters
+java.lang.Object
+java.security.AlgorithmParameters
+public class
+AlgorithmParameters
+extends
+Object
+This class is used as an opaque representation of cryptographic parameters.
+An
+AlgorithmParameters
+object for managing the parameters
+ for a particular algorithm can be obtained by
+ calling one of the
+getInstance
+factory methods
+ (static methods that return instances of a given class).
+Once an
+AlgorithmParameters
+object is obtained, it must be
+ initialized via a call to
+init
+, using an appropriate parameter
+ specification or parameter encoding.
+A transparent parameter specification is obtained from an
+AlgorithmParameters
+object via a call to
+getParameterSpec
+, and a byte encoding of the parameters is
+ obtained via a call to
+getEncoded
+.
+Every implementation of the Java platform is required to support the
+ following standard
+AlgorithmParameters
+algorithms:
+AES
+DESede
+DiffieHellman
+DSA
+These algorithms are described in the
+AlgorithmParameters section
+of the
+ Java Security Standard Algorithm Names Specification.
+ Consult the release documentation for your implementation to see if any
+ other algorithms are supported.
+Since:
+1.2
+See Also:
+AlgorithmParameterSpec
+DSAParameterSpec
+KeyPairGenerator
+Constructor Summary
+Constructors
+Modifier
+Constructor
+Description
+protected
+AlgorithmParameters
+(
+AlgorithmParametersSpi
+paramSpi,
+Provider
+provider,
+String
+algorithm)
+Creates an
+AlgorithmParameters
+object.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+final
+String
+getAlgorithm
+()
+Returns the name of the algorithm associated with this parameter object.
+final byte[]
+getEncoded
+()
+Returns the parameters in their primary encoding format.
+final byte[]
+getEncoded
+(
+String
+format)
+Returns the parameters encoded in the specified scheme.
+static
+AlgorithmParameters
+getInstance
+(
+String
+algorithm)
+Returns a parameter object for the specified algorithm.
+static
+AlgorithmParameters
+getInstance
+(
+String
+algorithm,
+String
+provider)
+Returns a parameter object for the specified algorithm.
+static
+AlgorithmParameters
+getInstance
+(
+String
+algorithm,
+Provider
+provider)
+Returns a parameter object for the specified algorithm.
+final <T extends
+AlgorithmParameterSpec
+>
+T
+getParameterSpec
+(
+Class
+<T> paramSpec)
+Returns a (transparent) specification of this parameter object.
+final
+Provider
+getProvider
+()
+Returns the provider of this parameter object.
+final void
+init
+(byte[] params)
+Imports the specified parameters and decodes them according to the
+ primary decoding format for parameters.
+final void
+init
+(byte[] params,
+String
+format)
+Imports the parameters from
+params
+and decodes them
+ according to the specified decoding scheme.
+final void
+init
+(
+AlgorithmParameterSpec
+paramSpec)
+Initializes this parameter object using the parameters
+ specified in
+paramSpec
+.
+final
+String
+toString
+()
+Returns a formatted string describing the parameters.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+AlgorithmParameters
+protected
+AlgorithmParameters
+(
+AlgorithmParametersSpi
+paramSpi,
+Provider
+provider,
+String
+algorithm)
+Creates an
+AlgorithmParameters
+object.
+Parameters:
+paramSpi
+- the delegate
+provider
+- the provider
+algorithm
+- the algorithm
+Method Details
+getAlgorithm
+public final
+String
+getAlgorithm
+()
+Returns the name of the algorithm associated with this parameter object.
+Returns:
+the algorithm name.
+getInstance
+public static
+AlgorithmParameters
+getInstance
+(
+String
+algorithm)
+throws
+NoSuchAlgorithmException
+Returns a parameter object for the specified algorithm.
+This method traverses the list of registered security providers,
+ starting with the most preferred provider.
+ A new
+AlgorithmParameters
+object encapsulating the
+AlgorithmParametersSpi
+implementation from the first
+ provider that supports the specified algorithm is returned.
+Note that the list of registered providers may be retrieved via
+ the
+Security.getProviders()
+method.
+The returned parameter object must be initialized via a call to
+init
+, using an appropriate parameter specification or
+ parameter encoding.
+Implementation Note:
+The JDK Reference Implementation additionally uses the
+jdk.security.provider.preferred
+Security
+property to determine
+ the preferred provider order for the specified algorithm. This
+ may be different from the order of providers returned by
+Security.getProviders()
+.
+Parameters:
+algorithm
+- the name of the algorithm requested.
+ See the AlgorithmParameters section in the
+Java Security Standard Algorithm Names Specification
+for information about standard algorithm names.
+Returns:
+the new parameter object
+Throws:
+NoSuchAlgorithmException
+- if no
+Provider
+supports an
+AlgorithmParametersSpi
+implementation for the
+         specified algorithm
+NullPointerException
+- if
+algorithm
+is
+null
+See Also:
+Provider
+getInstance
+public static
+AlgorithmParameters
+getInstance
+(
+String
+algorithm,
+String
+provider)
+throws
+NoSuchAlgorithmException
+,
+NoSuchProviderException
+Returns a parameter object for the specified algorithm.
+A new
+AlgorithmParameters
+object encapsulating the
+AlgorithmParametersSpi
+implementation from the specified provider
+ is returned.  The specified provider must be registered
+ in the security provider list.
+Note that the list of registered providers may be retrieved via
+ the
+Security.getProviders()
+method.
+The returned parameter object must be initialized via a call to
+init
+, using an appropriate parameter specification or
+ parameter encoding.
+Parameters:
+algorithm
+- the name of the algorithm requested.
+ See the AlgorithmParameters section in the
+Java Security Standard Algorithm Names Specification
+for information about standard algorithm names.
+provider
+- the name of the provider.
+Returns:
+the new parameter object
+Throws:
+IllegalArgumentException
+- if the provider name is
+null
+or empty
+NoSuchAlgorithmException
+- if an
+AlgorithmParametersSpi
+implementation for the specified algorithm is not
+         available from the specified provider
+NoSuchProviderException
+- if the specified provider is not
+         registered in the security provider list
+NullPointerException
+- if
+algorithm
+is
+null
+See Also:
+Provider
+getInstance
+public static
+AlgorithmParameters
+getInstance
+(
+String
+algorithm,
+Provider
+provider)
+throws
+NoSuchAlgorithmException
+Returns a parameter object for the specified algorithm.
+A new
+AlgorithmParameters
+object encapsulating the
+AlgorithmParametersSpi
+implementation from the specified
+ provider is returned.  Note that the specified provider
+ does not have to be registered in the provider list.
+The returned parameter object must be initialized via a call to
+init
+, using an appropriate parameter specification or
+ parameter encoding.
+Parameters:
+algorithm
+- the name of the algorithm requested.
+ See the AlgorithmParameters section in the
+Java Security Standard Algorithm Names Specification
+for information about standard algorithm names.
+provider
+- the name of the provider.
+Returns:
+the new parameter object
+Throws:
+IllegalArgumentException
+- if the provider is
+null
+NoSuchAlgorithmException
+- if an
+AlgorithmParameterGeneratorSpi
+implementation for the specified algorithm is not available
+         from the specified
+Provider
+object
+NullPointerException
+- if
+algorithm
+is
+null
+Since:
+1.4
+See Also:
+Provider
+getProvider
+public final
+Provider
+getProvider
+()
+Returns the provider of this parameter object.
+Returns:
+the provider of this parameter object
+init
+public final
+void
+init
+(
+AlgorithmParameterSpec
+paramSpec)
+throws
+InvalidParameterSpecException
+Initializes this parameter object using the parameters
+ specified in
+paramSpec
+.
+Parameters:
+paramSpec
+- the parameter specification.
+Throws:
+InvalidParameterSpecException
+- if the given parameter
+ specification is inappropriate for the initialization of this parameter
+ object, or if this parameter object has already been initialized.
+init
+public final
+void
+init
+(byte[] params)
+throws
+IOException
+Imports the specified parameters and decodes them according to the
+ primary decoding format for parameters. The primary decoding
+ format for parameters is ASN.1, if an ASN.1 specification for this type
+ of parameters exists.
+Parameters:
+params
+- the encoded parameters.
+Throws:
+IOException
+- on decoding errors, or if this parameter object
+ has already been initialized.
+init
+public final
+void
+init
+(byte[] params,
+String
+format)
+throws
+IOException
+Imports the parameters from
+params
+and decodes them
+ according to the specified decoding scheme.
+ If
+format
+is
+null
+, the
+ primary decoding format for parameters is used. The primary decoding
+ format is ASN.1, if an ASN.1 specification for these parameters
+ exists.
+Parameters:
+params
+- the encoded parameters.
+format
+- the name of the decoding scheme.
+Throws:
+IOException
+- on decoding errors, or if this parameter object
+ has already been initialized.
+getParameterSpec
+public final
+<T extends
+AlgorithmParameterSpec
+>
+T
+getParameterSpec
+(
+Class
+<T> paramSpec)
+throws
+InvalidParameterSpecException
+Returns a (transparent) specification of this parameter object.
+paramSpec
+identifies the specification class in which
+ the parameters should be returned. It could, for example, be
+DSAParameterSpec.class
+, to indicate that the
+ parameters should be returned in an instance of the
+DSAParameterSpec
+class.
+Type Parameters:
+T
+- the type of the parameter specification to be returned
+Parameters:
+paramSpec
+- the specification class in which
+ the parameters should be returned.
+Returns:
+the parameter specification.
+Throws:
+InvalidParameterSpecException
+- if the requested parameter
+ specification is inappropriate for this parameter object, or if this
+ parameter object has not been initialized.
+getEncoded
+public final
+byte[]
+getEncoded
+()
+                        throws
+IOException
+Returns the parameters in their primary encoding format.
+ The primary encoding format for parameters is ASN.1, if an ASN.1
+ specification for this type of parameters exists.
+Returns:
+the parameters encoded using their primary encoding format.
+Throws:
+IOException
+- on encoding errors, or if this parameter object
+ has not been initialized.
+getEncoded
+public final
+byte[]
+getEncoded
+(
+String
+format)
+throws
+IOException
+Returns the parameters encoded in the specified scheme.
+ If
+format
+is
+null
+, the
+ primary encoding format for parameters is used. The primary encoding
+ format is ASN.1, if an ASN.1 specification for these parameters
+ exists.
+Parameters:
+format
+- the name of the encoding format.
+Returns:
+the parameters encoded using the specified encoding scheme.
+Throws:
+IOException
+- on encoding errors, or if this parameter object
+ has not been initialized.
+toString
+public final
+String
+toString
+()
+Returns a formatted string describing the parameters.
+Overrides:
+toString
+in class
+Object
+Returns:
+a formatted string describing the parameters, or
+null
+if this parameter object has not been initialized.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,1220 @@
+TIFF Metadata Format Specification and Usage Notes (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+SEARCH
+TIFF Metadata Format Specification and Usage Notes
+Reading Images
+Color Conversion
+Color Spaces
+ICC Profiles
+Metadata Issues
+Native to Standard Metadata Mapping
+Reading Exif Images
+Reading Uncompressed Exif Images
+Reading Compressed Exif Images
+Writing Images
+Compression
+Color Conversion
+ICC Profiles
+Metadata Issues
+Standard to Native Metadata Mapping
+Writing Exif Images
+Writing Uncompressed Exif Images
+Writing Compressed Exif Images
+Native Stream Metadata Format
+Native Image Metadata Format
+Reading Images
+TIFF images are read by an
+ImageReader
+which may be controlled by its public interface as well as via a supplied
+TIFFImageReadParam
+.
+Color Conversion
+If the source image data
+have photometric type CIE L*a*b* or YCbCr, and the destination color space
+type is RGB, then the source image data will be automatically converted to
+RGB using an internal color converter.
+Color Spaces
+The raw color space assigned by default, i.e., in the absence of a
+user-supplied
+ImageTypeSpecifier
+,
+will be the first among the following which applies:
+A color space created from the
+ICC Profile
+metadata field if it is present and compatible with the image data
+layout.
+sRGB if the image is monochrome/bilevel
+(a two-level color map is created internally).
+sRGB if the image is palette-color.
+Linear RGB if the image has three samples per pixel, has photometric type
+CIE L*a*b*, or has photometric type YCbCr and is
+not
+JPEG-compressed.
+A
+default CMYK color space
+if the image has
+photometric type CMYK and four samples per pixel.
+Grayscale if the image has one or two samples per pixel and uniformly
+1, 2, 4, 8, 16, or 32 bits per sample or is floating point.
+sRGB if the image has three or four samples per pixel and uniformly
+1, 2, 4, 8, 16, or 32 bits per sample or is floating point.
+A fabricated,
+generic color space
+if the image
+has more than four samples per pixel and the number of bits per sample for
+all bands is the same and is a multiple of 8.
+Grayscale if the image has one or two samples per pixel regardless of
+the number of bits per sample.
+sRGB if the image has three or four samples per pixel regardless of
+the number of bits per sample.
+A fabricated,
+generic color space
+if the image
+has more than four samples per pixel regardless of the number of bits per
+sample.
+The normalized color coordinate transformations
+used for the default CMYK color space are defined as follows:
+CMYK to linear RGB
+R = (1 - K)*(1 - C)
+G = (1 - K)*(1 - M)
+B = (1 - K)*(1 - Y)
+Linear RGB to CMYK
+K = min{1 - R, 1 - G, 1 - B}
+if(K != 1) {
+    C = (1 - R - K)/(1 - K)
+    M = (1 - G - K)/(1 - K)
+    Y = (1 - B - K)/(1 - K)
+} else {
+    C = M = Y = 0
+}
+The generic color space used when no other color space
+can be inferred is provided merely to enable the data to be loaded. It is not
+intended to provide accurate conversions of any kind.
+If the data are known to be in a color space not correctly handled by the
+foregoing, then an
+ImageTypeSpecifier
+should be
+supplied to the reader and should be derived from a color space which is correct
+for the data in question.
+ICC Profiles
+If an ICC profile is contained in the image metadata
+(
+BaselineTIFFTagSet
+.
+TAG_ICC_PROFILE, tag number 34675),
+an attempt will be made to use it to create the color space
+of the loaded image. It will be used if the data layout is of component type
+and the number of samples per pixel equals or is one greater than the number
+of components described by the ICC profile. If the ICC profile is not used
+then the color space will be inferred in one of the subsequent steps described
+above
+.
+If for some reason the embedded ICC profile is not used automatically, then
+it may be used manually by following this procedure:
+Obtain the image metadata from
+ImageReader.getImageMetadata
+Extract the ICC profile field and its value.
+Create an
+ICC_ColorSpace
+from an
+ICC_Profile
+created from the ICC profile field data
+using
+ICC_Profile.getInstance(byte[])
+.
+Create an
+ImageTypeSpecifier
+from the new color
+space using one of its factory methods which accepts an
+ICC_ColorSpace
+.
+Create a compatible
+ImageReadParam
+and set the
+ImageTypeSpecifier
+using
+ImageReadParam.setDestinationType
+.
+Pass the parameter object to the appropriate
+read
+method.
+If the inferred color space not based on the ICC Profile field is compatible
+with the ICC profile-based color space, then a second
+ImageTypeSpecifier
+derived from this inferred color
+space will be included in the
+Iterator
+returned by
+ImageReader.getImageTypes
+. If the iterator contains
+more than one type, the first one will be based on the ICC profile and the
+second on the inferred color space.
+Metadata Issues
+By default all recognized fields in the TIFF image file directory (IFD) are
+loaded into the native image metadata object. Which fields are loaded may be
+controlled by setting which TIFF tags the reader is allowed to recognize,
+whether to read fields with unrecognized tags, and whether to ignore all
+metadata. The reader is informed to disregard all metadata as usual via the
+ignoreMetadata
+parameter of
+ImageReader.setInput(Object,boolean,boolean)
+. It is
+informed of which
+TIFFTag
+s to
+recognize or not to recognize via
+TIFFImageReadParam.addAllowedTagSet(TIFFTagSet)
+and
+TIFFImageReadParam.removeAllowedTagSet(TIFFTagSet)
+.
+If
+ignoreMetadata
+is
+true
+, then only metadata
+essential to reading the image will be loaded into the native image metadata
+object. If
+ignoreMetadata
+is
+false
+, then the reader
+will by default load into the native image metadata object only those fields
+which are either essential to reading the image or have a
+TIFFTag
+contained in the one of the allowed
+TIFFTagSet
+s. Reading of
+fields with tags not in the allowed
+TIFFTagSet
+s may be forced
+by passing in a
+TIFFImageReadParam
+on which
+TIFFImageReadParam.setReadUnknownTags(boolean)
+has been
+invoked with parameter
+true
+.
+Use of a
+TIFFDirectory
+object may simplify gaining access to metadata values. An instance of
+TIFFDirectory
+may be created from the
+IIOMetadata
+object returned by the TIFF reader using the
+TIFFDirectory.createFromMetadata
+method.
+Mapping of TIFF Native Image Metadata to the Standard Metadata Format
+The derivation of standard metadata format
+javax_imageio_1.0
+elements from
+TIFF native image metadata
+is given
+in the following table.
+Index
+Standard Metadata Element
+Derivation from TIFF Fields
+1
+/Chroma/ColorSpaceType@name
+PhotometricInterpretation: WhiteIsZero, BlackIsZero, TransparencyMask =
+"GRAY"; RGB, PaletteColor => "RGB"; CMYK => "CMYK";
+YCbCr => "YCbCr";
+CIELab, ICCLab => "Lab".
+2
+/Chroma/NumChannels@value
+SamplesPerPixel
+3
+/Chroma/BlackIsZero@value
+"TRUE" <=> PhotometricInterpretation => WhiteIsZero
+4
+/Chroma/Palette
+ColorMap
+5
+/Compression/CompressionTypeName@value
+Compression: Uncompressed => "none"; CCITT 1D => "CCITT
+RLE";
+Group 3 Fax => "CCITT T.4"; Group 4 Fax => "CCITT T.6";
+LZW => "LZW";
+JPEG => "Old JPEG"; New JPEG => "JPEG"; Zlib =>> "ZLib"; PackBits =>
+"PackBits";
+Deflate => "Deflate"; Exif JPEG => "JPEG".
+6
+/Compression/Lossless@value
+Compression: JPEG or New JPEG => "FALSE"; otherwise "TRUE".
+7
+/Data/PlanarConfiguration@value
+Chunky => "PixelInterleaved"; Planar => "PlaneInterleaved".
+8
+/Data/SampleFormat@value
+PhotometricInterpretation PaletteColor => "Index";
+SampleFormat unsigned integer data => "UnsignedIntegral";
+SampleFormat two's complement signed integer data => "SignedIntegral";
+SampleFormat IEEE floating point data => "Real";
+otherwise element not emitted.
+9
+/Data/BitsPerSample@value
+BitsPerSample as a space-separated list.
+10
+/Data/SampleMSB@value
+FillOrder: left-to-right => space-separated list of BitsPerSample-1;
+right-to-left => space-separated list of 0s.
+11
+/Dimension/PixelAspectRatio@value
+(1/XResolution)/(1/YResolution)
+12
+/Dimension/ImageOrientation@value
+Orientation
+13
+/Dimension/HorizontalPixelSize@value
+1/XResolution in millimeters if ResolutionUnit is not None.
+14
+/Dimension/VerticalPixelSize@value
+1/YResolution in millimeters if ResolutionUnit is not None.
+15
+/Dimension/HorizontalPosition@value
+XPosition in millimeters if ResolutionUnit is not None.
+16
+/Dimension/VerticalPosition@value
+YPosition in millimeters if ResolutionUnit is not None.
+17
+/Document/FormatVersion@value
+6.0
+18
+/Document/SubimageInterpretation@value
+NewSubFileType: transparency => "TransparencyMask";
+reduced-resolution => "ReducedResolution";
+single page => "SinglePage".
+19
+/Document/ImageCreationTime@value
+DateTime
+20
+/Text/TextEntry
+DocumentName, ImageDescription, Make, Model, PageName, Software,
+Artist, HostComputer, InkNames, Copyright:
+/Text/TextEntry@keyword = field name,
+/Text/TextEntry@value = field value.
+Example: TIFF Software field => /Text/TextEntry@keyword = "Software",
+/Text/TextEntry@value = Name and version number of the software package(s)
+used to create the image.
+21
+/Transparency/Alpha@value
+ExtraSamples: associated alpha => "premultiplied";
+unassociated alpha => "nonpremultiplied".
+Reading Exif Images
+The TIFF reader may be used to read an uncompressed Exif image or the
+contents of the
+APP1
+marker segment of a compressed Exif image.
+Reading Uncompressed Exif Images
+An uncompressed Exif image is a one- or two-page uncompressed TIFF image
+with a specific ordering of its IFD and image data content. Each pixel
+has three 8-bit samples with photometric interpretation RGB or YCbCr.
+The image stream must contain a single primary image and may contain a
+single thumbnail which if present must also be uncompressed. The usual
+ImageReader
+methods may be used to read the image
+data and metadata:
+ImageInputStream input;
+    ImageReader tiffReader;
+    ImageReadParam tiffReadParam;
+
+    tiffReader.setInput(input);
+
+    // Read primary image and IFD.
+    BufferedImage image = tiffReader.read(0, tiffReadParam);
+    IIOMetadata primaryIFD = tiffReader.getImageMetadata(0);
+
+    // Read thumbnail if present.
+    BufferedImage thumbnail = null;
+    if (tiffReader.getNumImages(true) > 1) {
+        thumbnail = tiffReader.read(1, tiffReadParam);
+    }
+Note that the Exif thumbnail is treated as a separate page in the TIFF
+stream and not as a thumbnail, i.e.,
+tiffReader.hasThumbnails(0)
+will return
+false
+.
+Reading Compressed Exif Images
+A compressed Exif image is a 3-band ISO/IEC 10918-1 baseline DCT JPEG stream
+with an inserted
+APP1
+marker segment. The parameters of the marker
+segment after the length are the 6-byte sequence
+{'E', 'x', 'i', 'f', 0x00, 0x00}
+followed by a complete TIFF stream. The embedded TIFF stream contains a primary
+IFD describing the JPEG image optionally followed by a thumbnail IFD and
+compressed or uncompressed thumbnail image data. Note that the embedded TIFF
+stream does not contain any image data associated with the primary IFD
+nor any descriptive fields which duplicate information found in the JPEG
+stream itself.
+The parameter content of the
+APP1
+marker segment may be obtained
+from the user object of the associated
+Node
+in a
+javax_imageio_jpeg_image_1.0
+native image metadata tree extracted
+from the image metadata object returned by the JPEG reader. This APP1 Exif
+node will be a child of the node named "markerSequence" and will
+have name
+unknown
+and an attribute named
+MarkerTag
+with
+integral value
+0xE1
+(
+String
+value
+"225"
+). The user object of this node will be a byte array
+which starts with the six bytes
+{'E', 'x', 'i', 'f', '0', '0'}
+.
+The primary IFD and the thumbnail IFD and image may be
+read from the user object by the usual
+ImageReader
+methods:
+ImageReader jpegReader;
+    ImageReader tiffReader;
+
+    // Obtain the APP1 Exif marker data from the JPEG image metadata.
+    IIOMetadata jpegImageMetadata = jpegReader.getImageMetadata(0);
+    String nativeFormat = jpegImageMetadata.getNativeMetadataFormatName();
+    Node jpegImageMetadataTree = jpegImageMetadata.getAsTree(nativeFormat);
+
+    // getExifMarkerData() returns the byte array which is the user object
+    // of the APP1 Exif marker node.
+    byte[] app1Params = getExifMarkerData(jpegImageMetadataTree);
+    if (app1Params == null) {
+        throw new IIOException("APP1 Exif marker not found.");
+    }
+
+    // Set up input, skipping Exif ID 6-byte sequence.
+    MemoryCacheImageInputStream app1ExifInput
+        = new MemoryCacheImageInputStream
+            (new ByteArrayInputStream(app1Params, 6, app1Params.length - 6));
+    tiffReader.setInput(app1ExifInput);
+
+    // Read primary IFD.
+    IIOMetadata primaryIFD = tiffReader.getImageMetadata(0);
+
+    // Read thumbnail if present.
+    BufferedImage thumbnail = null;
+    if (tiffReader.getNumImages(true) > 1) {
+        thumbnail = tiffReader.read(1, tiffReadParam);
+    }
+
+    // Read the primary image.
+    BufferedImage image = jpegReader.read(0);
+Note that
+tiffReader.getNumImages(true)
+returns the number of
+IFDs in the embedded TIFF stream including those corresponding to empty
+images. Calling
+tiffReader.read(0, readParam)
+will throw
+an exception as the primary image in the embedded TIFF stream is always
+empty; the primary image should be obtained using the JPEG reader itself.
+Writing Images
+TIFF images are written by a
+ImageWriter
+which may be
+controlled by its public interface as well as via a supplied
+ImageWriteParam
+.  For an
+ImageWriteParam
+returned
+by the
+getDefaultWriteParam()
+method of the TIFF
+ImageWriter
+,
+the
+canWriteTiles()
+and
+canWriteCompressed()
+methods
+will return
+true
+; the
+canOffsetTiles()
+and
+canWriteProgressive()
+methods will return
+false
+.
+
+The TIFF writer supports many optional capabilities including writing tiled
+images, inserting images, writing or inserting empty images, and replacing image
+data. Pixels may be replaced in either empty or non-empty images but if and
+only if the data are not compressed.
+If tiles are being written, then each of their dimensions will be
+rounded to the nearest multiple of 16 per the TIFF specification. If
+JPEG-in-TIFF compression is being used, and tiles are being written
+each tile dimension will be rounded to the nearest multiple of 8 times
+the JPEG minimum coded unit (MCU) in that dimension. If JPEG-in-TIFF
+compression is being used and strips are being written, the number of
+rows per strip is rounded to a multiple of 8 times the maximum MCU over
+both dimensions.
+Compression
+The compression type may be set via the
+setCompressionType()
+method of
+the
+ImageWriteParam
+after setting the compression mode to
+MODE_EXPLICIT
+. The set of innately
+supported compression types is listed in the following table:
+Supported Compression Types
+Index
+Compression Type
+Description
+Reference
+1
+CCITT RLE
+Modified Huffman compression
+TIFF 6.0 Specification, Section 10
+2
+CCITT T.4
+CCITT T.4 bilevel encoding/Group 3 facsimile compression
+TIFF 6.0 Specification, Section 11
+3
+CCITT T.6
+CCITT T.6 bilevel encoding/Group 4 facsimile compression
+TIFF 6.0 Specification, Section 11
+4
+LZW
+LZW compression
+TIFF 6.0 Specification, Section 13
+5
+JPEG
+"New" JPEG-in-TIFF compression
+TIFF Technical Note #2
+6
+ZLib
+"Deflate/Inflate" compression (see note following this table)
+Adobe Photoshop® TIFF Technical Notes
+7
+PackBits
+Byte-oriented, run length compression
+TIFF 6.0 Specification, Section 9
+8
+Deflate
+"Zip-in-TIFF" compression (see note following this table)
+ZLIB Compressed Data Format Specification
+,
+DEFLATE Compressed Data Format Specification
+9
+Exif JPEG
+Exif-specific JPEG compression (see note following this table)
+Exif 2.3 Specification
+(PDF), section 4.5.8, "Basic Structure of Thumbnail Data"
+Old-style JPEG compression as described in section 22 of the TIFF 6.0
+Specification is
+not
+supported.
+The CCITT compression types are applicable to bilevel (1-bit)
+images only.  The JPEG compression type is applicable to byte
+grayscale (1-band) and RGB (3-band) images only.
+ZLib and Deflate compression are identical except for the value of the
+TIFF Compression field: for ZLib the Compression field has value 8
+whereas for Deflate it has value 32946 (0x80b2). In both cases each
+image segment (strip or tile) is written as a single complete zlib data
+stream.
+"Exif JPEG" is a compression type used when writing the contents of an
+APP1 Exif marker segment for inclusion in a JPEG native image metadata
+tree. The contents appended to the output when this compression type is
+used are a function of whether an empty or non-empty image is written.
+If the image is empty, then a TIFF IFD adhering to the specification of
+a compressed Exif primary IFD is appended. If the image is non-empty,
+then a complete IFD and image adhering to the specification of a
+compressed Exif thumbnail IFD and image are appended. Note that the
+data of the empty image may
+not
+later be appended using the pixel
+replacement capability of the TIFF writer.
+If ZLib/Deflate or JPEG compression is used, the compression quality
+may be set. For ZLib/Deflate the supplied floating point quality value is
+rescaled to the range
+[1, 9]
+and truncated to an integer
+to derive the Deflate compression level. For JPEG the floating point
+quality value is passed directly to the JPEG writer plug-in which
+interprets it in the usual way.
+Color Conversion
+If the source image data
+color space type is RGB, and the destination photometric type is CIE L*a*b* or
+YCbCr, then the source image data will be automatically converted from
+RGB using an internal color converter.
+ICC Profiles
+An
+ICC Profile
+field will be written if either:
+one is present in the native image metadata
+IIOMetadata
+instance supplied to the writer,
+or
+the
+ColorSpace
+of the destination
+ImageTypeSpecifier
+is an instance of
+ICC_ColorSpace
+which is not one of the standard
+color spaces defined by the
+CS_*
+constants in the
+ColorSpace
+class. The destination type is set via
+ImageWriteParam.setDestinationType(ImageTypeSpecifier)
+and defaults
+to the
+ImageTypeSpecifier
+of the image being written.
+Metadata Issues
+Some behavior of the writer is affected by or may affect the contents of
+the image metadata which may be supplied by the user.
+For bilevel images, the
+FillOrder
+, and
+T4Options
+fields affect the output data. The data will be filled right-to-left if
+FillOrder
+is present with a value of 2
+(
+BaselineTIFFTagSet.FILL_ORDER_RIGHT_TO_LEFT
+)
+and will be filled left-to-right otherwise. The value of
+T4Options
+specifies whether the data should be 1D- or 2D-encoded and whether EOL
+padding should be used.
+For all images the value of the
+RowsPerStrip
+field is used
+to the set the number of rows per strip if the image is not tiled. The
+default number of rows per strip is either 8 or the number of rows which
+would fill no more than 8 kilobytes, whichever is larger.
+For all images the tile dimensions may be set using the
+TileWidth
+and
+TileLength
+field values if the tiling mode is
+ImageWriteParam.MODE_COPY_FROM_METADATA
+. If this mode
+is set but the fields are not, their respective default values are the image
+width and height.
+When using JPEG-in-TIFF compression, a
+JPEGTables
+field will be
+written to the IFD and abbreviated JPEG streams to each strip or tile if and
+only if a
+JPEGTables
+field is contained in the metadata object
+provided to the writer. If the contents of the
+JPEGTables
+field is
+a valid tables-only JPEG stream, then it will be used; otherwise the contents
+of the field will be replaced with default visually lossless tables. If no
+such
+JPEGTables
+field is present in the metadata, then no
+JPEGTables
+field will be written to the output and each strip or
+tile will be written as a separate, self-contained JPEG stream.
+When using Deflate/ZLib or LZW compression, if the image has 8 bits per
+sample, a horizontal differencing predictor will be used if the
+Predictor
+field is present with a value of 2
+(
+BaselineTIFFTagSet.PREDICTOR_HORIZONTAL_DIFFERENCING
+).
+If prediction is so requested but the image does not have
+8 bits per sample the field will be reset to have the value 1
+(
+BaselineTIFFTagSet.PREDICTOR_NONE
+).
+Some fields may be added or modified:
+PhotometricInterpretation
+if not present.
+PlanarConfiguration
+if this field is present with value
+Planar
+is is reset to
+Chunky
+.
+Compression
+always.
+BitsPerSample
+if the image is not bilevel.
+SamplesPerPixel
+always.
+ExtraSamples
+if an alpha channel is present.
+SampleFormat
+if not present and the data are 16- or 32-bit
+integers or floating point.
+ColorMap
+if the
+PhotometricInterpretation
+is
+RGBPalette
+.
+ImageWidth
+and
+ImageLength
+always.
+TileWidth
+,
+TileLength
+,
+TileOffsets
+, and
+TileByteCounts
+if a tiled image is being written.
+RowsPerStrip
+,
+StripOffsets
+, and
+StripByteCounts
+if a tiled image is
+not
+being written.
+XResolution
+,
+YResolution
+, and
+ResolutionUnit
+if none of these is present.
+YCbCrSubsampling
+and
+YCbCrPositioning
+if the
+photometric interpretation is YCbCr and the compression type is not JPEG
+(only [1, 1] subsampling and cosited positioning are supported for
+non-JPEG YCbCr output).
+YCbCrSubsampling
+,
+YCbCrPositioning
+, and
+ReferenceBlackWhite
+: if the compression type is JPEG and the color
+space is RGB these will be reset to [2, 2] centered subsampling with no
+headroom/footroom (0:255,128:255,128:255).
+Some fields may be removed:
+BitsPerSample
+if the image is bilevel.
+ExtraSamples
+if the image does not have an alpha channel.
+ColorMap
+if the photometric interpretation is not
+RGBPalette
+.
+TileWidth
+,
+TileLength
+,
+TileOffsets
+, and
+TileByteCounts
+if tiling
+is not
+being used.
+RowsPerStrip
+,
+StripOffsets
+, and
+StripByteCounts
+if tiling
+is
+being used.
+YCbCrSubsampling
+,
+YCbCrPositioning
+, and
+ReferenceBlackWhite
+if the compression type is JPEG and the
+color space is grayscale.
+JPEGProc
+,
+JPEGInterchangeFormat
+,
+JPEGInterchangeFormatLength
+,
+JPEGRestartInterval
+,
+JPEGLosslessPredictors
+,
+JPEGPointTransforms
+,
+JPEGQTables
+,
+JPEGDCTables
+, and
+JPEGACTables
+if the compression type is JPEG.
+Other fields present in the supplied metadata are uninterpreted and will
+be written as supplied.
+If an Exif image is being written, the set of fields present and their
+values will be modified such that the result is in accord with the Exif 2.3
+specification.
+Setting up the image metadata to write to a TIFF stream may be simplified
+by using the
+TIFFDirectory
+class
+which represents a TIFF IFD. A field in a TIFF IFD is represented by an
+instance of
+TIFFField
+. For each
+field to be written a
+TIFFField
+may be added to the
+TIFFDirectory
+and the latter converted to an
+IIOMetadata
+object by invoking
+TIFFDirectory.getAsMetadata
+. The
+IIOMetadata
+object so obtained may then be passed to the TIFF
+writer.
+Mapping of the Standard Metadata Format to TIFF Native Image Metadata
+The derivation of
+TIFF native image metadata
+elements from the standard metadata format
+javax_imageio_1.0
+is
+given in the following table.
+Index
+TIFF Field
+Derivation from Standard Metadata Elements
+1
+PhotometricInterpretation
+/Chroma/ColorSpaceType@name: "GRAY" and /Chroma/BlackIsZero@value = "FALSE"
+=> WhiteIsZero; "GRAY" and /Document/SubimageInterpretation@value =
+"TransparencyMask" => TransparencyMask; "RGB" and /Chroma/Palette present =>
+PaletteColor; "GRAY" => BlackIsZero; "RGB" => RGB; "YCbCr" => YCbCr;
+"CMYK" => CMYK; "Lab" => CIELab.
+2
+SamplesPerPixel
+/Chroma/NumChannels@value
+3
+ColorMap
+/Chroma/Palette
+4
+Compression
+/Compression/CompressionTypeName@value: "none" => Uncompressed;
+"CCITT RLE" => CCITT 1D; "CCITT T.4" => Group 3 Fax; "CCITT T.6" => Group 4
+Fax; "LZW" => LZW; "Old JPEG" => JPEG; "JPEG" => New JPEG; "ZLib" => ZLib;
+"PackBits" => PackBits; "Deflate" => Deflate.
+5
+PlanarConfiguration
+/Data/PlanarConfiguration@value: "PixelInterleaved" => Chunky;
+"PlaneInterleaved" => Planar.
+6
+SampleFormat
+/Data/SampleFormat@value: "SignedIntegral" => two's complement signed
+integer data; "UnsignedIntegral" => unsigned integer data; "Real" =>
+IEEE floating point data; "Index" => unsigned integer data.
+7
+BitsPerSample
+/Data/BitsPerSample@value: space-separated list parsed to char array.
+8
+FillOrder
+/Data/SampleMSB@value: if all values in space-separated list are 0s =>
+right-to-left; otherwise => left-to-right.
+9
+XResolution
+(10 / /Dimension/HorizontalPixelSize@value) or
+(10 / (/Dimension/VerticalPixelSize@value *
+/Dimension/PixelAspectRatio@value))
+10
+YResolution
+(10 / /Dimension/VerticalPixelSize@value) or
+(10 / (/Dimension/HorizontalPixelSize@value /
+/Dimension/PixelAspectRatio@value))
+11
+ResolutionUnit
+Centimeter if XResolution or YResolution set; otherwise None.
+12
+Orientation
+/Dimension/ImageOrientation@value
+13
+XPosition
+/Dimension/HorizontalPosition@value / 10
+14
+YPosition
+/Dimension/VerticalPosition@value / 10
+15
+NewSubFileType
+/Document/SubimageInterpretation@value: "TransparencyMask" =>
+transparency mask; "ReducedResolution" => reduced-resolution;
+"SinglePage" => single page.
+16
+DateTime
+/Document/ImageCreationTime@value
+17
+DocumentName, ImageDescription, Make, Model, PageName, Software,
+Artist, HostComputer, InkNames, Copyright
+/Text/TextEntry: if /Text/TextEntry@keyword is the name of any of the
+TIFF Fields, e.g., "Software", then the field is added with content
+/Text/TextEntry@value and count 1.
+18
+ExtraSamples
+/Transparency/Alpha@value: "premultiplied" => associated alpha, count 1;
+"nonpremultiplied" => unassociated alpha, count 1.
+Writing Exif Images
+The TIFF writer may be used to write an uncompressed Exif image or the
+contents of the
+APP1
+marker segment of a compressed Exif image.
+Writing Uncompressed Exif Images
+When writing a sequence of images each image is normally recorded as
+{IFD, IFD Value, Image Data}. The Exif specification requires
+that an uncompressed Exif image be structured as follows:
+Image File Header
+Primary IFD
+Primary IFD Value
+Thumbnail IFD
+Thumbnail IFD Value
+Thumbnail Image Data
+Primary Image Data
+To meet the requirement of the primary image data being recorded last, the
+primary image must be written initially as an empty image and have its data
+added via pixel replacement after the thumbnail IFD and image data have been
+written:
+ImageWriter tiffWriter;
+    ImageWriteParam tiffWriteParam;
+    IIOMetadata tiffStreamMetadata;
+    IIOMetadata primaryIFD;
+    BufferedImage image;
+    BufferedImage thumbnail;
+
+    // Specify uncompressed output.
+    tiffWriteParam.setCompressionMode(ImageWriteParam.MODE_DISABLED);
+
+    if (thumbnail != null) {
+        // Write the TIFF header.
+        tiffWriter.prepareWriteSequence(tiffStreamMetadata);
+
+        // Append the primary IFD.
+        tiffWriter.prepareInsertEmpty(-1, // append
+                new ImageTypeSpecifier(image),
+                image.getWidth(),
+                image.getHeight(),
+                primaryIFD,
+                null, // thumbnails
+                tiffWriteParam);
+        tiffWriter.endInsertEmpty();
+
+        // Append the thumbnail image data.
+        tiffWriter.writeToSequence(new IIOImage(thumbnail, null, null),
+                tiffWriteParam);
+
+        // Insert the primary image data.
+        tiffWriter.prepareReplacePixels(0, new Rectangle(image.getWidth(),
+                image.getHeight()));
+        tiffWriter.replacePixels(image, tiffWriteParam);
+        tiffWriter.endReplacePixels();
+
+        // End writing.
+        tiffWriter.endWriteSequence();
+    } else {
+        // Write only the primary IFD and image data.
+        tiffWriter.write(tiffStreamMetadata,
+                new IIOImage(image, null, primaryIFD),
+                tiffWriteParam);
+    }
+Writing Compressed Exif Images
+The structure of the embedded TIFF stream in the
+APP1
+segment of a
+compressed Exif image is identical to the
+uncompressed Exif image structure
+except that there are no primary
+image data, i.e., the primary IFD does not refer to any image data.
+ImageWriter tiffWriter;
+    ImageWriteParam tiffWriteParam;
+    IIOMetadata tiffStreamMetadata;
+    BufferedImage image;
+    BufferedImage thumbnail;
+    IIOMetadata primaryIFD;
+    ImageOutputStream output;
+
+    // Set up an output to contain the APP1 Exif TIFF stream.
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    MemoryCacheImageOutputStream app1ExifOutput =
+        new MemoryCacheImageOutputStream(baos);
+    tiffWriter.setOutput(app1ExifOutput);
+
+    // Set compression for the thumbnail.
+    tiffWriteParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+    tiffWriteParam.setCompressionType("Exif JPEG");
+
+    // Write the APP1 Exif TIFF stream.
+    if (thumbnail != null) {
+        // Write the TIFF header.
+        tiffWriter.prepareWriteSequence(tiffStreamMetadata);
+
+        // Append the primary IFD.
+        tiffWriter.prepareInsertEmpty(-1, // append
+                new ImageTypeSpecifier(image),
+                image.getWidth(),
+                image.getHeight(),
+                primaryIFD,
+                null, // thumbnails
+                tiffWriteParam);
+        tiffWriter.endInsertEmpty();
+
+        // Append the thumbnail IFD and image data.
+        tiffWriter.writeToSequence(new IIOImage(thumbnail, null,
+                null), tiffWriteParam);
+
+        // End writing.
+        tiffWriter.endWriteSequence();
+    } else {
+        // Write only the primary IFD.
+        tiffWriter.prepareWriteEmpty(tiffStreamMetadata,
+                new ImageTypeSpecifier(image),
+                image.getWidth(),
+                image.getHeight(),
+                primaryIFD,
+                null, // thumbnails
+                tiffWriteParam);
+        tiffWriter.endWriteEmpty();
+    }
+
+    // Flush data into byte stream.
+    app1ExifOutput.flush();
+
+    // Create APP1 parameter array.
+    byte[] app1Parameters = new byte[6 + baos.size()];
+
+    // Add APP1 Exif ID bytes.
+    app1Parameters[0] = (byte) 'E';
+    app1Parameters[1] = (byte) 'x';
+    app1Parameters[2] = (byte) 'i';
+    app1Parameters[3] = (byte) 'f';
+    app1Parameters[4] = app1Parameters[5] = (byte) 0;
+
+    // Append TIFF stream to APP1 parameters.
+    System.arraycopy(baos.toByteArray(), 0, app1Parameters, 6, baos.size());
+
+    // Create the APP1 Exif node to be added to native JPEG image metadata.
+    IIOMetadataNode app1Node = new IIOMetadataNode("unknown");
+    app1Node.setAttribute("MarkerTag", String.valueOf(0xE1));
+    app1Node.setUserObject(app1Parameters);
+
+    // Append the APP1 Exif marker to the "markerSequence" node.
+    IIOMetadata jpegImageMetadata =
+        jpegWriter.getDefaultImageMetadata(new ImageTypeSpecifier(image),
+            jpegWriteParam);
+    String nativeFormat = jpegImageMetadata.getNativeMetadataFormatName();
+    Node tree = jpegImageMetadata.getAsTree(nativeFormat);
+    NodeList children = tree.getChildNodes();
+    int numChildren = children.getLength();
+    for (int i = 0; i < numChildren; i++) {
+        Node child = children.item(i);
+        if (child.getNodeName().equals("markerSequence")) {
+            child.appendChild(app1Node);
+            break;
+        }
+    }
+    jpegImageMetadata.setFromTree(nativeFormat, tree);
+
+    // Write the JPEG image data including the APP1 Exif marker.
+    jpegWriter.setOutput(output);
+    jpegWriter.write(new IIOImage(image, null, jpegImageMetadata));
+The
+"unknown"
+node created above would be appended to the
+"markerSequence"
+node of the native JPEG image metadata
+and written to the JPEG stream when the primary image is written using
+the JPEG writer.
+Stream Metadata
+The DTD for the TIFF native stream metadata format is as follows:
+<!DOCTYPE "javax_imageio_tiff_stream_1.0" [
+
+  <!ELEMENT "javax_imageio_tiff_stream_1.0" (ByteOrder)>
+
+    <!ELEMENT "ByteOrder" EMPTY>
+      <!-- The stream byte order -->
+      <!ATTLIST "ByteOrder" "value" #CDATA #REQUIRED>
+        <!-- One of "BIG_ENDIAN" or "LITTLE_ENDIAN" -->
+        <!-- Data type: String -->
+]>
+Image Metadata
+The DTD for the TIFF native image metadata format is as follows:
+<!DOCTYPE "javax_imageio_tiff_image_1.0" [
+
+  <!ELEMENT "javax_imageio_tiff_image_1.0" (TIFFIFD)*>
+
+    <!ELEMENT "TIFFIFD" (TIFFField | TIFFIFD)*>
+      <!-- An IFD (directory) containing fields -->
+      <!ATTLIST "TIFFIFD" "tagSets" #CDATA #REQUIRED>
+        <!-- Data type: String -->
+      <!ATTLIST "TIFFIFD" "parentTagNumber" #CDATA #IMPLIED>
+        <!-- The tag number of the field pointing to this IFD -->
+        <!-- Data type: Integer -->
+      <!ATTLIST "TIFFIFD" "parentTagName" #CDATA #IMPLIED>
+        <!-- A mnemonic name for the field pointing to this IFD, if known
+             -->
+        <!-- Data type: String -->
+
+      <!ELEMENT "TIFFField" (TIFFBytes | TIFFAsciis |
+        TIFFShorts | TIFFSShorts | TIFFLongs | TIFFSLongs |
+        TIFFRationals | TIFFSRationals |
+        TIFFFloats | TIFFDoubles | TIFFUndefined)>
+        <!-- A field containing data -->
+        <!ATTLIST "TIFFField" "number" #CDATA #REQUIRED>
+          <!-- The tag number associated with the field -->
+          <!-- Data type: String -->
+        <!ATTLIST "TIFFField" "name" #CDATA #IMPLIED>
+          <!-- A mnemonic name associated with the field, if known -->
+          <!-- Data type: String -->
+
+        <!ELEMENT "TIFFBytes" (TIFFByte)*>
+          <!-- A sequence of TIFFByte nodes -->
+
+          <!ELEMENT "TIFFByte" EMPTY>
+            <!-- An integral value between 0 and 255 -->
+            <!ATTLIST "TIFFByte" "value" #CDATA #IMPLIED>
+              <!-- The value -->
+              <!-- Data type: String -->
+            <!ATTLIST "TIFFByte" "description" #CDATA #IMPLIED>
+              <!-- A description, if available -->
+              <!-- Data type: String -->
+
+        <!ELEMENT "TIFFAsciis" (TIFFAscii)*>
+          <!-- A sequence of TIFFAscii nodes -->
+
+          <!ELEMENT "TIFFAscii" EMPTY>
+            <!-- A String value -->
+            <!ATTLIST "TIFFAscii" "value" #CDATA #IMPLIED>
+              <!-- The value -->
+              <!-- Data type: String -->
+
+        <!ELEMENT "TIFFShorts" (TIFFShort)*>
+          <!-- A sequence of TIFFShort nodes -->
+
+          <!ELEMENT "TIFFShort" EMPTY>
+            <!-- An integral value between 0 and 65535 -->
+            <!ATTLIST "TIFFShort" "value" #CDATA #IMPLIED>
+              <!-- The value -->
+              <!-- Data type: String -->
+            <!ATTLIST "TIFFShort" "description" #CDATA #IMPLIED>
+              <!-- A description, if available -->
+              <!-- Data type: String -->
+
+        <!ELEMENT "TIFFSShorts" (TIFFSShort)*>
+          <!-- A sequence of TIFFSShort nodes -->
+
+          <!ELEMENT "TIFFSShort" EMPTY>
+            <!-- An integral value between -32768 and 32767 -->
+            <!ATTLIST "TIFFSShort" "value" #CDATA #IMPLIED>
+              <!-- The value -->
+              <!-- Data type: String -->
+            <!ATTLIST "TIFFSShort" "description" #CDATA #IMPLIED>
+              <!-- A description, if available -->
+              <!-- Data type: String -->
+
+        <!ELEMENT "TIFFLongs" (TIFFLong)*>
+          <!-- A sequence of TIFFLong nodes -->
+
+          <!ELEMENT "TIFFLong" EMPTY>
+            <!-- An integral value between 0 and 4294967295 -->
+            <!ATTLIST "TIFFLong" "value" #CDATA #IMPLIED>
+              <!-- The value -->
+              <!-- Data type: String -->
+            <!ATTLIST "TIFFLong" "description" #CDATA #IMPLIED>
+              <!-- A description, if available -->
+              <!-- Data type: String -->
+
+        <!ELEMENT "TIFFSLongs" (TIFFSLong)*>
+          <!-- A sequence of TIFFSLong nodes -->
+
+          <!ELEMENT "TIFFSLong" EMPTY>
+            <!-- An integral value between -2147483648 and 2147482647 -->
+            <!ATTLIST "TIFFSLong" "value" #CDATA #IMPLIED>
+              <!-- The value -->
+              <!-- Data type: String -->
+            <!ATTLIST "TIFFSLong" "description" #CDATA #IMPLIED>
+              <!-- A description, if available -->
+              <!-- Data type: String -->
+
+        <!ELEMENT "TIFFRationals" (TIFFRational)*>
+          <!-- A sequence of TIFFRational nodes -->
+
+          <!ELEMENT "TIFFRational" EMPTY>
+            <!-- A rational value consisting of an unsigned numerator and
+                 denominator -->
+            <!ATTLIST "TIFFRational" "value" #CDATA #IMPLIED>
+              <!-- The numerator and denominator, separated by a slash -->
+              <!-- Data type: String -->
+
+        <!ELEMENT "TIFFSRationals" (TIFFSRational)*>
+          <!-- A sequence of TIFFSRational nodes -->
+
+          <!ELEMENT "TIFFSRational" EMPTY>
+            <!-- A rational value consisting of a signed numerator and
+                 denominator -->
+            <!ATTLIST "TIFFSRational" "value" #CDATA #IMPLIED>
+              <!-- The numerator and denominator, separated by a slash -->
+              <!-- Data type: String -->
+
+        <!ELEMENT "TIFFFloats" (TIFFFloat)*>
+          <!-- A sequence of TIFFFloat nodes -->
+
+          <!ELEMENT "TIFFFloat" EMPTY>
+            <!-- A single-precision floating-point value -->
+            <!ATTLIST "TIFFFloat" "value" #CDATA #IMPLIED>
+              <!-- The value -->
+              <!-- Data type: String -->
+
+        <!ELEMENT "TIFFDoubles" (TIFFDouble)*>
+          <!-- A sequence of TIFFDouble nodes -->
+
+          <!ELEMENT "TIFFDouble" EMPTY>
+            <!-- A double-precision floating-point value -->
+            <!ATTLIST "TIFFDouble" "value" #CDATA #IMPLIED>
+              <!-- The value -->
+              <!-- Data type: String -->
+
+        <!ELEMENT "TIFFUndefined" EMPTY>
+          <!-- Uninterpreted byte data -->
+          <!ATTLIST "TIFFUndefined" "value" #CDATA #IMPLIED>
+            <!-- A list of comma-separated byte values -->
+            <!-- Data type: String -->
+]>
+Since:
+9
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

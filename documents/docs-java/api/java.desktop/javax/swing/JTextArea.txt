@@ -1,0 +1,1929 @@
+JTextArea (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field
+|
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.swing
+Class JTextArea
+java.lang.Object
+java.awt.Component
+java.awt.Container
+javax.swing.JComponent
+javax.swing.text.JTextComponent
+javax.swing.JTextArea
+All Implemented Interfaces:
+ImageObserver
+,
+MenuContainer
+,
+Serializable
+,
+Accessible
+,
+Scrollable
+@JavaBean
+(
+defaultProperty
+="UIClassID",
+description
+="A multi-line area that displays plain text.")
+public class
+JTextArea
+extends
+JTextComponent
+A
+JTextArea
+is a multi-line area that displays plain text.
+ It is intended to be a lightweight component that provides source
+ compatibility with the
+java.awt.TextArea
+class where it can
+ reasonably do so.
+ You can find information and examples of using all the text components in
+Using Text Components
+,
+ a section in
+The Java Tutorial.
+This component has capabilities not found in the
+java.awt.TextArea
+class.  The superclass should be
+ consulted for additional capabilities.
+ Alternative multi-line text classes with
+ more capabilities are
+JTextPane
+and
+JEditorPane
+.
+The
+java.awt.TextArea
+internally handles scrolling.
+JTextArea
+is different in that it doesn't manage scrolling,
+ but implements the swing
+Scrollable
+interface.  This allows it
+ to be placed inside a
+JScrollPane
+if scrolling
+ behavior is desired, and used directly if scrolling is not desired.
+The
+java.awt.TextArea
+has the ability to do line wrapping.
+ This was controlled by the horizontal scrolling policy.  Since
+ scrolling is not done by
+JTextArea
+directly, backward
+ compatibility must be provided another way.
+JTextArea
+has
+ a bound property for line wrapping that controls whether or
+ not it will wrap lines.  By default, the line wrapping property
+ is set to false (not wrapped).
+java.awt.TextArea
+has two properties
+rows
+and
+columns
+that are used to determine the preferred size.
+JTextArea
+uses these properties to indicate the
+ preferred size of the viewport when placed inside a
+JScrollPane
+to match the functionality provided by
+java.awt.TextArea
+.
+JTextArea
+has a preferred size of what is needed to
+ display all of the text, so that it functions properly inside of
+ a
+JScrollPane
+.  If the value for
+rows
+or
+columns
+is equal to zero,
+ the preferred size along that axis is used for
+ the viewport preferred size along the same axis.
+The
+java.awt.TextArea
+could be monitored for changes by adding
+ a
+TextListener
+for
+TextEvent
+s.
+ In the
+JTextComponent
+based
+ components, changes are broadcasted from the model via a
+DocumentEvent
+to
+DocumentListeners
+.
+ The
+DocumentEvent
+gives
+ the location of the change and the kind of change if desired.
+ The code fragment might look something like:
+DocumentListener myListener = ??;
+    JTextArea myArea = ??;
+    myArea.getDocument().addDocumentListener(myListener);
+Newlines
+For a discussion on how newlines are handled, see
+DefaultEditorKit
+.
+Warning:
+Swing is not thread safe. For more
+ information see
+Swing's Threading
+ Policy
+.
+Warning:
+Serialized objects of this class will not be compatible with
+ future Swing releases. The current serialization support is
+ appropriate for short term storage or RMI between applications running
+ the same version of Swing.  As of 1.4, support for long term storage
+ of all JavaBeans
+ has been added to the
+java.beans
+package.
+ Please see
+XMLEncoder
+.
+Since:
+1.2
+See Also:
+JTextPane
+JEditorPane
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+protected class
+JTextArea.AccessibleJTextArea
+This class implements accessibility support for the
+JTextArea
+class.
+Nested classes/interfaces declared in class javax.swing.text.
+JTextComponent
+JTextComponent.AccessibleJTextComponent
+,
+JTextComponent.DropLocation
+,
+JTextComponent.KeyBinding
+Nested classes/interfaces declared in class javax.swing.
+JComponent
+JComponent.AccessibleJComponent
+Nested classes/interfaces declared in class java.awt.
+Container
+Container.AccessibleAWTContainer
+Nested classes/interfaces declared in class java.awt.
+Component
+Component.AccessibleAWTComponent
+,
+Component.BaselineResizeBehavior
+,
+Component.BltBufferStrategy
+,
+Component.FlipBufferStrategy
+Field Summary
+Fields declared in class javax.swing.text.
+JTextComponent
+DEFAULT_KEYMAP
+,
+FOCUS_ACCELERATOR_KEY
+Fields declared in class javax.swing.
+JComponent
+listenerList
+,
+TOOL_TIP_TEXT_KEY
+,
+ui
+,
+UNDEFINED_CONDITION
+,
+WHEN_ANCESTOR_OF_FOCUSED_COMPONENT
+,
+WHEN_FOCUSED
+,
+WHEN_IN_FOCUSED_WINDOW
+Fields declared in class java.awt.
+Component
+accessibleContext
+,
+BOTTOM_ALIGNMENT
+,
+CENTER_ALIGNMENT
+,
+LEFT_ALIGNMENT
+,
+RIGHT_ALIGNMENT
+,
+TOP_ALIGNMENT
+Fields declared in interface java.awt.image.
+ImageObserver
+ABORT
+,
+ALLBITS
+,
+ERROR
+,
+FRAMEBITS
+,
+HEIGHT
+,
+PROPERTIES
+,
+SOMEBITS
+,
+WIDTH
+Constructor Summary
+Constructors
+Constructor
+Description
+JTextArea
+()
+Constructs a new TextArea.
+JTextArea
+(int rows,
+ int columns)
+Constructs a new empty TextArea with the specified number of
+ rows and columns.
+JTextArea
+(
+String
+text)
+Constructs a new TextArea with the specified text displayed.
+JTextArea
+(
+String
+text,
+ int rows,
+ int columns)
+Constructs a new TextArea with the specified text and number
+ of rows and columns.
+JTextArea
+(
+Document
+doc)
+Constructs a new JTextArea with the given document model, and defaults
+ for all of the other arguments (null, 0, 0).
+JTextArea
+(
+Document
+doc,
+String
+text,
+ int rows,
+ int columns)
+Constructs a new JTextArea with the specified number of rows
+ and columns, and the given model.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+append
+(
+String
+str)
+Appends the given text to the end of the document.
+protected
+Document
+createDefaultModel
+()
+Creates the default implementation of the model
+ to be used at construction if one isn't explicitly
+ given.
+AccessibleContext
+getAccessibleContext
+()
+Gets the AccessibleContext associated with this JTextArea.
+int
+getColumns
+()
+Returns the number of columns in the TextArea.
+protected int
+getColumnWidth
+()
+Gets column width.
+int
+getLineCount
+()
+Determines the number of lines contained in the area.
+int
+getLineEndOffset
+(int line)
+Determines the offset of the end of the given line.
+int
+getLineOfOffset
+(int offset)
+Translates an offset into the components text to a
+ line number.
+int
+getLineStartOffset
+(int line)
+Determines the offset of the start of the given line.
+boolean
+getLineWrap
+()
+Gets the line-wrapping policy of the text area.
+Dimension
+getPreferredScrollableViewportSize
+()
+Returns the preferred size of the viewport if this component
+ is embedded in a JScrollPane.
+Dimension
+getPreferredSize
+()
+Returns the preferred size of the TextArea.
+protected int
+getRowHeight
+()
+Defines the meaning of the height of a row.
+int
+getRows
+()
+Returns the number of rows in the TextArea.
+boolean
+getScrollableTracksViewportWidth
+()
+Returns true if a viewport should always force the width of this
+ Scrollable to match the width of the viewport.
+int
+getScrollableUnitIncrement
+(
+Rectangle
+visibleRect,
+ int orientation,
+ int direction)
+Components that display logical rows or columns should compute
+ the scroll increment that will completely expose one new row
+ or column, depending on the value of orientation.
+int
+getTabSize
+()
+Gets the number of characters used to expand tabs.
+String
+getUIClassID
+()
+Returns the class ID for the UI.
+boolean
+getWrapStyleWord
+()
+Gets the style of wrapping used if the text area is wrapping
+ lines.
+void
+insert
+(
+String
+str,
+ int pos)
+Inserts the specified text at the specified position.
+protected
+String
+paramString
+()
+Returns a string representation of this JTextArea.
+void
+replaceRange
+(
+String
+str,
+ int start,
+ int end)
+Replaces text from the indicated start to end position with the
+ new text specified.
+void
+setColumns
+(int columns)
+Sets the number of columns for this TextArea.
+void
+setFont
+(
+Font
+f)
+Sets the current font.
+void
+setLineWrap
+(boolean wrap)
+Sets the line-wrapping policy of the text area.
+void
+setRows
+(int rows)
+Sets the number of rows for this TextArea.
+void
+setTabSize
+(int size)
+Sets the number of characters to expand tabs to.
+void
+setWrapStyleWord
+(boolean word)
+Sets the style of wrapping used if the text area is wrapping
+ lines.
+Methods declared in class javax.swing.text.
+JTextComponent
+addCaretListener
+,
+addKeymap
+,
+copy
+,
+cut
+,
+fireCaretUpdate
+,
+getActions
+,
+getCaret
+,
+getCaretColor
+,
+getCaretListeners
+,
+getCaretPosition
+,
+getDisabledTextColor
+,
+getDocument
+,
+getDragEnabled
+,
+getDropLocation
+,
+getDropMode
+,
+getFocusAccelerator
+,
+getHighlighter
+,
+getInputMethodRequests
+,
+getKeymap
+,
+getKeymap
+,
+getMargin
+,
+getNavigationFilter
+,
+getPrintable
+,
+getScrollableBlockIncrement
+,
+getScrollableTracksViewportHeight
+,
+getSelectedText
+,
+getSelectedTextColor
+,
+getSelectionColor
+,
+getSelectionEnd
+,
+getSelectionStart
+,
+getText
+,
+getText
+,
+getToolTipText
+,
+getUI
+,
+isEditable
+,
+loadKeymap
+,
+modelToView
+,
+modelToView2D
+,
+moveCaretPosition
+,
+paste
+,
+print
+,
+print
+,
+print
+,
+read
+,
+removeCaretListener
+,
+removeKeymap
+,
+replaceSelection
+,
+restoreComposedText
+,
+saveComposedText
+,
+select
+,
+selectAll
+,
+setCaret
+,
+setCaretColor
+,
+setCaretPosition
+,
+setDisabledTextColor
+,
+setDocument
+,
+setDragEnabled
+,
+setDropMode
+,
+setEditable
+,
+setFocusAccelerator
+,
+setHighlighter
+,
+setKeymap
+,
+setMargin
+,
+setNavigationFilter
+,
+setSelectedTextColor
+,
+setSelectionColor
+,
+setSelectionEnd
+,
+setSelectionStart
+,
+setText
+,
+setUI
+,
+updateUI
+,
+viewToModel
+,
+viewToModel2D
+,
+write
+Methods declared in class javax.swing.
+JComponent
+addAncestorListener
+,
+addNotify
+,
+addVetoableChangeListener
+,
+computeVisibleRect
+,
+contains
+,
+createToolTip
+,
+disable
+,
+enable
+,
+firePropertyChange
+,
+firePropertyChange
+,
+fireVetoableChange
+,
+getActionForKeyStroke
+,
+getActionMap
+,
+getAlignmentX
+,
+getAlignmentY
+,
+getAncestorListeners
+,
+getAutoscrolls
+,
+getBaseline
+,
+getBaselineResizeBehavior
+,
+getBorder
+,
+getBounds
+,
+getClientProperty
+,
+getComponentGraphics
+,
+getComponentPopupMenu
+,
+getConditionForKeyStroke
+,
+getDebugGraphicsOptions
+,
+getDefaultLocale
+,
+getFontMetrics
+,
+getGraphics
+,
+getHeight
+,
+getInheritsPopupMenu
+,
+getInputMap
+,
+getInputMap
+,
+getInputVerifier
+,
+getInsets
+,
+getInsets
+,
+getListeners
+,
+getLocation
+,
+getMaximumSize
+,
+getMinimumSize
+,
+getNextFocusableComponent
+,
+getPopupLocation
+,
+getRegisteredKeyStrokes
+,
+getRootPane
+,
+getSize
+,
+getToolTipLocation
+,
+getToolTipText
+,
+getTopLevelAncestor
+,
+getTransferHandler
+,
+getVerifyInputWhenFocusTarget
+,
+getVetoableChangeListeners
+,
+getVisibleRect
+,
+getWidth
+,
+getX
+,
+getY
+,
+grabFocus
+,
+hide
+,
+isDoubleBuffered
+,
+isLightweightComponent
+,
+isManagingFocus
+,
+isOpaque
+,
+isOptimizedDrawingEnabled
+,
+isPaintingForPrint
+,
+isPaintingOrigin
+,
+isPaintingTile
+,
+isRequestFocusEnabled
+,
+isValidateRoot
+,
+paint
+,
+paintBorder
+,
+paintChildren
+,
+paintComponent
+,
+paintImmediately
+,
+paintImmediately
+,
+print
+,
+printAll
+,
+printBorder
+,
+printChildren
+,
+printComponent
+,
+processComponentKeyEvent
+,
+processKeyBinding
+,
+processKeyEvent
+,
+processMouseEvent
+,
+processMouseMotionEvent
+,
+putClientProperty
+,
+registerKeyboardAction
+,
+registerKeyboardAction
+,
+removeAncestorListener
+,
+removeNotify
+,
+removeVetoableChangeListener
+,
+repaint
+,
+repaint
+,
+requestDefaultFocus
+,
+requestFocus
+,
+requestFocus
+,
+requestFocusInWindow
+,
+requestFocusInWindow
+,
+resetKeyboardActions
+,
+reshape
+,
+revalidate
+,
+scrollRectToVisible
+,
+setActionMap
+,
+setAlignmentX
+,
+setAlignmentY
+,
+setAutoscrolls
+,
+setBackground
+,
+setBorder
+,
+setComponentPopupMenu
+,
+setDebugGraphicsOptions
+,
+setDefaultLocale
+,
+setDoubleBuffered
+,
+setEnabled
+,
+setFocusTraversalKeys
+,
+setForeground
+,
+setInheritsPopupMenu
+,
+setInputMap
+,
+setInputVerifier
+,
+setMaximumSize
+,
+setMinimumSize
+,
+setNextFocusableComponent
+,
+setOpaque
+,
+setPreferredSize
+,
+setRequestFocusEnabled
+,
+setToolTipText
+,
+setTransferHandler
+,
+setUI
+,
+setVerifyInputWhenFocusTarget
+,
+setVisible
+,
+unregisterKeyboardAction
+,
+update
+Methods declared in class java.awt.
+Container
+add
+,
+add
+,
+add
+,
+add
+,
+add
+,
+addContainerListener
+,
+addImpl
+,
+addPropertyChangeListener
+,
+addPropertyChangeListener
+,
+applyComponentOrientation
+,
+areFocusTraversalKeysSet
+,
+countComponents
+,
+deliverEvent
+,
+doLayout
+,
+findComponentAt
+,
+findComponentAt
+,
+getComponent
+,
+getComponentAt
+,
+getComponentAt
+,
+getComponentCount
+,
+getComponents
+,
+getComponentZOrder
+,
+getContainerListeners
+,
+getFocusTraversalKeys
+,
+getFocusTraversalPolicy
+,
+getLayout
+,
+getMousePosition
+,
+insets
+,
+invalidate
+,
+isAncestorOf
+,
+isFocusCycleRoot
+,
+isFocusCycleRoot
+,
+isFocusTraversalPolicyProvider
+,
+isFocusTraversalPolicySet
+,
+layout
+,
+list
+,
+list
+,
+locate
+,
+minimumSize
+,
+paintComponents
+,
+preferredSize
+,
+printComponents
+,
+processContainerEvent
+,
+processEvent
+,
+remove
+,
+remove
+,
+removeAll
+,
+removeContainerListener
+,
+setComponentZOrder
+,
+setFocusCycleRoot
+,
+setFocusTraversalPolicy
+,
+setFocusTraversalPolicyProvider
+,
+setLayout
+,
+transferFocusDownCycle
+,
+validate
+,
+validateTree
+Methods declared in class java.awt.
+Component
+action
+,
+add
+,
+addComponentListener
+,
+addFocusListener
+,
+addHierarchyBoundsListener
+,
+addHierarchyListener
+,
+addInputMethodListener
+,
+addKeyListener
+,
+addMouseListener
+,
+addMouseMotionListener
+,
+addMouseWheelListener
+,
+bounds
+,
+checkImage
+,
+checkImage
+,
+coalesceEvents
+,
+contains
+,
+createImage
+,
+createImage
+,
+createVolatileImage
+,
+createVolatileImage
+,
+disableEvents
+,
+dispatchEvent
+,
+enable
+,
+enableEvents
+,
+enableInputMethods
+,
+firePropertyChange
+,
+firePropertyChange
+,
+firePropertyChange
+,
+firePropertyChange
+,
+firePropertyChange
+,
+firePropertyChange
+,
+firePropertyChange
+,
+getBackground
+,
+getBounds
+,
+getColorModel
+,
+getComponentListeners
+,
+getComponentOrientation
+,
+getCursor
+,
+getDropTarget
+,
+getFocusCycleRootAncestor
+,
+getFocusListeners
+,
+getFocusTraversalKeysEnabled
+,
+getFont
+,
+getForeground
+,
+getGraphicsConfiguration
+,
+getHierarchyBoundsListeners
+,
+getHierarchyListeners
+,
+getIgnoreRepaint
+,
+getInputContext
+,
+getInputMethodListeners
+,
+getKeyListeners
+,
+getLocale
+,
+getLocation
+,
+getLocationOnScreen
+,
+getMouseListeners
+,
+getMouseMotionListeners
+,
+getMousePosition
+,
+getMouseWheelListeners
+,
+getName
+,
+getParent
+,
+getPropertyChangeListeners
+,
+getPropertyChangeListeners
+,
+getSize
+,
+getToolkit
+,
+getTreeLock
+,
+gotFocus
+,
+handleEvent
+,
+hasFocus
+,
+imageUpdate
+,
+inside
+,
+isBackgroundSet
+,
+isCursorSet
+,
+isDisplayable
+,
+isEnabled
+,
+isFocusable
+,
+isFocusOwner
+,
+isFocusTraversable
+,
+isFontSet
+,
+isForegroundSet
+,
+isLightweight
+,
+isMaximumSizeSet
+,
+isMinimumSizeSet
+,
+isPreferredSizeSet
+,
+isShowing
+,
+isValid
+,
+isVisible
+,
+keyDown
+,
+keyUp
+,
+list
+,
+list
+,
+list
+,
+location
+,
+lostFocus
+,
+mouseDown
+,
+mouseDrag
+,
+mouseEnter
+,
+mouseExit
+,
+mouseMove
+,
+mouseUp
+,
+move
+,
+nextFocus
+,
+paintAll
+,
+postEvent
+,
+prepareImage
+,
+prepareImage
+,
+processComponentEvent
+,
+processFocusEvent
+,
+processHierarchyBoundsEvent
+,
+processHierarchyEvent
+,
+processInputMethodEvent
+,
+processMouseWheelEvent
+,
+remove
+,
+removeComponentListener
+,
+removeFocusListener
+,
+removeHierarchyBoundsListener
+,
+removeHierarchyListener
+,
+removeInputMethodListener
+,
+removeKeyListener
+,
+removeMouseListener
+,
+removeMouseMotionListener
+,
+removeMouseWheelListener
+,
+removePropertyChangeListener
+,
+removePropertyChangeListener
+,
+repaint
+,
+repaint
+,
+repaint
+,
+requestFocus
+,
+requestFocus
+,
+requestFocusInWindow
+,
+resize
+,
+resize
+,
+setBounds
+,
+setBounds
+,
+setComponentOrientation
+,
+setCursor
+,
+setDropTarget
+,
+setFocusable
+,
+setFocusTraversalKeysEnabled
+,
+setIgnoreRepaint
+,
+setLocale
+,
+setLocation
+,
+setLocation
+,
+setMixingCutoutShape
+,
+setName
+,
+setSize
+,
+setSize
+,
+show
+,
+show
+,
+size
+,
+toString
+,
+transferFocus
+,
+transferFocusBackward
+,
+transferFocusUpCycle
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+JTextArea
+public
+JTextArea
+()
+Constructs a new TextArea.  A default model is set, the initial string
+ is null, and rows/columns are set to 0.
+JTextArea
+public
+JTextArea
+(
+String
+text)
+Constructs a new TextArea with the specified text displayed.
+ A default model is created and rows/columns are set to 0.
+Parameters:
+text
+- the text to be displayed, or null
+JTextArea
+public
+JTextArea
+(int rows,
+ int columns)
+Constructs a new empty TextArea with the specified number of
+ rows and columns.  A default model is created, and the initial
+ string is null.
+Parameters:
+rows
+- the number of rows >= 0
+columns
+- the number of columns >= 0
+Throws:
+IllegalArgumentException
+- if the rows or columns
+  arguments are negative.
+JTextArea
+public
+JTextArea
+(
+String
+text,
+ int rows,
+ int columns)
+Constructs a new TextArea with the specified text and number
+ of rows and columns.  A default model is created.
+Parameters:
+text
+- the text to be displayed, or null
+rows
+- the number of rows >= 0
+columns
+- the number of columns >= 0
+Throws:
+IllegalArgumentException
+- if the rows or columns
+  arguments are negative.
+JTextArea
+public
+JTextArea
+(
+Document
+doc)
+Constructs a new JTextArea with the given document model, and defaults
+ for all of the other arguments (null, 0, 0).
+Parameters:
+doc
+- the model to use
+JTextArea
+public
+JTextArea
+(
+Document
+doc,
+String
+text,
+ int rows,
+ int columns)
+Constructs a new JTextArea with the specified number of rows
+ and columns, and the given model.  All of the constructors
+ feed through this constructor.
+Parameters:
+doc
+- the model to use, or create a default one if null
+text
+- the text to be displayed, null if none
+rows
+- the number of rows >= 0
+columns
+- the number of columns >= 0
+Throws:
+IllegalArgumentException
+- if the rows or columns
+  arguments are negative.
+Method Details
+getUIClassID
+@BeanProperty
+(
+bound
+=false)
+public
+String
+getUIClassID
+()
+Returns the class ID for the UI.
+Overrides:
+getUIClassID
+in class
+JComponent
+Returns:
+the string "TextAreaUI"
+See Also:
+JComponent.getUIClassID()
+UIDefaults.getUI(javax.swing.JComponent)
+createDefaultModel
+protected
+Document
+createDefaultModel
+()
+Creates the default implementation of the model
+ to be used at construction if one isn't explicitly
+ given.  A new instance of PlainDocument is returned.
+Returns:
+the default document model
+setTabSize
+@BeanProperty
+(
+preferred
+=true,
+description
+="the number of characters to expand tabs to")
+public
+void
+setTabSize
+(int size)
+Sets the number of characters to expand tabs to.
+ This will be multiplied by the maximum advance for
+ variable width fonts.  A PropertyChange event ("tabSize") is fired
+ when the tab size changes.
+Parameters:
+size
+- number of characters to expand to
+See Also:
+getTabSize()
+getTabSize
+public
+int
+getTabSize
+()
+Gets the number of characters used to expand tabs.  If the document is
+ null or doesn't have a tab setting, return a default of 8.
+Returns:
+the number of characters
+setLineWrap
+@BeanProperty
+(
+preferred
+=true,
+description
+="should lines be wrapped")
+public
+void
+setLineWrap
+(boolean wrap)
+Sets the line-wrapping policy of the text area.  If set
+ to true the lines will be wrapped if they are too long
+ to fit within the allocated width.  If set to false,
+ the lines will always be unwrapped.  A
+PropertyChange
+event ("lineWrap") is fired when the policy is changed.
+ By default this property is false.
+Parameters:
+wrap
+- indicates if lines should be wrapped
+See Also:
+getLineWrap()
+getLineWrap
+public
+boolean
+getLineWrap
+()
+Gets the line-wrapping policy of the text area.  If set
+ to true the lines will be wrapped if they are too long
+ to fit within the allocated width.  If set to false,
+ the lines will always be unwrapped.
+Returns:
+if lines will be wrapped
+setWrapStyleWord
+@BeanProperty
+(
+description
+="should wrapping occur at word boundaries")
+public
+void
+setWrapStyleWord
+(boolean word)
+Sets the style of wrapping used if the text area is wrapping
+ lines.  If set to true the lines will be wrapped at word
+ boundaries (whitespace) if they are too long
+ to fit within the allocated width.  If set to false,
+ the lines will be wrapped at character boundaries.
+ By default this property is false.
+Parameters:
+word
+- indicates if word boundaries should be used
+   for line wrapping
+See Also:
+getWrapStyleWord()
+getWrapStyleWord
+public
+boolean
+getWrapStyleWord
+()
+Gets the style of wrapping used if the text area is wrapping
+ lines.  If set to true the lines will be wrapped at word
+ boundaries (ie whitespace) if they are too long
+ to fit within the allocated width.  If set to false,
+ the lines will be wrapped at character boundaries.
+Returns:
+if the wrap style should be word boundaries
+  instead of character boundaries
+See Also:
+setWrapStyleWord(boolean)
+getLineOfOffset
+public
+int
+getLineOfOffset
+(int offset)
+throws
+BadLocationException
+Translates an offset into the components text to a
+ line number.
+Parameters:
+offset
+- the offset >= 0
+Returns:
+the line number >= 0
+Throws:
+BadLocationException
+- thrown if the offset is
+   less than zero or greater than the document length.
+getLineCount
+@BeanProperty
+(
+bound
+=false)
+public
+int
+getLineCount
+()
+Determines the number of lines contained in the area.
+Returns:
+the number of lines > 0
+getLineStartOffset
+public
+int
+getLineStartOffset
+(int line)
+throws
+BadLocationException
+Determines the offset of the start of the given line.
+Parameters:
+line
+- the line number to translate >= 0
+Returns:
+the offset >= 0
+Throws:
+BadLocationException
+- thrown if the line is
+ less than zero or greater or equal to the number of
+ lines contained in the document (as reported by
+ getLineCount).
+getLineEndOffset
+public
+int
+getLineEndOffset
+(int line)
+throws
+BadLocationException
+Determines the offset of the end of the given line.
+Parameters:
+line
+- the line >= 0
+Returns:
+the offset >= 0
+Throws:
+BadLocationException
+- Thrown if the line is
+ less than zero or greater or equal to the number of
+ lines contained in the document (as reported by
+ getLineCount).
+insert
+public
+void
+insert
+(
+String
+str,
+ int pos)
+Inserts the specified text at the specified position.  Does nothing
+ if the model is null or if the text is null or empty.
+Parameters:
+str
+- the text to insert
+pos
+- the position at which to insert >= 0
+Throws:
+IllegalArgumentException
+- if pos is an
+  invalid position in the model
+See Also:
+TextComponent.setText(java.lang.String)
+replaceRange(java.lang.String, int, int)
+append
+public
+void
+append
+(
+String
+str)
+Appends the given text to the end of the document.  Does nothing if
+ the model is null or the string is null or empty.
+Parameters:
+str
+- the text to insert
+See Also:
+insert(java.lang.String, int)
+replaceRange
+public
+void
+replaceRange
+(
+String
+str,
+ int start,
+ int end)
+Replaces text from the indicated start to end position with the
+ new text specified.  Does nothing if the model is null.  Simply
+ does a delete if the new string is null or empty.
+Parameters:
+str
+- the text to use as the replacement
+start
+- the start position >= 0
+end
+- the end position >= start
+Throws:
+IllegalArgumentException
+- if part of the range is an
+  invalid position in the model
+See Also:
+insert(java.lang.String, int)
+getRows
+public
+int
+getRows
+()
+Returns the number of rows in the TextArea.
+Returns:
+the number of rows >= 0
+setRows
+@BeanProperty
+(
+bound
+=false,
+description
+="the number of rows preferred for display")
+public
+void
+setRows
+(int rows)
+Sets the number of rows for this TextArea.  Calls invalidate() after
+ setting the new value.
+Parameters:
+rows
+- the number of rows >= 0
+Throws:
+IllegalArgumentException
+- if rows is less than 0
+See Also:
+getRows()
+getRowHeight
+protected
+int
+getRowHeight
+()
+Defines the meaning of the height of a row.  This defaults to
+ the height of the font.
+Returns:
+the height >= 1
+getColumns
+public
+int
+getColumns
+()
+Returns the number of columns in the TextArea.
+Returns:
+number of columns >= 0
+setColumns
+@BeanProperty
+(
+bound
+=false,
+description
+="the number of columns preferred for display")
+public
+void
+setColumns
+(int columns)
+Sets the number of columns for this TextArea.  Does an invalidate()
+ after setting the new value.
+Parameters:
+columns
+- the number of columns >= 0
+Throws:
+IllegalArgumentException
+- if columns is less than 0
+See Also:
+getColumns()
+getColumnWidth
+protected
+int
+getColumnWidth
+()
+Gets column width.
+ The meaning of what a column is can be considered a fairly weak
+ notion for some fonts.  This method is used to define the width
+ of a column.  By default this is defined to be the width of the
+ character
+m
+for the font used.  This method can be
+ redefined to be some alternative amount.
+Returns:
+the column width >= 1
+getPreferredSize
+public
+Dimension
+getPreferredSize
+()
+Returns the preferred size of the TextArea.  This is the
+ maximum of the size needed to display the text and the
+ size requested for the viewport.
+Overrides:
+getPreferredSize
+in class
+JComponent
+Returns:
+the size
+See Also:
+JComponent.setPreferredSize(java.awt.Dimension)
+ComponentUI
+setFont
+public
+void
+setFont
+(
+Font
+f)
+Sets the current font.  This removes cached row height and column
+ width so the new font will be reflected, and calls revalidate().
+Overrides:
+setFont
+in class
+JComponent
+Parameters:
+f
+- the font to use as the current font
+See Also:
+Component.getFont()
+paramString
+protected
+String
+paramString
+()
+Returns a string representation of this JTextArea. This method
+ is intended to be used only for debugging purposes, and the
+ content and format of the returned string may vary between
+ implementations. The returned string may be empty but may not
+ be
+null
+.
+Overrides:
+paramString
+in class
+JTextComponent
+Returns:
+a string representation of this JTextArea.
+getScrollableTracksViewportWidth
+@BeanProperty
+(
+bound
+=false)
+public
+boolean
+getScrollableTracksViewportWidth
+()
+Returns true if a viewport should always force the width of this
+ Scrollable to match the width of the viewport.  This is implemented
+ to return true if the line wrapping policy is true, and false
+ if lines are not being wrapped.
+Specified by:
+getScrollableTracksViewportWidth
+in interface
+Scrollable
+Overrides:
+getScrollableTracksViewportWidth
+in class
+JTextComponent
+Returns:
+true if a viewport should force the Scrollables width
+ to match its own.
+getPreferredScrollableViewportSize
+@BeanProperty
+(
+bound
+=false)
+public
+Dimension
+getPreferredScrollableViewportSize
+()
+Returns the preferred size of the viewport if this component
+ is embedded in a JScrollPane.  This uses the desired column
+ and row settings if they have been set, otherwise the superclass
+ behavior is used.
+Specified by:
+getPreferredScrollableViewportSize
+in interface
+Scrollable
+Overrides:
+getPreferredScrollableViewportSize
+in class
+JTextComponent
+Returns:
+The preferredSize of a JViewport whose view is this Scrollable.
+See Also:
+JComponent.getPreferredSize()
+getScrollableUnitIncrement
+public
+int
+getScrollableUnitIncrement
+(
+Rectangle
+visibleRect,
+ int orientation,
+ int direction)
+Components that display logical rows or columns should compute
+ the scroll increment that will completely expose one new row
+ or column, depending on the value of orientation.  This is implemented
+ to use the values returned by the
+getRowHeight
+and
+getColumnWidth
+methods.
+Scrolling containers, like JScrollPane, will use this method
+ each time the user requests a unit scroll.
+Specified by:
+getScrollableUnitIncrement
+in interface
+Scrollable
+Overrides:
+getScrollableUnitIncrement
+in class
+JTextComponent
+Parameters:
+visibleRect
+- the view area visible within the viewport
+orientation
+- Either SwingConstants.VERTICAL or
+   SwingConstants.HORIZONTAL.
+direction
+- Less than zero to scroll up/left,
+   greater than zero for down/right.
+Returns:
+The "unit" increment for scrolling in the specified direction
+Throws:
+IllegalArgumentException
+- for an invalid orientation
+See Also:
+JScrollBar.setUnitIncrement(int)
+getRowHeight()
+getColumnWidth()
+getAccessibleContext
+@BeanProperty
+(
+bound
+=false)
+public
+AccessibleContext
+getAccessibleContext
+()
+Gets the AccessibleContext associated with this JTextArea.
+ For JTextAreas, the AccessibleContext takes the form of an
+ AccessibleJTextArea.
+ A new AccessibleJTextArea instance is created if necessary.
+Specified by:
+getAccessibleContext
+in interface
+Accessible
+Overrides:
+getAccessibleContext
+in class
+JTextComponent
+Returns:
+an AccessibleJTextArea that serves as the
+         AccessibleContext of this JTextArea
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

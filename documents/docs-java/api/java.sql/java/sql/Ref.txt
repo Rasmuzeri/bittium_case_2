@@ -1,0 +1,268 @@
+Ref (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.sql
+Package
+java.sql
+Interface Ref
+All Known Implementing Classes:
+SerialRef
+public interface
+Ref
+The mapping in the Java programming language of an SQL
+REF
+value, which is a reference to an SQL structured type value in the database.
+SQL
+REF
+values are stored in a table that contains
+ instances of a referenceable SQL structured type, and each
+REF
+value is a unique identifier for one instance in that table.
+ An SQL
+REF
+value may be used in place of the
+ SQL structured type it references, either as a column value in a
+ table or an attribute value in a structured type.
+Because an SQL
+REF
+value is a logical pointer to an
+ SQL structured type, a
+Ref
+object is by default also a logical
+ pointer. Thus, retrieving an SQL
+REF
+value as
+ a
+Ref
+object does not materialize
+ the attributes of the structured type on the client.
+A
+Ref
+object can be stored in the database using the
+PreparedStatement.setRef
+method.
+All methods on the
+Ref
+interface must be fully implemented if the
+ JDBC driver supports the data type.
+Since:
+1.2
+See Also:
+Struct
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+String
+getBaseTypeName
+()
+Retrieves the fully-qualified SQL name of the SQL structured type that
+ this
+Ref
+object references.
+Object
+getObject
+()
+Retrieves the SQL structured type instance referenced by
+ this
+Ref
+object.
+Object
+getObject
+(
+Map
+<
+String
+,
+Class
+<?>> map)
+Retrieves the referenced object and maps it to a Java type
+ using the given type map.
+void
+setObject
+(
+Object
+value)
+Sets the structured type value that this
+Ref
+object references to the given instance of
+Object
+.
+Method Details
+getBaseTypeName
+String
+getBaseTypeName
+()
+                throws
+SQLException
+Retrieves the fully-qualified SQL name of the SQL structured type that
+ this
+Ref
+object references.
+Returns:
+the fully-qualified SQL name of the referenced SQL structured type
+Throws:
+SQLException
+- if a database access error occurs
+SQLFeatureNotSupportedException
+- if the JDBC driver does not support
+ this method
+Since:
+1.2
+getObject
+Object
+getObject
+(
+Map
+<
+String
+,
+Class
+<?>> map)
+throws
+SQLException
+Retrieves the referenced object and maps it to a Java type
+ using the given type map.
+Parameters:
+map
+- a
+java.util.Map
+object that contains
+        the mapping to use (the fully-qualified name of the SQL
+        structured type being referenced and the class object for
+SQLData
+implementation to which the SQL
+        structured type will be mapped)
+Returns:
+a Java
+Object
+that is the custom mapping for
+          the SQL structured type to which this
+Ref
+object refers
+Throws:
+SQLException
+- if a database access error occurs
+SQLFeatureNotSupportedException
+- if the JDBC driver does not support
+ this method
+Since:
+1.4
+See Also:
+setObject(java.lang.Object)
+getObject
+Object
+getObject
+()
+          throws
+SQLException
+Retrieves the SQL structured type instance referenced by
+ this
+Ref
+object.  If the connection's type map has an entry
+ for the structured type, the instance will be custom mapped to
+ the Java class indicated in the type map.  Otherwise, the
+ structured type instance will be mapped to a
+Struct
+object.
+Returns:
+a Java
+Object
+that is the mapping for
+          the SQL structured type to which this
+Ref
+object refers
+Throws:
+SQLException
+- if a database access error occurs
+SQLFeatureNotSupportedException
+- if the JDBC driver does not support
+ this method
+Since:
+1.4
+See Also:
+setObject(java.lang.Object)
+setObject
+void
+setObject
+(
+Object
+value)
+throws
+SQLException
+Sets the structured type value that this
+Ref
+object references to the given instance of
+Object
+.
+ The driver converts this to an SQL structured type when it
+ sends it to the database.
+Parameters:
+value
+- an
+Object
+representing the SQL
+        structured type instance that this
+Ref
+object will reference
+Throws:
+SQLException
+- if a database access error occurs
+SQLFeatureNotSupportedException
+- if the JDBC driver does not support
+ this method
+Since:
+1.4
+See Also:
+getObject()
+getObject(Map)
+PreparedStatement.setObject(int, Object)
+CallableStatement.setObject(String, Object)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,278 @@
+SslRMIClientSocketFactory (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.rmi
+Package
+javax.rmi.ssl
+Class SslRMIClientSocketFactory
+java.lang.Object
+javax.rmi.ssl.SslRMIClientSocketFactory
+All Implemented Interfaces:
+Serializable
+,
+RMIClientSocketFactory
+public class
+SslRMIClientSocketFactory
+extends
+Object
+implements
+RMIClientSocketFactory
+,
+Serializable
+An
+SslRMIClientSocketFactory
+instance is used by the RMI
+ runtime in order to obtain client sockets for RMI calls via SSL.
+This class implements
+RMIClientSocketFactory
+over
+ the Secure Sockets Layer (SSL) or Transport Layer Security (TLS)
+ protocols.
+This class creates SSL sockets using the default
+SSLSocketFactory
+(see
+SSLSocketFactory.getDefault()
+).  All instances of this class are
+ functionally equivalent.  In particular, they all share the same
+ truststore, and the same keystore when client authentication is
+ required by the server.  This behavior can be modified in
+ subclasses by overriding the
+createSocket(String,int)
+method; in that case,
+equals
+and
+hashCode
+may also need to be overridden.
+If the system property
+javax.rmi.ssl.client.enabledCipherSuites
+is specified,
+ the
+createSocket(String,int)
+method will call
+SSLSocket.setEnabledCipherSuites(String[])
+before returning the
+ socket.  The value of this system property is a string that is a
+ comma-separated list of SSL/TLS cipher suites to enable.
+If the system property
+javax.rmi.ssl.client.enabledProtocols
+is specified,
+ the
+createSocket(String,int)
+method will call
+SSLSocket.setEnabledProtocols(String[])
+before returning the
+ socket.  The value of this system property is a string that is a
+ comma-separated list of SSL/TLS protocol versions to enable.
+Since:
+1.5
+See Also:
+SSLSocketFactory
+SslRMIServerSocketFactory
+Serialized Form
+Constructor Summary
+Constructors
+Constructor
+Description
+SslRMIClientSocketFactory
+()
+Creates a new
+SslRMIClientSocketFactory
+.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Socket
+createSocket
+(
+String
+host,
+ int port)
+Creates an SSL socket.
+boolean
+equals
+(
+Object
+obj)
+Indicates whether some other object is "equal to" this one.
+int
+hashCode
+()
+Returns a hash code value for this
+SslRMIClientSocketFactory
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+finalize
+,
+getClass
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+SslRMIClientSocketFactory
+public
+SslRMIClientSocketFactory
+()
+Creates a new
+SslRMIClientSocketFactory
+.
+Method Details
+createSocket
+public
+Socket
+createSocket
+(
+String
+host,
+ int port)
+throws
+IOException
+Creates an SSL socket.
+If the system property
+javax.rmi.ssl.client.enabledCipherSuites
+is
+ specified, this method will call
+SSLSocket.setEnabledCipherSuites(String[])
+before returning
+ the socket. The value of this system property is a string that
+ is a comma-separated list of SSL/TLS cipher suites to
+ enable.
+If the system property
+javax.rmi.ssl.client.enabledProtocols
+is
+ specified, this method will call
+SSLSocket.setEnabledProtocols(String[])
+before returning the
+ socket. The value of this system property is a string that is a
+ comma-separated list of SSL/TLS protocol versions to
+ enable.
+Specified by:
+createSocket
+in interface
+RMIClientSocketFactory
+Parameters:
+host
+- the host name
+port
+- the port number
+Returns:
+a socket connected to the specified host and port.
+Throws:
+IOException
+- if an I/O error occurs during socket creation
+equals
+public
+boolean
+equals
+(
+Object
+obj)
+Indicates whether some other object is "equal to" this one.
+Because all instances of this class are functionally equivalent
+ (they all use the default
+SSLSocketFactory
+), this method simply returns
+this.getClass().equals(obj.getClass())
+.
+A subclass should override this method (as well
+ as
+hashCode()
+) if its instances are not all
+ functionally equivalent.
+Overrides:
+equals
+in class
+Object
+Parameters:
+obj
+- the reference object with which to compare.
+Returns:
+true
+if this object is the same as the obj
+          argument;
+false
+otherwise.
+See Also:
+Object.hashCode()
+HashMap
+hashCode
+public
+int
+hashCode
+()
+Returns a hash code value for this
+SslRMIClientSocketFactory
+.
+Overrides:
+hashCode
+in class
+Object
+Returns:
+a hash code value for this
+SslRMIClientSocketFactory
+.
+See Also:
+Object.equals(java.lang.Object)
+System.identityHashCode(java.lang.Object)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

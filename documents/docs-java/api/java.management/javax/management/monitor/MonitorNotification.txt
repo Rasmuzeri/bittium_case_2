@@ -1,0 +1,349 @@
+MonitorNotification (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr |
+Method
+Detail:
+Field
+|
+Constr |
+Method
+SEARCH
+Module
+java.management
+Package
+javax.management.monitor
+Class MonitorNotification
+java.lang.Object
+java.util.EventObject
+javax.management.Notification
+javax.management.monitor.MonitorNotification
+All Implemented Interfaces:
+Serializable
+public class
+MonitorNotification
+extends
+Notification
+Provides definitions of the notifications sent by monitor MBeans.
+The notification source and a set of parameters concerning the monitor MBean's state
+ need to be specified when creating a new object of this class.
+
+ The list of notifications fired by the monitor MBeans is the following:
+Common to all kind of monitors:
+The observed object is not registered in the MBean server.
+The observed attribute is not contained in the observed object.
+The type of the observed attribute is not correct.
+Any exception (except the cases described above) occurs when trying to get the value of the observed attribute.
+Common to the counter and the gauge monitors:
+The threshold high or threshold low are not of the same type as the gauge (gauge monitors).
+The threshold or the offset or the modulus are not of the same type as the counter (counter monitors).
+Counter monitors only:
+The observed attribute has reached the threshold value.
+Gauge monitors only:
+The observed attribute has exceeded the threshold high value.
+The observed attribute has exceeded the threshold low value.
+String monitors only:
+The observed attribute has matched the "string to compare" value.
+The observed attribute has differed from the "string to compare" value.
+Since:
+1.5
+See Also:
+Serialized Form
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final
+String
+OBSERVED_ATTRIBUTE_ERROR
+Notification type denoting that the observed attribute is not contained in the observed object.
+static final
+String
+OBSERVED_ATTRIBUTE_TYPE_ERROR
+Notification type denoting that the type of the observed attribute is not correct.
+static final
+String
+OBSERVED_OBJECT_ERROR
+Notification type denoting that the observed object is not registered in the MBean server.
+static final
+String
+RUNTIME_ERROR
+Notification type denoting that a non-predefined error type has occurred when trying to get the value of the observed attribute.
+static final
+String
+STRING_TO_COMPARE_VALUE_DIFFERED
+Notification type denoting that the observed attribute has differed from the "string to compare" value.
+static final
+String
+STRING_TO_COMPARE_VALUE_MATCHED
+Notification type denoting that the observed attribute has matched the "string to compare" value.
+static final
+String
+THRESHOLD_ERROR
+Notification type denoting that the type of the thresholds, offset or modulus is not correct.
+static final
+String
+THRESHOLD_HIGH_VALUE_EXCEEDED
+Notification type denoting that the observed attribute has exceeded the threshold high value.
+static final
+String
+THRESHOLD_LOW_VALUE_EXCEEDED
+Notification type denoting that the observed attribute has exceeded the threshold low value.
+static final
+String
+THRESHOLD_VALUE_EXCEEDED
+Notification type denoting that the observed attribute has reached the threshold value.
+Fields declared in class javax.management.
+Notification
+source
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+Object
+getDerivedGauge
+()
+Gets the derived gauge of this monitor notification.
+String
+getObservedAttribute
+()
+Gets the observed attribute of this monitor notification.
+ObjectName
+getObservedObject
+()
+Gets the observed object of this monitor notification.
+Object
+getTrigger
+()
+Gets the threshold/string (depending on the monitor type) that triggered off this monitor notification.
+Methods declared in class javax.management.
+Notification
+getMessage
+,
+getSequenceNumber
+,
+getTimeStamp
+,
+getType
+,
+getUserData
+,
+setSequenceNumber
+,
+setSource
+,
+setTimeStamp
+,
+setUserData
+,
+toString
+Methods declared in class java.util.
+EventObject
+getSource
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+wait
+,
+wait
+,
+wait
+Field Details
+OBSERVED_OBJECT_ERROR
+public static final
+String
+OBSERVED_OBJECT_ERROR
+Notification type denoting that the observed object is not registered in the MBean server.
+ This notification is fired by all kinds of monitors.
+The value of this notification type is
+jmx.monitor.error.mbean
+.
+See Also:
+Constant Field Values
+OBSERVED_ATTRIBUTE_ERROR
+public static final
+String
+OBSERVED_ATTRIBUTE_ERROR
+Notification type denoting that the observed attribute is not contained in the observed object.
+ This notification is fired by all kinds of monitors.
+The value of this notification type is
+jmx.monitor.error.attribute
+.
+See Also:
+Constant Field Values
+OBSERVED_ATTRIBUTE_TYPE_ERROR
+public static final
+String
+OBSERVED_ATTRIBUTE_TYPE_ERROR
+Notification type denoting that the type of the observed attribute is not correct.
+ This notification is fired by all kinds of monitors.
+The value of this notification type is
+jmx.monitor.error.type
+.
+See Also:
+Constant Field Values
+THRESHOLD_ERROR
+public static final
+String
+THRESHOLD_ERROR
+Notification type denoting that the type of the thresholds, offset or modulus is not correct.
+ This notification is fired by counter and gauge monitors.
+The value of this notification type is
+jmx.monitor.error.threshold
+.
+See Also:
+Constant Field Values
+RUNTIME_ERROR
+public static final
+String
+RUNTIME_ERROR
+Notification type denoting that a non-predefined error type has occurred when trying to get the value of the observed attribute.
+ This notification is fired by all kinds of monitors.
+The value of this notification type is
+jmx.monitor.error.runtime
+.
+See Also:
+Constant Field Values
+THRESHOLD_VALUE_EXCEEDED
+public static final
+String
+THRESHOLD_VALUE_EXCEEDED
+Notification type denoting that the observed attribute has reached the threshold value.
+ This notification is only fired by counter monitors.
+The value of this notification type is
+jmx.monitor.counter.threshold
+.
+See Also:
+Constant Field Values
+THRESHOLD_HIGH_VALUE_EXCEEDED
+public static final
+String
+THRESHOLD_HIGH_VALUE_EXCEEDED
+Notification type denoting that the observed attribute has exceeded the threshold high value.
+ This notification is only fired by gauge monitors.
+The value of this notification type is
+jmx.monitor.gauge.high
+.
+See Also:
+Constant Field Values
+THRESHOLD_LOW_VALUE_EXCEEDED
+public static final
+String
+THRESHOLD_LOW_VALUE_EXCEEDED
+Notification type denoting that the observed attribute has exceeded the threshold low value.
+ This notification is only fired by gauge monitors.
+The value of this notification type is
+jmx.monitor.gauge.low
+.
+See Also:
+Constant Field Values
+STRING_TO_COMPARE_VALUE_MATCHED
+public static final
+String
+STRING_TO_COMPARE_VALUE_MATCHED
+Notification type denoting that the observed attribute has matched the "string to compare" value.
+ This notification is only fired by string monitors.
+The value of this notification type is
+jmx.monitor.string.matches
+.
+See Also:
+Constant Field Values
+STRING_TO_COMPARE_VALUE_DIFFERED
+public static final
+String
+STRING_TO_COMPARE_VALUE_DIFFERED
+Notification type denoting that the observed attribute has differed from the "string to compare" value.
+ This notification is only fired by string monitors.
+The value of this notification type is
+jmx.monitor.string.differs
+.
+See Also:
+Constant Field Values
+Method Details
+getObservedObject
+public
+ObjectName
+getObservedObject
+()
+Gets the observed object of this monitor notification.
+Returns:
+The observed object.
+getObservedAttribute
+public
+String
+getObservedAttribute
+()
+Gets the observed attribute of this monitor notification.
+Returns:
+The observed attribute.
+getDerivedGauge
+public
+Object
+getDerivedGauge
+()
+Gets the derived gauge of this monitor notification.
+Returns:
+The derived gauge.
+getTrigger
+public
+Object
+getTrigger
+()
+Gets the threshold/string (depending on the monitor type) that triggered off this monitor notification.
+Returns:
+The trigger.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

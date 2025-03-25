@@ -1,0 +1,1008 @@
+PrinterJob (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.desktop
+Package
+java.awt.print
+Class PrinterJob
+java.lang.Object
+java.awt.print.PrinterJob
+public abstract class
+PrinterJob
+extends
+Object
+The
+PrinterJob
+class is the principal class that controls
+ printing. An application calls methods in this class to set up a job,
+ optionally to invoke a print dialog with the user, and then to print
+ the pages of the job.
+Constructor Summary
+Constructors
+Constructor
+Description
+PrinterJob
+()
+A
+PrinterJob
+object should be created using the
+ static
+getPrinterJob
+method.
+Method Summary
+All Methods
+Static Methods
+Instance Methods
+Abstract Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+abstract void
+cancel
+()
+Cancels a print job that is in progress.
+PageFormat
+defaultPage
+()
+Creates a new
+PageFormat
+instance and
+ sets it to a default size and orientation.
+abstract
+PageFormat
+defaultPage
+(
+PageFormat
+page)
+Clones the
+PageFormat
+argument and alters the
+ clone to describe a default page size and orientation.
+abstract int
+getCopies
+()
+Gets the number of copies to be printed.
+abstract
+String
+getJobName
+()
+Gets the name of the document to be printed.
+PageFormat
+getPageFormat
+(
+PrintRequestAttributeSet
+attributes)
+Calculates a
+PageFormat
+with values consistent with those
+ supported by the current
+PrintService
+for this job
+ (ie the value returned by
+getPrintService()
+) and media,
+ printable area and orientation contained in
+attributes
+.
+static
+PrinterJob
+getPrinterJob
+()
+Creates and returns a
+PrinterJob
+which is initially
+ associated with the default printer.
+PrintService
+getPrintService
+()
+Returns the service (printer) for this printer job.
+abstract
+String
+getUserName
+()
+Gets the name of the printing user.
+abstract boolean
+isCancelled
+()
+Returns
+true
+if a print job is
+ in progress, but is going to be cancelled
+ at the next opportunity; otherwise returns
+false
+.
+static
+PrintService
+[]
+lookupPrintServices
+()
+A convenience method which looks up 2D print services.
+static
+StreamPrintServiceFactory
+[]
+lookupStreamPrintServices
+(
+String
+mimeType)
+A convenience method which locates factories for stream print
+ services which can image 2D graphics.
+abstract
+PageFormat
+pageDialog
+(
+PageFormat
+page)
+Displays a dialog that allows modification of a
+PageFormat
+instance.
+PageFormat
+pageDialog
+(
+PrintRequestAttributeSet
+attributes)
+A convenience method which displays a cross-platform page setup dialog.
+abstract void
+print
+()
+Prints a set of pages.
+void
+print
+(
+PrintRequestAttributeSet
+attributes)
+Prints a set of pages using the settings in the attribute
+ set.
+abstract boolean
+printDialog
+()
+Presents a dialog to the user for changing the properties of
+ the print job.
+boolean
+printDialog
+(
+PrintRequestAttributeSet
+attributes)
+A convenience method which displays a cross-platform print dialog
+ for all services which are capable of printing 2D graphics using the
+Pageable
+interface.
+abstract void
+setCopies
+(int copies)
+Sets the number of copies to be printed.
+abstract void
+setJobName
+(
+String
+jobName)
+Sets the name of the document to be printed.
+abstract void
+setPageable
+(
+Pageable
+document)
+Queries
+document
+for the number of pages and
+ the
+PageFormat
+and
+Printable
+for each
+ page held in the
+Pageable
+instance,
+document
+.
+abstract void
+setPrintable
+(
+Printable
+painter)
+Calls
+painter
+to render the pages.
+abstract void
+setPrintable
+(
+Printable
+painter,
+PageFormat
+format)
+Calls
+painter
+to render the pages in the specified
+format
+.
+void
+setPrintService
+(
+PrintService
+service)
+Associate this PrinterJob with a new PrintService.
+abstract
+PageFormat
+validatePage
+(
+PageFormat
+page)
+Returns the clone of
+page
+with its settings
+ adjusted to be compatible with the current printer of this
+PrinterJob
+.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+PrinterJob
+public
+PrinterJob
+()
+A
+PrinterJob
+object should be created using the
+ static
+getPrinterJob
+method.
+Method Details
+getPrinterJob
+public static
+PrinterJob
+getPrinterJob
+()
+Creates and returns a
+PrinterJob
+which is initially
+ associated with the default printer.
+ If no printers are available on the system, a PrinterJob will still
+ be returned from this method, but
+getPrintService()
+will return
+null
+, and calling
+print
+with this
+PrinterJob
+might
+ generate an exception.  Applications that need to determine if
+ there are suitable printers before creating a
+PrinterJob
+should ensure that the array returned from
+lookupPrintServices
+is not empty.
+Returns:
+a new
+PrinterJob
+.
+Throws:
+SecurityException
+- if a security manager exists and its
+SecurityManager.checkPrintJobAccess()
+method disallows this thread from creating a print job request
+lookupPrintServices
+public static
+PrintService
+[]
+lookupPrintServices
+()
+A convenience method which looks up 2D print services.
+ Services returned from this method may be installed on
+PrinterJob
+s which support print services.
+ Calling this method is equivalent to calling
+PrintServiceLookup.lookupPrintServices()
+and specifying a Pageable DocFlavor.
+Returns:
+a possibly empty array of 2D print services.
+Since:
+1.4
+lookupStreamPrintServices
+public static
+StreamPrintServiceFactory
+[]
+lookupStreamPrintServices
+(
+String
+mimeType)
+A convenience method which locates factories for stream print
+ services which can image 2D graphics.
+ Sample usage :
+FileOutputStream outstream;
+ StreamPrintService psPrinter;
+ String psMimeType = "application/postscript";
+ PrinterJob pj = PrinterJob.getPrinterJob();
+
+ StreamPrintServiceFactory[] factories =
+     PrinterJob.lookupStreamPrintServices(psMimeType);
+ if (factories.length > 0) {
+     try {
+         outstream = new File("out.ps");
+         psPrinter =  factories[0].getPrintService(outstream);
+         // psPrinter can now be set as the service on a PrinterJob
+         pj.setPrintService(psPrinter)
+     } catch (Exception e) {
+         e.printStackTrace();
+     }
+ }
+Services returned from this method may be installed on
+PrinterJob
+instances which support print services.
+ Calling this method is equivalent to calling
+StreamPrintServiceFactory.lookupStreamPrintServiceFactories()
+and specifying a Pageable DocFlavor.
+Parameters:
+mimeType
+- the required output format, or null to mean any format.
+Returns:
+a possibly empty array of 2D stream print service factories.
+Since:
+1.4
+getPrintService
+public
+PrintService
+getPrintService
+()
+Returns the service (printer) for this printer job.
+ Implementations of this class which do not support print services
+ may return null.  null will also be returned if no printers are
+ available.
+Returns:
+the service for this printer job.
+Since:
+1.4
+See Also:
+setPrintService(PrintService)
+getPrinterJob()
+setPrintService
+public
+void
+setPrintService
+(
+PrintService
+service)
+throws
+PrinterException
+Associate this PrinterJob with a new PrintService.
+ This method is overridden by subclasses which support
+ specifying a Print Service.
+
+ Throws
+PrinterException
+if the specified service
+ cannot support the
+Pageable
+and
+Printable
+interfaces necessary to support 2D printing.
+Parameters:
+service
+- a print service that supports 2D printing
+Throws:
+PrinterException
+- if the specified service does not support
+ 2D printing, or this PrinterJob class does not support
+ setting a 2D print service, or the specified service is
+ otherwise not a valid print service.
+Since:
+1.4
+See Also:
+getPrintService()
+setPrintable
+public abstract
+void
+setPrintable
+(
+Printable
+painter)
+Calls
+painter
+to render the pages.  The pages in the
+ document to be printed by this
+PrinterJob
+are rendered by the
+Printable
+object,
+painter
+.  The
+PageFormat
+for each page
+ is the default page format.
+Parameters:
+painter
+- the
+Printable
+that renders each page of
+ the document.
+setPrintable
+public abstract
+void
+setPrintable
+(
+Printable
+painter,
+PageFormat
+format)
+Calls
+painter
+to render the pages in the specified
+format
+.  The pages in the document to be printed by
+ this
+PrinterJob
+are rendered by the
+Printable
+object,
+painter
+. The
+PageFormat
+of each page is
+format
+.
+Parameters:
+painter
+- the
+Printable
+called to render
+          each page of the document
+format
+- the size and orientation of each page to
+                   be printed
+setPageable
+public abstract
+void
+setPageable
+(
+Pageable
+document)
+throws
+NullPointerException
+Queries
+document
+for the number of pages and
+ the
+PageFormat
+and
+Printable
+for each
+ page held in the
+Pageable
+instance,
+document
+.
+Parameters:
+document
+- the pages to be printed. It can not be
+null
+.
+Throws:
+NullPointerException
+- the
+Pageable
+passed in
+ was
+null
+.
+See Also:
+PageFormat
+Printable
+printDialog
+public abstract
+boolean
+printDialog
+()
+                             throws
+HeadlessException
+Presents a dialog to the user for changing the properties of
+ the print job.
+ This method will display a native dialog if a native print
+ service is selected, and user choice of printers will be restricted
+ to these native print services.
+ To present the cross platform print dialog for all services,
+ including native ones instead use
+printDialog(PrintRequestAttributeSet)
+.
+PrinterJob implementations which can use PrintService's will update
+ the PrintService for this PrinterJob to reflect the new service
+ selected by the user.
+Returns:
+true
+if the user does not cancel the dialog;
+false
+otherwise.
+Throws:
+HeadlessException
+- if GraphicsEnvironment.isHeadless()
+ returns true.
+See Also:
+GraphicsEnvironment.isHeadless()
+printDialog
+public
+boolean
+printDialog
+(
+PrintRequestAttributeSet
+attributes)
+throws
+HeadlessException
+A convenience method which displays a cross-platform print dialog
+ for all services which are capable of printing 2D graphics using the
+Pageable
+interface. The selected printer when the
+ dialog is initially displayed will reflect the print service currently
+ attached to this print job.
+ If the user changes the print service, the PrinterJob will be
+ updated to reflect this, unless the user cancels the dialog.
+ As well as allowing the user to select the destination printer,
+ the user can also select values of various print request attributes.
+The attributes parameter on input will reflect the applications
+ required initial selections in the user dialog. Attributes not
+ specified display using the default for the service. On return it
+ will reflect the user's choices. Selections may be updated by
+ the implementation to be consistent with the supported values
+ for the currently selected print service.
+As the user scrolls to a new print service selection, the values
+ copied are based on the settings for the previous service, together
+ with any user changes. The values are not based on the original
+ settings supplied by the client.
+With the exception of selected printer, the PrinterJob state is
+ not updated to reflect the user's changes.
+ For the selections to affect a printer job, the attributes must
+ be specified in the call to the
+print(PrintRequestAttributeSet)
+method. If using
+ the Pageable interface, clients which intend to use media selected
+ by the user must create a PageFormat derived from the user's
+ selections.
+ If the user cancels the dialog, the attributes will not reflect
+ any changes made by the user.
+Parameters:
+attributes
+- on input is application supplied attributes,
+ on output the contents are updated to reflect user choices.
+ This parameter may not be null.
+Returns:
+true
+if the user does not cancel the dialog;
+false
+otherwise.
+Throws:
+HeadlessException
+- if GraphicsEnvironment.isHeadless()
+ returns true.
+NullPointerException
+- if
+attributes
+parameter
+ is null.
+Since:
+1.4
+See Also:
+GraphicsEnvironment.isHeadless()
+pageDialog
+public abstract
+PageFormat
+pageDialog
+(
+PageFormat
+page)
+throws
+HeadlessException
+Displays a dialog that allows modification of a
+PageFormat
+instance.
+ The
+page
+argument is used to initialize controls
+ in the page setup dialog.
+ If the user cancels the dialog then this method returns the
+ original
+page
+object unmodified.
+ If the user okays the dialog then this method returns a new
+PageFormat
+object with the indicated changes.
+ In either case, the original
+page
+object is
+ not modified.
+Parameters:
+page
+- the default
+PageFormat
+presented to the
+                  user for modification
+Returns:
+the original
+page
+object if the dialog
+            is cancelled; a new
+PageFormat
+object
+            containing the format indicated by the user if the
+            dialog is acknowledged.
+Throws:
+HeadlessException
+- if GraphicsEnvironment.isHeadless()
+ returns true.
+Since:
+1.2
+See Also:
+GraphicsEnvironment.isHeadless()
+pageDialog
+public
+PageFormat
+pageDialog
+(
+PrintRequestAttributeSet
+attributes)
+throws
+HeadlessException
+A convenience method which displays a cross-platform page setup dialog.
+ The choices available will reflect the print service currently
+ set on this PrinterJob.
+The attributes parameter on input will reflect the client's
+ required initial selections in the user dialog. Attributes which are
+ not specified display using the default for the service. On return it
+ will reflect the user's choices. Selections may be updated by
+ the implementation to be consistent with the supported values
+ for the currently selected print service.
+The return value will be a PageFormat equivalent to the
+ selections in the PrintRequestAttributeSet.
+ If the user cancels the dialog, the attributes will not reflect
+ any changes made by the user, and the return value will be null.
+Parameters:
+attributes
+- on input is application supplied attributes,
+ on output the contents are updated to reflect user choices.
+ This parameter may not be null.
+Returns:
+a page format if the user does not cancel the dialog;
+null
+otherwise.
+Throws:
+HeadlessException
+- if GraphicsEnvironment.isHeadless()
+ returns true.
+NullPointerException
+- if
+attributes
+parameter
+ is null.
+Since:
+1.4
+See Also:
+GraphicsEnvironment.isHeadless()
+defaultPage
+public abstract
+PageFormat
+defaultPage
+(
+PageFormat
+page)
+Clones the
+PageFormat
+argument and alters the
+ clone to describe a default page size and orientation.
+Parameters:
+page
+- the
+PageFormat
+to be cloned and altered
+Returns:
+clone of
+page
+, altered to describe a default
+PageFormat
+.
+defaultPage
+public
+PageFormat
+defaultPage
+()
+Creates a new
+PageFormat
+instance and
+ sets it to a default size and orientation.
+Returns:
+a
+PageFormat
+set to a default size and
+          orientation.
+getPageFormat
+public
+PageFormat
+getPageFormat
+(
+PrintRequestAttributeSet
+attributes)
+Calculates a
+PageFormat
+with values consistent with those
+ supported by the current
+PrintService
+for this job
+ (ie the value returned by
+getPrintService()
+) and media,
+ printable area and orientation contained in
+attributes
+.
+Calling this method does not update the job.
+ It is useful for clients that have a set of attributes obtained from
+printDialog(PrintRequestAttributeSet attributes)
+and need a PageFormat to print a Pageable object.
+Parameters:
+attributes
+- a set of printing attributes, for example obtained
+ from calling printDialog. If
+attributes
+is null a default
+ PageFormat is returned.
+Returns:
+a
+PageFormat
+whose settings conform with
+ those of the current service and the specified attributes.
+Since:
+1.6
+validatePage
+public abstract
+PageFormat
+validatePage
+(
+PageFormat
+page)
+Returns the clone of
+page
+with its settings
+ adjusted to be compatible with the current printer of this
+PrinterJob
+.  For example, the returned
+PageFormat
+could have its imageable area
+ adjusted to fit within the physical area of the paper that
+ is used by the current printer.
+Parameters:
+page
+- the
+PageFormat
+that is cloned and
+          whose settings are changed to be compatible with
+          the current printer
+Returns:
+a
+PageFormat
+that is cloned from
+page
+and whose settings are changed
+          to conform with this
+PrinterJob
+.
+print
+public abstract
+void
+print
+()
+                    throws
+PrinterException
+Prints a set of pages.
+Throws:
+PrinterException
+- an error in the print system
+            caused the job to be aborted.
+See Also:
+Book
+Pageable
+Printable
+print
+public
+void
+print
+(
+PrintRequestAttributeSet
+attributes)
+throws
+PrinterException
+Prints a set of pages using the settings in the attribute
+ set. The default implementation ignores the attribute set.
+Note that some attributes may be set directly on the PrinterJob
+ by equivalent method calls, (for example), copies:
+setCopies(int)
+, job name:
+setJobName(String)
+and specifying media size and orientation though the
+PageFormat
+object.
+If a supported attribute-value is specified in this attribute set,
+ it will take precedence over the API settings for this print()
+ operation only.
+ The following behaviour is specified for PageFormat:
+ If a client uses the Printable interface, then the
+attributes
+parameter to this method is examined
+ for attributes which specify media (by size), orientation, and
+ imageable area, and those are used to construct a new PageFormat
+ which is passed to the Printable object's print() method.
+ See
+Printable
+for an explanation of the required
+ behaviour of a Printable to ensure optimal printing via PrinterJob.
+ For clients of the Pageable interface, the PageFormat will always
+ be as supplied by that interface, on a per page basis.
+These behaviours allow an application to directly pass the
+ user settings returned from
+printDialog(PrintRequestAttributeSet attributes
+to
+ this print() method.
+Parameters:
+attributes
+- a set of attributes for the job
+Throws:
+PrinterException
+- an error in the print system
+            caused the job to be aborted.
+Since:
+1.4
+See Also:
+Book
+Pageable
+Printable
+setCopies
+public abstract
+void
+setCopies
+(int copies)
+Sets the number of copies to be printed.
+Parameters:
+copies
+- the number of copies to be printed
+See Also:
+getCopies()
+getCopies
+public abstract
+int
+getCopies
+()
+Gets the number of copies to be printed.
+Returns:
+the number of copies to be printed.
+See Also:
+setCopies(int)
+getUserName
+public abstract
+String
+getUserName
+()
+Gets the name of the printing user.
+Returns:
+the name of the printing user
+Throws:
+SecurityException
+- if a security manager exists and
+         PropertyPermission - user.name is not given in the policy file
+setJobName
+public abstract
+void
+setJobName
+(
+String
+jobName)
+Sets the name of the document to be printed.
+ The document name can not be
+null
+.
+Parameters:
+jobName
+- the name of the document to be printed
+See Also:
+getJobName()
+getJobName
+public abstract
+String
+getJobName
+()
+Gets the name of the document to be printed.
+Returns:
+the name of the document to be printed.
+See Also:
+setJobName(java.lang.String)
+cancel
+public abstract
+void
+cancel
+()
+Cancels a print job that is in progress.  If
+print
+has been called but has not
+ returned then this method signals
+ that the job should be cancelled at the next
+ chance. If there is no print job in progress then
+ this call does nothing.
+isCancelled
+public abstract
+boolean
+isCancelled
+()
+Returns
+true
+if a print job is
+ in progress, but is going to be cancelled
+ at the next opportunity; otherwise returns
+false
+.
+Returns:
+true
+if the job in progress
+ is going to be cancelled;
+false
+otherwise.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

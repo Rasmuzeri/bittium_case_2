@@ -1,0 +1,143 @@
+StringTemplate.Processor.Linkage (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.base
+Package
+java.lang
+Interface StringTemplate.Processor.Linkage
+All Known Implementing Classes:
+FormatProcessor
+PREVIEW
+Enclosing interface:
+StringTemplate.Processor
+PREVIEW
+<
+R
+,
+E
+extends
+Throwable
+>
+public static sealed interface
+StringTemplate.Processor.Linkage
+permits
+FormatProcessor
+PREVIEW
+Linkage
+is a preview API of the Java platform.
+Programs can only use
+Linkage
+when preview features are enabled.
+Preview features may be removed in a future release, or upgraded to permanent features of the Java platform.
+Built-in policies using this additional interface have the flexibility to
+ specialize the composition of the templated string by returning a customized
+MethodHandle
+from
+linkage
+.
+ These specializations are typically implemented to improve performance;
+ specializing value types or avoiding boxing and vararg arrays.
+Implementation Note:
+This interface is sealed to only allow standard processors.
+Since:
+21
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+MethodHandle
+linkage
+(
+List
+<
+String
+> fragments,
+MethodType
+type)
+This method creates a
+MethodHandle
+that when invoked with arguments of
+ those specified in
+type
+returns a result that equals that returned by
+ the template processor's process method.
+Method Details
+linkage
+MethodHandle
+linkage
+(
+List
+<
+String
+> fragments,
+MethodType
+type)
+This method creates a
+MethodHandle
+that when invoked with arguments of
+ those specified in
+type
+returns a result that equals that returned by
+ the template processor's process method. The difference being that this method
+ can preview the template's fragments and value types in advance of usage and
+ thereby has the opportunity to produce a specialized implementation.
+Parameters:
+fragments
+- string template fragments
+type
+- method type, includes the StringTemplate receiver as
+ well as the value types
+Returns:
+MethodHandle
+for the processor applied to template
+Throws:
+NullPointerException
+- if any of the arguments are null
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

@@ -1,0 +1,202 @@
+KeyRep (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+java.security
+Class KeyRep
+java.lang.Object
+java.security.KeyRep
+All Implemented Interfaces:
+Serializable
+public class
+KeyRep
+extends
+Object
+implements
+Serializable
+Standardized representation for serialized Key objects.
+Note that a serialized Key may contain sensitive information
+ which should not be exposed in untrusted environments.  See the
+Security Appendix
+of the
+Java Object Serialization Specification
+for more information.
+Since:
+1.5
+See Also:
+Key
+KeyFactory
+SecretKeySpec
+X509EncodedKeySpec
+PKCS8EncodedKeySpec
+Serialized Form
+Nested Class Summary
+Nested Classes
+Modifier and Type
+Class
+Description
+static enum
+KeyRep.Type
+Key type.
+Constructor Summary
+Constructors
+Constructor
+Description
+KeyRep
+(
+KeyRep.Type
+type,
+String
+algorithm,
+String
+format,
+ byte[] encoded)
+Construct the alternate Key class.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+protected
+Object
+readResolve
+()
+Resolve the Key object.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Constructor Details
+KeyRep
+public
+KeyRep
+(
+KeyRep.Type
+type,
+String
+algorithm,
+String
+format,
+ byte[] encoded)
+Construct the alternate Key class.
+Parameters:
+type
+- either one of Type.SECRET, Type.PUBLIC, or Type.PRIVATE
+algorithm
+- the algorithm returned from
+Key.getAlgorithm()
+format
+- the encoding format returned from
+Key.getFormat()
+encoded
+- the encoded bytes returned from
+Key.getEncoded()
+Throws:
+NullPointerException
+- if type is
+null
+,
+          if algorithm is
+null
+,
+          if format is
+null
+,
+          or if encoded is
+null
+Method Details
+readResolve
+protected
+Object
+readResolve
+()
+                      throws
+ObjectStreamException
+Resolve the Key object.
+This method supports three Type/format combinations:
+Type.SECRET/"RAW" - returns a SecretKeySpec object
+ constructed using encoded key bytes and algorithm
+Type.PUBLIC/"X.509" - gets a KeyFactory instance for
+ the key algorithm, constructs an X509EncodedKeySpec with the
+ encoded key bytes, and generates a public key from the spec
+Type.PRIVATE/"PKCS#8" - gets a KeyFactory instance for
+ the key algorithm, constructs a PKCS8EncodedKeySpec with the
+ encoded key bytes, and generates a private key from the spec
+Returns:
+the resolved Key object
+Throws:
+ObjectStreamException
+- if the Type/format
+  combination is unrecognized, if the algorithm, key format, or
+  encoded key bytes are unrecognized/invalid, of if the
+  resolution of the key fails for any reason
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

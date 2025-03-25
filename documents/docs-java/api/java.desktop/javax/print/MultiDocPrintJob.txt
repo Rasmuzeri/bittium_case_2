@@ -1,0 +1,139 @@
+MultiDocPrintJob (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field |
+Constr |
+Method
+Detail:
+Field |
+Constr |
+Method
+SEARCH
+Module
+java.desktop
+Package
+javax.print
+Interface MultiDocPrintJob
+All Superinterfaces:
+DocPrintJob
+public interface
+MultiDocPrintJob
+extends
+DocPrintJob
+Obtained from a
+MultiDocPrintService
+, a
+MultiDocPrintJob
+can
+ print a specified collection of documents as a single print job with a set of
+ job attributes.
+Method Summary
+All Methods
+Instance Methods
+Abstract Methods
+Modifier and Type
+Method
+Description
+void
+print
+(
+MultiDoc
+multiDoc,
+PrintRequestAttributeSet
+attributes)
+Print a
+MultiDoc
+with the specified job attributes.
+Methods declared in interface javax.print.
+DocPrintJob
+addPrintJobAttributeListener
+,
+addPrintJobListener
+,
+getAttributes
+,
+getPrintService
+,
+print
+,
+removePrintJobAttributeListener
+,
+removePrintJobListener
+Method Details
+print
+void
+print
+(
+MultiDoc
+multiDoc,
+PrintRequestAttributeSet
+attributes)
+throws
+PrintException
+Print a
+MultiDoc
+with the specified job attributes. This method
+ should only be called once for a given print job. Calling it again will
+ not result in a new job being spooled to the printer. The service
+ implementation will define policy for service interruption and recovery.
+ Application clients which want to monitor the success or failure should
+ register a
+PrintJobListener
+.
+Parameters:
+multiDoc
+- the documents to be printed. ALL must be a flavor
+         supported by the PrintJob & PrintService.
+attributes
+- the job attributes to be applied to this print job. If
+         this parameter is
+null
+then the default attributes are
+         used.
+Throws:
+PrintException
+- the exception additionally may implement an
+         interfaces which more precisely describes the cause of the
+         exception
+FlavorException
+. If the document has a flavor not
+           supported by this print job.
+AttributeException
+. If one or more of the
+           attributes are not valid for this print job.
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

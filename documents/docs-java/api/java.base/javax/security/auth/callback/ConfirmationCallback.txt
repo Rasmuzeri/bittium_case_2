@@ -1,0 +1,810 @@
+ConfirmationCallback (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested |
+Field
+|
+Constr
+|
+Method
+Detail:
+Field
+|
+Constr
+|
+Method
+SEARCH
+Module
+java.base
+Package
+javax.security.auth.callback
+Class ConfirmationCallback
+java.lang.Object
+javax.security.auth.callback.ConfirmationCallback
+All Implemented Interfaces:
+Serializable
+,
+Callback
+public class
+ConfirmationCallback
+extends
+Object
+implements
+Callback
+,
+Serializable
+Underlying security services instantiate and pass a
+ConfirmationCallback
+to the
+handle
+method of a
+CallbackHandler
+to ask for YES/NO,
+ OK/CANCEL, YES/NO/CANCEL or other similar confirmations.
+Since:
+1.4
+See Also:
+CallbackHandler
+Serialized Form
+Field Summary
+Fields
+Modifier and Type
+Field
+Description
+static final int
+CANCEL
+CANCEL option.
+static final int
+ERROR
+ERROR message type.
+static final int
+INFORMATION
+INFORMATION message type.
+static final int
+NO
+NO option.
+static final int
+OK
+OK option.
+static final int
+OK_CANCEL_OPTION
+OK/CANCEL confirmation option.
+static final int
+UNSPECIFIED_OPTION
+Unspecified option type.
+static final int
+WARNING
+WARNING message type.
+static final int
+YES
+YES option.
+static final int
+YES_NO_CANCEL_OPTION
+YES/NO/CANCEL confirmation option.
+static final int
+YES_NO_OPTION
+YES/NO confirmation option.
+Constructor Summary
+Constructors
+Constructor
+Description
+ConfirmationCallback
+(int messageType,
+ int optionType,
+ int defaultOption)
+Construct a
+ConfirmationCallback
+with a
+ message type, an option type and a default option.
+ConfirmationCallback
+(int messageType,
+String
+[] options,
+ int defaultOption)
+Construct a
+ConfirmationCallback
+with a
+ message type, a list of options and a default option.
+ConfirmationCallback
+(
+String
+prompt,
+ int messageType,
+ int optionType,
+ int defaultOption)
+Construct a
+ConfirmationCallback
+with a prompt,
+ message type, an option type and a default option.
+ConfirmationCallback
+(
+String
+prompt,
+ int messageType,
+String
+[] options,
+ int defaultOption)
+Construct a
+ConfirmationCallback
+with a prompt,
+ message type, a list of options and a default option.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+int
+getDefaultOption
+()
+Get the default option.
+int
+getMessageType
+()
+Get the message type.
+String
+[]
+getOptions
+()
+Get the confirmation options.
+int
+getOptionType
+()
+Get the option type.
+String
+getPrompt
+()
+Get the prompt.
+int
+getSelectedIndex
+()
+Get the selected confirmation option.
+void
+setSelectedIndex
+(int selection)
+Set the selected confirmation option.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Field Details
+UNSPECIFIED_OPTION
+public static final
+int
+UNSPECIFIED_OPTION
+Unspecified option type.
+The
+getOptionType
+method returns this
+ value if this
+ConfirmationCallback
+was instantiated
+ with
+options
+instead of an
+optionType
+.
+See Also:
+Constant Field Values
+YES_NO_OPTION
+public static final
+int
+YES_NO_OPTION
+YES/NO confirmation option.
+An underlying security service specifies this as the
+optionType
+to a
+ConfirmationCallback
+constructor if it requires a confirmation which can be answered
+ with either
+YES
+or
+NO
+.
+See Also:
+Constant Field Values
+YES_NO_CANCEL_OPTION
+public static final
+int
+YES_NO_CANCEL_OPTION
+YES/NO/CANCEL confirmation option.
+An underlying security service specifies this as the
+optionType
+to a
+ConfirmationCallback
+constructor if it requires a confirmation which can be answered
+ with either
+YES
+,
+NO
+or
+CANCEL
+.
+See Also:
+Constant Field Values
+OK_CANCEL_OPTION
+public static final
+int
+OK_CANCEL_OPTION
+OK/CANCEL confirmation option.
+An underlying security service specifies this as the
+optionType
+to a
+ConfirmationCallback
+constructor if it requires a confirmation which can be answered
+ with either
+OK
+or
+CANCEL
+.
+See Also:
+Constant Field Values
+YES
+public static final
+int
+YES
+YES option.
+If an
+optionType
+was specified to this
+ConfirmationCallback
+, this option may be specified as a
+defaultOption
+or returned as the selected index.
+See Also:
+Constant Field Values
+NO
+public static final
+int
+NO
+NO option.
+If an
+optionType
+was specified to this
+ConfirmationCallback
+, this option may be specified as a
+defaultOption
+or returned as the selected index.
+See Also:
+Constant Field Values
+CANCEL
+public static final
+int
+CANCEL
+CANCEL option.
+If an
+optionType
+was specified to this
+ConfirmationCallback
+, this option may be specified as a
+defaultOption
+or returned as the selected index.
+See Also:
+Constant Field Values
+OK
+public static final
+int
+OK
+OK option.
+If an
+optionType
+was specified to this
+ConfirmationCallback
+, this option may be specified as a
+defaultOption
+or returned as the selected index.
+See Also:
+Constant Field Values
+INFORMATION
+public static final
+int
+INFORMATION
+INFORMATION message type.
+See Also:
+Constant Field Values
+WARNING
+public static final
+int
+WARNING
+WARNING message type.
+See Also:
+Constant Field Values
+ERROR
+public static final
+int
+ERROR
+ERROR message type.
+See Also:
+Constant Field Values
+Constructor Details
+ConfirmationCallback
+public
+ConfirmationCallback
+(int messageType,
+ int optionType,
+ int defaultOption)
+Construct a
+ConfirmationCallback
+with a
+ message type, an option type and a default option.
+Underlying security services use this constructor if
+ they require either a YES/NO, YES/NO/CANCEL or OK/CANCEL
+ confirmation.
+Parameters:
+messageType
+- the message type (
+INFORMATION
+,
+WARNING
+or
+ERROR
+).
+optionType
+- the option type (
+YES_NO_OPTION
+,
+YES_NO_CANCEL_OPTION
+or
+OK_CANCEL_OPTION
+).
+defaultOption
+- the default option
+                  from the provided optionType (
+YES
+,
+NO
+,
+CANCEL
+or
+OK
+).
+Throws:
+IllegalArgumentException
+- if messageType is not either
+INFORMATION
+,
+WARNING
+,
+                  or
+ERROR
+, if optionType is not either
+YES_NO_OPTION
+,
+YES_NO_CANCEL_OPTION
+, or
+OK_CANCEL_OPTION
+,
+                  or if
+defaultOption
+does not correspond to one of the options in
+optionType
+.
+ConfirmationCallback
+public
+ConfirmationCallback
+(int messageType,
+String
+[] options,
+ int defaultOption)
+Construct a
+ConfirmationCallback
+with a
+ message type, a list of options and a default option.
+Underlying security services use this constructor if
+ they require a confirmation different from the available preset
+ confirmations provided (for example, CONTINUE/ABORT or STOP/GO).
+ The confirmation options are listed in the
+options
+array,
+ and are displayed by the
+CallbackHandler
+implementation
+ in a manner consistent with the way preset options are displayed.
+Parameters:
+messageType
+- the message type (
+INFORMATION
+,
+WARNING
+or
+ERROR
+).
+options
+- the list of confirmation options. The array is cloned
+                  to protect against subsequent modification.
+defaultOption
+- the default option, represented as an index
+                  into the
+options
+array.
+Throws:
+IllegalArgumentException
+- if messageType is not either
+INFORMATION
+,
+WARNING
+,
+                  or
+ERROR
+, if
+options
+is null,
+                  if
+options
+has a length of 0,
+                  if any element from
+options
+is null,
+                  if any element from
+options
+has a length of 0, or if
+defaultOption
+does not lie within the array boundaries of
+options
+.
+ConfirmationCallback
+public
+ConfirmationCallback
+(
+String
+prompt,
+ int messageType,
+ int optionType,
+ int defaultOption)
+Construct a
+ConfirmationCallback
+with a prompt,
+ message type, an option type and a default option.
+Underlying security services use this constructor if
+ they require either a YES/NO, YES/NO/CANCEL or OK/CANCEL
+ confirmation.
+Parameters:
+prompt
+- the prompt used to describe the list of options.
+messageType
+- the message type (
+INFORMATION
+,
+WARNING
+or
+ERROR
+).
+optionType
+- the option type (
+YES_NO_OPTION
+,
+YES_NO_CANCEL_OPTION
+or
+OK_CANCEL_OPTION
+).
+defaultOption
+- the default option
+                  from the provided optionType (
+YES
+,
+NO
+,
+CANCEL
+or
+OK
+).
+Throws:
+IllegalArgumentException
+- if
+prompt
+is null,
+                  if
+prompt
+has a length of 0,
+                  if messageType is not either
+INFORMATION
+,
+WARNING
+,
+                  or
+ERROR
+, if optionType is not either
+YES_NO_OPTION
+,
+YES_NO_CANCEL_OPTION
+, or
+OK_CANCEL_OPTION
+,
+                  or if
+defaultOption
+does not correspond to one of the options in
+optionType
+.
+ConfirmationCallback
+public
+ConfirmationCallback
+(
+String
+prompt,
+ int messageType,
+String
+[] options,
+ int defaultOption)
+Construct a
+ConfirmationCallback
+with a prompt,
+ message type, a list of options and a default option.
+Underlying security services use this constructor if
+ they require a confirmation different from the available preset
+ confirmations provided (for example, CONTINUE/ABORT or STOP/GO).
+ The confirmation options are listed in the
+options
+array,
+ and are displayed by the
+CallbackHandler
+implementation
+ in a manner consistent with the way preset options are displayed.
+Parameters:
+prompt
+- the prompt used to describe the list of options.
+messageType
+- the message type (
+INFORMATION
+,
+WARNING
+or
+ERROR
+).
+options
+- the list of confirmation options. The array is cloned
+                  to protect against subsequent modification.
+defaultOption
+- the default option, represented as an index
+                  into the
+options
+array.
+Throws:
+IllegalArgumentException
+- if
+prompt
+is null,
+                  if
+prompt
+has a length of 0,
+                  if messageType is not either
+INFORMATION
+,
+WARNING
+,
+                  or
+ERROR
+, if
+options
+is null,
+                  if
+options
+has a length of 0,
+                  if any element from
+options
+is null,
+                  if any element from
+options
+has a length of 0, or if
+defaultOption
+does not lie within the array boundaries of
+options
+.
+Method Details
+getPrompt
+public
+String
+getPrompt
+()
+Get the prompt.
+Returns:
+the prompt, or null if this
+ConfirmationCallback
+was instantiated without a
+prompt
+.
+getMessageType
+public
+int
+getMessageType
+()
+Get the message type.
+Returns:
+the message type (
+INFORMATION
+,
+WARNING
+or
+ERROR
+).
+getOptionType
+public
+int
+getOptionType
+()
+Get the option type.
+If this method returns
+UNSPECIFIED_OPTION
+, then this
+ConfirmationCallback
+was instantiated with
+options
+instead of an
+optionType
+.
+ In this case, invoke the
+getOptions
+method
+ to determine which confirmation options to display.
+Returns:
+the option type (
+YES_NO_OPTION
+,
+YES_NO_CANCEL_OPTION
+or
+OK_CANCEL_OPTION
+), or
+UNSPECIFIED_OPTION
+if this
+ConfirmationCallback
+was instantiated with
+options
+instead of an
+optionType
+.
+getOptions
+public
+String
+[]
+getOptions
+()
+Get the confirmation options.
+Returns:
+a copy of the list of confirmation options, or null if this
+ConfirmationCallback
+was instantiated with
+          an
+optionType
+instead of
+options
+.
+getDefaultOption
+public
+int
+getDefaultOption
+()
+Get the default option.
+Returns:
+the default option, represented as
+YES
+,
+NO
+,
+OK
+or
+CANCEL
+if an
+optionType
+was specified to the constructor of this
+ConfirmationCallback
+.
+          Otherwise, this method returns the default option as
+          an index into the
+options
+array specified to the constructor
+          of this
+ConfirmationCallback
+.
+setSelectedIndex
+public
+void
+setSelectedIndex
+(int selection)
+Set the selected confirmation option.
+Parameters:
+selection
+- the selection represented as
+YES
+,
+NO
+,
+OK
+or
+CANCEL
+if an
+optionType
+was specified to the constructor
+          of this
+ConfirmationCallback
+.
+          Otherwise, the selection represents the index into the
+options
+array specified to the constructor
+          of this
+ConfirmationCallback
+.
+See Also:
+getSelectedIndex()
+getSelectedIndex
+public
+int
+getSelectedIndex
+()
+Get the selected confirmation option.
+Returns:
+the selected confirmation option represented as
+YES
+,
+NO
+,
+OK
+or
+CANCEL
+if an
+optionType
+was specified to the constructor of this
+ConfirmationCallback
+.
+          Otherwise, this method returns the selected confirmation
+          option as an index into the
+options
+array specified to the constructor
+          of this
+ConfirmationCallback
+.
+See Also:
+setSelectedIndex(int)
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.

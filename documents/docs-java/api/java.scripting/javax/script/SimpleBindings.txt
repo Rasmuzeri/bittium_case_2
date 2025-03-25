@@ -1,0 +1,775 @@
+SimpleBindings (Java SE 21 & JDK 21)
+JavaScript is disabled on your browser.
+Skip navigation links
+Java SE 21 & JDK 21
+Overview
+Module
+Package
+Class
+Use
+Tree
+Preview
+New
+Deprecated
+Index
+Help
+Summary:
+Nested
+Field
+Constr
+Method
+Detail:
+Field
+Constr
+Method
+Summary:
+Nested
+|
+Field |
+Constr
+|
+Method
+Detail:
+Field |
+Constr
+|
+Method
+SEARCH
+Module
+java.scripting
+Package
+javax.script
+Class SimpleBindings
+java.lang.Object
+javax.script.SimpleBindings
+All Implemented Interfaces:
+Map
+<
+String
+,
+Object
+>
+,
+Bindings
+public class
+SimpleBindings
+extends
+Object
+implements
+Bindings
+A simple implementation of Bindings backed by
+ a
+HashMap
+or some other specified
+Map
+.
+Since:
+1.6
+Nested Class Summary
+Nested classes/interfaces declared in interface java.util.
+Map
+Map.Entry
+<
+K
+,
+V
+>
+Constructor Summary
+Constructors
+Constructor
+Description
+SimpleBindings
+()
+Default constructor uses a
+HashMap
+.
+SimpleBindings
+(
+Map
+<
+String
+,
+Object
+> m)
+Constructor uses an existing
+Map
+to store the values.
+Method Summary
+All Methods
+Instance Methods
+Concrete Methods
+Modifier and Type
+Method
+Description
+void
+clear
+()
+Removes all of the mappings from this map (optional operation).
+boolean
+containsKey
+(
+Object
+key)
+Returns
+true
+if this map contains a mapping for the specified
+ key.
+boolean
+containsValue
+(
+Object
+value)
+Returns
+true
+if this map maps one or more keys to the
+ specified value.
+Set
+<
+Map.Entry
+<
+String
+,
+Object
+>>
+entrySet
+()
+Returns a
+Set
+view of the mappings contained in this map.
+Object
+get
+(
+Object
+key)
+Returns the value to which this map maps the specified key.
+boolean
+isEmpty
+()
+Returns
+true
+if this map contains no key-value mappings.
+Set
+<
+String
+>
+keySet
+()
+Returns a
+Set
+view of the keys contained in this map.
+Object
+put
+(
+String
+name,
+Object
+value)
+Sets the specified key/value in the underlying
+map
+field.
+void
+putAll
+(
+Map
+<? extends
+String
+,
+? extends
+Object
+> toMerge)
+putAll
+is implemented using
+Map.putAll
+.
+Object
+remove
+(
+Object
+key)
+Removes the mapping for this key from this map if it is present
+ (optional operation).
+int
+size
+()
+Returns the number of key-value mappings in this map.
+Collection
+<
+Object
+>
+values
+()
+Returns a
+Collection
+view of the values contained in this map.
+Methods declared in class java.lang.
+Object
+clone
+,
+equals
+,
+finalize
+,
+getClass
+,
+hashCode
+,
+notify
+,
+notifyAll
+,
+toString
+,
+wait
+,
+wait
+,
+wait
+Methods declared in interface java.util.
+Map
+compute
+,
+computeIfAbsent
+,
+computeIfPresent
+,
+equals
+,
+forEach
+,
+getOrDefault
+,
+hashCode
+,
+merge
+,
+putIfAbsent
+,
+remove
+,
+replace
+,
+replace
+,
+replaceAll
+Constructor Details
+SimpleBindings
+public
+SimpleBindings
+(
+Map
+<
+String
+,
+Object
+> m)
+Constructor uses an existing
+Map
+to store the values.
+Parameters:
+m
+- The
+Map
+backing this
+SimpleBindings
+.
+Throws:
+NullPointerException
+- if m is null
+SimpleBindings
+public
+SimpleBindings
+()
+Default constructor uses a
+HashMap
+.
+Method Details
+put
+public
+Object
+put
+(
+String
+name,
+Object
+value)
+Sets the specified key/value in the underlying
+map
+field.
+Specified by:
+put
+in interface
+Bindings
+Specified by:
+put
+in interface
+Map
+<
+String
+,
+Object
+>
+Parameters:
+name
+- Name of value
+value
+- Value to set.
+Returns:
+Previous value for the specified key.  Returns null if key was previously
+ unset.
+Throws:
+NullPointerException
+- if the name is null.
+IllegalArgumentException
+- if the name is empty.
+putAll
+public
+void
+putAll
+(
+Map
+<? extends
+String
+,
+? extends
+Object
+> toMerge)
+putAll
+is implemented using
+Map.putAll
+.
+Specified by:
+putAll
+in interface
+Bindings
+Specified by:
+putAll
+in interface
+Map
+<
+String
+,
+Object
+>
+Parameters:
+toMerge
+- The
+Map
+of values to add.
+Throws:
+NullPointerException
+- if toMerge map is null or if some key in the map is null.
+IllegalArgumentException
+- if some key in the map is an empty String.
+clear
+public
+void
+clear
+()
+Removes all of the mappings from this map (optional operation).
+ The map will be empty after this call returns.
+Specified by:
+clear
+in interface
+Map
+<
+String
+,
+Object
+>
+containsKey
+public
+boolean
+containsKey
+(
+Object
+key)
+Returns
+true
+if this map contains a mapping for the specified
+ key.  More formally, returns
+true
+if and only if
+ this map contains a mapping for a key
+k
+such that
+(key==null ? k==null : key.equals(k))
+.  (There can be
+ at most one such mapping.)
+Specified by:
+containsKey
+in interface
+Bindings
+Specified by:
+containsKey
+in interface
+Map
+<
+String
+,
+Object
+>
+Parameters:
+key
+- key whose presence in this map is to be tested.
+Returns:
+true
+if this map contains a mapping for the specified
+         key.
+Throws:
+NullPointerException
+- if key is null
+ClassCastException
+- if key is not String
+IllegalArgumentException
+- if key is empty String
+containsValue
+public
+boolean
+containsValue
+(
+Object
+value)
+Returns
+true
+if this map maps one or more keys to the
+ specified value.  More formally, returns
+true
+if and only if
+ this map contains at least one mapping to a value
+v
+such that
+Objects.equals(value, v)
+.  This operation
+ will probably require time linear in the map size for most
+ implementations of the
+Map
+interface.
+Specified by:
+containsValue
+in interface
+Map
+<
+String
+,
+Object
+>
+Parameters:
+value
+- value whose presence in this map is to be tested
+Returns:
+true
+if this map maps one or more keys to the
+         specified value
+entrySet
+public
+Set
+<
+Map.Entry
+<
+String
+,
+Object
+>>
+entrySet
+()
+Returns a
+Set
+view of the mappings contained in this map.
+ The set is backed by the map, so changes to the map are
+ reflected in the set, and vice-versa.  If the map is modified
+ while an iteration over the set is in progress (except through
+ the iterator's own
+remove
+operation, or through the
+setValue
+operation on a map entry returned by the
+ iterator) the results of the iteration are undefined.  The set
+ supports element removal, which removes the corresponding
+ mapping from the map, via the
+Iterator.remove
+,
+Set.remove
+,
+removeAll
+,
+retainAll
+and
+clear
+operations.  It does not support the
+add
+or
+addAll
+operations.
+Specified by:
+entrySet
+in interface
+Map
+<
+String
+,
+Object
+>
+Returns:
+a set view of the mappings contained in this map
+get
+public
+Object
+get
+(
+Object
+key)
+Returns the value to which this map maps the specified key.  Returns
+null
+if the map contains no mapping for this key.  A return
+ value of
+null
+does not
+necessarily
+indicate that the
+ map contains no mapping for the key; it's also possible that the map
+ explicitly maps the key to
+null
+.  The
+containsKey
+operation may be used to distinguish these two cases.
+More formally, if this map contains a mapping from a key
+k
+to a value
+v
+such that
+(key==null ? k==null : key.equals(k))
+,
+ then this method returns
+v
+; otherwise
+ it returns
+null
+.  (There can be at most one such mapping.)
+Specified by:
+get
+in interface
+Bindings
+Specified by:
+get
+in interface
+Map
+<
+String
+,
+Object
+>
+Parameters:
+key
+- key whose associated value is to be returned.
+Returns:
+the value to which this map maps the specified key, or
+null
+if the map contains no mapping for this key.
+Throws:
+NullPointerException
+- if key is null
+ClassCastException
+- if key is not String
+IllegalArgumentException
+- if key is empty String
+isEmpty
+public
+boolean
+isEmpty
+()
+Returns
+true
+if this map contains no key-value mappings.
+Specified by:
+isEmpty
+in interface
+Map
+<
+String
+,
+Object
+>
+Returns:
+true
+if this map contains no key-value mappings
+keySet
+public
+Set
+<
+String
+>
+keySet
+()
+Returns a
+Set
+view of the keys contained in this map.
+ The set is backed by the map, so changes to the map are
+ reflected in the set, and vice-versa.  If the map is modified
+ while an iteration over the set is in progress (except through
+ the iterator's own
+remove
+operation), the results of
+ the iteration are undefined.  The set supports element removal,
+ which removes the corresponding mapping from the map, via the
+Iterator.remove
+,
+Set.remove
+,
+removeAll
+,
+retainAll
+, and
+clear
+operations.  It does not support the
+add
+or
+addAll
+operations.
+Specified by:
+keySet
+in interface
+Map
+<
+String
+,
+Object
+>
+Returns:
+a set view of the keys contained in this map
+remove
+public
+Object
+remove
+(
+Object
+key)
+Removes the mapping for this key from this map if it is present
+ (optional operation).   More formally, if this map contains a mapping
+ from key
+k
+to value
+v
+such that
+(key==null ?  k==null : key.equals(k))
+, that mapping
+ is removed.  (The map can contain at most one such mapping.)
+Returns the value to which the map previously associated the key, or
+null
+if the map contained no mapping for this key.  (A
+null
+return can also indicate that the map previously
+ associated
+null
+with the specified key if the implementation
+ supports
+null
+values.)  The map will not contain a mapping for
+ the specified  key once the call returns.
+Specified by:
+remove
+in interface
+Bindings
+Specified by:
+remove
+in interface
+Map
+<
+String
+,
+Object
+>
+Parameters:
+key
+- key whose mapping is to be removed from the map.
+Returns:
+previous value associated with specified key, or
+null
+if there was no mapping for key.
+Throws:
+NullPointerException
+- if key is null
+ClassCastException
+- if key is not String
+IllegalArgumentException
+- if key is empty String
+size
+public
+int
+size
+()
+Returns the number of key-value mappings in this map.  If the
+ map contains more than
+Integer.MAX_VALUE
+elements, returns
+Integer.MAX_VALUE
+.
+Specified by:
+size
+in interface
+Map
+<
+String
+,
+Object
+>
+Returns:
+the number of key-value mappings in this map
+values
+public
+Collection
+<
+Object
+>
+values
+()
+Returns a
+Collection
+view of the values contained in this map.
+ The collection is backed by the map, so changes to the map are
+ reflected in the collection, and vice-versa.  If the map is
+ modified while an iteration over the collection is in progress
+ (except through the iterator's own
+remove
+operation),
+ the results of the iteration are undefined.  The collection
+ supports element removal, which removes the corresponding
+ mapping from the map, via the
+Iterator.remove
+,
+Collection.remove
+,
+removeAll
+,
+retainAll
+and
+clear
+operations.  It does not
+ support the
+add
+or
+addAll
+operations.
+Specified by:
+values
+in interface
+Map
+<
+String
+,
+Object
+>
+Returns:
+a collection view of the values contained in this map
+Report a bug or suggest an enhancement
+For further API reference and developer documentation see the
+Java SE Documentation
+, which contains more detailed, developer-targeted descriptions with conceptual overviews, definitions of terms, workarounds, and working code examples.
+Other versions.
+Java is a trademark or registered trademark of Oracle and/or its affiliates in the US and other countries.
+Copyright
+© 1993, 2024, Oracle and/or its affiliates, 500 Oracle Parkway, Redwood Shores, CA 94065 USA.
+All rights reserved. Use is subject to
+license terms
+and the
+documentation redistribution policy
+.
