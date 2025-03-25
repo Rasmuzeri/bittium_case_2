@@ -90,4 +90,20 @@ npm run dev
 
 ## Team Contributions
 
-[To be filled later]
+### Veeti Salminen
+
+RAG implementation
+
+Improvements to Frontend + Backend
+
+Documentation
+
+### Rasmus Laurila
+
+Backend + Frontend initial versions
+
+Demo videos
+
+Speech to text implementation
+
+Final presentation
