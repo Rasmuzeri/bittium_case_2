@@ -1,7 +1,7 @@
 # AI-Powered Coding Assistant
 
 ## Project Overview
-This project is an AI-powered coding assistant that helps developers improve their code by providing suggestions based on best practices and coding standards. The application consists of a web-based chat interface where users can input code or coding questions, and the system responds with optimized code suggestions. The conversational aspect of the application is carried out with Web Speech API.
+This project is an AI-powered coding assistant that helps developers improve their code by providing suggestions based on best practices and coding standards. The application consists of a web-based chat interface where users can input code or coding questions, and the system responds with optimized code suggestions. The verbal conversational aspect of the application is carried out with Web Speech API.
 
 The system uses a RAG (Retrieval-Augmented Generation) approach:
 1. A language model generates responses to coding questions
