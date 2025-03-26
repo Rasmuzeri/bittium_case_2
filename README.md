@@ -43,7 +43,7 @@ cd <repository-directory>
 2. Set up the backend:
 ```
 cd back
-pip install flask flask-cors faiss-cpu sentence-transformers openai
+pip install flask flask-cors faiss-cpu sentence-transformers openai pyPDF2
 ```
 
 3. Configure environment variables:
