@@ -1,12 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import torch
-import json
 import time
 import os
 from faiss_rag import RAGSystem
 import logging
-from datetime import datetime
 from llm_handler import LLMHandler
 
 
