@@ -49,6 +49,7 @@ pip install flask flask-cors faiss-cpu sentence-transformers openai
 3. Configure environment variables:
    - Create or edit the `.env` file in the `back` directory
    - Add your OpenAI API key: `OPENAI_API_KEY=your_api_key_here`
+   - Change the ```docs_dir``` variable on app.py for the document folder location.
 
 4. Set up the frontend:
 ```
