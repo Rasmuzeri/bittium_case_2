@@ -84,8 +84,12 @@ function App() {
   const handleSend = async () => {
     if (message.trim() === '') return;
 
+    // Get the current conversation directly to ensure we have the latest messages
+    const currentConversation = conversations.find(conv => conv.id === activeConversationId);
+    const currentMessages = currentConversation ? [...currentConversation.messages] : [];
+    
     const newUserMessage = { text: message, sender: 'user' };
-    const updatedMessages = [...chatMessages, newUserMessage];
+    const updatedMessages = [...currentMessages, newUserMessage];
     
     setChatMessages(updatedMessages);
     
@@ -115,7 +119,10 @@ function App() {
       const response = await fetch('http://127.0.0.1:5000/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message }),
+        body: JSON.stringify({
+          message,
+          history: currentMessages // Use the directly retrieved conversation history
+        }),
       });
 
       if (!response.ok) throw new Error('Network error');

@@ -15,7 +15,7 @@ rag = RAGSystem(index_path="./rag_index")
 # Set the documents directory path
 docs_dir = os.path.abspath("python-3.13-docs-text/")
 if not os.path.exists(docs_dir):
-    docs_dir = "C:/Users/veeti/Documents/bittium_case_2/documents"
+    docs_dir = "../documents"
 
 # Add documents to the RAG system - now with incremental updating
 rag.add_directory(docs_dir)
